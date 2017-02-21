@@ -1,0 +1,78 @@
+{
+  "project": {
+    "version": "1.0.0-beta.25.5",
+    "name": "webapp"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.json",
+      "prefix": "app",
+      "mobile": false,
+      "styles": [
+        "../src/assets/less/bootstrap.less",
+        "../src/assets/less/components.less",
+        "../src/assets/less/layout.less",
+        "../src/assets/less/font-awesome.less",
+        "../src/assets/less/common-styles.less",
+        "../src/assets/less/matmix-iconfont.less",
+        "../src/assets/less/loadmask.less",
+        "../src/assets/less/sweetalert.less",
+        "styles.less"
+      ],
+      "scripts": [
+        "../src/assets/js/jquery.js",
+        "../src/assets/js/bootstrap.min.js",
+        "../src/assets/js/sweetalert.js",
+        "../src/assets/js/switchery.js",
+        "../src/assets/js/jRespond.min.js",
+        "../src/assets/js/smart-resize.js",
+        "../src/assets/js/layout.init.js",
+        "../src/assets/js/matmix.init.js",
+        "../src/assets/js/nav-accordion.js",
+        "../src/assets/js/jquery.loadmask.js"
+      ],
+      "environments": {
+        "source": "environments/environment.ts",
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "addons": [],
+  "packages": [],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "less",
+    "prefixInterfaces": false,
+    "inline": {
+      "style": false,
+      "template": false
+    },
+    "spec": {
+      "class": false,
+      "component": true,
+      "directive": true,
+      "module": false,
+      "pipe": true,
+      "service": true
+    }
+  }
+}
