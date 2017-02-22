@@ -8,29 +8,29 @@ import {BaseComponent} from "./shared/base/base.component";
 import {NavComponent} from "./shared/base/nav.component";
 import {HeaderComponent} from "./shared/base/header.component";
 import {LoginComponent} from "./login/login.component";
-
 // attendance module
 import {AttendanceModule} from "./components/attendance/attendance.module";
-
 import {routing} from "./app.routes";
+import {UserModule} from "./components/user/user.module";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BaseComponent,
-    NavComponent,
-    HeaderComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AttendanceModule,
-    routing
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        BaseComponent,
+        NavComponent,
+        HeaderComponent,
+        LoginComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        AttendanceModule,
+        UserModule,
+        routing
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

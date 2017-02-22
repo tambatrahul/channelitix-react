@@ -1,6 +1,6 @@
 import {ModuleWithProviders} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
-import {UserComponent} from "./index.component";
+import {UserComponent} from "./views/index.component";
 
 
 // Route Configuration
