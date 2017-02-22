@@ -1,0 +1,81 @@
+<div class="container-fluid attendances">
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Attendances
+              <small>Attendance Report for all Users</small>
+            </h2>
+            <ul class="list-page-breadcrumb">
+              <li><a href="#">Home</a>
+              </li>
+
+              <li class="active-page"> Attendances</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for Attendance report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker></month-picker>
+    </div>
+  </div>
+  <!-- ./Filters for Attendance report-->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4>Attendance Report ()</h4>
+        </div>
+        <div class="widget-container report-table">
+          <div class="widget-block">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th style="min-width: 200px;">
+                    Users
+                  </th>
+                  <th *ngFor="let d of dates">
+                    {{ d }}
+                  </th>
+                </tr>
+                </thead>
+
+                <tfoot>
+                <tr>
+                  <th>
+                    Users {{ date_range}}
+                  </th>
+                  <th *ngFor="let d of dates">
+                    {{ d }}
+                  </th>
+                </tr>
+                </tfoot>
+
+                <tbody>
+                <tr *ngFor="let user of users">
+                  <td>{{ user.full_name }}</td>
+                  <td *ngFor="let att of user.attendances" attendanceStatus [attendance]="att"></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

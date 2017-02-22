@@ -19,6 +19,7 @@
       "mobile": false,
       "styles": [
         "../src/assets/less/bootstrap.less",
+        "../node_modules/air-datepicker/dist/css/datepicker.css",
         "../src/assets/less/components.less",
         "../src/assets/less/layout.less",
         "../src/assets/less/font-awesome.less",
@@ -29,7 +30,7 @@
         "styles.less"
       ],
       "scripts": [
-        "../src/assets/js/jquery.js",
+        "../node_modules/jquery/dist/jquery.min.js",
         "../src/assets/js/bootstrap.min.js",
         "../src/assets/js/sweetalert.js",
         "../src/assets/js/switchery.js",
@@ -38,7 +39,8 @@
         "../src/assets/js/layout.init.js",
         "../src/assets/js/matmix.init.js",
         "../src/assets/js/nav-accordion.js",
-        "../src/assets/js/jquery.loadmask.js"
+        "../src/assets/js/jquery.loadmask.js",
+        "../node_modules/air-datepicker/dist/js/datepicker.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

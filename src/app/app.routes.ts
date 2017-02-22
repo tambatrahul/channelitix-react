@@ -3,14 +3,25 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {loginRoutes}    from './login/login.routes';
 
-import {BaseComponent} from './shared/components/base.component';
+import {BaseComponent} from './shared/base/base.component';
+
+// external routes
+import {attendanceRoutes} from "./components/attendance/attendance.routes";
 
 // Route Configuration
 export const routes: Routes = [
   {
     path: '',
     component: BaseComponent,
-    children: []
+    children: [
+      // add attendance routes
+      {
+        path: 'attendances',
+        children: [
+          ...attendanceRoutes
+        ]
+      },
+    ]
   },
 
   // Add login route

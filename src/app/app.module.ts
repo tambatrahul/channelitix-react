@@ -1,16 +1,18 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {BrowserModule} from "@angular/platform-browser";
+import {NgModule} from "@angular/core";
+import {FormsModule} from "@angular/forms";
+import {HttpModule} from "@angular/http";
+import {AppComponent} from "./app.component";
+// base
+import {BaseComponent} from "./shared/base/base.component";
+import {NavComponent} from "./shared/base/nav.component";
+import {HeaderComponent} from "./shared/base/header.component";
+import {LoginComponent} from "./login/login.component";
 
-import {AppComponent} from './app.component';
+// attendance module
+import {AttendanceModule} from "./components/attendance/attendance.module";
 
-import {BaseComponent} from './shared/components/base.component';
-import {NavComponent} from './shared/components/nav.component';
-import {HeaderComponent} from './shared/components/header.component';
-import {LoginComponent} from './login/login.component';
-
-import {routing} from './app.routes';
+import {routing} from "./app.routes";
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import {routing} from './app.routes';
     BrowserModule,
     FormsModule,
     HttpModule,
+    AttendanceModule,
     routing
   ],
   providers: [],
