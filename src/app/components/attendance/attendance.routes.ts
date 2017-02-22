@@ -1,6 +1,6 @@
 import {ModuleWithProviders} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
-import {AttendanceComponent} from "./index.component";
+import {AttendanceComponent} from "./views/index.component";
 
 
 // Route Configuration

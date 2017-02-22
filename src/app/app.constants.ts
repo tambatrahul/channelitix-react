@@ -1,8 +1,18 @@
 import * as moment from "moment";
 
 export class AppConstants {
-  static API_ENDPOINT: String = 'api/v1/';
-  static EMAIL_REGEX = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+  static API_ENDPOINT: string = 'api/v1/';
+  static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+
+  // roles of user
+  static roles: Array<Object> = [
+    {id: 6, name: 'COUNTRY_MNG'},
+    {id: 5, name: 'REGION_MNG'},
+    {id: 4, name: 'AREA_MNG'},
+    {id: 3, name: 'TERRITORY_MNG'},
+    {id: 2, name: 'HQ_MNG'},
+    {id: 1, name: 'BRICK_MNG'}
+  ];
 
   /**
    * Prepare monthly Skeleton

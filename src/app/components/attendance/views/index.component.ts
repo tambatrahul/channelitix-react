@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
-import {AttendanceService} from "../../services/attendance.service";
-import {Attendance} from "../../models/attendance/attendance";
-import {User} from "../../models/user/user";
-import {AppConstants} from "../../app.constants";
+import {AttendanceService} from "../../../services/attendance.service";
+import {Attendance} from "../../../models/attendance/attendance";
+import {User} from "../../../models/user/user";
+import {AppConstants} from "../../../app.constants";
 import * as moment from "moment";
 
 @Component({
@@ -22,7 +22,7 @@ export class AttendanceComponent {
    * Role id
    * @type {number}
    */
-  public role_id: number = 3;
+  public role_id: number;
 
   /**
    * year and month for calendar
@@ -128,6 +128,15 @@ export class AttendanceComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
+    this.fetchAttendances();
+  }
+
+  /**
+   * when role is changed filter list of attendances
+   * @param role_id
+   */
+  roleChanged(role_id) {
+    this.role_id = role_id;
     this.fetchAttendances();
   }
 }
