@@ -27,7 +27,7 @@
   <!-- Filters for Attendance report-->
   <div class="row">
     <div class="col-xs-12 col-md-3">
-      <month-picker></month-picker>
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
     </div>
   </div>
   <!-- ./Filters for Attendance report-->
@@ -37,7 +37,7 @@
       <div class="box-widget widget-module">
         <div class="widget-head clearfix">
           <span class="h-icon"><i class="fa fa-table"></i></span>
-          <h4>Attendance Report ()</h4>
+          <h4>Attendance Report for ({{ title }})</h4>
         </div>
         <div class="widget-container report-table">
           <div class="widget-block">
