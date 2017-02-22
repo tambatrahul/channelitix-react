@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
 declare let jQuery: any;
+import * as moment from "moment";
 
 @Component({
   selector: 'month-picker',
@@ -10,7 +11,7 @@ export class MonthPickerComponent {
   month: number;
 
   @Input()
-  year: boolean;
+  year: number;
 
   @Output()
   onMonthYearChanged = new EventEmitter();
@@ -23,16 +24,22 @@ export class MonthPickerComponent {
    */
   ngOnInit() {
     let self = this;
-    jQuery(self.month_year_input).datepicker();
-  }
 
-  /**
-   * emit on change of value
-   */
-  onMonthYearChange(month, year) {
-    this.onMonthYearChanged.emit({
-      month: month,
-      year: year
-    });
+    // prepare start date
+    let start_date = new Date(this.year, this.month, 1);
+    console.log(start_date);
+
+    // start datepicker
+    let picker = jQuery(this.month_year_input.nativeElement).datepicker({
+      language: 'en',
+      onSelect: function (fd, d, picker) {
+        self.onMonthYearChanged.emit({
+          month: d.getMonth(),
+          year: d.getFullYear()
+        });
+      }
+    }).data('datepicker');
+
+    picker.selectDate(start_date)
   }
 }

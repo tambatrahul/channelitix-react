@@ -28,7 +28,7 @@ export class AttendanceComponent {
    * year and month for calendar
    * @type {number}
    */
-  public month: number = 1;
+  public month: number = 0;
   public year: number = 2017;
 
   /**
@@ -38,10 +38,18 @@ export class AttendanceComponent {
    */
   get dates(): Array<number> {
     let dates = [];
-    for (let d = 1; d <= moment().month(this.month - 1).year(this.year).endOf('month').date(); d++) {
+    for (let d = 1; d <= moment().month(this.month).year(this.year).endOf('month').date(); d++) {
       dates.push(d);
     }
     return dates;
+  }
+
+  /**
+   * get title of table
+   * @returns {string}
+   */
+  get title(): string {
+    return moment().year(this.year).month(this.month).format("MMMM, YYYY");
   }
 
   /**
@@ -93,8 +101,6 @@ export class AttendanceComponent {
         user.attendances = AppConstants.prepareMonthSkeleton(this.month, this.year);
     }
 
-
-
     this.users = users;
   }
 
@@ -103,7 +109,7 @@ export class AttendanceComponent {
    */
   fetchAttendances() {
     this.loading = true;
-    this.attendanceService.forChildren(this.month, this.year, this.role_id).subscribe(
+    this.attendanceService.forChildren(this.month + 1, this.year, this.role_id).subscribe(
       response => {
         this.loading = false;
         this.addAttendanceToSkeleton(response.children, response.attendances);
@@ -114,5 +120,14 @@ export class AttendanceComponent {
     );
   }
 
-
+  /**
+   * month and year changed
+   *
+   * @param date
+   */
+  monthYearChanged(date) {
+    this.month = date.month;
+    this.year = date.year;
+    this.fetchAttendances();
+  }
 }

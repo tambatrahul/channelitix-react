@@ -40,7 +40,8 @@
         "../src/assets/js/matmix.init.js",
         "../src/assets/js/nav-accordion.js",
         "../src/assets/js/jquery.loadmask.js",
-        "../node_modules/air-datepicker/dist/js/datepicker.min.js"
+        "../node_modules/air-datepicker/dist/js/datepicker.js",
+        "../node_modules/air-datepicker/dist/js/i18n/datepicker.en.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
