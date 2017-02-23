@@ -16,14 +16,14 @@ export class UserService {
   /**
    * get children for user
    */
-  children(month: number, year: number, role_id?: number): Observable<Result> {
+  children(role_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.baseUrl + '/children';
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('role_id', String(role_id ? role_id : ''));
+    params.set('role_id', String(role_id > 0 ? role_id : ''));
 
     // make server call
     return this.http.get(url, {search: params})

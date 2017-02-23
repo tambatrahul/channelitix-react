@@ -1,0 +1,7 @@
+<label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> {{ title }} </label>
+<select class="form-control" [ngModel]="user_id" (ngModelChange)="onUserChange($event)">
+  <option selected value="0">All</option>
+  <option *ngFor="let u of users" [value]="u.id">
+    {{u.full_name}}
+  </option>
+</select>

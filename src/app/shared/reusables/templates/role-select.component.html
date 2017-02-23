@@ -1,7 +1,7 @@
-<label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> Select Role </label>
+<label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> Select User Type </label>
 <select class="form-control" [ngModel]="role_id" (ngModelChange)="onRoleChange($event)">
-  <option selected value="">All</option>
+  <option selected value="0">All</option>
   <option *ngFor="let r of roles" [value]="r.id">
-    {{r.name}}
+    {{r.title}}
   </option>
 </select>

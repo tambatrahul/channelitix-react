@@ -6,6 +6,7 @@ import {AttendanceComponent} from "./views/index.component";
 import {AttendanceStatusDirective} from "../../directives/attendance/status.directive";
 import {MonthPickerComponent} from "../../shared/reusables/month_picker.component";
 import {RoleSelectComponent} from "../../shared/reusables/role-select.component";
+import {UserSelectComponent} from "../../shared/reusables/user-select.component";
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
@@ -13,7 +14,8 @@ import {RoleSelectComponent} from "../../shared/reusables/role-select.component"
     MonthPickerComponent,
     AttendanceComponent,
     AttendanceStatusDirective,
-    RoleSelectComponent
+    RoleSelectComponent,
+    UserSelectComponent
   ],
   providers: [
     AttendanceService,

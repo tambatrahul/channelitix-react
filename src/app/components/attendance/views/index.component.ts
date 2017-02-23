@@ -1,9 +1,10 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import {AttendanceService} from "../../../services/attendance.service";
 import {Attendance} from "../../../models/attendance/attendance";
 import {User} from "../../../models/user/user";
 import {AppConstants} from "../../../app.constants";
 import * as moment from "moment";
+declare let jQuery: any;
 
 @Component({
   selector: 'app-root',
@@ -13,23 +14,29 @@ import * as moment from "moment";
 export class AttendanceComponent {
 
   /**
-   * loading flag
-   * @type {boolean}
-   */
-  private loading: boolean = false;
-
-  /**
-   * Role id
+   * manager and user Role id
    * @type {number}
    */
-  public role_id: number;
+  public role_id: number = 0;
+  public manager_role_id: number = 0;
+
+  /**
+   * manager_id
+   */
+  public manager_id: number = 0;
 
   /**
    * year and month for calendar
    * @type {number}
    */
-  public month: number = 0;
-  public year: number = 2017;
+  public month: number;
+  public year: number;
+
+  /**
+   * loading identifier
+   */
+  @ViewChild('loading_table')
+  loading_table: ElementRef;
 
   /**
    * get date range
@@ -53,6 +60,17 @@ export class AttendanceComponent {
   }
 
   /**
+   * Set loading variable
+   * @param loading
+   */
+  set loading(loading) {
+    if (loading)
+      jQuery(this.loading_table.nativeElement).mask('loading');
+    else
+      jQuery(this.loading_table.nativeElement).unmask();
+  }
+
+  /**
    * users
    *
    * @type {{}}
@@ -70,6 +88,8 @@ export class AttendanceComponent {
    * on load of component load customer types
    */
   ngOnInit() {
+    this.month = moment().month();
+    this.year = moment().year();
     this.fetchAttendances();
   }
 
@@ -109,7 +129,7 @@ export class AttendanceComponent {
    */
   fetchAttendances() {
     this.loading = true;
-    this.attendanceService.forChildren(this.month + 1, this.year, this.role_id).subscribe(
+    this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
       response => {
         this.loading = false;
         this.addAttendanceToSkeleton(response.children, response.attendances);
@@ -137,6 +157,17 @@ export class AttendanceComponent {
    */
   roleChanged(role_id) {
     this.role_id = role_id;
+    this.manager_role_id = parseInt(role_id) + 1;
+    this.fetchAttendances();
+  }
+
+  /**
+   * when role is changed filter list of users
+   *
+   * @param manager_id
+   */
+  managerChanged(manager_id) {
+    this.manager_id = manager_id;
     this.fetchAttendances();
   }
 }

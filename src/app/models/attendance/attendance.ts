@@ -13,6 +13,9 @@ export class Attendance extends Model {
   created_by: number;
   creator: User;
 
+  // for internal use only
+  isSunday: boolean = false;
+
   constructor(info: any) {
     super(info.id);
     this.date = info.date;

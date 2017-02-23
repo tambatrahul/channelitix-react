@@ -1,6 +1,5 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
 declare let jQuery: any;
-import * as moment from "moment";
 
 @Component({
   selector: 'month-picker',
@@ -27,9 +26,8 @@ export class MonthPickerComponent {
 
     // prepare start date
     let start_date = new Date(this.year, this.month, 1);
-    console.log(start_date);
 
-    // start datepicker
+    // start date picker
     let picker = jQuery(this.month_year_input.nativeElement).datepicker({
       language: 'en',
       onSelect: function (fd, d, picker) {
