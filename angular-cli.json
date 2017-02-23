@@ -27,6 +27,7 @@
         "../src/assets/less/matmix-iconfont.less",
         "../src/assets/less/loadmask.less",
         "../src/assets/less/sweetalert.less",
+        "../src/assets/less/pages.less",
         "styles.less"
       ],
       "scripts": [
