@@ -53,7 +53,7 @@ export class CustomerTypeDirective {
 
       jQuery(this.el.nativeElement).addClass(cl);
 
-      let stat = jQuery(this.el.nativeElement).find('.stats-icon');
+      let stat = jQuery(this.el.nativeElement).find('.stats-icon i');
       stat.addClass(icon);
     }
   }

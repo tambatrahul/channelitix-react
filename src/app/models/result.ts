@@ -13,6 +13,5 @@ export class Result {
   customers: Customer[];
   customer_types: CustomerType[];
 
-  recordsTotal: number;
-  recordsFiltered: number;
+  total: number;
 }

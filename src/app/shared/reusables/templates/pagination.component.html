@@ -1,0 +1,23 @@
+<div class="dt-pagination">
+  <nav>
+    <ul class="pagination">
+      <li>
+        <a>
+          <span>Showing {{ page }} of {{ total_pages }}</span>
+        </a>
+      </li>
+      <li *ngIf="!hidePrev">
+        <a (click)="pageChanged(page - 1)" aria-label="Previous">
+          <span aria-hidden="true">Prev</span>
+        </a>
+      </li>
+      <li *ngFor="let p of pages" [ngClass]="{'active': p == page}"><a (click)="pageChanged(p)">{{ p }}</a>
+      </li>
+      <li *ngIf="!hideNext">
+        <a (click)="pageChanged(page + 1)" aria-label="Next">
+          <span aria-hidden="true">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

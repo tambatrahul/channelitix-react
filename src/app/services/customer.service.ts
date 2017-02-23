@@ -20,12 +20,13 @@ export class CustomerService {
    *
    * @returns {Observable<Result>}
    */
-  all(customer_type_id?: number, grade_id?: number): Observable<Result> {
+  all(customer_type_id?: number, grade_id?: number, page?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('customer_type_id', String(customer_type_id > 0 ? customer_type_id : ''));
     params.set('grade_id', String(grade_id > 0 ? grade_id : ''));
+    params.set('page', String(page > 0 ? page : ''));
 
     // make server call
     return this.http.get(this.baseUrl, {search: params})

@@ -1,14 +1,21 @@
-import {Component, Output, EventEmitter} from "@angular/core";
+import {Component, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
 import {CustomerService} from "../../../services/customer.service";
 import {Customer} from "../../../models/customer/customer";
-import {AppConstants} from "../../../app.constants";
+declare let jQuery: any;
 
 @Component({
   selector: 'customer_count',
-  templateUrl: 'templates/customer_count.component.html',
+  templateUrl: 'templates/count.component.html',
   styleUrls: ['templates/less/index.component.less']
 })
 export class CustomerCountComponent {
+
+
+  /**
+   * loading identifier
+   */
+  @ViewChild('loading_box')
+  loading_table: ElementRef;
 
   /**
    * event on customer_type changed
@@ -26,19 +33,24 @@ export class CustomerCountComponent {
   private customer_type_id: number = 0;
 
   /**
-   * loading for server call
-   * @type {boolean}
-   */
-  private loading: boolean = false;
-
-  /**
-   * user list
+   * customer list
    *
    * @type {Array}
    */
   public customers: Customer[] = [];
 
   constructor(private customerService: CustomerService) {
+  }
+
+  /**
+   * Set loading variable
+   * @param loading
+   */
+  set loading(loading) {
+    if (loading)
+      jQuery(this.loading_table.nativeElement).mask('loading');
+    else
+      jQuery(this.loading_table.nativeElement).unmask();
   }
 
   /**

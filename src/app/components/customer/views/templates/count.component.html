@@ -1,9 +1,10 @@
-<div class="forum-stats">
+<div class="forum-stats" #loading_box>
   <div class="row">
     <div class="col-md-4 col-sm-4" *ngFor="let c of customers">
-      <a class="sats-widget" customerType [customer_type]="c.customer_type">
+      <a class="sats-widget" customerType [customer_type]="c.customer_type"
+         (click)="onCustomerTypeChange(c.customer_type.id)">
         <span class="stats-icon">
-          <i class="fa fa-"></i>
+          <i class=""></i>
         </span>
         <span class="stats-info">
           <span class="topics-couner">{{ c.total_customers}}</span>
