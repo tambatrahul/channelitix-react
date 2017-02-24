@@ -3,6 +3,8 @@ import {User} from "../../models/user/user";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {AppConstants} from "../../app.constants";
+import {Observable} from "rxjs";
+import {Result} from "../../models/result";
 
 export abstract class BaseService {
 
@@ -55,5 +57,20 @@ export abstract class BaseService {
     this._router.navigate(['/login']);
   }
 
-
+  /**
+   * get request on server
+   *
+   * @param url
+   * @param options
+   * @returns {Observable<Result>}
+   */
+  public get(url: string, options?: Object): Observable<Result> {
+    return this.http.get(url, options)
+      .map((res: Response) => {
+        return res.json();
+      }).catch((error: any) => {
+        this.checkResponse(error);
+        return Observable.throw(error.json().error || 'Server error')
+      })
+  }
 }

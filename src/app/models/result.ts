@@ -6,23 +6,31 @@ import {Territory} from "./territory/territory";
 import {Area} from "./territory/Area";
 import {Headquarter} from "./territory/headquarter";
 import {Brick} from "./territory/brick";
+import {Region} from "./territory/region";
+import {Country} from "./territory/country";
 
 export class Result {
 
-    attendances: Attendance[];
-    territories: Territory[];
-    headquarters: Headquarter[];
-    bricks: Brick[];
+  // territory arrays
+  countries: Country[];
+  regions: Region[];
+  areas: Area[];
+  territories: Territory[];
+  headquarters: Headquarter[];
+  bricks: Brick[];
 
-    areas: Area[];
+  // attendances models
+  attendances: Attendance[];
 
-    users: User[];
-    children: User[];
+  // users models
+  user: User;
+  users: User[];
+  children: User[];
 
-    customers: Customer[];
-    customer_types: CustomerType[];
+  // customer models
+  customers: Customer[];
+  customer_types: CustomerType[];
 
-    total: number;
-
-    user: User;
+  // total number
+  total: number;
 }

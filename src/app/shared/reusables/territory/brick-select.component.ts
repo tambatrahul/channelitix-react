@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {TerritoryService} from "../../../services/territory.service";
+import {TerritoryService} from "../../../base/services/territory.service";
 import {Brick} from "../../../models/territory/brick";
 
 @Component({

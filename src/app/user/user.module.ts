@@ -2,7 +2,6 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {UserComponent} from "./components/index.component";
-import {UserService} from "../base/services/user.service";
 import {BaseModule} from "../base/base.module";
 
 @NgModule({
@@ -10,9 +9,7 @@ import {BaseModule} from "../base/base.module";
   declarations: [
     UserComponent
   ],
-  providers: [
-
-  ],
+  providers: [],
   exports: [
     UserComponent
   ]

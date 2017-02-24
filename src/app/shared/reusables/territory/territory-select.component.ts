@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Territory} from "../../../models/territory/territory";
-import {TerritoryService} from "../../../services/territory.service";
+import {TerritoryService} from "../../../base/services/territory.service";
 
 @Component({
     selector: 'territory-select',

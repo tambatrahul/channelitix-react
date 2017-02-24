@@ -8,7 +8,7 @@ import {CustomerTypeDirective} from "../../directives/customer/customer_type.dir
 import {PaginationComponent} from "../../shared/reusables/pagination.component";
 import {BaseModule} from "../../base/base.module";
 import {TerritorySelectComponent} from "../../shared/reusables/territory/territory-select.component";
-import {TerritoryService} from "../../services/territory.service";
+import {TerritoryService} from "../../base/services/territory.service";
 import {AreaSelectComponent} from "../../shared/reusables/territory/area-select.component";
 import {HeadquarterSelectComponent} from "../../shared/reusables/territory/headquarter-select.component";
 import {BrickSelectComponent} from "../../shared/reusables/territory/brick-select.component";
