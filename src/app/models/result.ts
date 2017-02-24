@@ -2,18 +2,27 @@ import {Attendance} from "./attendance/attendance";
 import {User} from "./user/user";
 import {Customer} from "./customer/customer";
 import {CustomerType} from "./customer/customer_type";
+import {Territory} from "./territory/territory";
+import {Area} from "./territory/Area";
+import {Headquarter} from "./territory/headquarter";
+import {Brick} from "./territory/brick";
 
 export class Result {
 
-  attendances: Attendance[];
+    attendances: Attendance[];
+    territories: Territory[];
+    headquarters: Headquarter[];
+    bricks: Brick[];
 
-  users: User[];
-  children: User[];
+    areas: Area[];
 
-  customers: Customer[];
-  customer_types: CustomerType[];
+    users: User[];
+    children: User[];
 
+    customers: Customer[];
+    customer_types: CustomerType[];
 
-  user: User;
-  total: number;
+    total: number;
+
+    user: User;
 }

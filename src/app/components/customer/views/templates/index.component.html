@@ -1,68 +1,84 @@
 <div class="forum-container">
-  <div class="forum-list-container">
-    <div class="container-fluid customers">
-      <div class="forum-header">
-        <customer_count (onCustomerTypeChanged)="customerTypeChanged($event)"></customer_count>
-        <div class="row">
-          <div class="col-md-12">
-            <h2 class="forum-title">Customer Database</h2>
-            <p class="forum-sub-title">
-              List of all the Customers
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Customer Table -->
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box-widget widget-module">
-            <div class="widget-head clearfix">
-              <span class="h-icon"><i class="fa fa-table"></i></span>
-              <h4>Customer database</h4>
-            </div>
-            <div class="widget-container customer-table" #loading_table>
-              <div class="widget-block">
-                <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Mobile</th>
-                      <th>Type (Grade)</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                    </thead>
-
-                    <tfoot>
-                    <tr *ngFor="let customer of customers">
-                      <td>{{ customer.firm_name}}</td>
-                      <td>{{ customer.email}}</td>
-                      <td>{{ customer.mobile}}</td>
-                      <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
-                      <td class="text-center"><i status [field]="customer.status"></i></td>
-                      <td>
-                        <a class="text-primary" style="cursor: pointer;" title="Update"><i class="fa fa-edit"></i></a>
-                        &nbsp;
-                        <a class="text-success" style="cursor: pointer;" title="View"><i class="fa fa-eye"></i></a>
-
-                      </td>
-                    </tr>
-                    </tfoot>
-
-                    <tbody>
-
-                    </tbody>
-                  </table>
+    <div class="forum-list-container">
+        <div class="container-fluid customers">
+            <div class="forum-header">
+                <customer_count (onCustomerTypeChanged)="customerTypeChanged($event)"></customer_count>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="forum-title">Customer Database</h2>
+                        <p class="forum-sub-title">
+                            List of all the Customers
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <area-select [area_id]="area_id" [title]="'Select Area'"
+                                     (onAreaChanged)="areaChanged($event)"></area-select>
+                    </div>
+                    <div class="col-xs-12 col-md-2" *ngIf="area_id > 0">
+                        <territory-select [area_id]="area_id" [title]="'Select Territory'"
+                                          (onTerritoryChanged)="territoryChanged($event)"></territory-select>
+                    </div>
+                    <div class="col-xs-12 col-md-2" *ngIf="territory_id > 0">
+                        <headquarter-select [territory_id]="territory_id" [title]="'Select Headquarter'"
+                                            (onHeadquarterChanged)="headquarterChanged($event)"></headquarter-select>
+                    </div>
+                    <div class="col-xs-12 col-md-2" *ngIf="headquarter_id > 0">
+                        <brick-select [headquarter_id]="headquarter_id" [title]="'Select Brick'"
+                                      (onBrickChanged)="brickChanged($event)"></brick-select>
+                    </div>
                 </div>
-                <pagination [page]="page" [total]="total" (onPageChanged)="pageChanged($event)"></pagination>
-              </div>
             </div>
-          </div>
+
+            <!-- Customer Table -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4>Customer database</h4>
+                        </div>
+                        <div class="widget-container customer-table" #loading_table>
+                            <div class="widget-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Type (Grade)</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tfoot>
+                                        <tr *ngFor="let customer of customers">
+                                            <td>{{ customer.firm_name}}</td>
+                                            <td>{{ customer.email}}</td>
+                                            <td>{{ customer.mobile}}</td>
+                                            <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
+                                            <td class="text-center"><i status [field]="customer.status"></i></td>
+                                            <td>
+                                                <a class="text-primary" style="cursor: pointer;" title="Update"><i class="fa fa-edit"></i></a>
+                                                &nbsp;
+                                                <a class="text-success" style="cursor: pointer;" title="View"><i class="fa fa-eye"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <pagination [page]="page" [total]="total" (onPageChanged)="pageChanged($event)"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
