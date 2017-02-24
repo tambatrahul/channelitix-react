@@ -42,7 +42,7 @@
                       <td>{{ customer.email}}</td>
                       <td>{{ customer.mobile}}</td>
                       <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
-                      <td class="text-center"><i customerStatus [status]="customer.status"></i></td>
+                      <td class="text-center"><i status [field]="customer.status"></i></td>
                       <td>
                         <a class="text-primary" style="cursor: pointer;" title="Update"><i class="fa fa-edit"></i></a>
                         &nbsp;

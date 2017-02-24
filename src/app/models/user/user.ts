@@ -7,6 +7,9 @@ export class User extends Model {
   mobile: string;
   username: string;
   password: string;
+  joining_date: string;
+  leaving_date: string;
+  status: string;
 
   // for local use only
   attendances = [];
@@ -17,5 +20,8 @@ export class User extends Model {
     this.mobile = info.mobile;
     this.username = info.username;
     this.password = info.password;
+    this.joining_date = info.joining_date;
+    this.leaving_date = info.leaving_date;
+    this.status = info.status;
   }
 }

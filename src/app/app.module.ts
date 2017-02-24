@@ -18,7 +18,6 @@ import {UserModule} from "./components/user/user.module";
 
 // customer module
 import {CustomerModule} from "./components/customer/customer.module";
-
 import {routing} from "./app.routes";
 
 @NgModule({

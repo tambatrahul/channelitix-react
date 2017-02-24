@@ -5,16 +5,15 @@ import {CustomerComponent} from "./views/index.component";
 import {CustomerService} from "../../services/customer.service";
 import {CustomerCountComponent} from "./views/count.component";
 import {CustomerTypeDirective} from "../../directives/customer/customer_type.directive";
-import {CustomerStatusDirective} from "../../directives/customer/status.directive";
 import {PaginationComponent} from "../../shared/reusables/pagination.component";
+import {BaseModule} from "../../base/base.module";
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, BaseModule],
   declarations: [
     CustomerComponent,
     CustomerCountComponent,
     CustomerTypeDirective,
-    CustomerStatusDirective,
     PaginationComponent
   ],
   providers: [
