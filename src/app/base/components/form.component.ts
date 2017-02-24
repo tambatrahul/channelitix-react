@@ -11,8 +11,6 @@ export abstract class FormComponent extends BaseComponent {
 
   /**
    * Action to be taken when request is successful
-   *
-   * @param result
    */
   abstract save();
 }

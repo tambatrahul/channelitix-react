@@ -41,7 +41,7 @@ export class CustomerService extends BaseService {
     params.set('page', String(page > 0 ? page : ''));
 
     // make server call
-    return this.http.get(this.baseUrl, {search: params})
+    return this.http.get(this.getBaseUrl(), {search: params})
       .map((res: Response) => {
         return res.json();
       })
@@ -56,7 +56,7 @@ export class CustomerService extends BaseService {
   counts(): Observable<Result> {
 
     // make server call
-    return this.http.get(this.baseUrl + '/counts')
+    return this.http.get(this.getBaseUrl() + '/counts')
       .map((res: Response) => {
         return res.json();
       })

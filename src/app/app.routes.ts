@@ -5,7 +5,7 @@ import {BaseComponent} from "./shared/base/base.component";
 
 // external routes
 import {attendanceRoutes} from "./components/attendance/attendance.routes";
-import {userRoutes} from "./components/user/user.routes";
+import {userRoutes} from "./user/user.routes";
 import {customerRoutes} from "./components/customer/customer.routes";
 
 // Route Configuration

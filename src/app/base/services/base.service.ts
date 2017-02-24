@@ -7,13 +7,6 @@ import {AppConstants} from "../../app.constants";
 export abstract class BaseService {
 
   /**
-   * base url for http request
-   *
-   * @type {string}
-   */
-  protected baseUrl: string;
-
-  /**
    * model url for server call
    *
    * @type {string}
@@ -26,14 +19,21 @@ export abstract class BaseService {
   public user: User;
 
   /**
-   * auth Service constructor
+   * Auth Service constructor
    *
    * @param http
    * @param _router
    * @param _authService
    */
   constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
-    this.baseUrl = AppConstants.API_ENDPOINT + this.modelUrl;
+  }
+
+  /**
+   * get base url
+   * @returns {string}
+   */
+  public getBaseUrl() {
+    return AppConstants.API_ENDPOINT + (this.modelUrl ? this.modelUrl : '')
   }
 
   /**

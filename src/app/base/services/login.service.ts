@@ -33,7 +33,7 @@ export class LoginService extends BaseService {
   login(username: string, password: string): Observable<Result> {
 
     // make server call
-    return this.http.post(this.baseUrl + '/login', {username: username, password: password}, {withCredentials: true})
+    return this.http.post(this.getBaseUrl() + '/login', {username: username, password: password}, {withCredentials: true})
       .map((res: Response) => {
         return res.json();
       })
@@ -46,7 +46,7 @@ export class LoginService extends BaseService {
   forToken(token: number): Observable<Result> {
 
     // make server call
-    return this.http.get(this.baseUrl + '/forToken/' + token)
+    return this.http.get(this.getBaseUrl() + '/forToken/' + token)
       .map((res: Response) => {
         return res.json();
       })

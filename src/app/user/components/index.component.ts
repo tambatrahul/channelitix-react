@@ -1,14 +1,14 @@
 import {Component} from "@angular/core";
-import {User} from "../../../models/user/user";
-import {UserService} from "../../../base/services/user.service";
-import {AuthService} from "../../../base/services/AuthService";
-import {ListComponent} from "../../../base/components/list.component";
+import {ListComponent} from "../../base/components/list.component";
+import {UserService} from "../../base/services/user.service";
+import {User} from "../../models/user/user";
+import {AuthService} from "../../base/services/AuthService";
 declare let jQuery: any;
 
 
 @Component({
   templateUrl: 'templates/index.component.html',
-  styleUrls: ['templates/less/index.component.less']
+  styleUrls: ['templates/index.component.less']
 })
 export class UserComponent extends ListComponent {
 

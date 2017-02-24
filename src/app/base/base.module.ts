@@ -4,6 +4,10 @@ import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {StatusDirective} from "./directives/status.directive";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 import {AuthService} from "./services/AuthService";
+import {UserService} from "./services/user.service";
+import {AttendanceService} from "./services/attendance.service";
+import {LoginService} from "./services/login.service";
+import {CustomerService} from "./services/customer.service";
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
@@ -12,7 +16,11 @@ import {AuthService} from "./services/AuthService";
   ],
   providers: [
     CookieService,
-    AuthService
+    AuthService,
+    UserService,
+    AttendanceService,
+    LoginService,
+    CustomerService
   ],
   exports: [
     StatusDirective

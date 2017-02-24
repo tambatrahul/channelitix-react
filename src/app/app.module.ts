@@ -14,7 +14,7 @@ import {LoginComponent} from "./login/components/login.component";
 import {AttendanceModule} from "./components/attendance/attendance.module";
 
 // user module
-import {UserModule} from "./components/user/user.module";
+import {UserModule} from "./user/user.module";
 
 // login module
 import {LoginModule} from "./login/login.module";

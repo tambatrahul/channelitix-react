@@ -34,7 +34,7 @@ export class AttendanceService extends BaseService {
   forChildren(month: number, year: number, role_id?: number, manager_id?: number): Observable<Result> {
 
     // prepare url
-    let url = this.baseUrl + '/monthly/forChildren/' + month + "/" + year;
+    let url = this.getBaseUrl() + '/monthly/forChildren/' + month + "/" + year;
 
     // prepare get params
     let params = new URLSearchParams();

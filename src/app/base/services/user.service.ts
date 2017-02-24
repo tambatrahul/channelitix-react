@@ -32,7 +32,7 @@ export class UserService extends BaseService {
   children(role_id?: number, manager_id?: number): Observable<Result> {
 
     // prepare url
-    let url = this.baseUrl + '/children';
+    let url = this.getBaseUrl() + '/children';
 
     // prepare get params
     let params = new URLSearchParams();
