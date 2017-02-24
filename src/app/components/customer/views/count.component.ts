@@ -1,5 +1,5 @@
 import {Component, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
-import {CustomerService} from "../../../services/customer.service";
+import {CustomerService} from "../../../base/services/customer.service";
 import {Customer} from "../../../models/customer/customer";
 declare let jQuery: any;
 

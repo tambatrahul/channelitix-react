@@ -4,7 +4,7 @@
             <div class="forum-header">
                 <customer_count (onCustomerTypeChanged)="customerTypeChanged($event)"></customer_count>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <h2 class="forum-title">Customer Database</h2>
                         <p class="forum-sub-title">
                             List of all the Customers
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-xs-12 col-md-2" *ngIf="headquarter_id > 0">
                         <brick-select [headquarter_id]="headquarter_id" [title]="'Select Brick'"
-                                            (onBrickChanged)="brickChanged($event)"></brick-select>
+                                      (onBrickChanged)="brickChanged($event)"></brick-select>
                     </div>
                 </div>
             </div>
@@ -58,14 +58,11 @@
                                             <td>{{ customer.email}}</td>
                                             <td>{{ customer.mobile}}</td>
                                             <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
-                                            <td class="text-center"><i customerStatus [status]="customer.status"></i>
-                                            </td>
+                                            <td class="text-center"><i status [field]="customer.status"></i></td>
                                             <td>
-                                                <a class="text-primary" style="cursor: pointer;" title="Update"><i
-                                                        class="fa fa-edit"></i></a>
+                                                <a class="text-primary" style="cursor: pointer;" title="Update"><i class="fa fa-edit"></i></a>
                                                 &nbsp;
-                                                <a class="text-success" style="cursor: pointer;" title="View"><i
-                                                        class="fa fa-eye"></i></a>
+                                                <a class="text-success" style="cursor: pointer;" title="View"><i class="fa fa-eye"></i></a>
 
                                             </td>
                                         </tr>
@@ -76,8 +73,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <pagination [page]="page" [total]="total"
-                                            (onPageChanged)="pageChanged($event)"></pagination>
+                                <pagination [page]="page" [total]="total" (onPageChanged)="pageChanged($event)"></pagination>
                             </div>
                         </div>
                     </div>

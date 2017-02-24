@@ -23,4 +23,6 @@ export class Result {
     customer_types: CustomerType[];
 
     total: number;
+
+    user: User;
 }

@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from "@angular/core";
-import {AttendanceService} from "../../../services/attendance.service";
+import {AttendanceService} from "../../../base/services/attendance.service";
 import {Attendance} from "../../../models/attendance/attendance";
 import {User} from "../../../models/user/user";
 import {AppConstants} from "../../../app.constants";

@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {UserService} from "../../services/user.service";
+import {UserService} from "../../base/services/user.service";
 import {User} from "../../models/user/user";
 
 @Component({
@@ -63,7 +63,6 @@ export class UserSelectComponent {
    */
   @Input()
   set role_id(role_id: number) {
-    console.log(role_id);
     this._role_id = role_id;
     this.fetch();
   }

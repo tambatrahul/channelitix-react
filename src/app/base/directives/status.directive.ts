@@ -2,10 +2,10 @@ import {Directive, ElementRef} from "@angular/core";
 
 
 @Directive({
-  selector: '[customerStatus]',
-  inputs: ['status']
+  selector: '[status]',
+  inputs: ['field']
 })
-export class CustomerStatusDirective {
+export class StatusDirective {
 
   active: string = "fa fa-check-circle";
   in_active: string = "fa fa-times-circle";
@@ -27,7 +27,7 @@ export class CustomerStatusDirective {
    *
    * @param status
    */
-  set status(status: string) {
+  set field(status: string) {
     if (status) {
       // initial status
       let st = this.active;

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from "@angular/core";
+import {AuthService} from "../../base/services/AuthService";
 
 @Component({
   selector: 'header-comp',
@@ -6,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  constructor(private _authService: AuthService) {
+
+  }
+
+  /**
+   * logout user
+   */
+  logout() {
+    this._authService.logout();
+  }
 }
