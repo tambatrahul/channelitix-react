@@ -63,7 +63,6 @@ export class UserSelectComponent {
    */
   @Input()
   set role_id(role_id: number) {
-    console.log(role_id);
     this._role_id = role_id;
     this.fetch();
   }
