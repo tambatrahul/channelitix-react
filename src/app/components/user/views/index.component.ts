@@ -1,7 +1,8 @@
-import {Component, ViewChild, ElementRef} from "@angular/core";
+import {Component} from "@angular/core";
 import {User} from "../../../models/user/user";
-import {UserService} from "../../../services/user.service";
-import {BaseComponent} from "../../../base/components/base.component";
+import {UserService} from "../../../base/services/user.service";
+import {AuthService} from "../../../base/services/AuthService";
+import {ListComponent} from "../../../base/components/list.component";
 declare let jQuery: any;
 
 
@@ -9,7 +10,7 @@ declare let jQuery: any;
   templateUrl: 'templates/index.component.html',
   styleUrls: ['templates/less/index.component.less']
 })
-export class UserComponent extends BaseComponent{
+export class UserComponent extends ListComponent {
 
   /**
    * manager and user Role id
@@ -34,8 +35,8 @@ export class UserComponent extends BaseComponent{
   /**
    * User Component Constructor
    */
-  constructor(private userService: UserService) {
-    super();
+  constructor(private userService: UserService, public _service: AuthService) {
+    super(_service);
   }
 
   /**

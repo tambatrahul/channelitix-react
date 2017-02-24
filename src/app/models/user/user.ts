@@ -10,6 +10,8 @@ export class User extends Model {
   joining_date: string;
   leaving_date: string;
   status: string;
+  auth_token: string;
+  role_id: number;
 
   // for local use only
   attendances = [];
@@ -23,5 +25,7 @@ export class User extends Model {
     this.joining_date = info.joining_date;
     this.leaving_date = info.leaving_date;
     this.status = info.status;
+    this.auth_token = info.auth_token;
+    this.role_id = info.role_id;
   }
 }

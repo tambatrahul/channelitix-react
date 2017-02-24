@@ -13,5 +13,7 @@ export class Result {
   customers: Customer[];
   customer_types: CustomerType[];
 
+
+  user: User;
   total: number;
 }

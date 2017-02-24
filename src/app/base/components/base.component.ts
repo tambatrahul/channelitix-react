@@ -1,4 +1,5 @@
 import {ViewChild, ElementRef} from "@angular/core";
+import {AuthService} from "../services/AuthService";
 declare let jQuery: any;
 
 
@@ -14,6 +15,20 @@ export abstract class BaseComponent {
    * loading variable
    */
   protected _loading: boolean;
+
+  /**
+   * Base Component Constructor
+   * @param _service
+   */
+  constructor(public _service: AuthService) {
+  }
+
+  /**
+   * on load of component call this function
+   */
+  ngOnInit() {
+    this._service.checkCredentials();
+  }
 
   /**
    * loading setter
@@ -33,17 +48,4 @@ export abstract class BaseComponent {
   get loading() {
     return this._loading;
   }
-
-  /**
-   * abstract function fetch
-   */
-  protected abstract fetch();
-
-  /**
-   * on load of call fetch
-   */
-  ngOnInit() {
-    this.fetch();
-  }
-
 }

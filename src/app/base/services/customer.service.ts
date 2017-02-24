@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams, Response} from "@angular/http";
-import {AppConstants} from "../app.constants";
+import {AppConstants} from "../../app.constants";
 import {Observable} from "rxjs";
-import {Result} from "../models/result";
+import {Result} from "../../models/result";
 
 @Injectable()
 export class CustomerService {

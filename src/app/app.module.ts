@@ -1,6 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 
@@ -8,13 +8,16 @@ import {AppComponent} from "./app.component";
 import {BaseComponent} from "./shared/base/base.component";
 import {NavComponent} from "./shared/base/nav.component";
 import {HeaderComponent} from "./shared/base/header.component";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./login/components/login.component";
 
 // attendance module
 import {AttendanceModule} from "./components/attendance/attendance.module";
 
 // user module
 import {UserModule} from "./components/user/user.module";
+
+// login module
+import {LoginModule} from "./login/login.module";
 
 // customer module
 import {CustomerModule} from "./components/customer/customer.module";
@@ -25,15 +28,16 @@ import {routing} from "./app.routes";
     AppComponent,
     BaseComponent,
     NavComponent,
-    HeaderComponent,
-    LoginComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpModule,
     AttendanceModule,
     UserModule,
+    LoginModule,
     CustomerModule,
     routing
   ],
