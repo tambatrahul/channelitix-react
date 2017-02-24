@@ -1,18 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import {AppConstants} from "../../app.constants";
 import {User} from "../../models/user/user";
 import {Router} from "@angular/router";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @Injectable()
 export class AuthService {
-
-  /**
-   * base url for http request
-   */
-  protected baseUrl: string;
-
   /**
    * logged in user
    */
@@ -26,7 +19,6 @@ export class AuthService {
    * @param _cookieService
    */
   constructor(public http: Http, public _router: Router, private _cookieService: CookieService) {
-    this.baseUrl = AppConstants.API_ENDPOINT + 'auth';
     if (localStorage.getItem("user") !== null)
       this.user = JSON.parse(localStorage.getItem("user"));
   }

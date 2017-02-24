@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams, Response} from "@angular/http";
-import {AppConstants} from "../../app.constants";
 import {Observable} from "rxjs";
 import {Result} from "../../models/result";
 import {BaseService} from "./base.service";
@@ -10,7 +9,12 @@ import {AuthService} from "./AuthService";
 @Injectable()
 export class UserService extends BaseService {
 
-  protected baseUrl: string;
+  /**
+   * model url
+   *
+   * @type {string}
+   */
+  protected modelUrl: string = 'users';
 
   /**
    * User Service constructor
@@ -20,7 +24,6 @@ export class UserService extends BaseService {
    */
   constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
     super(http, _router, _authService);
-    this.baseUrl = AppConstants.API_ENDPOINT + 'users';
   }
 
   /**

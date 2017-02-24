@@ -1,19 +1,30 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
-import {AppConstants} from "../../app.constants";
 import {Observable} from "rxjs";
 import {Result} from "../../models/result";
-import {User} from "../../models/user/user";
+import {Router} from "@angular/router";
+import {AuthService} from "./AuthService";
+import {BaseService} from "./base.service";
 
 @Injectable()
-export class LoginService {
+export class LoginService extends BaseService {
 
-  protected baseUrl: string;
+  /**
+   * model url
+   *
+   * @type {string}
+   */
+  protected modelUrl: string = 'auth';
 
-  private user: User;
-
-  constructor(public http: Http) {
-    this.baseUrl = AppConstants.API_ENDPOINT + 'auth';
+  /**
+   * Login Service constructor
+   *
+   * @param http
+   * @param _router
+   * @param _authService
+   */
+  constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
+    super(http, _router, _authService);
   }
 
   /**

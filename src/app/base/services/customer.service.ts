@@ -1,18 +1,30 @@
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams, Response} from "@angular/http";
-import {AppConstants} from "../../app.constants";
 import {Observable} from "rxjs";
 import {Result} from "../../models/result";
+import {Router} from "@angular/router";
+import {AuthService} from "./AuthService";
+import {BaseService} from "./base.service";
 
 @Injectable()
-export class CustomerService {
+export class CustomerService extends BaseService {
 
-  protected baseUrl: string;
-  protected customerTypeUrl: string;
+  /**
+   * model url
+   *
+   * @type {string}
+   */
+  protected modelUrl: string = 'customers';
 
-  constructor(public http: Http) {
-    this.baseUrl = AppConstants.API_ENDPOINT + 'customers';
-    this.customerTypeUrl = AppConstants.API_ENDPOINT + 'customer_types';
+  /**
+   * Attendance Service constructor
+   *
+   * @param http
+   * @param _router
+   * @param _authService
+   */
+  constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
+    super(http, _router, _authService);
   }
 
   /**

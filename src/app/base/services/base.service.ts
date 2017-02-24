@@ -4,12 +4,21 @@ import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {AppConstants} from "../../app.constants";
 
-export class BaseService {
+export abstract class BaseService {
 
   /**
    * base url for http request
+   *
+   * @type {string}
    */
   protected baseUrl: string;
+
+  /**
+   * model url for server call
+   *
+   * @type {string}
+   */
+  protected abstract modelUrl: string;
 
   /**
    * logged in user
@@ -24,7 +33,7 @@ export class BaseService {
    * @param _authService
    */
   constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
-    this.baseUrl = AppConstants.API_ENDPOINT;
+    this.baseUrl = AppConstants.API_ENDPOINT + this.modelUrl;
   }
 
   /**

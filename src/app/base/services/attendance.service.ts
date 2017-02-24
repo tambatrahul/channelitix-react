@@ -1,16 +1,31 @@
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams, Response} from "@angular/http";
-import {AppConstants} from "../../app.constants";
 import {Observable} from "rxjs";
 import {Result} from "../../models/result";
+import {Router} from "@angular/router";
+import {AuthService} from "./AuthService";
+import {BaseService} from "./base.service";
+
 
 @Injectable()
-export class AttendanceService {
+export class AttendanceService extends BaseService {
 
-  protected baseUrl: string;
+  /**
+   * model url
+   *
+   * @type {string}
+   */
+  protected modelUrl: string = 'attendances';
 
-  constructor(public http: Http) {
-    this.baseUrl = AppConstants.API_ENDPOINT + 'attendances';
+  /**
+   * Attendance Service constructor
+   *
+   * @param http
+   * @param _router
+   * @param _authService
+   */
+  constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
+    super(http, _router, _authService);
   }
 
   /**
@@ -31,6 +46,9 @@ export class AttendanceService {
       .map((res: Response) => {
         return res.json();
       })
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => {
+        this.checkResponse(error);
+        return Observable.throw(error.json().error || 'Server error')
+      });
   }
 }
