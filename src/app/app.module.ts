@@ -5,43 +5,77 @@ import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 
 // base
-import {BaseComponent} from "./shared/base/base.component";
-import {NavComponent} from "./shared/base/nav.component";
-import {HeaderComponent} from "./shared/base/header.component";
-import {LoginComponent} from "./login/components/login.component";
+import {BaseComponent} from "./components/base.component";
+import {NavComponent} from "./components/nav.component";
+import {HeaderComponent} from "./components/header.component";
 
-// attendance module
-import {AttendanceModule} from "./components/attendance/attendance.module";
-
-// user module
-import {UserModule} from "./user/user.module";
-
-// login module
-import {LoginModule} from "./login/login.module";
-
-// customer module
-import {CustomerModule} from "./components/customer/customer.module";
+// routing
 import {routing} from "./app.routes";
+
+// pages
+import {LoginComponent} from "./components/page/login.component";
+import {UserComponent} from "./components/page/user.component";
+import {CustomerComponent} from "./components/page/customer.component";
+import {CustomerCountComponent} from "./components/page/section/customer_count.component";
+import {AttendanceComponent} from "./components/page/attendance.component";
+import {AuthService} from "./services/AuthService";
+import {AttendanceService} from "./services/attendance.service";
+import {CustomerService} from "./services/customer.service";
+import {LoginService} from "./services/login.service";
+import {TerritoryService} from "./services/territory.service";
+import {UserService} from "./services/user.service";
+import {AttendanceStatusDirective} from "./directives/attendance_status.directive";
+import {CustomerTypeDirective} from "./directives/customer_type.directive";
+import {StatusDirective} from "./directives/status.directive";
+import {MonthPickerComponent} from "./components/common/month_picker.component";
+import {PaginationComponent} from "./components/common/pagination.component";
+import {RoleSelectComponent} from "./components/common/role-select.component";
+import {UserSelectComponent} from "./components/common/user-select.component";
+import {AreaSelectComponent} from "./components/page/section/area-select.component";
+import {BrickSelectComponent} from "./components/page/section/brick-select.component";
+import {HeadquarterSelectComponent} from "./components/page/section/headquarter-select.component";
+import {TerritorySelectComponent} from "./components/page/section/territory-select.component";
+import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     BaseComponent,
     NavComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    UserComponent,
+    CustomerComponent,
+    CustomerCountComponent,
+    AttendanceComponent,
+    AttendanceStatusDirective,
+    CustomerTypeDirective,
+    StatusDirective,
+    MonthPickerComponent,
+    PaginationComponent,
+    RoleSelectComponent,
+    UserSelectComponent,
+    AreaSelectComponent,
+    BrickSelectComponent,
+    HeadquarterSelectComponent,
+    TerritorySelectComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-    AttendanceModule,
-    UserModule,
-    LoginModule,
-    CustomerModule,
     routing
   ],
-  providers: [],
+  providers: [
+    CookieService,
+    AuthService,
+    AttendanceService,
+    CustomerService,
+    LoginService,
+    TerritoryService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

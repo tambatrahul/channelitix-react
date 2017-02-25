@@ -1,12 +1,11 @@
 import {ModuleWithProviders} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
-import {loginRoutes} from "./login/login.routes";
-import {BaseComponent} from "./shared/base/base.component";
-
-// external routes
-import {attendanceRoutes} from "./components/attendance/attendance.routes";
-import {userRoutes} from "./user/user.routes";
-import {customerRoutes} from "./components/customer/customer.routes";
+import {BaseComponent} from "./components/base.component";
+// pages
+import {LoginComponent} from "./components/page/login.component";
+import {UserComponent} from "./components/page/user.component";
+import {CustomerComponent} from "./components/page/customer.component";
+import {AttendanceComponent} from "./components/page/attendance.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -14,32 +13,32 @@ export const routes: Routes = [
     path: '',
     component: BaseComponent,
     children: [
+
       // add attendance routes
       {
         path: 'attendances',
-        children: [
-          ...attendanceRoutes
-        ]
+        component: AttendanceComponent
       },
+
       // add user routes
       {
         path: 'users',
-        children: [
-          ...userRoutes
-        ]
+        component: UserComponent
       },
+
       // add customer routes
       {
         path: 'customers',
-        children: [
-          ...customerRoutes
-        ]
+        component: CustomerComponent
       },
     ]
   },
 
   // Add login route
-  ...loginRoutes
+  {
+    path: 'login',
+    component: LoginComponent
+  }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
