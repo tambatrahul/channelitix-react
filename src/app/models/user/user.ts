@@ -15,6 +15,7 @@ export class User extends Model {
 
   // for local use only
   attendances = [];
+  visits = [];
 
   constructor(info: any) {
     super(info.id);

@@ -6,39 +6,46 @@ import {LoginComponent} from "./components/page/login.component";
 import {UserComponent} from "./components/page/user.component";
 import {CustomerComponent} from "./components/page/customer.component";
 import {AttendanceComponent} from "./components/page/attendance.component";
+import {VisitComponent} from "./components/page/visit.component";
 
 // Route Configuration
 export const routes: Routes = [
-  {
-    path: '',
-    component: BaseComponent,
-    children: [
+    {
+        path: '',
+        component: BaseComponent,
+        children: [
 
-      // add attendance routes
-      {
-        path: 'attendances',
-        component: AttendanceComponent
-      },
+            // add attendance routes
+            {
+                path: 'attendances',
+                component: AttendanceComponent
+            },
 
-      // add user routes
-      {
-        path: 'users',
-        component: UserComponent
-      },
+            // add user routes
+            {
+                path: 'users',
+                component: UserComponent
+            },
 
-      // add customer routes
-      {
-        path: 'customers',
-        component: CustomerComponent
-      },
-    ]
-  },
+            // add customer routes
+            {
+                path: 'customers',
+                component: CustomerComponent
+            },
 
-  // Add login route
-  {
-    path: 'login',
-    component: LoginComponent
-  }
+            // add visit routes
+            {
+                path: 'visits',
+                component: VisitComponent
+            },
+        ]
+    },
+
+    // Add login route
+    {
+        path: 'login',
+        component: LoginComponent
+    }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
