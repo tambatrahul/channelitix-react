@@ -57,4 +57,11 @@ export class UserService extends BaseService {
   create(user: User) {
     return this.post(this.getBaseUrl(), user)
   }
+
+  /**
+   * Deactivate user
+   */
+  deactivate(data, user_id) {
+    return this.put(this.getBaseUrl(), data)
+  }
 }

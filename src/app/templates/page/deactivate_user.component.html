@@ -1,0 +1,19 @@
+<div class="container-fluid users">
+    <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="page-header">
+                    <h2>Deactivate Date</h2>
+                </div>
+            </div>
+            <!-- Deactivate Date -->
+            <div class="form-group">
+                <date-picker [date]="deactivate_date" [title]="'Deactivate Date'"
+                             (onDateChanged)="dateChanged($event)"></date-picker>
+                <small *ngIf="errors?.deactivate_date" class="text-danger text-center">
+                    {{ errors.deactivate_date}}
+                </small>
+            </div>
+        </div>
+    </form>
+</div>
