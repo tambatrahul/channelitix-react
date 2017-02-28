@@ -3,15 +3,12 @@ import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
-
 // base
 import {BaseComponent} from "./components/base.component";
 import {NavComponent} from "./components/nav.component";
 import {HeaderComponent} from "./components/header.component";
-
 // routing
 import {routing} from "./app.routes";
-
 // pages
 import {LoginComponent} from "./components/page/login.component";
 import {UserComponent} from "./components/page/user.component";
@@ -40,6 +37,8 @@ import {RegionSelectComponent} from "./components/page/section/region-select.com
 import { DatePickerComponent } from './components/common/date_picker.component';
 import { CreateUserComponent } from './components/page/create_user.component';
 import { RoleCheckDirective } from './directives/role.directive';
+import {VisitComponent} from "./components/page/visit.component";
+import {VisitService} from "./services/visit.service";
 
 @NgModule({
   declarations: [
@@ -85,6 +84,47 @@ import { RoleCheckDirective } from './directives/role.directive';
     UserService
   ],
   bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        BaseComponent,
+        NavComponent,
+        HeaderComponent,
+        LoginComponent,
+        UserComponent,
+        CustomerComponent,
+        CustomerCountComponent,
+        AttendanceComponent,
+        VisitComponent,
+        AttendanceStatusDirective,
+        CustomerTypeDirective,
+        StatusDirective,
+        MonthPickerComponent,
+        PaginationComponent,
+        RoleSelectComponent,
+        UserSelectComponent,
+        AreaSelectComponent,
+        BrickSelectComponent,
+        HeadquarterSelectComponent,
+        TerritorySelectComponent
+    ],
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpModule,
+        routing
+    ],
+    providers: [
+        CookieService,
+        AuthService,
+        AttendanceService,
+        VisitService,
+        CustomerService,
+        LoginService,
+        TerritoryService,
+        UserService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

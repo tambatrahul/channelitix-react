@@ -8,19 +8,20 @@ import {UserComponent} from "./components/page/user.component";
 import {CustomerComponent} from "./components/page/customer.component";
 import {AttendanceComponent} from "./components/page/attendance.component";
 import { CreateUserComponent } from './components/page/create_user.component';
+import {VisitComponent} from "./components/page/visit.component";
 
 // Route Configuration
 export const routes: Routes = [
-  {
-    path: '',
-    component: BaseComponent,
-    children: [
+    {
+        path: '',
+        component: BaseComponent,
+        children: [
 
-      // add attendance routes
-      {
-        path: 'attendances',
-        component: AttendanceComponent
-      },
+            // add attendance routes
+            {
+                path: 'attendances',
+                component: AttendanceComponent
+            },
 
       // add user routes
       {
@@ -37,19 +38,25 @@ export const routes: Routes = [
         ]
       },
 
-      // add customer routes
-      {
-        path: 'customers',
-        component: CustomerComponent
-      },
-    ]
-  },
+            // add customer routes
+            {
+                path: 'customers',
+                component: CustomerComponent
+            },
 
-  // Add login route
-  {
-    path: 'login',
-    component: LoginComponent
-  }
+            // add visit routes
+            {
+                path: 'visits',
+                component: VisitComponent
+            },
+        ]
+    },
+
+    // Add login route
+    {
+        path: 'login',
+        component: LoginComponent
+    }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

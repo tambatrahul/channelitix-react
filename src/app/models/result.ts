@@ -8,6 +8,7 @@ import {Headquarter} from "./territory/headquarter";
 import {Brick} from "./territory/brick";
 import {Region} from "./territory/region";
 import {Country} from "./territory/country";
+import {Visit} from "./visit/visit";
 
 export class Result {
 
@@ -21,6 +22,9 @@ export class Result {
 
   // attendances models
   attendances: Attendance[];
+
+  //Visits models
+  visits: Visit[];
 
   // users models
   user: User;
