@@ -59,4 +59,31 @@ export class AppConstants {
 
     return skeleton;
   }
+
+  /**
+   * Prepare monthly Skeleton
+   *
+   * @param month
+   * @param year
+   */
+  static prepareMonthlySkeleton(month: number, year: number) {
+
+    // get date
+    let date = moment().year(year).month(month);
+
+    // get start date and end date of month
+    let start_day = date.startOf('month').date();
+    let end_day = date.endOf('month').date();
+
+    // prepare skeleton for all date
+    let skeleton = new Array(end_day);
+    for (start_day; start_day <= end_day; start_day++) {
+      if (moment().month(month).year(year).date(start_day).day() == 0)
+        skeleton[start_day - 1] = {visit_count: ''};
+      else
+        skeleton[start_day - 1] = {};
+    }
+
+    return skeleton;
+  }
 }

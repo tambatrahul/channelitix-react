@@ -13,6 +13,8 @@ export class Visit extends Model {
 
     // for internal use only
     isSunday: boolean = false;
+    visit_count: number;
+    visit_day: number;
 
     constructor(info: any) {
         super(info.id);

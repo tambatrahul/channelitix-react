@@ -1,4 +1,4 @@
-import { AuthService } from './../services/AuthService';
+import { AuthService } from '../services/AuthService';
 import { Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
 
 
@@ -10,7 +10,9 @@ export class RoleCheckDirective {
   /**
    * Customer Status Directive
    *
-   * @param el
+   * @param templateRef
+   * @param viewContainer
+   * @param authService
    */
   constructor(private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,

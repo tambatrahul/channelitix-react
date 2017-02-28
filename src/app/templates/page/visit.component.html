@@ -76,7 +76,7 @@
                                 <tbody>
                                 <tr *ngFor="let user of users">
                                     <td>{{ user.full_name }}</td>
-                                    <td *ngFor="let visit of user.visits"></td>
+                                    <td *ngFor="let visit of user.visits" visitCount [visit]="visit.visit_count"></td>
                                 </tr>
                                 </tbody>
                             </table>

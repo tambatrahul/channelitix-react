@@ -39,6 +39,7 @@ import {CreateUserComponent} from "./components/page/create_user.component";
 import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
+import {VisitCountDirective} from "./directives/visit_count.directive";
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {VisitComponent} from "./components/page/visit.component";
     CustomerTypeDirective,
     StatusDirective,
     RoleCheckDirective,
+    VisitCountDirective,
 
     // reusable components
     MonthPickerComponent,
