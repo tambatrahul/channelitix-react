@@ -30,11 +30,11 @@
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
         <div class="col-xs-12 col-md-3">
-            <role-select [role_id]="role_id" (onRoleChanged)="roleChanged($event)"></role-select>
+            <role-select [value]="role_id" (onValueChanged)="roleChanged($event)"></role-select>
         </div>
         <div class="col-xs-12 col-md-3" *ngIf="manager_role_id > 0">
-            <user-select [role_id]="manager_role_id" [user_id]="manager_id" [title]="'Select Manager'"
-                         (onUserChanged)="managerChanged($event)"></user-select>
+            <user-select [role_id]="manager_role_id" [value]="manager_id" [title]="'Select Manager'"
+                         (onValueChanged)="managerChanged($event)"></user-select>
         </div>
     </div>
     <!-- ./Filters for Visit report-->
@@ -47,7 +47,7 @@
                     <span class="h-icon"><i class="fa fa-table"></i></span>
                     <h4>Visit Report for ({{ title }})</h4>
                 </div>
-                <div class="widget-container report-table" #loading_table>
+                <div class="widget-container report-table" #loading_box>
                     <div class="widget-block">
                         <div class="table-responsive">
                             <table class="table table-bordered">

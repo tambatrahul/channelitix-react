@@ -34,28 +34,37 @@ import {HeadquarterSelectComponent} from "./components/page/section/headquarter-
 import {TerritorySelectComponent} from "./components/page/section/territory-select.component";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 import {RegionSelectComponent} from "./components/page/section/region-select.component";
-import { DatePickerComponent } from './components/common/date_picker.component';
-import { CreateUserComponent } from './components/page/create_user.component';
-import { RoleCheckDirective } from './directives/role.directive';
-import {VisitComponent} from "./components/page/visit.component";
+import {DatePickerComponent} from "./components/common/date_picker.component";
+import {CreateUserComponent} from "./components/page/create_user.component";
+import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
+import {VisitComponent} from "./components/page/visit.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+
+    // base components
     BaseComponent,
     NavComponent,
     HeaderComponent,
+
+    // pages
     LoginComponent,
     UserComponent,
     CreateUserComponent,
     CustomerComponent,
     CustomerCountComponent,
     AttendanceComponent,
+    VisitComponent,
+
+    // directives
     AttendanceStatusDirective,
     CustomerTypeDirective,
     StatusDirective,
     RoleCheckDirective,
+
+    // reusable components
     MonthPickerComponent,
     PaginationComponent,
     RoleSelectComponent,
@@ -79,52 +88,12 @@ import {VisitService} from "./services/visit.service";
     AuthService,
     AttendanceService,
     CustomerService,
+    VisitService,
     LoginService,
     TerritoryService,
     UserService
   ],
   bootstrap: [AppComponent]
-    declarations: [
-        AppComponent,
-        BaseComponent,
-        NavComponent,
-        HeaderComponent,
-        LoginComponent,
-        UserComponent,
-        CustomerComponent,
-        CustomerCountComponent,
-        AttendanceComponent,
-        VisitComponent,
-        AttendanceStatusDirective,
-        CustomerTypeDirective,
-        StatusDirective,
-        MonthPickerComponent,
-        PaginationComponent,
-        RoleSelectComponent,
-        UserSelectComponent,
-        AreaSelectComponent,
-        BrickSelectComponent,
-        HeadquarterSelectComponent,
-        TerritorySelectComponent
-    ],
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpModule,
-        routing
-    ],
-    providers: [
-        CookieService,
-        AuthService,
-        AttendanceService,
-        VisitService,
-        CustomerService,
-        LoginService,
-        TerritoryService,
-        UserService
-    ],
-    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
