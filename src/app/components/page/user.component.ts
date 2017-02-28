@@ -76,4 +76,11 @@ export class UserComponent extends ListComponent {
     this.manager_id = manager_id;
     this.fetch();
   }
+
+  /**
+   *
+   */
+  deactivateUser(user_id) {
+
+  }
 }

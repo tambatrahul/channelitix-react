@@ -87,4 +87,18 @@ export abstract class BaseService {
         return Observable.throw(error.json() || 'Server error')
       });
   }
+
+  /**
+   * Make post request
+   */
+  public put(url: string, data?: Object, options?: Object): Observable<Result> {
+    return this.http.put(url, data, options)
+        .map((res: Response) => {
+          return res.json();
+        })
+        .catch((error: any) => {
+          this.checkResponse(error);
+          return Observable.throw(error.json() || 'Server error')
+        });
+  }
 }
