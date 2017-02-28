@@ -6,6 +6,7 @@ import {VisitService} from "../../services/visit.service";
 import {Visit} from "../../models/visit/visit";
 import {BaseComponent} from "../base/base.component";
 import {AuthService} from "../../services/AuthService";
+import {Holiday} from "../../models/holiday";
 declare let jQuery: any;
 
 @Component({
@@ -83,24 +84,25 @@ export class VisitComponent extends BaseComponent {
    * Adding visits to skeleton
    *
    * @param visits
+   * @param holidays
    */
-  addVisitToSkeleton(visits: Visit[]) {
+  addVisitToSkeleton(visits: Visit[], holidays: Holiday[]) {
     let data_skeleton = {};
     let users:User[] = [];
+
+    let skeleton = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
 
     // prepare visit skeleton
     for (let visit of visits) {
 
       // add user if not present
       if (!data_skeleton.hasOwnProperty(visit.created_by)) {
-        data_skeleton[visit.created_by] = AppConstants.prepareMonthlySkeleton(this.month, this.year);
+        data_skeleton[visit.created_by] = skeleton.map(visit => Object.assign({}, visit));
         users.push(visit.creator);
       }
 
       // set visit details
-      data_skeleton[visit.created_by][visit.visit_day - 1] = {
-        visit_count: visit.visit_count
-      };
+      data_skeleton[visit.created_by][visit.visit_day - 1].visit_count = visit.visit_count;
     }
 
     // add skeleton to user
@@ -119,7 +121,7 @@ export class VisitComponent extends BaseComponent {
     this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
       response => {
         this.loading = false;
-        this.addVisitToSkeleton(response.visits);
+        this.addVisitToSkeleton(response.visits, response.holidays);
       },
       err => {
         this.loading = false;

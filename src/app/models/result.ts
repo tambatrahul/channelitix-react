@@ -9,6 +9,7 @@ import {Brick} from "./territory/brick";
 import {Region} from "./territory/region";
 import {Country} from "./territory/country";
 import {Visit} from "./visit/visit";
+import {Holiday} from "./holiday";
 
 export class Result {
 
@@ -25,6 +26,9 @@ export class Result {
 
   //Visits models
   visits: Visit[];
+
+  // holidays models
+  holidays: Holiday[];
 
   // users models
   user: User;
