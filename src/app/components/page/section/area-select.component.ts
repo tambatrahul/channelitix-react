@@ -1,77 +1,64 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {TerritoryService} from "../../../services/territory.service";
 import {Area} from "../../../models/territory/area";
+import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
-    selector: 'area-select',
-    templateUrl: '../../../templates/page/section/area-select.component.html'
+  selector: 'area-select',
+  templateUrl: '../../../templates/page/section/area-select.component.html'
 })
-export class AreaSelectComponent {
+export class AreaSelectComponent extends BaseSelectComponent {
 
-    /**
-     * selected Area
-     */
-    @Input()
-    area_id: number;
+  /**
+   * title for select field
+   */
+  @Input()
+  title: string = "Select Area";
 
-    /**
-     * title for select field
-     */
-    @Input()
-    title: string = "Select Area";
+  /**
+   * Region id for filter
+   */
+  private _region_id: number;
 
-    /**
-     * event on Area changed
-     *
-     * @type {EventEmitter}
-     */
-    @Output()
-    onAreaChanged = new EventEmitter();
+  /**
+   * areas list
+   *
+   * @type {Array}
+   */
+  private areas: Area[] = [];
 
-    /**
-     * loading for server call
-     * @type {boolean}
-     */
-    private loading: boolean = false;
+  constructor(private territoryService: TerritoryService) {
+    super();
+  }
 
-    /**
-     * areas list
-     *
-     * @type {Array}
-     */
-    private areas: Area[] = [];
+  /**
+   * region_id getter and setters
+   *
+   * @param region_id
+   */
+  @Input()
+  set region_id(region_id: number) {
+    this._region_id = region_id;
+    this.fetch();
+  }
 
-    constructor(private territoryService: TerritoryService) {
-    }
+  get region_id(): number {
+    return this._region_id;
+  }
 
-    /**
-     * on load of component load territories
-     */
-    ngOnInit() {
-        this.fetch();
-    }
-
-    /**
-     * load areas
-     */
-    fetch() {
-        this.loading = true;
-        this.territoryService.area().subscribe(
-            response => {
-                this.loading = false;
-                this.areas = response.areas;
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
-
-    /**
-     * Territory changed
-     */
-    onAreaChange(a_id) {
-        this.area_id = a_id;
-        this.onAreaChanged.emit(a_id);
-    }
+  /**
+   * load areas
+   */
+  fetch() {
+    this.loading = true;
+    this.territoryService.area(this._region_id).subscribe(
+      response => {
+        this.loading = false;
+        this.areas = response.areas;
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
 }

@@ -1,92 +1,66 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {TerritoryService} from "../../../services/territory.service";
 import {Brick} from "../../../models/territory/brick";
+import {BaseService} from "../../../services/base.service";
+import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
-    selector: 'brick-select',
-    templateUrl: '../../../templates/page/section/brick-select.component.html'
+  selector: 'brick-select',
+  templateUrl: '../../../templates/page/section/brick-select.component.html'
 })
-export class BrickSelectComponent {
+export class BrickSelectComponent extends BaseSelectComponent {
 
-    /**
-     * selected brick
-     */
-    @Input()
-    brick_id: number;
+  /**
+   * title for select field
+   */
+  @Input()
+  title: string = "Select Brick";
 
-    /**
-     * title for select field
-     */
-    @Input()
-    title: string = "Select Brick";
+  /**
+   * headquarter id for filter
+   */
+  private _headquarter_id: number;
 
-    @Output()
-    onBrickChanged = new EventEmitter();
+  /**
+   * brick list
+   *
+   * @type {Array}
+   */
+  private bricks: Brick[] = [];
 
-    /**
-     * headquarter id for filter
-     */
-    private _headquarter_id: number;
+  constructor(private territoryService: TerritoryService) {
+    super();
+  }
 
-    /**
-     * loading for server call
-     * @type {boolean}
-     */
-    private loading: boolean = false;
+  /**
+   * brick_id getter and setters
+   *
+   * @param headquarter_id
+   */
+  @Input()
+  set headquarter_id(headquarter_id: number) {
+    this._headquarter_id = headquarter_id;
+    this.value = 0;
+    this.fetch();
+  }
 
-    /**
-     * brick list
-     *
-     * @type {Array}
-     */
-    private bricks: Brick[] = [];
+  get headquarter_id(): number {
+    return this._headquarter_id;
+  }
 
-    constructor(private territoryService: TerritoryService) {
-    }
-
-    /**
-     * on load of component load territories
-     */
-    ngOnInit() {
-        this.fetch();
-    }
-
-    /**
-     * brick_id getter and setters
-     *
-     * @param headquarter_id
-     */
-    @Input()
-    set headquarter_id(headquarter_id: number) {
-        this._headquarter_id = headquarter_id;
-        this.fetch();
-    }
-
-    get headquarter_id(): number {
-        return this._headquarter_id;
-    }
-
-    /**
-     * load bricks
-     */
-    fetch() {
-        this.loading = true;
-        this.territoryService.brick(this._headquarter_id).subscribe(
-            response => {
-                this.loading = false;
-                this.bricks = response.bricks;
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
-
-    /**
-     * emit on change of value
-     */
-    onBrickChange(b_id) {
-        this.brick_id = b_id;
-        this.onBrickChanged.emit(b_id);
-    }
+  /**
+   * load bricks
+   */
+  fetch() {
+    this.loading = true;
+    this.territoryService.brick(this._headquarter_id).subscribe(
+      response => {
+        this.loading = false;
+        this.bricks = response.bricks;
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
 }

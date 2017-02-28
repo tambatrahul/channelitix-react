@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {CustomerService} from "../../services/customer.service";
-import {AuthService} from "../../services/AuthService";
-import {Customer} from "../../models/customer/customer";
-import {ListComponent} from "../base/list.component";
+import { Component } from "@angular/core";
+import { CustomerService } from "../../services/customer.service";
+import { AuthService } from "../../services/AuthService";
+import { Customer } from "../../models/customer/customer";
+import { ListComponent } from "../base/list.component";
 declare let jQuery: any;
 
 @Component({
@@ -20,9 +20,8 @@ export class CustomerComponent extends ListComponent {
   public total: number = 10;
 
   /**
-   * territory, area, headquarter & brick id
+   * region, territory, area, headquarter & brick id
    */
-  public country_id: number = 0;
   public region_id: number = 0;
   public area_id: number = 0;
   public territory_id: number = 0;
@@ -30,9 +29,10 @@ export class CustomerComponent extends ListComponent {
   public brick_id: number = 0;
 
   /**
-   * customer type id
+   * customer type id and grade id
    */
   private customer_type_id: number = 0;
+  private grade_id: number = 0;
 
   /**
    * customer list
@@ -56,8 +56,8 @@ export class CustomerComponent extends ListComponent {
    */
   fetch() {
     this.loading = true;
-    this.customerService.all(this.customer_type_id, 0, this.page, this.area_id, this.territory_id, this.headquarter_id,
-      this.brick_id).subscribe(
+    this.customerService.all(this.customer_type_id, this.grade_id, this.page, this.region_id,
+      this.area_id, this.territory_id, this.headquarter_id, this.brick_id).subscribe(
       response => {
         this.loading = false;
         this.customers = response.customers;
@@ -66,7 +66,7 @@ export class CustomerComponent extends ListComponent {
       err => {
         this.loading = false;
       }
-    );
+      );
   }
 
   /**
@@ -89,12 +89,12 @@ export class CustomerComponent extends ListComponent {
   }
 
   /**
-   * when territory is changed filter list of customer
-   * @param territory_id
+   * when region is changed filter list of customer
+   * @param region_id
    */
-  territoryChanged(territory_id) {
-    this.territory_id = territory_id;
-    this.fetch();
+  regionChanged(region_id) {
+    this.region_id = region_id;
+    this.areaChanged(0);
   }
 
   /**
@@ -103,7 +103,16 @@ export class CustomerComponent extends ListComponent {
    */
   areaChanged(area_id) {
     this.area_id = area_id;
-    this.fetch();
+    this.territoryChanged(0);
+  }
+
+  /**
+   * when territory is changed filter list of customer
+   * @param territory_id
+   */
+  territoryChanged(territory_id) {
+    this.territory_id = territory_id;
+    this.headquarterChanged(0);
   }
 
   /**
@@ -112,7 +121,7 @@ export class CustomerComponent extends ListComponent {
    */
   headquarterChanged(headquarter_id) {
     this.headquarter_id = headquarter_id;
-    this.fetch();
+    this.brickChanged(0);
   }
 
   /**

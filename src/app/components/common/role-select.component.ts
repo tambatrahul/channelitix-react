@@ -1,36 +1,39 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {AppConstants} from "../../app.constants";
+import {AuthService} from "../../services/AuthService";
+import {BaseSelectComponent} from "../page/section/base-select.component";
 
 @Component({
   selector: 'role-select',
   templateUrl: '../../templates/common/role-select.component.html'
 })
-export class RoleSelectComponent {
-
-  @Input()
-  role_id: number;
-
-  @Output()
-  onRoleChanged = new EventEmitter();
+export class RoleSelectComponent extends BaseSelectComponent{
 
   roles: Array<Object> = [];
 
-  constructor() {
-    this.roles = AppConstants.roles;
+  /**
+   * Title of input select field
+   */
+  @Input()
+  title:string = "Select Role";
+
+  /**
+   * First value of options
+   */
+  @Input()
+  first_value:string = "All";
+
+  /**
+   * Role Select Component with AuthService
+   */
+  constructor(private _authService: AuthService) {
+    super();
   }
 
   /**
-   * on load of component load areas
+   * fetch roles from constants
    */
-  ngOnInit() {
-
-  }
-
-  /**
-   * emit on change of value
-   */
-  onRoleChange(r_id) {
-    this.role_id = r_id;
-    this.onRoleChanged.emit(r_id);
+  fetch() {
+    this.roles = AppConstants.getChildRoles(this._authService.user.role_id);
   }
 }

@@ -32,7 +32,8 @@ export class CustomerService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  all(customer_type_id?: number, grade_id?: number, page?: number, area_id?: number, territory_id?: number,
+  all(customer_type_id?: number, grade_id?: number, page?: number, 
+      region_id?: number, area_id?: number, territory_id?: number,
       headquarter_id?: number, brick_id?: number): Observable<Result> {
 
     // prepare get params
@@ -41,17 +42,14 @@ export class CustomerService extends BaseService {
     params.set('grade_id', String(grade_id > 0 ? grade_id : ''));
     params.set('page', String(page > 0 ? page : ''));
     params.set('page', String(page > 0 ? page : ''));
+    params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
     params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
 
     // make server call
-    return this.http.get(this.getBaseUrl(), {search: params})
-      .map((res: Response) => {
-        return res.json();
-      })
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    return this.get(this.getBaseUrl(), {search: params});
   }
 
   /**
@@ -62,10 +60,6 @@ export class CustomerService extends BaseService {
   counts(): Observable<Result> {
 
     // make server call
-    return this.http.get(this.getBaseUrl() + '/counts')
-      .map((res: Response) => {
-        return res.json();
-      })
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    return this.get(this.getBaseUrl() + '/counts');
   }
 }

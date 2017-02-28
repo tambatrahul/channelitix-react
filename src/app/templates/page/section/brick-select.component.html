@@ -1,5 +1,5 @@
 <label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> {{ title }} </label>
-<select class="form-control" [ngModel]="brick_id" (ngModelChange)="onBrickChange($event)">
+<select class="form-control" [ngModel]="value" (ngModelChange)="onValueChange($event)">
     <option selected value="0">All</option>
     <option *ngFor="let b of bricks" [value]="b.id">
         {{b.name}}

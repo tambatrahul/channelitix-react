@@ -1,92 +1,64 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {TerritoryService} from "../../../services/territory.service";
 import {Headquarter} from "../../../models/territory/headquarter";
+import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
-    selector: 'headquarter-select',
-    templateUrl: '../../../templates/page/section/headquarter-select.component.html'
+  selector: 'headquarter-select',
+  templateUrl: '../../../templates/page/section/headquarter-select.component.html'
 })
-export class HeadquarterSelectComponent {
+export class HeadquarterSelectComponent extends BaseSelectComponent {
 
-    /**
-     * selected territory
-     */
-    @Input()
-    headquarter_id: number;
+  /**
+   * title for select field
+   */
+  @Input()
+  title: string = "Select Headquarter";
 
-    /**
-     * title for select field
-     */
-    @Input()
-    title: string = "Select Headquarter";
+  /**
+   * Territory id for filter
+   */
+  private _territory_id: number;
 
-    @Output()
-    onHeadquarterChanged = new EventEmitter();
+  /**
+   * headquarters list
+   *
+   * @type {Array}
+   */
+  private headquarters: Headquarter[] = [];
 
-    /**
-     * Territory id for filter
-     */
-    private _territory_id: number;
+  constructor(private territoryService: TerritoryService) {
+    super();
+  }
 
-    /**
-     * loading for server call
-     * @type {boolean}
-     */
-    private loading: boolean = false;
+  /**
+   * territory_id getter and setters
+   *
+   * @param territory_id
+   */
+  @Input()
+  set territory_id(territory_id: number) {
+    this._territory_id = territory_id;
+    this.fetch();
+  }
 
-    /**
-     * headquarters list
-     *
-     * @type {Array}
-     */
-    private headquarters: Headquarter[] = [];
+  get territory_id(): number {
+    return this._territory_id;
+  }
 
-    constructor(private territoryService: TerritoryService) {
-    }
-
-    /**
-     * on load of component load territories
-     */
-    ngOnInit() {
-        this.fetch();
-    }
-
-    /**
-     * territory_id getter and setters
-     *
-     * @param territory_id
-     */
-    @Input()
-    set territory_id(territory_id: number) {
-        this._territory_id = territory_id;
-        this.fetch();
-    }
-
-    get territory_id(): number {
-        return this._territory_id;
-    }
-
-    /**
-     * load headquarters
-     */
-    fetch() {
-        this.loading = true;
-        this.territoryService.headquarter(this._territory_id).subscribe(
-            response => {
-                this.loading = false;
-                this.headquarters = response.headquarters;
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
-
-    /**
-     * emit on change of value
-     */
-    onHeadquarterChange(h_id) {
-        this.headquarter_id = h_id;
-        this.onHeadquarterChanged.emit(h_id);
-    }
+  /**
+   * load headquarters
+   */
+  fetch() {
+    this.loading = true;
+    this.territoryService.headquarter(this._territory_id).subscribe(
+      response => {
+        this.loading = false;
+        this.headquarters = response.headquarters;
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
 }

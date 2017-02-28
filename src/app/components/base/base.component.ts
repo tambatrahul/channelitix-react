@@ -1,5 +1,6 @@
 import {ViewChild, ElementRef} from "@angular/core";
 import {AuthService} from "../../services/AuthService";
+import {User} from "../../models/user/user";
 declare let jQuery: any;
 
 
@@ -12,6 +13,11 @@ export abstract class BaseComponent {
   loading_table: ElementRef;
 
   /**
+   * logged in user
+   */
+  public user: User;
+
+  /**
    * loading variable
    */
   protected _loading: boolean;
@@ -21,6 +27,7 @@ export abstract class BaseComponent {
    * @param _service
    */
   constructor(public _service: AuthService) {
+    this.user = this._service.user;
   }
 
   /**

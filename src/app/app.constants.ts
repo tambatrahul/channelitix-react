@@ -1,18 +1,28 @@
 import * as moment from "moment";
 import {Attendance} from "./models/attendance/attendance";
+import {Role} from "./models/role";
 
 export class AppConstants {
   static API_ENDPOINT: string = 'api/v1/';
   static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
   // roles of user
-  static roles: Array<Object> = [
-    {id: 6, name: 'COUNTRY_MNG', title: 'Country Managers'},
-    {id: 5, name: 'REGION_MNG', title: 'Region Managers'},
-    {id: 4, name: 'AREA_MNG', title: 'Area Managers'},
-    {id: 3, name: 'TERRITORY_MNG', title: 'Territory Managers'},
-    {id: 2, name: 'HQ_MNG', title: 'Medical Reps'}
+  static roles: Array<Role> = [
+    new Role({id: 6, name: 'COUNTRY_MNG', title: 'Country Managers'}),
+    new Role({id: 5, name: 'REGION_MNG', title: 'Region Managers'}),
+    new Role({id: 4, name: 'AREA_MNG', title: 'Area Managers'}),
+    new Role({id: 3, name: 'TERRITORY_MNG', title: 'Territory Managers'}),
+    new Role({id: 2, name: 'HQ_MNG', title: 'Medical Reps'})
   ];
+
+  /**
+   * get list of all child roles
+   *
+   * @param role_id
+   */
+  static getChildRoles(role_id) {
+    return this.roles.filter(role => role.id < role_id)
+  }
 
   /**
    * Prepare monthly Skeleton

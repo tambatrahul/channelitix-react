@@ -4,27 +4,29 @@
             <div class="forum-header">
                 <customer_count (onCustomerTypeChanged)="customerTypeChanged($event)"></customer_count>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-md-4">
                         <h2 class="forum-title">Customer Database</h2>
                         <p class="forum-sub-title">
                             List of all the Customers
                         </p>
                     </div>
-                    <div class="col-xs-12 col-md-2">
-                        <area-select [area_id]="area_id" [title]="'Select Area'"
-                                     (onAreaChanged)="areaChanged($event)"></area-select>
+                    <div class="col-xs-12 col-md-2" *roleCheck="6">
+                        <region-select [value]="region_id" [title]="'Select Region'" (onValueChanged)="regionChanged($event)"></region-select>
                     </div>
-                    <div class="col-xs-12 col-md-2" *ngIf="area_id > 0">
-                        <territory-select [area_id]="area_id" [title]="'Select Territory'"
-                                          (onTerritoryChanged)="territoryChanged($event)"></territory-select>
+                    <div class="col-xs-12 col-md-2" *roleCheck="5">
+                        <div *ngIf="region_id > 0">
+                            <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" (onValueChanged)="areaChanged($event)"></area-select>
+                        </div>
                     </div>
-                    <div class="col-xs-12 col-md-2" *ngIf="territory_id > 0">
-                        <headquarter-select [territory_id]="territory_id" [title]="'Select Headquarter'"
-                                            (onHeadquarterChanged)="headquarterChanged($event)"></headquarter-select>
+                    <div class="col-xs-12 col-md-2" *roleCheck="4">
+                        <div *ngIf="area_id > 0">
+                            <territory-select [value]="territory_id" [area_id]="area_id" [title]="'Select Territory'" (onValueChanged)="territoryChanged($event)"></territory-select>
+                        </div>
                     </div>
-                    <div class="col-xs-12 col-md-2" *ngIf="headquarter_id > 0">
-                        <brick-select [headquarter_id]="headquarter_id" [title]="'Select Brick'"
-                                      (onBrickChanged)="brickChanged($event)"></brick-select>
+                    <div class="col-xs-12 col-md-2" *roleCheck="4">
+                        <div *ngIf="territory_id > 0">
+                            <headquarter-select [value]="headquarter_id" [territory_id]="territory_id" [title]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -35,37 +37,36 @@
                     <div class="box-widget widget-module">
                         <div class="widget-head clearfix">
                             <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4>Customer database</h4>
+                            <h4>Customer database (Count: {{ total}})</h4>
                         </div>
                         <div class="widget-container customer-table" #loading_box>
                             <div class="widget-block">
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Mobile</th>
-                                            <th>Type (Grade)</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Mobile</th>
+                                                <th>Type (Grade)</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
                                         </thead>
 
                                         <tfoot>
-                                        <tr *ngFor="let customer of customers">
-                                            <td>{{ customer.firm_name}}</td>
-                                            <td>{{ customer.email}}</td>
-                                            <td>{{ customer.mobile}}</td>
-                                            <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
-                                            <td class="text-center"><i status [field]="customer.status"></i></td>
-                                            <td>
-                                                <a class="text-primary" style="cursor: pointer;" title="Update"><i class="fa fa-edit"></i></a>
-                                                &nbsp;
-                                                <a class="text-success" style="cursor: pointer;" title="View"><i class="fa fa-eye"></i></a>
+                                            <tr *ngFor="let customer of customers">
+                                                <td>{{ customer.firm_name}}</td>
+                                                <td>{{ customer.email}}</td>
+                                                <td>{{ customer.mobile}}</td>
+                                                <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
+                                                <td class="text-center"><i status [field]="customer.status"></i></td>
+                                                <td>
+                                                    <a class="text-primary" style="cursor: pointer;" title="Update"><i class="fa fa-edit"></i></a>                                                    &nbsp;
+                                                    <a class="text-success" style="cursor: pointer;" title="View"><i class="fa fa-eye"></i></a>
 
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
                                         </tfoot>
 
                                         <tbody>
@@ -79,6 +80,7 @@
                     </div>
                 </div>
             </div>
+            <!-- ./Customer Table -->
         </div>
     </div>
 </div>

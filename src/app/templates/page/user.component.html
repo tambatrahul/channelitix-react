@@ -2,7 +2,7 @@
   <!-- Page Breadcrumb -->
   <div class="page-breadcrumb">
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-4">
         <div class="page-breadcrumb-wrap">
           <div class="page-breadcrumb-info">
             <h2 class="breadcrumb-titles">Users
@@ -15,19 +15,33 @@
           </div>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-6">
+        <div class="row" style="padding-top: 20px;">
+          <div class="col-xs-12 col-md-4" *roleCheck="3">
+            <role-select [value]="role_id" (onValueChanged)="roleChanged($event)"></role-select>
+          </div>
+          <div class="col-xs-12 col-md-4" *ngIf="manager_role_id > 0">
+            <user-select [role_id]="manager_role_id" [value]="manager_id" [title]="'Select Manager'"
+                        (onValueChanged)="managerChanged($event)"></user-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div style="padding-top: 30px;">
+          <a class="btn btn-primary" routerLink="/users/create">Create User</a>
+        </div>
       </div>
     </div>
   </div>
   <!-- Page Breadcrumb -->
-
+  
   <!-- Users Table -->
   <div class="row">
     <div class="col-xs-12">
       <div class="box-widget widget-module">
         <div class="widget-head clearfix">
           <span class="h-icon"><i class="fa fa-table"></i></span>
-          <h4>Users Table ()</h4>
+          <h4>Users Table</h4>
 
         </div>
         <div class="widget-container user-table" #loading_box>

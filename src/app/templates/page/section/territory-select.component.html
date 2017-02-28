@@ -1,5 +1,5 @@
 <label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> {{ title }} </label>
-<select class="form-control" [ngModel]="territory_id" (ngModelChange)="onTerritoryChange($event)">
+<select class="form-control" [ngModel]="value" (ngModelChange)="onValueChange($event)">
     <option selected value="0">All</option>
     <option *ngFor="let t of territories" [value]="t.id">
         {{t.name}}

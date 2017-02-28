@@ -62,7 +62,8 @@ export class UserComponent extends ListComponent {
    */
   roleChanged(role_id) {
     this.role_id = role_id;
-    this.manager_role_id = parseInt(role_id) + 1;
+    this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1: 0;
+    this.managerChanged(0);
     this.fetch();
   }
 

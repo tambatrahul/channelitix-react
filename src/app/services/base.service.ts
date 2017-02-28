@@ -1,10 +1,10 @@
-import {Http, Response} from "@angular/http";
-import {Router} from "@angular/router";
-import {AuthService} from "./AuthService";
-import {Observable} from "rxjs";
-import {Result} from "../models/result";
-import {AppConstants} from "../app.constants";
-import {User} from "../models/user/user";
+import { Http, Response } from "@angular/http";
+import { Router } from "@angular/router";
+import { AuthService } from "./AuthService";
+import { Observable } from "rxjs";
+import { Result } from "../models/result";
+import { AppConstants } from "../app.constants";
+import { User } from "../models/user/user";
 
 export abstract class BaseService {
 
@@ -72,5 +72,19 @@ export abstract class BaseService {
         this.checkResponse(error);
         return Observable.throw(error.json().error || 'Server error')
       })
+  }
+
+  /**
+   * Make post request
+   */
+  public post(url: string, data?: Object, options?: Object): Observable<Result> {
+    return this.http.post(url, data, options)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error: any) => {
+        this.checkResponse(error);
+        return Observable.throw(error.json() || 'Server error')
+      });
   }
 }

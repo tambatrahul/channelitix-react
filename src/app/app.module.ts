@@ -36,6 +36,10 @@ import {BrickSelectComponent} from "./components/page/section/brick-select.compo
 import {HeadquarterSelectComponent} from "./components/page/section/headquarter-select.component";
 import {TerritorySelectComponent} from "./components/page/section/territory-select.component";
 import {CookieService} from "angular2-cookie/services/cookies.service";
+import {RegionSelectComponent} from "./components/page/section/region-select.component";
+import { DatePickerComponent } from './components/common/date_picker.component';
+import { CreateUserComponent } from './components/page/create_user.component';
+import { RoleCheckDirective } from './directives/role.directive';
 
 @NgModule({
   declarations: [
@@ -45,20 +49,24 @@ import {CookieService} from "angular2-cookie/services/cookies.service";
     HeaderComponent,
     LoginComponent,
     UserComponent,
+    CreateUserComponent,
     CustomerComponent,
     CustomerCountComponent,
     AttendanceComponent,
     AttendanceStatusDirective,
     CustomerTypeDirective,
     StatusDirective,
+    RoleCheckDirective,
     MonthPickerComponent,
     PaginationComponent,
     RoleSelectComponent,
     UserSelectComponent,
+    RegionSelectComponent,
     AreaSelectComponent,
-    BrickSelectComponent,
+    TerritorySelectComponent,
     HeadquarterSelectComponent,
-    TerritorySelectComponent
+    BrickSelectComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,

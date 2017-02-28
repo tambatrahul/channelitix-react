@@ -20,7 +20,7 @@ export class AuthService {
    */
   constructor(public http: Http, public _router: Router, private _cookieService: CookieService) {
     if (localStorage.getItem("user") !== null)
-      this.user = JSON.parse(localStorage.getItem("user"));
+      this.user = new User(JSON.parse(localStorage.getItem("user")));
   }
 
   /**

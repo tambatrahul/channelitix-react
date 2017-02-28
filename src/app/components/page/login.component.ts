@@ -54,6 +54,7 @@ export class LoginComponent extends FormComponent {
       this.loginService.login(data.username, data.password).subscribe(
         response => {
           localStorage.setItem("user", JSON.stringify(response.user));
+          this._service.user = response.user;
           this._cookieService.put("auth_token", response.user.auth_token);
           this._router.navigate(['/users']);
           this.loading = false;

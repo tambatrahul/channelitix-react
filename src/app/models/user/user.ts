@@ -28,4 +28,12 @@ export class User extends Model {
     this.auth_token = info.auth_token;
     this.role_id = info.role_id;
   }
+
+  /**
+   * if role is less then 3
+   * @returns {boolean}
+   */
+  get isLastChild(): boolean {
+    return this.role_id < 4;
+  }
 }

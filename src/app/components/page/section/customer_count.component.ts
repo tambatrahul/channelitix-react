@@ -9,8 +9,6 @@ declare let jQuery: any;
   styleUrls: ['../../../templates/less/customer.component.less']
 })
 export class CustomerCountComponent {
-
-
   /**
    * loading identifier
    */
@@ -24,6 +22,11 @@ export class CustomerCountComponent {
    */
   @Output()
   onCustomerTypeChanged = new EventEmitter();
+
+  /**
+   * Total customers
+   */
+  public total: number = 0;
 
   /**
    * selected customer type id
@@ -64,11 +67,13 @@ export class CustomerCountComponent {
    * load customerTypes
    */
   fetch() {
+    let self = this;
     this.loading = true;
     this.customerService.counts().subscribe(
       response => {
         this.loading = false;
         this.customers = response.customers;
+        this.customers.forEach(cus => self.total += cus.total_customers );
       },
       err => {
         this.loading = false;

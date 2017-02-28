@@ -1,18 +1,13 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Territory} from "../../../models/territory/territory";
 import {TerritoryService} from "../../../services/territory.service";
+import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
     selector: 'territory-select',
     templateUrl: '../../../templates/page/section/territory-select.component.html'
 })
-export class TerritorySelectComponent {
-
-    /**
-     * selected territory
-     */
-    @Input()
-    territory_id: number;
+export class TerritorySelectComponent extends BaseSelectComponent{
 
     /**
      * title for select field
@@ -20,19 +15,10 @@ export class TerritorySelectComponent {
     @Input()
     title: string = "Select Territory";
 
-    @Output()
-    onTerritoryChanged = new EventEmitter();
-
     /**
      * Area id for filter
      */
     private _area_id: number;
-
-    /**
-     * loading for server call
-     * @type {boolean}
-     */
-    private loading: boolean = false;
 
     /**
      * territories list
@@ -42,13 +28,7 @@ export class TerritorySelectComponent {
     private territories: Territory[] = [];
 
     constructor(private territoryService: TerritoryService) {
-    }
-
-    /**
-     * on load of component load territories
-     */
-    ngOnInit() {
-        this.fetch();
+      super();
     }
 
     /**
@@ -80,13 +60,5 @@ export class TerritorySelectComponent {
                 this.loading = false;
             }
         );
-    }
-
-    /**
-     * emit on change of value
-     */
-    onTerritoryChange(t_id) {
-        this.territory_id = t_id;
-        this.onTerritoryChanged.emit(t_id);
     }
 }

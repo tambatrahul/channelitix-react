@@ -1,14 +1,28 @@
 <div class="forum-stats" #loading_box>
   <div class="row">
-    <div class="col-md-4 col-sm-4" *ngFor="let c of customers">
+    <div class="col-md-3 col-sm-6">
+      <a class="sats-widget all" (click)="onCustomerTypeChange(0)" [ngClass]="{'active': customer_type_id == 0}">
+        <span class="stats-icon">
+          <i class="fa fa-group"></i>
+        </span>
+        <span class="stats-info">
+          <span class="topics-couner">{{ total }}</span>
+          <span class="topic-type">All</span>
+        </span>
+      </a>
+    </div>
+    <div class="col-md-3 col-sm-6" *ngFor="let c of customers" >
       <a class="sats-widget" customerType [customer_type]="c.customer_type"
-         (click)="onCustomerTypeChange(c.customer_type.id)">
+         (click)="onCustomerTypeChange(c.customer_type.id)" [ngClass]="{'active': customer_type_id == c.customer_type.id}">
         <span class="stats-icon">
           <i class=""></i>
         </span>
         <span class="stats-info">
           <span class="topics-couner">{{ c.total_customers}}</span>
           <span class="topic-type">{{ c.customer_type.name}}</span>
+          <span class="selected" *ngIf="customer_type_id == c.customer_type.id">
+            <i class="fa fa-check-square"></i>
+          </span>
         </span>
       </a>
     </div>
