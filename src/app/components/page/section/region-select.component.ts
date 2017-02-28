@@ -16,6 +16,12 @@ export class RegionSelectComponent extends BaseSelectComponent {
   title: string = "Select Region";
 
   /**
+   * First value text
+   */
+  @Input()
+  first_value: string = "All";
+
+  /**
    * Country id for filter
    */
   private _country_id: number;

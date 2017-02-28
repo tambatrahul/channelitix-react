@@ -25,6 +25,15 @@ export class AppConstants {
   }
 
   /**
+   * get role from id
+   * @param role_id
+   * @returns {Role}
+   */
+  static getRole(role_id) {
+    return this.roles.filter(role => role.id == role_id)[0]
+  }
+
+  /**
    * Prepare monthly Skeleton
    *
    * @param month

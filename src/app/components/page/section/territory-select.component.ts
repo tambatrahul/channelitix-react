@@ -4,61 +4,67 @@ import {TerritoryService} from "../../../services/territory.service";
 import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
-    selector: 'territory-select',
-    templateUrl: '../../../templates/page/section/territory-select.component.html'
+  selector: 'territory-select',
+  templateUrl: '../../../templates/page/section/territory-select.component.html'
 })
-export class TerritorySelectComponent extends BaseSelectComponent{
+export class TerritorySelectComponent extends BaseSelectComponent {
 
-    /**
-     * title for select field
-     */
-    @Input()
-    title: string = "Select Territory";
+  /**
+   * title for select field
+   */
+  @Input()
+  title: string = "Select Territory";
 
-    /**
-     * Area id for filter
-     */
-    private _area_id: number;
+  /**
+   * First value text
+   */
+  @Input()
+  first_value: string = "All";
 
-    /**
-     * territories list
-     *
-     * @type {Array}
-     */
-    private territories: Territory[] = [];
+  /**
+   * Area id for filter
+   */
+  private _area_id: number;
 
-    constructor(private territoryService: TerritoryService) {
-      super();
-    }
+  /**
+   * territories list
+   *
+   * @type {Array}
+   */
+  private territories: Territory[] = [];
 
-    /**
-     * area_id getter and setters
-     *
-     * @param area_id
-     */
-    @Input()
-    set area_id(area_id: number) {
-        this._area_id = area_id;
-        this.fetch();
-    }
+  constructor(private territoryService: TerritoryService) {
+    super();
+  }
 
-    get area_id(): number {
-        return this._area_id;
-    }
+  /**
+   * area_id getter and setters
+   *
+   * @param area_id
+   */
+  @Input()
+  set area_id(area_id: number) {
+    this._area_id = area_id;
+    this.fetch();
+  }
 
-    /**
-     * load territories
-     */
-    fetch() {
-        this.loading = true;
-        this.territoryService.territory(this._area_id).subscribe(
-            response => {
-                this.loading = false;
-                this.territories = response.territories;
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
+  get area_id(): number {
+    return this._area_id;
+  }
+
+  /**
+   * load territories
+   */
+  fetch() {
+    this.loading = true;
+    this.territoryService.territory(this._area_id).subscribe(
+      response => {
+        this.loading = false;
+        this.territories = response.territories;
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
 }

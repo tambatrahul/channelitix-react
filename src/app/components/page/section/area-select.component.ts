@@ -16,6 +16,12 @@ export class AreaSelectComponent extends BaseSelectComponent {
   title: string = "Select Area";
 
   /**
+   * First value for
+   */
+  @Input()
+  first_value: string = "All";
+
+  /**
    * Region id for filter
    */
   private _region_id: number;

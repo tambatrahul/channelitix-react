@@ -17,6 +17,12 @@ export class BrickSelectComponent extends BaseSelectComponent {
   title: string = "Select Brick";
 
   /**
+   * First value text
+   */
+  @Input()
+  first_value: string = "All";
+
+  /**
    * headquarter id for filter
    */
   private _headquarter_id: number;

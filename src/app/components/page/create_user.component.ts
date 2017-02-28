@@ -1,11 +1,11 @@
-import * as moment from 'moment';
+import * as moment from "moment";
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/AuthService";
 import {UserService} from "../../services/user.service";
-import {User} from "../../models/user/user";
-import {Validators, FormBuilder} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../base/form.component";
+import {AppConstants} from "../../app.constants";
 declare let jQuery: any;
 
 @Component({
@@ -18,7 +18,6 @@ export class CreateUserComponent extends FormComponent {
    * User relations
    */
   public role_id: number = 0;
-  public hq_brick_id: number = 0;
   public hq_headquarter_id: number = 0;
   public hq_territory_id: number = 0;
   public hq_area_id: number = 0;
@@ -40,7 +39,7 @@ export class CreateUserComponent extends FormComponent {
     password: [""],
     confirm_password: [""],
     joining_date: [""],
-    role_id: [""],
+    role: [""],
     hq_brick_id: [""],
     hq_headquarter_id: [""],
     hq_territory_id: [""],
@@ -53,19 +52,18 @@ export class CreateUserComponent extends FormComponent {
   /**
    * Create user Constructor
    *
-   * @param loginService
+   * @param userService
    * @param _router
    * @param _fb
    * @param _service
-   * @param _cookieService
    */
-  constructor(public userService: UserService, public _router: Router,
-              public _fb: FormBuilder, public _service: AuthService) {
+  constructor(public userService: UserService, public _router: Router, public _fb: FormBuilder,
+              public _service: AuthService) {
     super(_service);
   }
 
   /**
-   *  create user
+   * create user
    */
   save() {
     this.submitted = true;
@@ -97,9 +95,9 @@ export class CreateUserComponent extends FormComponent {
    */
   roleChanged(role_id) {
     this.role_id = role_id;
-    this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1: 0;
+    this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
     this.managerChanged(0);
-    this.form.patchValue({role_id: role_id});
+    this.form.patchValue({role: AppConstants.getRole(role_id).name});
   }
 
   /**

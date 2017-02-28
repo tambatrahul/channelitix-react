@@ -16,6 +16,12 @@ export class HeadquarterSelectComponent extends BaseSelectComponent {
   title: string = "Select Headquarter";
 
   /**
+   * First value text
+   */
+  @Input()
+  first_value: string = "All";
+
+  /**
    * Territory id for filter
    */
   private _territory_id: number;
