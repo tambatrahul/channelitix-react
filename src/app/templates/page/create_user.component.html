@@ -95,7 +95,7 @@
                     <div class="col-xs-12 col-md-6" *ngIf="role_id == 5 && hq_country_id > 0">
                       <div>
                         <region-select [value]="hq_region_id" [country_id]="hq_country_id" [title]="'Select Region'"
-                                       [title]="'Select Region'"
+                                       [first_value]="'Select Region'"
                                        (onValueChanged)="regionChanged($event)"></region-select>
                         <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
                           {{ errors.hq_region_id}}
