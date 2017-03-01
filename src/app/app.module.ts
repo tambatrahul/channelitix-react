@@ -3,6 +3,8 @@ import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
+import {nvD3} from 'ng2-nvd3'
+
 // base
 import {BaseComponent} from "./components/base.component";
 import {NavComponent} from "./components/nav.component";
@@ -42,6 +44,7 @@ import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
 import {VisitCountDirective} from "./directives/visit_count.directive";
 import {DeactivateUserComponent} from "./components/page/section/deactivate_user.component";
+import {VisitCountGraphComponent} from "./components/page/section/visit_count_graph.component";
 import {OrderService} from "./services/order.service";
 import {OrderComponent} from "./components/page/order.component";
 import {OrderCountDirective} from "./directives/order_count.directive";
@@ -73,6 +76,7 @@ import {PasswordResetComponent} from "./components/page/section/password_reset.c
     StatusDirective,
     RoleCheckDirective,
     VisitCountDirective,
+    nvD3,
     OrderCountDirective,
 
     // reusable components
@@ -87,7 +91,8 @@ import {PasswordResetComponent} from "./components/page/section/password_reset.c
     BrickSelectComponent,
     DatePickerComponent,
     DeactivateUserComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    VisitCountGraphComponent
   ],
   imports: [
     BrowserModule,

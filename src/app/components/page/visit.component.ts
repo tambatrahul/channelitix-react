@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../models/user/user";
 import {AppConstants} from "../../app.constants";
@@ -8,6 +8,7 @@ import {BaseComponent} from "../base/base.component";
 import {AuthService} from "../../services/AuthService";
 import {Holiday} from "../../models/holiday";
 declare let jQuery: any;
+declare let d3: any;
 
 @Component({
   templateUrl: '../../templates/page/visit.component.html',
@@ -26,6 +27,9 @@ export class VisitComponent extends BaseComponent {
    * manager_id
    */
   public manager_id: number = 0;
+
+  public options: {};
+  public chart_data = [];
 
   /**
    * year and month for calendar
@@ -88,7 +92,7 @@ export class VisitComponent extends BaseComponent {
    */
   addVisitToSkeleton(visits: Visit[], holidays: Holiday[]) {
     let data_skeleton = {};
-    let users:User[] = [];
+    let users: User[] = [];
 
     let skeleton = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
 
@@ -122,11 +126,32 @@ export class VisitComponent extends BaseComponent {
       response => {
         this.loading = false;
         this.addVisitToSkeleton(response.visits, response.holidays);
+        this.prepareChart(response.visits, response.holidays);
       },
       err => {
         this.loading = false;
       }
     );
+  }
+
+  /**
+   * prepare chart for visit counts
+   */
+  prepareChart(visits: Visit[], holidays: Holiday[]) {
+    let counts = AppConstants.prepareSkeletonForMonth(this.month, this.year, holidays);
+
+    // prepare visit skeleton
+    for (let visit of visits) {
+      if (counts[visit.visit_day - 1] > -1)
+        counts[visit.visit_day - 1] += visit.visit_count;
+    }
+
+    this.chart_data = counts.map((count, index) => {
+      return {
+        label: index + 1,
+        value: count
+      };
+    }).filter(count => count.value >= 0);
   }
 
   /**
