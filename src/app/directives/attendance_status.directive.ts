@@ -10,7 +10,7 @@ export class AttendanceStatusDirective {
 
   leave: string = "#e74c3c";
   working: string = "#2ecc71";
-  holiday: string = "#f1c40f";
+  holiday: string = "#ecf0f1";
 
   /**
    * Attendance Status Directive
@@ -37,6 +37,11 @@ export class AttendanceStatusDirective {
         this.el.nativeElement.style.backgroundColor = this.working;
       else if (att.status == 'holiday')
         this.el.nativeElement.style.backgroundColor = this.holiday;
+    }
+
+    if (att.isSunday) {
+      this.el.nativeElement.innerText = 'H';
+      this.el.nativeElement.style.backgroundColor = this.holiday;
     }
   }
 }

@@ -6,6 +6,7 @@ import {VisitService} from "../../services/visit.service";
 import {Visit} from "../../models/visit/visit";
 import {BaseComponent} from "../base/base.component";
 import {AuthService} from "../../services/AuthService";
+import {Holiday} from "../../models/holiday";
 declare let jQuery: any;
 
 @Component({
@@ -73,6 +74,7 @@ export class VisitComponent extends BaseComponent {
    * on load of component load customer types
    */
   ngOnInit() {
+    super.ngOnInit();
     this.month = moment().month();
     this.year = moment().year();
     this.fetchVisits();
@@ -81,29 +83,31 @@ export class VisitComponent extends BaseComponent {
   /**
    * Adding visits to skeleton
    *
-   * @param users
    * @param visits
+   * @param holidays
    */
-  addVisitToSkeleton(users: User[], visits: Visit[]) {
+  addVisitToSkeleton(visits: Visit[], holidays: Holiday[]) {
     let data_skeleton = {};
+    let users:User[] = [];
+
+    let skeleton = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
 
     // prepare visit skeleton
     for (let visit of visits) {
+
       // add user if not present
       if (!data_skeleton.hasOwnProperty(visit.created_by)) {
-        data_skeleton[visit.created_by] = AppConstants.prepareMonthSkeleton(this.month, this.year);
+        data_skeleton[visit.created_by] = skeleton.map(visit => Object.assign({}, visit));
+        users.push(visit.creator);
       }
 
       // set visit details
-      data_skeleton[visit.created_by][moment(visit.visit_date, "YYYY-MM-DD").date() - 1] = visit;
+      data_skeleton[visit.created_by][visit.visit_day - 1].visit_count = visit.visit_count;
     }
 
     // add skeleton to user
     for (let user of users) {
-      if (data_skeleton.hasOwnProperty(user.id))
-        user.visits = data_skeleton[user.id];
-      else
-        user.visits = AppConstants.prepareMonthSkeleton(this.month, this.year);
+      user.visits = data_skeleton[user.id];
     }
 
     this.users = users;
@@ -114,10 +118,10 @@ export class VisitComponent extends BaseComponent {
    */
   fetchVisits() {
     this.loading = true;
-    this.visitService.monthlyVisits(this.month + 1, this.year).subscribe(
+    this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
       response => {
         this.loading = false;
-        this.addVisitToSkeleton(response.children, response.visits);
+        this.addVisitToSkeleton(response.visits, response.holidays);
       },
       err => {
         this.loading = false;
@@ -143,7 +147,7 @@ export class VisitComponent extends BaseComponent {
   roleChanged(role_id) {
     this.role_id = role_id;
     this.manager_role_id = parseInt(role_id) + 1;
-    this.fetchVisits();
+    this.managerChanged(0);
   }
 
   /**

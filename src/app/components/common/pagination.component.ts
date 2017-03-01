@@ -30,9 +30,9 @@ export class PaginationComponent {
     if (this.total != 0 ) {
       let total_pages = Math.ceil(this.total / this.length);
 
-      let start = this.page - ((this.page -1) % 5);
+      let start = this.page - ((this.page -1) % 10);
 
-      for (let i = start; i <= Math.min(start + 4, total_pages); i++) {
+      for (let i = start; i <= Math.min(start + 9, total_pages); i++) {
         pages.push(i);
       }
     }

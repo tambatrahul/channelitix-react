@@ -1,6 +1,8 @@
 import * as moment from "moment";
 import {Attendance} from "./models/attendance/attendance";
 import {Role} from "./models/role";
+import {Visit} from "./models/visit/visit";
+import {Holiday} from "./models/holiday";
 
 export class AppConstants {
   static API_ENDPOINT: string = 'api/v1/';
@@ -34,12 +36,13 @@ export class AppConstants {
   }
 
   /**
-   * Prepare monthly Skeleton
+   * Prepare monthly attendance Skeleton
    *
    * @param month
    * @param year
+   * @param holidays
    */
-  static prepareMonthSkeleton(month: number, year: number) {
+  static prepareMonthAttendanceSkeleton(month: number, year: number, holidays: Holiday[]) {
 
     // get date
     let date = moment().year(year).month(month);
@@ -50,11 +53,56 @@ export class AppConstants {
 
     // prepare skeleton for all date
     let skeleton = new Array(end_day);
-    for (start_day; start_day <= end_day; start_day++) {
-      if (moment().month(month).year(year).date(start_day).day() == 0)
-        skeleton[start_day - 1] = new Attendance({status: 'holiday'});
-      else
-        skeleton[start_day - 1] = {};
+    for (let date = start_day; date <= end_day; date++) {
+      // set visit
+      skeleton[date - 1] = new Attendance({});
+
+      // set sunday
+      let current_date = moment().month(month).year(year).date(date);
+      if (current_date.day() == 0)
+        skeleton[date - 1].isSunday = true;
+    }
+
+    // adding holidays
+    for (let holiday of holidays) {
+      skeleton[moment(holiday.date).date() - 1].isSunday = true;
+    }
+
+    return skeleton;
+  }
+
+  /**
+   * Prepare month Visit Skeleton
+   *
+   * @param month
+   * @param year
+   * @param holidays
+   */
+  static prepareMonthVisitSkeleton(month: number, year: number, holidays: Holiday[]) {
+
+    // get date
+    let date = moment().year(year).month(month);
+
+    // get start date and end date of month
+    let start_day = date.startOf('month').date();
+    let end_day = date.endOf('month').date();
+
+    // prepare skeleton for all date
+    let skeleton = new Array(end_day);
+    for (let date = start_day; date <= end_day; date++) {
+
+      // set visit
+      skeleton[date - 1] = new Visit({});
+
+      // set sunday
+      let current_date = moment().month(month).year(year).date(date);
+      if (current_date.day() == 0)
+        skeleton[date - 1].isSunday = true;
+    }
+
+    // adding holidays
+    for (let holiday of holidays) {
+      skeleton[moment(holiday.date).date() - 1].isSunday = true;
     }
 
     return skeleton;

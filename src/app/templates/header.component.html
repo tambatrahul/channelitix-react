@@ -1,11 +1,5 @@
 <header class="top-bar">
   <div class="container-fluid top-nav">
-    <div class="search-form search-bar">
-      <form>
-        <input name="searchbox" value="" placeholder="Search Topic..." class="search-input">
-      </form>
-      <span class="search-close waves-effect"><i class="ico-cross"></i></span>
-    </div>
     <div class="row">
       <div class="col-md-2">
         <div class="clearfix top-bar-action">
@@ -25,7 +19,7 @@
               <li class="dropdown">
                 <a data-toggle="dropdown" href="#"
                    class="clearfix dropdown-toggle waves-effect waves-block waves-classic">
-                  <span class="user-info">Westilian Jaman <cite>jaman@mymail.com</cite></span>
+                  <span class="user-info">{{ user.full_name }} <cite>{{ user.username }}</cite></span>
                   <span class="user-thumb"><img src="/assets/images/jaman.jpg" alt="image"></span>
                 </a>
                 <ul role="menu" class="dropdown-menu fadeInUp">
@@ -44,11 +38,6 @@
                 </ul>
               </li>
             </ul>
-          </div>
-          <div class="pull-right desktop-search">
-							<span class="waves-effect search-btn">
-							<i class="fa fa-search"></i>
-							</span>
           </div>
           <span class="rightbar-action waves-effect"><i class="fa fa-bars"></i></span>
         </div>

@@ -40,6 +40,8 @@ import {UpdateUserComponent} from "./components/page/update_user.component";
 import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
+import {VisitCountDirective} from "./directives/visit_count.directive";
+import {DeactivateUserComponent} from "./components/page/section/deactivate_user.component";
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import {VisitComponent} from "./components/page/visit.component";
     CustomerTypeDirective,
     StatusDirective,
     RoleCheckDirective,
+    VisitCountDirective,
 
     // reusable components
     MonthPickerComponent,
@@ -76,7 +79,8 @@ import {VisitComponent} from "./components/page/visit.component";
     TerritorySelectComponent,
     HeadquarterSelectComponent,
     BrickSelectComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    DeactivateUserComponent
   ],
   imports: [
     BrowserModule,

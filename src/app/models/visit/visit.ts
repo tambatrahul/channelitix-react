@@ -13,6 +13,8 @@ export class Visit extends Model {
 
     // for internal use only
     isSunday: boolean = false;
+    visit_count: number = 0;
+    visit_day: number;
 
     constructor(info: any) {
         super(info.id);
@@ -23,5 +25,7 @@ export class Visit extends Model {
         this.customer_id = info.customer_id;
         this.created_by = info.created_by;
         this.creator = info.creator;
+        this.isSunday = info.isSunday;
+        this.visit_count = info.visit_count;
     }
 }

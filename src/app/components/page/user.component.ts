@@ -22,6 +22,11 @@ export class UserComponent extends ListComponent {
   public manager_role_id: number = 0;
 
   /**
+   * deactivating user
+   */
+  public deactivating_user: User = new User({});
+
+  /**
    * manager_id
    */
   public manager_id: number = 0;
@@ -63,7 +68,7 @@ export class UserComponent extends ListComponent {
    */
   roleChanged(role_id) {
     this.role_id = role_id;
-    this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1: 0;
+    this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
     this.managerChanged(0);
     this.fetch();
   }
@@ -88,7 +93,17 @@ export class UserComponent extends ListComponent {
   /**
    *
    */
-  deactivateUser(user_id) {
+  deactivateUser(user) {
+    this.deactivating_user = user;
+  }
 
+  /**
+   * on user deactivation
+   *
+   * @param data
+   */
+  onUserDeactivation(data) {
+    this.deactivating_user = new User({});
+    this.fetch();
   }
 }

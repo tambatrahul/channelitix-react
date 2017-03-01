@@ -1,19 +1,30 @@
-<div class="container-fluid users">
-    <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
-        <div class="row">
-            <div class="col-xs-12 col-md-6">
-                <div class="page-header">
-                    <h2>Deactivate Date</h2>
-                </div>
+<div class="modal fade" tabindex="-1" role="dialog" #deactivating_modal>
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Deactivate User {{ _user.full_name }}</h4>
+      </div>
+      <div class="modal-body" #loading_box>
+        <form [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+          <div class="row">
+            <!-- leaving Date -->
+            <div class="form-group col-xs-12">
+              <date-picker [date]="leaving_date" [title]="'Leaving Date'"
+                           (onDateChanged)="dateChanged($event)"></date-picker>
+              <small *ngIf="errors?.leaving_date" class="text-danger text-center">
+                {{ errors.leaving_date}}
+              </small>
             </div>
-            <!-- Deactivate Date -->
-            <div class="form-group">
-                <date-picker [date]="deactivate_date" [title]="'Deactivate Date'"
-                             (onDateChanged)="dateChanged($event)"></date-picker>
-                <small *ngIf="errors?.deactivate_date" class="text-danger text-center">
-                    {{ errors.deactivate_date}}
-                </small>
+            <!-- leaving Date -->
+
+            <div class="col-xs-12">
+              <button class="btn btn-primary ">Save</button>
             </div>
-        </div>
-    </form>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

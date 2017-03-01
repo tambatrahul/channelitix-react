@@ -1,10 +1,10 @@
 import {Component, ViewChild, ElementRef} from "@angular/core";
-
 import * as moment from "moment";
 import {User} from "../../models/user/user";
 import {AttendanceService} from "../../services/attendance.service";
 import {Attendance} from "../../models/attendance/attendance";
 import {AppConstants} from "../../app.constants";
+import {Holiday} from "../../models/holiday";
 declare let jQuery: any;
 
 @Component({
@@ -99,19 +99,27 @@ export class AttendanceComponent {
    *
    * @param users
    * @param attendances
+   * @param holidays
    */
-  addAttendanceToSkeleton(users: User[], attendances: Attendance[]) {
+  addAttendanceToSkeleton(users: User[], attendances: Attendance[], holidays: Holiday[]) {
     let data_skeleton = {};
+
+    // get skeleton
+    let skeleton = AppConstants.prepareMonthAttendanceSkeleton(this.month, this.year, holidays);
+    for (let user of users) {
+      data_skeleton[user.id] = skeleton.map(att => Object.assign({}, att));
+    }
 
     // prepare attendance skeleton
     for (let att of attendances) {
       // add user if not present
       if (!data_skeleton.hasOwnProperty(att.created_by)) {
-        data_skeleton[att.created_by] = AppConstants.prepareMonthSkeleton(this.month, this.year);
+        data_skeleton[att.created_by] = skeleton.map(att => Object.assign({}, att));
+        users.push(att.creator);
       }
 
       // set attendance details
-      data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1] = att;
+      data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].status = att.status;
     }
 
     // add skeleton to user
@@ -119,7 +127,7 @@ export class AttendanceComponent {
       if (data_skeleton.hasOwnProperty(user.id))
         user.attendances = data_skeleton[user.id];
       else
-        user.attendances = AppConstants.prepareMonthSkeleton(this.month, this.year);
+        user.attendances = skeleton.map(att => Object.assign({}, att));
     }
 
     this.users = users;
@@ -133,7 +141,7 @@ export class AttendanceComponent {
     this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
       response => {
         this.loading = false;
-        this.addAttendanceToSkeleton(response.children, response.attendances);
+        this.addAttendanceToSkeleton(response.children, response.attendances, response.holidays);
       },
       err => {
         this.loading = false;
