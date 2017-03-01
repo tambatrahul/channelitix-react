@@ -3,6 +3,8 @@ import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
+import {nvD3} from 'ng2-nvd3'
+
 // base
 import {BaseComponent} from "./components/base.component";
 import {NavComponent} from "./components/nav.component";
@@ -41,6 +43,7 @@ import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
 import {VisitCountDirective} from "./directives/visit_count.directive";
 import {DeactivateUserComponent} from "./components/page/section/deactivate_user.component";
+import {VisitCountGraphComponent} from "./components/page/section/visit_count_graph.component";
 
 @NgModule({
   declarations: [
@@ -66,6 +69,7 @@ import {DeactivateUserComponent} from "./components/page/section/deactivate_user
     StatusDirective,
     RoleCheckDirective,
     VisitCountDirective,
+    nvD3,
 
     // reusable components
     MonthPickerComponent,
@@ -78,7 +82,8 @@ import {DeactivateUserComponent} from "./components/page/section/deactivate_user
     HeadquarterSelectComponent,
     BrickSelectComponent,
     DatePickerComponent,
-    DeactivateUserComponent
+    DeactivateUserComponent,
+    VisitCountGraphComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+<div class="w-info-graph">
+  <div class="w-info-chart">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <div class="w-info-chart-header">
+          <h2>{{ total_visits }}</h2>
+          <p>total Visits</p>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-8">
+        <div class="line-chart-container">
+          <nvd3 [options]="options" [data]="chart_data"></nvd3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

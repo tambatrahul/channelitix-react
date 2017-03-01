@@ -107,4 +107,39 @@ export class AppConstants {
 
     return skeleton;
   }
+
+  /**
+   * Prepare skeleton for month
+   *
+   * @param month
+   * @param year
+   * @param holidays
+   * @returns {any[]}
+   */
+  static prepareSkeletonForMonth(month: number, year, holidays: Holiday[]) {
+    // get date
+    let date = moment().year(year).month(month);
+
+    // get start date and end date of month
+    let start_day = date.startOf('month').date();
+    let end_day = date.endOf('month').date();
+
+    // prepare skeleton for all date
+    let skeleton = Array<number>(date.endOf('month').date()).fill(0);
+
+    for (let date = start_day; date <= end_day; date++) {
+
+      // set sunday
+      let current_date = moment().month(month).year(year).date(date);
+      if (current_date.day() == 0)
+        skeleton[date - 1] = -1;
+    }
+
+    // adding holidays
+    for (let holiday of holidays) {
+      skeleton[moment(holiday.date).date() - 1] = -1;
+    }
+
+    return skeleton;
+  }
 }
