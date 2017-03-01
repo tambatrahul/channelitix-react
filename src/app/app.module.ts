@@ -42,6 +42,9 @@ import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
 import {VisitCountDirective} from "./directives/visit_count.directive";
 import {DeactivateUserComponent} from "./components/page/section/deactivate_user.component";
+import {OrderService} from "./services/order.service";
+import {OrderComponent} from "./components/page/order.component";
+import {OrderCountDirective} from "./directives/order_count.directive";
 
 @NgModule({
   declarations: [
@@ -61,6 +64,7 @@ import {DeactivateUserComponent} from "./components/page/section/deactivate_user
     CustomerCountComponent,
     AttendanceComponent,
     VisitComponent,
+    OrderComponent,
 
     // directives
     AttendanceStatusDirective,
@@ -68,6 +72,7 @@ import {DeactivateUserComponent} from "./components/page/section/deactivate_user
     StatusDirective,
     RoleCheckDirective,
     VisitCountDirective,
+    OrderCountDirective,
 
     // reusable components
     MonthPickerComponent,
@@ -97,7 +102,8 @@ import {DeactivateUserComponent} from "./components/page/section/deactivate_user
     VisitService,
     LoginService,
     TerritoryService,
-    UserService
+    UserService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import {Attendance} from "./models/attendance/attendance";
 import {Role} from "./models/role";
 import {Visit} from "./models/visit/visit";
 import {Holiday} from "./models/holiday";
+import {Order} from "./models/order/order";
 
 export class AppConstants {
   static API_ENDPOINT: string = 'api/v1/';
@@ -93,6 +94,43 @@ export class AppConstants {
 
       // set visit
       skeleton[date - 1] = new Visit({});
+
+      // set sunday
+      let current_date = moment().month(month).year(year).date(date);
+      if (current_date.day() == 0)
+        skeleton[date - 1].isSunday = true;
+    }
+
+    // adding holidays
+    for (let holiday of holidays) {
+      skeleton[moment(holiday.date).date() - 1].isSunday = true;
+    }
+
+    return skeleton;
+  }
+
+  /**
+   * Prepare month Order Skeleton
+   *
+   * @param month
+   * @param year
+   * @param holidays
+   */
+  static prepareMonthOrderSkeleton(month: number, year: number, holidays: Holiday[]) {
+
+    // get date
+    let date = moment().year(year).month(month);
+
+    // get start date and end date of month
+    let start_day = date.startOf('month').date();
+    let end_day = date.endOf('month').date();
+
+    // prepare skeleton for all date
+    let skeleton = new Array(end_day);
+    for (let date = start_day; date <= end_day; date++) {
+
+      // set order
+      skeleton[date - 1] = new Order({});
 
       // set sunday
       let current_date = moment().month(month).year(year).date(date);
