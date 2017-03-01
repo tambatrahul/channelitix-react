@@ -83,7 +83,9 @@
                     <i status [field]="u.status"></i>
                   </td>
                   <td>
-                    <button class="btn btn-danger btn-xs" (click)="deactivateUser(u)">Deactivate</button>
+                    <button class="btn btn-danger btn-xs" (click)="deactivateUser(u)" *ngIf="u.status == 'active'">
+                      Deactivate
+                    </button>
                   </td>
                 </tr>
                 </tbody>
@@ -96,7 +98,7 @@
   </div>
   <!-- ./Users Table -->
 
-  <div class="row" *ngIf="deactivating_user">
+  <div class="row">
     <div class="col-xs-12">
       <deactivate-user [user]="deactivating_user" (userDeactivated)="onUserDeactivation($event)"></deactivate-user>
     </div>

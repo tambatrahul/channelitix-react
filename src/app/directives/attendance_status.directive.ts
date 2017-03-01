@@ -38,5 +38,10 @@ export class AttendanceStatusDirective {
       else if (att.status == 'holiday')
         this.el.nativeElement.style.backgroundColor = this.holiday;
     }
+
+    if (att.isSunday) {
+      this.el.nativeElement.innerText = 'H';
+      this.el.nativeElement.style.backgroundColor = this.holiday;
+    }
   }
 }

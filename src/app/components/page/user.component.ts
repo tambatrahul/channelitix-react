@@ -23,7 +23,7 @@ export class UserComponent extends ListComponent {
   /**
    * deactivating user
    */
-  public deactivating_user: User;
+  public deactivating_user: User = new User({});
 
   /**
    * manager_id
@@ -95,6 +95,7 @@ export class UserComponent extends ListComponent {
    * @param data
    */
   onUserDeactivation(data) {
+    this.deactivating_user = new User({});
     this.fetch();
   }
 }

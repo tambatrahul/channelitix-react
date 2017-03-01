@@ -30,7 +30,9 @@ export class DeactivateUserComponent extends FormComponent {
   @Input()
   set user(user: User) {
     this._user = user;
-    jQuery(this.deactivating_modal.nativeElement).modal();
+    if (user.id) {
+      jQuery(this.deactivating_modal.nativeElement).modal();
+    }
   }
 
   get user() {
@@ -71,6 +73,7 @@ export class DeactivateUserComponent extends FormComponent {
    * Deactivate user
    */
   save() {
+    let self = this;
     this.submitted = true;
     if (this.form.valid) {
       let data = this.form.value;
@@ -82,7 +85,8 @@ export class DeactivateUserComponent extends FormComponent {
       // make server call
       this.userService.deactivate(data, this._user.id).subscribe(
         response => {
-          this.userDeactivated.emit();
+          jQuery(self.deactivating_modal.nativeElement).modal('hide');
+          self.userDeactivated.emit(this._user);
         },
         err => {
           this.errors = err.errors;
