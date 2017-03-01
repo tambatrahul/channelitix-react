@@ -36,6 +36,7 @@ import {CookieService} from "angular2-cookie/services/cookies.service";
 import {RegionSelectComponent} from "./components/page/section/region-select.component";
 import {DatePickerComponent} from "./components/common/date_picker.component";
 import {CreateUserComponent} from "./components/page/create_user.component";
+import {UpdateUserComponent} from "./components/page/update_user.component";
 import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
@@ -53,6 +54,7 @@ import {VisitComponent} from "./components/page/visit.component";
     LoginComponent,
     UserComponent,
     CreateUserComponent,
+    UpdateUserComponent,
     CustomerComponent,
     CustomerCountComponent,
     AttendanceComponent,
