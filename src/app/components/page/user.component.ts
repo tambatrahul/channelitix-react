@@ -27,6 +27,11 @@ export class UserComponent extends ListComponent {
   public deactivating_user: User = new User({});
 
   /**
+   * Resetting User Password
+   */
+  public reset_password: User = new User({});
+
+  /**
    * manager_id
    */
   public manager_id: number = 0;
@@ -104,6 +109,23 @@ export class UserComponent extends ListComponent {
    */
   onUserDeactivation(data) {
     this.deactivating_user = new User({});
+    this.fetch();
+  }
+
+  /**
+   * Reset Password
+   */
+  passwordReset(user) {
+    this.reset_password = user;
+  }
+
+  /**
+   * on user reset password
+   *
+   * @param data
+   */
+  onPasswordReset(data) {
+    this.reset_password = new User({});
     this.fetch();
   }
 }

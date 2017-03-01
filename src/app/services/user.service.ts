@@ -78,4 +78,12 @@ export class UserService extends BaseService {
     deactivate(data, user_id): Observable<Result> {
         return this.put(this.getBaseUrl(), data)
     }
+
+    /**
+     * Reset Password
+     */
+    password(data, id): Observable<Result> {
+        return this.put(this.getBaseUrl() + '/change_password/', id)
+    }
+
 }

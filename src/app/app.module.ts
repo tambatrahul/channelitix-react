@@ -45,6 +45,7 @@ import {DeactivateUserComponent} from "./components/page/section/deactivate_user
 import {OrderService} from "./services/order.service";
 import {OrderComponent} from "./components/page/order.component";
 import {OrderCountDirective} from "./directives/order_count.directive";
+import {PasswordResetComponent} from "./components/page/section/password_reset.component";
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import {OrderCountDirective} from "./directives/order_count.directive";
     HeadquarterSelectComponent,
     BrickSelectComponent,
     DatePickerComponent,
-    DeactivateUserComponent
+    DeactivateUserComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

@@ -87,6 +87,9 @@
                     <button class="btn btn-danger btn-xs" (click)="deactivateUser(u)" *ngIf="u.status == 'active'">
                       Deactivate
                     </button>
+                    <button class="btn btn-primary btn-xs" (click)="passwordReset(u)">
+                      Reset Password
+                    </button>
                   </td>
                 </tr>
                 </tbody>
@@ -102,6 +105,12 @@
   <div class="row">
     <div class="col-xs-12">
       <deactivate-user [user]="deactivating_user" (userDeactivated)="onUserDeactivation($event)"></deactivate-user>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <password-reset [user]="reset_password" (passwordReset)="onPasswordReset($event)"></password-reset>
     </div>
   </div>
 </div>
