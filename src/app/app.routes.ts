@@ -8,6 +8,8 @@ import {CustomerComponent} from "./components/page/customer.component";
 import {AttendanceComponent} from "./components/page/attendance.component";
 import {CreateUserComponent} from "./components/page/create_user.component";
 import {VisitComponent} from "./components/page/visit.component";
+import {UpdateUserComponent} from "./components/page/update_user.component";
+import {OrderComponent} from "./components/page/order.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -22,9 +24,16 @@ export const routes: Routes = [
         component: AttendanceComponent
       },
 
+      // add visit routes
       {
         path: 'visits',
         component: VisitComponent
+      },
+
+      // add order routes
+      {
+        path: 'orders',
+        component: OrderComponent
       },
 
       // add user routes
@@ -38,7 +47,12 @@ export const routes: Routes = [
           {
             path: 'create',
             component: CreateUserComponent
-          }
+          },
+          {
+            path: 'update/:id',
+            component: UpdateUserComponent
+          },
+
         ]
       },
 
@@ -46,12 +60,6 @@ export const routes: Routes = [
       {
         path: 'customers',
         component: CustomerComponent
-      },
-
-      // add visit routes
-      {
-        path: 'visits',
-        component: VisitComponent
       },
     ]
   },

@@ -38,12 +38,16 @@ import {CookieService} from "angular2-cookie/services/cookies.service";
 import {RegionSelectComponent} from "./components/page/section/region-select.component";
 import {DatePickerComponent} from "./components/common/date_picker.component";
 import {CreateUserComponent} from "./components/page/create_user.component";
+import {UpdateUserComponent} from "./components/page/update_user.component";
 import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
 import {VisitCountDirective} from "./directives/visit_count.directive";
 import {DeactivateUserComponent} from "./components/page/section/deactivate_user.component";
 import {VisitCountGraphComponent} from "./components/page/section/visit_count_graph.component";
+import {OrderService} from "./services/order.service";
+import {OrderComponent} from "./components/page/order.component";
+import {OrderCountDirective} from "./directives/order_count.directive";
 
 @NgModule({
   declarations: [
@@ -58,10 +62,12 @@ import {VisitCountGraphComponent} from "./components/page/section/visit_count_gr
     LoginComponent,
     UserComponent,
     CreateUserComponent,
+    UpdateUserComponent,
     CustomerComponent,
     CustomerCountComponent,
     AttendanceComponent,
     VisitComponent,
+    OrderComponent,
 
     // directives
     AttendanceStatusDirective,
@@ -70,6 +76,7 @@ import {VisitCountGraphComponent} from "./components/page/section/visit_count_gr
     RoleCheckDirective,
     VisitCountDirective,
     nvD3,
+    OrderCountDirective,
 
     // reusable components
     MonthPickerComponent,
@@ -100,7 +107,8 @@ import {VisitCountGraphComponent} from "./components/page/section/visit_count_gr
     VisitService,
     LoginService,
     TerritoryService,
-    UserService
+    UserService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

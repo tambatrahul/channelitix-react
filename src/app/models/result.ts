@@ -10,6 +10,7 @@ import {Region} from "./territory/region";
 import {Country} from "./territory/country";
 import {Visit} from "./visit/visit";
 import {Holiday} from "./holiday";
+import {Order} from "./order/order";
 
 export class Result {
 
@@ -26,6 +27,9 @@ export class Result {
 
   //Visits models
   visits: Visit[];
+
+  //Orders models
+  orders: Order[];
 
   // holidays models
   holidays: Holiday[];

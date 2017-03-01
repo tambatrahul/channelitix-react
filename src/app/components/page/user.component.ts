@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {Router} from "@angular/router";
 import {AuthService} from "../../services/AuthService";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user/user";
@@ -40,7 +41,7 @@ export class UserComponent extends ListComponent {
   /**
    * User Component Constructor
    */
-  constructor(private userService: UserService, public _service: AuthService) {
+  constructor(private userService: UserService, public _router: Router,public _service: AuthService) {
     super(_service);
   }
 
@@ -80,6 +81,13 @@ export class UserComponent extends ListComponent {
   managerChanged(manager_id) {
     this.manager_id = manager_id;
     this.fetch();
+  }
+
+  /**
+   * Update User
+   */
+  updateUser(id: number) {
+    this._router.navigate(['/users/update/', id]);
   }
 
   /**
