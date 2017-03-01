@@ -12,7 +12,7 @@ export class VisitCountDirective {
   below_5: string = "#e74c3c";
   below_15: string = "#f1c40f";
   above_15: string = "#2ecc71";
-  holiday: string = "#95a5a6";
+  holiday: string = "#ecf0f1";
 
   /**
    * Attendance Status Directive

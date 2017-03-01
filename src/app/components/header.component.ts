@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {AuthService} from "../services/AuthService";
+import {User} from "../models/user/user";
 
 @Component({
   selector: 'header-comp',
@@ -7,8 +8,18 @@ import {AuthService} from "../services/AuthService";
 })
 export class HeaderComponent {
 
-  constructor(private _authService: AuthService) {
+  /**
+   * Logged in user
+   */
+  public user: User;
 
+  /**
+   * Header component constructor
+   *
+   * @param _authService
+   */
+  constructor(private _authService: AuthService) {
+    this.user = _authService.user;
   }
 
   /**

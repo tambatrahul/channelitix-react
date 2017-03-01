@@ -1,11 +1,11 @@
-import { User } from './../models/user/user';
-import { Injectable } from "@angular/core";
-import { Http, URLSearchParams, Response } from "@angular/http";
-import { Observable } from "rxjs";
-import { BaseService } from "./base.service";
-import { Router } from "@angular/router";
-import { AuthService } from "./AuthService";
-import { Result } from "../models/result";
+import {User} from './../models/user/user';
+import {Injectable} from "@angular/core";
+import {Http, URLSearchParams, Response} from "@angular/http";
+import {Observable} from "rxjs";
+import {BaseService} from "./base.service";
+import {Router} from "@angular/router";
+import {AuthService} from "./AuthService";
+import {Result} from "../models/result";
 
 @Injectable()
 export class UserService extends BaseService {
@@ -41,7 +41,7 @@ export class UserService extends BaseService {
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
 
     // make server call
-    return this.http.get(url, { search: params, withCredentials: true })
+    return this.http.get(url, {search: params, withCredentials: true})
       .map((res: Response) => {
         return res.json();
       })
@@ -62,6 +62,6 @@ export class UserService extends BaseService {
    * Deactivate user
    */
   deactivate(data, user_id) {
-    return this.put(this.getBaseUrl(), data)
+    return this.put(this.getBaseUrl() + '/' + user_id, data)
   }
 }

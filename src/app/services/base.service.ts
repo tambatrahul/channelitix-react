@@ -89,7 +89,7 @@ export abstract class BaseService {
   }
 
   /**
-   * Make post request
+   * Make put request
    */
   public put(url: string, data?: Object, options?: Object): Observable<Result> {
     return this.http.put(url, data, options)

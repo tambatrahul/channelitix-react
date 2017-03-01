@@ -40,6 +40,7 @@ import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/page/visit.component";
 import {VisitCountDirective} from "./directives/visit_count.directive";
+import {DeactivateUserComponent} from "./components/page/section/deactivate_user.component";
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import {VisitCountDirective} from "./directives/visit_count.directive";
     TerritorySelectComponent,
     HeadquarterSelectComponent,
     BrickSelectComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    DeactivateUserComponent
   ],
   imports: [
     BrowserModule,

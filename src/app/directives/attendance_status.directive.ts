@@ -10,7 +10,7 @@ export class AttendanceStatusDirective {
 
   leave: string = "#e74c3c";
   working: string = "#2ecc71";
-  holiday: string = "#f1c40f";
+  holiday: string = "#ecf0f1";
 
   /**
    * Attendance Status Directive
