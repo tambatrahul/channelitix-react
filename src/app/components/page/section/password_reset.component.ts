@@ -80,7 +80,7 @@ export class PasswordResetComponent extends FormComponent {
       let data = this.form.value;
 
       // make server call
-      this.userService.password(data, this._user.id).subscribe(
+      this.userService.reset_password(data, this._user.id).subscribe(
         response => {
           jQuery(self.password_reset_model.nativeElement).modal('hide');
           self.passwordReset.emit(this._user);

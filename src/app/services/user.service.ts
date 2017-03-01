@@ -82,8 +82,8 @@ export class UserService extends BaseService {
     /**
      * Reset Password
      */
-    password(data, id): Observable<Result> {
-        return this.put(this.getBaseUrl() + '/change_password/', id)
+    reset_password(data, id): Observable<Result> {
+        return this.put(this.getBaseUrl() + '/' + id + '/change_password', data)
     }
 
 }
