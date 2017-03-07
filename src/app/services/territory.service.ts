@@ -65,37 +65,37 @@ export class TerritoryService extends BaseService {
   /**
    * get territories for Area
    */
-  public territory(area_id?: number): Observable<Result> {
+  public territory(headquarter_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('area_id', String(area_id > 0 ? area_id : ''));
+    params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
 
     // make server call
     return this.get(this.getBaseUrl() + '/territories', {search: params});
   }
 
   /**
-   * get headquarter for territory
+   * get headquarter for Area
    */
-  public headquarter(territory_id?: number): Observable<Result> {
+  public headquarter(area_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
+    params.set('area_id', String(area_id > 0 ? area_id : ''));
 
     // make server call
     return this.get(this.getBaseUrl() + '/headquarters', {search: params});
   }
 
   /**
-   * get brick for headquarter
+   * get brick for territory
    */
-  public brick(headquarter_id?: number): Observable<Result> {
+  public brick(territory_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
 
     // make server call
     return this.get(this.getBaseUrl() + '/bricks', {search: params});

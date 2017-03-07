@@ -20,12 +20,12 @@
                     </div>
                     <div class="col-xs-12 col-md-2" *roleCheck="4">
                         <div *ngIf="area_id > 0">
-                            <territory-select [value]="territory_id" [area_id]="area_id" [title]="'Select Territory'" (onValueChanged)="territoryChanged($event)"></territory-select>
+                            <headquarter-select [value]="headquarter_id" [area_id]="area_id" [title]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-2" *roleCheck="4">
-                        <div *ngIf="territory_id > 0">
-                            <headquarter-select [value]="headquarter_id" [territory_id]="territory_id" [title]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+                        <div *ngIf="headquarter_id > 0">
+                            <territory-select [value]="territory_id" [headquarter_id]="headquarter_id" [title]="'Select Territory'" (onValueChanged)="territoryChanged($event)"></territory-select>
                         </div>
                     </div>
                 </div>

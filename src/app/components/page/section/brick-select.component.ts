@@ -25,7 +25,7 @@ export class BrickSelectComponent extends BaseSelectComponent {
   /**
    * headquarter id for filter
    */
-  private _headquarter_id: number;
+  private _territory_id: number;
 
   /**
    * brick list
@@ -41,17 +41,17 @@ export class BrickSelectComponent extends BaseSelectComponent {
   /**
    * brick_id getter and setters
    *
-   * @param headquarter_id
+   * @param territory_id
    */
   @Input()
-  set headquarter_id(headquarter_id: number) {
-    this._headquarter_id = headquarter_id;
+  set territory_id(territory_id: number) {
+    this._territory_id = territory_id;
     this.value = 0;
     this.fetch();
   }
 
-  get headquarter_id(): number {
-    return this._headquarter_id;
+  get territory_id(): number {
+    return this._territory_id;
   }
 
   /**
@@ -59,7 +59,7 @@ export class BrickSelectComponent extends BaseSelectComponent {
    */
   fetch() {
     this.loading = true;
-    this.territoryService.brick(this._headquarter_id).subscribe(
+    this.territoryService.brick(this._territory_id).subscribe(
       response => {
         this.loading = false;
         this.bricks = response.bricks;
