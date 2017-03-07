@@ -83,7 +83,7 @@
                     <i status [field]="u.status"></i>
                   </td>
                   <td>
-                    <a class="text-primary" style="cursor: pointer;" title="Update" (click)="updateUser(user.id)"><i class="fa fa-edit"></i></a>
+                    <a class="text-primary" style="cursor: pointer;" title="Update" (click)="updateUser(u.id)"><i class="fa fa-edit"></i></a>
                     <button class="btn btn-danger btn-xs" (click)="deactivateUser(u)" *ngIf="u.status == 'active'">
                       Deactivate
                     </button>

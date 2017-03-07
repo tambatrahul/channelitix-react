@@ -22,9 +22,9 @@ export class HeadquarterSelectComponent extends BaseSelectComponent {
   first_value: string = "All";
 
   /**
-   * Territory id for filter
+   * Area id for filter
    */
-  private _territory_id: number;
+  private _area_id: number;
 
   /**
    * headquarters list
@@ -38,18 +38,18 @@ export class HeadquarterSelectComponent extends BaseSelectComponent {
   }
 
   /**
-   * territory_id getter and setters
+   * area_id getter and setters
    *
-   * @param territory_id
+   * @param area_id
    */
   @Input()
-  set territory_id(territory_id: number) {
-    this._territory_id = territory_id;
+  set area_id(area_id: number) {
+    this._area_id = area_id;
     this.fetch();
   }
 
-  get territory_id(): number {
-    return this._territory_id;
+  get area_id(): number {
+    return this._area_id;
   }
 
   /**
@@ -57,7 +57,7 @@ export class HeadquarterSelectComponent extends BaseSelectComponent {
    */
   fetch() {
     this.loading = true;
-    this.territoryService.headquarter(this._territory_id).subscribe(
+    this.territoryService.headquarter(this._area_id).subscribe(
       response => {
         this.loading = false;
         this.headquarters = response.headquarters;

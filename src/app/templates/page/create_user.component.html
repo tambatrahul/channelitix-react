@@ -119,32 +119,32 @@
                     </div>
                     <!-- ./Area select -->
 
-                    <!-- Territory select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 3 && hq_area_id > 0">
-                      <div>
-                        <territory-select [value]="hq_territory_id" [area_id]="hq_area_id"
-                                          [title]="'Select Territory'" [first_value]="'Select Territory'"
-                                          (onValueChanged)="territoryChanged($event)"></territory-select>
-                        <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
-                          {{ errors.hq_territory_id}}
-                        </small>
-                      </div>
-                    </div>
-                    <!-- ./Territory select -->
-
                     <!-- Head quarter select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 2 && hq_territory_id > 0">
+                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 2 && hq_area_id > 0">
                       <div>
-                        <headquarter-select [value]="hq_headquarter_id" [territory_id]="hq_territory_id"
+                        <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
                                             [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
                                             (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                        <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
-                          {{ errors.hq_territory_id}}
+                        <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
+                          {{ errors.hq_area_id}}
                         </small>
                       </div>
                     </div>
                     <!-- ./Head quarter select -->
+
+                    <!-- Territory select -->
+                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 3 && hq_headquarter_id > 0">
+                      <div>
+                        <territory-select [value]="hq_territory_id" [headquarter_id]="hq_headquarter_id"
+                                          [title]="'Select Territory'" [first_value]="'Select Territory'"
+                                          (onValueChanged)="territoryChanged($event)"></territory-select>
+                        <small *ngIf="errors?.hq_headquarter_id" class="text-danger text-center">
+                          {{ errors.hq_headquarter_id}}
+                        </small>
+                      </div>
+                    </div>
+                    <!-- ./Territory select -->
                   </div>
                   <!-- ./Select territory depending on manager -->
 
