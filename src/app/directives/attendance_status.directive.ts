@@ -1,5 +1,6 @@
 import {Directive, ElementRef} from "@angular/core";
 import {Attendance} from "../models/attendance/attendance";
+import {AppConstants} from "../app.constants";
 
 
 @Directive({
@@ -31,11 +32,11 @@ export class AttendanceStatusDirective {
       this.el.nativeElement.innerText = att.status.charAt(0).toUpperCase();
 
       // set background color depending on status
-      if (att.status == 'leave')
+      if (att.status == AppConstants.LEAVE)
         this.el.nativeElement.style.backgroundColor = this.leave;
-      else if (att.status == 'working')
+      else if (att.status == AppConstants.WORKING)
         this.el.nativeElement.style.backgroundColor = this.working;
-      else if (att.status == 'holiday')
+      else if (att.status == AppConstants.HOLIDAY)
         this.el.nativeElement.style.backgroundColor = this.holiday;
     }
 

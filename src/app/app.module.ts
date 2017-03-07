@@ -3,8 +3,7 @@ import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
-import {nvD3} from 'ng2-nvd3'
-
+import {nvD3} from "ng2-nvd3";
 // base
 import {BaseComponent} from "./components/base.component";
 import {NavComponent} from "./components/nav.component";
@@ -51,68 +50,68 @@ import {OrderCountDirective} from "./directives/order_count.directive";
 import {PasswordResetComponent} from "./components/page/section/password_reset.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
+    declarations: [
+        AppComponent,
 
-    // base components
-    BaseComponent,
-    NavComponent,
-    HeaderComponent,
+        // base components
+        BaseComponent,
+        NavComponent,
+        HeaderComponent,
 
-    // pages
-    LoginComponent,
-    UserComponent,
-    CreateUserComponent,
-    UpdateUserComponent,
-    CustomerComponent,
-    CustomerCountComponent,
-    AttendanceComponent,
-    VisitComponent,
-    OrderComponent,
+        // pages
+        LoginComponent,
+        UserComponent,
+        CreateUserComponent,
+        UpdateUserComponent,
+        CustomerComponent,
+        CustomerCountComponent,
+        AttendanceComponent,
+        VisitComponent,
+        OrderComponent,
 
-    // directives
-    AttendanceStatusDirective,
-    CustomerTypeDirective,
-    StatusDirective,
-    RoleCheckDirective,
-    VisitCountDirective,
-    nvD3,
-    OrderCountDirective,
+        // directives
+        AttendanceStatusDirective,
+        CustomerTypeDirective,
+        StatusDirective,
+        RoleCheckDirective,
+        VisitCountDirective,
+        nvD3,
+        OrderCountDirective,
 
-    // reusable components
-    MonthPickerComponent,
-    PaginationComponent,
-    RoleSelectComponent,
-    UserSelectComponent,
-    RegionSelectComponent,
-    AreaSelectComponent,
-    TerritorySelectComponent,
-    HeadquarterSelectComponent,
-    BrickSelectComponent,
-    DatePickerComponent,
-    DeactivateUserComponent,
-    PasswordResetComponent,
-    VisitCountGraphComponent
-  ],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpModule,
-    routing
-  ],
-  providers: [
-    CookieService,
-    AuthService,
-    AttendanceService,
-    CustomerService,
-    VisitService,
-    LoginService,
-    TerritoryService,
-    UserService,
-    OrderService
-  ],
-  bootstrap: [AppComponent]
+        // reusable components
+        MonthPickerComponent,
+        PaginationComponent,
+        RoleSelectComponent,
+        UserSelectComponent,
+        RegionSelectComponent,
+        AreaSelectComponent,
+        TerritorySelectComponent,
+        HeadquarterSelectComponent,
+        BrickSelectComponent,
+        DatePickerComponent,
+        DeactivateUserComponent,
+        PasswordResetComponent,
+        VisitCountGraphComponent
+    ],
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpModule,
+        routing
+    ],
+    providers: [
+        CookieService,
+        AuthService,
+        AttendanceService,
+        CustomerService,
+        VisitService,
+        LoginService,
+        TerritoryService,
+        UserService,
+        OrderService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

@@ -29,7 +29,7 @@ export class OrderCountDirective {
   set order(order: Order) {
     if (order.order_total_count > 0) {
       // set text value
-      this.el.nativeElement.innerText = Math.round(order.order_total_count/1000);
+      this.el.nativeElement.innerText = order.order_total_count/1000;
 
       // set background color depending on status
       if (order.order_total_count < 500)
