@@ -9,19 +9,25 @@ export class AppConstants {
     static API_ENDPOINT: string = 'api/v1/';
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
-  // roles of user
-  static roles: Array<Role> = [
-    new Role({id: 6, name: 'COUNTRY_MNG', title: 'Country Managers'}),
-    new Role({id: 5, name: 'REGION_MNG', title: 'Region Managers'}),
-    new Role({id: 4, name: 'AREA_MNG', title: 'Area Managers'}),
-    new Role({id: 3, name: 'HQ_MNG', title: 'Territory Managers'}),
-    new Role({id: 2, name: 'TERRITORY_MNG', title: 'Medical Reps'})
-  ];
+    // roles of user
+    static roles: Array<Role> = [
+        new Role({id: 6, name: 'COUNTRY_MNG', title: 'Country Managers'}),
+        new Role({id: 5, name: 'REGION_MNG', title: 'Region Managers'}),
+        new Role({id: 4, name: 'AREA_MNG', title: 'Area Managers'}),
+        new Role({id: 3, name: 'HQ_MNG', title: 'Territory Managers'}),
+        new Role({id: 2, name: 'TERRITORY_MNG', title: 'Medical Reps'})
+    ];
 
     // attendance static values
     static WORKING: string = 'working';
     static LEAVE: string = 'leave';
     static HOLIDAY: string = 'holiday';
+
+    // dates selection constants
+    static DAILY: string = 'day';
+    static MONTHLY: string = 'month';
+    static YEARLY: string = 'year';
+    static date_types: Array<string> = ['day', 'month'];
 
     /**
      * get list of all child roles

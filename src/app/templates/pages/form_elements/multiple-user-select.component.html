@@ -1,0 +1,14 @@
+<div class="box-widget widget-module no-border filters">
+    <div class="widget-head clearfix">
+        <h4>{{ title }}</h4>
+    </div>
+    <div class="widget-container">
+        <ul class="list-group multiple-select">
+            <li class="list-group-item" *ngFor="let m of models">
+                <label>
+                    <input type="checkbox" value="m.id"><span>{{ m.full_name }}</span>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>

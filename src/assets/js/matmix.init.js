@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    var pCon = $('.page-container'),
+    var pCon = $('.pages-container'),
         sRight = $('.right-aside'),
         aRight = $('.right-aside'),
         mLbar = $('.m-leftbar-show'),
@@ -179,7 +179,7 @@ jQuery(document).ready(function ($) {
         $('.email-content').each(function () {
             if (mailLenght > 1) {
 
-                $(this).parent('.mail-body').addClass('multi-page');
+                $(this).parent('.mail-body').addClass('multi-pages');
             }
 
         });
@@ -219,7 +219,7 @@ jQuery(document).ready(function ($) {
         event.preventDefault();
         var minCheck = $(this).parents('.compose-form-top').parents(cFrm);
         if (minCheck.hasClass('minimized')) {
-            $("<span class='i-mask'></span>").prependTo(".page-container");
+            $("<span class='i-mask'></span>").prependTo(".pages-container");
             $(".i-mask").css('cursor', 'url(images/close-icon.png),auto');
             minCheck.removeClass('minimized');
             pHtml.addClass('off-canvas');
@@ -250,7 +250,7 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.compose-mail', function (event) {
         event.preventDefault();
         cFrm.addClass('compose-form-show');
-        $("<span class='i-mask'></span>").prependTo(".page-container");
+        $("<span class='i-mask'></span>").prependTo(".pages-container");
         $(".i-mask").css('cursor', 'url(images/close-icon.png),auto');
         pHtml.addClass('off-canvas');
         pBody.addClass('off-canvas');

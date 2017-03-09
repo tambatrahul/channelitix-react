@@ -11,7 +11,7 @@ declare let jQuery: any;
 declare let d3: any;
 
 @Component({
-  templateUrl: '../../templates/page/visit.component.html',
+  templateUrl: '../../templates/pages/visit.component.html',
   styleUrls: ['../../templates/less/visit.component.less']
 })
 export class VisitComponent extends BaseComponent {

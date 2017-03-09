@@ -1,50 +1,77 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
 declare let jQuery: any;
+import * as moment from "moment";
 
 @Component({
-  selector: 'date-picker',
-  templateUrl: '../../templates/common/date_picker.component.html'
+    selector: 'date-picker',
+    templateUrl: '../../templates/common/date_picker.component.html'
 })
 export class DatePickerComponent {
 
-  /**
-   * Date input
-   */
-  @Input()
-  date: number;
+    /**
+     * Date input
+     */
+    @Input()
+    get date() {
+        return this._date;
+    }
+    set date(date) {
+        this._date = date;
+        if (this.picker && this._date.length > 0)
+            this.picker.selectDate(new Date(this._date));
+    }
 
-  /**
-   * Title of field
-   */
-  @Input()
-  title:string;
+    /**
+     * date value
+     */
+    _date: string = "";
 
-  /**
-   * Date changed emitter
-   */
-  @Output()
-  onDateChanged = new EventEmitter();
+    /**
+     * Title of field
+     */
+    @Input()
+    title: string;
 
-  /**
-   * date input field
-   */
-  @ViewChild('date_input')
-  date_input: ElementRef;
+    /**
+     * date_format for input
+     * @type {string}
+     */
+    @Input()
+    date_format: string = 'dd MM yyyy';
 
-  /**
-   * on load of component set Month Picker
-   */
-  ngOnInit() {
-    let self = this;
+    /**
+     * Date changed emitter
+     */
+    @Output()
+    onDateChanged = new EventEmitter();
 
-    // start date picker
-    let picker = jQuery(this.date_input.nativeElement).datepicker({
-      language: 'en',
-      onSelect: function (fd, d, picker) {
-        self.onDateChanged.emit(d);
-      }
-    }).data('datepicker');
+    /**
+     * date input field
+     */
+    @ViewChild('date_input')
+    date_input: ElementRef;
 
-    picker.selectDate(this.date);
-  }
+    /**
+     * date picker instance
+     */
+    picker;
+
+    /**
+     * on load of component set Month Picker
+     */
+    ngOnInit() {
+        let self = this;
+
+        // start date picker
+        this.picker = jQuery(this.date_input.nativeElement).datepicker({
+            language: 'en',
+            position: 'left center',
+            dateFormat: this.date_format,
+            onSelect: function (fd, d, picker) {
+                self.onDateChanged.emit(fd);
+            }
+        }).data('datepicker');
+
+        this.picker.selectDate(new Date(this._date));
+    }
 }

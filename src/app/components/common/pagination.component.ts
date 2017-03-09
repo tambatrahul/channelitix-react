@@ -20,7 +20,7 @@ export class PaginationComponent {
   onPageChanged = new EventEmitter();
 
   /**
-   * get page
+   * get pages
    *
    * @returns {Array}
    */
@@ -50,7 +50,7 @@ export class PaginationComponent {
   }
 
   /**
-   * hide next when page number is save as first page
+   * hide next when pages number is save as first pages
    *
    * @returns {boolean}
    */
@@ -59,7 +59,7 @@ export class PaginationComponent {
   }
 
   /**
-   * hide next when page number is save as last page
+   * hide next when pages number is save as last pages
    *
    * @returns {boolean}
    */
@@ -68,7 +68,7 @@ export class PaginationComponent {
   }
 
   /**
-   * page changed trigger
+   * pages changed trigger
    *
    * @param page
    */

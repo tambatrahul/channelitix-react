@@ -5,7 +5,7 @@ import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
   selector: 'territory-select',
-  templateUrl: '../../../templates/page/section/territory-select.component.html'
+  templateUrl: '../../../templates/pages/section/territory-select.component.html'
 })
 export class TerritorySelectComponent extends BaseSelectComponent {
 

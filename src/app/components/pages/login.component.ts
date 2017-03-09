@@ -7,7 +7,7 @@ import {FormComponent} from "../base/form.component";
 import {AuthService} from "../../services/AuthService";
 
 @Component({
-  templateUrl: '../../templates/page/login.component.html',
+  templateUrl: '../../templates/pages/login.component.html',
   styleUrls: ['../../templates/less/login.component.less']
 })
 export class LoginComponent extends FormComponent {
@@ -30,7 +30,7 @@ export class LoginComponent extends FormComponent {
   });
 
   /**
-   * Constructor for login page
+   * Constructor for login pages
    *
    * @param loginService
    * @param _router

@@ -5,7 +5,7 @@ declare let jQuery: any;
 
 @Component({
   selector: 'customer_count',
-  templateUrl: '../../../templates/page/section/count.component.html',
+  templateUrl: '../../../templates/pages/section/count.component.html',
   styleUrls: ['../../../templates/less/customer.component.less']
 })
 export class CustomerCountComponent {

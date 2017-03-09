@@ -5,7 +5,7 @@ import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
   selector: 'headquarter-select',
-  templateUrl: '../../../templates/page/section/headquarter-select.component.html'
+  templateUrl: '../../../templates/pages/section/headquarter-select.component.html'
 })
 export class HeadquarterSelectComponent extends BaseSelectComponent {
 

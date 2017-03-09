@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user/user";
-import {BaseSelectComponent} from "../page/section/base-select.component";
+import {BaseSelectComponent} from "../pages/section/base-select.component";
 
 @Component({
   selector: 'user-select',

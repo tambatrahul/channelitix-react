@@ -9,7 +9,7 @@ import {AppConstants} from "../../app.constants";
 declare let jQuery: any;
 
 @Component({
-  templateUrl: '../../templates/page/create_user.component.html',
+  templateUrl: '../../templates/pages/create_user.component.html',
   styleUrls: ['../../templates/less/user.component.less']
 })
 export class CreateUserComponent extends FormComponent {

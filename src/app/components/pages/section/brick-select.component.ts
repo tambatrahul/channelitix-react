@@ -6,7 +6,7 @@ import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
   selector: 'brick-select',
-  templateUrl: '../../../templates/page/section/brick-select.component.html'
+  templateUrl: '../../../templates/pages/section/brick-select.component.html'
 })
 export class BrickSelectComponent extends BaseSelectComponent {
 

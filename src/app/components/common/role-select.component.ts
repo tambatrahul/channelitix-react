@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {AppConstants} from "../../app.constants";
 import {AuthService} from "../../services/AuthService";
-import {BaseSelectComponent} from "../page/section/base-select.component";
+import {BaseSelectComponent} from "../pages/section/base-select.component";
 
 @Component({
   selector: 'role-select',

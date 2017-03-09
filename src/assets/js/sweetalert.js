@@ -215,10 +215,10 @@ sweetAlert.close = swal.close = function () {
     _hasClass$addClass$removeClass$escapeHtml$_show$show$_hide$hide$isDescendant$getTopMargin$fadeIn$fadeOut$fireClick$stopEventPropagation.removeClass(modal, customClass);
   }, 300);
 
-  // Make page scrollable again
+  // Make pages scrollable again
   _hasClass$addClass$removeClass$escapeHtml$_show$show$_hide$hide$isDescendant$getTopMargin$fadeIn$fadeOut$fireClick$stopEventPropagation.removeClass(document.body, 'stop-scrolling');
 
-  // Reset the page to its previous state
+  // Reset the pages to its previous state
   window.onkeydown = previousWindowKeyDown;
   if (window.previousActiveElement) {
     window.previousActiveElement.focus();

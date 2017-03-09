@@ -8,7 +8,7 @@ declare let jQuery: any;
 
 
 @Component({
-  templateUrl: '../../templates/page/user.component.html',
+  templateUrl: '../../templates/pages/user.component.html',
   styleUrls: ['../../templates/less/user.component.less']
 })
 export class UserComponent extends ListComponent {

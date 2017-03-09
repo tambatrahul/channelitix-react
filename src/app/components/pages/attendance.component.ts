@@ -8,8 +8,7 @@ import {Holiday} from "../../models/holiday";
 declare let jQuery: any;
 
 @Component({
-    selector: 'app-root',
-    templateUrl: '../../templates/page/attendance.component.html',
+    templateUrl: '../../templates/pages/attendance.component.html',
     styleUrls: ['../../templates/less/attendance.component.less']
 })
 export class AttendanceComponent {

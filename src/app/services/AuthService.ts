@@ -27,7 +27,7 @@ export class AuthService {
 
   /**
    * Check if the user is logged in or not
-   * redirect to login page when user is not correct
+   * redirect to login pages when user is not correct
    */
   checkCredentials() {
     if (localStorage.getItem("user") === null) {

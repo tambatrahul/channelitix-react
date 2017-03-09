@@ -10,7 +10,7 @@ import {Order} from "../../models/order/order";
 declare let jQuery: any;
 
 @Component({
-  templateUrl: '../../templates/page/order.component.html',
+  templateUrl: '../../templates/pages/order.component.html',
   styleUrls: ['../../templates/less/order.component.less']
 })
 export class OrderComponent extends BaseComponent {

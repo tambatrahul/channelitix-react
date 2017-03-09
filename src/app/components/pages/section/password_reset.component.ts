@@ -9,18 +9,18 @@ import {User} from "../../../models/user/user";
 declare let jQuery: any;
 
 @Component({
-  selector: 'deactivate-user',
-  templateUrl: '../../../templates/page/deactivate_user.component.html'
+  selector: 'password-reset',
+  templateUrl: '../../../templates/pages/password_reset.component.html'
 })
-export class DeactivateUserComponent extends FormComponent {
+export class PasswordResetComponent extends FormComponent {
 
   private _user: User;
 
   /**
    * loading identifier
    */
-  @ViewChild('deactivating_modal')
-  deactivating_modal: ElementRef;
+  @ViewChild('password_reset_model')
+  password_reset_model: ElementRef;
 
   /**
    * user to deactivate
@@ -31,7 +31,7 @@ export class DeactivateUserComponent extends FormComponent {
   set user(user: User) {
     this._user = user;
     if (user.id) {
-      jQuery(this.deactivating_modal.nativeElement).modal();
+      jQuery(this.password_reset_model.nativeElement).modal();
     }
   }
 
@@ -45,7 +45,7 @@ export class DeactivateUserComponent extends FormComponent {
    * @type {EventEmitter}
    */
   @Output()
-  userDeactivated = new EventEmitter();
+  passwordReset = new EventEmitter();
 
   /**
    * user form
@@ -53,11 +53,12 @@ export class DeactivateUserComponent extends FormComponent {
    * @type {void|FormGroup}
    */
   public form = this._fb.group({
-    leaving_date: [""]
+    new_password: [""],
+    confirm_new_password: [""],
   });
 
   /**
-   * Deactivate user Constructor
+   * Password Reset user Constructor
    *
    * @param userService
    * @param _router
@@ -78,27 +79,16 @@ export class DeactivateUserComponent extends FormComponent {
     if (this.form.valid) {
       let data = this.form.value;
 
-      // format Deactivate date
-      if (data.leaving_date)
-        data.leaving_date = moment(data.leaving_date, "DD MMMM YYYY").format('YYYY-MM-DD');
-
       // make server call
-      this.userService.deactivate(data, this._user.id).subscribe(
+      this.userService.reset_password(data, this._user.id).subscribe(
         response => {
-          jQuery(self.deactivating_modal.nativeElement).modal('hide');
-          self.userDeactivated.emit(this._user);
+          jQuery(self.password_reset_model.nativeElement).modal('hide');
+          self.passwordReset.emit(this._user);
         },
         err => {
           this.errors = err.errors;
         }
       );
     }
-  }
-
-  /**
-   * on leaving date changed
-   */
-  dateChanged(date) {
-    this.form.patchValue({leaving_date: date});
   }
 }

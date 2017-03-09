@@ -6,13 +6,13 @@ import {ListComponent} from "../base/list.component";
 declare let jQuery: any;
 
 @Component({
-    templateUrl: '../../templates/page/customer.component.html',
+    templateUrl: '../../templates/pages/customer.component.html',
     styleUrls: ['../../templates/less/customer.component.less']
 })
 export class CustomerComponent extends ListComponent {
 
     /**
-     * page number for customer and total customers
+     * pages number for customer and total customers
      *
      * @type {number}
      */

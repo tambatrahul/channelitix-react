@@ -5,7 +5,7 @@ import {BaseSelectComponent} from "./base-select.component";
 
 @Component({
   selector: 'region-select',
-  templateUrl: '../../../templates/page/section/region-select.component.html'
+  templateUrl: '../../../templates/pages/section/region-select.component.html'
 })
 export class RegionSelectComponent extends BaseSelectComponent {
 
