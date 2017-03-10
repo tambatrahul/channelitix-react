@@ -125,8 +125,18 @@ export class VisitComponent extends BaseComponent {
         this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
             response => {
                 this.loading = false;
-                this.addVisitToSkeleton(response.visits, response.holidays);
-                this.prepareChart(response.visits, response.holidays);
+                // convert to visits
+                let visits: Visit[] = response.visits.map(function (visit, index) {
+                    return new Visit(visit);
+                });
+
+                // convert to holidays
+                let holidays: Holiday[] = response.visits.map(function (visit, index) {
+                    return new Holiday(visit);
+                });
+
+                this.addVisitToSkeleton(visits, holidays);
+                this.prepareChart(visits, holidays);
             },
             err => {
                 this.loading = false;
