@@ -6,7 +6,7 @@ import {Holiday} from "./models/holiday";
 import {Order} from "./models/order/order";
 
 export class AppConstants {
-    static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
+    static API_ENDPOINT: string = '/api/v1/';
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
     // roles of user
@@ -90,7 +90,7 @@ export class AppConstants {
      * @param year
      * @param holidays
      */
-    static prepareMonthVisitSkeleton(month: number, year: number, holidays: Holiday[]) {
+    static prepareMonthVisitSkeleton(month: number, year: number, holidays: Holiday[]): Array<Visit> {
 
         // get date
         let date = moment().year(year).month(month);
@@ -100,7 +100,7 @@ export class AppConstants {
         let end_day = date.endOf('month').date();
 
         // prepare skeleton for all date
-        let skeleton = new Array(end_day);
+        let skeleton = new Array<Visit>(end_day);
         for (let date = start_day; date <= end_day; date++) {
 
             // set visit

@@ -94,14 +94,14 @@ export class VisitComponent extends BaseComponent {
         let data_skeleton = {};
         let users: User[] = [];
 
-        let skeleton = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+        let skeleton: Array<Visit> = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
 
         // prepare visit skeleton
         for (let visit of visits) {
 
             // add user if not present
             if (!data_skeleton.hasOwnProperty(visit.created_by)) {
-                data_skeleton[visit.created_by] = skeleton.map(visit => Object.assign({}, visit));
+                data_skeleton[visit.created_by] = skeleton.map(visit => Object.assign(new Visit({}), visit));
                 users.push(visit.creator);
             }
 
@@ -156,7 +156,6 @@ export class VisitComponent extends BaseComponent {
                 counts[visit.visit_day - 1] += visit.visit_count;
         }
 
-        console.log(counts);
         this.chart_data = counts.map((count, index) => {
             return {
                 label: index + 1,

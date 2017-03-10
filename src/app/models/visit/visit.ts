@@ -26,6 +26,16 @@ export class Visit extends Model {
         this.created_by = info.created_by;
         this.creator = info.creator;
         this.isSunday = info.isSunday;
-        this.visit_count = parseInt(info.visit_count);
+
+
+        // internal
+        if (typeof info.visit_count == 'string')
+            this.visit_count = parseInt(info.visit_count);
+        else if (info.visit_count)
+            this.visit_count = info.visit_count;
+        else
+            this.visit_count = 0;
+
+        this.visit_day = info.visit_day;
     }
 }
