@@ -111,7 +111,7 @@ export abstract class BaseService {
         let headers = new Headers();
         if (options) {
             if (this._authService.user) {
-                headers.append('auth_token', this._authService.user.auth_token);
+                headers.append('Auth-Token', this._authService.user.auth_token);
             }
         } else {
             options = {};
