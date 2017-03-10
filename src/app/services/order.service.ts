@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions} from "@angular/http";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
@@ -59,6 +59,6 @@ export class OrderService extends BaseService {
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
 
     // make server call
-    return this.get(url, {search: params});
+    return this.get(url, new RequestOptions({search: params}));
   }
 }

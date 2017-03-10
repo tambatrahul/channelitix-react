@@ -1,4 +1,4 @@
-import {Http, Response, Headers} from "@angular/http";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {Observable} from "rxjs";
@@ -64,7 +64,7 @@ export abstract class BaseService {
      * @param options
      * @returns {Observable<Result>}
      */
-    public get(url: string, options?: Object): Observable<Result> {
+    public get(url: string, options?: RequestOptions): Observable<Result> {
         return this.http.get(url, this.addCredentials(options))
             .map((res: Response) => {
                 return res.json();
@@ -77,7 +77,7 @@ export abstract class BaseService {
     /**
      * Make post request
      */
-    public post(url: string, data?: Object, options?: Object): Observable<Result> {
+    public post(url: string, data?: Object, options?: RequestOptions): Observable<Result> {
         return this.http.post(url, data, this.addCredentials(options))
             .map((res: Response) => {
                 return res.json();
@@ -91,7 +91,7 @@ export abstract class BaseService {
     /**
      * Make put request
      */
-    public put(url: string, data?: Object, options?: Object): Observable<Result> {
+    public put(url: string, data?: Object, options?: RequestOptions): Observable<Result> {
         return this.http.put(url, data, this.addCredentials(options))
             .map((res: Response) => {
                 return res.json();
@@ -107,16 +107,17 @@ export abstract class BaseService {
      *
      * @param options
      */
-    public addCredentials(options?: Object) {
+    public addCredentials(options?: RequestOptions) {
         let headers = new Headers();
         if (options) {
             if (this._authService.user) {
                 headers.append('Auth-Token', this._authService.user.auth_token);
             }
         } else {
-            options = {};
+            options = new RequestOptions();
         }
 
-        return options['headers'] = headers;
+        options.headers = headers;
+        return options;
     }
 }

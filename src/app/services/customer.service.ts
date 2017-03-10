@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, Response} from "@angular/http";
+import {Http, URLSearchParams, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -49,7 +49,7 @@ export class CustomerService extends BaseService {
         params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
 
         // make server call
-        return this.get(this.getBaseUrl(), {search: params});
+        return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
     }
 
     /**

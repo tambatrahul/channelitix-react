@@ -1,6 +1,6 @@
 import {User} from './../models/user/user';
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, Response} from "@angular/http";
+import {Http, URLSearchParams, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {BaseService} from "./base.service";
 import {Router} from "@angular/router";
@@ -41,14 +41,14 @@ export class UserService extends BaseService {
         params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
 
         // make server call
-        return this.get(url, {search: params});
+        return this.get(url, new RequestOptions({search: params}));
     }
 
     /**
      * Get User
      */
     read(id: number): Observable<Result> {
-        return this.get(this.getBaseUrl() + '/', id);
+        return this.get(this.getBaseUrl() + '/' + id);
     }
 
     /**
@@ -62,7 +62,7 @@ export class UserService extends BaseService {
      * Update User
      */
     update(user: User, id: number): Observable<Result> {
-        return this.post(this.getBaseUrl(), user, id)
+        return this.post(this.getBaseUrl(), user)
     }
 
     /**

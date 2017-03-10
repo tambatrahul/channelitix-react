@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {BaseService} from "./base.service";
 import {Router} from "@angular/router";
@@ -46,7 +46,7 @@ export class TerritoryService extends BaseService {
     params.set('country_id', String(country_id > 0 ? country_id : ''));
 
     // make server call
-    return this.get(this.getBaseUrl() + '/regions', {search: params});
+    return this.get(this.getBaseUrl() + '/regions', new RequestOptions({search: params}));
   }
 
   /**
@@ -59,7 +59,7 @@ export class TerritoryService extends BaseService {
     params.set('region_id', String(region_id > 0 ? region_id : ''));
 
     // make server call
-    return this.get(this.getBaseUrl() + '/areas', {search: params});
+    return this.get(this.getBaseUrl() + '/areas', new RequestOptions({search: params}));
   }
 
   /**
@@ -72,7 +72,7 @@ export class TerritoryService extends BaseService {
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
 
     // make server call
-    return this.get(this.getBaseUrl() + '/territories', {search: params});
+    return this.get(this.getBaseUrl() + '/territories', new RequestOptions({search: params}));
   }
 
   /**
@@ -85,7 +85,7 @@ export class TerritoryService extends BaseService {
     params.set('area_id', String(area_id > 0 ? area_id : ''));
 
     // make server call
-    return this.get(this.getBaseUrl() + '/headquarters', {search: params});
+    return this.get(this.getBaseUrl() + '/headquarters', new RequestOptions({search: params}));
   }
 
   /**
@@ -98,6 +98,6 @@ export class TerritoryService extends BaseService {
     params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
 
     // make server call
-    return this.get(this.getBaseUrl() + '/bricks', {search: params});
+    return this.get(this.getBaseUrl() + '/bricks', new RequestOptions({search: params}));
   }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, Response} from "@angular/http";
+import {Http, URLSearchParams, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -42,13 +42,6 @@ export class AttendanceService extends BaseService {
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
 
     // make server call
-    return this.http.get(url, {search: params})
-      .map((res: Response) => {
-        return res.json();
-      })
-      .catch((error: any) => {
-        this.checkResponse(error);
-        return Observable.throw(error.json().error || 'Server error')
-      });
+    return this.get(url, new RequestOptions({search: params}));
   }
 }
