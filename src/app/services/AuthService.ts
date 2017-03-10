@@ -3,7 +3,6 @@ import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 import {User} from "../models/user/user";
-import {isUndefined} from "util";
 
 @Injectable()
 export class AuthService {

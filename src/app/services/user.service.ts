@@ -41,14 +41,7 @@ export class UserService extends BaseService {
         params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
 
         // make server call
-        return this.http.get(url, {search: params, withCredentials: true})
-            .map((res: Response) => {
-                return res.json();
-            })
-            .catch((error: any) => {
-                this.checkResponse(error);
-                return Observable.throw(error.json().error || 'Server error')
-            });
+        return this.get(url, {search: params, withCredentials: true});
     }
 
     /**
