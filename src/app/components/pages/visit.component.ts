@@ -146,6 +146,7 @@ export class VisitComponent extends BaseComponent {
                 counts[visit.visit_day - 1] += visit.visit_count;
         }
 
+        console.log(counts);
         this.chart_data = counts.map((count, index) => {
             return {
                 label: index + 1,
