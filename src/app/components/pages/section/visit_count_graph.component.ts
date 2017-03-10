@@ -74,7 +74,7 @@ export class VisitCountGraphComponent {
         this.total_visits = 0;
 
         // calculate total count
-        data.map(count => this.total_visits += count.value);
+        data.map(count => this.total_visits += parseInt(count.value));
 
         // prepare chart data
         this.chart_data = [
