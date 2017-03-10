@@ -33,11 +33,7 @@ export class LoginService extends BaseService {
   login(username: string, password: string): Observable<Result> {
 
     // make server call
-    return this.http.post(this.getBaseUrl() + '/login', {username: username, password: password}, {withCredentials: true})
-      .map((res: Response) => {
-        return res.json();
-      })
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    return this.post(this.getBaseUrl() + '/login', {username: username, password: password});
   }
 
   /**

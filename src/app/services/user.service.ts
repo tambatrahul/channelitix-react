@@ -41,7 +41,7 @@ export class UserService extends BaseService {
         params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
 
         // make server call
-        return this.get(url, {search: params, withCredentials: true});
+        return this.get(url, {search: params});
     }
 
     /**
