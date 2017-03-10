@@ -12,6 +12,7 @@
     "e2e": "protractor"
   },
   "engines": {
+    "npm": "3.10.10",
     "node": "6.9.4"
   },
   "private": true,
