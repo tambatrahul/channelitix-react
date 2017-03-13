@@ -137,7 +137,7 @@ export class CreateAttendanceComponent extends FormComponent {
         this.submitted = true;
         if (this.form.valid) {
             this.loading = true;
-            let data = this.form.value;
+            let data = Object.assign({}, this.form.value);
 
             // format joining date
             if (data.date)
@@ -158,7 +158,6 @@ export class CreateAttendanceComponent extends FormComponent {
                 },
                 err => {
                     this.loading = false;
-                    console.log(err);
                     this.errors = err.errors;
                 }
             );

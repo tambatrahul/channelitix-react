@@ -101,6 +101,7 @@ export class MonthlyAttendanceComponent extends ListComponent {
      * attendance created refresh attendance list
      */
     attendanceCreated() {
+        this.attendance = null;
         this.fetchAttendances();
     }
 
@@ -108,6 +109,7 @@ export class MonthlyAttendanceComponent extends ListComponent {
      * attendance updated refresh attendance list
      */
     attendanceUpdated() {
+        this.attendance = null;
         this.fetchAttendances();
     }
 }
