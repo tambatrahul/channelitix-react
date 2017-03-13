@@ -1,0 +1,101 @@
+<div class="box-widget widget-module no-border update_attendance" #loading_box [ngClass]="{'disable-mask': !edit}">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-bars"></i></span>
+        <h4 *ngIf="!edit">Attendance for {{ _date }}</h4>
+        <h4 *ngIf="edit">Update Attendance for {{ _date }}</h4>
+    </div>
+
+    <!-- Type of attendance -->
+    <div class="widget-container freezable">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="iconic-w-wrap icon-only" (click)="selectTab('working')">
+                        <a class="ico-cirlce-widget w_bg_green"
+                           [ngClass]="{'in_active': active_str != 'working'}">
+                            <span><i class="fa fa-user"></i></span>
+                        </a>
+                        <div class="w-meta-info">
+                            <span class="w-meta-title">WORKING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <div class="iconic-w-wrap icon-only" (click)="selectTab('leave')">
+                        <a class="ico-cirlce-widget w_bg_deep_orange"
+                           [ngClass]="{'in_active': active_str != 'leave'}">
+                            <span><i class="fa fa-user-times"></i></span>
+                        </a>
+                        <div class="w-meta-info">
+                            <span class="w-meta-title">LEAVE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <div class="iconic-w-wrap icon-only" (click)="selectTab('holiday')">
+                        <a class="ico-cirlce-widget w_bg_grey"
+                           [ngClass]="{'in_active': active_str != 'holiday'}">
+                            <span><i class="fa fa-taxi"></i></span>
+                        </a>
+                        <div class="w-meta-info">
+                            <span class="w-meta-title">HOLIDAY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Type of attendance -->
+
+    <!-- Working form -->
+    <div class="widget-container freezable" *ngIf="active_str == 'working'">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <work-type-select [value]="work_type_id" [work_types]="work_types" [loading]="loading"
+                                      (onValueChanged)="workTypeChanged($event)"></work-type-select>
+                    <small *ngIf="errors?.work_type_id" class="text-danger text-center">
+                        {{ errors.work_type_id}}
+                    </small>
+                </div>
+                <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2">
+                    <manager-select [value]="working_with_id" [models]="managers" [loading]="loading"
+                                    (onValueChanged)="managerChanged($event)"></manager-select>
+                    <small *ngIf="errors?.working_with_id" class="text-danger text-center">
+                        {{ errors.working_with_id}}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Working form -->
+
+    <!-- leave form -->
+    <div class="widget-container freezable" *ngIf="active_str == 'leave'">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <leave-type-select [value]="leave_type_id" [leave_types]="leave_types" [loading]="loading"
+                                       (onValueChanged)="leaveTypeChanged($event)"></leave-type-select>
+                    <small *ngIf="errors?.leave_type_id" class="text-danger text-center">
+                        {{ errors.leave_type_id}}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./leave form -->
+
+    <!--<div class="widget-container">-->
+        <!--<div class="widget-block">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-12">-->
+                    <!--<button class="btn btn-primary btn-block" (click)="save()" *ngIf="edit">SUBMIT</button>-->
+                    <!--<button class="btn btn-default btn-block" (click)="enableEditing()" *ngIf="!edit">UPDATE</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>

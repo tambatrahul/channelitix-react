@@ -15,7 +15,7 @@ import {LoginComponent} from "./components/pages/login.component";
 import {UserComponent} from "./components/pages/user.component";
 import {CustomerComponent} from "./components/pages/customer.component";
 import {CustomerCountComponent} from "./components/pages/section/customer_count.component";
-import {AttendanceComponent} from "./components/pages/attendance.component";
+import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
 import {AuthService} from "./services/AuthService";
 import {AttendanceService} from "./services/attendance.service";
 import {CustomerService} from "./services/customer.service";
@@ -56,6 +56,14 @@ import {MultipleHeadquarterSelectComponent} from "./components/pages/form_elemen
 import {VisitOrderTrendComponent} from "./components/pages/graphs/visit_order_trend_graph.component";
 import {HighestCallComponent} from "./components/pages/graphs/highest_call_graph.component";
 import {HighestOrderComponent} from "./components/pages/graphs/highest_order_graph.component";
+import {CalendarAttendanceComponent} from "./components/pages/attendance/calendar/calendar.component";
+import {CalendarAttendanceStatusDirective} from "./components/pages/attendance/directives/calendar_attendance_status.directive";
+import {MonthlyAttendanceComponent} from "./components/pages/attendance/monthly/monthly.component";
+import {CreateAttendanceComponent} from "./components/pages/attendance/create/create.component";
+import {WorkTypeSelectComponent} from "./components/pages/attendance/form_elements/work_type/work-type-select.component";
+import {LeaveTypeSelectComponent} from "./components/pages/attendance/form_elements/leave_type/leave-type-select.component";
+import {ManagerSelectComponent} from "./components/pages/attendance/form_elements/manager/manager-select.component";
+import {UpdateAttendanceComponent} from "./components/pages/attendance/update/update.component";
 
 enableProdMode();
 @NgModule({
@@ -74,10 +82,14 @@ enableProdMode();
         UpdateUserComponent,
         CustomerComponent,
         CustomerCountComponent,
-        AttendanceComponent,
+        AttendanceTableComponent,
         VisitComponent,
         OrderComponent,
         DashBoardComponent,
+        CalendarAttendanceComponent,
+        MonthlyAttendanceComponent,
+        CreateAttendanceComponent,
+        UpdateAttendanceComponent,
 
         // directives
         AttendanceStatusDirective,
@@ -87,6 +99,7 @@ enableProdMode();
         VisitCountDirective,
         nvD3,
         OrderCountDirective,
+        CalendarAttendanceStatusDirective,
 
         // reusable components
         MonthPickerComponent,
@@ -108,7 +121,10 @@ enableProdMode();
         MultipleHeadquarterSelectComponent,
         VisitOrderTrendComponent,
         HighestCallComponent,
-        HighestOrderComponent
+        HighestOrderComponent,
+        WorkTypeSelectComponent,
+        LeaveTypeSelectComponent,
+        ManagerSelectComponent
     ],
     imports: [
         BrowserModule,

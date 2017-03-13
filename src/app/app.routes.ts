@@ -5,12 +5,13 @@ import {BaseComponent} from "./components/base.component";
 import {LoginComponent} from "./components/pages/login.component";
 import {UserComponent} from "./components/pages/user.component";
 import {CustomerComponent} from "./components/pages/customer.component";
-import {AttendanceComponent} from "./components/pages/attendance.component";
+import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
 import {CreateUserComponent} from "./components/pages/create_user.component";
 import {VisitComponent} from "./components/pages/visit.component";
 import {UpdateUserComponent} from "./components/pages/update_user.component";
 import {OrderComponent} from "./components/pages/order.component";
 import {DashBoardComponent} from "./components/pages/dashboard/dashboard.component";
+import {MonthlyAttendanceComponent} from "./components/pages/attendance/monthly/monthly.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -28,7 +29,16 @@ export const routes: Routes = [
             // add attendance routes
             {
                 path: 'attendances',
-                component: AttendanceComponent
+                children: [
+                    {
+                        path: '',
+                        component: AttendanceTableComponent
+                    },
+                    {
+                        path: 'monthly',
+                        component: MonthlyAttendanceComponent
+                    }
+                ]
             },
 
             // add visit routes

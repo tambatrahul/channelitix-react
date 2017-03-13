@@ -1,210 +1,218 @@
 <div class="container-fluid users">
-  <!-- Page Breadcrumb -->
-  <div class="page-breadcrumb">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Create User
+                            <small>Create User Form</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a routerLink="/">Home</a></li>
+                            <li class="active-page" routerLink="/users"> Users</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- User Form -->
     <div class="row">
-      <div class="col-md-4">
-        <div class="page-breadcrumb-wrap">
-          <div class="page-breadcrumb-info">
-            <h2 class="breadcrumb-titles">Create User
-              <small>Create User Form</small>
-            </h2>
-            <ul class="list-page-breadcrumb">
-              <li><a routerLink="/">Home</a></li>
-              <li class="active-page" routerLink="/users"> Users</li>
-            </ul>
-          </div>
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-bars"></i></span>
+                    <h4>Create User Form</h4>
+                </div>
+                <div class="widget-container" #loading_box>
+                    <div class=" widget-block">
+                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="page-header">
+                                        <h2>User Personal Details</h2>
+                                    </div>
+
+                                    <!-- Full Name -->
+                                    <div class="form-group">
+                                        <label class="control-label" for="cname">Full Name (required)</label>
+                                        <div class="">
+                                            <input formControlName="full_name" class="form-control" type="text">
+                                            <small *ngIf="errors?.full_name" class="text-danger text-center">
+                                                {{ errors.full_name}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- Full Name -->
+
+                                    <!-- Mobile -->
+                                    <div class="form-group">
+                                        <label class="control-label" for="cemail">Mobile (required)</label>
+                                        <div class="">
+                                            <input class="form-control" formControlName="mobile" type="text"
+                                                   name="email">
+                                            <small *ngIf="errors?.mobile" class="text-danger text-center">
+                                                {{ errors.mobile}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Mobile -->
+
+                                    <!-- Joining Date -->
+                                    <div class="form-group">
+                                        <date-picker [date]="joining_date" [title]="'Joining Date'"
+                                                     (onDateChanged)="dateChanged($event)"></date-picker>
+                                        <small *ngIf="errors?.joining_date" class="text-danger text-center">
+                                            {{ errors.joining_date}}
+                                        </small>
+                                    </div>
+
+                                    <!-- Select Role and Manager of User  -->
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6 form-group" *roleCheck="3">
+                                            <role-select [value]="role_id" [title]="'Select Role'"
+                                                         [first_value]="'Select Role'"
+                                                         (onValueChanged)="roleChanged($event)"></role-select>
+                                            <small *ngIf="errors?.role_id" class="text-danger text-center">
+                                                {{ errors.role_id}}
+                                            </small>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 form-group" *ngIf="manager_role_id > 0">
+                                            <user-select [role_id]="manager_role_id" [value]="manager_id"
+                                                         [first_value]="'Select Manager'" [title]="'Select Manager'"
+                                                         (onValueChanged)="managerChanged($event)"
+                                                         (onModelChanged)="managerSelected($event)"></user-select>
+                                            <small *ngIf="errors?.manager_id" class="text-danger text-center">
+                                                {{ errors.manager_id}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Select Role and Manager of User  -->
+
+                                    <!-- Select territory depending on manager -->
+                                    <div class="row form-group">
+
+                                        <!-- Region select -->
+                                        <div class="col-xs-12 col-md-6" *ngIf="role_id == 5 && hq_country_id > 0">
+                                            <div>
+                                                <region-select [value]="hq_region_id" [country_id]="hq_country_id"
+                                                               [title]="'Select Region'" [first_value]="'Select Region'"
+                                                               (onValueChanged)="regionChanged($event)"></region-select>
+                                                <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
+                                                    {{ errors.hq_region_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Region select -->
+
+                                        <!-- Area select -->
+                                        <div class="col-xs-12 col-md-6" *ngIf="role_id == 4 && hq_region_id > 0">
+                                            <div>
+                                                <area-select [value]="hq_area_id" [region_id]="hq_region_id"
+                                                             [title]="'Select Area'" [first_value]="'Select Area'"
+                                                             (onValueChanged)="areaChanged($event)"></area-select>
+                                                <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
+                                                    {{ errors.hq_area_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Area select -->
+
+                                        <!-- Head quarter select -->
+                                        <div class="col-xs-12 col-md-6" *ngIf="role_id == 2 && hq_area_id > 0">
+                                            <div>
+                                                <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
+                                                                    [title]="'Select Head Quarter'"
+                                                                    [first_value]="'Select Head Quarter'"
+                                                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+
+                                                <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
+                                                    {{ errors.hq_area_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Head quarter select -->
+
+                                        <!-- Territory select -->
+                                        <div class="col-xs-12 col-md-6" *ngIf="role_id == 3 && hq_headquarter_id > 0">
+                                            <div>
+                                                <territory-select [value]="hq_territory_id"
+                                                                  [headquarter_id]="hq_headquarter_id"
+                                                                  [title]="'Select Territory'"
+                                                                  [first_value]="'Select Territory'"
+                                                                  (onValueChanged)="territoryChanged($event)"></territory-select>
+                                                <small *ngIf="errors?.hq_headquarter_id"
+                                                       class="text-danger text-center">
+                                                    {{ errors.hq_headquarter_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Territory select -->
+                                    </div>
+                                    <!-- ./Select territory depending on manager -->
+
+                                </div>
+
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="page-header">
+                                        <h2>User Login Details</h2>
+                                    </div>
+
+                                    <!-- Username -->
+                                    <div class="form-group">
+                                        <label class="control-label" for="cname">Username (required)</label>
+                                        <div class="">
+                                            <input formControlName="username" class="form-control" type="text">
+                                            <small *ngIf="errors?.username" class="text-danger text-center">
+                                                {{ errors.username}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- Username -->
+
+                                    <!-- Password -->
+                                    <div class="form-group">
+                                        <label class="control-label">Password (required)</label>
+                                        <div class="">
+                                            <input class="form-control" formControlName="password" type="password"
+                                                   name="email">
+                                            <small *ngIf="errors?.password" class="text-danger text-center">
+                                                {{ errors.password}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Password -->
+
+                                    <!-- Confirm Password -->
+                                    <div class="form-group">
+                                        <label class="control-label">Confirm Password (required)</label>
+                                        <div class="">
+                                            <input class="form-control" formControlName="confirm_password"
+                                                   type="password" name="email">
+                                            <small *ngIf="errors?.confirm_password" class="text-danger text-center">
+                                                {{ errors.confirm_password}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Confirm Password -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    <div class="form-actions text-center">
+                                        <button type="submit" class="btn btn-primary">CREATE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- Page Breadcrumb -->
-
-  <!-- User Form -->
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box-widget widget-module">
-        <div class="widget-head clearfix">
-          <span class="h-icon"><i class="fa fa-bars"></i></span>
-          <h4>Create User Form</h4>
-        </div>
-        <div class="widget-container" #loading_box>
-          <div class=" widget-block">
-            <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
-              <div class="row">
-                <div class="col-xs-12 col-md-6">
-                  <div class="page-header">
-                    <h2>User Personal Details</h2>
-                  </div>
-
-                  <!-- Full Name -->
-                  <div class="form-group">
-                    <label class="control-label" for="cname">Full Name (required)</label>
-                    <div class="">
-                      <input formControlName="full_name" class="form-control" type="text">
-                      <small *ngIf="errors?.full_name" class="text-danger text-center">
-                        {{ errors.full_name}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- Full Name -->
-
-                  <!-- Mobile -->
-                  <div class="form-group">
-                    <label class="control-label" for="cemail">Mobile (required)</label>
-                    <div class="">
-                      <input class="form-control" formControlName="mobile" type="text" name="email">
-                      <small *ngIf="errors?.mobile" class="text-danger text-center">
-                        {{ errors.mobile}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- ./Mobile -->
-
-                  <!-- Joining Date -->
-                  <div class="form-group">
-                    <date-picker [date]="joining_date" [title]="'Joining Date'"
-                                 (onDateChanged)="dateChanged($event)"></date-picker>
-                    <small *ngIf="errors?.joining_date" class="text-danger text-center">
-                      {{ errors.joining_date}}
-                    </small>
-                  </div>
-
-                  <!-- Select Role and Manager of User  -->
-                  <div class="row">
-                    <div class="col-xs-12 col-md-6 form-group" *roleCheck="3">
-                      <role-select [value]="role_id" [title]="'Select Role'" [first_value]="'Select Role'"
-                                   (onValueChanged)="roleChanged($event)"></role-select>
-                      <small *ngIf="errors?.role_id" class="text-danger text-center">
-                        {{ errors.role_id}}
-                      </small>
-                    </div>
-                    <div class="col-xs-12 col-md-6 form-group" *ngIf="manager_role_id > 0">
-                      <user-select [role_id]="manager_role_id" [value]="manager_id"
-                                   [first_value]="'Select Manager'" [title]="'Select Manager'"
-                                   (onValueChanged)="managerChanged($event)"
-                                   (onModelChanged)="managerSelected($event)"></user-select>
-                      <small *ngIf="errors?.manager_id" class="text-danger text-center">
-                        {{ errors.manager_id}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- ./Select Role and Manager of User  -->
-
-                  <!-- Select territory depending on manager -->
-                  <div class="row form-group">
-
-                    <!-- Region select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 5 && hq_country_id > 0">
-                      <div>
-                        <region-select [value]="hq_region_id" [country_id]="hq_country_id"
-                                       [title]="'Select Region'" [first_value]="'Select Region'"
-                                       (onValueChanged)="regionChanged($event)"></region-select>
-                        <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
-                          {{ errors.hq_region_id}}
-                        </small>
-                      </div>
-                    </div>
-                    <!-- ./Region select -->
-
-                    <!-- Area select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 4 && hq_region_id > 0">
-                      <div>
-                        <area-select [value]="hq_area_id" [region_id]="hq_region_id"
-                                     [title]="'Select Area'" [first_value]="'Select Area'"
-                                     (onValueChanged)="areaChanged($event)"></area-select>
-                        <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
-                          {{ errors.hq_area_id}}
-                        </small>
-                      </div>
-                    </div>
-                    <!-- ./Area select -->
-
-                    <!-- Head quarter select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 2 && hq_area_id > 0">
-                      <div>
-                        <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
-                                            [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
-                                            (onValueChanged)="headquarterChanged($event)"></headquarter-select>
-
-                        <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
-                          {{ errors.hq_area_id}}
-                        </small>
-                      </div>
-                    </div>
-                    <!-- ./Head quarter select -->
-
-                    <!-- Territory select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 3 && hq_headquarter_id > 0">
-                      <div>
-                        <territory-select [value]="hq_territory_id" [headquarter_id]="hq_headquarter_id"
-                                          [title]="'Select Territory'" [first_value]="'Select Territory'"
-                                          (onValueChanged)="territoryChanged($event)"></territory-select>
-                        <small *ngIf="errors?.hq_headquarter_id" class="text-danger text-center">
-                          {{ errors.hq_headquarter_id}}
-                        </small>
-                      </div>
-                    </div>
-                    <!-- ./Territory select -->
-                  </div>
-                  <!-- ./Select territory depending on manager -->
-
-                </div>
-
-                <div class="col-xs-12 col-md-6">
-                  <div class="page-header">
-                    <h2>User Login Details</h2>
-                  </div>
-
-                  <!-- Username -->
-                  <div class="form-group">
-                    <label class="control-label" for="cname">Username (required)</label>
-                    <div class="">
-                      <input formControlName="username" class="form-control" type="text">
-                      <small *ngIf="errors?.username" class="text-danger text-center">
-                        {{ errors.username}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- Username -->
-
-                  <!-- Password -->
-                  <div class="form-group">
-                    <label class="control-label">Password (required)</label>
-                    <div class="">
-                      <input class="form-control" formControlName="password" type="password" name="email">
-                      <small *ngIf="errors?.password" class="text-danger text-center">
-                        {{ errors.password}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- ./Password -->
-
-                  <!-- Confirm Password -->
-                  <div class="form-group">
-                    <label class="control-label">Confirm Password (required)</label>
-                    <div class="">
-                      <input class="form-control" formControlName="confirm_password" type="password" name="email">
-                      <small *ngIf="errors?.confirm_password" class="text-danger text-center">
-                        {{ errors.confirm_password}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- ./Confirm Password -->
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-xs-12 form-group">
-                  <div class="form-actions text-center">
-                    <button type="submit" class="btn btn-primary">CREATE</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ./User Form -->
+    <!-- ./User Form -->
 </div>

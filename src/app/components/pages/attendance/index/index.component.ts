@@ -1,17 +1,17 @@
 import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
-import {User} from "../../models/user/user";
-import {AttendanceService} from "../../services/attendance.service";
-import {Attendance} from "../../models/attendance/attendance";
-import {AppConstants} from "../../app.constants";
-import {Holiday} from "../../models/holiday";
+import {User} from "../../../../models/user/user";
+import {AttendanceService} from "../../../../services/attendance.service";
+import {Attendance} from "../../../../models/attendance/attendance";
+import {AppConstants} from "../../../../app.constants";
+import {Holiday} from "../../../../models/holiday";
 declare let jQuery: any;
 
 @Component({
-    templateUrl: '../../templates/pages/attendance.component.html',
-    styleUrls: ['../../templates/less/attendance.component.less']
+    templateUrl: 'index.component.html',
+    styleUrls: ['index.component.less']
 })
-export class AttendanceComponent {
+export class AttendanceTableComponent {
 
     /**
      * manager and user Role id

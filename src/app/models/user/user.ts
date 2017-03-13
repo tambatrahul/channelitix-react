@@ -14,6 +14,9 @@ export class User extends Model {
     auth_token: string;
     role_id: number;
 
+    // manager
+    manager: User;
+
     // for local use only
     attendances = [];
     visits = [];
@@ -31,6 +34,7 @@ export class User extends Model {
         this.auth_token = info.auth_token;
         this.role_id = info.role_id;
         this.attendances = info.attendances;
+        this.manager = info.manager;
     }
 
     /**

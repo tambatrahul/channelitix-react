@@ -6,7 +6,7 @@ import {Holiday} from "./models/holiday";
 import {Order} from "./models/order/order";
 
 export class AppConstants {
-    static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
+    static API_ENDPOINT: string = '/api/v1/';
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
     // roles of user
@@ -17,6 +17,9 @@ export class AppConstants {
         new Role({id: 3, name: 'HQ_MNG', title: 'Territory Managers'}),
         new Role({id: 2, name: 'TERRITORY_MNG', title: 'Medical Reps'})
     ];
+
+    // week days
+    static week_days: Array<string> = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     // attendance static values
     static WORKING: string = 'working';
@@ -66,11 +69,13 @@ export class AppConstants {
         // prepare skeleton for all date
         let skeleton = new Array(end_day);
         for (let date = start_day; date <= end_day; date++) {
+            // get current date
+            let current_date = moment().month(month).year(year).date(date);
+
             // set visit
-            skeleton[date - 1] = new Attendance({});
+            skeleton[date - 1] = new Attendance({day: date, date: current_date.format('YYYY-MM-DD')});
 
             // set sunday
-            let current_date = moment().month(month).year(year).date(date);
             if (current_date.day() == 0)
                 skeleton[date - 1].isSunday = true;
         }
@@ -78,6 +83,7 @@ export class AppConstants {
         // adding holidays
         for (let holiday of holidays) {
             skeleton[moment(holiday.date).date() - 1].isSunday = true;
+            skeleton[moment(holiday.date).date() - 1].status = AppConstants.HOLIDAY;
         }
 
         return skeleton;

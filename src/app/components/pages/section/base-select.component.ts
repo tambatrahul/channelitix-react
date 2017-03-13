@@ -39,6 +39,7 @@ export abstract class BaseSelectComponent {
    *
    * @type {Array}
    */
+  @Input()
   public models: Model[] = [];
 
 
@@ -46,7 +47,8 @@ export abstract class BaseSelectComponent {
    * loading for server call
    * @type {boolean}
    */
-  protected loading: boolean = false;
+  @Input()
+  loading: boolean = false;
 
   /**
    * on load of component load territories

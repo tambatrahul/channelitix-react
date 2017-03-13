@@ -11,38 +11,43 @@ import {Country} from "./territory/country";
 import {Visit} from "./visit/visit";
 import {Holiday} from "./holiday";
 import {Order} from "./order/order";
+import {WorkType} from "./attendance/work_type";
+import {LeaveType} from "./attendance/leave_type";
 
 export class Result {
 
-  // territory arrays
-  countries: Country[];
-  regions: Region[];
-  areas: Area[];
-  territories: Territory[];
-  headquarters: Headquarter[];
-  bricks: Brick[];
+    // territory arrays
+    countries: Country[];
+    regions: Region[];
+    areas: Area[];
+    territories: Territory[];
+    headquarters: Headquarter[];
+    bricks: Brick[];
 
-  // attendances models
-  attendances: Attendance[];
+    // attendances models
+    attendances: Attendance[];
+    work_types: WorkType[];
+    leave_types: LeaveType[];
 
-  //Visits models
-  visits: Visit[];
+    //Visits models
+    visits: Visit[];
 
-  //Orders models
-  orders: Order[];
+    //Orders models
+    orders: Order[];
 
-  // holidays models
-  holidays: Holiday[];
+    // holidays models
+    holidays: Holiday[];
 
-  // users models
-  user: User;
-  users: User[];
-  children: User[];
+    // users models
+    user: User;
+    users: User[];
+    manager: User;
+    children: User[];
 
-  // customer models
-  customers: Customer[];
-  customer_types: CustomerType[];
+    // customer models
+    customers: Customer[];
+    customer_types: CustomerType[];
 
-  // total number
-  total: number;
+    // total number
+    total: number;
 }

@@ -45,6 +45,17 @@ export class UserService extends BaseService {
     }
 
     /**
+     * get list of managers for user
+     *
+     * @returns {Observable<Result>}
+     */
+    manager(): Observable<Result> {
+        let url = this.getBaseUrl() + '/manager';
+
+        return this.get(url, new RequestOptions({}));
+    }
+
+    /**
      * Get User
      */
     read(id: number): Observable<Result> {

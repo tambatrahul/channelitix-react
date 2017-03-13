@@ -1,0 +1,74 @@
+<div class="container-fluid attendances">
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Attendances
+                            <small>Attendance Details</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a href="#">Home</a>
+                            </li>
+
+                            <li class="active-page">Monthly Attendances</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Attendance Monthly body -->
+    <div class="row">
+
+        <!-- Calendar view -->
+        <div class="col-xs-12 col-md-6" #loading_box>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <month-picker [month]="month" [year]="year"
+                                  (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+                </div>
+            </div>
+
+            <attendance-calendar-select [month]="month" [year]="year" [attendances]="attendances"
+                                        [holidays]="holidays" (onAttendanceSelected)="onAttendanceSelected($event)">
+
+            </attendance-calendar-select>
+        </div>
+        <!-- Calendar view -->
+
+        <!-- Create Attendance View -->
+        <div class="col-xs-12 col-md-6" *ngIf="attendance">
+            <div *ngIf="attendance.id">
+                <update-attendance [attendance]="attendance"
+                                   (attendanceCreated)="attendanceCreated($event)"></update-attendance>
+            </div>
+            <div *ngIf="!attendance.id">
+                <create-attendance [attendance]="attendance"
+                                   (attendanceCreated)="attendanceCreated($event)"></create-attendance>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6" *ngIf="!attendance">
+            <div class="box-widget widget-module no-border create_attendance">
+                <!-- Type of attendance -->
+                <div class="widget-container">
+                    <div class="widget-block">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                Click On Any Date to Mark Attendance
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./Create Attendance View -->
+    </div>
+    <!-- ./Attendance Monthly body -->
+</div>
