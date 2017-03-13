@@ -109,12 +109,15 @@ export abstract class BaseService {
      */
     public addCredentials(options?: RequestOptions) {
         let headers = new Headers();
-        if (options) {
-            if (this._authService.user) {
-                headers.append('Auth-Token', this._authService.user.auth_token);
-            }
-        } else {
+
+        // initialize options if not set
+        if (!options) {
             options = new RequestOptions();
+        }
+
+        // add auth token to headers
+        if (this._authService.user) {
+            headers.append('Auth-Token', this._authService.user.auth_token);
         }
 
         options.headers = headers;
