@@ -4,9 +4,11 @@ import {Role} from "./models/role";
 import {Visit} from "./models/visit/visit";
 import {Holiday} from "./models/holiday";
 import {Order} from "./models/order/order";
+import {Tour} from "./models/tour_program/tour";
 
 export class AppConstants {
-    static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
+    // static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
+    static API_ENDPOINT: string = '/api/v1/';
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
     // roles of user
@@ -193,6 +195,45 @@ export class AppConstants {
         // adding holidays
         for (let holiday of holidays) {
             skeleton[moment(holiday.date).date() - 1] = -1;
+        }
+
+        return skeleton;
+    }
+
+    /**
+     * Prepare monthly tour Skeleton
+     *
+     * @param month
+     * @param year
+     * @param holidays
+     */
+    static prepareMonthTourSkeleton(month: number, year: number, holidays: Holiday[]) {
+
+        // get date
+        let date = moment().year(year).month(month);
+
+        // get start date and end date of month
+        let start_day = date.startOf('month').date();
+        let end_day = date.endOf('month').date();
+
+        // prepare skeleton for all date
+        let skeleton = new Array<Tour>(end_day);
+        for (let date = start_day; date <= end_day; date++) {
+
+            // get current date
+            let current_date = moment().month(month).year(year).date(date);
+
+            // set visit
+            skeleton[date - 1] = new Tour({day: date, date: current_date.format('YYYY-MM-DD')});
+
+            // set sundays
+            if (current_date.day() == 0)
+                skeleton[date - 1].isSunday = true;
+        }
+
+        // adding holidays
+        for (let holiday of holidays) {
+            skeleton[moment(holiday.date).date() - 1].isSunday = true;
         }
 
         return skeleton;

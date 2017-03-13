@@ -12,6 +12,7 @@ import {UpdateUserComponent} from "./components/pages/update_user.component";
 import {OrderComponent} from "./components/pages/order.component";
 import {DashBoardComponent} from "./components/pages/dashboard/dashboard.component";
 import {MonthlyAttendanceComponent} from "./components/pages/attendance/monthly/monthly.component";
+import {MonthlyTourProgramComponent} from "./components/pages/tour_program/monthly/monthly.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -71,6 +72,12 @@ export const routes: Routes = [
                     },
 
                 ]
+            },
+
+            // add tour routes
+            {
+                path: 'tours',
+                component: MonthlyTourProgramComponent
             },
 
             // add customer routes

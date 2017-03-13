@@ -13,6 +13,7 @@ import {Holiday} from "./holiday";
 import {Order} from "./order/order";
 import {WorkType} from "./attendance/work_type";
 import {LeaveType} from "./attendance/leave_type";
+import {Tour} from "./tour_program/tour";
 
 export class Result {
 
@@ -37,6 +38,9 @@ export class Result {
 
     // holidays models
     holidays: Holiday[];
+
+    // tour models
+    tours: Tour[];
 
     // users models
     user: User;

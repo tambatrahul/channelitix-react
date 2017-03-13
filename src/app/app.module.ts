@@ -30,7 +30,6 @@ import {PaginationComponent} from "./components/common/pagination.component";
 import {RoleSelectComponent} from "./components/common/role-select.component";
 import {UserSelectComponent} from "./components/common/user-select.component";
 import {AreaSelectComponent} from "./components/pages/section/area-select.component";
-import {BrickSelectComponent} from "./components/pages/section/brick-select.component";
 import {HeadquarterSelectComponent} from "./components/pages/section/headquarter-select.component";
 import {TerritorySelectComponent} from "./components/pages/section/territory-select.component";
 import {CookieService} from "angular2-cookie/services/cookies.service";
@@ -64,6 +63,13 @@ import {WorkTypeSelectComponent} from "./components/pages/attendance/form_elemen
 import {LeaveTypeSelectComponent} from "./components/pages/attendance/form_elements/leave_type/leave-type-select.component";
 import {ManagerSelectComponent} from "./components/pages/attendance/form_elements/manager/manager-select.component";
 import {UpdateAttendanceComponent} from "./components/pages/attendance/update/update.component";
+import {TourService} from "./services/tour.service";
+import {CalendarTourStatusDirective} from "./components/pages/tour_program/directives/calendar_tour_status.directive";
+import {CalendarTourComponent} from "./components/pages/tour_program/calendar/calendar.component";
+import {MonthlyTourProgramComponent} from "./components/pages/tour_program/monthly/monthly.component";
+import {BrickSelectComponent} from "./components/pages/territory/form_elements/brick_select/brick-select.component";
+import {TourFormComponent} from "./components/pages/tour_program/tour_form/tour_form.component";
+import {DailyTourProgramComponent} from "./components/pages/tour_program/daily/daily.component";
 
 enableProdMode();
 @NgModule({
@@ -90,6 +96,10 @@ enableProdMode();
         MonthlyAttendanceComponent,
         CreateAttendanceComponent,
         UpdateAttendanceComponent,
+        CalendarTourComponent,
+        MonthlyTourProgramComponent,
+        TourFormComponent,
+        DailyTourProgramComponent,
 
         // directives
         AttendanceStatusDirective,
@@ -100,6 +110,7 @@ enableProdMode();
         nvD3,
         OrderCountDirective,
         CalendarAttendanceStatusDirective,
+        CalendarTourStatusDirective,
 
         // reusable components
         MonthPickerComponent,
@@ -110,7 +121,6 @@ enableProdMode();
         AreaSelectComponent,
         TerritorySelectComponent,
         HeadquarterSelectComponent,
-        BrickSelectComponent,
         DatePickerComponent,
         DeactivateUserComponent,
         PasswordResetComponent,
@@ -124,7 +134,8 @@ enableProdMode();
         HighestOrderComponent,
         WorkTypeSelectComponent,
         LeaveTypeSelectComponent,
-        ManagerSelectComponent
+        ManagerSelectComponent,
+        BrickSelectComponent
     ],
     imports: [
         BrowserModule,
@@ -142,7 +153,8 @@ enableProdMode();
         LoginService,
         TerritoryService,
         UserService,
-        OrderService
+        OrderService,
+        TourService
     ],
     bootstrap: [AppComponent]
 })

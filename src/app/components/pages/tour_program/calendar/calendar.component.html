@@ -1,0 +1,39 @@
+<div class="box-widget widget-module no-border tour-calendar">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-bars"></i></span>
+        <h4>Attendance</h4>
+    </div>
+    <div class="widget-container">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-2 heading" *ngFor="let day of week_days">
+                            {{ day }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2" *ngFor="let tou of formatted_array"
+                             [ngClass]="{'pointer': (tou && !tou.isSunday)}">
+                            <div class="body" (click)="tou && !tou.isSunday && selectTour(tou)">
+                                <div class="status" calendarTourStatus="" [tour]="tou">
+                                </div>
+                                <div class="date" *ngIf="tou"> {{ tou.day }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widget-container" style="padding: 20px;">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="label not_reported">&nbsp;</span>&nbsp;
+                    <small>tour not set</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

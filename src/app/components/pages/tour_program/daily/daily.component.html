@@ -1,0 +1,41 @@
+<div class="box-widget widget-module">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-table"></i></span>
+        <h4>Tours for {{ date }}</h4>
+    </div>
+    <div class="widget-container user-table" #loading_box>
+        <div class="widget-block">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Territory</th>
+                        <th>Brick</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>Territory</th>
+                        <th>Brick</th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    <tr *ngFor="let t of tours">
+                        <td>{{ t.hq_territory.name }}</td>
+                        <td>{{ t.hq_brick.name }}</td>
+                        <td>
+                            <button class="btn btn-danger btn-xs" (click)="deleteTour(t.id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

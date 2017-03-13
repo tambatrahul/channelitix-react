@@ -1,0 +1,54 @@
+<div class="container-fluid attendances">
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Tours
+                            <small>Tour Details</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a href="#">Home</a>
+                            </li>
+
+                            <li class="active-page">Monthly Tours</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Tour Monthly body -->
+    <div class="row">
+
+        <!-- Calendar view -->
+        <div class="col-xs-12 col-md-6" #loading_box>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <month-picker [month]="month" [year]="year"
+                                  (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+                </div>
+            </div>
+
+            <tour-calendar-select [month]="month" [year]="year" [tours]="tours"
+                                        [holidays]="holidays" (onTourSelected)="onTourSelected($event)">
+
+            </tour-calendar-select>
+        </div>
+        <!-- Calendar view -->
+
+        <!-- Create Tour View -->
+        <div class="col-xs-12 col-md-6">
+            <daily-tour [tours]="tour.tours" [date]="date"></daily-tour>
+            <add-tour></add-tour>
+        </div>
+        <!-- ./Create Tour View -->
+    </div>
+    <!-- ./Tour Monthly body -->
+</div>

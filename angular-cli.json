@@ -19,11 +19,11 @@
       "mobile": false,
       "styles": [
         "../src/assets/less/bootstrap.less",
+        "../node_modules/font-awesome/less/font-awesome.less",
         "../node_modules/air-datepicker/dist/css/datepicker.css",
         "../node_modules/nvd3/build/nv.d3.css",
         "../src/assets/less/components.less",
         "../src/assets/less/layout.less",
-        "../src/assets/less/font-awesome.less",
         "../src/assets/less/common-styles.less",
         "../src/assets/less/matmix-iconfont.less",
         "../src/assets/less/loadmask.less",
@@ -54,7 +54,9 @@
       }
     }
   ],
-  "addons": [],
+  "addons": [
+    "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
+  ],
   "packages": [],
   "e2e": {
     "protractor": {

@@ -62,6 +62,19 @@ export class TerritoryService extends BaseService {
     return this.get(this.getBaseUrl() + '/areas', new RequestOptions({search: params}));
   }
 
+    /**
+     * get headquarter for Area
+     */
+    public headquarter(area_id?: number): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+
+        // make server call
+        return this.get(this.getBaseUrl() + '/headquarters', new RequestOptions({search: params}));
+    }
+
   /**
    * get territories for Area
    */
@@ -73,19 +86,6 @@ export class TerritoryService extends BaseService {
 
     // make server call
     return this.get(this.getBaseUrl() + '/territories', new RequestOptions({search: params}));
-  }
-
-  /**
-   * get headquarter for Area
-   */
-  public headquarter(area_id?: number): Observable<Result> {
-
-    // prepare get params
-    let params = new URLSearchParams();
-    params.set('area_id', String(area_id > 0 ? area_id : ''));
-
-    // make server call
-    return this.get(this.getBaseUrl() + '/headquarters', new RequestOptions({search: params}));
   }
 
   /**

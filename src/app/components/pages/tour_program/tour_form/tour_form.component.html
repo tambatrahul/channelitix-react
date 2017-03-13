@@ -1,0 +1,27 @@
+<div class="box-widget widget-module no-border add_tour" #loading_box>
+
+    <!-- Brick form -->
+    <div class="widget-container">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <brick-select [value]="brick_id" (onValueChanged)="brickChanged($event)"></brick-select>
+                    <small *ngIf="errors?.brick_id" class="text-danger text-center">
+                        {{ errors.brick_id}}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Brick form -->
+
+    <div class="widget-container">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary btn-block" (click)="save()">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
