@@ -81,8 +81,6 @@ export class TourFormComponent extends FormComponent {
             this.loading = true;
             let data = Object.assign({}, this.form.value);
 
-            console.log(data);
-
             this.tourService.create(data).subscribe(
                 response => {
                     this.loading = false;

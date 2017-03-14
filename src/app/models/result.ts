@@ -2,7 +2,6 @@ import {Attendance} from "./attendance/attendance";
 import {User} from "./user/user";
 import {Customer} from "./customer/customer";
 import {CustomerType} from "./customer/customer_type";
-import {Grade} from "./customer/grade";
 import {Territory} from "./territory/territory";
 import {Area} from "./territory/Area";
 import {Headquarter} from "./territory/headquarter";

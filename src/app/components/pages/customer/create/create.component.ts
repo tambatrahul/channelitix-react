@@ -35,6 +35,11 @@ export class CreateCustomerComponent extends FormComponent {
         mobile: [""],
         customer_type_id: [""],
         grade_id: [""],
+        hq_region_id: [""],
+        hq_area_id: [""],
+        hq_headquarter_id: [""],
+        hq_territory_id: [""],
+        hq_brick_id: [""],
         address: this._fb.group({
             line: [""],
             landmark: [""],
@@ -61,6 +66,18 @@ export class CreateCustomerComponent extends FormComponent {
     }
 
     /**
+     * initialize form
+     */
+    ngOnInit() {
+        super.ngOnInit();
+        this.regionChanged(this._service.user.hq_region_id);
+        this.areaChanged(this._service.user.hq_area_id);
+        this.headquarterChanged(this._service.user.hq_headquarter_id);
+        this.territoryChanged(this._service.user.hq_territory_id);
+        this.brickChanged(this._service.user.hq_brick_id);
+    }
+
+    /**
      * create customer
      */
     save() {
@@ -71,7 +88,6 @@ export class CreateCustomerComponent extends FormComponent {
 
             this.customerService.create(data).subscribe(
                 response => {
-                    localStorage.setItem("customer", JSON.stringify(response.customer));
                     this._router.navigate(['/customers']);
                     this.loading = false;
                 },
