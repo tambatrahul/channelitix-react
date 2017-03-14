@@ -13,6 +13,8 @@ declare let jQuery: any;
 })
 export class UpdateCustomerComponent extends FormComponent {
 
+    customer_types: Array<Object> = [];
+    customer_grades: Array<Object> = [];
     private id: number;
 
     /**
@@ -37,6 +39,11 @@ export class UpdateCustomerComponent extends FormComponent {
         mobile: [""],
         customer_type_id: [""],
         grade_id: [""],
+        hq_region_id: [""],
+        hq_area_id: [""],
+        hq_headquarter_id: [""],
+        hq_territory_id: [""],
+        hq_brick_id: [""],
         address: this._fb.group({
             line: [""],
             landmark: [""],
@@ -66,6 +73,14 @@ export class UpdateCustomerComponent extends FormComponent {
      * on load of component
      */
     ngOnInit() {
+        super.ngOnInit();
+        this.regionChanged(this._service.user.hq_region_id);
+        this.areaChanged(this._service.user.hq_area_id);
+        this.headquarterChanged(this._service.user.hq_headquarter_id);
+        this.territoryChanged(this._service.user.hq_territory_id);
+        this.brickChanged(this._service.user.hq_brick_id);
+        this.customerGrade();
+
         this.route.params.subscribe(params => {
             this.id = params['id'];
             this.loading = true;
@@ -75,6 +90,21 @@ export class UpdateCustomerComponent extends FormComponent {
                 this.loading = false;
             });
         });
+    }
+
+    /**
+     * Customer Grade
+     */
+    customerGrade() {
+        if(this.customer_type_id > 0) {
+            this.customerService.masters().subscribe(
+                response => {
+                    this.customer_grades = response.customer_types;
+                },
+                err => {
+                }
+            );
+        }
     }
 
     /**
