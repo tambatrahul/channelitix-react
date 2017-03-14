@@ -1,9 +1,9 @@
-<div class="box-widget widget-module">
+<div class="box-widget widget-module daily_tour">
     <div class="widget-head clearfix">
         <span class="h-icon"><i class="fa fa-table"></i></span>
-        <h4>Tours for {{ date }}</h4>
+        <h4>Tours for {{ _date }}</h4>
     </div>
-    <div class="widget-container user-table" #loading_box>
+    <div class="widget-container" #loading_box>
         <div class="widget-block">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -11,7 +11,7 @@
                     <tr>
                         <th>Territory</th>
                         <th>Brick</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
 
@@ -19,7 +19,7 @@
                     <tr>
                         <th>Territory</th>
                         <th>Brick</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                     </tfoot>
 
@@ -32,6 +32,9 @@
                                 Delete
                             </button>
                         </td>
+                    </tr>
+                    <tr *ngIf="tours.length <= 0">
+                        <td colspan="3">No Tours Added</td>
                     </tr>
                     </tbody>
                 </table>

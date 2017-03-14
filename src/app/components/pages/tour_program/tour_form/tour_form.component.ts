@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter} from "@angular/core";
+import {Component, Output, EventEmitter, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../services/AuthService";
 import {FormComponent} from "../../../base/form.component";
@@ -25,14 +25,23 @@ export class TourFormComponent extends FormComponent {
     tourCreated = new EventEmitter();
 
     /**
+     * Date of tour
+     */
+    _date:string;
+    @Input()
+    set date(date: string) {
+        this.form.patchValue({date: date});
+        this._date = moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    };
+
+    /**
      * form fields
      */
-    _date: string;
     public territory_id: number = 0;
     public brick_id: number = 0;
     public form = this._fb.group({
-        territory_id: [""],
-        brick_id: [""],
+        hq_territory_id: [""],
+        hq_brick_id: [""],
         date: [""],
     });
 
@@ -72,9 +81,7 @@ export class TourFormComponent extends FormComponent {
             this.loading = true;
             let data = Object.assign({}, this.form.value);
 
-            // format joining date
-            if (data.date)
-                data.date = moment(data.date, "DD MMMM YYYY").format('YYYY-MM-DD');
+            console.log(data);
 
             this.tourService.create(data).subscribe(
                 response => {
@@ -104,7 +111,7 @@ export class TourFormComponent extends FormComponent {
      */
     territoryChanged(territory_id) {
         this.territory_id = territory_id;
-        this.form.patchValue({territory_id: territory_id});
+        this.form.patchValue({hq_territory_id: territory_id});
     }
 
     /**
@@ -114,6 +121,6 @@ export class TourFormComponent extends FormComponent {
      */
     brickChanged(brick_id) {
         this.brick_id = brick_id;
-        this.form.patchValue({brick_id: brick_id});
+        this.form.patchValue({hq_brick_id: brick_id});
     }
 }

@@ -44,9 +44,25 @@
         <!-- Calendar view -->
 
         <!-- Create Tour View -->
-        <div class="col-xs-12 col-md-6">
-            <daily-tour [tours]="tour.tours" [date]="date"></daily-tour>
-            <add-tour></add-tour>
+        <div class="col-xs-12 col-md-6" *ngIf="tour">
+            <div>
+                <daily-tour [tours]="tour.tours" [date]="tour.date"></daily-tour>
+            </div>
+            <add-tour [date]="tour.date" (tourCreated)="tourCreated($event)"></add-tour>
+        </div>
+        <div class="col-xs-12 col-md-6" *ngIf="!tour">
+            <div class="box-widget widget-module no-border create_attendance">
+                <!-- Type of attendance -->
+                <div class="widget-container">
+                    <div class="widget-block">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                Click On Any Date to View Tours
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- ./Create Tour View -->
     </div>

@@ -30,7 +30,7 @@ import {RoleSelectComponent} from "./components/common/role-select.component";
 import {UserSelectComponent} from "./components/common/user-select.component";
 import {AreaSelectComponent} from "./components/pages/section/area-select.component";
 import {HeadquarterSelectComponent} from "./components/pages/section/headquarter-select.component";
-import {TerritorySelectComponent} from "./components/pages/section/territory-select.component";
+import {TerritorySelectComponent} from "./components/pages/territory/form_elements/territory_select/territory-select.component";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 import {RegionSelectComponent} from "./components/pages/section/region-select.component";
 import {DatePickerComponent} from "./components/common/date_picker.component";

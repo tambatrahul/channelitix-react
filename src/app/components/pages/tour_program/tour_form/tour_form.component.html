@@ -4,24 +4,29 @@
     <div class="widget-container">
         <div class="widget-block">
             <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <brick-select [value]="brick_id" (onValueChanged)="brickChanged($event)"></brick-select>
+                <div class="col-xs-12 col-md-5">
+                    <territory-select [value]="territory_id"
+                                      (onValueChanged)="territoryChanged($event)"></territory-select>
+                    <small *ngIf="errors?.territory_id" class="text-danger text-center">
+                        {{ errors.territory_id}}
+                    </small>
+                </div>
+                <div class="col-xs-12 col-md-5" [ngClass]="{'hide': territory_id <=0}">
+                    <brick-select [value]="brick_id" [territory_id]="territory_id"
+                                  (onValueChanged)="brickChanged($event)"></brick-select>
                     <small *ngIf="errors?.brick_id" class="text-danger text-center">
                         {{ errors.brick_id}}
                     </small>
+                </div>
+                <div class="col-xs-12 col-md-2" style="padding-left: 0;">
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-primary btn-block" (click)="save()">ADD</button>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
     <!-- ./Brick form -->
-
-    <div class="widget-container">
-        <div class="widget-block">
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-primary btn-block" (click)="save()">SUBMIT</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
