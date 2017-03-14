@@ -16,7 +16,7 @@
                         <div class="col-xs-2" *ngFor="let tou of formatted_array"
                              [ngClass]="{'pointer': (tou && !tou.isSunday)}">
                             <div class="body" (click)="tou && !tou.isSunday && selectTour(tou)">
-                                <div class="status" calendarTourStatus="" [tour]="tou">
+                                <div class="status" calendarTourStatus [tour]="tou">
                                 </div>
                                 <div class="date" *ngIf="tou"> {{ tou.day }}</div>
                             </div>

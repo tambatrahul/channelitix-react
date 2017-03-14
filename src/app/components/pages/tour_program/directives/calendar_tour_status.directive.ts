@@ -8,6 +8,7 @@ import {Tour} from "../../../../models/tour_program/tour";
 })
 export class CalendarTourStatusDirective {
 
+    marked: string = "#2ecc71";
     not_marked: string = "#e67e22";
     holiday: string = "#bdc3c7";
 
@@ -32,7 +33,7 @@ export class CalendarTourStatusDirective {
 
         if (tour && tour.tours.length > 0) {
             // set background color
-            this.el.nativeElement.style.backgroundColor = "#FFFFFF";
+            this.el.nativeElement.style.backgroundColor = this.marked;
         }
 
         if (tour && tour.isSunday) {
