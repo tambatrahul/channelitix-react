@@ -47,8 +47,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
+                                    <th rowspan="2">Territory</th>
                                     <th rowspan="2">Brick</th>
-                                    <th rowspan="2">HQ</th>
+                                    <th rowspan="2">Distance From HQ/Territory</th>
                                     <template ngFor let-ct [ngForOf]="customer_types">
                                         <th [attr.colspan]="ct.grades.length">{{ ct.name }}</th>
                                     </template>
@@ -65,8 +66,9 @@
 
                                 <tbody>
                                 <tr *ngFor="let br of bricks">
+                                    <td>{{ br.hq_territory.name }}</td>
                                     <td>{{ br.name }}</td>
-                                    <td>{{ br.hq_territory.hq_headquarter.name }}</td>
+                                    <td></td>
                                     <template ngFor let-ct [ngForOf]="customer_types">
                                         <td *ngFor="let grade of ct.grades">
                                             {{ grade.customer_count }}

@@ -1,9 +1,9 @@
 import {ViewChild, ElementRef} from "@angular/core";
-import {BaseComponent} from "./base.component";
+import {BaseAuthComponent} from "./base.component";
 declare let jQuery: any;
 
 
-export abstract class ListComponent extends BaseComponent{
+export abstract class ListComponent extends BaseAuthComponent{
 
   /**
    * abstract function fetch
