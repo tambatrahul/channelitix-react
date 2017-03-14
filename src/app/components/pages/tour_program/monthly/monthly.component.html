@@ -46,7 +46,7 @@
         <!-- Create Tour View -->
         <div class="col-xs-12 col-md-6" *ngIf="tour">
             <div>
-                <daily-tour [tours]="tour.tours" [date]="tour.date"></daily-tour>
+                <daily-tour [tours]="tour.tours" [date]="tour.date" (tourDeleted)="tourDeleted($event)"></daily-tour>
             </div>
             <add-tour [date]="tour.date" (tourCreated)="tourCreated($event)"></add-tour>
         </div>
