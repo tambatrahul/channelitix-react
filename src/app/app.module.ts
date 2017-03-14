@@ -13,7 +13,6 @@ import {routing} from "./app.routes";
 // pages
 import {LoginComponent} from "./components/pages/login.component";
 import {UserComponent} from "./components/pages/user.component";
-import {CustomerComponent} from "./components/pages/customer.component";
 import {CustomerCountComponent} from "./components/pages/section/customer_count.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
 import {AuthService} from "./services/AuthService";
@@ -70,6 +69,8 @@ import {MonthlyTourProgramComponent} from "./components/pages/tour_program/month
 import {BrickSelectComponent} from "./components/pages/territory/form_elements/brick_select/brick-select.component";
 import {TourFormComponent} from "./components/pages/tour_program/tour_form/tour_form.component";
 import {DailyTourProgramComponent} from "./components/pages/tour_program/daily/daily.component";
+import {CreateCustomerComponent} from "./components/pages/customer/create/create.component";
+import {CustomerComponent} from "./components/pages/customer/index/index.component";
 
 enableProdMode();
 @NgModule({
@@ -100,6 +101,7 @@ enableProdMode();
         MonthlyTourProgramComponent,
         TourFormComponent,
         DailyTourProgramComponent,
+        CreateCustomerComponent,
 
         // directives
         AttendanceStatusDirective,

@@ -1,0 +1,121 @@
+<div class="container-fluid create_customer" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Create Customer
+                            <small>Create Customer Form</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a routerLink="/">Home</a></li>
+                            <li class="active-page" routerLink="/customers"> Customers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Customer Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-bars"></i></span>
+                    <h4>Create Customer Form</h4>
+                </div>
+                <div class="widget-container" #loading_box>
+                    <div class=" widget-block">
+                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="page-header">
+                                        <h2>Customer Personal Details</h2>
+                                    </div>
+
+                                    <!-- Full Name -->
+                                    <div class="form-group">
+                                        <label class="control-label" for="cname">Full Name (required)</label>
+                                        <div class="">
+                                            <input formControlName="full_name" class="form-control" type="text">
+                                            <small *ngIf="errors?.full_name" class="text-danger text-center">
+                                                {{ errors.full_name}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- Full Name -->
+
+                                    <!-- Email -->
+                                    <div class="form-group">
+                                        <label class="control-label" for="cemail">Email (required)</label>
+                                        <div class="">
+                                            <input class="form-control" formControlName="email" type="text"
+                                                   name="email">
+                                            <small *ngIf="errors?.email" class="text-danger text-center">
+                                                {{ errors.email}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Email -->
+
+                                    <!-- Mobile -->
+                                    <div class="form-group">
+                                        <label class="control-label" for="cmobile">Mobile (required)</label>
+                                        <div class="">
+                                            <input class="form-control" formControlName="mobile" type="text"
+                                                   name="mobile">
+                                            <small *ngIf="errors?.mobile" class="text-danger text-center">
+                                                {{ errors.mobile}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Mobile -->
+
+                                    <!-- Select Type -->
+                                    <div class="form-group">
+                                        <div class="">
+                                            <role-select [value]="customer_type_id" [title]="'Select Type'"
+                                                         [first_value]="'Select Type'"
+                                                         (onValueChanged)="typeChanged($event)"></role-select>
+                                            <small *ngIf="errors?.customer_type_id" class="text-danger text-center">
+                                                {{ errors.customer_type_id}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Select Type -->
+
+                                    <!-- Select Grade -->
+                                    <div class="form-group">
+                                        <div class="">
+                                            <role-select [value]="grade_id" [title]="'Select Grade'"
+                                                         [first_value]="'Select Grade'"
+                                                         (onValueChanged)="gradeChanged($event)"></role-select>
+                                            <small *ngIf="errors?.grade_id" class="text-danger text-center">
+                                                {{ errors.grade_id}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Select Grade -->
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    <div class="form-actions text-center">
+                                        <button type="submit" class="btn btn-primary">CREATE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Customer Form -->
+
+</div>
