@@ -15,6 +15,7 @@ import {MonthlyTourProgramComponent} from "./components/pages/tour_program/month
 import {CreateCustomerComponent} from "./components/pages/customer/create/create.component";
 import {CustomerComponent} from "./components/pages/customer/index/index.component";
 import {UpdateCustomerComponent} from "./components/pages/customer/update/update.component";
+import {StpComponent} from "./components/pages/customer/stp/stp.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -88,7 +89,11 @@ export const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        component: CustomerComponent,
+                        component: CustomerComponent
+                    },
+                    {
+                        path: 'stp',
+                        component: StpComponent
                     },
                     {
                         path: 'create',

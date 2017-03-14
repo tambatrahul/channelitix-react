@@ -4,7 +4,7 @@ import {User} from "../../models/user/user";
 import {AppConstants} from "../../app.constants";
 import {VisitService} from "../../services/visit.service";
 import {Visit} from "../../models/visit/visit";
-import {BaseComponent} from "../base/base.component";
+import {BaseAuthComponent} from "../base/base.component";
 import {AuthService} from "../../services/AuthService";
 import {Holiday} from "../../models/holiday";
 declare let jQuery: any;
@@ -14,7 +14,7 @@ declare let d3: any;
     templateUrl: '../../templates/pages/visit.component.html',
     styleUrls: ['../../templates/less/visit.component.less']
 })
-export class VisitComponent extends BaseComponent {
+export class VisitComponent extends BaseAuthComponent {
 
     /**
      * manager and user Role id

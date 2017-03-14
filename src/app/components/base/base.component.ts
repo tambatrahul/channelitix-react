@@ -3,7 +3,7 @@ import {AuthService} from "../../services/AuthService";
 declare let jQuery: any;
 
 
-export abstract class BaseComponent {
+export abstract class BaseAuthComponent {
 
   /**
    * loading identifier

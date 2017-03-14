@@ -69,13 +69,12 @@ export class TourService extends BaseService {
         return this.post(this.getBaseUrl(), tour);
     }
 
-    /**
-     * Update Tour
+     /**
+     * Delete Tour
      *
      * @param id
-     * @param tour
      */
-    update(id: number, tour: Tour): Observable<Result> {
-        return this.put(this.getBaseUrl() + '/' + id, tour);
+    destroy(id: number): Observable<Result> {
+        return this.remove(this.getBaseUrl() + '/' + id);
     }
 }

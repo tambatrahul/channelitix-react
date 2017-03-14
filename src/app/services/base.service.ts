@@ -103,6 +103,20 @@ export abstract class BaseService {
     }
 
     /**
+     * Make Delete request
+     */
+    public remove(url: string,  options?: RequestOptions): Observable<Result> {
+        return this.http.delete(url, this.addCredentials(options))
+            .map((res: Response) => {
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.checkResponse(error);
+                return Observable.throw(error.json() || 'Server error')
+            });
+    }
+
+    /**
      * add credentials
      *
      * @param options

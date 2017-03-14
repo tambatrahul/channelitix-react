@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../models/user/user";
 import {AppConstants} from "../../app.constants";
-import {BaseComponent} from "../base/base.component";
+import {BaseAuthComponent} from "../base/base.component";
 import {AuthService} from "../../services/AuthService";
 import {Holiday} from "../../models/holiday";
 import {OrderService} from "../../services/order.service";
@@ -13,7 +13,7 @@ declare let jQuery: any;
   templateUrl: '../../templates/pages/order.component.html',
   styleUrls: ['../../templates/less/order.component.less']
 })
-export class OrderComponent extends BaseComponent {
+export class OrderComponent extends BaseAuthComponent {
 
   /**
    * manager and user Role id

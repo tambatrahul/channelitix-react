@@ -1,7 +1,7 @@
-import {BaseComponent} from "./base.component";
+import {BaseAuthComponent} from "./base.component";
 
 
-export abstract class FormComponent extends BaseComponent {
+export abstract class FormComponent extends BaseAuthComponent {
 
   // loading and submitted
   submitted: boolean;

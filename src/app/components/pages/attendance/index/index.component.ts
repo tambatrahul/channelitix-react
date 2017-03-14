@@ -1,17 +1,19 @@
-import {Component, ViewChild, ElementRef} from "@angular/core";
+import {Component} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../../../models/user/user";
 import {AttendanceService} from "../../../../services/attendance.service";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {AppConstants} from "../../../../app.constants";
 import {Holiday} from "../../../../models/holiday";
+import {BaseAuthComponent} from "../../../base/base.component";
+import {AuthService} from "../../../../services/AuthService";
 declare let jQuery: any;
 
 @Component({
     templateUrl: 'index.component.html',
     styleUrls: ['index.component.less']
 })
-export class AttendanceTableComponent {
+export class AttendanceTableComponent extends BaseAuthComponent {
 
     /**
      * manager and user Role id
@@ -39,12 +41,6 @@ export class AttendanceTableComponent {
     public compact_view: boolean = false;
 
     /**
-     * loading identifier
-     */
-    @ViewChild('loading_table')
-    loading_table: ElementRef;
-
-    /**
      * get date range
      *
      * @returns {Array<number>}
@@ -66,17 +62,6 @@ export class AttendanceTableComponent {
     }
 
     /**
-     * Set loading variable
-     * @param loading
-     */
-    set loading(loading) {
-        if (loading)
-            jQuery(this.loading_table.nativeElement).mask('loading');
-        else
-            jQuery(this.loading_table.nativeElement).unmask();
-    }
-
-    /**
      * users
      *
      * @type {{}}
@@ -87,13 +72,15 @@ export class AttendanceTableComponent {
      * Attendance Component Constructor
      *
      */
-    constructor(private attendanceService: AttendanceService) {
+    constructor(private attendanceService: AttendanceService, private _authService: AuthService) {
+        super(_authService);
     }
 
     /**
      * on load of component load customer types
      */
     ngOnInit() {
+        super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
         this.fetchAttendances();
@@ -148,7 +135,7 @@ export class AttendanceTableComponent {
             response => {
                 this.loading = false;
                 // convert to models
-                let children = response.children.map(function(user, index) {
+                let children = response.children.map(function (user, index) {
                     return new User(user);
                 });
                 this.addAttendanceToSkeleton(children, response.attendances, response.holidays);

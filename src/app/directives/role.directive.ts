@@ -25,7 +25,7 @@ export class RoleCheckDirective {
  */
   @Input()
   set roleCheck(role_id: number) {
-    if (this.authService.user.role_id >= role_id ) {
+    if (this.authService.user && this.authService.user.role_id >= role_id ) {
       // If condition is true add template to DOM
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {

@@ -29,7 +29,7 @@ import {PaginationComponent} from "./components/common/pagination.component";
 import {RoleSelectComponent} from "./components/common/role-select.component";
 import {UserSelectComponent} from "./components/common/user-select.component";
 import {AreaSelectComponent} from "./components/pages/section/area-select.component";
-import {HeadquarterSelectComponent} from "./components/pages/section/headquarter-select.component";
+import {HeadquarterSelectComponent} from "./components/pages/territory/form_elements/headquarter_select/headquarter-select.component";
 import {TerritorySelectComponent} from "./components/pages/territory/form_elements/territory_select/territory-select.component";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 import {RegionSelectComponent} from "./components/pages/section/region-select.component";
@@ -74,6 +74,7 @@ import {CustomerComponent} from "./components/pages/customer/index/index.compone
 import {CustomerTypeSelectComponent} from "./components/common/customer_type-select.component";
 import {CustomerGradeSelectComponent} from "./components/common/customer_grade-select.component";
 import {UpdateCustomerComponent} from "./components/pages/customer/update/update.component";
+import {StpComponent} from "./components/pages/customer/stp/stp.component";
 
 enableProdMode();
 @NgModule({
@@ -106,6 +107,7 @@ enableProdMode();
         DailyTourProgramComponent,
         CreateCustomerComponent,
         UpdateCustomerComponent,
+        StpComponent,
 
         // directives
         AttendanceStatusDirective,

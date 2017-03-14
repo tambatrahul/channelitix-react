@@ -1,6 +1,6 @@
 import {Customer} from './../models/customer/customer';
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, Response, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -51,6 +51,19 @@ export class CustomerService extends BaseService {
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
+    }
+
+    /**
+     * Standard tour program for user
+     *
+     * @returns {Observable<Result>}
+     */
+    stp(headquarter_id?: number) {
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
+        return this.get(this.getBaseUrl() + '/counts/stp', new RequestOptions({search: params}));
     }
 
     /**
