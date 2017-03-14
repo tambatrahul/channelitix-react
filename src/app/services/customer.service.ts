@@ -1,3 +1,4 @@
+import {Customer} from './../models/customer/customer';
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
@@ -61,5 +62,33 @@ export class CustomerService extends BaseService {
 
         // make server call
         return this.get(this.getBaseUrl() + '/counts');
+    }
+
+    /**
+     * Get User
+     */
+    read(id: number): Observable<Result> {
+        return this.get(this.getBaseUrl() + '/' + id);
+    }
+
+    /**
+     * Create new Customer
+     */
+    create(customer: Customer): Observable<Result> {
+        return this.post(this.getBaseUrl(), customer)
+    }
+
+    /**
+     * Update Customer
+     */
+    update(customer: Customer, id: number): Observable<Result> {
+        return this.post(this.getBaseUrl(), customer)
+    }
+
+    /**
+     * Get Customer Type
+     */
+    masters(): Observable<Result> {
+        return this.get(this.getBaseUrl() + '/masters');
     }
 }

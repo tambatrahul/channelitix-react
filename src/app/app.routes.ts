@@ -14,6 +14,7 @@ import {MonthlyAttendanceComponent} from "./components/pages/attendance/monthly/
 import {MonthlyTourProgramComponent} from "./components/pages/tour_program/monthly/monthly.component";
 import {CreateCustomerComponent} from "./components/pages/customer/create/create.component";
 import {CustomerComponent} from "./components/pages/customer/index/index.component";
+import {UpdateCustomerComponent} from "./components/pages/customer/update/update.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -92,6 +93,10 @@ export const routes: Routes = [
                     {
                         path: 'create',
                         component: CreateCustomerComponent
+                    },
+                    {
+                        path: 'update/:id',
+                        component: UpdateCustomerComponent
                     },
 
                 ]

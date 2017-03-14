@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {AuthService} from "../../../../services/AuthService";
 import {CustomerService} from "../../../../services/customer.service";
 import {FormBuilder} from "@angular/forms";
@@ -7,11 +7,13 @@ import {FormComponent} from "../../../base/form.component";
 declare let jQuery: any;
 
 @Component({
-    selector: 'create-customer',
-    templateUrl: 'create.component.html',
-    styleUrls: ['create.component.less']
+    selector: 'update-customer',
+    templateUrl: 'update.component.html',
+    styleUrls: ['update.component.less']
 })
-export class CreateCustomerComponent extends FormComponent {
+export class UpdateCustomerComponent extends FormComponent {
+
+    private id: number;
 
     /**
      * Customer type and grade
@@ -48,20 +50,35 @@ export class CreateCustomerComponent extends FormComponent {
     });
 
     /**
-     * Create customer Constructor
+     * Update customer Constructor
      *
      * @param customerService
      * @param _router
      * @param _fb
      * @param _service
      */
-    constructor(public customerService: CustomerService, public _router: Router, public _fb: FormBuilder,
-                public _service: AuthService) {
+    constructor(public customerService: CustomerService, public _router: Router, public route: ActivatedRoute,
+                public _fb: FormBuilder, public _service: AuthService) {
         super(_service);
     }
 
     /**
-     * create customer
+     * on load of component
+     */
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.id = params['id'];
+            this.loading = true;
+            this.customerService.read(this.id).subscribe(response => {
+                this.loading = false;
+            }, err => {
+                this.loading = false;
+            });
+        });
+    }
+
+    /**
+     * update customer
      */
     save() {
         this.submitted = true;
@@ -69,7 +86,7 @@ export class CreateCustomerComponent extends FormComponent {
             this.loading = true;
             let data = this.form.value;
 
-            this.customerService.create(data).subscribe(
+            this.customerService.update(data, this.id).subscribe(
                 response => {
                     localStorage.setItem("customer", JSON.stringify(response.customer));
                     this._router.navigate(['/customers']);

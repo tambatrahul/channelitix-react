@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {Router} from "@angular/router";
 import {CustomerService} from "../../../../services/customer.service";
 import {AuthService} from "../../../../services/AuthService";
 import {Customer} from "../../../../models/customer/customer";
@@ -47,7 +48,7 @@ export class CustomerComponent extends ListComponent {
      * @param customerService
      * @param _service
      */
-    constructor(private customerService: CustomerService, public _service: AuthService) {
+    constructor(private customerService: CustomerService, public _service: AuthService, public _router: Router,) {
         super(_service);
     }
 
@@ -131,5 +132,12 @@ export class CustomerComponent extends ListComponent {
     brickChanged(brick_id) {
         this.brick_id = brick_id;
         this.fetch();
+    }
+
+    /**
+     * Update User
+     */
+    updateCustomer(id: number) {
+        this._router.navigate(['/customers/update/', id]);
     }
 }
