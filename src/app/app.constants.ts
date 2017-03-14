@@ -16,7 +16,7 @@ export class AppConstants {
         new Role({id: 6, name: 'COUNTRY_MNG', title: 'Country Managers'}),
         new Role({id: 5, name: 'REGION_MNG', title: 'Region Managers'}),
         new Role({id: 4, name: 'AREA_MNG', title: 'Area Managers'}),
-        new Role({id: 3, name: 'HQ_MNG', title: 'Territory Managers'})
+        new Role({id: 3, name: 'HQ_MNG', title: 'Reps'})
     ];
 
     // week days
