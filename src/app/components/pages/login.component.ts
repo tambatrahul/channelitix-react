@@ -57,7 +57,7 @@ export class LoginComponent extends FormComponent {
                     this._service.user = response.user;
 
                     if (response.user.role_id == 6)
-                        this._router.navigate(['/dashboard']);
+                        this._router.navigate(['/attendances/monthly']);
                     else
                         this._router.navigate(['/attendances/monthly']);
                     this.loading = false;
