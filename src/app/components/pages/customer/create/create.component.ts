@@ -5,6 +5,7 @@ import {CustomerService} from "../../../../services/customer.service";
 import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../../../base/form.component";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     selector: 'create-customer',
@@ -12,6 +13,9 @@ declare let jQuery: any;
     styleUrls: ['create.component.less']
 })
 export class CreateCustomerComponent extends FormComponent {
+
+    customer_types: Array<Object> = [];
+    customer_grades: Array<Object> = [];
 
     /**
      * Customer type and grade
@@ -35,6 +39,11 @@ export class CreateCustomerComponent extends FormComponent {
         mobile: [""],
         customer_type_id: [""],
         grade_id: [""],
+        hq_region_id: [""],
+        hq_area_id: [""],
+        hq_headquarter_id: [""],
+        hq_territory_id: [""],
+        hq_brick_id: [""],
         address: this._fb.group({
             line: [""],
             landmark: [""],
@@ -61,6 +70,34 @@ export class CreateCustomerComponent extends FormComponent {
     }
 
     /**
+     * initialize form
+     */
+    ngOnInit() {
+        super.ngOnInit();
+        this.regionChanged(this._service.user.hq_region_id);
+        this.areaChanged(this._service.user.hq_area_id);
+        this.headquarterChanged(this._service.user.hq_headquarter_id);
+        this.territoryChanged(this._service.user.hq_territory_id);
+        this.brickChanged(this._service.user.hq_brick_id);
+        this.customerGrade();
+    }
+
+    /**
+     * Customer Grade
+     */
+    customerGrade() {
+        if(this.customer_type_id > 0) {
+            this.customerService.masters().subscribe(
+                response => {
+                    this.customer_grades = response.customer_types;
+                },
+                err => {
+                }
+            );
+        }
+    }
+
+    /**
      * create customer
      */
     save() {
@@ -71,9 +108,15 @@ export class CreateCustomerComponent extends FormComponent {
 
             this.customerService.create(data).subscribe(
                 response => {
-                    localStorage.setItem("customer", JSON.stringify(response.customer));
-                    this._router.navigate(['/customers']);
                     this.loading = false;
+                    swal({
+                        title: "Customer Created Successfully",
+                        text: "I will close in 2 sec.",
+                        type: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    this._router.navigate(['/customers']);
                 },
                 err => {
                     this.loading = false;
@@ -98,7 +141,6 @@ export class CreateCustomerComponent extends FormComponent {
     gradeChanged(grade_id) {
         this.grade_id = grade_id;
         this.form.patchValue({grade_id: grade_id});
-
     }
 
     /**

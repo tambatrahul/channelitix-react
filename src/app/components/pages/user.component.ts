@@ -18,6 +18,7 @@ export class UserComponent extends ListComponent {
      *
      * @type {number}
      */
+    public user_role_id: number;
     public role_id: number = 0;
     public manager_role_id: number = 0;
 

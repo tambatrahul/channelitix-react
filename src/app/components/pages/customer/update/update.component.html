@@ -38,7 +38,7 @@
 
                                     <!-- Firm Name -->
                                     <div class="form-group">
-                                        <label class="control-label" for="cname">Firm Name (required)</label>
+                                        <label class="control-label">Firm Name (required)</label>
                                         <div class="">
                                             <input formControlName="firm_name" class="form-control" type="text">
                                             <small *ngIf="errors?.firm_name" class="text-danger text-center">
@@ -50,7 +50,7 @@
 
                                     <!-- Email -->
                                     <div class="form-group">
-                                        <label class="control-label" for="cemail">Email (required)</label>
+                                        <label class="control-label">Email (required)</label>
                                         <div class="">
                                             <input class="form-control" formControlName="email" type="text"
                                                    name="email">
@@ -63,7 +63,7 @@
 
                                     <!-- Mobile -->
                                     <div class="form-group">
-                                        <label class="control-label" for="cmobile">Mobile (required)</label>
+                                        <label class="control-label">Mobile (required)</label>
                                         <div class="">
                                             <input class="form-control" formControlName="mobile" type="text"
                                                    name="mobile">
@@ -95,52 +95,54 @@
                                     </div>
                                     <!-- ./Select Type and Select Grade-->
 
-                                    <!-- Head quarter select -->
-                                    <div class="form-group" *ngIf="hq_area_id > 0">
-                                        <div *roleCheck="4">
-                                            <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
-                                                                [title]="'Select Head Quarter'"
-                                                                [first_value]="'Select Head Quarter'"
-                                                                (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+                                    <div class="row">
+                                        <!-- Head quarter select -->
+                                        <div class="form-group col-xs-12 col-md-4" *ngIf="hq_area_id > 0">
+                                            <div *roleCheck="4">
+                                                <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
+                                                                    [title]="'Select Head Quarter'"
+                                                                    [first_value]="'Select Head Quarter'"
+                                                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                                            <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
-                                                {{ errors.hq_area_id}}
-                                            </small>
+                                                <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
+                                                    {{ errors.hq_area_id}}
+                                                </small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- ./Head quarter select -->
+                                        <!-- ./Head quarter select -->
 
-                                    <!-- Territory select -->
-                                    <div class="form-group" *ngIf="hq_headquarter_id > 0">
-                                        <div>
-                                            <territory-select [value]="hq_territory_id"
-                                                              [headquarter_id]="hq_headquarter_id"
-                                                              [title]="'Select Territory'"
-                                                              [first_value]="'Select Territory'"
-                                                              (onValueChanged)="territoryChanged($event)"></territory-select>
-                                            <small *ngIf="errors?.hq_headquarter_id"
-                                                   class="text-danger text-center">
-                                                {{ errors.hq_headquarter_id}}
-                                            </small>
+                                        <!-- Territory select -->
+                                        <div class="form-group col-xs-12 col-md-4" *ngIf="hq_headquarter_id > 0">
+                                            <div>
+                                                <territory-select [value]="hq_territory_id"
+                                                                  [headquarter_id]="hq_headquarter_id"
+                                                                  [title]="'Select Territory'"
+                                                                  [first_value]="'Select Territory'"
+                                                                  (onValueChanged)="territoryChanged($event)"></territory-select>
+                                                <small *ngIf="errors?.hq_headquarter_id"
+                                                       class="text-danger text-center">
+                                                    {{ errors.hq_headquarter_id}}
+                                                </small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- ./Territory select -->
+                                        <!-- ./Territory select -->
 
-                                    <!-- Brick select -->
-                                    <div class="form-group" *ngIf="hq_territory_id > 0">
-                                        <div>
-                                            <brick-select [value]="hq_brick_id"
-                                                          [territory_id]="hq_territory_id"
-                                                          [title]="'Select Brick'"
-                                                          [first_value]="'Select Brick'"
-                                                          (onValueChanged)="brickChanged($event)"></brick-select>
-                                            <small *ngIf="errors?.hq_territory_id"
-                                                   class="text-danger text-center">
-                                                {{ errors.hq_territory_id}}
-                                            </small>
+                                        <!-- Brick select -->
+                                        <div class="form-group col-xs-12 col-md-4" *ngIf="hq_territory_id > 0">
+                                            <div>
+                                                <brick-select [value]="hq_brick_id"
+                                                              [territory_id]="hq_territory_id"
+                                                              [title]="'Select Brick'"
+                                                              [first_value]="'Select Brick'"
+                                                              (onValueChanged)="brickChanged($event)"></brick-select>
+                                                <small *ngIf="errors?.hq_territory_id"
+                                                       class="text-danger text-center">
+                                                    {{ errors.hq_territory_id}}
+                                                </small>
+                                            </div>
                                         </div>
+                                        <!-- ./Brick select -->
                                     </div>
-                                    <!-- ./Brick select -->
                                 </div>
 
                                 <div class="col-xs-12 col-md-6" formGroupName="address">
@@ -150,7 +152,7 @@
 
                                     <!-- Line -->
                                     <div class="form-group">
-                                        <label class="control-label" for="cline">Line</label>
+                                        <label class="control-label">Line</label>
                                         <div class="">
                                             <input formControlName="line" class="form-control" type="text">
                                             <small *ngIf="errors?.address.line" class="text-danger text-center">
@@ -162,7 +164,7 @@
 
                                     <!-- Landmark -->
                                     <div class="form-group">
-                                        <label class="control-label" for="clandmark">Landmark</label>
+                                        <label class="control-label">Landmark</label>
                                         <div class="">
                                             <input formControlName="landmark" class="form-control" type="text">
                                             <small *ngIf="errors?.address.landmark" class="text-danger text-center">
@@ -175,7 +177,7 @@
                                     <!-- Area and Pincode-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="carea">Area</label>
+                                            <label class="control-label">Area</label>
                                             <div class="">
                                                 <input formControlName="area_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address.area_str" class="text-danger text-center">
@@ -184,7 +186,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="cpincode">Pincode</label>
+                                            <label class="control-label">Pincode</label>
                                             <div class="">
                                                 <input formControlName="pincode" class="form-control" type="text">
                                                 <small *ngIf="errors?.address.pincode" class="text-danger text-center">
@@ -198,7 +200,7 @@
                                     <!-- Taluka and District-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="ctaluka">Taluka</label>
+                                            <label class="control-label">Taluka</label>
                                             <div class="">
                                                 <input formControlName="taluka_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address.taluka_str" class="text-danger text-center">
@@ -207,7 +209,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="cdistrict">District</label>
+                                            <label class="control-label">District</label>
                                             <div class="">
                                                 <input formControlName="district_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address.district_str" class="text-danger text-center">
@@ -221,7 +223,7 @@
                                     <!-- State and Country-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="cstate">State</label>
+                                            <label class="control-label">State</label>
                                             <div class="">
                                                 <input formControlName="state_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address.state_str" class="text-danger text-center">
@@ -230,7 +232,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="ccountry">Country</label>
+                                            <label class="control-label">Country</label>
                                             <div class="">
                                                 <input formControlName="country_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address.country_str" class="text-danger text-center">

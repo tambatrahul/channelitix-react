@@ -14,6 +14,13 @@ export class User extends Model {
     auth_token: string;
     role_id: number;
 
+    // territory changes
+    hq_region_id: number;
+    hq_area_id: number;
+    hq_headquarter_id: number;
+    hq_territory_id: number;
+    hq_brick_id: number;
+
     // manager
     manager: User;
 
@@ -35,6 +42,11 @@ export class User extends Model {
         this.role_id = info.role_id;
         this.attendances = info.attendances;
         this.manager = info.manager;
+        this.hq_region_id = info.hq_region_id;
+        this.hq_area_id = info.hq_area_id;
+        this.hq_headquarter_id = info.hq_headquarter_id;
+        this.hq_territory_id = info.hq_territory_id;
+        this.hq_brick_id = info.hq_brick_id;
     }
 
     /**

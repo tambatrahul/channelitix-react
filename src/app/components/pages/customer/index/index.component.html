@@ -10,29 +10,29 @@
                             List of all the Customers
                         </p>
                     </div>
-                    <div class="col-md-6">
-                        <div class="col-xs-12 col-xs-3" *roleCheck="6">
+                    <div class="col-md-8">
+                        <div class="col-xs-12 col-md-3" *roleCheck="6">
                             <region-select [value]="region_id" [title]="'Select Region'" (onValueChanged)="regionChanged($event)"></region-select>
                         </div>
-                        <div class="col-xs-12 col-xs-3" *roleCheck="5">
+                        <div class="col-xs-12 col-md-3" *roleCheck="5">
                             <div *ngIf="region_id > 0">
                                 <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" (onValueChanged)="areaChanged($event)"></area-select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-xs-3" *roleCheck="4">
+                        <div class="col-xs-12 col-md-3" *roleCheck="4">
                             <div *ngIf="area_id > 0">
                                 <headquarter-select [value]="headquarter_id" [area_id]="area_id" [title]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-xs-3" *roleCheck="4">
+                        <div class="col-xs-12 col-md-3" *roleCheck="4">
                             <div *ngIf="headquarter_id > 0">
                                 <territory-select [value]="territory_id" [headquarter_id]="headquarter_id" [title]="'Select Territory'" (onValueChanged)="territoryChanged($event)"></territory-select>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div style="padding-top: 15px;">
-                            <a class="btn btn-primary" routerLink="/customers/create">Create Customer</a>
+                        <div class="col-xs-12 col-md-3" *roleCheck="3">
+                            <div style="padding-top: 20px;">
+                                <a class="btn btn-primary" routerLink="/customers/create">Create Customer</a>
+                            </div>
                         </div>
                     </div>
                 </div>
