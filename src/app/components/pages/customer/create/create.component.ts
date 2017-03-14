@@ -13,6 +13,9 @@ declare let jQuery: any;
 })
 export class CreateCustomerComponent extends FormComponent {
 
+    customer_types: Array<Object> = [];
+    customer_grades: Array<Object> = [];
+
     /**
      * Customer type and grade
      */
@@ -75,6 +78,22 @@ export class CreateCustomerComponent extends FormComponent {
         this.headquarterChanged(this._service.user.hq_headquarter_id);
         this.territoryChanged(this._service.user.hq_territory_id);
         this.brickChanged(this._service.user.hq_brick_id);
+        this.customerGrade();
+    }
+
+    /**
+     * Customer Grade
+     */
+    customerGrade() {
+        if(this.customer_type_id > 0) {
+            this.customerService.masters().subscribe(
+                response => {
+                    this.customer_grades = response.customer_types;
+                },
+                err => {
+                }
+            );
+        }
     }
 
     /**
@@ -114,7 +133,6 @@ export class CreateCustomerComponent extends FormComponent {
     gradeChanged(grade_id) {
         this.grade_id = grade_id;
         this.form.patchValue({grade_id: grade_id});
-
     }
 
     /**

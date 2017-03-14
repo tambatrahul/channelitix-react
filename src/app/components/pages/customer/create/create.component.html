@@ -84,7 +84,7 @@
                                                 {{ errors.customer_type_id}}
                                             </small>
                                         </div>
-                                        <div class="col-xs-12 col-md-6 form-group">
+                                        <div class="col-xs-12 col-md-6 form-group" *ngIf="customer_type_id > 0">
                                             <customer_grade-select [value]="grade_id" [title]="'Select Grade'"
                                                                    [first_value]="'Select Grade'"
                                                                    (onValueChanged)="gradeChanged($event)"></customer_grade-select>
