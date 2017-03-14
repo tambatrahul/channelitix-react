@@ -1,11 +1,17 @@
 import {Model} from "../model";
+import {CustomerType} from "./customer_type";
 
 export class Grade extends Model {
 
-  name: string;
+    name: string;
+    customer_type: CustomerType;
 
-  constructor(info: any) {
-    super(info.id);
-    this.name = info.name;
-  }
+    // for internal user only
+    customer_count: number;
+
+    constructor(info: any) {
+        super(info.id);
+        this.name = info.name;
+        this.customer_type = info.customer_type;
+    }
 }

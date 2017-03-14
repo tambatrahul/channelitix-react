@@ -14,6 +14,7 @@ import {Order} from "./order/order";
 import {WorkType} from "./attendance/work_type";
 import {LeaveType} from "./attendance/leave_type";
 import {Tour} from "./tour_program/tour";
+import {Grade} from "./customer/grade";
 
 export class Result {
 
@@ -51,6 +52,7 @@ export class Result {
     // customer models
     customers: Customer[];
     customer_types: CustomerType[];
+    grades: Grade[];
 
     // total number
     total: number;
