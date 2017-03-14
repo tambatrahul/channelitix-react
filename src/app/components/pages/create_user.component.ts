@@ -62,6 +62,11 @@ export class CreateUserComponent extends FormComponent {
     super(_service);
   }
 
+  ngOnInit() {
+      super.ngOnInit();
+      this.dateChanged(moment().format('DD MMMM YYYY'));
+  }
+
   /**
    * create user
    */
@@ -69,7 +74,7 @@ export class CreateUserComponent extends FormComponent {
     this.submitted = true;
     if (this.form.valid) {
       this.loading = true;
-      let data = this.form.value;
+      let data = Object.assign({}, this.form.value);
 
       // format joining date
       if (this.joining_date)
