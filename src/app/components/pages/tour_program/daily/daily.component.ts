@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output} from "@angular/core";
 import {Holiday} from "../../../../models/holiday";
 import {ListComponent} from "../../../base/list.component";
 import {Router} from "@angular/router";
@@ -6,7 +6,10 @@ import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
 import {Tour} from "../../../../models/tour_program/tour";
 import {TourService} from "../../../../services/tour.service";
+
+
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     selector: 'daily-tour',
@@ -55,5 +58,17 @@ export class DailyTourProgramComponent extends ListComponent {
     deleteTour(id: number) {
         // TODO:: write code to delete tour.
         // TODO:: show pop up that tour is deleted and raise event
+        this.tourService.destroy(id).subscribe(
+            response => {
+                this.loading = false;
+                swal({
+                    title: "Tour Deleted Successfully",
+                    text: "I will close in 2 sec.",
+                    type: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        );
     }
 }
