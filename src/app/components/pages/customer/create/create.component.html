@@ -77,17 +77,19 @@
                                     <!-- Select Type and Select Grade-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <customer_type-select [value]="customer_type_id" [title]="'Select Type'"
+                                            <customer-type-select [value]="customer_type_id" [title]="'Select Type'"
                                                                   [first_value]="'Select Type'"
-                                                                  (onValueChanged)="typeChanged($event)"></customer_type-select>
+                                                                  [models]="customer_types"
+                                                                  (onValueChanged)="typeChanged($event)"></customer-type-select>
                                             <small *ngIf="errors?.customer_type_id" class="text-danger text-center">
                                                 {{ errors.customer_type_id}}
                                             </small>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group" *ngIf="customer_type_id > 0">
-                                            <customer_grade-select [value]="grade_id" [title]="'Select Grade'"
-                                                                   [first_value]="'Select Grade'"
-                                                                   (onValueChanged)="gradeChanged($event)"></customer_grade-select>
+                                            <grade-select [value]="grade_id" [title]="'Select Grade'"
+                                                          [first_value]="'Select Grade'"
+                                                          [models]="grades"
+                                                          (onValueChanged)="gradeChanged($event)"></grade-select>
                                             <small *ngIf="errors?.grade_id" class="text-danger text-center">
                                                 {{ errors.grade_id}}
                                             </small>
@@ -153,7 +155,7 @@
 
                                     <!-- Line -->
                                     <div class="form-group">
-                                        <label class="control-label" for="cline">Line</label>
+                                        <label class="control-label">Line</label>
                                         <div class="">
                                             <input formControlName="line" class="form-control" type="text">
                                             <small *ngIf="errors?.address?.line" class="text-danger text-center">
@@ -165,7 +167,7 @@
 
                                     <!-- Landmark -->
                                     <div class="form-group">
-                                        <label class="control-label" for="clandmark">Landmark</label>
+                                        <label class="control-label">Landmark</label>
                                         <div class="">
                                             <input formControlName="landmark" class="form-control" type="text">
                                             <small *ngIf="errors?.address?.landmark" class="text-danger text-center">
@@ -178,16 +180,17 @@
                                     <!-- Area and Pincode-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="carea">Area</label>
+                                            <label class="control-label">Area</label>
                                             <div class="">
                                                 <input formControlName="area_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address?.area_str" class="text-danger text-center">
+                                                <small *ngIf="errors?.address?.area_str"
+                                                       class="text-danger text-center">
                                                     {{ errors?.address?.area_str}}
                                                 </small>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="cpincode">Pincode</label>
+                                            <label class="control-label">Pincode</label>
                                             <div class="">
                                                 <input formControlName="pincode" class="form-control" type="text">
                                                 <small *ngIf="errors?.address?.pincode" class="text-danger text-center">
@@ -201,7 +204,7 @@
                                     <!-- Taluka and District-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="ctaluka">Taluka</label>
+                                            <label class="control-label" >Taluka</label>
                                             <div class="">
                                                 <input formControlName="taluka_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address?.taluka_str"
@@ -211,7 +214,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="cdistrict">District</label>
+                                            <label class="control-label">District</label>
                                             <div class="">
                                                 <input formControlName="district_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address?.district_str"
@@ -226,7 +229,7 @@
                                     <!-- State and Country-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="cstate">State</label>
+                                            <label class="control-label">State</label>
                                             <div class="">
                                                 <input formControlName="state_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address?.state_str"
@@ -236,7 +239,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" for="ccountry">Country</label>
+                                            <label class="control-label">Country</label>
                                             <div class="">
                                                 <input formControlName="country_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address?.country_str"

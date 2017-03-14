@@ -71,10 +71,10 @@ import {TourFormComponent} from "./components/pages/tour_program/tour_form/tour_
 import {DailyTourProgramComponent} from "./components/pages/tour_program/daily/daily.component";
 import {CreateCustomerComponent} from "./components/pages/customer/create/create.component";
 import {CustomerComponent} from "./components/pages/customer/index/index.component";
-import {CustomerTypeSelectComponent} from "./components/common/customer_type-select.component";
-import {CustomerGradeSelectComponent} from "./components/common/customer_grade-select.component";
+import {CustomerTypeSelectComponent} from "./components/pages/customer/form_elements/customer_type_select/customer_type-select.component";
 import {UpdateCustomerComponent} from "./components/pages/customer/update/update.component";
 import {StpComponent} from "./components/pages/customer/stp/stp.component";
+import {GradeSelectComponent} from "./components/pages/customer/form_elements/grade_select/grade-select.component";
 
 enableProdMode();
 @NgModule({
@@ -145,7 +145,7 @@ enableProdMode();
         ManagerSelectComponent,
         BrickSelectComponent,
         CustomerTypeSelectComponent,
-        CustomerGradeSelectComponent
+        GradeSelectComponent
     ],
     imports: [
         BrowserModule,

@@ -4,6 +4,8 @@ import {AuthService} from "../../../../services/AuthService";
 import {CustomerService} from "../../../../services/customer.service";
 import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../../../base/form.component";
+import {CustomerType} from "../../../../models/customer/customer_type";
+import {Grade} from "../../../../models/customer/grade";
 declare let jQuery: any;
 
 @Component({
@@ -13,8 +15,8 @@ declare let jQuery: any;
 })
 export class CreateCustomerComponent extends FormComponent {
 
-    customer_types: Array<Object> = [];
-    customer_grades: Array<Object> = [];
+    customer_types: CustomerType[] = [];
+    grades: Grade[] = [];
 
     /**
      * Customer type and grade
@@ -78,22 +80,20 @@ export class CreateCustomerComponent extends FormComponent {
         this.headquarterChanged(this._service.user.hq_headquarter_id);
         this.territoryChanged(this._service.user.hq_territory_id);
         this.brickChanged(this._service.user.hq_brick_id);
-        this.customerGrade();
+        this.fetchMasters();
     }
 
     /**
      * Customer Grade
      */
-    customerGrade() {
-        if(this.customer_type_id > 0) {
-            this.customerService.masters().subscribe(
-                response => {
-                    this.customer_grades = response.customer_types;
-                },
-                err => {
-                }
-            );
-        }
+    fetchMasters() {
+        this.customerService.masters().subscribe(
+            response => {
+                this.customer_types = response.customer_types;
+            },
+            err => {
+            }
+        );
     }
 
     /**
@@ -112,7 +112,6 @@ export class CreateCustomerComponent extends FormComponent {
                 },
                 err => {
                     this.loading = false;
-                    console.log(err);
                     this.errors = err.errors;
                 }
             );
@@ -124,6 +123,7 @@ export class CreateCustomerComponent extends FormComponent {
      */
     typeChanged(customer_type_id) {
         this.customer_type_id = customer_type_id;
+        this.grades = this.customer_types.find(ct => ct.id == customer_type_id).grades;
         this.form.patchValue({customer_type_id: customer_type_id});
     }
 

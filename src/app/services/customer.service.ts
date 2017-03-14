@@ -95,7 +95,7 @@ export class CustomerService extends BaseService {
      * Update Customer
      */
     update(customer: Customer, id: number): Observable<Result> {
-        return this.post(this.getBaseUrl(), customer)
+        return this.put(this.getBaseUrl() + '/' + id, customer)
     }
 
     /**

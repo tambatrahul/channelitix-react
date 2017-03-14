@@ -77,17 +77,19 @@
                                     <!-- Select Type and Select Grade-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <customer_type-select [value]="customer_type_id" [title]="'Select Type'"
+                                            <customer-type-select [value]="customer_type_id" [title]="'Select Type'"
                                                                   [first_value]="'Select Type'"
-                                                                  (onValueChanged)="typeChanged($event)"></customer_type-select>
+                                                                  [models]="customer_types"
+                                                                  (onValueChanged)="typeChanged($event)"></customer-type-select>
                                             <small *ngIf="errors?.customer_type_id" class="text-danger text-center">
                                                 {{ errors.customer_type_id}}
                                             </small>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <customer_grade-select [value]="grade_id" [title]="'Select Grade'"
-                                                                   [first_value]="'Select Grade'"
-                                                                   (onValueChanged)="gradeChanged($event)"></customer_grade-select>
+                                            <grade-select [value]="grade_id" [title]="'Select Grade'"
+                                                          [first_value]="'Select Grade'"
+                                                          [models]="grades"
+                                                          (onValueChanged)="gradeChanged($event)"></grade-select>
                                             <small *ngIf="errors?.grade_id" class="text-danger text-center">
                                                 {{ errors.grade_id}}
                                             </small>
@@ -203,7 +205,8 @@
                                             <label class="control-label" for="ctaluka">Taluka</label>
                                             <div class="">
                                                 <input formControlName="taluka_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.taluka_str" class="text-danger text-center">
+                                                <small *ngIf="errors?.address.taluka_str"
+                                                       class="text-danger text-center">
                                                     {{ errors.address.taluka_str}}
                                                 </small>
                                             </div>
@@ -212,7 +215,8 @@
                                             <label class="control-label" for="cdistrict">District</label>
                                             <div class="">
                                                 <input formControlName="district_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.district_str" class="text-danger text-center">
+                                                <small *ngIf="errors?.address.district_str"
+                                                       class="text-danger text-center">
                                                     {{ errors.address.district_str}}
                                                 </small>
                                             </div>
@@ -226,7 +230,8 @@
                                             <label class="control-label" for="cstate">State</label>
                                             <div class="">
                                                 <input formControlName="state_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.state_str" class="text-danger text-center">
+                                                <small *ngIf="errors?.address.state_str"
+                                                       class="text-danger text-center">
                                                     {{ errors.address.state_str}}
                                                 </small>
                                             </div>
@@ -235,7 +240,8 @@
                                             <label class="control-label" for="ccountry">Country</label>
                                             <div class="">
                                                 <input formControlName="country_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.country_str" class="text-danger text-center">
+                                                <small *ngIf="errors?.address.country_str"
+                                                       class="text-danger text-center">
                                                     {{ errors.address.country_str}}
                                                 </small>
                                             </div>

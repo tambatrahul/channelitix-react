@@ -4,6 +4,8 @@ import {AuthService} from "../../../../services/AuthService";
 import {CustomerService} from "../../../../services/customer.service";
 import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../../../base/form.component";
+import {CustomerType} from "../../../../models/customer/customer_type";
+import {Grade} from "../../../../models/customer/grade";
 declare let jQuery: any;
 
 @Component({
@@ -13,8 +15,8 @@ declare let jQuery: any;
 })
 export class UpdateCustomerComponent extends FormComponent {
 
-    customer_types: Array<Object> = [];
-    customer_grades: Array<Object> = [];
+    customer_types: CustomerType[] = [];
+    grades: Grade[] = [];
     private id: number;
 
     /**
@@ -79,13 +81,26 @@ export class UpdateCustomerComponent extends FormComponent {
         this.headquarterChanged(this._service.user.hq_headquarter_id);
         this.territoryChanged(this._service.user.hq_territory_id);
         this.brickChanged(this._service.user.hq_brick_id);
-        this.customerGrade();
+        this.fetchMasters();
 
         this.route.params.subscribe(params => {
             this.id = params['id'];
             this.loading = true;
             this.customerService.read(this.id).subscribe(response => {
                 this.loading = false;
+                this.form.patchValue({
+                    firm_name: response.customer.firm_name,
+                    email: response.customer.email,
+                    mobile: response.customer.mobile,
+                    address: response.customer.address
+                });
+                this.regionChanged(response.customer.hq_region_id);
+                this.areaChanged(response.customer.hq_area_id);
+                this.headquarterChanged(response.customer.hq_headquarter_id);
+                this.territoryChanged(response.customer.hq_territory_id);
+                this.brickChanged(response.customer.hq_brick_id);
+                this.typeChanged(response.customer.customer_type_id);
+                this.gradeChanged(response.customer.grade_id);
             }, err => {
                 this.loading = false;
             });
@@ -95,16 +110,14 @@ export class UpdateCustomerComponent extends FormComponent {
     /**
      * Customer Grade
      */
-    customerGrade() {
-        if(this.customer_type_id > 0) {
-            this.customerService.masters().subscribe(
-                response => {
-                    this.customer_grades = response.customer_types;
-                },
-                err => {
-                }
-            );
-        }
+    fetchMasters() {
+        this.customerService.masters().subscribe(
+            response => {
+                this.customer_types = response.customer_types;
+            },
+            err => {
+            }
+        );
     }
 
     /**
@@ -136,6 +149,7 @@ export class UpdateCustomerComponent extends FormComponent {
      */
     typeChanged(customer_type_id) {
         this.customer_type_id = customer_type_id;
+        this.grades = this.customer_types.find(ct => ct.id == customer_type_id).grades;
         this.form.patchValue({customer_type_id: customer_type_id});
     }
 
