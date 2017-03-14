@@ -18,8 +18,11 @@ export class DailyTourProgramComponent extends ListComponent {
     /**
      * Date of tour
      */
+    _date:string;
     @Input()
-    date: string;
+    set date(date: string) {
+        this._date = moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    };
 
     /**
      * Tours
@@ -44,7 +47,13 @@ export class DailyTourProgramComponent extends ListComponent {
     protected fetch() {
     }
 
+    /**
+     * delete tour
+     *
+     * @param id
+     */
     deleteTour(id: number) {
-
+        // TODO:: write code to delete tour.
+        // TODO:: show pop up that tour is deleted and raise event
     }
 }
