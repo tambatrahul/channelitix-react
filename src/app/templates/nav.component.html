@@ -21,31 +21,42 @@
             <li>
                 <a class="waves-effect" routerLink="/attendances/monthly">
                     <span class="nav-icon"><i class="fa fa-calendar"></i></span>
-                    <span class="nav-label">Attendance Reporting</span>
+                    <span class="nav-label">Daily Work Report</span>
                 </a>
             </li>
-            <li>
-                <a class="waves-effect" routerLink="/attendances">
-                    <span class="nav-icon"><i class="fa fa-calendar-check-o"></i></span>
-                    <span class="nav-label">Attendance</span>
+
+            <li class="dcjq-parent-li" *roleCheck="4">
+                <a>
+                    <span class="nav-icon">
+                        <i class="ico-hammer-wrench"></i>
+                    </span>
+                    <span class="nav-label">Reports</span><span class="dcjq-icon"></span>
                 </a>
+                <ul style="display: none;">
+                    <li>
+                        <a class="waves-effect" routerLink="/attendances">
+                            <span class="nav-icon"><i class="fa fa-calendar-check-o"></i></span>
+                            <span class="nav-label">Daily Work Reporting</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-           <!-- <li>
-                <a class="waves-effect" routerLink="/visits">
-                    <span class="nav-icon"><i class="fa fa-user-md"></i></span>
-                    <span class="nav-label">Visits</span>
-                </a>
-            </li>
+            <!-- <li>
+                 <a class="waves-effect" routerLink="/visits">
+                     <span class="nav-icon"><i class="fa fa-user-md"></i></span>
+                     <span class="nav-label">Visits</span>
+                 </a>
+             </li>
+             <li>
+                 <a class="waves-effect" routerLink="/orders">
+                     <span class="nav-icon"><i class="fa fa-shopping-cart"></i></span>
+                     <span class="nav-label">Orders</span>
+                 </a>
+             </li>-->
             <li>
-                <a class="waves-effect" routerLink="/orders">
-                    <span class="nav-icon"><i class="fa fa-shopping-cart"></i></span>
-                    <span class="nav-label">Orders</span>
-                </a>
-            </li>-->
-            <li>
-                <a class="waves-effect" routerLink="/customers/stp">
+                <a class="waves-effect" routerLink="/customers/stp" *roleCheck="4">
                     <span class="nav-icon"><i class="fa fa-map"></i></span>
-                    <span class="nav-label">Stp</span>
+                    <span class="nav-label">Standard Tour Program</span>
                 </a>
             </li>
             <li>
@@ -55,9 +66,9 @@
                 </a>
             </li>
             <li>
-                <a class="waves-effect" routerLink="/users">
+                <a class="waves-effect" routerLink="/users" *roleCheck="4">
                     <span class="nav-icon"><i class="fa fa-users"></i></span>
-                    <span class="nav-label">Users Manager</span>
+                    <span class="nav-label">Users Management</span>
                 </a>
             </li>
             <li>

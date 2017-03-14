@@ -25,6 +25,14 @@ export class TourFormComponent extends FormComponent {
     tourCreated = new EventEmitter();
 
     /**
+     * tour deleted selection
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    tourDeleted = new EventEmitter();
+
+    /**
      * Date of tour
      */
     _date:string;
@@ -91,7 +99,6 @@ export class TourFormComponent extends FormComponent {
                         timer: 1500,
                         showConfirmButton: false
                     });
-                    this.reset();
                     this.tourCreated.emit();
                 },
                 err => {

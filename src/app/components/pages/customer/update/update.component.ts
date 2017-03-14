@@ -7,6 +7,7 @@ import {FormComponent} from "../../../base/form.component";
 import {CustomerType} from "../../../../models/customer/customer_type";
 import {Grade} from "../../../../models/customer/grade";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     selector: 'update-customer',
@@ -131,9 +132,15 @@ export class UpdateCustomerComponent extends FormComponent {
 
             this.customerService.update(data, this.id).subscribe(
                 response => {
-                    localStorage.setItem("customer", JSON.stringify(response.customer));
-                    this._router.navigate(['/customers']);
                     this.loading = false;
+                    swal({
+                        title: "Customer Created Successfully",
+                        text: "I will close in 2 sec.",
+                        type: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    this._router.navigate(['/customers']);
                 },
                 err => {
                     this.loading = false;
