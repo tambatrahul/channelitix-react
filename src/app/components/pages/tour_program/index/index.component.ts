@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import {User} from "../../../../models/user/user";
 import {AppConstants} from "../../../../app.constants";
 import {AuthService} from "../../../../services/AuthService";
@@ -6,6 +6,7 @@ import {Holiday} from "../../../../models/holiday";
 import {TourService} from "../../../../services/tour.service";
 import {Tour} from "../../../../models/tour_program/tour";
 import {BaseMonthlyComponent} from "../../../base/base_monthly.component";
+import * as moment from "moment";
 declare let jQuery: any;
 declare let d3: any;
 
@@ -16,11 +17,30 @@ declare let d3: any;
 export class TourComponent extends BaseMonthlyComponent {
 
     /**
+     * loading identifier
+     */
+    @ViewChild('tour_program_modal')
+    tour_program_modal: ElementRef;
+
+    /**
      * users
      *
      * @type {{}}
      */
     public users: User[] = [];
+
+    /**
+     * Tours
+     */
+    tour: Tour;
+    tours: Tour[] = [];
+
+    /**
+     * user id
+     *
+     * @type {number}
+     */
+    public user_id: number = 0;
 
     /**
      * User Component Constructor
@@ -101,5 +121,61 @@ export class TourComponent extends BaseMonthlyComponent {
                 this.loading = false;
             }
         );
+    }
+
+    /**
+     * fetch tours for month year and date
+     *
+     * @param user
+     * @param date
+     */
+    fetchTours(user: User, date: number) {
+        let tour_date = moment();
+        tour_date.month(this.month);
+        tour_date.year(this.year);
+        tour_date.date(date);
+        this.tourService.forChildren(this.month + 1, this.year, user.id, date).subscribe(
+            response => {
+                this.tour = new Tour({
+                    user: user,
+                    date: tour_date.format('YYYY-MM-DD'),
+                    tours: response.tours
+                });
+            },
+            err => {
+
+            }
+        )
+    }
+
+    /**
+     * show tour popup
+     *
+     * @param tour
+     * @param user
+     */
+    showTours(tour, user) {
+        this.user_id = user.id;
+        let date = moment(tour.date, "YYYY-MM-DD").date();
+        this.fetchTours(user, date);
+        jQuery(this.tour_program_modal.nativeElement).modal();
+    }
+
+    /**
+     * tour created refresh tour list
+     */
+    tourCreated() {
+        let date = moment(this.tour.date, "YYYY-MM-DD").date();
+        this.fetchTours(this.tour.user, date);
+        this.fetch();
+    }
+
+    /**
+     * tour deleted refresh tour list
+     */
+    tourDeleted() {
+        let date = moment(this.tour.date, "YYYY-MM-DD").date();
+        this.fetchTours(this.tour.user, date);
+        this.fetch();
     }
 }

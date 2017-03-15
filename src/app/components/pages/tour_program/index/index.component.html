@@ -27,7 +27,7 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
-        <div class="col-xs-12 col-md-3" *roleCheck="4">
+        <div class="col-xs-12 col-md-3" *roleCheck="5">
             <role-select [value]="role_id" (onValueChanged)="roleChanged($event)"></role-select>
         </div>
         <div class="col-xs-12 col-md-3" *ngIf="manager_role_id > 0 && _service.user.role_id < manager_role_id">
@@ -79,7 +79,8 @@
                                     <td>
                                         <i status [field]="user.status"></i>
                                     </td>
-                                    <td *ngFor="let tour of user.tours" tourCount [tour]="tour"></td>
+                                    <td *ngFor="let tour of user.tours" tourCount [tour]="tour"
+                                        (click)="showTours(tour, user)"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -89,5 +90,29 @@
             </div>
         </div>
     </div>
-    <!-- ./Tour Table -->
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #tour_program_modal>
+    <div class="modal-dialog modal-md" role="document" *ngIf="tour">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Tour Program for {{ tour.user.full_name}}</h4>
+            </div>
+            <div class="modal-body">
+                <!-- Create Tour View -->
+                <div class="row">
+                    <!-- Tour Table -->
+                    <div class="col-xs-12" *ngIf="tour">
+                        <div>
+                            <daily-tour [tour]="tour" (tourDeleted)="tourDeleted($event)"></daily-tour>
+                        </div>
+                        <add-tour [date]="tour.date" [user_id]="user_id" (tourCreated)="tourCreated($event)"></add-tour>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

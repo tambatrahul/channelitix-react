@@ -25,6 +25,21 @@ export class TourFormComponent extends FormComponent {
     tourCreated = new EventEmitter();
 
     /**
+     * user details
+     */
+    _user_id: number;
+    @Input()
+    set user_id(user_id: number) {
+        this._user_id = user_id;
+        console.log(user_id);
+        this.form.patchValue({user_id: user_id});
+    }
+
+    get() {
+        return this._user_id;
+    }
+
+    /**
      * tour deleted selection
      *
      * @type {EventEmitter}
@@ -35,7 +50,7 @@ export class TourFormComponent extends FormComponent {
     /**
      * Date of tour
      */
-    _date:string;
+    _date: string;
     @Input()
     set date(date: string) {
         this.form.patchValue({date: date});
@@ -70,7 +85,8 @@ export class TourFormComponent extends FormComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.form.patchValue({user_id: this._service.user.id});
+        if (!this._user_id)
+            this.form.patchValue({user_id: this._service.user.id});
     }
 
     /**

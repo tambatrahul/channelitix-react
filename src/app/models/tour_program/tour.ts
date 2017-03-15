@@ -35,5 +35,6 @@ export class Tour extends Model {
         this.tour_count = info.tour_count;
         this.user = info.user;
         this.tour_day = info.tour_day;
+        this.tours = info.tours;
     }
 }

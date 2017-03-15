@@ -47,14 +47,14 @@ export class TourService extends BaseService {
     /**
      * get tour report
      */
-    forChildren(month: number, year: number, user_id?: number): Observable<Result> {
+    forChildren(month: number, year: number, user_id: number, date: number): Observable<Result> {
 
         // prepare url
-        let url = this.getBaseUrl() + '/monthly/forChildren/' + month + "/" + year;
+        let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year;
 
         // prepare get params
         let params = new URLSearchParams();
-        params.set('user_id', String(user_id > 0 ? user_id : ''));
+        params.set('date', String(date > 0 ? date : ''));
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));
@@ -92,7 +92,7 @@ export class TourService extends BaseService {
         return this.post(this.getBaseUrl(), tour);
     }
 
-     /**
+    /**
      * Delete Tour
      *
      * @param id
