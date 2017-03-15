@@ -101,7 +101,6 @@ export class MonthlyTourProgramComponent extends ListComponent {
      * tour created refresh tour list
      */
     tourCreated() {
-        this.tour = null;
         this.fetchTours();
     }
 
@@ -109,7 +108,6 @@ export class MonthlyTourProgramComponent extends ListComponent {
      * tour deleted refresh tour list
      */
     tourDeleted() {
-        this.tour = null;
         this.fetchTours();
     }
 }

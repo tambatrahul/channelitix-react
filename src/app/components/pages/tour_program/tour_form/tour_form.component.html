@@ -7,15 +7,15 @@
                 <div class="col-xs-12 col-md-5">
                     <territory-select [value]="territory_id"
                                       (onValueChanged)="territoryChanged($event)"></territory-select>
-                    <small *ngIf="errors?.territory_id" class="text-danger text-center">
-                        {{ errors.territory_id}}
+                    <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
+                        {{ errors.hq_territory_id}}
                     </small>
                 </div>
                 <div class="col-xs-12 col-md-5" [ngClass]="{'hide': territory_id <=0}">
                     <brick-select [value]="brick_id" [territory_id]="territory_id"
                                   (onValueChanged)="brickChanged($event)"></brick-select>
-                    <small *ngIf="errors?.brick_id" class="text-danger text-center">
-                        {{ errors.brick_id}}
+                    <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
+                        {{ errors.hq_brick_id}}
                     </small>
                 </div>
                 <div class="col-xs-12 col-md-2" style="padding-left: 0;">

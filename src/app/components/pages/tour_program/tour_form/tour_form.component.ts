@@ -50,7 +50,8 @@ export class TourFormComponent extends FormComponent {
     public form = this._fb.group({
         hq_territory_id: [""],
         hq_brick_id: [""],
-        date: [""],
+        user_id: [""],
+        date: [""]
     });
 
     /**
@@ -65,6 +66,11 @@ export class TourFormComponent extends FormComponent {
     constructor(private tourService: TourService, private t_service: TerritoryService,
                 public _router: Router, public _fb: FormBuilder, public _service: AuthService) {
         super(_service);
+    }
+
+    ngOnInit() {
+        super.ngOnInit();
+        this.form.patchValue({user_id: this._service.user.id});
     }
 
     /**
@@ -99,6 +105,7 @@ export class TourFormComponent extends FormComponent {
                         timer: 1500,
                         showConfirmButton: false
                     });
+                    this.reset();
                     this.tourCreated.emit();
                 },
                 err => {

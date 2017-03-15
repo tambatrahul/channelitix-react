@@ -75,6 +75,8 @@ import {CustomerTypeSelectComponent} from "./components/form_elements/customer/c
 import {UpdateCustomerComponent} from "./components/pages/customer/update/update.component";
 import {StpComponent} from "./components/pages/customer/stp/stp.component";
 import {GradeSelectComponent} from "./components/form_elements/customer/grade_select/grade-select.component";
+import {TourCountDirective} from "./directives/tour_count.directive";
+import {TourComponent} from "./components/pages/tour_program/index/index.component";
 
 enableProdMode();
 @NgModule({
@@ -108,6 +110,7 @@ enableProdMode();
         CreateCustomerComponent,
         UpdateCustomerComponent,
         StpComponent,
+        TourComponent,
 
         // directives
         AttendanceStatusDirective,
@@ -119,6 +122,7 @@ enableProdMode();
         OrderCountDirective,
         CalendarAttendanceStatusDirective,
         CalendarTourStatusDirective,
+        TourCountDirective,
 
         // reusable components
         MonthPickerComponent,
