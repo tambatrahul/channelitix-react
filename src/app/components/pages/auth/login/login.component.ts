@@ -5,6 +5,7 @@ import {CookieService} from "angular2-cookie/services/cookies.service";
 import {LoginService} from "../../../../services/login.service";
 import {FormComponent} from "../../../base/form.component";
 import {AuthService} from "../../../../services/AuthService";
+import {User} from "../../../../models/user/user";
 
 @Component({
     templateUrl: 'login.component.html',
@@ -54,10 +55,10 @@ export class LoginComponent extends FormComponent {
             this.loginService.login(data.username, data.password).subscribe(
                 response => {
                     localStorage.setItem("user", JSON.stringify(response.user));
-                    this._service.user = response.user;
+                    this._service.user = new User(response.user);
 
                     if (response.user.role_id == 6)
-                        this._router.navigate(['/attendances/monthly']);
+                        this._router.navigate(['/attendances']);
                     else
                         this._router.navigate(['/attendances/monthly']);
                     this.loading = false;
