@@ -59,7 +59,7 @@ export class AppConstants {
      * @param year
      * @param holidays
      */
-    static prepareMonthAttendanceSkeleton(month: number, year: number, holidays: Holiday[]) {
+    static prepareMonthAttendanceSkeleton(month: number, year: number, holidays: Holiday[], joining_date: string, leaving_date: string) {
 
         // get date
         let date = moment().year(year).month(month);
@@ -67,6 +67,12 @@ export class AppConstants {
         // get start date and end date of month
         let start_day = date.startOf('month').date();
         let end_day = date.endOf('month').date();
+
+        // get joining date
+        let jd = moment(joining_date, "YYYY-MM-DD");
+
+        // get leaving date
+        let ld = moment(leaving_date, "YYYY-MM-DD");
 
         // prepare skeleton for all date
         let skeleton = new Array(end_day);
@@ -77,8 +83,8 @@ export class AppConstants {
             // set visit
             skeleton[date - 1] = new Attendance({day: date, date: current_date.format('YYYY-MM-DD')});
 
-            // set sunday
-            if (current_date.day() == 0)
+            // set sunday or not put before joining date attendance or not put after leaving date attendance
+            if (current_date.day() == 0 || (jd != null && current_date < jd) || (ld != null && current_date > ld))
                 skeleton[date - 1].isSunday = true;
         }
 

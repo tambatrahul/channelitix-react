@@ -5,6 +5,7 @@ import {Territory} from "./territory";
 export class Brick extends Model {
 
     name: string;
+    hq_territory_id: number;
     hq_territory: Territory;
 
     // for internal user only
