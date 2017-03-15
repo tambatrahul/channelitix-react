@@ -6,15 +6,8 @@
             <div class="col-md-7">
                 <div class="page-breadcrumb-wrap">
                     <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Attendances
-                            <small>Attendance Details</small>
+                        <h2 class="breadcrumb-titles">Daily Work Reporting
                         </h2>
-                        <ul class="list-page-breadcrumb">
-                            <li><a href="#">Home</a>
-                            </li>
-
-                            <li class="active-page">Monthly Attendances</li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -55,13 +48,15 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-6" *ngIf="attendance && today">
-            <div class="box-widget widget-module no-border create_attendance">
-                <!-- Type of attendance -->
-                <div class="widget-container">
-                    <div class="widget-block">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                Cannot report for future date
+            <div class="row">
+                <div class="box-widget widget-module no-border create_attendance">
+                    <!-- Type of attendance -->
+                    <div class="widget-container">
+                        <div class="widget-block">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    Cannot report for future date
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -69,13 +64,15 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-6" *ngIf="!attendance">
-            <div class="box-widget widget-module no-border create_attendance">
-                <!-- Type of attendance -->
-                <div class="widget-container">
-                    <div class="widget-block">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                Click On Any Date to Mark Attendance
+            <div class="row">
+                <div class="box-widget widget-module no-border create_attendance">
+                    <!-- Type of attendance -->
+                    <div class="widget-container">
+                        <div class="widget-block">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    Click on any date to mark for reporting
+                                </div>
                             </div>
                         </div>
                     </div>

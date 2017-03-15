@@ -34,7 +34,6 @@ export class TourCountDirective {
         if (tour && tour.tour_count > 0) {
             // set background color
             this.el.nativeElement.style.backgroundColor = this.marked;
-            this.el.nativeElement.innerText = tour.tour_count;
         }
 
         if (tour && tour.isSunday) {
