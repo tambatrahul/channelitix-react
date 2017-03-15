@@ -17,6 +17,9 @@ import {CustomerComponent} from "./components/pages/customer/index/index.compone
 import {UpdateCustomerComponent} from "./components/pages/customer/update/update.component";
 import {StpComponent} from "./components/pages/customer/stp/stp.component";
 import {TourComponent} from "./components/pages/tour_program/index/index.component";
+import {BrickComponent} from "./components/pages/territory/brick/index/index.component";
+import {CreateBrickComponent} from "./components/pages/territory/brick/create/create.component";
+import {UpdateBrickComponent} from "./components/pages/territory/brick/update/update.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -114,6 +117,25 @@ export const routes: Routes = [
                         component: UpdateCustomerComponent
                     },
 
+                ]
+            },
+
+            // add brick routes
+            {
+                path: 'bricks',
+                children: [
+                    {
+                        path: '',
+                        component: BrickComponent,
+                    },
+                    {
+                        path: 'create',
+                        component: CreateBrickComponent
+                    },
+                    {
+                        path: 'update/:id',
+                        component: UpdateBrickComponent
+                    },
                 ]
             },
         ]

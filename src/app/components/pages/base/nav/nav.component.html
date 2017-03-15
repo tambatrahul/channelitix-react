@@ -24,7 +24,12 @@
                     <span class="nav-label">Daily Work Report</span>
                 </a>
             </li>
-
+            <li *ngIf="_auth_service.user.isArea">
+                <a class="waves-effect" routerLink="/bricks">
+                    <span class="nav-icon"><i class="fa fa-map"></i></span>
+                    <span class="nav-label">Bricks Master</span>
+                </a>
+            </li>
             <li *roleCheck="4">
                 <a>
                     <span class="nav-icon">
