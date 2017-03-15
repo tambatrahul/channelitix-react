@@ -52,6 +52,11 @@ export class TourComponent extends BaseMonthlyComponent {
         super(_service);
     }
 
+    ngOnInit() {
+        super.ngOnInit();
+        this.roleChanged(3);
+    }
+
     /**
      * Adding tours to skeleton
      *

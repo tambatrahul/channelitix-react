@@ -76,7 +76,7 @@ export class TourService extends BaseService {
 
         // prepare get params
         let params = new URLSearchParams();
-        params.set('role_id', String(role_id > 0 ? role_id : ''));
+        params.set('role_id', String(role_id > 0 ? role_id : 3));
         params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
 
         // make server call
