@@ -85,7 +85,7 @@ export class CalendarAttendanceComponent extends ListComponent {
      */
     protected fetch() {
         // get skeleton
-        let skeleton: Attendance[] = AppConstants.prepareMonthAttendanceSkeleton(this.month, this.year, this._holidays);
+        let skeleton: Attendance[] = AppConstants.prepareMonthAttendanceSkeleton(this.month, this.year, this._holidays, this._service.user.joining_date, this._service.user.leaving_date);
 
         // get date
         let date = moment().year(this.year).month(this.month);

@@ -86,7 +86,7 @@ export class StpComponent extends ListComponent {
         // preparing brick skeleton
         for (let cus of this.customers) {
             if (!bricks.hasOwnProperty(cus.hq_brick_id)) {
-                bricks[cus.hq_brick_id] = {customer_types: this.customer_types.slice(0)};
+                bricks[cus.hq_brick_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
             for(let ct of bricks[cus.hq_brick_id].customer_types) {
@@ -102,7 +102,7 @@ export class StpComponent extends ListComponent {
             if (!bricks.hasOwnProperty(brick.id))
                 brick.customer_types = Object.assign([], this.customer_types);
             else
-                brick.customer_types = bricks[brick.id];
+                brick.customer_types = bricks[brick.id].customer_types;
         }
     }
 

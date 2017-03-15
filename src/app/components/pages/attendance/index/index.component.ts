@@ -97,7 +97,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
         let data_skeleton = {};
 
         // get skeleton
-        let skeleton = AppConstants.prepareMonthAttendanceSkeleton(this.month, this.year, holidays);
+        let skeleton = AppConstants.prepareMonthAttendanceSkeleton(this.month, this.year, holidays, this._service.user.joining_date, this._service.user.leaving_date);
         for (let user of users) {
             data_skeleton[user.id] = skeleton.map(att => Object.assign({}, att));
         }
