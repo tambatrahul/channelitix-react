@@ -69,7 +69,7 @@
                                     <td>{{ br.hq_territory.name }}</td>
                                     <td>{{ br.name }}</td>
                                     <td></td>
-                                    <template ngFor let-ct [ngForOf]="customer_types">
+                                    <template ngFor let-ct [ngForOf]="br.customer_types">
                                         <td *ngFor="let grade of ct.grades">
                                             {{ grade.customer_count }}
                                         </td>

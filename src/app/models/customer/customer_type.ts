@@ -10,24 +10,11 @@ export class CustomerType extends Model {
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
-        this.grades = info.grades;
-        this.customer_count = info.customer_count
-    }
-
-    /**
-     * get self clone
-     *
-     * @returns {CustomerType}
-     */
-    clone() {
-        let grades: Grade[] = [];
-        for (let grade of grades) {
-            grades.push(new Grade(grade));
+        this.customer_count = info.customer_count;
+        if (info.grades) {
+            this.grades = info.grades.map(g => new Grade(g));
+        } else {
+            this.grades = [];
         }
-        return new CustomerType({
-            name: this.name,
-            grades: grades,
-            customer_count: this.customer_count
-        })
     }
 }
