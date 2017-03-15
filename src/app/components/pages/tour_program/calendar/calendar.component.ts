@@ -38,6 +38,11 @@ export class CalendarTourComponent extends ListComponent {
     year: number;
 
     /**
+     * selected tour
+     */
+    selected_tour: Tour;
+
+    /**
      * Tours
      */
     _tours: Tour[] = [];
@@ -99,6 +104,12 @@ export class CalendarTourComponent extends ListComponent {
             skeleton[moment(tour.date, "YYYY-MM-DD").date() - 1].tours.push(tour);
         }
 
+        // set selected_tour
+        if (this.selected_tour) {
+            let s_tour = skeleton[moment(this.selected_tour.date, "YYYY-MM-DD").date() - 1];
+            this.selectTour(s_tour);
+        }
+
         // add buffer at start
         for (let i = 0; i < start_day; i++) {
             skeleton.unshift(null);
@@ -119,6 +130,7 @@ export class CalendarTourComponent extends ListComponent {
      * @param tour
      */
     selectTour(tour: Tour) {
+        this.selected_tour = tour;
         this.onTourSelected.emit(tour);
     }
 }

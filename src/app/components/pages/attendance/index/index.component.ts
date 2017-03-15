@@ -134,10 +134,12 @@ export class AttendanceTableComponent extends BaseAuthComponent {
         this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
             response => {
                 this.loading = false;
+
                 // convert to models
                 let children = response.children.map(function (user, index) {
                     return new User(user);
                 });
+
                 this.addAttendanceToSkeleton(children, response.attendances, response.holidays);
             },
             err => {
