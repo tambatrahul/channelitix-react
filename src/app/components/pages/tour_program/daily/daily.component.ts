@@ -32,14 +32,14 @@ export class DailyTourProgramComponent extends ListComponent {
      */
     _date: string;
     @Input()
-    set date(date: string) {
-        this._date = moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    set tour(tour: Tour) {
+        this._date = moment(tour.date, "YYYY-MM-DD").format("DD MMMM YYYY");
+        this.tours = tour.tours;
     };
 
     /**
      * Tours
      */
-    @Input()
     tours: Tour[] = [];
 
     /**
@@ -62,11 +62,9 @@ export class DailyTourProgramComponent extends ListComponent {
     /**
      * delete tour
      *
-     * @param id
+     * @param tour
      */
-    deleteTour(id: number) {
-        // TODO:: write code to delete tour.
-        // TODO:: show pop up that tour is deleted and raise event
+    deleteTour(tour: Tour) {
         let self = this;
         swal({
             title: "Are you sure?",
@@ -79,8 +77,9 @@ export class DailyTourProgramComponent extends ListComponent {
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
-                self.tourService.destroy(id).subscribe(
+                self.tourService.destroy(tour.id).subscribe(
                     response => {
+                        self.tours.slice(self.tours.indexOf(tour), 1);
                         self.tourDeleted.emit();
                     }
                 );
