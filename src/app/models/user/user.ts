@@ -22,6 +22,7 @@ export class User extends Model {
     hq_territory_id: number;
     hq_brick_id: number;
 
+
     // manager
     manager: User;
 
@@ -105,5 +106,41 @@ export class User extends Model {
         return this.attendances.filter(function (att, index) {
             return att.status == AppConstants.HOLIDAY;
         }).length;
+    }
+
+    /**
+     * Check For Admin
+     *
+     * @returns {boolean}
+     */
+    get isAdmin(): boolean {
+        return this.role_id == 6;
+    }
+
+    /**
+     * Check For Region
+     *
+     * @returns {boolean}
+     */
+    get isRegion(): boolean {
+        return this.role_id == 5;
+    }
+
+    /**
+     * Check For Area
+     *
+     * @returns {boolean}
+     */
+    get isArea(): boolean {
+        return this.role_id == 4;
+    }
+
+    /**
+     * Check For Headquarter
+     *
+     * @returns {boolean}
+     */
+    get isHeadquarter(): boolean {
+        return this.role_id == 3;
     }
 }
