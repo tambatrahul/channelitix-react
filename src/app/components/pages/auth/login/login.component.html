@@ -1,0 +1,40 @@
+<div class="login-page">
+    <div class="page-container">
+        <div class="login-branding">
+            <a href="index.html"><img src="/assets/images/channelitix.png" alt="logo"></a>
+        </div>
+        <div class="login-container" #loading_box>
+
+            <form class="form-signin" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+
+                <div class="text-center">
+                    <small *ngIf="(!form.valid && submitted) || error.length > 0" class="text-danger text-center">
+                        Invalid Login Details
+                    </small>
+                </div>
+                <input formControlName="username" type="text" class="form-control floatlabel" placeholder="Username"
+                       required
+                       autofocus>
+                <input formControlName="password" type="password" class="form-control floatlabel "
+                       placeholder="Password"
+                       required>
+
+                <div *ngIf="!loading">
+                    <button type="submit" class="btn btn-primary btn-block btn-signin">Submit</button>
+                </div>
+                <div *ngIf="loading">
+                    <button class="btn btn-primary btn-block btn-signin disabled">
+                        <i class="fa fa-spinner fa-spin"></i> Logging in
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="create-account">
+            <a href="#">Create Account</a>
+        </div>
+
+        <div class="login-footer">
+            Crafted by <a href="#">GoApptiv</a>
+        </div>
+    </div>
+</div>

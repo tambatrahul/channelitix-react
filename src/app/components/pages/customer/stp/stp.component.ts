@@ -85,11 +85,11 @@ export class StpComponent extends ListComponent {
 
         // preparing brick skeleton
         for (let cus of this.customers) {
-            if (!bricks.hasOwnProperty(cus.brick_id)) {
-                bricks[cus.brick_id] = {customer_types: this.customer_types.slice(0)};
+            if (!bricks.hasOwnProperty(cus.hq_brick_id)) {
+                bricks[cus.hq_brick_id] = {customer_types: this.customer_types.slice(0)};
             }
 
-            for(let ct of bricks[cus.brick_id].customer_types) {
+            for(let ct of bricks[cus.hq_brick_id].customer_types) {
                 for(let grade of ct.grades) {
                     if (grade.id == cus.grade_id)
                         grade.customer_count = cus.total_customers;

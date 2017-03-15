@@ -135,25 +135,6 @@ jQuery(document).ready(function ($) {
     }
 ]);
 
-    /*====Left Bar Accordion====*/
-    if ($.fn.dcAccordion) {
-        $('.list-accordion').each(function () {
-            $(this).dcAccordion({
-                eventType: 'click',
-                hoverDelay: 100,
-                autoClose: true,
-                saveState: false,
-                disableLink: true,
-                speed: 'fast',
-                showCount: false,
-                autoExpand: true,
-                cookie: 'dcjq-accordion-1',
-                classExpand: 'dcjq-current-parent'
-            });
-        });
-
-    }
-
 
     /*====Collapsible Widgets====*/
 

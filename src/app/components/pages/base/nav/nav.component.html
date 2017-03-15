@@ -1,0 +1,83 @@
+<div class="left-aside desktop-view">
+    <!-- Logo image -->
+    <div class="aside-branding">
+        <a href="index.html" class="large-logo">
+            <img src="/assets/images/channelitix.png" alt="Matmix Logo">
+        </a>
+        <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
+        <span class="aside-close waves-effect"><i class="fa fa-times"></i></span>
+    </div>
+    <!-- ./Logo image -->
+
+    <!-- Navigation items -->
+    <div class="left-navigation">
+        <ul class="list-accordion">
+            <!--<li>
+                <a class="waves-effect" routerLink="/dashboard">
+                    <span class="nav-icon"><i class="fa fa-pie-chart"></i></span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>-->
+            <li *ngIf="_auth_service.user.role_id != 6">
+                <a class="waves-effect" routerLink="/attendances/monthly">
+                    <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                    <span class="nav-label">Daily Work Report</span>
+                </a>
+            </li>
+
+            <li *roleCheck="4">
+                <a>
+                    <span class="nav-icon">
+                        <i class="ico-lifebuoy"></i>
+                    </span>
+                    <span class="nav-label">Reports</span>
+                </a>
+                <ul>
+                    <li>
+                        <a class="waves-effect" routerLink="/attendances">
+                            <span class="nav-icon"><i class="fa fa-calendar-check-o"></i></span>
+                            <span class="nav-label">Daily Work Reporting</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- <li>
+                 <a class="waves-effect" routerLink="/visits">
+                     <span class="nav-icon"><i class="fa fa-user-md"></i></span>
+                     <span class="nav-label">Visits</span>
+                 </a>
+             </li>
+             <li>
+                 <a class="waves-effect" routerLink="/orders">
+                     <span class="nav-icon"><i class="fa fa-shopping-cart"></i></span>
+                     <span class="nav-label">Orders</span>
+                 </a>
+             </li>-->
+            <li>
+                <a class="waves-effect" routerLink="/customers/stp" *roleCheck="3">
+                    <span class="nav-icon"><i class="fa fa-map"></i></span>
+                    <span class="nav-label">Standard Tour Program</span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect" routerLink="/customers">
+                    <span class="nav-icon"><i class="fa fa-database"></i></span>
+                    <span class="nav-label">Customer Database</span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect" routerLink="/users" *roleCheck="4">
+                    <span class="nav-icon"><i class="fa fa-users"></i></span>
+                    <span class="nav-label">Users Management</span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect" routerLink="/tours">
+                    <span class="nav-icon"><i class="fa fa-map-marker"></i></span>
+                    <span class="nav-label">Tour Program</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- ./Navigation items -->
+</div>

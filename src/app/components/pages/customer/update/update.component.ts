@@ -128,18 +128,25 @@ export class UpdateCustomerComponent extends FormComponent {
         this.submitted = true;
         if (this.form.valid) {
             this.loading = true;
+
+            // prepare data
             let data = this.form.value;
 
+            // upate customer
             this.customerService.update(data, this.id).subscribe(
                 response => {
                     this.loading = false;
+
+                    // popup message
                     swal({
-                        title: "Customer Created Successfully",
+                        title: "Customer Updated Successfully",
                         text: "I will close in 2 sec.",
                         type: "success",
                         timer: 1500,
                         showConfirmButton: false
                     });
+
+                    // navigate to customers
                     this._router.navigate(['/customers']);
                 },
                 err => {

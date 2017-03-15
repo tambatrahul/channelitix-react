@@ -12,7 +12,6 @@
                         <ul class="list-page-breadcrumb">
                             <li><a href="#">Home</a>
                             </li>
-
                             <li class="active-page">Monthly Tours</li>
                         </ul>
                     </div>
@@ -30,6 +29,9 @@
         <!-- Calendar view -->
         <div class="col-xs-12 col-md-6" #loading_box>
             <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    <user-select></user-select>
+                </div>
                 <div class="col-xs-12 col-md-6">
                     <month-picker [month]="month" [year]="year"
                                   (onMonthYearChanged)="monthYearChanged($event)"></month-picker>

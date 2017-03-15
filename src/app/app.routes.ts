@@ -1,15 +1,15 @@
 import {ModuleWithProviders} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
-import {BaseComponent} from "./components/base.component";
+import {BaseComponent} from "./components/pages/base/base/base.component";
 // pages
-import {LoginComponent} from "./components/pages/login.component";
-import {UserComponent} from "./components/pages/user.component";
+import {LoginComponent} from "./components/pages/auth/login/login.component";
+import {UserComponent} from "./components/pages/user/index/index.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
-import {CreateUserComponent} from "./components/pages/create_user.component";
-import {VisitComponent} from "./components/pages/visit.component";
-import {UpdateUserComponent} from "./components/pages/update_user.component";
-import {OrderComponent} from "./components/pages/order.component";
-import {DashBoardComponent} from "./components/pages/dashboard/dashboard.component";
+import {CreateUserComponent} from "./components/pages/user/create/create.component";
+import {VisitComponent} from "./components/pages/visit/index/index.component";
+import {UpdateUserComponent} from "./components/pages/user/update/update.component";
+import {OrderComponent} from "./components/pages/order/index/index.component";
+import {DashBoardComponent} from "./components/pages/dashboard/index/index.component";
 import {MonthlyAttendanceComponent} from "./components/pages/attendance/monthly/monthly.component";
 import {MonthlyTourProgramComponent} from "./components/pages/tour_program/monthly/monthly.component";
 import {CreateCustomerComponent} from "./components/pages/customer/create/create.component";
