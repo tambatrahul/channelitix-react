@@ -43,6 +43,9 @@ export class Result {
     // tour models
     tours: Tour[];
 
+    // brick models
+    brick: Brick;
+
     // users models
     user: User;
     users: User[];

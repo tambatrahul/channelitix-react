@@ -77,6 +77,10 @@ import {StpComponent} from "./components/pages/customer/stp/stp.component";
 import {GradeSelectComponent} from "./components/form_elements/customer/grade_select/grade-select.component";
 import {TourCountDirective} from "./directives/tour_count.directive";
 import {TourComponent} from "./components/pages/tour_program/index/index.component";
+import {BrickService} from "./services/brick.service";
+import {BrickComponent} from "./components/pages/territory/brick/index/index.component";
+import {CreateBrickComponent} from "./components/pages/territory/brick/create/create.component";
+import {UpdateBrickComponent} from "./components/pages/territory/brick/update/update.component";
 
 enableProdMode();
 @NgModule({
@@ -91,6 +95,9 @@ enableProdMode();
         // pages
         LoginComponent,
         UserComponent,
+        BrickComponent,
+        CreateBrickComponent,
+        UpdateBrickComponent,
         CreateUserComponent,
         UpdateUserComponent,
         CustomerComponent,
@@ -167,6 +174,7 @@ enableProdMode();
         LoginService,
         TerritoryService,
         UserService,
+        BrickService,
         OrderService,
         TourService
     ],

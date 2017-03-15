@@ -1,0 +1,106 @@
+<div class="container-fluid users">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Update Brick
+                            <small>Update Brick Form</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a routerLink="/">Home</a></li>
+                            <li class="active-page" routerLink="/bricks"> Bricks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Brick Form -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-bars"></i></span>
+                    <h4>Update Brick Form</h4>
+                </div>
+                <div class="widget-container" #loading_box>
+                    <div class=" widget-block">
+                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                    <div class="page-header">
+                                        <h2>Brick Details</h2>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <!-- Head quarter select -->
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <headquarter-select [value]="hq_headquarter_id"
+                                                                    [title]="'Select Head Quarter'"
+                                                                    [first_value]="'Select Head Quarter'"
+                                                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+
+                                                <small *ngIf="errors?.hq_headquarter_id"
+                                                       class="text-danger text-center">
+                                                    {{ errors.hq_headquarter_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Head quarter select -->
+
+                                        <!-- Territory select -->
+                                        <div class="col-xs-12" *ngIf="hq_headquarter_id > 0">
+                                            <div class="form-group">
+                                                <territory-select [value]="hq_territory_id"
+                                                                  [headquarter_id]="hq_headquarter_id"
+                                                                  [title]="'Select Territory'"
+                                                                  [first_value]="'Select Territory'"
+                                                                  (onValueChanged)="territoryChanged($event)"></territory-select>
+                                                <small *ngIf="errors?.hq_territory_id"
+                                                       class="text-danger text-center">
+                                                    {{ errors.hq_territory_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Territory select -->
+
+                                        <!-- Brick Name -->
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label" for="bname">Name (required)</label>
+                                                <div class="">
+                                                    <input formControlName="name" class="form-control" type="text">
+                                                    <small *ngIf="errors?.name" class="text-danger text-center">
+                                                        {{ errors.name}}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Brick Name -->
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    <div class="form-actions text-center">
+                                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./User Form -->
+</div>
