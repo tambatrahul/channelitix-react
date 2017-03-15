@@ -84,7 +84,7 @@ export class AppConstants {
             skeleton[date - 1] = new Attendance({day: date, date: current_date.format('YYYY-MM-DD')});
 
             // set sunday or not put before joining date attendance or not put after leaving date attendance
-            if (current_date.day() == 0 || current_date < jd || (ld != null && current_date > ld))
+            if (current_date.day() == 0 || (jd != null && current_date < jd) || (ld != null && current_date > ld))
                 skeleton[date - 1].isSunday = true;
         }
 
