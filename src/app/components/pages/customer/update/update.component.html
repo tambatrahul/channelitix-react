@@ -185,7 +185,7 @@
                                         <label class="control-label">Line</label>
                                         <div class="">
                                             <input formControlName="line" class="form-control" type="text">
-                                            <small *ngIf="errors?.address.line" class="text-danger text-center">
+                                            <small *ngIf="errors?.address?.line" class="text-danger text-center">
                                                 {{ errors.address.line}}
                                             </small>
                                         </div>
@@ -197,7 +197,7 @@
                                         <label class="control-label">Landmark</label>
                                         <div class="">
                                             <input formControlName="landmark" class="form-control" type="text">
-                                            <small *ngIf="errors?.address.landmark" class="text-danger text-center">
+                                            <small *ngIf="errors?.address?.landmark" class="text-danger text-center">
                                                 {{ errors.address.landmark}}
                                             </small>
                                         </div>
@@ -210,7 +210,7 @@
                                             <label class="control-label">Area</label>
                                             <div class="">
                                                 <input formControlName="area_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.area_str" class="text-danger text-center">
+                                                <small *ngIf="errors?.address?.area_str" class="text-danger text-center">
                                                     {{ errors.address.area_str}}
                                                 </small>
                                             </div>
@@ -219,7 +219,7 @@
                                             <label class="control-label">Pincode</label>
                                             <div class="">
                                                 <input formControlName="pincode" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.pincode" class="text-danger text-center">
+                                                <small *ngIf="errors?.address?.pincode" class="text-danger text-center">
                                                     {{ errors.address.pincode}}
                                                 </small>
                                             </div>
@@ -233,7 +233,7 @@
                                             <label class="control-label">Taluka</label>
                                             <div class="">
                                                 <input formControlName="taluka_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.taluka_str"
+                                                <small *ngIf="errors?.address?.taluka_str"
                                                        class="text-danger text-center">
                                                     {{ errors.address.taluka_str}}
                                                 </small>
@@ -243,7 +243,7 @@
                                             <label class="control-label">District</label>
                                             <div class="">
                                                 <input formControlName="district_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.district_str"
+                                                <small *ngIf="errors?.address?.district_str"
                                                        class="text-danger text-center">
                                                     {{ errors.address.district_str}}
                                                 </small>
@@ -258,7 +258,7 @@
                                             <label class="control-label">State</label>
                                             <div class="">
                                                 <input formControlName="state_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.state_str"
+                                                <small *ngIf="errors?.address?.state_str"
                                                        class="text-danger text-center">
                                                     {{ errors.address.state_str}}
                                                 </small>
@@ -268,7 +268,7 @@
                                             <label class="control-label">Country</label>
                                             <div class="">
                                                 <input formControlName="country_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address.country_str"
+                                                <small *ngIf="errors?.address?.country_str"
                                                        class="text-danger text-center">
                                                     {{ errors.address.country_str}}
                                                 </small>

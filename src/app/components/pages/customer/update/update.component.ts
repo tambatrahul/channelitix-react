@@ -183,6 +183,7 @@ export class UpdateCustomerComponent extends FormComponent {
     regionChanged(region_id) {
         this.hq_region_id = region_id;
         this.form.patchValue({hq_region_id: region_id});
+        this.areaChanged(0);
     }
 
     /**
@@ -192,6 +193,7 @@ export class UpdateCustomerComponent extends FormComponent {
     areaChanged(area_id) {
         this.hq_area_id = area_id;
         this.form.patchValue({hq_area_id: area_id});
+        this.headquarterChanged(0);
     }
 
     /**
@@ -201,6 +203,7 @@ export class UpdateCustomerComponent extends FormComponent {
     territoryChanged(territory_id) {
         this.hq_territory_id = territory_id;
         this.form.patchValue({hq_territory_id: territory_id});
+        this.brickChanged(0);
     }
 
     /**
@@ -210,6 +213,7 @@ export class UpdateCustomerComponent extends FormComponent {
     headquarterChanged(headquarter_id) {
         this.hq_headquarter_id = headquarter_id;
         this.form.patchValue({hq_headquarter_id: headquarter_id});
+        this.territoryChanged(0);
     }
 
     /**

@@ -15,6 +15,7 @@ declare let jQuery: any;
 export class DeactivateUserComponent extends FormComponent {
 
     private _user: User;
+    public leaving_date: string;
 
     /**
      * loading identifier
@@ -69,6 +70,11 @@ export class DeactivateUserComponent extends FormComponent {
         super(_service);
     }
 
+    ngOnInit() {
+        super.ngOnInit();
+        this.dateChanged(moment().format('DD MMMM YYYY'));
+    }
+
     /**
      * Deactivate user
      */
@@ -99,6 +105,7 @@ export class DeactivateUserComponent extends FormComponent {
      * on leaving date changed
      */
     dateChanged(date) {
+        this.leaving_date = date;
         this.form.patchValue({leaving_date: date});
     }
 }
