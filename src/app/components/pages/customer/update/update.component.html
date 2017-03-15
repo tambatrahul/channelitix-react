@@ -106,8 +106,8 @@
                                                                [first_value]="'Select Region'"
                                                                (onValueChanged)="regionChanged($event)"></region-select>
 
-                                                <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
-                                                    {{ errors.hq_region_id}}
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
+                                                    {{ errors.hq_brick_id}}
                                                 </small>
                                             </div>
                                         </div>
@@ -121,8 +121,8 @@
                                                              [first_value]="'Select Area'"
                                                              (onValueChanged)="areaChanged($event)"></area-select>
 
-                                                <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
-                                                    {{ errors.hq_area_id}}
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
+                                                    {{ errors.hq_brick_id}}
                                                 </small>
                                             </div>
                                         </div>
@@ -136,8 +136,8 @@
                                                                     [first_value]="'Select Head Quarter'"
                                                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                                                <small *ngIf="errors?.hq_headquarter_id" class="text-danger text-center">
-                                                    {{ errors.hq_headquarter_id}}
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
+                                                    {{ errors.hq_brick_id}}
                                                 </small>
                                             </div>
                                         </div>
@@ -151,8 +151,8 @@
                                                                   [title]="'Select Territory'"
                                                                   [first_value]="'Select Territory'"
                                                                   (onValueChanged)="territoryChanged($event)"></territory-select>
-                                                <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
-                                                    {{ errors.hq_territory_id}}
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
+                                                    {{ errors.hq_brick_id}}
                                                 </small>
                                             </div>
                                         </div>
@@ -219,8 +219,8 @@
                                             <label class="control-label">Pincode</label>
                                             <div class="">
                                                 <input formControlName="pincode" class="form-control" type="text">
-                                                <small *ngIf="errors?.address?.pincode" class="text-danger text-center">
-                                                    {{ errors.address.pincode}}
+                                                <small *ngIf="errors && errors['address.pincode']" class="text-danger text-center">
+                                                    {{ errors['address.pincode']}}
                                                 </small>
                                             </div>
                                         </div>
