@@ -1,6 +1,7 @@
 import {Model} from "../model";
 import {Territory} from "../territory/territory";
 import {Brick} from "../territory/brick";
+import {User} from "../user/user";
 
 export class Tour extends Model {
 
@@ -11,11 +12,14 @@ export class Tour extends Model {
     hq_brick_id: number;
     hq_territory: Territory;
     hq_brick: Brick;
+    user: User;
 
     // for internal use only
     day: number;
     tours: Tour[] = [];
     isSunday: boolean = false;
+    tour_count: number;
+    tour_day: number;
 
     constructor(info: any) {
         super(info.id);
@@ -28,5 +32,8 @@ export class Tour extends Model {
         this.isSunday = info.isSunday;
         this.hq_brick = info.hq_brick;
         this.hq_territory = info.hq_territory;
+        this.tour_count = info.tour_count;
+        this.user = info.user;
+        this.tour_day = info.tour_day;
     }
 }

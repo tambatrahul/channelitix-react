@@ -1,6 +1,7 @@
 import {Model} from "../model";
 import {Attendance} from "../attendance/attendance";
 import {AppConstants} from "../../app.constants";
+import {Tour} from "../tour_program/tour";
 
 export class User extends Model {
 
@@ -28,6 +29,7 @@ export class User extends Model {
     attendances = [];
     visits = [];
     orders = [];
+    tours: Tour[] = [];
 
     constructor(info: any) {
         super(info.id);
