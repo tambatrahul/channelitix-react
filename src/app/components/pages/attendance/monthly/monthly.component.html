@@ -44,7 +44,7 @@
         <!-- Calendar view -->
 
         <!-- Create Attendance View -->
-        <div class="col-xs-12 col-md-6" *ngIf="attendance">
+        <div class="col-xs-12 col-md-6" *ngIf="attendance && !today">
             <div *ngIf="attendance.id">
                 <update-attendance [attendance]="attendance"
                                    (attendanceCreated)="attendanceCreated($event)"></update-attendance>
@@ -52,6 +52,20 @@
             <div *ngIf="!attendance.id">
                 <create-attendance [attendance]="attendance"
                                    (attendanceCreated)="attendanceCreated($event)"></create-attendance>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6" *ngIf="attendance && today">
+            <div class="box-widget widget-module no-border create_attendance">
+                <!-- Type of attendance -->
+                <div class="widget-container">
+                    <div class="widget-block">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                Cannot report for future date
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xs-12 col-md-6" *ngIf="!attendance">
