@@ -20,6 +20,8 @@ export class MonthlyAttendanceComponent extends ListComponent {
     month: number;
     year: number;
 
+    today: boolean =false;
+
     /**
      * Attendances
      */
@@ -94,7 +96,12 @@ export class MonthlyAttendanceComponent extends ListComponent {
      * @param att
      */
     onAttendanceSelected(att: Attendance) {
+        if(moment(att.date,"YYYY-MM-DD") > moment().add(1, 'days'))
+            this.today = true;
+        else
+            this.today = false;
         this.attendance = att;
+
     }
 
     /**
