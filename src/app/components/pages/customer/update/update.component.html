@@ -38,7 +38,7 @@
 
                                     <!-- Firm Name -->
                                     <div class="form-group">
-                                        <label class="control-label">Firm Name (required)</label>
+                                        <label class="control-label">Firm Name</label>
                                         <div class="">
                                             <input formControlName="firm_name" class="form-control" type="text">
                                             <small *ngIf="errors?.firm_name" class="text-danger text-center">
@@ -50,7 +50,7 @@
 
                                     <!-- Email -->
                                     <div class="form-group">
-                                        <label class="control-label">Email (required)</label>
+                                        <label class="control-label">Email</label>
                                         <div class="">
                                             <input class="form-control" formControlName="email" type="text"
                                                    name="email">
@@ -63,7 +63,7 @@
 
                                     <!-- Mobile -->
                                     <div class="form-group">
-                                        <label class="control-label">Mobile (required)</label>
+                                        <label class="control-label">Mobile</label>
                                         <div class="">
                                             <input class="form-control" formControlName="mobile" type="text"
                                                    name="mobile">
@@ -98,6 +98,21 @@
                                     <!-- ./Select Type and Select Grade-->
 
                                     <div class="row">
+                                        <!-- Region select -->
+                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="6">
+                                            <div>
+                                                <region-select [value]="hq_region_id" [country_id]="hq_country_id"
+                                                               [title]="'Select Region'"
+                                                               [first_value]="'Select Region'"
+                                                               (onValueChanged)="regionChanged($event)"></region-select>
+
+                                                <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
+                                                    {{ errors.hq_region_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Region select -->
+
                                         <!-- Area select -->
                                         <div class="form-group col-xs-12 col-md-4" *roleCheck="5">
                                             <div *ngIf="hq_region_id > 0">
@@ -106,8 +121,8 @@
                                                              [first_value]="'Select Area'"
                                                              (onValueChanged)="areaChanged($event)"></area-select>
 
-                                                <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
-                                                    {{ errors.hq_region_id}}
+                                                <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
+                                                    {{ errors.hq_area_id}}
                                                 </small>
                                             </div>
                                         </div>
@@ -121,8 +136,8 @@
                                                                     [first_value]="'Select Head Quarter'"
                                                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                                                <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
-                                                    {{ errors.hq_area_id}}
+                                                <small *ngIf="errors?.hq_headquarter_id" class="text-danger text-center">
+                                                    {{ errors.hq_headquarter_id}}
                                                 </small>
                                             </div>
                                         </div>
@@ -136,9 +151,8 @@
                                                                   [title]="'Select Territory'"
                                                                   [first_value]="'Select Territory'"
                                                                   (onValueChanged)="territoryChanged($event)"></territory-select>
-                                                <small *ngIf="errors?.hq_headquarter_id"
-                                                       class="text-danger text-center">
-                                                    {{ errors.hq_headquarter_id}}
+                                                <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
+                                                    {{ errors.hq_territory_id}}
                                                 </small>
                                             </div>
                                         </div>
@@ -152,9 +166,8 @@
                                                               [title]="'Select Brick'"
                                                               [first_value]="'Select Brick'"
                                                               (onValueChanged)="brickChanged($event)"></brick-select>
-                                                <small *ngIf="errors?.hq_territory_id"
-                                                       class="text-danger text-center">
-                                                    {{ errors.hq_territory_id}}
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
+                                                    {{ errors.hq_brick_id}}
                                                 </small>
                                             </div>
                                         </div>
