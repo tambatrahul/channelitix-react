@@ -98,9 +98,24 @@
                                     <!-- ./Select Type and Select Grade-->
 
                                     <div class="row">
+                                        <!-- Area select -->
+                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="5">
+                                            <div *ngIf="hq_region_id > 0">
+                                                <area-select [value]="hq_area_id" [region_id]="hq_region_id"
+                                                             [title]="'Select Area'"
+                                                             [first_value]="'Select Area'"
+                                                             (onValueChanged)="areaChanged($event)"></area-select>
+
+                                                <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
+                                                    {{ errors.hq_region_id}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- ./Area select -->
+
                                         <!-- Head quarter select -->
-                                        <div class="form-group col-xs-12 col-md-4" *ngIf="hq_area_id > 0">
-                                            <div *roleCheck="4">
+                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="4">
+                                            <div *ngIf="hq_area_id > 0">
                                                 <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
                                                                     [title]="'Select Head Quarter'"
                                                                     [first_value]="'Select Head Quarter'"
