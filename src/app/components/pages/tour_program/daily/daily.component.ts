@@ -33,6 +33,7 @@ export class DailyTourProgramComponent extends ListComponent {
     _date: string;
     @Input()
     set tour(tour: Tour) {
+        console.log(tour);
         this._date = moment(tour.date, "YYYY-MM-DD").format("DD MMMM YYYY");
         this.tours = tour.tours;
     };
