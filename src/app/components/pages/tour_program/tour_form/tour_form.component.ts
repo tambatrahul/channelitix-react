@@ -31,7 +31,6 @@ export class TourFormComponent extends FormComponent {
     @Input()
     set user_id(user_id: number) {
         this._user_id = user_id;
-        console.log(user_id);
         this.form.patchValue({user_id: user_id});
     }
 

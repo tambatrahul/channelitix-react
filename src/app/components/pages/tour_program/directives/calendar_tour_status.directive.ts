@@ -31,7 +31,7 @@ export class CalendarTourStatusDirective {
             this.el.nativeElement.style.backgroundColor = this.not_marked;
         }
 
-        if (tour && tour.tours.length > 0) {
+        if (tour && tour.tours && tour.tours.length > 0) {
             // set background color
             this.el.nativeElement.style.backgroundColor = this.marked;
         }
