@@ -5,6 +5,7 @@ import {Visit} from "./models/visit/visit";
 import {Holiday} from "./models/holiday";
 import {Order} from "./models/order/order";
 import {Tour} from "./models/tour_program/tour";
+import {CustomerType} from "./models/customer/customer_type";
 
 export class AppConstants {
     // static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';

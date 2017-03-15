@@ -86,7 +86,7 @@ export class StpComponent extends ListComponent {
         // preparing brick skeleton
         for (let cus of this.customers) {
             if (!bricks.hasOwnProperty(cus.hq_brick_id)) {
-                bricks[cus.hq_brick_id] = {customer_types: this.customer_types.slice(0)};
+                bricks[cus.hq_brick_id] = {customer_types: this.customer_types.map(ct => ct.clone())};
             }
 
             for(let ct of bricks[cus.hq_brick_id].customer_types) {
