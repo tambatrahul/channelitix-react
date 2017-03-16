@@ -73,7 +73,7 @@ export class UserService extends BaseService {
      * Update User
      */
     update(user: User, id: number): Observable<Result> {
-        return this.post(this.getBaseUrl(), user)
+        return this.post(this.getBaseUrl() + '/' + id, user)
     }
 
     /**
