@@ -71,7 +71,7 @@ export class CreateUserComponent extends FormComponent {
 
         // set manager id
         if (this._service.user.isAdmin) {
-            this.form.patchValue({manager_id: this._service.user.id});
+            this.managerChanged(this._service.user.id);
             this.form.patchValue({hq_country_id: this._service.user.hq_country_id});
             this.hq_country_id = this._service.user.hq_country_id;
         }
@@ -109,8 +109,9 @@ export class CreateUserComponent extends FormComponent {
     roleChanged(role_id) {
         this.role_id = role_id;
         this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
-        this.managerChanged(0);
         this.form.patchValue({role: AppConstants.getRole(role_id).name});
+        if (!this._service.user.isAdmin)
+            this.managerChanged(0);
     }
 
     /**
@@ -124,28 +125,22 @@ export class CreateUserComponent extends FormComponent {
     }
 
     /**
-     * manager selected
+     * manager selected set all territory fields
      */
     managerSelected(manager) {
-        // reset all fields
-        this.hq_headquarter_id = 0;
-        this.hq_territory_id = 0;
-        this.hq_area_id = 0;
-        this.hq_region_id = 0;
-        this.hq_country_id = 0;
-
-        // depending on manager set the territory
         if (manager)
             if (manager.hq_headquarter_id)
-                this.hq_headquarter_id = manager.hq_headquarter_id;
+                this.headquarterChanged(manager.hq_headquarter_id);
             else if (manager.hq_territory_id)
-                this.hq_territory_id = manager.hq_territory_id;
+                this.territoryChanged(manager.hq_territory_id);
             else if (manager.hq_area_id)
-                this.hq_area_id = manager.hq_area_id;
+                this.areaChanged(manager.hq_area_id);
             else if (manager.hq_region_id)
-                this.hq_region_id = manager.hq_region_id;
-            else if (manager.hq_country_id)
+                this.regionChanged(manager.hq_region_id);
+            else if (manager.hq_country_id) {
+                this.form.patchValue({hq_country_id: manager.hq_country_id});
                 this.hq_country_id = manager.hq_country_id;
+            }
     }
 
     /**

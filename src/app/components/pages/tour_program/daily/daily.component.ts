@@ -17,6 +17,12 @@ declare let swal: any;
 })
 export class DailyTourProgramComponent extends ListComponent {
 
+    /**
+     * title for form
+     *
+     * @type {string}
+     */
+    title: string = "";
 
     /**
      * tour deleted selection
@@ -26,7 +32,6 @@ export class DailyTourProgramComponent extends ListComponent {
     @Output()
     tourDeleted = new EventEmitter();
 
-
     /**
      * Date of tour
      */
@@ -35,6 +40,9 @@ export class DailyTourProgramComponent extends ListComponent {
     set tour(tour: Tour) {
         this._date = moment(tour.date, "YYYY-MM-DD").format("DD MMMM YYYY");
         this.tours = tour.tours;
+        this.title = "<strong class='tag'>" + this._date + "</strong>";
+        if (tour.user)
+            this.title = "<strong>" + tour.user.full_name + "</strong> for Date: " + this.title;
     };
 
     /**
