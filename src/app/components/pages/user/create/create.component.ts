@@ -62,9 +62,19 @@ export class CreateUserComponent extends FormComponent {
         super(_service);
     }
 
+    /**
+     * initialize details
+     */
     ngOnInit() {
         super.ngOnInit();
         this.dateChanged(moment().format('DD MMMM YYYY'));
+
+        // set manager id
+        if (this._service.user.isAdmin) {
+            this.form.patchValue({manager_id: this._service.user.id});
+            this.form.patchValue({hq_country_id: this._service.user.hq_country_id});
+            this.hq_country_id = this._service.user.hq_country_id;
+        }
     }
 
     /**
