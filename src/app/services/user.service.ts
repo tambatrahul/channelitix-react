@@ -80,7 +80,7 @@ export class UserService extends BaseService {
      * Deactivate user
      */
     deactivate(data, user_id): Observable<Result> {
-        return this.put(this.getBaseUrl(), data)
+        return this.put(this.getBaseUrl() + '/' + user_id + '/deactivate', data)
     }
 
     /**
