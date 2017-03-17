@@ -70,6 +70,13 @@ export class PasswordResetComponent extends FormComponent {
         super(_service);
     }
 
+    reset() {
+        this.form.patchValue({
+            new_password: [""],
+            confirm_new_password : [""]
+        });
+    }
+
     /**
      * Deactivate user
      */
@@ -89,6 +96,7 @@ export class PasswordResetComponent extends FormComponent {
                         timer: 1500,
                         showConfirmButton: false
                     });
+                    this.reset();
                     jQuery(self.password_reset_model.nativeElement).modal('hide');
                     self.passwordReset.emit(this._user);
                 },

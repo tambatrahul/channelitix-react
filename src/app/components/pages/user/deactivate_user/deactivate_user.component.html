@@ -9,6 +9,11 @@
             <div class="modal-body" #loading_box>
                 <form [formGroup]="form" (ngSubmit)="save($event)" novalidate>
                     <div class="row">
+                        <div class="form-group col-xs-12">
+                            <small style="color: red;text-align: center">
+                                <i>You want be able to reactivate the user once it's deactivated</i>
+                            </small>
+                        </div>
                         <!-- leaving Date -->
                         <div class="form-group col-xs-12">
                             <date-picker [date]="leaving_date" [title]="'Leaving Date'"
