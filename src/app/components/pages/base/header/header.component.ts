@@ -39,6 +39,16 @@ export class HeaderComponent {
      */
     ngAfterViewInit() {
         let pCon = jQuery('.page-container');
+
+        let fxHeader = pCon.hasClass('fixed-header');
+        let conInnnerWidth = jQuery('.main-container').innerWidth();
+
+        if (fxHeader) {
+            jQuery('.top-bar').css({
+                'width': conInnnerWidth + 'px'
+            });
+        }
+
         jQuery('.leftbar-action').on('click', function (event) {
             event.preventDefault();
 
