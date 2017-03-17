@@ -7,6 +7,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {FormComponent} from "../../../base/form.component";
 import {User} from "../../../../models/user/user";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     selector: 'deactivate-user',
@@ -91,6 +92,13 @@ export class DeactivateUserComponent extends FormComponent {
             // make server call
             this.userService.deactivate(data, this._user.id).subscribe(
                 response => {
+                    swal({
+                        title: "User Deactivated Successfully",
+                        text: "I will close in 2 sec.",
+                        type: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                     jQuery(self.deactivating_modal.nativeElement).modal('hide');
                     self.userDeactivated.emit(this._user);
                 },

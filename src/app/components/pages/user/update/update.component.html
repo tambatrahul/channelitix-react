@@ -120,7 +120,7 @@
                     <!-- ./Area select -->
 
                     <!-- Head quarter select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 2 && hq_area_id > 0">
+                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 3 && hq_area_id > 0">
                       <div>
                         <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
                                             [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
@@ -134,7 +134,7 @@
                     <!-- ./Head quarter select -->
 
                     <!-- Territory select -->
-                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 3 && hq_headquarter_id > 0">
+                    <div class="col-xs-12 col-md-6" *ngIf="role_id == 2 && hq_headquarter_id > 0">
                       <div>
                         <territory-select [value]="hq_territory_id" [headquarter_id]="hq_headquarter_id"
                                           [title]="'Select Territory'" [first_value]="'Select Territory'"

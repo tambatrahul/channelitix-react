@@ -6,6 +6,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {FormComponent} from "../../../base/form.component";
 import {User} from "../../../../models/user/user";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     selector: 'password-reset',
@@ -81,6 +82,13 @@ export class PasswordResetComponent extends FormComponent {
             // make server call
             this.userService.reset_password(data, this._user.id).subscribe(
                 response => {
+                    swal({
+                        title: "Password Reset Successfully",
+                        text: "I will close in 2 sec.",
+                        type: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                     jQuery(self.password_reset_model.nativeElement).modal('hide');
                     self.passwordReset.emit(this._user);
                 },
