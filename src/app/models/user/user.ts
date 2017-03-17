@@ -16,6 +16,7 @@ export class User extends Model {
     role_id: number;
 
     // territory changes
+    hq_country_id: number;
     hq_region_id: number;
     hq_area_id: number;
     hq_headquarter_id: number;
@@ -50,6 +51,7 @@ export class User extends Model {
         this.hq_headquarter_id = info.hq_headquarter_id;
         this.hq_territory_id = info.hq_territory_id;
         this.hq_brick_id = info.hq_brick_id;
+        this.hq_country_id = info.hq_country_id;
     }
 
     /**
