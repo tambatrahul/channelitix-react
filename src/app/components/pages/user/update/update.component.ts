@@ -38,8 +38,6 @@ export class UpdateUserComponent extends FormComponent {
         full_name: [""],
         username: [""],
         mobile: [""],
-        password: [""],
-        confirm_password: [""],
         joining_date: [""],
         role: [""],
         hq_brick_id: [""],
@@ -71,10 +69,20 @@ export class UpdateUserComponent extends FormComponent {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.id = params['id'];
-            console.log(this.id);
             this.loading = true;
             this.userService.read(this.id).subscribe(response => {
-                // this.form.value(response.user);
+                console.log(response.user);
+                this.form.patchValue({
+                    full_name: response.user.full_name,
+                    username: response.user.username,
+                    mobile: response.user.mobile
+                });
+                this.dateChanged(moment(response.user.joining_date, "YYYY-MM-DD").format("DD MMMM YYYY"));
+                this.roleChanged(response.user.role_id);
+                this.territoryChanged(response.user.hq_territory_id);
+                this.headquarterChanged(response.user.hq_headquarter_id);
+                this.regionChanged(response.user.hq_region_id);
+                this.areaChanged(response.user.hq_area_id);
                 this.loading = false;
             }, err => {
                 this.loading = false;
@@ -118,7 +126,6 @@ export class UpdateUserComponent extends FormComponent {
         this.role_id = role_id;
         this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
         this.managerChanged(0);
-        this.form.patchValue({role: AppConstants.getRole(role_id).name});
     }
 
     /**

@@ -28,7 +28,10 @@ export class CreateBrickComponent extends FormComponent {
     public form = this._fb.group({
         name: [""],
         hq_headquarter_id: [""],
-        hq_territory_id: [""]
+        hq_territory_id: [""],
+        no_of_work_days: [""],
+        expected_business: [""],
+        distance_from_hq: [""]
     });
 
     /**
@@ -47,6 +50,7 @@ export class CreateBrickComponent extends FormComponent {
     ngOnInit() {
         super.ngOnInit();
     }
+
 
     /**
      * create brick

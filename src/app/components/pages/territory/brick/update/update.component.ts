@@ -31,7 +31,10 @@ export class UpdateBrickComponent extends FormComponent {
     public form = this._fb.group({
         name: [""],
         hq_headquarter_id: [""],
-        hq_territory_id: [""]
+        hq_territory_id: [""],
+        no_of_work_days: [""],
+        expected_business: [""],
+        distance_from_hq: [""]
     });
 
     /**
@@ -57,7 +60,10 @@ export class UpdateBrickComponent extends FormComponent {
             this.loading = true;
             this.brickService.read(this.id).subscribe(response => {
                 this.form.patchValue({
-                    name: response.brick.name
+                    name: response.brick.name,
+                    no_of_work_days: response.brick.no_of_work_days,
+                    expected_business: response.brick.expected_business,
+                    distance_from_hq: response.brick.distance_from_hq
                 });
                 this.headquarterChanged(response.brick.hq_territory.hq_headquarter_id);
                 this.territoryChanged(response.brick.hq_territory_id);
