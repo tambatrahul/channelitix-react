@@ -27,10 +27,9 @@
     <!-- STP Table -->
     <div class="row">
         <div class="col-xs-12">
-            <a class="btn btn-default"
-               [routerLink]="['/stps', _country_id, 'regions', _region_id, 'areas', _area_id, 'headquarters', _headquarter_id]">
-                <i class="fa fa-arrow-left"></i> Back
-            </a>
+            <button class="btn btn-default pull-right" (click)="toggleEditing()" *ngIf="!editing">EDIT</button>
+            <button class="btn btn-danger pull-right" (click)="toggleEditing()" *ngIf="editing">CANCEL</button>
+            <button class="btn btn-primary pull-right" (click)="save()" *ngIf="editing">SAVE</button>
         </div>
     </div>
     <div class="row">
@@ -67,8 +66,13 @@
                                     <td>{{ br.name }}</td>
                                     <td></td>
                                     <template ngFor let-ct [ngForOf]="br.customer_types">
-                                        <td *ngFor="let grade of ct.grades">
-                                            {{ grade.customer_count }}
+                                        <td *ngFor="let g of ct.grades" [ngClass]="{'editing': editing}">
+                                            <div *ngIf="!editing && g.customer_count > 0">
+                                                {{ g.customer_count }}
+                                            </div>
+                                            <div *ngIf="editing">
+                                                <input class="form-control" type="text" [(ngModel)]="g.customer_count"/>
+                                            </div>
                                         </td>
                                     </template>
                                     <td></td>

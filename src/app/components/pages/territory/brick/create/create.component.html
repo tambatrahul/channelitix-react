@@ -8,10 +8,6 @@
                         <h2 class="breadcrumb-titles">Create Brick
                             <small>Create Brick Form</small>
                         </h2>
-                        <ul class="list-page-breadcrumb">
-                            <li><a routerLink="/">Home</a></li>
-                            <li class="active-page" routerLink="/bricks"> Bricks</li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -38,11 +34,25 @@
                                 </div>
                                 <div class="col-xs-12 col-md-6">
                                     <div class="row">
+                                        <!-- Brick Name -->
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Brick Name (required)</label>
+                                                <div class="">
+                                                    <input formControlName="name" class="form-control" type="text">
+                                                    <small *ngIf="errors?.name" class="text-danger text-center">
+                                                        {{ errors.name}}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Brick Name -->
+
                                         <!-- Head quarter select -->
                                         <div class="col-xs-12">
                                             <div class="form-group">
                                                 <headquarter-select [value]="hq_headquarter_id"
-                                                                    [title]="'Select Head Quarter'"
+                                                                    [title]="'Select Head Quarter(required)'"
                                                                     [first_value]="'Select Head Quarter'"
                                                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
@@ -69,20 +79,6 @@
                                             </div>
                                         </div>
                                         <!-- ./Territory select -->
-
-                                        <!-- Brick Name -->
-                                        <div class="col-xs-12">
-                                            <div class="form-group">
-                                                <label class="control-label" for="bname">Brick Name (required)</label>
-                                                <div class="">
-                                                    <input formControlName="name" class="form-control" type="text">
-                                                    <small *ngIf="errors?.name" class="text-danger text-center">
-                                                        {{ errors.name}}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Brick Name -->
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
