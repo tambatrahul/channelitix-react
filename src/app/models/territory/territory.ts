@@ -15,7 +15,8 @@ export class Territory extends Model {
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
-        this.hq_headquarter = info.hq_headquarter;
+        if (info.hq_headquarter)
+            this.hq_headquarter = new Headquarter(info.hq_headquarter);
         this.hq_headquarter_id = info.hq_headquarter_id;
 
         this.customer_types = info.customer_types;

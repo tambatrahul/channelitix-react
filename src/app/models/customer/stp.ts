@@ -43,8 +43,9 @@ export class Stp extends Model {
         if (info.hq_headquarter)
             this.hq_headquarter = new Headquarter(info.hq_headquarter);
 
-        if (info.hq_area)
+        if (info.hq_area) {
             this.hq_area = new Area(info.hq_area);
+        }
 
         if (info.hq_region)
             this.hq_region = new Region(info.hq_region);

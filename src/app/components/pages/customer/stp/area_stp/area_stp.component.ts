@@ -115,5 +115,6 @@ export class AreaStpComponent extends ListComponent {
                 area.total = areas[area.id].total;
             }
         }
+        console.log(this.areas);
     }
 }

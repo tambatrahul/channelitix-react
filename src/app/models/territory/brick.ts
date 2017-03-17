@@ -24,7 +24,9 @@ export class Brick extends Model {
         this.distance_from_hq = info.distance_from_hq;
         this.customer_types = info.customer_types;
         this.total_customer = info.total_customer;
-        this.hq_territory = info.hq_territory;
         this.total = info.total;
+
+        if (info.hq_territory)
+            this.hq_territory = new Territory(info.hq_territory);
     }
 }
