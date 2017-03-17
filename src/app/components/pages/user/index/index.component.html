@@ -6,12 +6,8 @@
         <div class="page-breadcrumb-wrap">
           <div class="page-breadcrumb-info">
             <h2 class="breadcrumb-titles">Users
-              <small>List all all Users</small>
+              <small>List all Users</small>
             </h2>
-            <ul class="list-page-breadcrumb">
-              <li><a href="#">Home</a></li>
-              <li class="active-page"> Users</li>
-            </ul>
           </div>
         </div>
       </div>
@@ -83,7 +79,7 @@
                     <i status [field]="u.status"></i>
                   </td>
                   <td>
-                    <a class="text-primary" style="cursor: pointer;" title="Update" (click)="updateUser(u.id)"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-default btn-xs" style="cursor: pointer;" title="Update" (click)="updateUser(u.id)">Edit</a>
                     <button class="btn btn-danger btn-xs" (click)="deactivateUser(u)" *ngIf="u.status == 'active'">
                       Deactivate
                     </button>

@@ -22,7 +22,6 @@ export class UpdateUserComponent extends FormComponent {
      */
     public role_id: number = 0;
     public hq_headquarter_id: number = 0;
-    public hq_territory_id: number = 0;
     public hq_area_id: number = 0;
     public hq_region_id: number = 0;
     public hq_country_id: number = 0;
@@ -43,7 +42,6 @@ export class UpdateUserComponent extends FormComponent {
         role: [""],
         hq_brick_id: [""],
         hq_headquarter_id: [""],
-        hq_territory_id: [""],
         hq_area_id: [""],
         hq_region_id: [""],
         hq_country_id: [""],
@@ -78,20 +76,12 @@ export class UpdateUserComponent extends FormComponent {
                     mobile: response.user.mobile
                 });
 
-                // set manager id
-                if (this._service.user.isAdmin) {
-                    this.managerChanged(this._service.user.id);
-                    this.form.patchValue({hq_country_id: this._service.user.hq_country_id});
-                    this.hq_country_id = this._service.user.hq_country_id;
-                }
-
                 this.roleChanged(response.user.role_id);
-                this.managerChanged(response.user.manager_id);
                 this.dateChanged(moment(response.user.joining_date, "YYYY-MM-DD").format("DD MMMM YYYY"));
-                this.territoryChanged(response.user.hq_territory_id);
                 this.headquarterChanged(response.user.hq_headquarter_id);
                 this.regionChanged(response.user.hq_region_id);
                 this.areaChanged(response.user.hq_area_id);
+                this.managerChanged(response.user.manager_id);
                 this.loading = false;
             }, err => {
                 this.loading = false;
@@ -122,7 +112,6 @@ export class UpdateUserComponent extends FormComponent {
                         timer: 1500,
                         showConfirmButton: false
                     });
-                    localStorage.setItem("user", JSON.stringify(response.user));
                     this._router.navigate(['/users']);
                     this.loading = false;
                 },
@@ -141,9 +130,24 @@ export class UpdateUserComponent extends FormComponent {
     roleChanged(role_id) {
         this.role_id = role_id;
         this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
-        this.form.patchValue({role_id: role_id});
         this.form.patchValue({role: AppConstants.getRole(role_id).name});
-        if (!this._service.user.isAdmin)
+
+        if (this.manager_role_id == this._service.user.role_id) {
+            this.managerChanged(this._service.user.id);
+            this.countryChanged(this._service.user.hq_country_id);
+
+            // set region
+            if (this._service.user.hq_region_id)
+                this.regionChanged(this._service.user.hq_region_id);
+
+            // set area
+            if (this._service.user.hq_area_id)
+                this.areaChanged(this._service.user.hq_area_id);
+
+            // set headquarter
+            if (this._service.user.hq_headquarter_id)
+                this.headquarterChanged(this._service.user.hq_headquarter_id);
+        } else
             this.managerChanged(0);
     }
 
@@ -164,8 +168,6 @@ export class UpdateUserComponent extends FormComponent {
         if (manager)
             if (manager.hq_headquarter_id)
                 this.headquarterChanged(manager.hq_headquarter_id);
-            else if (manager.hq_territory_id)
-                this.territoryChanged(manager.hq_territory_id);
             else if (manager.hq_area_id)
                 this.areaChanged(manager.hq_area_id);
             else if (manager.hq_region_id)
@@ -174,6 +176,15 @@ export class UpdateUserComponent extends FormComponent {
                 this.form.patchValue({hq_country_id: manager.hq_country_id});
                 this.hq_country_id = manager.hq_country_id;
             }
+    }
+
+    /**
+     * when country is changed filter list of customer
+     * @param country_id
+     */
+    countryChanged(country_id) {
+        this.hq_country_id = country_id;
+        this.form.patchValue({hq_country_id: country_id});
     }
 
     /**
@@ -192,15 +203,6 @@ export class UpdateUserComponent extends FormComponent {
     areaChanged(area_id) {
         this.hq_area_id = area_id;
         this.form.patchValue({hq_area_id: area_id});
-    }
-
-    /**
-     * when territory is changed filter list of customer
-     * @param territory_id
-     */
-    territoryChanged(territory_id) {
-        this.hq_territory_id = territory_id;
-        this.form.patchValue({hq_territory_id: territory_id});
     }
 
     /**

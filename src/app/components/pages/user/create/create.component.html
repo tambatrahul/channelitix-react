@@ -129,28 +129,12 @@
                                                                     [first_value]="'Select Head Quarter'"
                                                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                                                <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
-                                                    {{ errors.hq_area_id}}
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <!-- ./Head quarter select -->
-
-                                        <!-- Territory select -->
-                                        <div class="col-xs-12 col-md-6" *ngIf="role_id == 2 && hq_headquarter_id > 0">
-                                            <div>
-                                                <territory-select [value]="hq_territory_id"
-                                                                  [headquarter_id]="hq_headquarter_id"
-                                                                  [title]="'Select Territory'"
-                                                                  [first_value]="'Select Territory'"
-                                                                  (onValueChanged)="territoryChanged($event)"></territory-select>
-                                                <small *ngIf="errors?.hq_headquarter_id"
-                                                       class="text-danger text-center">
+                                                <small *ngIf="errors?.hq_headquarter_id" class="text-danger text-center">
                                                     {{ errors.hq_headquarter_id}}
                                                 </small>
                                             </div>
                                         </div>
-                                        <!-- ./Territory select -->
+                                        <!-- ./Head quarter select -->
                                     </div>
                                     <!-- ./Select territory depending on manager -->
 
