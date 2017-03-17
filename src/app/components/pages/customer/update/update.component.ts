@@ -64,6 +64,7 @@ export class UpdateCustomerComponent extends FormComponent {
      *
      * @param customerService
      * @param _router
+     * @param route
      * @param _fb
      * @param _service
      */
