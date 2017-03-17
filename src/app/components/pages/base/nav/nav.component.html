@@ -18,13 +18,13 @@
                     <span class="nav-label">Dashboard</span>
                 </a>
             </li>-->
-            <li *ngIf="!_auth_service.user.isAdmin">
+            <li *ngIf="!_auth_service.user?.isAdmin">
                 <a class="waves-effect" routerLink="/attendances/monthly">
                     <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                     <span class="nav-label">Daily Work Report</span>
                 </a>
             </li>
-            <li *ngIf="_auth_service.user.isArea">
+            <li *ngIf="_auth_service.user?.isArea">
                 <a class="waves-effect" routerLink="/bricks">
                     <span class="nav-icon"><i class="fa fa-map"></i></span>
                     <span class="nav-label">Bricks Master</span>
@@ -52,27 +52,27 @@
                     </li>
                 </ul>
             </li>
-            <li *ngIf="_auth_service.user.isAdmin">
+            <li *ngIf="_auth_service.user?.isAdmin">
                 <a class="waves-effect" [routerLink]="['/stps', _auth_service.user.hq_country_id]">
                     <span class="nav-icon"><i class="fa fa-map"></i></span>
                     <span class="nav-label">Standard Tour Program</span>
                 </a>
             </li>
-            <li *ngIf="_auth_service.user.isRegion">
+            <li *ngIf="_auth_service.user?.isRegion">
                 <a class="waves-effect"
                    [routerLink]="['/stps', _auth_service.user.hq_country_id, 'regions', _auth_service.user.hq_region_id]">
                     <span class="nav-icon"><i class="fa fa-map"></i></span>
                     <span class="nav-label">Standard Tour Program</span>
                 </a>
             </li>
-            <li *ngIf="_auth_service.user.isArea">
+            <li *ngIf="_auth_service.user?.isArea">
                 <a class="waves-effect"
                    [routerLink]="['/stps', _auth_service.user.hq_country_id, 'regions', _auth_service.user.hq_region_id, 'areas', _auth_service.user.hq_area_id]">
                     <span class="nav-icon"><i class="fa fa-map"></i></span>
                     <span class="nav-label">Standard Tour Program</span>
                 </a>
             </li>
-            <li *ngIf="_auth_service.user.isHeadquarter">
+            <li *ngIf="_auth_service.user?.isHeadquarter">
                 <a class="waves-effect"
                    [routerLink]="['/stps', _auth_service.user.hq_country_id, 'regions', _auth_service.user.hq_region_id, 'areas', _auth_service.user.hq_area_id, 'headquarters', _auth_service.user.hq_headquarter_id]">
                     <span class="nav-icon"><i class="fa fa-map"></i></span>
@@ -91,7 +91,7 @@
                     <span class="nav-label">Users Management</span>
                 </a>
             </li>
-            <li *ngIf="_auth_service.user.isHeadquarter">
+            <li *ngIf="_auth_service.user?.isHeadquarter">
                 <a class="waves-effect" routerLink="/tours/monthly">
                     <span class="nav-icon"><i class="fa fa-map-marker"></i></span>
                     <span class="nav-label">Tour Program</span>
