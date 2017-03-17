@@ -31,12 +31,12 @@
                     <div class=" widget-block">
                         <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
                             <div class="row">
-                                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                <div class="col-xs-12 col-md-12">
                                     <div class="page-header">
                                         <h2>Brick Details</h2>
                                     </div>
-
-
+                                </div>
+                                <div class="col-xs-12 col-md-6">
                                     <div class="row">
                                         <!-- Head quarter select -->
                                         <div class="col-xs-12">
@@ -56,7 +56,7 @@
 
                                         <!-- Territory select -->
                                         <div class="col-xs-12" *ngIf="hq_headquarter_id > 0">
-                                            <div  class="form-group">
+                                            <div class="form-group">
                                                 <territory-select [value]="hq_territory_id"
                                                                   [headquarter_id]="hq_headquarter_id"
                                                                   [title]="'Select Territory'"
@@ -73,7 +73,7 @@
                                         <!-- Brick Name -->
                                         <div class="col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label" for="bname">Name (required)</label>
+                                                <label class="control-label" for="bname">Brick Name (required)</label>
                                                 <div class="">
                                                     <input formControlName="name" class="form-control" type="text">
                                                     <small *ngIf="errors?.name" class="text-danger text-center">
@@ -84,8 +84,60 @@
                                         </div>
                                         <!-- Brick Name -->
                                     </div>
-
                                 </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <!-- No Of Work Days -->
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="nowdname">No Of Work Days
+                                                (required)</label>
+                                            <div class="">
+                                                <input formControlName="no_of_work_days" class="form-control"
+                                                       type="text">
+                                                <small *ngIf="errors?.no_of_work_days"
+                                                       class="text-danger text-center">
+                                                    {{ errors.no_of_work_days}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- No Of Work Days -->
+
+                                    <!-- Expected Business -->
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="ebname">Expected Business
+                                                (required)</label>
+                                            <div class="">
+                                                <input formControlName="expected_business" class="form-control"
+                                                       type="text">
+                                                <small *ngIf="errors?.expected_business"
+                                                       class="text-danger text-center">
+                                                    {{ errors.expected_business}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Expected Business -->
+
+                                    <!-- Distance From HQ -->
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="dfhname">Distance From HQ
+                                                (required)</label>
+                                            <div class="">
+                                                <input formControlName="distance_from_hq" class="form-control"
+                                                       type="text">
+                                                <small *ngIf="errors?.distance_from_hq"
+                                                       class="text-danger text-center">
+                                                    {{ errors.distance_from_hq}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Distance From HQ -->
+                                </div>
+
                             </div>
 
                             <div class="row">

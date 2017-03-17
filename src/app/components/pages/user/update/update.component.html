@@ -78,7 +78,7 @@
                         {{ errors.role_id}}
                       </small>
                     </div>
-                    <div class="col-xs-12 col-md-6 form-group" *ngIf="manager_role_id > 0">
+                    <div class="col-xs-12 col-md-6 form-group" *ngIf="manager_role_id > 0 && manager_role_id < _service.user.role_id">
                       <user-select [role_id]="manager_role_id" [value]="manager_id"
                                    [first_value]="'Select Manager'" [title]="'Select Manager'"
                                    (onValueChanged)="managerChanged($event)"
@@ -167,29 +167,6 @@
                   </div>
                   <!-- Username -->
 
-                  <!-- Password -->
-                  <div class="form-group">
-                    <label class="control-label">Password (required)</label>
-                    <div class="">
-                      <input class="form-control" formControlName="password" type="password" name="email">
-                      <small *ngIf="errors?.password" class="text-danger text-center">
-                        {{ errors.password}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- ./Password -->
-
-                  <!-- Confirm Password -->
-                  <div class="form-group">
-                    <label class="control-label">Confirm Password (required)</label>
-                    <div class="">
-                      <input class="form-control" formControlName="confirm_password" type="password" name="email">
-                      <small *ngIf="errors?.confirm_password" class="text-danger text-center">
-                        {{ errors.confirm_password}}
-                      </small>
-                    </div>
-                  </div>
-                  <!-- ./Confirm Password -->
                 </div>
               </div>
 
