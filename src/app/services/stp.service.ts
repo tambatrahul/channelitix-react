@@ -52,6 +52,6 @@ export class StpService extends BaseService {
      * Create new Customer
      */
     create(stps: Stp[]): Observable<Result> {
-        return this.post(this.getBaseUrl(), stps);
+        return this.post(this.getBaseUrl(), {stps: stps});
     }
 }

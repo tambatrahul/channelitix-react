@@ -22,6 +22,11 @@ export class BrickStpComponent extends ListComponent {
     public customer_types: CustomerType[] = [];
 
     /**
+     * editing false
+     */
+    editing: boolean = false;
+
+    /**
      * stp list
      *
      * @type {Array}
@@ -90,6 +95,7 @@ export class BrickStpComponent extends ListComponent {
      */
     formatCustomerData() {
         let bricks = {};
+        this.bricks = [];
 
         // preparing brick skeleton
         for (let stp of this.stps) {
@@ -100,18 +106,59 @@ export class BrickStpComponent extends ListComponent {
 
             for (let ct of bricks[stp.hq_brick_id].customer_types) {
                 for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id)
+                    if (grade.id == stp.grade_id) {
                         grade.customer_count = stp.customer_count;
+                    }
                 }
             }
         }
 
         // format customers
         for (let brick of this.bricks) {
-            if (!brick.hasOwnProperty(brick.id))
+            if (!bricks.hasOwnProperty(brick.id))
                 brick.customer_types = Object.assign([], this.customer_types);
             else
                 brick.customer_types = bricks[brick.id].customer_types;
         }
+    }
+
+    /**
+     * save stp
+     */
+    save() {
+
+        // prepare stps to save
+        let stps: Stp[] = [];
+        for (let brick of this.bricks) {
+            for (let ct of brick.customer_types) {
+                for (let grade of ct.grades) {
+                    stps.push(new Stp({
+                        grade_id: grade.id,
+                        customer_count: grade.customer_count ? grade.customer_count: 0,
+                        hq_brick_id: brick.id
+                    }));
+                }
+            }
+        }
+
+        // create to server
+        this.loading = true;
+        this.stpService.create(stps).subscribe(
+            response => {
+                this.loading = false;
+                this.editing = false;
+                this.fetch();
+            },
+            err => {
+                this.loading = false;
+            }
+        );
+    }
+
+    /**
+     * toggle editing
+     */
+    toggleEditing() {
+        this.editing = !this.editing;
     }
 }

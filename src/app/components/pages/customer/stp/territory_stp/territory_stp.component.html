@@ -45,12 +45,13 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th rowspan="2">Headquarter</th>
+                                    <th rowspan="2">Territory</th>
                                     <template ngFor let-ct [ngForOf]="customer_types">
                                         <th [attr.colspan]="ct.grades.length">{{ ct.name }}</th>
                                     </template>
                                     <th rowspan="2">Total</th>
                                     <th rowspan="2">Expected Business</th>
+                                    <th rowspan="2">Actions</th>
                                 </tr>
                                 <tr>
                                     <template ngFor let-ct [ngForOf]="customer_types">
@@ -72,7 +73,7 @@
                                     <td>
                                         <a class="btn btn-primary btn-xs"
                                            [routerLink]="['/stps', _country_id, 'regions', _region_id, 'areas', _area_id, 'headquarters', _headquarter_id, 'territories', br.id]">View
-                                            In Detail</a>
+                                            by Bricks</a>
                                     </td>
                                 </tr>
                                 </tbody>

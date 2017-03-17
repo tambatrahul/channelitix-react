@@ -52,18 +52,6 @@
                     </li>
                 </ul>
             </li>
-            <!-- <li>
-                 <a class="waves-effect" routerLink="/visits">
-                     <span class="nav-icon"><i class="fa fa-user-md"></i></span>
-                     <span class="nav-label">Visits</span>
-                 </a>
-             </li>
-             <li>
-                 <a class="waves-effect" routerLink="/orders">
-                     <span class="nav-icon"><i class="fa fa-shopping-cart"></i></span>
-                     <span class="nav-label">Orders</span>
-                 </a>
-             </li>-->
             <li *ngIf="_auth_service.user.isAdmin">
                 <a class="waves-effect" [routerLink]="['/stps', _auth_service.user.hq_country_id]">
                     <span class="nav-icon"><i class="fa fa-map"></i></span>

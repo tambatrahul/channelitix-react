@@ -44,6 +44,7 @@
                                     </template>
                                     <th rowspan="2">Total</th>
                                     <th rowspan="2">Expected Business</th>
+                                    <th rowspan="2">Actions</th>
                                 </tr>
                                 <tr>
                                     <template ngFor let-ct [ngForOf]="customer_types">
@@ -63,7 +64,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <a class="btn btn-primary btn-xs" [routerLink]="['/stps', _country_id, 'regions', br.id]">View In Detail</a>
+                                        <a class="btn btn-primary btn-xs" [routerLink]="['/stps', _country_id, 'regions', br.id]">View By Area</a>
                                     </td>
                                 </tr>
                                 </tbody>

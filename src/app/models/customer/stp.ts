@@ -31,6 +31,7 @@ export class Stp extends Model {
         this.hq_area_id = info.hq_area_id;
         this.hq_region_id = info.hq_region_id;
         this.customer_count = info.customer_count;
+        this.grade_id = info.grade_id;
 
         if (info.hq_brick)
             this.hq_brick = new Brick(info.hq_brick);
