@@ -7,6 +7,7 @@ import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../../../base/form.component";
 import {AppConstants} from "../../../../app.constants";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     templateUrl: 'update.component.html',
@@ -46,7 +47,7 @@ export class UpdateUserComponent extends FormComponent {
         hq_area_id: [""],
         hq_region_id: [""],
         hq_country_id: [""],
-        manager_id: [""],
+        manager_id: [""]
     });
 
     /**
@@ -71,14 +72,22 @@ export class UpdateUserComponent extends FormComponent {
             this.id = params['id'];
             this.loading = true;
             this.userService.read(this.id).subscribe(response => {
-                console.log(response.user);
                 this.form.patchValue({
                     full_name: response.user.full_name,
                     username: response.user.username,
                     mobile: response.user.mobile
                 });
-                this.dateChanged(moment(response.user.joining_date, "YYYY-MM-DD").format("DD MMMM YYYY"));
+
+                // set manager id
+                if (this._service.user.isAdmin) {
+                    this.managerChanged(this._service.user.id);
+                    this.form.patchValue({hq_country_id: this._service.user.hq_country_id});
+                    this.hq_country_id = this._service.user.hq_country_id;
+                }
+
                 this.roleChanged(response.user.role_id);
+                this.managerChanged(response.user.manager_id);
+                this.dateChanged(moment(response.user.joining_date, "YYYY-MM-DD").format("DD MMMM YYYY"));
                 this.territoryChanged(response.user.hq_territory_id);
                 this.headquarterChanged(response.user.hq_headquarter_id);
                 this.regionChanged(response.user.hq_region_id);
@@ -106,6 +115,13 @@ export class UpdateUserComponent extends FormComponent {
 
             this.userService.update(data, this.id).subscribe(
                 response => {
+                    swal({
+                        title: "User Updated Successfully",
+                        text: "I will close in 2 sec.",
+                        type: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                     localStorage.setItem("user", JSON.stringify(response.user));
                     this._router.navigate(['/users']);
                     this.loading = false;
@@ -125,7 +141,10 @@ export class UpdateUserComponent extends FormComponent {
     roleChanged(role_id) {
         this.role_id = role_id;
         this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
-        this.managerChanged(0);
+        this.form.patchValue({role_id: role_id});
+        this.form.patchValue({role: AppConstants.getRole(role_id).name});
+        if (!this._service.user.isAdmin)
+            this.managerChanged(0);
     }
 
     /**
@@ -139,28 +158,22 @@ export class UpdateUserComponent extends FormComponent {
     }
 
     /**
-     * manager selected
+     * manager selected set all territory fields
      */
     managerSelected(manager) {
-        // reset all fields
-        this.hq_headquarter_id = 0;
-        this.hq_territory_id = 0;
-        this.hq_area_id = 0;
-        this.hq_region_id = 0;
-        this.hq_country_id = 0;
-
-        // depending on manager set the territory
         if (manager)
             if (manager.hq_headquarter_id)
-                this.hq_headquarter_id = manager.hq_headquarter_id;
+                this.headquarterChanged(manager.hq_headquarter_id);
             else if (manager.hq_territory_id)
-                this.hq_territory_id = manager.hq_territory_id;
+                this.territoryChanged(manager.hq_territory_id);
             else if (manager.hq_area_id)
-                this.hq_area_id = manager.hq_area_id;
+                this.areaChanged(manager.hq_area_id);
             else if (manager.hq_region_id)
-                this.hq_region_id = manager.hq_region_id;
-            else if (manager.hq_country_id)
+                this.regionChanged(manager.hq_region_id);
+            else if (manager.hq_country_id) {
+                this.form.patchValue({hq_country_id: manager.hq_country_id});
                 this.hq_country_id = manager.hq_country_id;
+            }
     }
 
     /**

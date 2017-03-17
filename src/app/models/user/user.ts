@@ -14,6 +14,7 @@ export class User extends Model {
     status: string;
     auth_token: string;
     role_id: number;
+    manager_id: number;
 
     // territory changes
     hq_country_id: number;
@@ -52,6 +53,7 @@ export class User extends Model {
         this.hq_territory_id = info.hq_territory_id;
         this.hq_brick_id = info.hq_brick_id;
         this.hq_country_id = info.hq_country_id;
+        this.manager_id = info.manager_id;
     }
 
     /**

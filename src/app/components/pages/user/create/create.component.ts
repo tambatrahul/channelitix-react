@@ -7,6 +7,7 @@ import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../../../base/form.component";
 import {AppConstants} from "../../../../app.constants";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     templateUrl: 'create.component.html',
@@ -75,6 +76,14 @@ export class CreateUserComponent extends FormComponent {
             this.form.patchValue({hq_country_id: this._service.user.hq_country_id});
             this.hq_country_id = this._service.user.hq_country_id;
         }
+
+        // set manager id
+        if (this._service.user.isRegion) {
+            this.managerChanged(this._service.user.manager_id);
+            this.roleChanged(this._service.user.role_id);
+            this.form.patchValue({hq_country_id: this._service.user.hq_country_id});
+            this.hq_country_id = this._service.user.hq_country_id;
+        }
     }
 
     /**
@@ -92,6 +101,13 @@ export class CreateUserComponent extends FormComponent {
 
             this.userService.create(data).subscribe(
                 response => {
+                    swal({
+                        title: "User Created Successfully",
+                        text: "I will close in 2 sec.",
+                        type: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                     this._router.navigate(['/users']);
                     this.loading = false;
                 },
