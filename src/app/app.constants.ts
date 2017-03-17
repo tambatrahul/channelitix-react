@@ -59,8 +59,11 @@ export class AppConstants {
      * @param month
      * @param year
      * @param holidays
+     * @param joining_date
+     * @param leaving_date
      */
-    static prepareMonthAttendanceSkeleton(month: number, year: number, holidays: Holiday[], joining_date: string, leaving_date: string) {
+    static prepareMonthAttendanceSkeleton(month: number, year: number, holidays: Holiday[],
+                                          joining_date: string, leaving_date: string) {
 
         // get date
         let date = moment().year(year).month(month);

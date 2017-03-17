@@ -23,30 +23,7 @@ jQuery(document).ready(function ($) {
 
     //List Menu View
     function ListMenuView() {
-        $('.leftbar-action').on('click', function (event) {
-            event.preventDefault();
 
-            if (pCon.hasClass('list-menu-view')) {
-                pCon.removeClass('list-menu-view');
-                pCon.addClass('hide-list-menu');
-            } else {
-                pCon.removeClass('hide-list-menu');
-                pCon.addClass('list-menu-view');
-            }
-
-        });
-        $('.leftbar-action-mobile').on('click', function (event) {
-            event.preventDefault();
-
-            if (pCon.hasClass('list-menu-view')) {
-                pCon.removeClass('list-menu-view');
-                pCon.addClass('hide-list-menu');
-
-            } else {
-                pCon.removeClass('hide-list-menu');
-                pCon.addClass('list-menu-view');
-            }
-        });
 
         $('.rightbar-action').on('click', function (ev) {
             ev.preventDefault();
@@ -57,11 +34,6 @@ jQuery(document).ready(function ($) {
                 aRight.addClass('rightbar-show');
 
             }
-        });
-
-        $('.aside-close').on('click', function (ev) {
-            pCon.removeClass('hide-list-menu');
-            pCon.addClass('list-menu-view');
         });
 
     }

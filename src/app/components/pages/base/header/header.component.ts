@@ -35,6 +35,42 @@ export class HeaderComponent {
     }
 
     /**
+     * actions on view load
+     */
+    ngAfterViewInit() {
+        let pCon = jQuery('.page-container');
+        jQuery('.leftbar-action').on('click', function (event) {
+            event.preventDefault();
+
+            if (pCon.hasClass('list-menu-view')) {
+                pCon.removeClass('list-menu-view');
+                pCon.addClass('hide-list-menu');
+            } else {
+                pCon.removeClass('hide-list-menu');
+                pCon.addClass('list-menu-view');
+            }
+
+        });
+        jQuery('.leftbar-action-mobile').on('click', function (event) {
+            event.preventDefault();
+
+            if (pCon.hasClass('list-menu-view')) {
+                pCon.removeClass('list-menu-view');
+                pCon.addClass('hide-list-menu');
+
+            } else {
+                pCon.removeClass('hide-list-menu');
+                pCon.addClass('list-menu-view');
+            }
+        });
+
+        jQuery('.aside-close').on('click', function (ev) {
+            pCon.removeClass('hide-list-menu');
+            pCon.addClass('list-menu-view');
+        });
+    }
+
+    /**
      * logout user
      */
     logout() {
