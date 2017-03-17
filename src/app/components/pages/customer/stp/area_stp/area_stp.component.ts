@@ -88,24 +88,32 @@ export class AreaStpComponent extends ListComponent {
         // preparing brick skeleton
         for (let stp of this.stps) {
             if (!areas.hasOwnProperty(stp.hq_area_id)) {
-                areas[stp.hq_area_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
+                areas[stp.hq_area_id] = {
+                    total: 0,
+                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
+                };
                 this.areas.push(stp.hq_area);
             }
 
             for (let ct of areas[stp.hq_area_id].customer_types) {
                 for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id)
+                    if (grade.id == stp.grade_id) {
                         grade.customer_count = stp.customer_count;
+                        areas[stp.hq_area_id].total += stp.customer_count
+                    }
                 }
             }
         }
 
         // format customers
         for (let area of this.areas) {
-            if (!area.hasOwnProperty(area.id))
+            if (!areas.hasOwnProperty(area.id)) {
                 area.customer_types = Object.assign([], this.customer_types);
-            else
+                area.total = 0;
+            } else {
                 area.customer_types = areas[area.id].customer_types;
+                area.total = areas[area.id].total;
+            }
         }
     }
 }

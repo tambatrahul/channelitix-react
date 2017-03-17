@@ -14,6 +14,7 @@ export class Brick extends Model {
     // for internal user only
     customer_types: CustomerType[];
     total_customer: number = 0;
+    total: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -24,5 +25,6 @@ export class Brick extends Model {
         this.customer_types = info.customer_types;
         this.total_customer = info.total_customer;
         this.hq_territory = info.hq_territory;
+        this.total = info.total;
     }
 }

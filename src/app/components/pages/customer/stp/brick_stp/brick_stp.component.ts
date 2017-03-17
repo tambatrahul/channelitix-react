@@ -100,7 +100,10 @@ export class BrickStpComponent extends ListComponent {
         // preparing brick skeleton
         for (let stp of this.stps) {
             if (!bricks.hasOwnProperty(stp.hq_brick_id)) {
-                bricks[stp.hq_brick_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
+                bricks[stp.hq_brick_id] = {
+                    total: 0,
+                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
+                };
                 this.bricks.push(stp.hq_brick);
             }
 
@@ -108,6 +111,7 @@ export class BrickStpComponent extends ListComponent {
                 for (let grade of ct.grades) {
                     if (grade.id == stp.grade_id) {
                         grade.customer_count = stp.customer_count;
+                        bricks[stp.hq_brick_id].total += stp.customer_count
                     }
                 }
             }
@@ -115,10 +119,13 @@ export class BrickStpComponent extends ListComponent {
 
         // format customers
         for (let brick of this.bricks) {
-            if (!bricks.hasOwnProperty(brick.id))
+            if (!bricks.hasOwnProperty(brick.id)) {
                 brick.customer_types = Object.assign([], this.customer_types);
-            else
+                brick.total = 0;
+            } else {
                 brick.customer_types = bricks[brick.id].customer_types;
+                brick.total = bricks[brick.id].total;
+            }
         }
     }
 

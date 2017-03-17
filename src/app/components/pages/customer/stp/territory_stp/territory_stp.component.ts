@@ -92,24 +92,32 @@ export class TerritoryStpComponent extends ListComponent {
         // preparing brick skeleton
         for (let stp of this.stps) {
             if (!territories.hasOwnProperty(stp.hq_territory_id)) {
-                territories[stp.hq_territory_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
+                territories[stp.hq_territory_id] = {
+                    total: 0,
+                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
+                };
                 this.territories.push(stp.hq_territory);
             }
 
             for (let ct of territories[stp.hq_territory_id].customer_types) {
                 for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id)
+                    if (grade.id == stp.grade_id) {
                         grade.customer_count = stp.customer_count;
+                        territories[stp.hq_territory_id].total += stp.customer_count
+                    }
                 }
             }
         }
 
         // format customers
         for (let territory of this.territories) {
-            if (!territory.hasOwnProperty(territory.id))
+            if (!territories.hasOwnProperty(territory.id)) {
                 territory.customer_types = Object.assign([], this.customer_types);
-            else
+                territory.total = 0;
+            } else {
                 territory.customer_types = territories[territory.id].customer_types;
+                territory.total = territories[territory.id].total;
+            }
         }
     }
 }

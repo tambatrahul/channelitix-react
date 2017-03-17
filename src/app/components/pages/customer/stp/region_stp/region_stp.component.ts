@@ -86,24 +86,32 @@ export class RegionStpComponent extends ListComponent {
         // preparing brick skeleton
         for (let stp of this.stps) {
             if (!regions.hasOwnProperty(stp.hq_region_id)) {
-                regions[stp.hq_region_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
+                regions[stp.hq_region_id] = {
+                    total: 0,
+                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
+                };
                 this.regions.push(stp.hq_region);
             }
 
             for (let ct of regions[stp.hq_region_id].customer_types) {
                 for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id)
+                    if (grade.id == stp.grade_id) {
                         grade.customer_count = stp.customer_count;
+                        regions[stp.hq_region_id].total += stp.customer_count
+                    }
                 }
             }
         }
 
         // format customers
         for (let region of this.regions) {
-            if (!region.hasOwnProperty(region.id))
+            if (!regions.hasOwnProperty(region.id)) {
                 region.customer_types = Object.assign([], this.customer_types);
-            else
+                region.total = 0;
+            } else {
                 region.customer_types = regions[region.id].customer_types;
+                region.total = regions[region.id].total;
+            }
         }
     }
 }

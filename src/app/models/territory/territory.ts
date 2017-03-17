@@ -10,6 +10,7 @@ export class Territory extends Model {
 
     // for internal user only
     customer_types: CustomerType[];
+    total: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -18,5 +19,6 @@ export class Territory extends Model {
         this.hq_headquarter_id = info.hq_headquarter_id;
 
         this.customer_types = info.customer_types;
+        this.total = info.total;
     }
 }

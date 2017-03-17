@@ -65,10 +65,12 @@
                                     <td>{{ br.name }}</td>
                                     <template ngFor let-ct [ngForOf]="br.customer_types">
                                         <td *ngFor="let grade of ct.grades">
-                                            {{ grade.customer_count }}
+                                            <span *ngIf="grade.customer_count > 0">
+                                                {{ grade.customer_count }}
+                                            </span>
                                         </td>
                                     </template>
-                                    <td></td>
+                                    <td>{{ br.total}}</td>
                                     <td></td>
                                     <td>
                                         <a class="btn btn-primary btn-xs"

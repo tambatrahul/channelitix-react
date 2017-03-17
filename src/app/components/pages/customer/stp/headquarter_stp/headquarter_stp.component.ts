@@ -90,24 +90,33 @@ export class HeadquarterStpComponent extends ListComponent {
         // preparing brick skeleton
         for (let stp of this.stps) {
             if (!headquarters.hasOwnProperty(stp.hq_headquarter_id)) {
-                headquarters[stp.hq_headquarter_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
+                headquarters[stp.hq_headquarter_id] = {
+                    total: 0,
+                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
+                };
                 this.headquarters.push(stp.hq_headquarter);
             }
 
             for (let ct of headquarters[stp.hq_headquarter_id].customer_types) {
                 for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id)
+                    if (grade.id == stp.grade_id) {
                         grade.customer_count = stp.customer_count;
+                        headquarters[stp.hq_headquarter_id].total += stp.customer_count
+                    }
+
                 }
             }
         }
 
         // format customers
         for (let headquarter of this.headquarters) {
-            if (!headquarter.hasOwnProperty(headquarter.id))
+            if (!headquarters.hasOwnProperty(headquarter.id)) {
                 headquarter.customer_types = Object.assign([], this.customer_types);
-            else
+                headquarter.total = 0;
+            } else {
                 headquarter.customer_types = headquarters[headquarter.id].customer_types;
+                headquarter.total = headquarters[headquarter.id].total;
+            }
         }
     }
 }
