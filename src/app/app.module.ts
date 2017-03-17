@@ -81,6 +81,12 @@ import {BrickService} from "./services/brick.service";
 import {BrickComponent} from "./components/pages/territory/brick/index/index.component";
 import {CreateBrickComponent} from "./components/pages/territory/brick/create/create.component";
 import {UpdateBrickComponent} from "./components/pages/territory/brick/update/update.component";
+import {StpService} from "./services/stp.service";
+import {RegionStpComponent} from "./components/pages/customer/stp/region_stp/region_stp.component";
+import {AreaStpComponent} from "./components/pages/customer/stp/area_stp/area_stp.component";
+import {HeadquarterStpComponent} from "./components/pages/customer/stp/headquarter_stp/headquarter_stp.component";
+import {TerritoryStpComponent} from "./components/pages/customer/stp/territory_stp/territory_stp.component";
+import {BrickStpComponent} from "./components/pages/customer/stp/brick_stp/brick_stp.component";
 
 enableProdMode();
 @NgModule({
@@ -118,6 +124,11 @@ enableProdMode();
         UpdateCustomerComponent,
         StpComponent,
         TourComponent,
+        RegionStpComponent,
+        AreaStpComponent,
+        HeadquarterStpComponent,
+        TerritoryStpComponent,
+        BrickStpComponent,
 
         // directives
         AttendanceStatusDirective,
@@ -176,7 +187,8 @@ enableProdMode();
         UserService,
         BrickService,
         OrderService,
-        TourService
+        TourService,
+        StpService
     ],
     bootstrap: [AppComponent]
 })

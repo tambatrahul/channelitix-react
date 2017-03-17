@@ -15,6 +15,7 @@ import {WorkType} from "./attendance/work_type";
 import {LeaveType} from "./attendance/leave_type";
 import {Tour} from "./tour_program/tour";
 import {Grade} from "./customer/grade";
+import {Stp} from "./customer/stp";
 
 export class Result {
 
@@ -61,4 +62,7 @@ export class Result {
 
     // total number
     total: number;
+
+    // stps
+    stps: Stp[];
 }
