@@ -10,7 +10,8 @@ export class CustomerType extends Model {
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
-        this.customer_count = info.customer_count;
+        if (info.customer_count)
+            this.customer_count = parseInt(info.customer_count);
         if (info.grades) {
             this.grades = info.grades.map(g => new Grade(g));
         } else {
