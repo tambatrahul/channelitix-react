@@ -54,7 +54,6 @@ export class TourComponent extends BaseMonthlyComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.roleChanged(3);
     }
 
     /**
