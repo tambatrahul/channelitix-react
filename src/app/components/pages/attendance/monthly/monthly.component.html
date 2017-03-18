@@ -49,33 +49,19 @@
         </div>
         <div class="col-xs-12 col-md-6" *ngIf="attendance && today">
             <div class="row">
-                <div class="box-widget widget-module no-border create_attendance">
-                    <!-- Type of attendance -->
-                    <div class="widget-container">
-                        <div class="widget-block">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    Cannot report for future date
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-xs-12">
+                    <span class="alert alert-danger">
+                        Cannot report for future date
+                    </span>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-md-6" *ngIf="!attendance">
             <div class="row">
-                <div class="box-widget widget-module no-border create_attendance">
-                    <!-- Type of attendance -->
-                    <div class="widget-container">
-                        <div class="widget-block">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    Click on any date to mark for reporting
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-xs-12">
+                    <span class="alert alert-info">
+                    Click on any date to mark for reporting
+                    </span>
                 </div>
             </div>
         </div>
