@@ -102,12 +102,16 @@
                                         <div class="form-group col-xs-12 col-md-4" *roleCheck="6">
                                             <div>
                                                 <region-select [value]="hq_region_id" [country_id]="hq_country_id"
-                                                             [title]="'Select Region'"
-                                                             [first_value]="'Select Region'"
-                                                             (onValueChanged)="regionChanged($event)"></region-select>
+                                                               [title]="'Select Region'"
+                                                               [first_value]="'Select Region'"
+                                                               (onValueChanged)="regionChanged($event)"></region-select>
 
-                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
-                                                    {{ errors.hq_brick_id}}
+                                                <small *ngIf="errors?.hq_brick_id"
+                                                       class="text-danger text-center">
+                                                    <span *ngIf="hq_region_id > 0"></span>
+                                                    <span *ngIf="hq_region_id == 0 || hq_region_id == null">
+                                                        {{ errors.hq_brick_id}}
+                                                    </span>
                                                 </small>
                                             </div>
                                         </div>
@@ -117,12 +121,15 @@
                                         <div class="form-group col-xs-12 col-md-4" *roleCheck="5">
                                             <div *ngIf="hq_region_id > 0">
                                                 <area-select [value]="hq_area_id" [region_id]="hq_region_id"
-                                                                    [title]="'Select Area'"
-                                                                    [first_value]="'Select Area'"
-                                                                    (onValueChanged)="areaChanged($event)"></area-select>
+                                                             [title]="'Select Area'"
+                                                             [first_value]="'Select Area'"
+                                                             (onValueChanged)="areaChanged($event)"></area-select>
 
                                                 <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
-                                                    {{ errors.hq_brick_id}}
+                                                    <span *ngIf="hq_area_id > 0"></span>
+                                                    <span *ngIf="hq_area_id == 0 || hq_area_id == null">
+                                                        {{ errors.hq_brick_id}}
+                                                    </span>
                                                 </small>
                                             </div>
                                         </div>
@@ -137,7 +144,10 @@
                                                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
                                                 <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
-                                                    {{ errors.hq_brick_id}}
+                                                    <span *ngIf="hq_headquarter_id > 0"></span>
+                                                    <span *ngIf="hq_headquarter_id == 0 || hq_headquarter_id == null">
+                                                        {{ errors.hq_brick_id}}
+                                                    </span>
                                                 </small>
                                             </div>
                                         </div>
@@ -152,7 +162,10 @@
                                                                   [first_value]="'Select Territory'"
                                                                   (onValueChanged)="territoryChanged($event)"></territory-select>
                                                 <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
-                                                    {{ errors.hq_brick_id}}
+                                                    <span *ngIf="hq_territory_id > 0"></span>
+                                                    <span *ngIf="hq_territory_id == 0 || hq_territory_id == null">
+                                                        {{ errors.hq_brick_id}}
+                                                    </span>
                                                 </small>
                                             </div>
                                         </div>
@@ -232,7 +245,7 @@
                                     <!-- Taluka and District-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
-                                            <label class="control-label" >Taluka</label>
+                                            <label class="control-label">Taluka</label>
                                             <div class="">
                                                 <input formControlName="taluka_str" class="form-control" type="text">
                                                 <small *ngIf="errors?.address?.taluka_str"
