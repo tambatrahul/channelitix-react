@@ -5,7 +5,8 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'header-comp',
-    templateUrl: 'header.component.html'
+    templateUrl: 'header.component.html',
+    styleUrls: ['header.component.less']
 })
 export class HeaderComponent {
 

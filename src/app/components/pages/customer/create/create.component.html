@@ -234,8 +234,9 @@
                                             <label class="control-label">Pincode</label>
                                             <div class="">
                                                 <input formControlName="pincode" class="form-control" type="text">
-                                                <small *ngIf="errors?.address?.pincode" class="text-danger text-center">
-                                                    {{ errors?.address?.pincode}}
+                                                <small *ngIf="errors['address.pincode']"
+                                                       class="text-danger text-center">
+                                                    {{ errors['address.pincode'] }}
                                                 </small>
                                             </div>
                                         </div>
@@ -248,9 +249,9 @@
                                             <label class="control-label">Taluka</label>
                                             <div class="">
                                                 <input formControlName="taluka_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address?.taluka_str"
+                                                <small *ngIf="errors['address.taluka_str']"
                                                        class="text-danger text-center">
-                                                    {{ errors?.address?.taluka_str}}
+                                                    {{ errors['address.taluka_str'] }}
                                                 </small>
                                             </div>
                                         </div>
@@ -258,9 +259,9 @@
                                             <label class="control-label">District</label>
                                             <div class="">
                                                 <input formControlName="district_str" class="form-control" type="text">
-                                                <small *ngIf="errors?.address?.district_str"
+                                                <small *ngIf="errors['address.district_str']"
                                                        class="text-danger text-center">
-                                                    {{ errors?.address?.district_str}}
+                                                    {{ errors['address.district_str'] }}
                                                 </small>
                                             </div>
                                         </div>

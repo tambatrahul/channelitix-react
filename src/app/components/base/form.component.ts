@@ -7,7 +7,7 @@ export abstract class FormComponent extends BaseAuthComponent {
   submitted: boolean;
 
   // errors
-  errors: Object;
+  errors: Object = {};
 
   /**
    * Action to be taken when request is successful

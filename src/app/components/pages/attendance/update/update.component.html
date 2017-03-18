@@ -88,6 +88,17 @@
     </div>
     <!-- ./leave form -->
 
+    <div class="widget-container freezable" *ngIf="active_str == 'leave'">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="alert alert-danger">
+                        You cannot change this attendance
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--<div class="widget-container">-->
         <!--<div class="widget-block">-->
             <!--<div class="row">-->

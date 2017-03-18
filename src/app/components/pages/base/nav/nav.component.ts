@@ -4,7 +4,8 @@ declare let jQuery: any;
 
 @Component({
     selector: 'nav-comp',
-    templateUrl: 'nav.component.html'
+    templateUrl: 'nav.component.html',
+    styleUrls: ['nav.component.less']
 })
 export class NavComponent {
 
