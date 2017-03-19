@@ -14,6 +14,7 @@ export class Tour extends Model {
     hq_territory: Territory;
     hq_brick: Brick;
     user: User;
+    working_with: User;
 
     // for internal use only
     day: number;
@@ -39,6 +40,7 @@ export class Tour extends Model {
         this.tour_count = info.tour_count;
         this.user = info.user;
         this.tour_day = info.tour_day;
+        this.working_with = info.working_with;
         if (info.tours)
             this.tours = info.tours;
     }

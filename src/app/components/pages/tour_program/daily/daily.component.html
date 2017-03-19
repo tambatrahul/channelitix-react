@@ -10,6 +10,7 @@
                     <thead>
                     <tr>
                         <th>Type</th>
+                        <th *ngIf="!_service.user.isHeadquarter">With</th>
                         <th>Territory</th>
                         <th>Brick</th>
                         <th>Actions</th>
@@ -19,6 +20,7 @@
                     <tfoot>
                     <tr>
                         <th>Type</th>
+                        <th *ngIf="!_service.user.isHeadquarter">With</th>
                         <th>Territory</th>
                         <th>Brick</th>
                         <th>Actions</th>
@@ -28,6 +30,7 @@
                     <tbody>
                     <tr *ngFor="let t of tours">
                         <td>{{ t.type }}</td>
+                        <td *ngIf="!_service.user.isHeadquarter">{{ t.working_with?.full_name }}</td>
                         <td>{{ t.hq_territory?.name }}</td>
                         <td>{{ t.hq_brick?.name }}</td>
                         <td>

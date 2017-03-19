@@ -86,13 +86,13 @@ export class UpdateAttendanceComponent extends FormComponent {
         this.id = attendance.id;
         this.workTypeChanged(attendance.work_type_id);
         this.leaveTypeChanged(attendance.leave_type_id);
-        this.managerChanged(attendance.working_with_id);
         this.form.patchValue({
             work_type_id: attendance.work_type_id,
             leave_type_id: attendance.leave_type_id,
             working_with_id: attendance.working_with_id,
             status: attendance.status
         });
+        this.managerChanged(attendance.working_with_id);
         this.active_str = attendance.status;
         this.errors = {};
 

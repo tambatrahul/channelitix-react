@@ -26,7 +26,17 @@
                         {{ errors.type}}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-4" *ngIf="type == 'Field Work'">
+                <div class="col-xs-12 col-md-6" *ngIf="type == 'Field Work' && !_service.user.isHeadquarter">
+                    <user-select [value]="working_with_id"
+                                 [title]="'Working With'"
+                                 [first_value]="'Wroking Alone'"
+                                 [role_id]="3"
+                                 (onValueChanged)="userChanged($event)"></user-select>
+                    <small *ngIf="errors?.working_with_id" class="text-danger text-center">
+                        {{ errors.working_with_id}}
+                    </small>
+                </div>
+                <div class="col-xs-12 col-md-4" *ngIf="_service.user.isHeadquarter && type == 'Field Work'">
                     <territory-select [value]="territory_id"
                                       (onValueChanged)="territoryChanged($event)"></territory-select>
                     <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">

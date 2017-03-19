@@ -72,9 +72,11 @@ export class TourFormComponent extends FormComponent {
      */
     public territory_id: number = 0;
     public brick_id: number = 0;
+    public working_with_id: number = 0;
     public form = this._fb.group({
         hq_territory_id: [""],
         hq_brick_id: [""],
+        working_with_id: [""],
         user_id: [""],
         date: [""],
         type: [""]
@@ -162,6 +164,16 @@ export class TourFormComponent extends FormComponent {
     brickChanged(brick_id) {
         this.brick_id = brick_id;
         this.form.patchValue({hq_brick_id: brick_id});
+    }
+
+    /**
+     * manager is changed
+     *
+     * @param working_with_id
+     */
+    userChanged(working_with_id) {
+        this.working_with_id = working_with_id;
+        this.form.patchValue({working_with_id: working_with_id});
     }
 
     /**

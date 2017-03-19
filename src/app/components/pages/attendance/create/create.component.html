@@ -66,6 +66,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <work-type-select [value]="work_type_id" [work_types]="work_types" [loading]="loading"
+                                      [title]="'Select Work Type (required)'"
                                       (onValueChanged)="workTypeChanged($event)"></work-type-select>
                     <small *ngIf="errors?.work_type_id" class="text-danger text-center">
                         {{ errors.work_type_id}}
@@ -74,6 +75,7 @@
                 <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2 && _service.user.isHeadquarter">
                     <manager-select [value]="working_with_id" [models]="managers" [loading]="loading"
                                     [title]="'Working With'"
+                                    [first_value]="'Working Alone'"
                                     (onValueChanged)="managerChanged($event)"></manager-select>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
                         {{ errors.working_with_id}}
@@ -83,6 +85,7 @@
                 <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2 && !_service.user.isHeadquarter">
                     <user-select [value]="working_with_id"
                                  [title]="'Working With'"
+                                 [first_value]="'Working Alone'"
                                  [role_id]="3"
                                  (onValueChanged)="managerChanged($event)"></user-select>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
