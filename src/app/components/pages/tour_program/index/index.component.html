@@ -97,7 +97,7 @@
                         <div>
                             <daily-tour [tour]="tour" (tourDeleted)="tourDeleted($event)"></daily-tour>
                         </div>
-                        <add-tour [date]="tour.date" [user_id]="user_id" (tourCreated)="tourCreated($event)"></add-tour>
+                        <add-tour [date]="tour.date" [user]="user" (tourCreated)="tourCreated($event)"></add-tour>
                     </div>
                     <!-- ./Tour Table -->
                 </div>

@@ -6,6 +6,8 @@ import {FormBuilder} from "@angular/forms";
 import * as moment from "moment";
 import {TourService} from "../../../../services/tour.service";
 import {TerritoryService} from "../../../../services/territory.service";
+import {User} from "../../../../models/user/user";
+import {AppConstants} from "../../../../app.constants";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -34,15 +36,32 @@ export class TourFormComponent extends FormComponent {
     /**
      * user details
      */
-    _user_id: number;
+    _user: User;
+    _manager_id: number;
+    showTerritory: boolean = false;
+
     @Input()
-    set user_id(user_id: number) {
-        this._user_id = user_id;
-        this.form.patchValue({user_id: user_id});
+    set user(user: User) {
+        // set user
+        this._user = user;
+
+        // check if territory to show or not
+        if (user.role_id == 3) {
+            this.showTerritory = true;
+            this.headerquarter_id = user.hq_headquarter_id;
+        } else {
+            if (user.role_id != 5)
+                this._manager_id = user.id;
+            else
+                this._manager_id = 0;
+        }
+
+        // set to form
+        this.form.patchValue({user_id: user.id});
     }
 
     get() {
-        return this._user_id;
+        return this._user;
     }
 
     /**
@@ -70,6 +89,7 @@ export class TourFormComponent extends FormComponent {
     /**
      * form fields
      */
+    public headerquarter_id: number = 0;
     public territory_id: number = 0;
     public brick_id: number = 0;
     public working_with_id: number = 0;
@@ -98,8 +118,10 @@ export class TourFormComponent extends FormComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        if (!this._user_id)
-            this.form.patchValue({user_id: this._service.user.id});
+
+        if (!this._user) {
+            this.user = this._service.user;
+        }
     }
 
     /**

@@ -40,7 +40,7 @@ export class TourComponent extends BaseMonthlyComponent {
      *
      * @type {number}
      */
-    public user_id: number = 0;
+    public user: User;
 
     /**
      * User Component Constructor
@@ -159,7 +159,7 @@ export class TourComponent extends BaseMonthlyComponent {
      * @param user
      */
     showTours(tour, user) {
-        this.user_id = user.id;
+        this.user = user;
         let date = moment(tour.date, "YYYY-MM-DD").date();
         this.fetchTours(user, date);
         jQuery(this.tour_program_modal.nativeElement).modal();
