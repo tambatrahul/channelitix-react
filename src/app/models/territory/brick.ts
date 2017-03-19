@@ -5,6 +5,7 @@ import {Territory} from "./territory";
 export class Brick extends Model {
 
     name: string;
+    station: string;
     hq_territory_id: number;
     no_of_work_days: number;
     expected_business: number;
@@ -19,6 +20,7 @@ export class Brick extends Model {
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
+        this.station = info.station;
         this.no_of_work_days = info.no_of_work_days;
         this.expected_business = info.expected_business;
         this.distance_from_hq = info.distance_from_hq;

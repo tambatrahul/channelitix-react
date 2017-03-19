@@ -60,7 +60,7 @@
                         {{ errors.work_type_id}}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2">
+                <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2 && working_with_id > 0">
                     <manager-select [value]="working_with_id" [models]="managers" [loading]="loading"
                                     (onValueChanged)="managerChanged($event)"></manager-select>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">

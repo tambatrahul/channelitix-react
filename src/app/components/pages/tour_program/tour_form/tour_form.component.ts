@@ -25,6 +25,13 @@ export class TourFormComponent extends FormComponent {
     tourCreated = new EventEmitter();
 
     /**
+     * isSunday boolean
+     *
+     * @type {boolean}
+     */
+    public isSunday: boolean = false;
+
+    /**
      * user details
      */
     _user_id: number;
@@ -53,7 +60,9 @@ export class TourFormComponent extends FormComponent {
     @Input()
     set date(date: string) {
         this.form.patchValue({date: date});
-        this._date = moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+        let new_date = moment(date, "YYYY-MM-DD");
+        this._date = new_date.format("DD MMMM YYYY");
+        this.isSunday = new_date.day() == 0;
     };
 
     /**
@@ -149,5 +158,12 @@ export class TourFormComponent extends FormComponent {
     brickChanged(brick_id) {
         this.brick_id = brick_id;
         this.form.patchValue({hq_brick_id: brick_id});
+    }
+
+    /**
+     * toggle sunday
+     */
+    toggleSunday() {
+        this.isSunday = !this.isSunday;
     }
 }

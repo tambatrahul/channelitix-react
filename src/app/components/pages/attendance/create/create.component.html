@@ -1,12 +1,24 @@
 <div class="box-widget widget-module no-border create_attendance" #loading_box>
     <div class="widget-head clearfix">
         <span class="h-icon"><i class="fa fa-bars"></i></span>
-        <h4>Mark Attendance for {{ _date }}</h4>
+        <h4>Daily Report for {{ _date }}</h4>
+    </div>
+
+    <div class="widget-container" *ngIf="isSunday">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12">
+                    <small class="text-danger">Are you sure u want to Report on a Sunday ?</small>
+                    <button class="btn btn-xs btn-primary" (click)="toggleSunday()">yes</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Type of attendance -->
-    <div class="widget-container">
+    <div class="widget-container" *ngIf="!isSunday">
         <div class="widget-block">
+
             <div class="row">
                 <div class="col-xs-4">
                     <div class="iconic-w-wrap icon-only" (click)="selectTab('working')">
@@ -49,7 +61,7 @@
     <!-- ./Type of attendance -->
 
     <!-- Working form -->
-    <div class="widget-container" *ngIf="active_str == 'working'">
+    <div class="widget-container" *ngIf="active_str == 'working' && !isSunday">
         <div class="widget-block">
             <div class="row">
                 <div class="col-xs-12 col-md-6">
@@ -61,6 +73,7 @@
                 </div>
                 <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2">
                     <manager-select [value]="working_with_id" [models]="managers" [loading]="loading"
+                                    [title]="'Working With'"
                                     (onValueChanged)="managerChanged($event)"></manager-select>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
                         {{ errors.working_with_id}}
@@ -72,7 +85,7 @@
     <!-- ./Working form -->
 
     <!-- leave form -->
-    <div class="widget-container" *ngIf="active_str == 'leave'">
+    <div class="widget-container" *ngIf="active_str == 'leave' && !isSunday">
         <div class="widget-block">
             <div class="row">
                 <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -87,7 +100,7 @@
     </div>
     <!-- ./leave form -->
 
-    <div class="widget-container">
+    <div class="widget-container" *ngIf="!isSunday">
         <div class="widget-block">
             <div class="row">
                 <div class="col-xs-12">

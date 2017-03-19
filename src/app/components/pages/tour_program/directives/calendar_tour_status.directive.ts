@@ -31,12 +31,16 @@ export class CalendarTourStatusDirective {
             this.el.nativeElement.style.backgroundColor = this.not_marked;
         }
 
+        if (tour && tour.isSunday) {
+            this.el.nativeElement.style.backgroundColor = this.holiday;
+        }
+
         if (tour && tour.tours && tour.tours.length > 0) {
             // set background color
             this.el.nativeElement.style.backgroundColor = this.marked;
         }
 
-        if (tour && tour.isSunday) {
+        if (tour && tour.isHoliday) {
             this.el.nativeElement.style.backgroundColor = this.holiday;
         }
     }

@@ -4,6 +4,7 @@ import {BrickService} from "../../../../../services/brick.service";
 import {FormComponent} from "../../../../base/form.component";
 import {FormBuilder} from "@angular/forms";
 import {AuthService} from "../../../../../services/AuthService";
+import {AppConstants} from "../../../../../app.constants";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -19,6 +20,12 @@ export class CreateBrickComponent extends FormComponent {
     public hq_headquarter_id: number = 0;
     public hq_territory_id: number = 0;
     public name: string;
+    public station: string;
+
+    /**
+     * stations
+     */
+    stations: Array<string> = AppConstants.stations;
 
     /**
      * bricks form
@@ -27,6 +34,7 @@ export class CreateBrickComponent extends FormComponent {
      */
     public form = this._fb.group({
         name: [""],
+        station: [""],
         hq_headquarter_id: [""],
         hq_territory_id: [""],
         no_of_work_days: [""],
@@ -97,5 +105,14 @@ export class CreateBrickComponent extends FormComponent {
     headquarterChanged(headquarter_id) {
         this.hq_headquarter_id = headquarter_id;
         this.form.patchValue({hq_headquarter_id: headquarter_id});
+    }
+
+    /**
+     * when station is changed
+     * @param station
+     */
+    stationChanged(station) {
+        this.station = station;
+        this.form.patchValue({station: station});
     }
 }

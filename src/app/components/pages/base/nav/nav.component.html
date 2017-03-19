@@ -15,7 +15,7 @@
             <li *ngIf="!_auth_service.user?.isAdmin">
                 <a class="waves-effect" routerLink="/attendances/monthly">
                     <span class="nav-icon"><i class="fa fa-calendar"></i></span>
-                    <span class="nav-label">Daily Work Report</span>
+                    <span class="nav-label">Daily Work Reporting</span>
                 </a>
             </li>
             <li *ngIf="_auth_service.user?.isArea">
@@ -35,7 +35,7 @@
                     <li>
                         <a class="waves-effect" routerLink="/attendances">
                             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
-                            <span class="nav-label">Daily Work Reporting</span>
+                            <span class="nav-label">Daily Work Report</span>
                         </a>
                     </li>
                     <li>
@@ -85,7 +85,7 @@
                     <span class="nav-label">User Management</span>
                 </a>
             </li>
-            <li *ngIf="_auth_service.user?.isHeadquarter">
+            <li *ngIf="!_auth_service.user?.isAdmin">
                 <a class="waves-effect" routerLink="/tours/monthly">
                     <span class="nav-icon"><i class="fa fa-map-marker"></i></span>
                     <span class="nav-label">Tour Program</span>

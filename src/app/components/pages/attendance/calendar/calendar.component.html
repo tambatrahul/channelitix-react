@@ -1,7 +1,7 @@
 <div class="box-widget widget-module no-border attendance-calendar">
     <div class="widget-head clearfix">
         <span class="h-icon"><i class="fa fa-bars"></i></span>
-        <h4>Attendance</h4>
+        <h4>Daily Work Reporting</h4>
     </div>
     <div class="widget-container">
         <div class="widget-block">
@@ -14,8 +14,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-2" *ngFor="let att of formatted_array"
-                             [ngClass]="{'pointer': (att && !att.isSunday)}">
-                            <div class="body" (click)="att && !att.isSunday && selectAttendance(att)">
+                             [ngClass]="{'pointer': (att && !att.isHoliday)}">
+                            <div class="body" (click)="att && !att.isHoliday && selectAttendance(att)">
                                 <div class="status" calendarAttendanceStatus [attendance]="att"></div>
                                 <div class="date" *ngIf="att"> {{ att.day }}</div>
                             </div>

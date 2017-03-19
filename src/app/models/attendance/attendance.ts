@@ -18,6 +18,7 @@ export class Attendance extends Model {
 
   // for internal use only
   isSunday: boolean = false;
+  isHoliday: boolean = false;
   day: number;
 
   constructor(info: any) {

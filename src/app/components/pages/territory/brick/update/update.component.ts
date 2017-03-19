@@ -22,6 +22,7 @@ export class UpdateBrickComponent extends FormComponent {
     public hq_headquarter_id: number = 0;
     public hq_territory_id: number = 0;
     public name: string;
+    public station: string;
 
     /**
      * user form
@@ -30,6 +31,7 @@ export class UpdateBrickComponent extends FormComponent {
      */
     public form = this._fb.group({
         name: [""],
+        station: [""],
         hq_headquarter_id: [""],
         hq_territory_id: [""],
         no_of_work_days: [""],
@@ -65,6 +67,7 @@ export class UpdateBrickComponent extends FormComponent {
                     expected_business: response.brick.expected_business,
                     distance_from_hq: response.brick.distance_from_hq
                 });
+                this.stationChanged(response.brick.station);
                 this.headquarterChanged(response.brick.hq_territory.hq_headquarter_id);
                 this.territoryChanged(response.brick.hq_territory_id);
                 this.loading = false;
@@ -120,5 +123,14 @@ export class UpdateBrickComponent extends FormComponent {
     headquarterChanged(headquarter_id) {
         this.hq_headquarter_id = headquarter_id;
         this.form.patchValue({hq_headquarter_id: headquarter_id});
+    }
+
+    /**
+     * when station is changed
+     * @param station
+     */
+    stationChanged(station) {
+        this.station = station;
+        this.form.patchValue({station: station});
     }
 }

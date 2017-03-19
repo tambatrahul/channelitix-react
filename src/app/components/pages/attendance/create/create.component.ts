@@ -55,6 +55,7 @@ export class CreateAttendanceComponent extends FormComponent {
     public work_type_id: number = 0;
     public leave_type_id: number = 0;
     public working_with_id: number = 0;
+    public isSunday: boolean = false;
     public form = this._fb.group({
         work_type_id: [""],
         leave_type_id: [""],
@@ -86,6 +87,7 @@ export class CreateAttendanceComponent extends FormComponent {
             working_with_id: attendance.working_with_id,
             status: status
         });
+        this.isSunday = attendance.isSunday;
         this.active_str = status;
         this.errors = {};
 
@@ -239,5 +241,12 @@ export class CreateAttendanceComponent extends FormComponent {
     managerChanged(working_with_id) {
         this.working_with_id = working_with_id;
         this.form.patchValue({working_with_id: working_with_id});
+    }
+
+    /**
+     * toggle sunday
+     */
+    toggleSunday() {
+        this.isSunday = !this.isSunday;
     }
 }

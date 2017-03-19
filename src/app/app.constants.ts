@@ -8,16 +8,21 @@ import {Tour} from "./models/tour_program/tour";
 import {CustomerType} from "./models/customer/customer_type";
 
 export class AppConstants {
-    static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
-    // static API_ENDPOINT: string = '/api/v1/';
+    // static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
+    static API_ENDPOINT: string = '/api/v1/';
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
     // roles of user
     static roles: Array<Role> = [
-        new Role({id: 6, name: 'COUNTRY_MNG', title: 'Country Managers'}),
-        new Role({id: 5, name: 'REGION_MNG', title: 'Region Managers'}),
-        new Role({id: 4, name: 'AREA_MNG', title: 'Area Managers'}),
-        new Role({id: 3, name: 'HQ_MNG', title: 'Reps'})
+        new Role({id: 6, name: 'COUNTRY_MNG', title: 'ADMIN'}),
+        new Role({id: 5, name: 'REGION_MNG', title: 'ZSM'}),
+        new Role({id: 4, name: 'AREA_MNG', title: 'CSM'}),
+        new Role({id: 3, name: 'HQ_MNG', title: 'CSE'})
+    ];
+
+    // stations for brick and territory
+    static stations: Array<string> = [
+        'HQ', 'OS', 'EX'
     ];
 
     // week days
@@ -87,14 +92,18 @@ export class AppConstants {
             // set visit
             skeleton[date - 1] = new Attendance({day: date, date: current_date.format('YYYY-MM-DD')});
 
-            // set sunday or not put before joining date attendance or not put after leaving date attendance
-            if (current_date.day() == 0 || (jd != null && current_date < jd) || (ld != null && current_date > ld))
+            // not put before joining date attendance or not put after leaving date attendance
+            if ((jd != null && current_date < jd) || (ld != null && current_date > ld))
+                skeleton[date - 1].isHoliday = true;
+
+            // set sunday
+            if (current_date.day() == 0)
                 skeleton[date - 1].isSunday = true;
         }
 
         // adding holidays
         for (let holiday of holidays) {
-            skeleton[moment(holiday.date).date() - 1].isSunday = true;
+            skeleton[moment(holiday.date).date() - 1].isHoliday = true;
             skeleton[moment(holiday.date).date() - 1].status = AppConstants.HOLIDAY;
         }
 
@@ -243,7 +252,7 @@ export class AppConstants {
 
         // adding holidays
         for (let holiday of holidays) {
-            skeleton[moment(holiday.date).date() - 1].isSunday = true;
+            skeleton[moment(holiday.date).date() - 1].isHoliday = true;
         }
 
         return skeleton;

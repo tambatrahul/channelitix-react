@@ -18,6 +18,7 @@ export class Tour extends Model {
     day: number;
     tours: Tour[] = [];
     isSunday: boolean = false;
+    isHoliday: boolean = false;
     tour_count: number;
     tour_day: number;
 
@@ -30,6 +31,7 @@ export class Tour extends Model {
         this.hq_brick_id = info.hq_brick_id;
         this.day = info.day;
         this.isSunday = info.isSunday;
+        this.isHoliday = info.isHoliday;
         this.hq_brick = info.hq_brick;
         this.hq_territory = info.hq_territory;
         this.tour_count = info.tour_count;

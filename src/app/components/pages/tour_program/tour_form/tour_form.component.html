@@ -1,7 +1,18 @@
 <div class="box-widget widget-module no-border add_tour" #loading_box>
 
+    <div class="widget-container" *ngIf="isSunday">
+        <div class="widget-block">
+            <div class="row">
+                <div class="col-xs-12">
+                    <small class="text-danger">Are you sure u want to add Tour on a Sunday ?</small>
+                    <button class="btn btn-xs btn-primary" (click)="toggleSunday()">yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Brick form -->
-    <div class="widget-container">
+    <div class="widget-container" *ngIf="!isSunday">
         <div class="widget-block">
             <div class="row">
                 <div class="col-xs-12 col-md-5">

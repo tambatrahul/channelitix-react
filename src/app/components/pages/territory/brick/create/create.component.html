@@ -48,6 +48,18 @@
                                         </div>
                                         <!-- Brick Name -->
 
+                                        <!-- Station Name -->
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <station-select [value]="station"
+                                                                (onValueChanged)="stationChanged($event)"></station-select>
+                                                <small *ngIf="errors?.station" class="text-danger text-center">
+                                                    {{ errors.station}}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!-- Station Name -->
+
                                         <!-- Head quarter select -->
                                         <div class="col-xs-12">
                                             <div class="form-group">
