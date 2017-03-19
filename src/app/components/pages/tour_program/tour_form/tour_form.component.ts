@@ -44,6 +44,8 @@ export class TourFormComponent extends FormComponent {
     set user(user: User) {
         // set user
         this._user = user;
+        this.showTerritory = false;
+        this.headerquarter_id = 0;
 
         // check if territory to show or not
         if (user.role_id == 3) {
