@@ -104,8 +104,9 @@ export class TourFormComponent extends FormComponent {
      * reset form
      */
     reset() {
-        this.territory_id = 0;
-        this.brick_id = 0;
+        this.territoryChanged(0);
+        this.brickChanged(0);
+        this.tourTypeChanged("");
         this.form.patchValue({
             territory_id: 0,
             brick_id: 0
