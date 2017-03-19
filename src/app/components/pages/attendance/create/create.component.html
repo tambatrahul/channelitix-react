@@ -71,10 +71,20 @@
                         {{ errors.work_type_id}}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2">
+                <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2 && _service.user.isHeadquarter">
                     <manager-select [value]="working_with_id" [models]="managers" [loading]="loading"
                                     [title]="'Working With'"
                                     (onValueChanged)="managerChanged($event)"></manager-select>
+                    <small *ngIf="errors?.working_with_id" class="text-danger text-center">
+                        {{ errors.working_with_id}}
+                    </small>
+                </div>
+
+                <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2 && !_service.user.isHeadquarter">
+                    <user-select [value]="working_with_id"
+                                 [title]="'Working With'"
+                                 [role_id]="3"
+                                 (onValueChanged)="managerChanged($event)"></user-select>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
                         {{ errors.working_with_id}}
                     </small>
