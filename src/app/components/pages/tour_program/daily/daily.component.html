@@ -9,6 +9,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th>Type</th>
                         <th>Territory</th>
                         <th>Brick</th>
                         <th>Actions</th>
@@ -17,6 +18,7 @@
 
                     <tfoot>
                     <tr>
+                        <th>Type</th>
                         <th>Territory</th>
                         <th>Brick</th>
                         <th>Actions</th>
@@ -25,7 +27,8 @@
 
                     <tbody>
                     <tr *ngFor="let t of tours">
-                        <td>{{ t.hq_territory.name }}</td>
+                        <td>{{ t.type }}</td>
+                        <td>{{ t.hq_territory?.name }}</td>
                         <td>{{ t.hq_brick?.name }}</td>
                         <td>
                             <button class="btn btn-danger btn-xs" (click)="deleteTour(t)">

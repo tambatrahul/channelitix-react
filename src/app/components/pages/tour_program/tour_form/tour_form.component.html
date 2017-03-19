@@ -15,21 +15,28 @@
     <div class="widget-container" *ngIf="!isSunday">
         <div class="widget-block">
             <div class="row">
-                <div class="col-xs-12 col-md-5">
+                <div class="col-xs-12 col-md-4">
+                    <tour-type-select [value]="type"
+                                  (onValueChanged)="tourTypeChanged($event)"></tour-type-select>
+                    <small *ngIf="errors?.type" class="text-danger text-center">
+                        {{ errors.type}}
+                    </small>
+                </div>
+                <div class="col-xs-12 col-md-4" *ngIf="type == 'Field Work'">
                     <territory-select [value]="territory_id"
                                       (onValueChanged)="territoryChanged($event)"></territory-select>
                     <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
                         {{ errors.hq_territory_id}}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-5" [ngClass]="{'hide': territory_id <=0}">
+                <div class="col-xs-12 col-md-4" [ngClass]="{'hide': territory_id <=0}" *ngIf="type == 'Field Work'">
                     <brick-select [value]="brick_id" [territory_id]="territory_id"
                                   (onValueChanged)="brickChanged($event)"></brick-select>
                     <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
                         {{ errors.hq_brick_id}}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-2" style="padding-left: 0;">
+                <div class="col-xs-12 col-md-2" style="padding-left: 0;" *ngIf="type">
                     <div class="form-group">
                         <label>&nbsp;</label>
                         <button class="btn btn-primary btn-block" (click)="save()">ADD</button>

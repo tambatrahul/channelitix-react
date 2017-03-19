@@ -6,6 +6,7 @@ import {User} from "../user/user";
 export class Tour extends Model {
 
     date: string;
+    type: string;
     user_id: number;
     hq_headquarter_id: number;
     hq_territory_id: number;
@@ -25,6 +26,7 @@ export class Tour extends Model {
     constructor(info: any) {
         super(info.id);
         this.date = info.date;
+        this.type = info.type;
         this.user_id = info.user_id;
         this.hq_headquarter_id = info.hq_headquarter_id;
         this.hq_territory_id = info.hq_territory_id;

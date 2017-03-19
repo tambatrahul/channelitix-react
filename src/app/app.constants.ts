@@ -25,6 +25,11 @@ export class AppConstants {
         'HQ', 'OS', 'EX'
     ];
 
+    // tour types
+    static tour_types: Array<string> = [
+        'Field Work', 'Meeting', 'Transit'
+    ];
+
     // week days
     static week_days: Array<string> = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

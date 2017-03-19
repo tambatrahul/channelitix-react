@@ -87,7 +87,8 @@ import {AreaStpComponent} from "./components/pages/customer/stp/area_stp/area_st
 import {HeadquarterStpComponent} from "./components/pages/customer/stp/headquarter_stp/headquarter_stp.component";
 import {TerritoryStpComponent} from "./components/pages/customer/stp/territory_stp/territory_stp.component";
 import {BrickStpComponent} from "./components/pages/customer/stp/brick_stp/brick_stp.component";
-import {StationSelectComponent} from "./components/pages/territory/brick/station_select/station-select.component";
+import {StationSelectComponent} from "./components/pages/territory/form_elements/station_select/station-select.component";
+import {TourTypeSelectComponent} from "./components/pages/tour_program/form_elements/tour_type_select/tour-type-select.component";
 
 enableProdMode();
 @NgModule({
@@ -169,7 +170,8 @@ enableProdMode();
         BrickSelectComponent,
         CustomerTypeSelectComponent,
         GradeSelectComponent,
-        StationSelectComponent
+        StationSelectComponent,
+        TourTypeSelectComponent
     ],
     imports: [
         BrowserModule,

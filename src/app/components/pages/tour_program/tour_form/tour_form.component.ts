@@ -57,6 +57,8 @@ export class TourFormComponent extends FormComponent {
      * Date of tour
      */
     _date: string;
+    type: string;
+
     @Input()
     set date(date: string) {
         this.form.patchValue({date: date});
@@ -74,7 +76,8 @@ export class TourFormComponent extends FormComponent {
         hq_territory_id: [""],
         hq_brick_id: [""],
         user_id: [""],
-        date: [""]
+        date: [""],
+        type: [""]
     });
 
     /**
@@ -158,6 +161,16 @@ export class TourFormComponent extends FormComponent {
     brickChanged(brick_id) {
         this.brick_id = brick_id;
         this.form.patchValue({hq_brick_id: brick_id});
+    }
+
+    /**
+     * tour type is changed
+     *
+     * @param type
+     */
+    tourTypeChanged(type) {
+        this.type = type;
+        this.form.patchValue({type: type});
     }
 
     /**
