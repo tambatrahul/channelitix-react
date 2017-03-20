@@ -25,6 +25,7 @@ import {AreaStpComponent} from "./components/pages/customer/stp/area_stp/area_st
 import {HeadquarterStpComponent} from "./components/pages/customer/stp/headquarter_stp/headquarter_stp.component";
 import {TerritoryStpComponent} from "./components/pages/customer/stp/territory_stp/territory_stp.component";
 import {BrickStpComponent} from "./components/pages/customer/stp/brick_stp/brick_stp.component";
+import {MessageListComponent} from "./components/pages/message/list/message-list.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -168,6 +169,15 @@ export const routes: Routes = [
                         path: ':country_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id/territories/:territory_id',
                         component: BrickStpComponent,
                     }
+                ]
+            },
+            {
+                path: 'messages',
+                children: [
+                    {
+                        path: '',
+                        component: MessageListComponent,
+                    },
                 ]
             },
         ]
