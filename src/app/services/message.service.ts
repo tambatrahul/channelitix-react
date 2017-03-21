@@ -32,8 +32,11 @@ export class MessageService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    all(): Observable<Result> {
+    forUser(user_id: number): Observable<Result> {
+        // prepare url
+        let url = this.getBaseUrl() + '/forUser/' + user_id;
+
         // make server call
-        return this.get(this.getBaseUrl());
+        return this.get(url);
     }
 }

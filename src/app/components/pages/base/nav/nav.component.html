@@ -91,6 +91,12 @@
                     <span class="nav-label">Tour Program</span>
                 </a>
             </li>
+            <li *ngIf="_auth_service.user?.isAdmin">
+                <a class="waves-effect" routerLink="/messages">
+                    <span class="nav-icon"><i class="fa fa-envelope"></i></span>
+                    <span class="nav-label">Message</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- ./Navigation items -->

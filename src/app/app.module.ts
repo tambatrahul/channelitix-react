@@ -91,6 +91,7 @@ import {StationSelectComponent} from "./components/pages/territory/form_elements
 import {TourTypeSelectComponent} from "./components/pages/tour_program/form_elements/tour_type_select/tour-type-select.component";
 import {MessageListComponent} from "./components/pages/message/list/message-list.component";
 import {MessageService} from "./services/message.service";
+import {MessageViewComponent} from "./components/pages/message/view/message-view.component";
 
 enableProdMode();
 @NgModule({
@@ -134,6 +135,7 @@ enableProdMode();
         TerritoryStpComponent,
         BrickStpComponent,
         MessageListComponent,
+        MessageViewComponent,
 
         // directives
         AttendanceStatusDirective,

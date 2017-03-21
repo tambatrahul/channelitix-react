@@ -4,10 +4,12 @@ export class Message extends Model {
 
     message: string;
     to_user_id: number;
+    read: boolean;
 
     constructor(info: any) {
         super(info.id);
         this.message = info.message;
         this.to_user_id = info.to_user_id;
+        this.read = info.read;
     }
 }
