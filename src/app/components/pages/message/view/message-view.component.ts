@@ -4,6 +4,9 @@ import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
 import {User} from "../../../../models/user/user";
 import {Message} from "../../../../models/message/message";
+import {FormComponent} from "../../../base/form.component";
+import {FormBuilder} from "@angular/forms";
+
 declare let jQuery: any;
 
 @Component({
@@ -11,13 +14,17 @@ declare let jQuery: any;
     templateUrl: 'message-view.component.html',
     styleUrls: ['message-view.component.less']
 })
-export class MessageViewComponent extends BaseAuthComponent {
+export class MessageViewComponent extends FormComponent {
 
     /**
      * User
      */
     private _user: User;
     messages: Message[] = [];
+
+    public form = this._fb.group({
+        message: [""]
+    });
 
     /**
      * user to deactivate
@@ -28,6 +35,7 @@ export class MessageViewComponent extends BaseAuthComponent {
     set user(user: User) {
         this._user = user;
         this.fetch();
+        this.reset();
     }
 
     get user() {
@@ -38,12 +46,22 @@ export class MessageViewComponent extends BaseAuthComponent {
      * Message List Component Constructor
      *
      */
-    constructor(private messageService: MessageService, public _service: AuthService) {
+    constructor(private messageService: MessageService, public _service: AuthService, public _fb: FormBuilder) {
         super(_service);
     }
 
     ngOnInit() {
         super.ngOnInit();
+    }
+
+    /**
+     * reset form
+     */
+    reset() {
+        this.form.patchValue({
+            message: ""
+        });
+        this.errors = "";
     }
 
     /**
@@ -57,5 +75,27 @@ export class MessageViewComponent extends BaseAuthComponent {
             err => {
             }
         );
+    }
+
+    /**
+     * save message
+     */
+    save() {
+        if (this.form.valid) {
+            let data = Object.assign({}, this.form.value);
+
+            if (this._user)
+                data['to_user_id'] = this._user.id;
+
+            this.messageService.create(data).subscribe(
+                response => {
+                    this.reset();
+                    this.fetch();
+                },
+                err => {
+                    this.errors = err.errors;
+                }
+            );
+        }
     }
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid bricks">
+<div class="container-fluid ">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
         <div class="row">
@@ -15,47 +15,50 @@
     </div>
     <!-- Page Breadcrumb -->
 
-    <div class="inbox-container clearfix" style="height: 328px;">
-        <div class="inbox-content" style="height: 328px;">
-            <div class="email-list" style="height: 328px;">
-                <div class="email-list-item m-unread" *ngFor="let u of users">
-                    <div class="email-list-action">
-                        <div class="icheckbox_minimal" style="position: relative;">
-                            <input type="checkbox" name="mail-select" class="mail-select"
-                                   style="position: absolute; top: -30%; left: -30%; display: block; width: 160%;
+    <div class="row">
+        <div class="inbox-container clearfix" style="height: 700px;">
+            <div class="inbox-content" style="height: 328px;">
+                <div class="email-list" style="height: 328px;">
+                    <div class="email-list-item m-unread" *ngFor="let u of users">
+                        <div class="email-list-action">
+                            <div class="icheckbox_minimal" style="position: relative;">
+                                <input type="checkbox" name="mail-select" class="mail-select"
+                                       style="position: absolute; top: -30%; left: -30%; display: block; width: 160%;
                                     height: 160%; margin: 0px; padding: 0px; background: rgb(255, 255, 255);
                                      border: 0px; opacity: 0;">
+                            </div>
                         </div>
-                    </div>
-                    <div class="email-list-details" (click)="onUserSelected(u)">
-                        <div class="email-list-top clearfix">
-                            <ul class="clearfix">
-                                <li class="pull-left email-from">{{ u.full_name }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="email-intro">
-                            <h4>{{ u.role.name}}</h4>
-                            <p>
-                                We have just received your payment for 50.00-Taka-Airtime-Payment-For-Pre-Paid-Number...
-                            </p>
+                        <div class="email-list-details" (click)="onUserSelected(u)">
+                            <div class="email-list-top clearfix">
+                                <ul class="clearfix">
+                                    <li class="pull-left email-from">{{ u.full_name }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="email-intro">
+                                <h4>{{ u.role.name}}</h4>
+                                <p>
+                                    We have just received your payment for
+                                    50.00-Taka-Airtime-Payment-For-Pre-Paid-Number...
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="mail-body multi-page" style="width: 50%;" #loading_box>
-                <div class="email-content">
-                    <div *ngIf="user">
-                        <message-view [user]="user"></message-view>
-                    </div>
-                    <div *ngIf="!user">
-                        <div class="box-widget widget-module no-border create_attendance">
-                            <!-- Type of attendance -->
-                            <div class="widget-container">
-                                <div class="widget-block">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            Click On Any User To View Message
+                <div class="mail-body multi-page" style="width: 50%;" #loading_box>
+                    <div class="email-content">
+                        <div *ngIf="user">
+                            <message-view [user]="user"></message-view>
+                        </div>
+                        <div *ngIf="!user">
+                            <div class="box-widget widget-module no-border create_attendance">
+                                <!-- Type of attendance -->
+                                <div class="widget-container">
+                                    <div class="widget-block">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                Click On Any User To View Message
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -66,5 +69,4 @@
             </div>
         </div>
     </div>
-
 </div>

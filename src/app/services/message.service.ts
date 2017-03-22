@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
 import {Result} from "../models/result";
+import {Message} from "../models/message/message";
 
 @Injectable()
 export class MessageService extends BaseService {
@@ -38,5 +39,15 @@ export class MessageService extends BaseService {
 
         // make server call
         return this.get(url);
+    }
+
+    /**
+     * Create Message
+     *
+     * @param message
+     * @returns {Observable<Result>}
+     */
+    create(message: Message): Observable<Result> {
+        return this.post(this.getBaseUrl(), message);
     }
 }

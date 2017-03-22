@@ -54,6 +54,7 @@ export class Result {
     // users models
     user: User;
     users: User[];
+    all_users: User[];
     manager: User;
     children: User[];
 

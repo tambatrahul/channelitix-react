@@ -1,3 +1,77 @@
-.view {
+.message-view {
 
+}
+
+.h3-bottom {
+  margin-bottom: 15px
+}
+
+.thumb-padding {
+  padding: 5px
+}
+
+.msg-padding {
+  padding-top: 0px;
+  padding-bottom: 30px;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.bubble {
+  font-size: 16px;
+  position: relative;
+  display: inline-block;
+  clear: both;
+  margin-bottom: 8px;
+  vertical-align: top;
+  border-radius: 5px;
+  &:before {
+    position: absolute;
+    top: 19px;
+    display: block;
+    width: 8px;
+    height: 6px;
+    content: '\00a0';
+    transform: rotate(29deg) skew(-35deg);
+  }
+  &.you {
+    float: left;
+    color: white;
+    background-color: #00acc1;
+    align-self: flex-start;
+    &:before {
+      left: -3px;
+      background-color: #00acc1;
+    }
+  }
+  &.me {
+    float: right;
+    color: #454545;
+    background-color: #eceff1;
+    align-self: flex-end;
+    &:before {
+      right: -3px;
+      background-color: #eceff1;
+    }
+  }
+}
+
+.topics-list .topic-wrap .topic-thumb img{
+  width: 40px;
+  height: 40px;
+  border-radius: 100%
+}
+
+.topics-list .topic-wrap > span{
+  padding: 10px;
+}
+
+.topics-list .topic-wrap .topic-intro .topic-title{
+  font-size: 15px;
 }

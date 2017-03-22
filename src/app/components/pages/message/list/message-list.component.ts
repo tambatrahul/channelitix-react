@@ -4,6 +4,7 @@ import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
 import {UserService} from "../../../../services/user.service";
 import {User} from "../../../../models/user/user";
+import {ListComponent} from "../../../base/list.component";
 declare let jQuery: any;
 
 @Component({
@@ -44,7 +45,7 @@ export class MessageListComponent extends BaseAuthComponent {
     fetch() {
         this.userService.all().subscribe(
             response => {
-                this.users = response.users;
+                this.users = response.all_users;
             },
             err => {
             }
