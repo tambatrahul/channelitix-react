@@ -65,4 +65,10 @@ export class Result {
 
     // stps
     stps: Stp[];
+
+    // get total counts for reports
+    total_users: number = 0;
+    total_active_users: number = 0;
+    total_customers: number = 0;
+    total_working_days: number = 0;
 }

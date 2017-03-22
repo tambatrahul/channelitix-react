@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {AppConstants} from "../../../../app.constants";
 import * as moment from "moment";
 
@@ -21,6 +21,14 @@ export class DatesSelectComponent {
      */
     from_date: string = "";
     to_date: string = "";
+
+    /**
+     * event on value changed
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    onDateChanged = new EventEmitter();
 
     /**
      * on load set from and to dates
@@ -59,6 +67,11 @@ export class DatesSelectComponent {
      */
     fromDateChanged(date) {
         this.from_date = date;
+        this.onDateChanged.emit({
+            from_date: moment(this.from_date, "DD MMM YY").format("YYYY-MM-DD"),
+            to_date: moment(this.to_date, "DD MMM YY").format("YYYY-MM-DD"),
+            year: 2017
+        });
     }
 
     /**

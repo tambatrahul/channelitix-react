@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {AttendanceService} from "../../../../services/attendance.service";
+import {ReportService} from "../../../../services/report.service";
 declare let jQuery: any;
 
 @Component({
@@ -20,10 +21,9 @@ export class DashBoardComponent {
     }
 
     /**
-     * Attendance Component Constructor
-     *
+     * Dashboard Component Constructor
      */
-    constructor(private attendanceService: AttendanceService) {
+    constructor(private reportService: ReportService) {
     }
 
     /**
@@ -31,5 +31,9 @@ export class DashBoardComponent {
      */
     ngOnInit() {
 
+    }
+
+    fetchCounts() {
+        this.reportService.counts()
     }
 }
