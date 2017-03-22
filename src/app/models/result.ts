@@ -16,6 +16,7 @@ import {LeaveType} from "./attendance/leave_type";
 import {Tour} from "./tour_program/tour";
 import {Grade} from "./customer/grade";
 import {Stp} from "./customer/stp";
+import {Message} from "./message/message";
 
 export class Result {
 
@@ -44,12 +45,16 @@ export class Result {
     // tour models
     tours: Tour[];
 
+    // Message models
+    messages: Message[];
+
     // brick models
     brick: Brick;
 
     // users models
     user: User;
     users: User[];
+    all_users: User[];
     manager: User;
     children: User[];
 

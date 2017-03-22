@@ -89,6 +89,9 @@ import {TerritoryStpComponent} from "./components/pages/customer/stp/territory_s
 import {BrickStpComponent} from "./components/pages/customer/stp/brick_stp/brick_stp.component";
 import {StationSelectComponent} from "./components/pages/territory/form_elements/station_select/station-select.component";
 import {TourTypeSelectComponent} from "./components/pages/tour_program/form_elements/tour_type_select/tour-type-select.component";
+import {MessageListComponent} from "./components/pages/message/list/message-list.component";
+import {MessageService} from "./services/message.service";
+import {MessageViewComponent} from "./components/pages/message/view/message-view.component";
 
 enableProdMode();
 @NgModule({
@@ -131,6 +134,8 @@ enableProdMode();
         HeadquarterStpComponent,
         TerritoryStpComponent,
         BrickStpComponent,
+        MessageListComponent,
+        MessageViewComponent,
 
         // directives
         AttendanceStatusDirective,
@@ -192,6 +197,7 @@ enableProdMode();
         BrickService,
         OrderService,
         TourService,
+        MessageService,
         StpService
     ],
     bootstrap: [AppComponent]
