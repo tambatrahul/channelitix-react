@@ -1,5 +1,4 @@
-import {Component, Input, EventEmitter, Output} from "@angular/core";
-import {BaseAuthComponent} from "../../../base/base.component";
+import {Component, Input} from "@angular/core";
 import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
 import {User} from "../../../../models/user/user";
@@ -20,10 +19,21 @@ export class MessageViewComponent extends FormComponent {
      * User
      */
     private _user: User;
+
+    /**
+     * messages
+     *
+     * @type {Array}
+     */
     messages: Message[] = [];
 
+    /**
+     * message form
+     *
+     * @type {FormGroup}
+     */
     public form = this._fb.group({
-        message: [""]
+        message: ["required"]
     });
 
     /**
@@ -38,6 +48,11 @@ export class MessageViewComponent extends FormComponent {
         this.reset();
     }
 
+    /**
+     * get user
+     *
+     * @returns {User}
+     */
     get user() {
         return this._user;
     }
@@ -50,16 +65,12 @@ export class MessageViewComponent extends FormComponent {
         super(_service);
     }
 
-    ngOnInit() {
-        super.ngOnInit();
-    }
-
     /**
      * reset form
      */
     reset() {
         this.form.patchValue({
-            message: ""
+            message: ''
         });
         this.errors = "";
     }
@@ -68,13 +79,17 @@ export class MessageViewComponent extends FormComponent {
      * Fetch Messages from server
      */
     fetch() {
-        this.messageService.forUser(this._user.id).subscribe(
-            response => {
-                this.messages = response.messages;
-            },
-            err => {
-            }
-        );
+        if (this._user.id) {
+            this.messageService.forUser(this._user.id).subscribe(
+                response => {
+                    this.messages = response.messages.map(function (message) {
+                        return new Message(message);
+                    });
+                },
+                err => {
+                }
+            );
+        }
     }
 
     /**
@@ -84,9 +99,11 @@ export class MessageViewComponent extends FormComponent {
         if (this.form.valid) {
             let data = Object.assign({}, this.form.value);
 
+            // set to user
             if (this._user)
                 data['to_user_id'] = this._user.id;
 
+            // create message
             this.messageService.create(data).subscribe(
                 response => {
                     this.reset();

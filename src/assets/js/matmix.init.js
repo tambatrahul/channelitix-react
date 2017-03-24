@@ -153,7 +153,7 @@ jQuery(document).ready(function ($) {
         var wh = $(window).height();
         var inboxContainer = $('.inbox-container');
         if (inboxContainer.length) {
-            var inboxTopOfset = inboxContainer.offset().top;
+            var inboxTopOfset = inboxContainer.offset().top + 60;
 
         }
         var inboxCalH = wh - inboxTopOfset

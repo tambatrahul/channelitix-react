@@ -4,7 +4,6 @@ import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
 import {UserService} from "../../../../services/user.service";
 import {User} from "../../../../models/user/user";
-import {ListComponent} from "../../../base/list.component";
 declare let jQuery: any;
 
 @Component({
@@ -13,11 +12,10 @@ declare let jQuery: any;
 })
 export class MessageListComponent extends BaseAuthComponent {
 
-
     /**
      * Resetting User Password
      */
-     user: User;
+    user: User = new User({});
 
     /**
      * users
@@ -28,12 +26,14 @@ export class MessageListComponent extends BaseAuthComponent {
 
     /**
      * Message List Component Constructor
-     *
      */
     constructor(private messageService: MessageService, public _service: AuthService, public userService: UserService) {
         super(_service);
     }
 
+    /**
+     * on start of app set this details
+     */
     ngOnInit() {
         super.ngOnInit();
         this.fetch();
@@ -45,7 +45,7 @@ export class MessageListComponent extends BaseAuthComponent {
     fetch() {
         this.userService.all().subscribe(
             response => {
-                this.users = response.all_users;
+                this.users = response.users;
             },
             err => {
             }

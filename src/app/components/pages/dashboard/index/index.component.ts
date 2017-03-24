@@ -10,15 +10,15 @@ declare let jQuery: any;
 export class DashBoardComponent {
 
     /**
-     * get date range
+     * dates
      *
-     * @returns {Array<number>}
+     * @type {}
      */
-    get dates(): Array<number> {
-        let dates = [];
-
-        return dates;
-    }
+    dates = {
+        from_date: '',
+        to_date: '',
+        year: ''
+    };
 
     /**
      * Dashboard Component Constructor
@@ -34,6 +34,6 @@ export class DashBoardComponent {
     }
 
     fetchCounts() {
-        this.reportService.counts()
+        this.reportService.counts(this.dates.from_date, this.dates.to_date, this.dates.year)
     }
 }
