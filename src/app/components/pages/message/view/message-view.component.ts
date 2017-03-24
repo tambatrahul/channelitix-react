@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
 import {User} from "../../../../models/user/user";
@@ -27,6 +27,22 @@ export class MessageViewComponent extends BaseAuthComponent {
      */
     messages: Message[] = [];
 
+    /**
+     * tour creation selection
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    messageLoaded = new EventEmitter();
+
+    /**
+     * refresh message list
+     * @param refresh
+     */
+    @Input()
+    set refresh(refresh) {
+        this.fetch();
+    }
 
     /**
      * user to deactivate
@@ -61,23 +77,21 @@ export class MessageViewComponent extends BaseAuthComponent {
      * Fetch Messages from server
      */
     fetch() {
-        if (this._user.id) {
+        if (this._user && this._user.id) {
+            this.loading = true;
             this.messageService.forUser(this._user.id).subscribe(
                 response => {
+                    this.loading = false;
                     this.messages = response.messages.map(function (message) {
                         return new Message(message);
                     });
+
+                    this.messageLoaded.emit();
                 },
                 err => {
+                    this.loading = false;
                 }
             );
         }
-    }
-
-    /**
-     * message created refresh message list
-     */
-    messageCreated() {
-        this.fetch();
     }
 }

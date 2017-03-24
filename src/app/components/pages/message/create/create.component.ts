@@ -21,30 +21,6 @@ export class MessageCreateComponent extends FormComponent {
     private _user: User = new User({});
 
     /**
-     * tour creation selection
-     *
-     * @type {EventEmitter}
-     */
-    @Output()
-    messageCreated = new EventEmitter();
-
-    /**
-     * messages
-     *
-     * @type {Array}
-     */
-    messages: Message[] = [];
-
-    /**
-     * message form
-     *
-     * @type {FormGroup}
-     */
-    public form = this._fb.group({
-        message: ["required"]
-    });
-
-    /**
      * user to deactivate
      *
      * @type {number}
@@ -54,6 +30,23 @@ export class MessageCreateComponent extends FormComponent {
         this._user = user;
         this.reset();
     }
+
+    /**
+     * tour creation selection
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    messageCreated = new EventEmitter();
+
+    /**
+     * message form
+     *
+     * @type {FormGroup}
+     */
+    public form = this._fb.group({
+        message: ["required"]
+    });
 
     /**
      * get user
@@ -94,12 +87,15 @@ export class MessageCreateComponent extends FormComponent {
                 data['to_user_id'] = this._user.id;
 
             // create message
+            this.loading = true;
             this.messageService.create(data).subscribe(
                 response => {
+                    this.loading = false;
                     this.reset();
                     this.messageCreated.emit();
                 },
                 err => {
+                    this.loading = false;
                     this.errors = err.errors;
                 }
             );

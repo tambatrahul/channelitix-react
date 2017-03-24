@@ -43,36 +43,48 @@
   &.you {
     float: left;
     color: white;
-    background-color: #00acc1;
+    background-color: #2980b9;
     align-self: flex-start;
     &:before {
       left: -3px;
-      background-color: #00acc1;
+      background-color: #2980b9;
     }
   }
   &.me {
     float: right;
-    color: #454545;
-    background-color: #eceff1;
+    color: white;
+    background-color: #2980b9;
     align-self: flex-end;
     &:before {
       right: -3px;
-      background-color: #eceff1;
+      background-color: #2980b9;
     }
   }
 }
 
-.topics-list .topic-wrap .topic-thumb img{
+.topics-list .topic-wrap {
+  max-width: 80%;
+
+  .topic-intro {
+    width: auto;
+    small {
+      font-size: 10px;
+      color: #eee;
+    }
+  }
+}
+
+.topics-list .topic-wrap .topic-thumb img {
   width: 40px;
   height: 40px;
   border-radius: 100%
 }
 
-.topics-list .topic-wrap > span{
+.topics-list .topic-wrap > span {
   padding: 10px;
 }
 
-.topics-list .topic-wrap .topic-intro .topic-title{
+.topics-list .topic-wrap .topic-intro .topic-title {
   font-size: 15px;
 }
 

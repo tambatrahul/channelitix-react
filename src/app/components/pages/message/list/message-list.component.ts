@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import {BaseAuthComponent} from "../../../base/base.component";
 import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
@@ -13,9 +13,20 @@ declare let jQuery: any;
 export class MessageListComponent extends BaseAuthComponent {
 
     /**
+     * loading identifier
+     */
+    @ViewChild('task_info')
+    task_info: ElementRef;
+
+    /**
+     * refresh message list
+     */
+    refresh: boolean = false;
+
+    /**
      * Resetting User Password
      */
-    user: User = new User({});
+    user: User;
 
     /**
      * users
@@ -63,5 +74,23 @@ export class MessageListComponent extends BaseAuthComponent {
      */
     onUserSelected(user: User) {
         this.user = user;
+    }
+
+    /**
+     * message sent to user
+     */
+    messageCreated() {
+        this.refresh = !this.refresh;
+    }
+
+    /**
+     * message loaded
+     */
+    messagesLoaded() {
+        let self = this;
+        setTimeout(function () {
+            jQuery(self.task_info.nativeElement).scrollTop(self.task_info.nativeElement.scrollHeight);
+        }, 10);
+
     }
 }

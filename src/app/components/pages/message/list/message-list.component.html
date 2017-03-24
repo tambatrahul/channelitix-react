@@ -30,14 +30,16 @@
                 <div class="task-content-top">
                     <div class="task-header">
                         <div class="task-title">
-                            <h3>{{ user.full_name }}</h3>
+                            <h3>{{ user?.full_name }}</h3>
                         </div>
                     </div>
                 </div>
-                <div class="task-info">
-                    <message-view [user]="user"></message-view>
+                <div class="task-info" #task_info>
+                    <template ngIf [ngIf]="user">
+                        <message-view [user]="user" [refresh]="refresh" (messageLoaded)="messagesLoaded($event)"></message-view>
+                    </template>
                 </div>
-                <div [hidden]="!user.id">
+                <div class="message-form" *ngIf="user">
                     <message-create [user]="user" (messageCreated)="messageCreated($event)"></message-create>
                 </div>
             </div>

@@ -1,32 +1,26 @@
-<div class="topics-list">
+<div class="topics-list" #loading_box>
 
     <!-- list of messages -->
     <div class="topic-container new-ticket" *ngFor="let m of messages">
 
         <!-- message sent to user -->
         <a class="topic-wrap bubble you" *ngIf="_service.user.id != m.created_by">
-            <span class="topic-thumb thumb-padding">
-				<img src="assets/images/avatar/manager.png" alt="user">
-			</span>
-            <span class="topic-intro" style="width: auto">
+            <span class="topic-intro">
 				<span class="topic-title msg-padding">
                     {{ m.message }}
                 </span>
-                 <small style="font-size: 12px;">{{ m.created_at}}</small>
+                 <small>{{ m.created_at}}</small>
 			</span>
         </a>
         <!-- ./message sent to user -->
 
         <!-- message received -->
         <a class="topic-wrap bubble me" *ngIf="_service.user.id == m.created_by">
-            <span class="topic-intro" style="width: auto">
+            <span class="topic-intro">
 				<span class="topic-title msg-padding align-right">
                     {{ m.message }}
                 </span>
-                <small class="pull-right" style="font-size: 12px;">{{ m.created_at }}</small>
-			</span>
-            <span class="topic-thumb thumb-padding">
-				<img src="assets/images/avatar/manager.png" alt="user">
+                <small class="pull-right">{{ m.created_at }}</small>
 			</span>
         </a>
         <!-- ./message received -->
