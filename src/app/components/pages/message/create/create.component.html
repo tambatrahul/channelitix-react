@@ -8,17 +8,17 @@
                     <!-- Message -->
                     <div class="form-group">
                         <div class="">
-                            <input formControlName="message" class="form-control" type="text">
-                            <small *ngIf="errors?.message" class="text-danger text-center">
-                                {{ errors.message}}
-                            </small>
+                            <input formControlName="message" class="form-control" type="text"
+                                   placeholder="Type your message here">
                         </div>
                     </div>
                     <!-- ./Message -->
                 </div>
                 <div class="col-md-2">
                     <div class="form-actions text-center">
-                        <button type="submit" class="btn btn-primary btn-block">Send</button>
+                        <button [disabled]="form.get('message').value.length <= 0" type="submit"
+                                class="btn btn-primary btn-block">Send
+                        </button>
                     </div>
                 </div>
             </form>
