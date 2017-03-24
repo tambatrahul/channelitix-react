@@ -1,53 +1,43 @@
-<!-- ./title of page -->
-<div class="inbox-toolbar">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="btn-toolbar inbox-mail-toolbar">
-                    <h2>Chat Room</h2>
+<div class="task-top-toolbar clearfix">
+    <h2>Chat Room</h2>
+</div>
+<div class="task-container clearfix apps-container">
+    <div class="task-content apps-panel-scroll">
+
+        <!-- User list -->
+        <div class="task-list apps-panel-scroll" #loading_box>
+            <div class="task-list-item" *ngFor="let u of users" [ngClass]="{'task-completed': u.id == user.id}">
+                <div class="task-list-action">
+                    <div _ngcontent-fxv-34="" class="task-thumb">
+                        <img _ngcontent-fxv-34="" alt="user" src="assets/images/avatar/manager.png">
+                    </div>
+                </div>
+                <div class="task-list-details" (click)="onUserSelected(u)">
+                    <div class="task-intro">
+                        <h4>{{ u.full_name }}</h4>
+                        <p>
+                            {{ u.role.name }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- ./title of page -->
+        <!-- ./User list -->
 
-<!-- container of page -->
-<div class="inbox-container clearfix">
-    <div class="inbox-content">
 
-        <!-- user list -->
-        <div class="email-list">
-            <div class="email-list-item" *ngFor="let u of users"
-                 [ngClass]="{'m-selected': u.id == user?.id}">
-                <div class="email-meta clearfix" (click)="onUserSelected(u)">
-                    <div class="emial-from pull-left">
-                        <div>
-                            <div class="email-thumb">
-                                <img src="/assets/images/avatar/manager.png" alt="sprout">
-                            </div>
-                            <div class="email-recipient">
-                                <span><span></span>{{ u.full_name }}</span>
-                                <span><span></span>{{ u.role.name }}</span>
-                            </div>
+        <div class="task-body apps-panel-scroll">
+            <div class="task-body-content">
+                <div class="task-content-top">
+                    <div class="task-header">
+                        <div class="task-title">
+                            <h3>{{ user.full_name }}</h3>
                         </div>
                     </div>
-                    <div class="emial-date pull-right">
-                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- ./user list -->
-
-        <!-- chat box -->
-        <div class="mail-body multi-page" #loading_box style="width: 52%">
-            <div class="email-content">
-                <div [hidden]="!user.id">
+                <div class="task-info">
                     <message-view [user]="user"></message-view>
                 </div>
             </div>
         </div>
-        <!-- ./chat box -->
     </div>
 </div>
-<!-- ./container of page -->

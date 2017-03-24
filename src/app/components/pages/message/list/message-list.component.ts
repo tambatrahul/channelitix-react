@@ -43,11 +43,15 @@ export class MessageListComponent extends BaseAuthComponent {
      * load users for logged in user
      */
     fetch() {
+        this.loading = true;
         this.userService.all().subscribe(
             response => {
                 this.users = response.users;
+                this.user = this.users[0];
+                this.loading = false;
             },
             err => {
+                this.loading = false;
             }
         );
     }

@@ -197,7 +197,7 @@ jQuery(document).ready(function ($) {
         var wh = $(window).height();
         var AppsContainer = $('.apps-container');
         if (AppsContainer.length) {
-            var AppsTopOfset = AppsContainer.offset().top;
+            var AppsTopOfset = AppsContainer.offset().top + 60;
 
         }
         var AppsCalH = wh - AppsTopOfset;

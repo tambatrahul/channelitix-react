@@ -29,6 +29,7 @@
         "../src/assets/less/loadmask.less",
         "../src/assets/less/sweetalert.less",
         "../src/assets/less/pages.less",
+        "../src/assets/less/task.less",
         "styles.less"
       ],
       "scripts": [
