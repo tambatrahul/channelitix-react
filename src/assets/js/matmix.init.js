@@ -202,7 +202,6 @@ jQuery(document).ready(function ($) {
         }
         var AppsCalH = wh - AppsTopOfset;
 
-
         $('.apps-panel-scroll').css({
             'height': AppsCalH + 'px'
         });

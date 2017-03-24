@@ -51,6 +51,31 @@ export class MessageListComponent extends BaseAuthComponent {
     }
 
     /**
+     * after the view is checked
+     */
+    ngAfterViewChecked() {
+        // get window hight
+        let wh = jQuery(window).height();
+
+        // get container
+        let AppsContainer = jQuery('.apps-container');
+
+        // get offset to be reduced
+        let AppsTopOffset = 0;
+        if (AppsContainer.length) {
+            AppsTopOffset = AppsContainer.offset().top + 60;
+        }
+
+        // get actual height
+        let AppsCalH = wh - AppsTopOffset;
+
+        // set height
+        jQuery('.apps-panel-scroll').css({
+            'height': AppsCalH + 'px'
+        });
+    }
+
+    /**
      * load users for logged in user
      */
     fetch() {
