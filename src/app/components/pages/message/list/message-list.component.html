@@ -37,6 +37,9 @@
                 <div class="task-info">
                     <message-view [user]="user"></message-view>
                 </div>
+                <div [hidden]="!user.id">
+                    <message-create [user]="user" (messageCreated)="messageCreated($event)"></message-create>
+                </div>
             </div>
         </div>
     </div>
