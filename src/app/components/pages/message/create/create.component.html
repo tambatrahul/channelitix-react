@@ -1,0 +1,28 @@
+<!-- message creation form -->
+<div class="topics-list message-form">
+    <!-- list of messages -->
+    <div class="topic-container new-ticket">
+        <div class="row">
+            <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+                <div class="col-md-10">
+                    <!-- Message -->
+                    <div class="form-group">
+                        <div class="">
+                            <input formControlName="message" class="form-control" type="text">
+                            <small *ngIf="errors?.message" class="text-danger text-center">
+                                {{ errors.message}}
+                            </small>
+                        </div>
+                    </div>
+                    <!-- ./Message -->
+                </div>
+                <div class="col-md-2">
+                    <div class="form-actions text-center">
+                        <button type="submit" class="btn btn-primary btn-block">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- ./message creation form -->

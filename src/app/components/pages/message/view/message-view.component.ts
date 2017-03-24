@@ -3,8 +3,8 @@ import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
 import {User} from "../../../../models/user/user";
 import {Message} from "../../../../models/message/message";
-import {FormComponent} from "../../../base/form.component";
 import {FormBuilder} from "@angular/forms";
+import {BaseAuthComponent} from "../../../base/base.component";
 
 declare let jQuery: any;
 
@@ -13,7 +13,7 @@ declare let jQuery: any;
     templateUrl: 'message-view.component.html',
     styleUrls: ['message-view.component.less']
 })
-export class MessageViewComponent extends FormComponent {
+export class MessageViewComponent extends BaseAuthComponent {
 
     /**
      * User
@@ -27,14 +27,6 @@ export class MessageViewComponent extends FormComponent {
      */
     messages: Message[] = [];
 
-    /**
-     * message form
-     *
-     * @type {FormGroup}
-     */
-    public form = this._fb.group({
-        message: ["required"]
-    });
 
     /**
      * user to deactivate
@@ -45,7 +37,6 @@ export class MessageViewComponent extends FormComponent {
     set user(user: User) {
         this._user = user;
         this.fetch();
-        this.reset();
     }
 
     /**
@@ -65,15 +56,6 @@ export class MessageViewComponent extends FormComponent {
         super(_service);
     }
 
-    /**
-     * reset form
-     */
-    reset() {
-        this.form.patchValue({
-            message: ''
-        });
-        this.errors = "";
-    }
 
     /**
      * Fetch Messages from server
@@ -93,26 +75,9 @@ export class MessageViewComponent extends FormComponent {
     }
 
     /**
-     * save message
+     * message created refresh message list
      */
-    save() {
-        if (this.form.valid) {
-            let data = Object.assign({}, this.form.value);
-
-            // set to user
-            if (this._user)
-                data['to_user_id'] = this._user.id;
-
-            // create message
-            this.messageService.create(data).subscribe(
-                response => {
-                    this.reset();
-                    this.fetch();
-                },
-                err => {
-                    this.errors = err.errors;
-                }
-            );
-        }
+    messageCreated() {
+        this.fetch();
     }
 }
