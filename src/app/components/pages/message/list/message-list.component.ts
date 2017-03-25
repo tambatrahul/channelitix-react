@@ -73,6 +73,17 @@ export class MessageListComponent extends BaseAuthComponent {
         jQuery('.apps-panel-scroll').css({
             'height': AppsCalH + 'px'
         });
+        jQuery('.task-info').css({
+            'height': AppsCalH - 130 + 'px'
+        });
+
+
+        let NoteSideW = jQuery('.task-sidebar').width();
+        let NoteListW = jQuery('.task-list').width();
+        let NoteBodyCal = jQuery(window).width() - (NoteSideW + NoteListW);
+        jQuery('.task-body').css({
+            'width': (NoteBodyCal - jQuery('.left-aside').width()) + 'px'
+        });
     }
 
     /**
