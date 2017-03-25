@@ -33,7 +33,11 @@ export class DashBoardComponent {
 
     }
 
-    fetchCounts() {
-        this.reportService.counts(this.dates.from_date, this.dates.to_date, this.dates.year)
+    /**
+     * On date change
+     * @param dates
+     */
+    onDateChanged(dates) {
+        this.dates = dates;
     }
 }

@@ -67,11 +67,12 @@ export class DatesSelectComponent {
      */
     fromDateChanged(date) {
         this.from_date = date;
-        this.onDateChanged.emit({
-            from_date: moment(this.from_date, "DD MMM YY").format("YYYY-MM-DD"),
-            to_date: moment(this.to_date, "DD MMM YY").format("YYYY-MM-DD"),
-            year: 2017
-        });
+        if (this.to_date.length > 0)
+            this.onDateChanged.emit({
+                from_date: moment(this.from_date, "DD MMM YY").format("YYYY-MM-DD"),
+                to_date: moment(this.to_date, "DD MMM YY").format("YYYY-MM-DD"),
+                year: 2017
+            });
     }
 
     /**
@@ -79,5 +80,11 @@ export class DatesSelectComponent {
      */
     toDateChanged(date) {
         this.to_date = date;
+        if (this.from_date.length > 0)
+            this.onDateChanged.emit({
+                from_date: moment(this.from_date, "DD MMM YY").format("YYYY-MM-DD"),
+                to_date: moment(this.to_date, "DD MMM YY").format("YYYY-MM-DD"),
+                year: 2017
+            });
     }
 }
