@@ -21,7 +21,7 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
-        <div class="col-xs-12 col-md-3" *roleCheck="4">
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
             <role-select [value]="role_id" (onValueChanged)="roleChanged($event)"></role-select>
         </div>
         <div class="col-xs-12 col-md-3" *ngIf="manager_role_id > 0 && manager_role_id < _service.user.role_id">

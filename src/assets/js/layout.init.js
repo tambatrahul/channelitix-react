@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
     //Fixed TopBar
     function topbarFixed() {
         var fxHeader = $('.page-container').hasClass('fixed-header');
-        var conInnnerWidth = $('.main-container').innerWidth() + 60;
+        var conInnnerWidth = $('.main-container').innerWidth() + 30;
 
         if (fxHeader) {
             $('.top-bar').css({

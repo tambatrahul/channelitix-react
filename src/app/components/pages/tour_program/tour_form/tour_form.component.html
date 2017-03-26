@@ -4,7 +4,7 @@
         <div class="widget-block">
             <div class="row">
                 <div class="col-xs-12">
-                    <small class="text-danger">Are you sure u want to add Tour on a Sunday ?</small>
+                    <small class="text-danger">Are you sure you want to add Tour on a Sunday ?</small>
                     <button class="btn btn-xs btn-primary" (click)="toggleSunday()">yes</button>
                 </div>
             </div>
@@ -39,6 +39,7 @@
                 </div>
                 <div class="col-xs-12 col-md-4" *ngIf="showTerritory && type == 'Field Work'">
                     <territory-select [value]="territory_id"
+                                      [first_value]="'Select Territory'"
                                       [headquarter_id]="headerquarter_id"
                                       (onValueChanged)="territoryChanged($event)"></territory-select>
                     <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
@@ -47,6 +48,7 @@
                 </div>
                 <div class="col-xs-12 col-md-4" [ngClass]="{'hide': territory_id <=0}" *ngIf="type == 'Field Work'">
                     <brick-select [value]="brick_id" [territory_id]="territory_id"
+                                  [first_value]="'Select Brick'"
                                   (onValueChanged)="brickChanged($event)"></brick-select>
                     <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
                         {{ errors.hq_brick_id}}

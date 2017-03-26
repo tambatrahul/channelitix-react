@@ -14,8 +14,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-2" *ngFor="let att of formatted_array"
-                             [ngClass]="{'pointer': (att && !att.isHoliday)}">
-                            <div class="body" (click)="att && !att.isHoliday && selectAttendance(att)">
+                             [ngClass]="{'pointer': (att && (!att.isHoliday && !att.isDisabled))}">
+                            <div class="body" (click)="att && (!att.isHoliday && !att.isDisabled) && selectAttendance(att)">
                                 <div class="status" calendarAttendanceStatus [attendance]="att"></div>
                                 <div class="date" *ngIf="att"> {{ att.day }}</div>
                             </div>

@@ -21,6 +21,7 @@ export class UpdateUserComponent extends FormComponent {
      * User relations
      */
     public role_id: number = 0;
+    public role_str: string;
     public hq_headquarter_id: number = 0;
     public hq_area_id: number = 0;
     public hq_region_id: number = 0;
@@ -129,6 +130,7 @@ export class UpdateUserComponent extends FormComponent {
      */
     roleChanged(role_id) {
         this.role_id = role_id;
+        this.role_str = AppConstants.getRole(role_id).name;
         this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
         this.form.patchValue({role: AppConstants.getRole(role_id).name});
 

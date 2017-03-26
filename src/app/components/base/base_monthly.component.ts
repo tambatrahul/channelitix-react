@@ -1,4 +1,4 @@
-import {BaseAuthComponent} from "./base.component";
+import {BaseAuthComponent} from "./base_auth.component";
 import * as moment from "moment";
 declare let jQuery: any;
 

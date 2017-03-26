@@ -47,9 +47,23 @@ export class CustomerComponent extends ListComponent {
      *
      * @param customerService
      * @param _service
+     * @param _router
      */
     constructor(private customerService: CustomerService, public _service: AuthService, public _router: Router,) {
         super(_service);
+    }
+
+    /**
+     * initialize component
+     */
+    ngOnInit() {
+        super.ngOnInit();
+        this.regionChanged(this._service.user.hq_region_id);
+        this.areaChanged(this._service.user.hq_area_id);
+        this.headquarterChanged(this._service.user.hq_headquarter_id);
+        this.territoryChanged(this._service.user.hq_territory_id);
+        this.brickChanged(this._service.user.hq_brick_id);
+
     }
 
     /**

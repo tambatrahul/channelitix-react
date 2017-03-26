@@ -99,7 +99,7 @@
 
                                     <div class="row">
                                         <!-- Region select -->
-                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="6">
+                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="ROLE_ADMIN">
                                             <div>
                                                 <region-select [value]="hq_region_id" [country_id]="hq_country_id"
                                                                [title]="'Select Region'"
@@ -118,7 +118,7 @@
                                         <!-- ./Region select -->
 
                                         <!-- Area select -->
-                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="5">
+                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="ROLE_ZSM">
                                             <div *ngIf="hq_region_id > 0">
                                                 <area-select [value]="hq_area_id" [region_id]="hq_region_id"
                                                              [title]="'Select Area'"
@@ -136,7 +136,7 @@
                                         <!-- ./Area select -->
 
                                         <!-- Head quarter select -->
-                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="4">
+                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="ROLE_CSM">
                                             <div *ngIf="hq_area_id > 0">
                                                 <headquarter-select [value]="hq_headquarter_id" [area_id]="hq_area_id"
                                                                     [title]="'Select Head Quarter'"

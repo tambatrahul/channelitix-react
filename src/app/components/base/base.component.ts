@@ -3,50 +3,16 @@ import {AuthService} from "../../services/AuthService";
 declare let jQuery: any;
 
 
-export abstract class BaseAuthComponent {
+export abstract class BaseComponent {
 
-  /**
-   * loading identifier
-   */
-  @ViewChild('loading_box')
-  loading_table: ElementRef;
+    public ROLE_CSE = 'HQ_MNG';
+    public ROLE_CSM = 'AREA_MNG';
+    public ROLE_ZSM = 'REGION_MNG';
+    public ROLE_ADMIN = 'COUNTRY_MNG';
 
-  /**
-   * loading variable
-   */
-  protected _loading: boolean;
-
-  /**
-   * Base Component Constructor
-   * @param _service
-   */
-  constructor(public _service: AuthService) {
-
-  }
-
-  /**
-   * on load of component call this function
-   */
-  ngOnInit() {
-    this._service.checkCredentials();
-  }
-
-  /**
-   * loading setter
-   */
-  set loading(loading) {
-    this._loading = loading;
-    if (loading)
-      jQuery(this.loading_table.nativeElement).mask('loading');
-    else
-      jQuery(this.loading_table.nativeElement).unmask();
-  }
-
-  /**
-   * loading getter
-   * @returns {boolean}
-   */
-  get loading() {
-    return this._loading;
-  }
+    /**
+     * Base Component Constructor
+     */
+    constructor() {
+    }
 }

@@ -14,6 +14,7 @@ export class User extends Model {
     status: string;
     auth_token: string;
     role_id: number;
+    role_str: string;
     manager_id: number;
 
     // territory changes
@@ -45,6 +46,7 @@ export class User extends Model {
         this.status = info.status;
         this.auth_token = info.auth_token;
         this.role_id = info.role_id;
+        this.role_str = info.role_str;
         this.attendances = info.attendances;
         this.manager = info.manager;
         this.hq_region_id = info.hq_region_id;
@@ -61,7 +63,7 @@ export class User extends Model {
      * @returns {boolean}
      */
     get isLastChild(): boolean {
-        return this.role_id < 4;
+        return this.role_str == AppConstants.ROLE_CSE;
     }
 
     /**
@@ -72,7 +74,7 @@ export class User extends Model {
     get field_work_count(): number {
         return this.attendances.filter(function (att, index) {
             if (att.work_type)
-                return att.work_type.name == "Field Work";
+                return att.work_type.name == AppConstants.FIELD_WORK;
             return false;
         }).length;
     }
@@ -85,7 +87,7 @@ export class User extends Model {
     get meeting_count(): number {
         return this.attendances.filter(function (att, index) {
             if (att.work_type)
-                return att.work_type.name == "Meeting";
+                return att.work_type.name == AppConstants.MEETING;
             return false;
         }).length;
     }
@@ -118,7 +120,7 @@ export class User extends Model {
      * @returns {boolean}
      */
     get isAdmin(): boolean {
-        return this.role_id == 6;
+        return this.role_str == AppConstants.ROLE_ADMIN;
     }
 
     /**
@@ -127,7 +129,7 @@ export class User extends Model {
      * @returns {boolean}
      */
     get isRegion(): boolean {
-        return this.role_id == 5;
+        return this.role_str == AppConstants.ROLE_ZSM;
     }
 
     /**
@@ -136,7 +138,7 @@ export class User extends Model {
      * @returns {boolean}
      */
     get isArea(): boolean {
-        return this.role_id == 4;
+        return this.role_str == AppConstants.ROLE_CSM;
     }
 
     /**
@@ -145,6 +147,6 @@ export class User extends Model {
      * @returns {boolean}
      */
     get isHeadquarter(): boolean {
-        return this.role_id == 3;
+        return this.role_str == AppConstants.ROLE_CSE;
     }
 }

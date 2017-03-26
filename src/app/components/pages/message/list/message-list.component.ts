@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from "@angular/core";
-import {BaseAuthComponent} from "../../../base/base.component";
+import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {MessageService} from "../../../../services/message.service";
 import {AuthService} from "../../../../services/AuthService";
 import {UserService} from "../../../../services/user.service";
@@ -77,7 +77,7 @@ export class MessageListComponent extends BaseAuthComponent {
             'height': AppsCalH - 130 + 'px'
         });
 
-
+        // set width of task body
         let NoteSideW = jQuery('.task-sidebar').width();
         let NoteListW = jQuery('.task-list').width();
         let NoteBodyCal = jQuery(window).width() - (NoteSideW + NoteListW);

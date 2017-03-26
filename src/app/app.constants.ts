@@ -13,11 +13,15 @@ export class AppConstants {
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
     // roles of user
+    static ROLE_CSE = 'HQ_MNG';
+    static ROLE_CSM = 'AREA_MNG';
+    static ROLE_ZSM = 'REGION_MNG';
+    static ROLE_ADMIN = 'COUNTRY_MNG';
     static roles: Array<Role> = [
-        new Role({id: 6, name: 'COUNTRY_MNG', title: 'ADMIN'}),
-        new Role({id: 5, name: 'REGION_MNG', title: 'ZSM'}),
-        new Role({id: 4, name: 'AREA_MNG', title: 'CSM'}),
-        new Role({id: 3, name: 'HQ_MNG', title: 'CSE'})
+        new Role({id: 6, name: AppConstants.ROLE_ADMIN, title: 'ADMIN'}),
+        new Role({id: 5, name: AppConstants.ROLE_ZSM, title: 'ZSM'}),
+        new Role({id: 4, name: AppConstants.ROLE_CSM, title: 'CSM'}),
+        new Role({id: 3, name: AppConstants.ROLE_CSE, title: 'CSE'})
     ];
 
     // stations for brick and territory
@@ -26,8 +30,11 @@ export class AppConstants {
     ];
 
     // tour types
+    static FIELD_WORK = 'Field Work';
+    static MEETING = 'Meeting';
+    static TRANSIT = 'Transit';
     static tour_types: Array<string> = [
-        'Field Work', 'Meeting', 'Transit'
+        AppConstants.FIELD_WORK, AppConstants.MEETING, AppConstants.TRANSIT
     ];
 
     // week days
@@ -50,7 +57,7 @@ export class AppConstants {
      * @param role_id
      */
     static getChildRoles(role_id) {
-        return this.roles.filter(role => role.id < role_id)
+        return AppConstants.roles.filter(role => role.id < role_id)
     }
 
     /**
@@ -59,8 +66,18 @@ export class AppConstants {
      * @returns {Role}
      */
     static getRole(role_id) {
-        let role = this.roles.filter(role => role.id == role_id)[0];
+        let role = AppConstants.roles.filter(role => role.id == role_id)[0];
         return role ? role : {name: ""}
+    }
+
+    /**
+     * get id from role name
+     * @param name
+     * @returns number
+     */
+    static getRoleId(name): number {
+        let role_id = AppConstants.roles.filter(role => role.name == name)[0].id;
+        return role_id ? role_id : 0;
     }
 
     /**
@@ -98,8 +115,9 @@ export class AppConstants {
             skeleton[date - 1] = new Attendance({day: date, date: current_date.format('YYYY-MM-DD')});
 
             // not put before joining date attendance or not put after leaving date attendance
-            if ((jd != null && current_date < jd) || (ld != null && current_date > ld))
-                skeleton[date - 1].isHoliday = true;
+            if ((jd != null && current_date < jd) || (ld != null && current_date > ld)) {
+                skeleton[date - 1].isDisabled = true;
+            }
 
             // set sunday
             if (current_date.day() == 0)

@@ -50,5 +50,8 @@ export class AttendanceStatusDirective {
             this.el.nativeElement.innerText = 'H';
             this.el.nativeElement.style.backgroundColor = this.holiday;
         }
+
+        if (att.isDisabled)
+            this.el.nativeElement.style.backgroundColor = this.holiday;
     }
 }

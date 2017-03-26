@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../../../models/user/user";
 import {AppConstants} from "../../../../app.constants";
-import {BaseAuthComponent} from "../../../base/base.component";
+import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
 import {Holiday} from "../../../../models/holiday";
 import {OrderService} from "../../../../services/order.service";

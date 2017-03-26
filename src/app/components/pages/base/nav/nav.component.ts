@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {AuthService} from "../../../../services/AuthService";
+import {BaseComponent} from "../../../base/base.component";
 declare let jQuery: any;
 
 @Component({
@@ -7,10 +8,14 @@ declare let jQuery: any;
     templateUrl: 'nav.component.html',
     styleUrls: ['nav.component.less']
 })
-export class NavComponent {
+export class NavComponent extends BaseComponent {
 
+    /**
+     * Nav Component Constructor
+     * @param _auth_service
+     */
     constructor(public _auth_service: AuthService) {
-
+        super();
     }
 
     /**

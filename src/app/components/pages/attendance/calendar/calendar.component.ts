@@ -95,7 +95,7 @@ export class CalendarAttendanceComponent extends ListComponent {
         let end_day = date.endOf('month').weekday();
 
         // adding attendance to skeleton
-        for(let att of this._attendances) {
+        for (let att of this._attendances) {
             att.day = skeleton[moment(att.date, "YYYY-MM-DD").date() - 1].day;
             skeleton[moment(att.date, "YYYY-MM-DD").date() - 1] = att;
         }

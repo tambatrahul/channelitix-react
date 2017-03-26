@@ -1,5 +1,5 @@
 import {ViewChild, ElementRef} from "@angular/core";
-import {BaseAuthComponent} from "./base.component";
+import {BaseAuthComponent} from "./base_auth.component";
 declare let jQuery: any;
 
 

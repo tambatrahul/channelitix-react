@@ -45,14 +45,14 @@ export class TourFormComponent extends FormComponent {
         // set user
         this._user = user;
         this.showTerritory = false;
-        this.headerquarter_id = 0;
+        this.headquarter_id = 0;
         this.territoryChanged(0);
         this.brickChanged(0);
 
         // check if territory to show or not
         if (user.role_id == 3) {
             this.showTerritory = true;
-            this.headerquarter_id = user.hq_headquarter_id;
+            this.headquarter_id = user.hq_headquarter_id;
         } else {
             if (user.role_id != 5)
                 this._manager_id = user.id;
@@ -93,7 +93,7 @@ export class TourFormComponent extends FormComponent {
     /**
      * form fields
      */
-    public headerquarter_id: number = 0;
+    public headquarter_id: number = 0;
     public territory_id: number = 0;
     public brick_id: number = 0;
     public working_with_id: number = 0;
@@ -136,8 +136,8 @@ export class TourFormComponent extends FormComponent {
         this.brickChanged(0);
         this.tourTypeChanged("");
         this.form.patchValue({
-            territory_id: 0,
-            brick_id: 0
+            hq_territory_id: 0,
+            hq_brick_id: 0
         });
         this.errors = {};
     }
@@ -150,6 +150,8 @@ export class TourFormComponent extends FormComponent {
         if (this.form.valid) {
             this.loading = true;
             let data = Object.assign({}, this.form.value);
+            data.hq_brick_id = String(data.hq_brick_id > 0 ? data.hq_brick_id : '');
+            data.hq_territory_id = String(data.hq_territory_id > 0 ? data.hq_territory_id : '');
 
             this.tourService.create(data).subscribe(
                 response => {

@@ -33,9 +33,9 @@ export class CalendarAttendanceStatusDirective {
             this.el.nativeElement.style.backgroundColor = this.not_marked;
         }
 
-        if (att && att.isSunday) {
+        // mark sunday
+        if (att && att.isSunday)
             this.el.nativeElement.style.backgroundColor = this.holiday;
-        }
 
         if (att && att.status) {
 
@@ -48,8 +48,12 @@ export class CalendarAttendanceStatusDirective {
                 this.el.nativeElement.style.backgroundColor = this.holiday;
         }
 
-        if (att && att.isHoliday) {
+        // mark holiday
+        if (att && att.isHoliday)
             this.el.nativeElement.style.backgroundColor = this.holiday;
-        }
+
+        // mark disabled
+        if (att && att.isDisabled)
+            this.el.nativeElement.style.backgroundColor = this.holiday;
     }
 }

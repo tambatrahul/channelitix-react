@@ -5,7 +5,7 @@ import {AttendanceService} from "../../../../services/attendance.service";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {AppConstants} from "../../../../app.constants";
 import {Holiday} from "../../../../models/holiday";
-import {BaseAuthComponent} from "../../../base/base.component";
+import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
 declare let jQuery: any;
 
@@ -97,16 +97,17 @@ export class AttendanceTableComponent extends BaseAuthComponent {
         let data_skeleton = {};
 
         // get skeleton
-        let skeleton = AppConstants.prepareMonthAttendanceSkeleton(this.month, this.year, holidays, null, null);
         for (let user of users) {
-            data_skeleton[user.id] = skeleton.map(att => Object.assign({}, att));
+            data_skeleton[user.id] = AppConstants.prepareMonthAttendanceSkeleton(
+                this.month, this.year, holidays, user.joining_date, user.leaving_date);
         }
 
         // prepare attendance skeleton
         for (let att of attendances) {
             // add user if not present
             if (!data_skeleton.hasOwnProperty(att.created_by)) {
-                data_skeleton[att.created_by] = skeleton.map(att => Object.assign({}, att));
+                data_skeleton[att.created_by] = AppConstants.prepareMonthAttendanceSkeleton(
+                    this.month, this.year, holidays, att.creator.joining_date, att.creator.leaving_date);
                 users.push(new User(att.creator));
             }
 
@@ -120,7 +121,8 @@ export class AttendanceTableComponent extends BaseAuthComponent {
             if (data_skeleton.hasOwnProperty(user.id))
                 user.attendances = data_skeleton[user.id];
             else
-                user.attendances = skeleton.map(att => Object.assign({}, att));
+                user.attendances = AppConstants.prepareMonthAttendanceSkeleton(
+                    this.month, this.year, holidays, user.joining_date, user.leaving_date);
         }
 
         this.users = users;
@@ -166,7 +168,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
     roleChanged(role_id) {
         this.role_id = role_id;
         this.manager_role_id = parseInt(role_id) + 1;
-        this.fetchAttendances();
+        this.managerChanged(0);
     }
 
     /**

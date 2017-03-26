@@ -4,7 +4,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {User} from "../../../../models/user/user";
 import {Message} from "../../../../models/message/message";
 import {FormBuilder} from "@angular/forms";
-import {BaseAuthComponent} from "../../../base/base.component";
+import {BaseAuthComponent} from "../../../base/base_auth.component";
 
 declare let jQuery: any;
 
