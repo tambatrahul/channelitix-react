@@ -26,6 +26,32 @@
 
     <!-- Bricks Table -->
     <div class="row">
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+            <region-select [value]="region_id" [title]="'Select Region'"
+                           (onValueChanged)="regionChanged($event)"></region-select>
+        </div>
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
+            <div *ngIf="region_id > 0">
+                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                             (onValueChanged)="areaChanged($event)"></area-select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+            <div *ngIf="area_id > 0">
+                <headquarter-select [value]="headquarter_id" [area_id]="area_id"
+                                    [title]="'Select Head Quarter'"
+                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
+            <div *ngIf="headquarter_id > 0">
+                <territory-select [value]="territory_id" [headquarter_id]="headquarter_id"
+                                  [title]="'Select Territory'"
+                                  (onValueChanged)="territoryChanged($event)"></territory-select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12">
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
