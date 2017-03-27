@@ -9,7 +9,8 @@
             <div class="task-list-item" *ngFor="let u of users" [ngClass]="{'task-completed': u.id == user.id}">
                 <div class="task-list-action">
                     <div _ngcontent-fxv-34="" class="task-thumb">
-                        <img _ngcontent-fxv-34="" alt="user" src="assets/images/avatar/manager.png">
+                        <img _ngcontent-fxv-34="" alt="user" class="img-circle"
+                             src="assets/images/avatar/manager1.png">
                     </div>
                 </div>
                 <div class="task-list-details" (click)="onUserSelected(u)">

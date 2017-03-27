@@ -80,6 +80,17 @@
                         {{ errors.working_with_id}}
                     </small>
                 </div>
+                <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2">
+                    <div class="form-group">
+                        <label class="control-label">No Of Calls</label>
+                        <div class="">
+                            <input [(ngModel)]="no_of_calls" class="form-control" type="text">
+                            <small *ngIf="errors?.no_of_calls" class="text-danger text-center">
+                                {{ errors.no_of_calls}}
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

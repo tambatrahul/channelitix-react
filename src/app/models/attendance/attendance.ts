@@ -15,6 +15,7 @@ export class Attendance extends Model {
   created_by: number;
   creator: User;
   working_with_id: number;
+  no_of_calls: number;
 
   // for internal use only
   isSunday: boolean = false;
@@ -34,5 +35,6 @@ export class Attendance extends Model {
     this.work_type_id = info.working_with_id;
     this.leave_type_id = info.leave_type_id;
     this.working_with_id = info.working_with_id;
+    this.no_of_calls = info.no_of_calls;
   }
 }
