@@ -8,6 +8,7 @@ export class Message extends Model {
     read: boolean;
     created_at: string;
     created_by: number;
+    unread_count: number;
 
     constructor(info: any) {
         super(info.id);

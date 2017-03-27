@@ -50,4 +50,30 @@ export class MessageService extends BaseService {
     create(message: Message): Observable<Result> {
         return this.post(this.getBaseUrl(), message);
     }
+
+    /**
+     * get all unread count messages for user
+     *
+     * @returns {Observable<Result>}
+     */
+    unreadCounts(): Observable<Result> {
+        // prepare url
+        let url = this.getBaseUrl() + '/unread_counts';
+
+        // make server call
+        return this.get(url);
+    }
+
+    /**
+     * read all messages for user
+     *
+     * @returns {Observable<Result>}
+     */
+    read(user_id: number): Observable<Result> {
+        // prepare url
+        let url = this.getBaseUrl() + '/read/' + user_id;
+
+        // make server call
+        return this.put(url);
+    }
 }

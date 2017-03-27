@@ -34,6 +34,8 @@ export class MessageViewComponent extends BaseAuthComponent {
      */
     @Output()
     messageLoaded = new EventEmitter();
+    @Output()
+    messageRead = new EventEmitter();
 
     /**
      * refresh message list
@@ -53,6 +55,7 @@ export class MessageViewComponent extends BaseAuthComponent {
     set user(user: User) {
         this._user = user;
         this.fetch();
+        this.read();
     }
 
     /**
@@ -87,6 +90,28 @@ export class MessageViewComponent extends BaseAuthComponent {
                     });
 
                     this.messageLoaded.emit();
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        }
+    }
+
+    /**
+     * Read Messages from server
+     */
+    read() {
+        if (this._user && this._user.id) {
+            this.loading = true;
+            this.messageService.read(this._user.id).subscribe(
+                response => {
+                    this.loading = false;
+                    this.messages = response.messages.map(function (message) {
+                        return new Message(message);
+                    });
+
+                    this.messageRead.emit(this._user.id);
                 },
                 err => {
                     this.loading = false;

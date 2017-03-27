@@ -6,19 +6,29 @@
 
         <!-- User list -->
         <div class="task-list apps-panel-scroll" #loading_box>
-            <div class="task-list-item" *ngFor="let u of users" [ngClass]="{'task-completed': u.id == user.id}">
-                <div class="task-list-action">
-                    <div _ngcontent-fxv-34="" class="task-thumb">
-                        <img _ngcontent-fxv-34="" alt="user" class="img-circle"
-                             src="assets/images/avatar/manager1.png">
+            <div>
+                <div class="task-list-item" *ngFor="let u of users"
+                     [ngClass]="{'task-completed': u.id == user.id}">
+                    <div class="task-list-action">
+                        <div _ngcontent-fxv-34="" class="task-thumb">
+                            <img _ngcontent-fxv-34="" alt="user" class="img-circle"
+                                 src="assets/images/avatar/manager1.png">
+                        </div>
                     </div>
-                </div>
-                <div class="task-list-details" (click)="onUserSelected(u)">
-                    <div class="task-intro">
-                        <h4>{{ u.full_name }}</h4>
-                        <p>
-                            {{ u.role.name }}
-                        </p>
+                    <div class="task-list-details" (click)="onUserSelected(u)">
+                        <div class="task-intro">
+                            <div class="col-md-10">
+                                <h4>{{ u.full_name }}</h4>
+                                <p style="font-size: 10px;">
+                                    {{ u.role_str }}
+                                </p>
+                            </div>
+                            <div class="col-md-2 circle" *ngIf="u.unread_count">
+                                <div class="message-circle">
+                                    <span class="size-font">{{ u.unread_count }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,7 +47,9 @@
                 </div>
                 <div class="task-info" #task_info>
                     <template ngIf [ngIf]="user">
-                        <message-view [user]="user" [refresh]="refresh" (messageLoaded)="messagesLoaded($event)"></message-view>
+                        <message-view [user]="user" [refresh]="refresh"
+                                      (messageLoaded)="messagesLoaded($event)"
+                                      (messageRead)="messagesRead($event)"></message-view>
                     </template>
                 </div>
                 <div class="message-form" *ngIf="user">

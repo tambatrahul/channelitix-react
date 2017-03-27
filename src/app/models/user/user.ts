@@ -16,6 +16,7 @@ export class User extends Model {
     role_id: number;
     role_str: string;
     manager_id: number;
+    unread_count: number = 0;
 
     // territory changes
     hq_country_id: number;
