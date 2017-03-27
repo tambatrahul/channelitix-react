@@ -77,6 +77,11 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
+                                <tr *ngIf="bricks.length == 0">
+                                    <td colspan="12" class="text-center">
+                                        No Brick Found
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
