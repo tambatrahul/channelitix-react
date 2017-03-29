@@ -95,6 +95,7 @@ import {MessageViewComponent} from "./components/pages/message/view/message-view
 import {MessageCreateComponent} from "./components/pages/message/create/create.component";
 import {DashBoardCountComponent} from "./components/pages/dashboard/count/count.component";
 import {ReportService} from "./services/report.service";
+import {BroadcastMessageComponent} from "./components/pages/message/broadcast_message/broadcast_message.component";
 
 enableProdMode();
 @NgModule({
@@ -140,6 +141,7 @@ enableProdMode();
         MessageListComponent,
         MessageViewComponent,
         MessageCreateComponent,
+        BroadcastMessageComponent,
         DashBoardCountComponent,
 
         // directives

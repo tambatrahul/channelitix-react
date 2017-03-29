@@ -76,4 +76,14 @@ export class MessageService extends BaseService {
         // make server call
         return this.put(url);
     }
+
+    /**
+     * broadcast message
+     *
+     * @param data
+     * @returns {Observable<Result>}
+     */
+    broadcast(data): Observable<Result> {
+        return this.post(this.getBaseUrl() + '/broadcasts/', data);
+    }
 }
