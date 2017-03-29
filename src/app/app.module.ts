@@ -95,6 +95,10 @@ import {MessageViewComponent} from "./components/pages/message/view/message-view
 import {MessageCreateComponent} from "./components/pages/message/create/create.component";
 import {DashBoardCountComponent} from "./components/pages/dashboard/count/count.component";
 import {ReportService} from "./services/report.service";
+import {RegionComponent} from "./components/pages/territory/region/index.component";
+import {AreaComponent} from "./components/pages/territory/area/index.component";
+import {HeadquarterComponent} from "./components/pages/territory/headquarter/index.component";
+import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
 import {BroadcastMessageComponent} from "./components/pages/message/broadcast_message/broadcast_message.component";
 
 enableProdMode();
@@ -143,6 +147,10 @@ enableProdMode();
         MessageCreateComponent,
         BroadcastMessageComponent,
         DashBoardCountComponent,
+        RegionComponent,
+        AreaComponent,
+        HeadquarterComponent,
+        TerritoryComponent,
 
         // directives
         AttendanceStatusDirective,
