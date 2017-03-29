@@ -26,6 +26,10 @@ import {HeadquarterStpComponent} from "./components/pages/customer/stp/headquart
 import {TerritoryStpComponent} from "./components/pages/customer/stp/territory_stp/territory_stp.component";
 import {BrickStpComponent} from "./components/pages/customer/stp/brick_stp/brick_stp.component";
 import {MessageListComponent} from "./components/pages/message/list/message-list.component";
+import {RegionComponent} from "./components/pages/territory/region/index.component";
+import {AreaComponent} from "./components/pages/territory/area/index.component";
+import {HeadquarterComponent} from "./components/pages/territory/headquarter/index.component";
+import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -126,21 +130,62 @@ export const routes: Routes = [
                 ]
             },
 
-            // add brick routes
+            // add territories routes
             {
-                path: 'bricks',
+                path: 'territories',
                 children: [
                     {
-                        path: '',
-                        component: BrickComponent,
-                    },
-                    {
-                        path: 'create',
-                        component: CreateBrickComponent
-                    },
-                    {
-                        path: 'update/:id',
-                        component: UpdateBrickComponent
+                        path: 'regions',
+                        children: [
+                            {
+                                path: '',
+                                component: RegionComponent,
+                            },
+                            {
+                                path: ':region_id/areas',
+                                children: [
+                                    {
+                                        path: '',
+                                        component: AreaComponent,
+                                    },
+                                    {
+                                        path: ':area_id/headquarters',
+                                        children: [
+                                            {
+                                                path: '',
+                                                component: HeadquarterComponent,
+                                            },
+                                            {
+                                                path: ':headquarter_id/territories',
+                                                children: [
+                                                    {
+                                                        path: '',
+                                                        component: TerritoryComponent,
+                                                    },
+                                                    {
+                                                        path: ':territory_id/bricks',
+                                                        children: [
+                                                            {
+                                                                path: '',
+                                                                component: BrickComponent
+                                                            },
+                                                            {
+                                                                path: 'create',
+                                                                component: CreateBrickComponent
+                                                            },
+                                                            {
+                                                                path: 'update/:id',
+                                                                component: UpdateBrickComponent
+                                                            },
+                                                        ]
+                                                    },
+                                                ]
+                                            },
+                                        ]
+                                    },
+                                ]
+                            },
+                        ]
                     },
                 ]
             },

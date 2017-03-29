@@ -12,6 +12,8 @@ export class Territory extends Model {
     customer_types: CustomerType[];
     total: number = 0;
 
+    bricks_count: number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
@@ -21,5 +23,8 @@ export class Territory extends Model {
 
         this.customer_types = info.customer_types;
         this.total = info.total;
+
+        if (info.bricks_count)
+            this.bricks_count = info.bricks_count.aggregate;
     }
 }

@@ -11,6 +11,11 @@ export class Region extends Model {
     customer_types: CustomerType[];
     total: number = 0;
 
+    areas_count: number = 0;
+    territories_count: number = 0;
+    headquarters_count: number = 0;
+    bricks_count: number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
@@ -19,5 +24,17 @@ export class Region extends Model {
         if (info.hq_country) {
             this.hq_country = new Country(info.hq_country);
         }
+
+        if (info.areas_count)
+            this.areas_count = info.areas_count.aggregate;
+
+        if (info.territories_count)
+            this.territories_count = info.territories_count.aggregate;
+
+        if (info.headquarters_count)
+            this.headquarters_count = info.headquarters_count.aggregate;
+
+        if (info.bricks_count)
+            this.bricks_count = info.bricks_count.aggregate;
     }
 }

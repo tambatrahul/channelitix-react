@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {BaseService} from "./base.service";
 import {Router} from "@angular/router";
@@ -30,13 +30,17 @@ export class BrickService extends BaseService {
     /**
      * get all bricks user
      */
-    bricks(): Observable<Result> {
+    bricks(territory_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl();
 
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
+
         // make server call
-        return this.get(url);
+        return this.get(url, new RequestOptions({search: params}));
     }
 
     /**
