@@ -57,7 +57,7 @@ export class LoginComponent extends FormComponent {
                     localStorage.setItem("user", JSON.stringify(response.user));
                     this._service.user = new User(response.user);
 
-                    if (response.user.role_id == 6)
+                    if (response.user.role_str != this.ROLE_CSE)
                         this._router.navigate(['/attendances']);
                     else
                         this._router.navigate(['/attendances/monthly']);

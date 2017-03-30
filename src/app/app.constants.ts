@@ -8,7 +8,7 @@ import {Tour} from "./models/tour_program/tour";
 import {CustomerType} from "./models/customer/customer_type";
 
 export class AppConstants {
-    // static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
+    //static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
     static API_ENDPOINT: string = '/api/v1/';
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 

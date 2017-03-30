@@ -4,6 +4,7 @@ import {ListComponent} from "../../../../base/list.component";
 import {Brick} from "../../../../../models/territory/brick";
 import {BrickService} from "../../../../../services/brick.service";
 import {AuthService} from "../../../../../services/AuthService";
+import {TerritoryService} from "../../../../../services/territory.service";
 
 
 @Component({
@@ -30,7 +31,7 @@ export class BrickComponent extends ListComponent {
     /**
      * User Component Constructor
      */
-    constructor(private brickService: BrickService, public _router: Router,
+    constructor(private territoryService: TerritoryService, public _router: Router,
                 public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
     }
@@ -45,7 +46,7 @@ export class BrickComponent extends ListComponent {
             this._headquarter_id = params['headquarter_id'];
             this._territory_id = params['territory_id'];
             this.loading = true;
-            this.brickService.bricks(this._territory_id).subscribe(
+            this.territoryService.brick(this._territory_id).subscribe(
                 response => {
                     this.loading = false;
                     this.bricks = response.bricks;
