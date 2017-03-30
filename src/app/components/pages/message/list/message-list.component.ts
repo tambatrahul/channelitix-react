@@ -32,7 +32,7 @@ export class MessageListComponent extends BaseAuthComponent {
     /**
      * Broadcast message users
      */
-    public broadcast_message_users: User = new User({});
+    public broadcast_message_users: User[];
 
     /**
      * users
@@ -194,7 +194,6 @@ export class MessageListComponent extends BaseAuthComponent {
      *
      */
     broadcastMessage(users) {
-        console.log(users);
         this.broadcast_message_users = users;
     }
 }

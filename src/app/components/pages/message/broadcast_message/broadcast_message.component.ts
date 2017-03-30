@@ -15,6 +15,9 @@ declare let swal: any;
 })
 export class BroadcastMessageComponent extends FormComponent {
 
+    /**
+     * list of users
+     */
     private _users: User;
 
     /**
