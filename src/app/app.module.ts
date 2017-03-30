@@ -100,6 +100,7 @@ import {AreaComponent} from "./components/pages/territory/area/index.component";
 import {HeadquarterComponent} from "./components/pages/territory/headquarter/index.component";
 import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
 import {GroupCountTableComponent} from "./components/pages/attendance/count/count.component";
+import {BroadcastMessageComponent} from "./components/pages/message/broadcast_message/broadcast_message.component";
 
 enableProdMode();
 @NgModule({
@@ -145,6 +146,7 @@ enableProdMode();
         MessageListComponent,
         MessageViewComponent,
         MessageCreateComponent,
+        BroadcastMessageComponent,
         DashBoardCountComponent,
         RegionComponent,
         AreaComponent,
