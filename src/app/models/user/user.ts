@@ -35,6 +35,8 @@ export class User extends Model {
     visits = [];
     orders = [];
     tours: Tour[] = [];
+    children: User[] = [];
+    cse_count: number = 0;
 
     constructor(info: any) {
         super(info.id);

@@ -22,6 +22,7 @@ export class Attendance extends Model {
   isHoliday: boolean = false;
   isDisabled: boolean = false;
   day: number;
+  att_count: number = 0;
 
   constructor(info: any) {
     super(info.id);

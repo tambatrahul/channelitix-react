@@ -99,6 +99,7 @@ import {RegionComponent} from "./components/pages/territory/region/index.compone
 import {AreaComponent} from "./components/pages/territory/area/index.component";
 import {HeadquarterComponent} from "./components/pages/territory/headquarter/index.component";
 import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
+import {GroupCountTableComponent} from "./components/pages/attendance/count/count.component";
 
 enableProdMode();
 @NgModule({
@@ -149,6 +150,7 @@ enableProdMode();
         AreaComponent,
         HeadquarterComponent,
         TerritoryComponent,
+        GroupCountTableComponent,
 
         // directives
         AttendanceStatusDirective,

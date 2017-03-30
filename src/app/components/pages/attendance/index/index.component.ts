@@ -38,7 +38,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
      * Compact view flag
      * @type {boolean}
      */
-    public compact_view: boolean = false;
+    public compact_view: boolean = true;
 
     /**
      * get date range
@@ -66,7 +66,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
      *
      * @type {{}}
      */
-    public users: User[] = [];
+    public managers: User[] = [];
 
     /**
      * Attendance Component Constructor
@@ -95,6 +95,8 @@ export class AttendanceTableComponent extends BaseAuthComponent {
      */
     addAttendanceToSkeleton(users: User[], attendances: Attendance[], holidays: Holiday[]) {
         let data_skeleton = {};
+        let managers: User[] = [];
+        let zone_managers: User[] = [];
 
         // get skeleton
         for (let user of users) {
@@ -112,6 +114,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
             }
 
             // set attendance details
+            data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].id = att.id;
             data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].status = att.status;
             data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].work_type = att.work_type;
         }
@@ -123,9 +126,63 @@ export class AttendanceTableComponent extends BaseAuthComponent {
             else
                 user.attendances = AppConstants.prepareMonthAttendanceSkeleton(
                     this.month, this.year, holidays, user.joining_date, user.leaving_date);
+
+            // separate csm and zsm
+            if (user.role_str == this.ROLE_CSM) {
+                managers.push(user);
+            } else if (user.role_str == this.ROLE_ZSM) {
+                zone_managers.push(user);
+            }
         }
 
-        this.users = users;
+        // if user is zone manager add it to list
+        if (this._authService.user.role_str == this.ROLE_ZSM) {
+            this._authService.user.attendances = AppConstants.prepareMonthAttendanceSkeleton(
+                this.month, this.year, holidays, null, null);
+            this._authService.user.children = [];
+            zone_managers.push(this._authService.user)
+        }
+
+        // if user is zone manager add it to list
+        if (this._authService.user.role_str == this.ROLE_CSM) {
+            this._authService.user.attendances = AppConstants.prepareMonthAttendanceSkeleton(
+                this.month, this.year, holidays, null, null);
+            this._authService.user.children = [];
+            managers.push(this._authService.user)
+        }
+
+        // add children to managers
+        for (let u of users) {
+            for (let m of managers) {
+                if (u.manager_id == m.id) {
+                    m.children.push(u);
+                    u.attendances.forEach(function (att, index) {
+                        if (att.id) {
+                            m.attendances[index].att_count += 1;
+                        }
+                    });
+                }
+            }
+        }
+
+        // add to zone manager
+        for (let z of zone_managers) {
+            for (let m of managers) {
+                if (m.manager_id == z.id) {
+                    z.children.push(m);
+                    m.attendances.forEach(function (att, index) {
+                        z.attendances[index].att_count += att.att_count;
+                    });
+                    z.cse_count += m.children.length
+                }
+            }
+        }
+
+        // depending on list show view
+        if (zone_managers.length > 0)
+            this.managers = zone_managers;
+        else
+            this.managers = managers;
     }
 
     /**
