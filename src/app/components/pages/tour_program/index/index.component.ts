@@ -43,6 +43,19 @@ export class TourComponent extends BaseMonthlyComponent {
     public user: User;
 
     /**
+     * Compact view flag
+     * @type {boolean}
+     */
+    public compact_view: boolean = true;
+
+    /**
+     * users
+     *
+     * @type {{}}
+     */
+    public managers: User[] = [];
+
+    /**
      * User Component Constructor
      *
      * @param tourService
@@ -66,6 +79,8 @@ export class TourComponent extends BaseMonthlyComponent {
     addTourToSkeleton(children: User[], tours: Tour[], holidays: Holiday[]) {
         let data_skeleton = {};
         let users: User[] = [];
+        let managers: User[] = [];
+        let zone_managers: User[] = [];
 
         let skeleton: Array<Tour> = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
 
@@ -91,7 +106,62 @@ export class TourComponent extends BaseMonthlyComponent {
         // add skeleton to user
         for (let user of users) {
             user.tours = data_skeleton[user.id];
+
+            // separate csm and zsm
+            if (user.role_str == this.ROLE_CSM) {
+                managers.push(user);
+            } else if (user.role_str == this.ROLE_ZSM) {
+                zone_managers.push(user);
+            }
         }
+
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_ZSM) {
+            this._service.user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
+            this._service.user.children = [];
+            zone_managers.push(this._service.user)
+        }
+
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_CSM) {
+            this._service.user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
+            this._service.user.children = [];
+            managers.push(this._service.user)
+        }
+
+        // add children to managers
+        for (let m of managers) {
+            m.children = [];
+            for (let u of users) {
+                if (u.manager_id == m.id) {
+                    m.children.push(u);
+                    u.tours.forEach(function (tour, index) {
+                        if (tour.tour_count > 0) {
+                            m.tours[index].t_count += 1;
+                        }
+                    });
+                }
+            }
+        }
+
+        // add to zone manager
+        for (let z of zone_managers) {
+            for (let m of managers) {
+                if (m.manager_id == z.id) {
+                    z.children.push(m);
+                    m.tours.forEach(function (tour, index) {
+                        z.tours[index].t_count += tour.t_count;
+                    });
+                    z.cse_count += m.children.length
+                }
+            }
+        }
+
+        // depending on list show view
+        if (zone_managers.length > 0)
+            this.managers = zone_managers;
+        else
+            this.managers = managers;
 
         this.users = users;
     }
@@ -181,5 +251,12 @@ export class TourComponent extends BaseMonthlyComponent {
         let date = moment(this.tour.date, "YYYY-MM-DD").date();
         this.fetchTours(this.tour.user, date);
         this.fetch();
+    }
+
+    /**
+     * Toggle compact view
+     */
+    toggleCompactView() {
+        this.compact_view = !this.compact_view;
     }
 }

@@ -23,6 +23,7 @@ export class Tour extends Model {
     isHoliday: boolean = false;
     tour_count: number;
     tour_day: number;
+    t_count: number = 0;
 
     constructor(info: any) {
         super(info.id);
