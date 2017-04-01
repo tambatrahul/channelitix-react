@@ -140,6 +140,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
             this._authService.user.attendances = AppConstants.prepareMonthAttendanceSkeleton(
                 this.month, this.year, holidays, null, null);
             this._authService.user.children = [];
+            this._authService.user.cse_count = 0;
             zone_managers.push(this._authService.user)
         }
 

@@ -49,6 +49,9 @@
                                             <th style="min-width: 200px;">
                                                 Users
                                             </th>
+                                            <th *ngIf="!compact_view">
+                                                Headquarter
+                                            </th>
                                             <th *ngIf="!compact_view"></th>
                                             <th *ngIf="compact_view">CSE Count</th>
                                             <th *ngFor="let d of dates">
@@ -80,6 +83,7 @@
                                             </tr>
                                             <tr *ngFor="let user of mg.children">
                                                 <td>{{ user.full_name }}</td>
+                                                <td>{{ user.hq_headquarter?.name }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>
@@ -161,6 +165,7 @@
                                             <tbody>
                                             <tr *ngFor="let user of mg.children">
                                                 <td>{{ user.full_name }}</td>
+                                                <td>{{ user.hq_headquarter?.name }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>

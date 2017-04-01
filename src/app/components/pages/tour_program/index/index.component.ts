@@ -119,6 +119,7 @@ export class TourComponent extends BaseMonthlyComponent {
         if (this._service.user.role_str == this.ROLE_ZSM) {
             this._service.user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
             this._service.user.children = [];
+            this._service.user.cse_count = 0;
             zone_managers.push(this._service.user)
         }
 

@@ -50,7 +50,7 @@ export class TourFormComponent extends FormComponent {
         this.brickChanged(0);
 
         // check if territory to show or not
-        if (user.role_id == 3) {
+        if (user.role_str == this.ROLE_CSE) {
             this.showTerritory = true;
             this.headquarter_id = user.hq_headquarter_id;
         } else {

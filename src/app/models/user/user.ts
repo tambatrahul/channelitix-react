@@ -2,6 +2,7 @@ import {Model} from "../model";
 import {Attendance} from "../attendance/attendance";
 import {AppConstants} from "../../app.constants";
 import {Tour} from "../tour_program/tour";
+import {Headquarter} from "../territory/headquarter";
 
 export class User extends Model {
 
@@ -25,6 +26,7 @@ export class User extends Model {
     hq_headquarter_id: number;
     hq_territory_id: number;
     hq_brick_id: number;
+    hq_headquarter: Headquarter;
 
 
     // manager
@@ -59,6 +61,8 @@ export class User extends Model {
         this.hq_brick_id = info.hq_brick_id;
         this.hq_country_id = info.hq_country_id;
         this.manager_id = info.manager_id;
+        if (info.hq_headquarter)
+            this.hq_headquarter = new Headquarter(info.hq_headquarter)
     }
 
     /**

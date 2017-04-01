@@ -48,6 +48,7 @@
                                 <thead>
                                 <tr>
                                     <th>Full Name</th>
+                                    <th>Headquarter</th>
                                     <th>Username</th>
                                     <th>Mobile</th>
                                     <th>Joining Date</th>
@@ -60,6 +61,7 @@
                                 <tfoot>
                                 <tr>
                                     <th>Full Name</th>
+                                    <th>Headquarter</th>
                                     <th>Username</th>
                                     <th>Mobile</th>
                                     <th>Joining Date</th>
@@ -72,6 +74,7 @@
                                 <tbody>
                                 <tr *ngFor="let u of users">
                                     <td>{{ u.full_name }}</td>
+                                    <td>{{ u.hq_headquarter?.name }}</td>
                                     <td>{{ u.username }}</td>
                                     <td>{{ u.mobile }}</td>
                                     <td>{{ u.joining_date | date:'d MMMM, y' }}</td>
