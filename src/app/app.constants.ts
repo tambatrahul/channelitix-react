@@ -29,14 +29,6 @@ export class AppConstants {
         'HQ', 'OS', 'EX'
     ];
 
-    // tour types
-    static FIELD_WORK = 'Field Work';
-    static MEETING = 'Meeting';
-    static TRANSIT = 'Transit';
-    static tour_types: Array<string> = [
-        AppConstants.FIELD_WORK, AppConstants.MEETING, AppConstants.TRANSIT, AppConstants.LEAVE, AppConstants.HOLIDAY
-    ];
-
     // week days
     static week_days: Array<string> = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -50,6 +42,14 @@ export class AppConstants {
     static MONTHLY: string = 'month';
     static YEARLY: string = 'year';
     static date_types: Array<string> = ['day', 'month'];
+
+    // tour types
+    static FIELD_WORK = 'Field Work';
+    static MEETING = 'Meeting';
+    static TRANSIT = 'Transit';
+    static tour_types: Array<string> = [
+        AppConstants.FIELD_WORK, AppConstants.MEETING, AppConstants.TRANSIT, AppConstants.LEAVE, AppConstants.HOLIDAY
+    ];
 
     /**
      * get list of all child roles
