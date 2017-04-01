@@ -53,6 +53,9 @@
                                                 <th style="min-width: 200px;">
                                                     Users
                                                 </th>
+                                                <th *ngIf="!compact_view">
+                                                    Headquarter
+                                                </th>
                                                 <th *ngIf="!compact_view"></th>
                                                 <th *ngIf="compact_view">CSE Count</th>
                                                 <th *ngFor="let d of dates">
@@ -84,6 +87,7 @@
                                                 </tr>
                                                 <tr *ngFor="let user of mg.children">
                                                     <td>{{ user.full_name }}</td>
+                                                    <td>{{ user.hq_headquarter?.name }}</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
@@ -145,6 +149,9 @@
                                                 <th style="min-width: 200px;">
                                                     Users
                                                 </th>
+                                                <th>
+                                                    Headquarter
+                                                </th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -166,6 +173,7 @@
 
                                             <tbody>
                                             <tr *ngFor="let user of z.children">
+                                                <td>{{ user.full_name }}</td>
                                                 <td>{{ user.full_name }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
