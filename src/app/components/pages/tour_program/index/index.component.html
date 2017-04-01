@@ -46,12 +46,8 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th style="min-width: 200px;">
-                                                Users
-                                            </th>
-                                            <th *ngIf="!compact_view">
-                                                Headquarter
-                                            </th>
+                                            <th style="min-width: 200px;">Users</th>
+                                            <th *ngIf="!compact_view">Headquarter</th>
                                             <th *ngIf="!compact_view"></th>
                                             <th *ngIf="compact_view">CSE Count</th>
                                             <th *ngFor="let d of dates">
@@ -62,9 +58,8 @@
 
                                         <tfoot>
                                         <tr>
-                                            <th>
-                                                Users
-                                            </th>
+                                            <th>Users</th>
+                                            <th *ngIf="!compact_view">Headquarter</th>
                                             <th *ngIf="!compact_view"></th>
                                             <th *ngIf="compact_view">CSE Count</th>
                                             <th *ngFor="let d of dates">
