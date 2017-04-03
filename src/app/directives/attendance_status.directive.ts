@@ -1,6 +1,7 @@
 import {Directive, ElementRef} from "@angular/core";
 import {Attendance} from "../models/attendance/attendance";
 import {AppConstants} from "../app.constants";
+import {isUndefined} from "util";
 
 
 @Directive({
@@ -35,7 +36,19 @@ export class AttendanceStatusDirective {
 
         if (att.status) {
             // set text value
-            this.el.nativeElement.innerText = att.status.charAt(0).toUpperCase();
+            if (att.status == AppConstants.WORKING) {
+                if (att.work_type.name == AppConstants.FIELD_WORK) {
+                    console.log(att.no_of_calls);
+                    if (!isUndefined(att.no_of_calls) && att.no_of_calls)
+                        this.el.nativeElement.innerText = att.no_of_calls;
+                    else
+                        this.el.nativeElement.innerText = 0;
+                } else {
+                    this.el.nativeElement.innerText = att.work_type.name.charAt(0).toUpperCase();
+                }
+            } else {
+                this.el.nativeElement.innerText = att.status.charAt(0).toUpperCase();
+            }
 
             // set background color depending on status
             if (att.status == AppConstants.LEAVE)

@@ -101,6 +101,8 @@ import {HeadquarterComponent} from "./components/pages/territory/headquarter/ind
 import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
 import {GroupCountTableComponent} from "./components/pages/attendance/count/count.component";
 import {BroadcastMessageComponent} from "./components/pages/message/broadcast_message/broadcast_message.component";
+import {SecondarySaleComponent} from "./components/pages/sale/index/index.component";
+import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
 
 enableProdMode();
 @NgModule({
@@ -153,6 +155,8 @@ enableProdMode();
         HeadquarterComponent,
         TerritoryComponent,
         GroupCountTableComponent,
+        SecondarySaleComponent,
+        SecondarySaleCreateComponent,
 
         // directives
         AttendanceStatusDirective,

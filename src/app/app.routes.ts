@@ -30,6 +30,8 @@ import {RegionComponent} from "./components/pages/territory/region/index.compone
 import {AreaComponent} from "./components/pages/territory/area/index.component";
 import {HeadquarterComponent} from "./components/pages/territory/headquarter/index.component";
 import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
+import {SecondarySaleComponent} from "./components/pages/sale/index/index.component";
+import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -87,7 +89,6 @@ export const routes: Routes = [
                         path: 'update/:id',
                         component: UpdateUserComponent
                     },
-
                 ]
             },
 
@@ -222,6 +223,24 @@ export const routes: Routes = [
                     {
                         path: '',
                         component: MessageListComponent,
+                    },
+                ]
+            },
+            {
+                path: 'sales',
+                children: [
+                    {
+                        path: 'secondary',
+                        children: [
+                            {
+                                path: '',
+                                component: SecondarySaleComponent
+                            },
+                            {
+                                path: 'create/:id',
+                                component: SecondarySaleCreateComponent
+                            }
+                        ]
                     },
                 ]
             },

@@ -117,6 +117,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
             data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].id = att.id;
             data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].status = att.status;
             data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].work_type = att.work_type;
+            data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].no_of_calls = att.no_of_calls;
         }
 
         // add skeleton to user
