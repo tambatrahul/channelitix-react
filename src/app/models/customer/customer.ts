@@ -2,6 +2,8 @@ import {Model} from "../model";
 import {CustomerType} from "./customer_type";
 import {Grade} from "./grade";
 import {Address} from "cluster";
+import {Brick} from "../territory/brick";
+import {Territory} from "../territory/territory";
 
 export class Customer extends Model {
 
@@ -22,6 +24,10 @@ export class Customer extends Model {
     hq_region_id: number;
     address: Address;
 
+    brick: Brick;
+    territory: Territory;
+
+
     constructor(info: any) {
         super(info.id);
         this.firm_name = info.firm_name;
@@ -40,5 +46,13 @@ export class Customer extends Model {
         this.hq_area_id = info.hq_area_id;
         this.hq_region_id = info.hq_region_id;
         this.address = info.address;
+
+        // add brick
+        if (info.brick)
+            this.brick = new Brick(info.brick);
+
+        // add territory
+        if (info.territory)
+            this.territory = new Territory(info.territory);
     }
 }

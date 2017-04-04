@@ -47,7 +47,7 @@ export class TourService extends BaseService {
     /**
      * get tour report
      */
-    forChildren(month: number, year: number, user_id: number, date: number): Observable<Result> {
+    forChildren(month: number, year: number, user_id: number, date?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year;

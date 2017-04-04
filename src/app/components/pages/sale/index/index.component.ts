@@ -7,13 +7,16 @@ import {AuthService} from "../../../../services/AuthService";
 import {Holiday} from "../../../../models/holiday";
 import {OrderService} from "../../../../services/order.service";
 import {Order} from "../../../../models/order/order";
+import {ListComponent} from "../../../base/list.component";
+import {SecondarySale} from "../../../../models/sale/secondary_sale";
+import {SecondarySaleService} from "../../../../services/sale.service";
 declare let jQuery: any;
 
 @Component({
     templateUrl: 'index.component.html',
     styleUrls: ['index.component.less']
 })
-export class SecondarySaleComponent extends BaseAuthComponent {
+export class SecondarySaleComponent extends ListComponent {
 
     /**
      * year and month for calendar
@@ -31,10 +34,17 @@ export class SecondarySaleComponent extends BaseAuthComponent {
     }
 
     /**
+     * secondary sales
+     *
+     * @type {Array}
+     */
+    public secondary_sales: SecondarySale[] = [];
+
+    /**
      * User Component Constructor
      *
      */
-    constructor(private orderService: OrderService, public _service: AuthService) {
+    constructor(private saleService: SecondarySaleService, public _service: AuthService) {
         super(_service);
     }
 
@@ -45,6 +55,26 @@ export class SecondarySaleComponent extends BaseAuthComponent {
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
+    }
+
+    /**
+     * fetch customer secondary sales from server
+     */
+    fetch() {
+        this.loading = true;
+        this.saleService.monthly(this.month + 1, this.year).subscribe(
+            response => {
+                this.loading = false;
+
+                // convert to models
+                this.secondary_sales = response.secondary_sales.map(function (user, index) {
+                    return new SecondarySale(user);
+                });
+            },
+            err => {
+                this.loading = false;
+            }
+        );
     }
 
     /**

@@ -17,6 +17,7 @@ import {Tour} from "./tour_program/tour";
 import {Grade} from "./customer/grade";
 import {Stp} from "./customer/stp";
 import {Message} from "./message/message";
+import {SecondarySale} from "./sale/secondary_sale";
 
 export class Result {
 
@@ -70,6 +71,9 @@ export class Result {
 
     // stps
     stps: Stp[];
+
+    // secondary sales
+    secondary_sales: SecondarySale[];
 
     // get total counts for reports
     total_users: number = 0;

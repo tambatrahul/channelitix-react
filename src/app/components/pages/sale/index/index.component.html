@@ -58,48 +58,12 @@
                                 </tfoot>
 
                                 <tbody>
-                                <tr>
-                                    <td>Ashok Pharma</td>
-                                    <td>Brick 1</td>
-                                    <td>Territory 1</td>
+                                <tr *ngFor="ss in secondary_sales">
+                                    <td>{{ ss.customer.firm_name}}</td>
+                                    <td>{{ ss.customer.brick.name}}</td>
+                                    <td>{{ ss.customer.territory.name}}</td>
                                     <td class="text-center">
                                         <span><i class="green fa fa-check-circle"></i></span>
-                                    </td>
-                                    <td>
-                                        <a [routerLink]="['/sales/secondary/create', 1]"
-                                           class="btn btn-xs btn-default">UPDATE</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Vishal Pharma</td>
-                                    <td>Brick 1</td>
-                                    <td>Territory 1</td>
-                                    <td class="text-center">
-                                        <span><i class="green fa fa-check-circle"></i></span>
-                                    </td>
-                                    <td>
-                                        <a [routerLink]="['/sales/secondary/create', 1]"
-                                           class="btn btn-xs btn-default">UPDATE</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Ankur Medicos</td>
-                                    <td>Brick 1</td>
-                                    <td>Territory 1</td>
-                                    <td class="text-center">
-                                        <span><i class="red fa fa-times-circle"></i></span>
-                                    </td>
-                                    <td>
-                                        <a [routerLink]="['/sales/secondary/create', 1]"
-                                           class="btn btn-xs btn-default">UPDATE</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amir Pharma</td>
-                                    <td>Brick 1</td>
-                                    <td>Territory 1</td>
-                                    <td class="text-center">
-                                        <span><i class="red fa fa-times-circle"></i></span>
                                     </td>
                                     <td>
                                         <a [routerLink]="['/sales/secondary/create', 1]"

@@ -103,6 +103,7 @@ import {GroupCountTableComponent} from "./components/pages/attendance/count/coun
 import {BroadcastMessageComponent} from "./components/pages/message/broadcast_message/broadcast_message.component";
 import {SecondarySaleComponent} from "./components/pages/sale/index/index.component";
 import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
+import {SecondarySaleService} from "./services/sale.service";
 
 enableProdMode();
 @NgModule({
@@ -220,7 +221,8 @@ enableProdMode();
         TourService,
         MessageService,
         ReportService,
-        StpService
+        StpService,
+        SecondarySaleService
     ],
     bootstrap: [AppComponent]
 })
