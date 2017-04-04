@@ -49,6 +49,7 @@ export class BrickService extends BaseService {
     read(id: number): Observable<Result> {
         return this.get(this.getBaseUrl() + '/' + id);
     }
+
     /**
      * Create new brick
      */
@@ -61,5 +62,12 @@ export class BrickService extends BaseService {
      */
     update(brick: Brick, id: number): Observable<Result> {
         return this.put(this.getBaseUrl() + '/' + id, brick)
+    }
+
+    /**
+     * get all bricks user
+     */
+    brick_excel_download(): Observable<Result> {
+        return this.get(this.getBaseUrl() + '/excel/download');
     }
 }

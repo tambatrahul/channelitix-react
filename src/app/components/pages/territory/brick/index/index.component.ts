@@ -31,8 +31,8 @@ export class BrickComponent extends ListComponent {
     /**
      * User Component Constructor
      */
-    constructor(private territoryService: TerritoryService, public _router: Router,
-                public _service: AuthService, public route: ActivatedRoute) {
+    constructor(private territoryService: TerritoryService,private brickService: BrickService,
+                public _router: Router,public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
     }
 
@@ -50,6 +50,23 @@ export class BrickComponent extends ListComponent {
                 response => {
                     this.loading = false;
                     this.bricks = response.bricks;
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        });
+    }
+
+    /**
+     * Download Excel For Bricks
+     */
+    excel_download(){
+        this.route.params.subscribe(params => {
+            this.loading = true;
+            this.brickService.brick_excel_download().subscribe(
+                response => {
+                    this.loading = false;
                 },
                 err => {
                     this.loading = false;
