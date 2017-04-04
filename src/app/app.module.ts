@@ -104,6 +104,7 @@ import {BroadcastMessageComponent} from "./components/pages/message/broadcast_me
 import {SecondarySaleComponent} from "./components/pages/sale/index/index.component";
 import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
 import {SecondarySaleService} from "./services/sale.service";
+import {UserWiseTourProgramComponent} from "./components/pages/tour_program/user_wise/user_wise.component";
 
 enableProdMode();
 @NgModule({
@@ -136,6 +137,7 @@ enableProdMode();
         CalendarTourComponent,
         MonthlyTourProgramComponent,
         TourFormComponent,
+        UserWiseTourProgramComponent,
         DailyTourProgramComponent,
         CreateCustomerComponent,
         UpdateCustomerComponent,
