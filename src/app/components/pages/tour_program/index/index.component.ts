@@ -23,6 +23,12 @@ export class TourComponent extends BaseMonthlyComponent {
     tour_program_modal: ElementRef;
 
     /**
+     * user tour program modal loading identifier
+     */
+    @ViewChild('user_tour_program_modal')
+    user_tour_program_modal: ElementRef;
+
+    /**
      * users
      *
      * @type {{}}
@@ -56,6 +62,12 @@ export class TourComponent extends BaseMonthlyComponent {
     public managers: User[] = [];
 
     /**
+     * show all for selected user
+     * @type {boolean}
+     */
+    public show_all: boolean = false;
+
+    /**
      * User Component Constructor
      *
      * @param tourService
@@ -82,6 +94,7 @@ export class TourComponent extends BaseMonthlyComponent {
         let managers: User[] = [];
         let zone_managers: User[] = [];
 
+        // tour skeleton
         let skeleton: Array<Tour> = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
 
         // add active children
@@ -259,5 +272,14 @@ export class TourComponent extends BaseMonthlyComponent {
      */
     toggleCompactView() {
         this.compact_view = !this.compact_view;
+    }
+
+    /**
+     * show all tour for user
+     * @param user
+     */
+    showAllTourForUser(user: User) {
+        this.user = user;
+        jQuery(this.user_tour_program_modal.nativeElement).modal();
     }
 }

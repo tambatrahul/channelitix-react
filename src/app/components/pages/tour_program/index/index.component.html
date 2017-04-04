@@ -77,7 +77,9 @@
                                                 </td>
                                             </tr>
                                             <tr *ngFor="let user of mg.children">
-                                                <td>{{ user.full_name }}</td>
+                                                <td>
+                                                    <a (click)="showAllTourForUser(user)">{{ user.full_name }}</a>
+                                                </td>
                                                 <td>{{ user.hq_headquarter?.name }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
@@ -162,7 +164,9 @@
 
                                             <tbody>
                                             <tr *ngFor="let user of mg.children">
-                                                <td>{{ user.full_name }}</td>
+                                                <td>
+                                                    <a (click)="showAllTourForUser(user)">{{ user.full_name }}</a>
+                                                </td>
                                                 <td>{{ user.hq_headquarter?.name }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
@@ -195,6 +199,27 @@
                             <daily-tour [tour]="tour" (tourDeleted)="tourDeleted($event)"></daily-tour>
                         </div>
                         <add-tour [date]="tour.date" [user]="user" (tourCreated)="tourCreated($event)"></add-tour>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" #user_tour_program_modal>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Create Tour View -->
+                <div class="row">
+                    <!-- Tour Table -->
+                    <div class="col-xs-12" *ngIf="user">
+                        <div>
+                            <user-wise-tour [month]="month" [year]="year" [user]="user"></user-wise-tour>
+                        </div>
                     </div>
                     <!-- ./Tour Table -->
                 </div>

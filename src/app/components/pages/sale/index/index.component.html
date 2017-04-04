@@ -58,7 +58,7 @@
                                 </tfoot>
 
                                 <tbody>
-                                <!--<tr *ngFor="ss in secondary_sales">
+                                <tr *ngFor="let ss of secondary_sales">
                                     <td>{{ ss.customer.firm_name}}</td>
                                     <td>{{ ss.customer.brick.name}}</td>
                                     <td>{{ ss.customer.territory.name}}</td>
@@ -69,7 +69,7 @@
                                         <a [routerLink]="['/sales/secondary/create', 1]"
                                            class="btn btn-xs btn-default">UPDATE</a>
                                     </td>
-                                </tr>-->
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

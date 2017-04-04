@@ -1,0 +1,56 @@
+<div class="box-widget widget-module user_tour">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-table"></i></span>
+        <h4>Tours for <span [innerHTML]="title"></span></h4>
+    </div>
+    <div class="widget-container" #loading_box>
+        <div class="widget-block">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Territory</th>
+                        <th>Brick</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Territory</th>
+                        <th>Brick</th>
+                        <th>Actions</th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    <template ngFor let-t [ngForOf]="tours">
+                        <tr *ngFor="let tour of t.tours; let index = index">
+                            <td [rowSpan]="t.tours.length" *ngIf="index == 0">
+                                <strong>{{ t.date | date:'d MMMM, y' }}</strong>
+                            </td>
+                            <td>{{ tour.type }}</td>
+                            <td>{{ tour.hq_territory?.name }}</td>
+                            <td>{{ tour.hq_brick?.name }}</td>
+                            <td>
+                                <!--<button class="btn btn-danger btn-xs" (click)="deleteTour(t)">-->
+                                <!--Delete-->
+                                <!--</button>-->
+                            </td>
+                        </tr>
+                        <tr *ngIf="t.tours.length <= 0">
+                            <td><strong>{{ t.date | date:'d MMMM, y' }}</strong></td>
+                            <td colspan="4">No Tours</td>
+                        </tr>
+                    </template>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
