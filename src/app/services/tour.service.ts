@@ -100,4 +100,16 @@ export class TourService extends BaseService {
     destroy(id: number): Observable<Result> {
         return this.remove(this.getBaseUrl() + '/' + id);
     }
+
+    /**
+     * monthly tour download
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    tour_excel_download(month: number, year: number): Observable<Result> {
+        // make server call
+        return this.get(this.getBaseUrl() + '/excel/download/' + month + "/" + year);
+    }
 }
