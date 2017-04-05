@@ -238,7 +238,7 @@ export const routes: Routes = [
                                 component: SecondarySaleComponent
                             },
                             {
-                                path: 'create/:id',
+                                path: 'create/:month/:year/:id',
                                 component: SecondarySaleCreateComponent
                             }
                         ]

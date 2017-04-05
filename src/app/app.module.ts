@@ -105,6 +105,7 @@ import {SecondarySaleComponent} from "./components/pages/sale/index/index.compon
 import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
 import {SecondarySaleService} from "./services/sale.service";
 import {UserWiseTourProgramComponent} from "./components/pages/tour_program/user_wise/user_wise.component";
+import {SalesTrendComponent} from "./components/pages/graphs/sales_trend_graph/sales_trend_graph.component";
 import {ProductComponent} from "./components/pages/product/index/index.component";
 import {ProductService} from "./services/product.service";
 
@@ -196,6 +197,7 @@ enableProdMode();
         VisitOrderTrendComponent,
         HighestCallComponent,
         HighestOrderComponent,
+        SalesTrendComponent,
         WorkTypeSelectComponent,
         LeaveTypeSelectComponent,
         ManagerSelectComponent,

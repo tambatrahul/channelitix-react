@@ -77,7 +77,7 @@ export class Result {
     secondary_sales: SecondarySale[];
 
     // products
-    products: Product[];
+    products: Product[] = [];
 
     // get total counts for reports
     total_users: number = 0;
