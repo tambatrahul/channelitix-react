@@ -37,6 +37,7 @@ export class UserWiseTourProgramComponent extends ListComponent {
      * user_id
      */
     _user_id: number;
+
     @Input()
     set user(user: User) {
         this._user_id = user.id;
@@ -99,5 +100,19 @@ export class UserWiseTourProgramComponent extends ListComponent {
                 }
             );
         }
+    }
+
+    /**
+     * Download Excel For Bricks
+     */
+    excel_download() {
+        this.tourService.tour_excel_download(this.month + 1, this.year, this._user_id).subscribe(
+            response => {
+                let blob: Blob = response.blob();
+                window.open(window.URL.createObjectURL(blob), 'test.xls');
+            },
+            err => {
+            }
+        );
     }
 }

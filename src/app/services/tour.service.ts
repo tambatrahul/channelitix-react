@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, ResponseContentType, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -102,14 +102,16 @@ export class TourService extends BaseService {
     }
 
     /**
-     * monthly tour download
+     * monthly tour
      *
      * @param month
      * @param year
+     * @param user_id
      * @returns {Observable<Result>}
      */
-    tour_excel_download(month: number, year: number): Observable<Result> {
+    tour_excel_download(month: number, year: number, user_id: number): Observable<Response> {
         // make server call
-        return this.get(this.getBaseUrl() + '/excel/download/' + month + "/" + year);
+        return this.http.get(this.getBaseUrl() + '/excel/download/' + month + "/" + year + "/" + user_id,
+            this.addCredentials(new RequestOptions({responseType: ResponseContentType.Blob})));
     }
 }

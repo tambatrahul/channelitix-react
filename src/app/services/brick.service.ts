@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, ResponseContentType, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {BaseService} from "./base.service";
 import {Router} from "@angular/router";
@@ -67,7 +67,10 @@ export class BrickService extends BaseService {
     /**
      * get all bricks user
      */
-    brick_excel_download(): Observable<Result> {
-        return this.get(this.getBaseUrl() + '/excel/download');
+    brick_excel_download(): Observable<Response> {
+        // make server call
+        return this.http.get(this.getBaseUrl() + '/excel/download',
+            this.addCredentials(new RequestOptions({responseType: ResponseContentType.Blob})));
+
     }
 }
