@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
 import {Result} from "../models/result";
+import {SecondarySale} from "../models/sale/secondary_sale";
 
 
 @Injectable()
@@ -59,5 +60,21 @@ export class SecondarySaleService extends BaseService {
 
         // make server call
         return this.get(url, new RequestOptions());
+    }
+
+    /**
+     * add entry to secondary sales
+     *
+     * @param secondary_sales
+     * @param month
+     * @param year
+     * @param customer_id
+     * @returns {Observable<Result>}
+     */
+    create(secondary_sales: SecondarySale[], month: number, year: number, customer_id: number) {
+        // prepare url
+        let url = this.getBaseUrl() + '/monthly/' + month + "/" + year + "/" + customer_id;
+
+        return this.post(url, {secondary_sales: secondary_sales});
     }
 }

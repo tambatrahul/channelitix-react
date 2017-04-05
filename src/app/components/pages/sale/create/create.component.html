@@ -24,6 +24,9 @@
             <a [routerLink]="['/sales/secondary']" class="btn btn-default">
                 <i class="fa fa-arrow-left"></i>Back
             </a>
+            <button class="btn btn-default pull-right" (click)="toggleEditing()" *ngIf="!editing">EDIT</button>
+            <button class="btn btn-danger pull-right" (click)="toggleEditing()" *ngIf="editing">CANCEL</button>
+            <button class="btn btn-primary pull-right" (click)="save()" *ngIf="editing">SAVE</button>
         </div>
     </div>
     <div class="row">
@@ -31,7 +34,7 @@
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Secondary Sales Report for ({{ title }})</h4>
+                    <h4>Secondary Sales Report for <strong>({{ customer?.firm_name }})</strong> ({{ title }})</h4>
                 </div>
                 <div class="widget-container sales-table" #loading_box>
                     <div class="widget-block">
@@ -39,57 +42,75 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Stockist</th>
+                                    <th style="width: 100px;">Stockist</th>
                                     <th style="width: 200px;">Product</th>
-                                    <th>Opening</th>
-                                    <th>Secondary Sale</th>
-                                    <th>Closing</th>
+                                    <th style="width: 80px;">UOM</th>
+                                    <th style="width: 80px;">Opening</th>
+                                    <th style="width: 80px;">Inventory Adjustment</th>
+                                    <th style="width: 80px;">Secondary Sale</th>
+                                    <th style="width: 80px;">Closing</th>
+                                    <th style="width: 80px;">Secondary Value</th>
+                                    <th style="width: 80px;">Closing Value</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Stockist</th>
-                                    <th>Product</th>
-                                    <th>Opening</th>
-                                    <th>Secondary Sale</th>
-                                    <th style="width: 100px;">Closing</th>
+                                    <th style="width: 100px;">Stockist</th>
+                                    <th style="width: 200px;">Product</th>
+                                    <th style="width: 80px;">UOM</th>
+                                    <th style="width: 80px;">Opening</th>
+                                    <th style="width: 80px;">Inventory Adjustment</th>
+                                    <th style="width: 80px;">Secondary Sale</th>
+                                    <th style="width: 80px;">Closing</th>
+                                    <th style="width: 80px;">Secondary Value</th>
+                                    <th style="width: 80px;">Closing Value</th>
                                 </tr>
                                 </tfoot>
 
                                 <tbody>
-                                <tr>
-                                    <td rowspan="5" style="width: 200px;">
-                                        <strong>Ashok Pharma</strong>
+                                <tr *ngFor="let ss of secondary_sales; let index = index">
+                                    <td [rowSpan]="secondary_sales.length" *ngIf="index == 0"
+                                        style="vertical-align: middle">
+                                        <strong>{{ customer.firm_name }}</strong>
                                     </td>
-                                    <td>Product 1</td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td>0</td>
-
-                                </tr>
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td class="editing"><input class="form-control" type="text" value="0"/></td>
-                                    <td>0</td>
+                                    <td>{{ ss.product.name }} ({{ ss.product.code}})</td>
+                                    <td>{{ ss.uom.name }}</td>
+                                    <td [ngClass]="{'editing': editing}">
+                                        <span *ngIf="editing">
+                                            <input class="form-control" [(ngModel)]="ss.opening" type="number"
+                                                   value="0"/>
+                                        </span>
+                                        <span *ngIf="!editing">
+                                            {{ ss.opening | number : '1.2-2' }}
+                                        </span>
+                                    </td>
+                                    <td [ngClass]="{'editing': editing}">
+                                        <span *ngIf="editing">
+                                            <input class="form-control" [(ngModel)]="ss.adjustment" type="number"
+                                                   value="0"/>
+                                        </span>
+                                        <span *ngIf="!editing">
+                                            {{ ss.adjustment | number : '1.2-2' }}
+                                        </span>
+                                    </td>
+                                    <td [ngClass]="{'editing': editing}">
+                                        <span *ngIf="editing">
+                                            <input class="form-control" [(ngModel)]="ss.secondary_sale" type="number"
+                                                   value="0"/>
+                                        </span>
+                                        <span *ngIf="!editing">
+                                            {{ ss.secondary_sale | number : '1.2-2' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ ss.closing_qty | number : '1.2-2' }}
+                                    </td>
+                                    <td>
+                                        {{ ss.closing_amount | number : '1.2-2' }}
+                                    </td>
+                                    <td>
+                                        {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

@@ -1,15 +1,10 @@
 import {Component} from "@angular/core";
 import * as moment from "moment";
-import {User} from "../../../../models/user/user";
-import {AppConstants} from "../../../../app.constants";
-import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
-import {Holiday} from "../../../../models/holiday";
-import {OrderService} from "../../../../services/order.service";
-import {Order} from "../../../../models/order/order";
 import {ListComponent} from "../../../base/list.component";
 import {SecondarySale} from "../../../../models/sale/secondary_sale";
 import {SecondarySaleService} from "../../../../services/sale.service";
+import {Customer} from "../../../../models/customer/customer";
 declare let jQuery: any;
 
 @Component({
@@ -52,9 +47,9 @@ export class SecondarySaleComponent extends ListComponent {
      * on load of component load customer types
      */
     ngOnInit() {
-        super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
+        super.ngOnInit();
     }
 
     /**
@@ -67,14 +62,48 @@ export class SecondarySaleComponent extends ListComponent {
                 this.loading = false;
 
                 // convert to models
-                this.secondary_sales = response.secondary_sales.map(function (user, index) {
+                let secondary_sales = response.secondary_sales.map(function (user, index) {
                     return new SecondarySale(user);
                 });
+
+                // convert to models
+                let customers = response.customers.map(function (customer, index) {
+                    return new Customer(customer);
+                });
+
+                // format data for display
+                this.formatSecondarySale(customers, secondary_sales);
             },
             err => {
                 this.loading = false;
             }
         );
+    }
+
+    /**
+     * format secondary sales
+     * @param customers
+     * @param secondary_sales
+     */
+    protected formatSecondarySale(customers: Customer[], secondary_sales: SecondarySale[]) {
+        for (let cus of customers) {
+            let present = false;
+            for (let sale of secondary_sales) {
+                if (cus.id == sale.customer_id) {
+                    present = true;
+                    break;
+                }
+            }
+            if (!present) {
+                secondary_sales.push(new SecondarySale({
+                    customer: cus,
+                    customer_id: cus.id,
+                    sum_secondary_sale: 0
+                }))
+            }
+        }
+
+        this.secondary_sales = secondary_sales;
     }
 
     /**
@@ -85,5 +114,6 @@ export class SecondarySaleComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+        this.fetch();
     }
 }

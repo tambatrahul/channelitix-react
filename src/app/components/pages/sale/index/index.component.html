@@ -39,34 +39,39 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Stockist</th>
+                                    <th>Stockist (Grade)</th>
                                     <th>Brick</th>
                                     <th>Territory</th>
-                                    <th style="width: 100px;">Secondary Sales Added</th>
+                                    <th style="width: 200px;">Secondary Sales Added</th>
                                     <th></th>
                                 </tr>
                                 </thead>
 
                                 <tfoot>
                                 <tr>
-                                    <th>Stockist</th>
+                                    <th>Stockist (Grade)</th>
                                     <th>Brick</th>
                                     <th>Territory</th>
-                                    <th>Secondary Sales Added</th>
+                                    <th>Secondary Sales Updated</th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
 
                                 <tbody>
                                 <tr *ngFor="let ss of secondary_sales">
-                                    <td>{{ ss.customer.firm_name}}</td>
+                                    <td>{{ ss.customer.firm_name}} ({{ ss.customer.grade.name }})</td>
                                     <td>{{ ss.customer.brick.name}}</td>
                                     <td>{{ ss.customer.territory.name}}</td>
                                     <td class="text-center">
-                                        <span><i class="green fa fa-check-circle"></i></span>
+                                        <span *ngIf="ss.sum_secondary_sale > 0">
+                                            <i class="green fa fa-check-circle"></i>
+                                        </span>
+                                        <span *ngIf="ss.sum_secondary_sale <= 0">
+                                            <i class="red fa fa-times-circle"></i>
+                                        </span>
                                     </td>
                                     <td>
-                                        <a [routerLink]="['/sales/secondary/create', 1]"
+                                        <a [routerLink]="['/sales/secondary/create', month, year, ss.customer_id]"
                                            class="btn btn-xs btn-default">UPDATE</a>
                                     </td>
                                 </tr>
