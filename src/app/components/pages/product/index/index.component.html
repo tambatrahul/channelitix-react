@@ -1,0 +1,70 @@
+<div class="forum-container">
+    <div class="forum-list-container">
+        <div class="container-fluid customers">
+            <div class="forum-header">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2 class="forum-title">Product Database</h2>
+                        <p class="forum-sub-title">
+                            List of all the Products
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Table -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4>Product database</h4>
+                        </div>
+                        <div class="widget-container customer-table" #loading_box>
+                            <div class="widget-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Product Name</th>
+                                            <th>UOM</th>
+                                            <th>Price</th>
+                                            <th>MRP</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tfoot>
+                                        <tr *ngFor="let product of products">
+                                            <td>{{ product.code }}</td>
+                                            <td>{{ product.name }}</td>
+                                            <template ngFor let-uom [ngForOf]="product.uoms">
+                                                <td>
+                                                    {{ uom.name }}
+                                                </td>
+                                                <td>
+                                                    {{ uom.unit_price }}
+                                                </td>
+                                                <td>
+                                                    {{ uom.mrp }}
+                                                </td>
+                                            </template>
+                                        </tr>
+                                        </tfoot>
+
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Product Table -->
+        </div>
+    </div>
+</div>

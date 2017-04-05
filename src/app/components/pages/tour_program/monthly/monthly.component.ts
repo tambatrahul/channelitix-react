@@ -110,4 +110,19 @@ export class MonthlyTourProgramComponent extends ListComponent {
     tourDeleted() {
         this.fetchTours();
     }
+
+    /**
+     * Download Excel For Bricks
+     */
+    excel_download() {
+        this.loading = true;
+        this.tourService.tour_excel_download(this.month + 1, this.year).subscribe(
+            response => {
+                this.loading = false;
+            },
+            err => {
+                this.loading = false;
+            }
+        );
+    }
 }

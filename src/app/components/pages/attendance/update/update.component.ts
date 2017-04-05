@@ -69,12 +69,14 @@ export class UpdateAttendanceComponent extends FormComponent {
     public leave_type_id: number = 0;
     public working_with_id: number = 0;
     public no_of_calls: number = 0;
+    public pob_amount: number = 0;
     public form = this._fb.group({
         work_type_id: [""],
         leave_type_id: [""],
         working_with_id: [""],
         date: [""],
         no_of_calls: [""],
+        pob_amount: [""],
         status: [""]
     });
 
@@ -87,6 +89,7 @@ export class UpdateAttendanceComponent extends FormComponent {
     set attendance(attendance: Attendance) {
         this.id = attendance.id;
         this.no_of_calls = attendance.no_of_calls;
+        this.pob_amount = attendance.pob_amount;
         this.workTypeChanged(attendance.work_type_id);
         this.leaveTypeChanged(attendance.leave_type_id);
         this.form.patchValue({
@@ -94,6 +97,7 @@ export class UpdateAttendanceComponent extends FormComponent {
             leave_type_id: attendance.leave_type_id,
             working_with_id: attendance.working_with_id,
             no_of_calls: attendance.no_of_calls,
+            pob_amount: attendance.pob_amount,
             status: attendance.status
         });
         this.managerChanged(attendance.working_with_id);
@@ -132,11 +136,13 @@ export class UpdateAttendanceComponent extends FormComponent {
         this.leave_type_id = 0;
         this.working_with_id = 0;
         this.no_of_calls = 0;
+        this.pob_amount = 0;
         this.form.patchValue({
             work_type_id: 0,
             leave_type_id: 0,
             working_with_id: 0,
             no_of_calls: 0,
+            pob_amount: 0,
             status: AppConstants.WORKING
         });
         this.active_str = AppConstants.WORKING;
@@ -152,6 +158,7 @@ export class UpdateAttendanceComponent extends FormComponent {
             this.loading = true;
             let data = this.form.value;
             data.no_of_calls = this.no_of_calls;
+            data.pob_amount = this.pob_amount;
 
             // format joining date
             if (data.date)
@@ -252,6 +259,8 @@ export class UpdateAttendanceComponent extends FormComponent {
      */
     managerChanged(working_with_id) {
         this.working_with_id = working_with_id;
+        if(this.working_with_id == null)
+            this.working_with_id = 0;
         this.form.patchValue({working_with_id: working_with_id});
     }
 
