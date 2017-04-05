@@ -56,6 +56,7 @@ export class CreateAttendanceComponent extends FormComponent {
     public leave_type_id: number = 0;
     public working_with_id: number = 0;
     public no_of_calls: number = 0;
+    public pob_amount: number = 0;
     public isSunday: boolean = false;
     public form = this._fb.group({
         work_type_id: [""],
@@ -63,7 +64,8 @@ export class CreateAttendanceComponent extends FormComponent {
         working_with_id: [""],
         date: [""],
         status: [""],
-        no_of_calls: [""]
+        no_of_calls: [""],
+        pob_amount: [""]
     });
 
     /**
@@ -88,6 +90,7 @@ export class CreateAttendanceComponent extends FormComponent {
             leave_type_id: attendance.leave_type_id,
             working_with_id: attendance.working_with_id,
             no_of_calls: attendance.no_of_calls,
+            pob_amount: attendance.pob_amount,
             status: status
         });
         this.isSunday = attendance.isSunday;
@@ -126,11 +129,13 @@ export class CreateAttendanceComponent extends FormComponent {
         this.leave_type_id = 0;
         this.working_with_id = 0;
         this.no_of_calls = 0;
+        this.pob_amount = 0;
         this.form.patchValue({
             work_type_id: 0,
             leave_type_id: 0,
             working_with_id: 0,
             no_of_calls: 0,
+            pob_amount: 0,
             status: AppConstants.WORKING
         });
         this.active_str = AppConstants.WORKING;
@@ -146,6 +151,7 @@ export class CreateAttendanceComponent extends FormComponent {
             this.loading = true;
             let data = Object.assign({}, this.form.value);
             data.no_of_calls = this.no_of_calls;
+            data.pob_amount = this.pob_amount;
 
             // format joining date
             if (data.date)
