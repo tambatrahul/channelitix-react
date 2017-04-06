@@ -1,11 +1,10 @@
 <div class="box-widget widget-module user_tour">
     <div class="widget-head clearfix">
         <span class="h-icon"><i class="fa fa-table"></i></span>
-        <h4>Tours for <span [innerHTML]="title"></span>
-            <div class="pull-right">
-                <a class="btn btn-primary" (click)="excel_download()">Excel Download</a>
-            </div>
-        </h4>
+        <h4>Tours for <span [innerHTML]="title"></span></h4>
+        <div class="pull-right left-padding">
+            <a class="btn btn-primary" (click)="excel_download()">Excel Download</a>
+        </div>
     </div>
     <div class="widget-container" #loading_box>
         <div class="widget-block">
