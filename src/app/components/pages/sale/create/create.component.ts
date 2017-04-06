@@ -122,7 +122,6 @@ export class SecondarySaleCreateComponent extends ListComponent {
      * @param secondary_sales
      */
     protected formatSecondarySale(products: Product[], secondary_sales: SecondarySale[]) {
-        console.log(products);
         for (let pro of products) {
             let present = false;
             for (let sale of secondary_sales) {
