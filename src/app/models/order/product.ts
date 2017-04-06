@@ -7,7 +7,6 @@ export class Product extends Model {
     name: string;
     uoms: UOM[] = [];
     code: string;
-    uoms: UOM[];
 
     constructor(info: any) {
         super(info.id);

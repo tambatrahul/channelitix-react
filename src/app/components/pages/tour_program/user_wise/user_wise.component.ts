@@ -74,8 +74,6 @@ export class UserWiseTourProgramComponent extends ListComponent {
             // set tour details
             skeleton[moment(tour.date, "YYYY-MM-DD").date() - 1].tours.push(tour);
         }
-
-        console.log(skeleton);
         // set tours
         this.tours = skeleton;
     }
