@@ -65,7 +65,16 @@ export class BrickComponent extends ListComponent {
         this.brickService.brick_excel_download().subscribe(
             response => {
                 let blob: Blob = response.blob();
-                window.open(window.URL.createObjectURL(blob), 'test.xls');
+
+                // prepare download link
+                let downloadLink = document.createElement("a");
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = "bricks.xls";
+
+                // adding link to body and removing it after click
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
             },
             err => {
             }

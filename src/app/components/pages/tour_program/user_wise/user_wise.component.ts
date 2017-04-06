@@ -108,7 +108,16 @@ export class UserWiseTourProgramComponent extends ListComponent {
         this.tourService.tour_excel_download(this.month + 1, this.year, this._user_id).subscribe(
             response => {
                 let blob: Blob = response.blob();
-                window.open(window.URL.createObjectURL(blob), 'test.xls');
+
+                // prepare download link
+                let downloadLink = document.createElement("a");
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = "tours.xls";
+
+                // adding link to body and removing it after click
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
             },
             err => {
             }
