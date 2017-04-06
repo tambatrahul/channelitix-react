@@ -42,7 +42,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th style="width: 100px;">Stockist</th>
+                                    <th style="width: 80px;">Product Code</th>
                                     <th style="width: 200px;">Product</th>
                                     <th style="width: 80px;">UOM</th>
                                     <th style="width: 80px;">Opening</th>
@@ -55,7 +55,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th style="width: 100px;">Stockist</th>
+                                    <th style="width: 80px;">Product Code</th>
                                     <th style="width: 200px;">Product</th>
                                     <th style="width: 80px;">UOM</th>
                                     <th style="width: 80px;">Opening</th>
@@ -69,11 +69,8 @@
 
                                 <tbody>
                                 <tr *ngFor="let ss of secondary_sales; let index = index">
-                                    <td [rowSpan]="secondary_sales.length" *ngIf="index == 0"
-                                        style="vertical-align: middle">
-                                        <strong>{{ customer.firm_name }}</strong>
-                                    </td>
-                                    <td>{{ ss.product.name }} ({{ ss.product.code}})</td>
+                                    <td>{{ ss.product.code}}</td>
+                                    <td>{{ ss.product.name }}</td>
                                     <td>{{ ss.uom.name }}</td>
                                     <td [ngClass]="{'editing': editing}">
                                         <span *ngIf="editing">
