@@ -38,7 +38,6 @@ export class AttendanceStatusDirective {
             // set text value
             if (att.status == AppConstants.WORKING) {
                 if (att.work_type.name == AppConstants.FIELD_WORK) {
-                    console.log(att.no_of_calls);
                     if (!isUndefined(att.no_of_calls) && att.no_of_calls)
                         this.el.nativeElement.innerText = att.no_of_calls;
                     else

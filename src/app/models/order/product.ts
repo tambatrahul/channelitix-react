@@ -12,6 +12,7 @@ export class Product extends Model {
         super(info.id);
         this.name = info.name;
         this.code = info.code;
+        
         if (info.uoms) {
             for (let u of info.uoms) {
                 this.uoms.push(new UOM(u));
