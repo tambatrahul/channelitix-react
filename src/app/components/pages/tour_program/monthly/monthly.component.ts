@@ -6,6 +6,7 @@ import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
 import {Tour} from "../../../../models/tour_program/tour";
 import {TourService} from "../../../../services/tour.service";
+import {_switch} from "rxjs/operator/switch";
 declare let jQuery: any;
 
 @Component({
@@ -115,14 +116,12 @@ export class MonthlyTourProgramComponent extends ListComponent {
      * Download Excel For Bricks
      */
     excel_download() {
-        this.loading = true;
-        this.tourService.tour_excel_download(this.month + 1, this.year).subscribe(
+        this.tourService.tour_excel_download(this.month + 1, this.year,this._service.user.id).subscribe(
             response => {
-                this.loading = false;
+                let blob: Blob = response.blob();
+                window.open(window.URL.createObjectURL(blob), 'test.xls');
             },
-            err => {
-                this.loading = false;
-            }
+            err => {}
         );
     }
 }
