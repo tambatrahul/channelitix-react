@@ -80,32 +80,39 @@ export class SecondarySaleCreateComponent extends ListComponent {
             this._customer_id = params['id'];
             this.month = parseInt(params['month']);
             this.year = params['year'];
-            this.loading = true;
-            this.saleService.forCustomer(this._month + 1, this.year, this._customer_id).subscribe(
-                response => {
-                    this.loading = false;
-
-                    // convert to models
-                    let secondary_sales = response.secondary_sales.map(function (ss, index) {
-                        return new SecondarySale(ss);
-                    });
-
-                    // convert to models
-                    let products = response.products.map(function (customer, index) {
-                        return new Product(customer);
-                    });
-
-                    // get customer
-                    this.customer = new Customer(response.customer);
-
-                    // format data for display
-                    this.formatSecondarySale(products, secondary_sales);
-                },
-                err => {
-                    this.loading = false;
-                }
-            );
+            this.fetchSales()
         });
+    }
+
+    /**
+     * fetch sales
+     */
+    fetchSales() {
+        this.loading = true;
+        this.saleService.forCustomer(this._month + 1, this.year, this._customer_id).subscribe(
+            response => {
+                this.loading = false;
+
+                // convert to models
+                let secondary_sales = response.secondary_sales.map(function (ss, index) {
+                    return new SecondarySale(ss);
+                });
+
+                // convert to models
+                let products = response.products.map(function (customer, index) {
+                    return new Product(customer);
+                });
+
+                // get customer
+                this.customer = new Customer(response.customer);
+
+                // format data for display
+                this.formatSecondarySale(products, secondary_sales);
+            },
+            err => {
+                this.loading = false;
+            }
+        );
     }
 
     /**
@@ -115,6 +122,7 @@ export class SecondarySaleCreateComponent extends ListComponent {
      * @param secondary_sales
      */
     protected formatSecondarySale(products: Product[], secondary_sales: SecondarySale[]) {
+        console.log(products);
         for (let pro of products) {
             let present = false;
             for (let sale of secondary_sales) {
@@ -178,5 +186,16 @@ export class SecondarySaleCreateComponent extends ListComponent {
      */
     toggleEditing() {
         this.editing = !this.editing;
+    }
+
+    /**
+     * month and year changed
+     *
+     * @param date
+     */
+    monthYearChanged(date) {
+        this.month = date.month;
+        this.year = date.year;
+        this.fetchSales();
     }
 }
