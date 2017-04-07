@@ -33,6 +33,7 @@ import {TerritoryComponent} from "./components/pages/territory/territory/index.c
 import {SecondarySaleComponent} from "./components/pages/sale/index/index.component";
 import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
 import {ProductComponent} from "./components/pages/product/index/index.component";
+import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -251,6 +252,15 @@ export const routes: Routes = [
                     {
                         path: '',
                         component: ProductComponent,
+                    },
+                ]
+            },
+            {
+                path: 'summary',
+                children: [
+                    {
+                        path: '',
+                        component: SummaryComponent,
                     },
                 ]
             },

@@ -1,0 +1,67 @@
+<div class="task-top-toolbar clearfix">
+    <div class="col-xs-12 col-md-6">
+        <h2>User Summary</h2>
+    </div>
+    <div class="col-xs-12 col-md-3 col-md-offset-1">
+        <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+</div>
+<div class="task-container clearfix apps-container">
+    <div class="task-content apps-panel-scroll">
+
+        <!-- User list -->
+        <div class="task-list apps-panel-scroll" #loading_box>
+            <div>
+                <div class="task-list-item" *ngFor="let u of users"
+                     [ngClass]="{'task-completed': u.id == user.id}">
+                    <div class="task-list-action">
+                        <div _ngcontent-fxv-34="" class="task-thumb">
+                            <img _ngcontent-fxv-34="" alt="user" class="image-circle"
+                                 src="assets/images/avatar/manager1.png">
+                        </div>
+                    </div>
+                    <div class="task-list-details" (click)="onUserSelected(u)">
+                        <div class="task-intro">
+                            <div class="col-md-10">
+                                <h4>{{ u.full_name }}</h4>
+                                <p style="font-size: 10px;">
+                                    {{ u.role_str }}
+                                </p>
+                            </div>
+                            <div class="col-md-2 circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./User list -->
+
+
+        <div class="task-body apps-panel-scroll">
+            <div class="task-body-content">
+                <div class="task-content-top">
+                    <div class="task-header">
+                        <div class="task-title">
+                            <h3>{{ user?.full_name }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-info" #task_info>
+                    <template ngIf [ngIf]="user">
+                        <summary-detail [user]="user" [month]="month" [year]="year"></summary-detail>
+                    </template>
+                </div>
+                <!--
+                <div class="message-form" *ngIf="user">
+                    <message-create [user]="user" (messageCreated)="messageCreated($event)"></message-create>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <!--
+        <div class="row">
+            <div class="col-xs-12">
+                <broadcast-message [users]="broadcast_message_users"></broadcast-message>
+            </div>
+        </div>-->
+</div>

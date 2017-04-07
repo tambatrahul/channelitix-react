@@ -108,6 +108,9 @@ import {UserWiseTourProgramComponent} from "./components/pages/tour_program/user
 import {SalesTrendComponent} from "./components/pages/graphs/sales_trend_graph/sales_trend_graph.component";
 import {ProductComponent} from "./components/pages/product/index/index.component";
 import {ProductService} from "./services/product.service";
+import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
+import {SummaryDetailComponent} from "./components/pages/user/summary/detail/detail.component";
+
 
 enableProdMode();
 @NgModule({
@@ -164,6 +167,8 @@ enableProdMode();
         SecondarySaleComponent,
         SecondarySaleCreateComponent,
         ProductComponent,
+        SummaryComponent,
+        SummaryDetailComponent,
 
         // directives
         AttendanceStatusDirective,
