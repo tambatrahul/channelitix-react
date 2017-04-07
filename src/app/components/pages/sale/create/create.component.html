@@ -6,8 +6,7 @@
             <div class="col-md-7">
                 <div class="page-breadcrumb-wrap">
                     <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Sales
-                            <small>Secondary Sales Report</small>
+                        <h2 class="breadcrumb-titles">Secondary Sales for {{ customer?.firm_name }}
                         </h2>
                     </div>
                 </div>
@@ -19,22 +18,33 @@
     <!-- Page Breadcrumb -->
 
     <!-- Order Table -->
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px;">
         <div class="col-xs-12">
-            <a [routerLink]="['/sales/secondary']" class="btn btn-default">
-                <i class="fa fa-arrow-left"></i>Back
+            <a [routerLink]="['/sales/secondary']" class="btn btn-primary">
+                <i class="fa fa-arrow-left"></i> Back
             </a>
-            <button class="btn btn-default pull-right" (click)="toggleEditing()" *ngIf="!editing">EDIT</button>
+        </div>
+    </div>
+
+    <!-- Filters for Order report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="_month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+        <div class="col-xs-12 col-md-9">
+            <button class="btn btn-primary pull-right" (click)="toggleEditing()" *ngIf="!editing">EDIT</button>
             <button class="btn btn-danger pull-right" (click)="toggleEditing()" *ngIf="editing">CANCEL</button>
             <button class="btn btn-primary pull-right" (click)="save()" *ngIf="editing">SAVE</button>
         </div>
     </div>
+    <!-- ./Filters for Order report-->
+
     <div class="row">
         <div class="col-xs-12">
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Secondary Sales Report for <strong>({{ customer?.firm_name }})</strong> ({{ title }})</h4>
+                    <h4>Secondary Sales Report ({{ title }})</h4>
                 </div>
                 <div class="widget-container sales-table" #loading_box>
                     <div class="widget-block">
@@ -72,14 +82,8 @@
                                     <td>{{ ss.product.code}}</td>
                                     <td>{{ ss.product.name }}</td>
                                     <td>{{ ss.uom.name }}</td>
-                                    <td [ngClass]="{'editing': editing}">
-                                        <span *ngIf="editing">
-                                            <input class="form-control" [(ngModel)]="ss.opening" type="number"
-                                                   value="0"/>
-                                        </span>
-                                        <span *ngIf="!editing">
-                                            {{ ss.opening | number : '1.2-2' }}
-                                        </span>
+                                    <td>
+                                        {{ ss.opening | number : '1.2-2' }}
                                     </td>
                                     <td [ngClass]="{'editing': editing}">
                                         <span *ngIf="editing">
