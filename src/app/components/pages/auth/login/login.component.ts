@@ -56,6 +56,7 @@ export class LoginComponent extends FormComponent {
                 response => {
                     localStorage.setItem("user", JSON.stringify(response.user));
                     this._service.user = new User(response.user);
+                    this._cookieService.put('auth_token', this._service.user.auth_token);
 
                     if (response.user.role_str != this.ROLE_CSE)
                         this._router.navigate(['/attendances']);

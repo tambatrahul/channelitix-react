@@ -110,8 +110,13 @@ export class TourService extends BaseService {
      * @returns {Observable<Result>}
      */
     tour_excel_download(month: number, year: number, user_id: number): Observable<Response> {
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob
+        }));
+
         // make server call
-        return this.http.get(this.getBaseUrl() + '/excel/download/' + month + "/" + year + "/" + user_id,
-            this.addCredentials(new RequestOptions({responseType: ResponseContentType.Blob})));
+        return this.http.get(this.getBaseUrl() + '/excel/download/' + month + "/" + year + "/" + user_id, content);
     }
 }

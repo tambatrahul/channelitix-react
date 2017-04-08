@@ -66,15 +66,11 @@ export class BrickComponent extends ListComponent {
             response => {
                 let blob: Blob = response.blob();
 
-                // prepare download link
-                let downloadLink = document.createElement("a");
-                downloadLink.href = URL.createObjectURL(blob);
-                downloadLink.download = "bricks.xls";
-
-                // adding link to body and removing it after click
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Bricks.xls";
+                link.click();
             },
             err => {
             }

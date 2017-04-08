@@ -109,15 +109,11 @@ export class UserWiseTourProgramComponent extends ListComponent {
             response => {
                 let blob: Blob = response.blob();
 
-                // prepare download link
-                let downloadLink = document.createElement("a");
-                downloadLink.href = URL.createObjectURL(blob);
-                downloadLink.download = "tours.xls";
-
-                // adding link to body and removing it after click
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
+                // Doing it this way allows you to name the file
+                let link=document.createElement('a');
+                link.href=window.URL.createObjectURL(blob);
+                link.download="Tour_program_" + this.month + "_" + this.year + ".xls";
+                link.click();
             },
             err => {
             }

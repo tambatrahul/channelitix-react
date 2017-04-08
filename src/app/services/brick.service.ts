@@ -68,9 +68,15 @@ export class BrickService extends BaseService {
      * get all bricks user
      */
     brick_excel_download(): Observable<Response> {
+
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob
+        }));
+
         // make server call
-        return this.http.get(this.getBaseUrl() + '/excel/download',
-            this.addCredentials(new RequestOptions({responseType: ResponseContentType.Blob})));
+        return this.http.get(this.getBaseUrl() + '/excel/download', content);
 
     }
 }

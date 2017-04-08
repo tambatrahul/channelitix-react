@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col-md-5 ">
-                <a class="btn btn-primary pull-right left-margin" (click)="excel_download()">Excel Download</a>
+                <a class="btn btn-primary" (click)="excel_download()">Excel Download</a>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
             </div>
 
             <tour-calendar-select [month]="month" [year]="year" [tours]="tours"
-                                        [holidays]="holidays" (onTourSelected)="onTourSelected($event)">
+                                  [holidays]="holidays" (onTourSelected)="onTourSelected($event)">
 
             </tour-calendar-select>
         </div>
