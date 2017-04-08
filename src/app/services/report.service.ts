@@ -44,4 +44,17 @@ export class ReportService extends BaseService {
         // make server call
         return this.get(this.getBaseUrl() + '/counts', new RequestOptions({search: params}));
     }
+
+    /**
+     * get all summary for user
+     *
+     * @returns {Observable<Result>}
+     */
+    summaryForUser(month: number, year: number, user_id: number): Observable<Result> {
+        // prepare url
+        let url = this.getBaseUrl() + '/summary/' + month + '/' + year + '/' + user_id;
+
+        // make server call
+        return this.get(url);
+    }
 }

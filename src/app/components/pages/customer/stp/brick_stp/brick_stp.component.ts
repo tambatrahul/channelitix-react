@@ -5,7 +5,7 @@ import {StpService} from "../../../../../services/stp.service";
 import {AuthService} from "../../../../../services/AuthService";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
-import {Brick} from "../../../../../models/territory/Brick";
+import {Brick} from "../../../../../models/territory/brick";
 declare let jQuery: any;
 
 @Component({
