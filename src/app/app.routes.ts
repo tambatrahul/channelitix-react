@@ -91,6 +91,10 @@ export const routes: Routes = [
                         path: 'update/:id',
                         component: UpdateUserComponent
                     },
+                    {
+                        path: 'summary',
+                        component: SummaryComponent
+                    },
                 ]
             },
 
@@ -254,16 +258,7 @@ export const routes: Routes = [
                         component: ProductComponent,
                     },
                 ]
-            },
-            {
-                path: 'summary',
-                children: [
-                    {
-                        path: '',
-                        component: SummaryComponent,
-                    },
-                ]
-            },
+            }
         ]
     },
 

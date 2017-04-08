@@ -56,7 +56,6 @@ export class SummaryDetailComponent extends BaseAuthComponent {
 
     /**
      * Message List Component Constructor
-     *
      */
     constructor(private reportService: ReportService, public _service: AuthService) {
         super(_service);
