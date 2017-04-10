@@ -40,7 +40,7 @@ export class CustomerCountComponent {
      *
      * @type {Array}
      */
-    public customers: Customer[] = [];
+    public customers = [];
 
     constructor(private customerService: CustomerService) {
     }
@@ -73,7 +73,7 @@ export class CustomerCountComponent {
             response => {
                 this.loading = false;
                 this.customers = response.customers;
-                this.customers.forEach(cus => self.total += cus.total_customers);
+                this.customers.forEach(cus => self.total += parseInt(cus.total_customers));
             },
             err => {
                 this.loading = false;

@@ -43,7 +43,12 @@
                                             [attendance]="att"></td>
                                     </tr>
                                     <tr>
-                                        <td><a (click)="showAllTourForUser()">Tour Program</a></td>
+                                        <td>
+                                            <a (click)="showAllTourForUser()"
+                                               style="text-decoration: underline; cursor:pointer;color: blue;">
+                                                Tour Program
+                                            </a>
+                                        </td>
                                         <td *ngFor="let tour of _user.tours" tourCount [tour]="tour"></td>
                                     </tr>
                                     </tbody>
