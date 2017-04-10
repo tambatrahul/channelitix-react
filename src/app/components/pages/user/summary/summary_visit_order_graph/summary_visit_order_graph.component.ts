@@ -3,6 +3,7 @@ import {Attendance} from "../../../../../models/attendance/attendance";
 import {AppConstants} from "../../../../../app.constants";
 declare let jQuery: any;
 declare let d3: any;
+declare let nv;
 
 @Component({
     selector: 'summary-visit-order-graph',
@@ -36,48 +37,48 @@ export class SummaryVisitOrderGraphComponent {
 
     prepareOptions() {
         let self = this;
-        this.options = {
-            chart: {
-                type: 'linePlusBarChart',
-                height: 200,
-                margin: {
-                    top: 30,
-                    right: 90,
-                    bottom: 50,
-                    left: 80
-                },
-                focusEnable: false,
-                x: function (d, i) {
-                    return i;
-                },
-                y: function (d, i) {
-                    return d.y;
-                },
-                tooltip: false,
-                showValues: true,
-                duration: 500,
-                xAxis: {
-                    axisLabel: 'Date',
-                    tickFormat: function (d) {
-                        return d;
-                    }
-                },
-                y2Axis: {
-                    axisLabel: 'Visit Count',
-                    tickFormat: function (d) {
-                        return d;
-                    }
-                },
-                y1Axis: {
-                    axisLabel: 'POB Amount',
-                    tickFormat: function (d) {
-                        return '₹' + d3.format(',0.1f')(d)
-                    },
-                    showMaxMin: true
-                },
-                forceY: [0]
-            }
-        };
+        nv.addGraph(function () {
+            let chart = nv.models.linePlusBarChart()
+                .margin({top: 30, right: 60, bottom: 50, left: 70})
+                .x(function (d, i) {
+                    return d.x
+                })
+                .y(function (d) {
+                    return d.y
+                })
+                .options({focusEnable: false})
+                .color(d3.scale.category10().range());
+
+            chart.xAxis
+                .showMaxMin(false)
+                .tickFormat(function (d) {
+                    return d;
+                });
+
+            chart.y2Axis
+                .tickFormat(d3.format(',f'));
+
+            chart.y1Axis
+                .tickFormat(function (d) {
+                    return '₹' + d3.format(',f')(d)
+                });
+
+            chart.bars.forceY([0]);
+
+            d3.select('#chart svg')
+                .datum(self._data)
+                .transition().duration(500)
+                .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            chart.tooltip.contentGenerator(function (data) {
+                return '<p>' + data.point.x + '</p>'
+                    + '<p> Visits: ' + self._data[0].values[data.pointIndex].y + '</p>'
+                    + '<p> POB: ' + self._data[1].values[data.pointIndex].y + '</p>';
+            });
+            return chart;
+        });
     }
 
     /**
@@ -113,7 +114,6 @@ export class SummaryVisitOrderGraphComponent {
             },
             {
                 "color": "#ccf",
-                "bar": true,
                 "key": "POB",
                 "values": pob_values
             }
@@ -123,13 +123,13 @@ export class SummaryVisitOrderGraphComponent {
             {
                 "color": "#333",
                 "key": "Visits",
-                "values": visit_values
+                "values": visit_values.map(value => Object.assign({}, value))
             },
             {
                 "color": "#ccf",
                 "bar": true,
                 "key": "POB",
-                "values": pob_values
+                "values": pob_values.map(value => Object.assign({}, value))
             }
         ];
 

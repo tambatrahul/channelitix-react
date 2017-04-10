@@ -3,7 +3,7 @@ import {NgModule, enableProdMode} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
-import {nvD3} from "ng2-nvd3";
+
 // base
 import {BaseComponent} from "./components/pages/base/base/base.component";
 import {NavComponent} from "./components/pages/base/nav/nav.component";
@@ -178,7 +178,6 @@ enableProdMode();
         StatusDirective,
         RoleCheckDirective,
         VisitCountDirective,
-        nvD3,
         OrderCountDirective,
         CalendarAttendanceStatusDirective,
         CalendarTourStatusDirective,

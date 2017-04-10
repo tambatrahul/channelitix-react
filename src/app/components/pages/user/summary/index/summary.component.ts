@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
 import {BaseAuthComponent} from "../../../../base/base_auth.component";
 import {User} from "../../../../../models/user/user";
@@ -12,6 +12,12 @@ declare let jQuery: any;
     styleUrls: ['summary.component.less']
 })
 export class SummaryComponent extends BaseAuthComponent {
+
+    /**
+     * user tour program modal loading identifier
+     */
+    @ViewChild('user_tour_program_modal')
+    user_tour_program_modal: ElementRef;
 
     /**
      * Resetting User Password
@@ -88,5 +94,13 @@ export class SummaryComponent extends BaseAuthComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+    }
+
+    /**
+     * show list of tours
+     * @param user
+     */
+    onShowTour() {
+        jQuery(this.user_tour_program_modal.nativeElement).modal();
     }
 }

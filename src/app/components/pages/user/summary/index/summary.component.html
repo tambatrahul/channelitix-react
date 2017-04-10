@@ -41,11 +41,33 @@
             <div class="task-body-content" *ngIf="user">
                 <div class="task-info" #task_info>
                     <template ngIf [ngIf]="user">
-                        <summary-detail [user]="user" [month]="month" [year]="year"></summary-detail>
+                        <summary-detail [user]="user" [month]="month" [year]="year" (showTour)="onShowTour($event)"></summary-detail>
                     </template>
                 </div>
             </div>
         </div>
         <!-- ./User Summary section -->
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #user_tour_program_modal>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Create Tour View -->
+                <div class="row">
+                    <!-- Tour Table -->
+                    <div class="col-xs-12" *ngIf="user">
+                        <div>
+                            <user-wise-tour [month]="month" [year]="year" [user]="user"></user-wise-tour>
+                        </div>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -38,12 +38,12 @@
                                             [attendance]="att"></td>
                                     </tr>
                                     <tr>
-                                        <td>POB (in Thousand)</td>
+                                        <td>POB (in Thousands)</td>
                                         <td *ngFor="let att of _user.attendances" attendancePobStatus
                                             [attendance]="att"></td>
                                     </tr>
                                     <tr>
-                                        <td>Tour Program</td>
+                                        <td><a (click)="showAllTourForUser()">Tour Program</a></td>
                                         <td *ngFor="let tour of _user.tours" tourCount [tour]="tour"></td>
                                     </tr>
                                     </tbody>

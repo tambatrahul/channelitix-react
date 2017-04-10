@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {BaseAuthComponent} from "../../../../base/base_auth.component";
 import {User} from "../../../../../models/user/user";
 import {AuthService} from "../../../../../services/AuthService";
@@ -16,6 +16,12 @@ declare let jQuery: any;
     styleUrls: ['detail.component.less']
 })
 export class SummaryDetailComponent extends BaseAuthComponent {
+    /**
+     * output for tour program
+     * @type {EventEmitter}
+     */
+    @Output()
+    showTour = new EventEmitter();
 
     /**
      * User
@@ -162,5 +168,13 @@ export class SummaryDetailComponent extends BaseAuthComponent {
         }
 
         this._user.tours = data_skeleton;
+    }
+
+    /**
+     * show all tour for user
+     * @param user
+     */
+    showAllTourForUser() {
+        this.showTour.emit();
     }
 }
