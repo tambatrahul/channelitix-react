@@ -62,7 +62,10 @@ export class User extends Model {
         this.hq_country_id = info.hq_country_id;
         this.manager_id = info.manager_id;
         if (info.hq_headquarter)
-            this.hq_headquarter = new Headquarter(info.hq_headquarter)
+            this.hq_headquarter = new Headquarter(info.hq_headquarter);
+
+        if (!info.attendances)
+            this.attendances = [];
     }
 
     /**

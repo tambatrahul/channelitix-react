@@ -110,6 +110,8 @@ import {ProductComponent} from "./components/pages/product/index/index.component
 import {ProductService} from "./services/product.service";
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 import {SummaryDetailComponent} from "./components/pages/user/summary/detail/detail.component";
+import {AttendancePobStatusDirective} from "./components/pages/attendance/directives/attendance_pob_status.directive";
+import {SummaryVisitOrderGraphComponent} from "./components/pages/user/summary/summary_visit_order_graph/summary_visit_order_graph.component";
 
 
 enableProdMode();
@@ -181,6 +183,7 @@ enableProdMode();
         CalendarAttendanceStatusDirective,
         CalendarTourStatusDirective,
         TourCountDirective,
+        AttendancePobStatusDirective,
 
         // reusable components
         MonthPickerComponent,
@@ -195,6 +198,7 @@ enableProdMode();
         DeactivateUserComponent,
         PasswordResetComponent,
         VisitCountGraphComponent,
+        SummaryVisitOrderGraphComponent,
         DatesSelectComponent,
         MultipleUserSelectComponent,
         MultipleTerritorySelectComponent,

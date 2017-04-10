@@ -4,6 +4,7 @@ import {BaseAuthComponent} from "../../../../base/base_auth.component";
 import {User} from "../../../../../models/user/user";
 import {AuthService} from "../../../../../services/AuthService";
 import {UserService} from "../../../../../services/user.service";
+import {AppConstants} from "../../../../../app.constants";
 declare let jQuery: any;
 
 @Component({
@@ -56,7 +57,7 @@ export class SummaryComponent extends BaseAuthComponent {
      */
     fetch() {
         this.loading = true;
-        this.userService.all().subscribe(
+        this.userService.children(AppConstants.getRoleId(this.ROLE_CSE)).subscribe(
             response => {
                 this.users = response.users.map(function (user) {
                     return new User(user);

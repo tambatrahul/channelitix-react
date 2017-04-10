@@ -36,16 +36,9 @@
         </div>
         <!-- ./User list -->
 
-
-        <div class="task-body apps-panel-scroll">
-            <div class="task-body-content">
-                <div class="task-content-top">
-                    <div class="task-header">
-                        <div class="task-title">
-                            <h3>{{ user?.full_name }}</h3>
-                        </div>
-                    </div>
-                </div>
+        <!-- User Summary section -->
+        <div class="task-body apps-panel-scroll" #loading_box>
+            <div class="task-body-content" *ngIf="user">
                 <div class="task-info" #task_info>
                     <template ngIf [ngIf]="user">
                         <summary-detail [user]="user" [month]="month" [year]="year"></summary-detail>
@@ -53,5 +46,6 @@
                 </div>
             </div>
         </div>
+        <!-- ./User Summary section -->
     </div>
 </div>
