@@ -39,7 +39,7 @@ export class AttendancePobStatusDirective {
             if (att.status == AppConstants.WORKING) {
                 if (att.work_type.name == AppConstants.FIELD_WORK) {
                     if (!isUndefined(att.pob_amount) && att.pob_amount)
-                        this.el.nativeElement.innerText = att.pob_amount/1000;
+                        this.el.nativeElement.innerText = (att.pob_amount/1000).toFixed(1);
                     else
                         this.el.nativeElement.innerText = 0;
                 } else {
