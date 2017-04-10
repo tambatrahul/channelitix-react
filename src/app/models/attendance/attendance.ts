@@ -37,7 +37,11 @@ export class Attendance extends Model {
     this.work_type_id = info.working_with_id;
     this.leave_type_id = info.leave_type_id;
     this.working_with_id = info.working_with_id;
-    this.no_of_calls = info.no_of_calls;
-    this.pob_amount = info.pob_amount;
+
+    if (info.no_of_calls)
+        this.no_of_calls = parseInt(info.no_of_calls);
+
+    if (info.pob_amount)
+        this.pob_amount = parseFloat(info.pob_amount);
   }
 }
