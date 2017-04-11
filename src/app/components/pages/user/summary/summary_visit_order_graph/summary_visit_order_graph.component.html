@@ -3,8 +3,13 @@
         <div class="box-widget widget-module" style="margin-bottom: 0;">
             <div class="widget-head clearfix">
                 <span class="h-icon"><i class="fa fa-table"></i></span>
-                <h4>Visit POB Trend </h4>
-
+                <h4>
+                    Visit POB Trend
+                </h4>
+                <span class="pull-right" style="padding: 15px;">
+                    Call Average: <strong style="padding-right: 20px;">{{ call_average }}</strong>
+                    POB Amount: <strong> {{ pob_amount }}</strong>
+                </span>
             </div>
             <div class="widget-container details-table" #loading_box>
                 <div class="widget-block" style="padding: 0">

@@ -8,15 +8,19 @@
 </div>
 <div class="task-container clearfix apps-container">
     <div class="task-content apps-panel-scroll">
-
+        <div class="task-list-toolbar list-toolbar clearfix">
+            <form class="task-search-form list-search-form" style="display: block;">
+                <input type="text" class="form-control list-search-input" placeholder="Search" #search (keyup)="onKey(search.value)">
+            </form>
+        </div>
         <!-- User list -->
         <div class="task-list apps-panel-scroll" #loading_box>
             <div>
-                <div class="task-list-item" *ngFor="let u of users"
+                <div class="task-list-item" *ngFor="let u of _users"
                      [ngClass]="{'task-completed': u.id == user.id}">
                     <div class="task-list-action">
-                        <div _ngcontent-fxv-34="" class="task-thumb">
-                            <img _ngcontent-fxv-34="" alt="user" class="image-circle"
+                        <div class="task-thumb">
+                            <img alt="user" class="image-circle"
                                  src="assets/images/avatar/manager1.png">
                         </div>
                     </div>

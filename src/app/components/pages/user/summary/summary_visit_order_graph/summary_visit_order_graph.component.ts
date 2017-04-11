@@ -13,6 +13,12 @@ declare let nv;
 export class SummaryVisitOrderGraphComponent extends GoogleChartComponent {
 
     /**
+     * call average and pob amount
+     */
+    call_average: number = 0;
+    pob_amount: number = 0;
+
+    /**
      * Chart options
      */
     @Input()
@@ -50,7 +56,11 @@ export class SummaryVisitOrderGraphComponent extends GoogleChartComponent {
             bar: {
                 groupWidth: '80%'
             },
-            series: [{axis: 0, type: 'bar', targetAxisIndex: 0}, {axis: 1, type: 'line', targetAxisIndex: 1}]
+            series: [
+                {axis: 0, type: 'bar', targetAxisIndex: 0},
+                {axis: 1, type: 'line', targetAxisIndex: 1},
+                {axis: 2, type: 'line', targetAxisIndex: 0, lineWidth: 0.9, lineDashStyle: [4, 1]}
+            ]
         };
 
         this.chart = this.createComboChar(document.getElementById('chart_divEvolution'));
@@ -62,20 +72,32 @@ export class SummaryVisitOrderGraphComponent extends GoogleChartComponent {
      */
     @Input()
     set attendances(attendances: Attendance[]) {
+        let self = this;
+        this.call_average = 0;
+        this.pob_amount = 0;
         if (attendances.length > 0) {
             let data = [];
-            data.push(['Date', 'Visits', 'POB in (₹)']);
+            data.push(['Date', 'Visits', 'POB in (₹)', 'Average']);
 
+            let total = 0;
             attendances.map(function (attendance) {
                 if (!attendance.isSunday && !attendance.isHoliday && !attendance.isDisabled
                     && (attendance.status == null || attendance.status == AppConstants.WORKING)) {
                     data.push([
                         attendance.day,
                         attendance.no_of_calls ? attendance.no_of_calls : 0,
-                        attendance.pob_amount ? attendance.pob_amount : 0
+                        attendance.pob_amount ? attendance.pob_amount : 0,
+                        25
                     ]);
+                    if (attendance.work_type && attendance.work_type.name == AppConstants.FIELD_WORK) {
+                        total += 1;
+                        self.call_average += attendance.no_of_calls;
+                        self.pob_amount += attendance.pob_amount;
+                    }
                 }
             });
+
+            this.call_average = parseInt((this.call_average/(total > 0 ? total: 1)).toFixed(1));
 
             // prepare chart data
             this.chart_data = data;

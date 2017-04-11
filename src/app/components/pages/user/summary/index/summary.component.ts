@@ -37,6 +37,7 @@ export class SummaryComponent extends BaseAuthComponent {
      * @type {{}}
      */
     public users: User[] = [];
+    public _users: User[] = [];
 
     /**
      * User List
@@ -68,6 +69,7 @@ export class SummaryComponent extends BaseAuthComponent {
                 this.users = response.users.map(function (user) {
                     return new User(user);
                 });
+                this._users = this.users;
                 this.user = this.users[0];
                 this.loading = false;
             },
@@ -102,5 +104,55 @@ export class SummaryComponent extends BaseAuthComponent {
      */
     onShowTour() {
         jQuery(this.user_tour_program_modal.nativeElement).modal();
+    }
+
+    /**
+     * on search added
+     */
+    onKey(search: string) {
+        this._users = this.users.filter(function (user) {
+            return user.full_name.toLocaleLowerCase().includes(search)
+                || user.hq_headquarter.name.toLocaleLowerCase().includes(search);
+        });
+    }
+
+    clear() {
+
+    }
+
+    /**
+     * after the view is checked
+     */
+    ngAfterViewChecked() {
+        // get window height
+        let wh = jQuery(window).height();
+
+        // get container
+        let AppsContainer = jQuery('.apps-container');
+
+        // get offset to be reduced
+        let AppsTopOffset = 0;
+        if (AppsContainer.length) {
+            AppsTopOffset = AppsContainer.offset().top + 60;
+        }
+
+        // get actual height
+        let AppsCalH = wh - AppsTopOffset;
+
+        // set height
+        jQuery('.apps-panel-scroll').css({
+            'height': AppsCalH + 'px'
+        });
+        jQuery('.task-info').css({
+            'height': AppsCalH - 130 + 'px'
+        });
+
+        // set width of task body
+        let NoteSideW = jQuery('.task-sidebar').width();
+        let NoteListW = jQuery('.task-list').width();
+        let NoteBodyCal = jQuery(window).width() - (NoteSideW + NoteListW);
+        jQuery('.task-body').css({
+            'width': (NoteBodyCal - jQuery('.left-aside').width()) + 'px'
+        });
     }
 }
