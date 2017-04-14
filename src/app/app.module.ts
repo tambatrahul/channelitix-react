@@ -3,7 +3,6 @@ import {NgModule, enableProdMode} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
-
 // base
 import {BaseComponent} from "./components/pages/base/base/base.component";
 import {NavComponent} from "./components/pages/base/nav/nav.component";
@@ -112,6 +111,8 @@ import {SummaryComponent} from "./components/pages/user/summary/index/summary.co
 import {SummaryDetailComponent} from "./components/pages/user/summary/detail/detail.component";
 import {AttendancePobStatusDirective} from "./components/pages/attendance/directives/attendance_pob_status.directive";
 import {SummaryVisitOrderGraphComponent} from "./components/pages/user/summary/summary_visit_order_graph/summary_visit_order_graph.component";
+import {VisitComponentComponent} from "./components/pages/visit/visit_component/visit-component.component";
+import {OrderComponentComponent} from "./components/pages/order/order_component/order-component.component";
 
 
 enableProdMode();
@@ -213,7 +214,9 @@ enableProdMode();
         CustomerTypeSelectComponent,
         GradeSelectComponent,
         StationSelectComponent,
-        TourTypeSelectComponent
+        TourTypeSelectComponent,
+        VisitComponentComponent,
+        OrderComponentComponent
     ],
     imports: [
         BrowserModule,
