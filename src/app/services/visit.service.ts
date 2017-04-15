@@ -5,6 +5,7 @@ import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
 import {Observable} from "rxjs";
 import {Result} from "../models/result";
+import {Visit} from "../models/visit/visit";
 
 @Injectable()
 export class VisitService extends BaseService {
@@ -72,5 +73,21 @@ export class VisitService extends BaseService {
 
         // make server call
         return this.get(url);
+    }
+
+    /**
+     *
+     * Create Visit
+     *
+     * @param visit
+     * @returns {Observable<Result>}
+     */
+    create(visit: Visit): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/customer_inputs';
+
+        // make server call
+        return this.post(url, visit);
     }
 }

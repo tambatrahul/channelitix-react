@@ -128,4 +128,12 @@ export class VisitComponentComponent extends BaseAuthComponent {
             }
         );
     }
+
+    /**
+     * Save Visit
+     */
+    save(){
+        this.loading = true;
+
+    }
 }

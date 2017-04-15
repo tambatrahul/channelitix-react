@@ -20,7 +20,7 @@
                     <tr *ngFor="let customer of customers">
                         <td>{{ customer.firm_name}}</td>
                         <td class="editing" *ngFor="let input of inputs">
-                            <input class="form-control" [(ngModel)]="customer['input.value']" type="text" style="padding: 2px;">
+                            <input class="form-control" [(ngModel)]="customer[input['id']]" type="text" style="padding: 2px;">
                         </td>
                     </tr>
                     </tbody>
