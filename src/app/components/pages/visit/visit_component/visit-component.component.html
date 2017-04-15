@@ -1,7 +1,7 @@
 <div class="box-widget widget-module no-border visit-component" #loading_box>
     <div class="widget-head clearfix">
         <span class="h-icon"><i class="fa fa-bars"></i></span>
-        <h4>Visit for {{ _date }}</h4>
+        <h4>Visit for {{ _visit_date }}</h4>
     </div>
     <div class="widget-container report-table" #loading_box>
         <div class="widget-block">
@@ -10,55 +10,18 @@
                     <thead>
                     <tr>
                         <th>Customers</th>
-                        <th class="vertical-align editing">Pen</th>
-                        <th class="vertical-align editing">Pencil</th>
-                        <th class="vertical-align editing">Pad</th>
-                        <th class="vertical-align editing">Book</th>
+                        <th class="vertical-align editing" *ngFor="let input of inputs">
+                            {{ input.name }}
+                        </th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>Single & sons</td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>Yash Medicos</td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>Goyal Pharmaceuticals</td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>Gupta Agencies</td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>Gupta Medical Agencies</td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>Jai Shree Enterprises</td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
-                        <td class="editing"><input class="form-control" type="text"></td>
+                    <tr *ngFor="let customer of customers">
+                        <td>{{ customer.firm_name}}</td>
+                        <td class="editing" *ngFor="let input of inputs">
+                            <input class="form-control" [(ngModel)]="customer['input.value']" type="text" style="padding: 2px;">
+                        </td>
                     </tr>
                     </tbody>
                 </table>

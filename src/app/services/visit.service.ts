@@ -61,4 +61,16 @@ export class VisitService extends BaseService {
         // make server call
         return this.get(url, new RequestOptions({search: params}));
     }
+
+    /**
+     * get visit Inputs
+     */
+    masters(): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/masters';
+
+        // make server call
+        return this.get(url);
+    }
 }

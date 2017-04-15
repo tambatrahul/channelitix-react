@@ -6,6 +6,7 @@ import {ListComponent} from "../../../base/list.component";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
+import {Visit} from "../../../../models/visit/visit";
 declare let jQuery: any;
 
 @Component({
@@ -26,6 +27,7 @@ export class MonthlyAttendanceComponent extends ListComponent {
      * Attendances
      */
     attendance: Attendance;
+    visit: Visit;
     attendances: Attendance[] = [];
 
     /**

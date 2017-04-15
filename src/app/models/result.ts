@@ -19,6 +19,7 @@ import {Stp} from "./customer/stp";
 import {Message} from "./message/message";
 import {SecondarySale} from "./sale/secondary_sale";
 import {Product} from "./order/product";
+import {VisitInput} from "./visit/visit_input";
 
 export class Result {
 
@@ -37,6 +38,7 @@ export class Result {
 
     //Visits models
     visits: Visit[];
+    inputs: VisitInput[];
 
     //Orders models
     orders: Order[];
