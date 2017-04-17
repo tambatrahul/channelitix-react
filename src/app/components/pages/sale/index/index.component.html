@@ -60,8 +60,8 @@
                                 <tbody>
                                 <tr *ngFor="let ss of secondary_sales">
                                     <td>{{ ss.customer.firm_name}} ({{ ss.customer.grade.name }})</td>
-                                    <td>{{ ss.customer.brick.name}}</td>
-                                    <td>{{ ss.customer.territory.name}}</td>
+                                    <td>{{ ss.customer.hq_brick.name}}</td>
+                                    <td>{{ ss.customer.hq_territory.name}}</td>
                                     <td class="text-center">
                                         <span *ngIf="ss.sum_secondary_sale > 0">
                                             <i class="green fa fa-check-circle"></i>

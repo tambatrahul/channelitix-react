@@ -24,8 +24,8 @@ export class Customer extends Model {
     hq_region_id: number;
     address: Address;
 
-    brick: Brick;
-    territory: Territory;
+    hq_brick: Brick;
+    hq_territory: Territory;
 
 
     constructor(info: any) {
@@ -48,11 +48,11 @@ export class Customer extends Model {
         this.address = info.address;
 
         // add brick
-        if (info.brick)
-            this.brick = new Brick(info.brick);
+        if (info.hq_brick)
+            this.hq_brick = new Brick(info.hq_brick);
 
         // add territory
-        if (info.territory)
-            this.territory = new Territory(info.territory);
+        if (info.hq_territory)
+            this.hq_territory = new Territory(info.hq_territory);
     }
 }

@@ -85,7 +85,7 @@
                                     <td>
                                         {{ ss.opening | number : '1.2-2' }}
                                     </td>
-                                    <td [ngClass]="{'editing': editing}">
+                                    <td [ngClass]="{'editing': editing, 'empty': ss.adjustment <= 0}">
                                         <span *ngIf="editing">
                                             <input class="form-control" [(ngModel)]="ss.adjustment" type="number"
                                                    value="0"/>
@@ -94,7 +94,7 @@
                                             {{ ss.adjustment | number : '1.2-2' }}
                                         </span>
                                     </td>
-                                    <td [ngClass]="{'editing': editing}">
+                                    <td [ngClass]="{'editing': editing, 'empty': ss.secondary_sale <= 0}">
                                         <span *ngIf="editing">
                                             <input class="form-control" [(ngModel)]="ss.secondary_sale" type="number"
                                                    value="0"/>
@@ -107,10 +107,10 @@
                                         {{ ss.closing_qty | number : '1.2-2' }}
                                     </td>
                                     <td>
-                                        {{ ss.closing_amount | number : '1.2-2' }}
+                                        {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
                                     </td>
                                     <td>
-                                        {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
+                                        {{ ss.closing_amount | number : '1.2-2' }}
                                     </td>
                                 </tr>
                                 </tbody>
