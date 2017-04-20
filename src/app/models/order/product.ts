@@ -5,6 +5,7 @@ import {UOM} from "./uom";
 export class Product extends Model {
 
     name: string;
+    short_name: string;
     uoms: UOM[] = [];
     code: string;
 
@@ -12,6 +13,7 @@ export class Product extends Model {
         super(info.id);
         this.name = info.name;
         this.code = info.code;
+        this.short_name = this.name.replace(/ *\([^)]*\) */g, "");
         
         if (info.uoms) {
             for (let u of info.uoms) {

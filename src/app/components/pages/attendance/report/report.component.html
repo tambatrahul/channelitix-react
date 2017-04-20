@@ -1,0 +1,112 @@
+<div class="box-widget widget-module no-border visit-component" #loading_box>
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-bars"></i></span>
+        <h4>Report for {{ _report_date }}</h4>
+    </div>
+    <div class="widget-container report-table" style="border-top: 1px solid #eee;" #loading_box>
+        <div class="widget-block" style="padding: 0;">
+            <div class="row">
+                <div class="col-xs-12 col-md-4" style="padding-right: 0;">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <h4>Visited Customers</h4>
+                        </div>
+                        <div class="widget-container report-table" style="border-top: 1px solid #eee;">
+                            <div class="widget-block" style="padding: 0;">
+                                <div class="w-contact-widget">
+                                    <div class="w-contact-list">
+                                        <div class="w-contact-list-item"
+                                             [ngClass]="{'active': cus == selected_customer}"
+                                             *ngFor="let cus of data" (click)="selectCustomer(cus)">
+                                            <div class="w-contact-thumbnail">
+                                                <a><img src="/assets/images/avatar/manager1.png"></a>
+                                            </div>
+                                            <div class="w-contact-info">
+                                                <h4><a>{{ cus.customer.firm_name }} ({{ cus.customer.grade.name }})</a>
+                                                </h4>
+                                                <h6><a>Type: {{ cus.customer.customer_type.name }}</a></h6>
+                                                <h6><a>Brick: {{ cus.customer.hq_brick.name }}</a></h6>
+                                            </div>
+                                            <div class="w-contact-action">
+                                                <a *ngIf="cus.order.total_amount > 0">
+                                                    <label class="label label-danger">
+                                                        {{ cus.order.total_amount }}
+                                                    </label>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-8" *ngIf="selected_customer" style="padding-left: 0;">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6" style="padding-right: 0;">
+                            <div class="box-widget widget-module inputs">
+                                <div class="widget-head clearfix">
+                                    <h4>
+                                        Inputs
+                                    </h4>
+                                    <strong class="pull-right" style="padding: 18px;">
+                                        {{ selected_customer.visit.total_inputs }}
+                                    </strong>
+                                </div>
+                                <div class="widget-container report-table" style="border-top: 1px solid #eee;">
+                                    <div class="widget-block" style="padding: 0;">
+                                        <div class="w-contact-widget">
+                                            <div class="w-contact-list">
+                                                <div class="w-contact-list-item"
+                                                     *ngFor="let input of selected_customer.visit.inputs">
+                                                    <div class="w-contact-info">
+                                                        <h4><a>{{ input.name }}</a></h4>
+                                                    </div>
+                                                    <div class="w-contact-action">
+                                                        <input class="form-control" type="number" placeholder="0"
+                                                               [(ngModel)]="input.value"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6" style="padding-left: 0;">
+                            <div class="box-widget widget-module order">
+                                <div class="widget-head clearfix">
+                                    <h4>Order</h4>
+                                    <strong class="pull-right" style="padding: 18px;">
+                                        <i class="fa fa-rupee"></i> {{ selected_customer.order.total_amount }}
+                                    </strong>
+                                </div>
+                                <div class="widget-container report-table" style="border-top: 1px solid #eee;">
+                                    <div class="widget-block" style="padding: 0;">
+                                        <div class="w-contact-widget">
+                                            <div class="w-contact-list">
+                                                <div class="w-contact-list-item"
+                                                     *ngFor="let item of selected_customer.order.order_items">
+                                                    <div class="w-contact-thumbnail">
+                                                        <a><img src="/assets/images/capsule.png"></a>
+                                                    </div>
+                                                    <div class="w-contact-info">
+                                                        <h4><a>{{ item.product.name }}</a></h4>
+                                                    </div>
+                                                    <div class="w-contact-action">
+                                                        <input class="form-control" type="number" placeholder="0"
+                                                               [(ngModel)]="item.quantity"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

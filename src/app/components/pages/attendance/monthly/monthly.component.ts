@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import {AttendanceService} from "../../../../services/attendance.service";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {Holiday} from "../../../../models/holiday";
@@ -16,12 +16,18 @@ declare let jQuery: any;
 export class MonthlyAttendanceComponent extends ListComponent {
 
     /**
+     * loading identifier
+     */
+    @ViewChild('attendance_reporting')
+    attendance_reporting: ElementRef;
+
+    /**
      * month and year input
      */
     month: number;
     year: number;
 
-    today: boolean =false;
+    today: boolean = false;
 
     /**
      * Attendances
@@ -100,7 +106,9 @@ export class MonthlyAttendanceComponent extends ListComponent {
     onAttendanceSelected(att: Attendance) {
         this.today = moment(att.date, "YYYY-MM-DD") > moment();
         this.attendance = att;
-
+        if (this.attendance.reporting_status == 'open') {
+            jQuery(this.attendance_reporting.nativeElement).modal();
+        }
     }
 
     /**

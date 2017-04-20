@@ -111,8 +111,9 @@ import {SummaryComponent} from "./components/pages/user/summary/index/summary.co
 import {SummaryDetailComponent} from "./components/pages/user/summary/detail/detail.component";
 import {AttendancePobStatusDirective} from "./components/pages/attendance/directives/attendance_pob_status.directive";
 import {SummaryVisitOrderGraphComponent} from "./components/pages/user/summary/summary_visit_order_graph/summary_visit_order_graph.component";
-import {VisitComponentComponent} from "./components/pages/visit/visit_component/visit-component.component";
 import {OrderComponentComponent} from "./components/pages/order/order_component/order-component.component";
+import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
+import {ReportComponent} from "./components/pages/attendance/report/report.component";
 
 
 enableProdMode();
@@ -215,8 +216,9 @@ enableProdMode();
         GradeSelectComponent,
         StationSelectComponent,
         TourTypeSelectComponent,
-        VisitComponentComponent,
-        OrderComponentComponent
+        ReportComponent,
+        OrderComponentComponent,
+        CustomerSelectionComponent
     ],
     imports: [
         BrowserModule,

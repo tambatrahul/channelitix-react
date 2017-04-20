@@ -27,6 +27,7 @@ export class Brick extends Model {
         this.customer_types = info.customer_types;
         this.total_customer = info.total_customer;
         this.total = info.total;
+        this.hq_territory_id = info.hq_territory_id;
 
         if (info.hq_territory)
             this.hq_territory = new Territory(info.hq_territory);

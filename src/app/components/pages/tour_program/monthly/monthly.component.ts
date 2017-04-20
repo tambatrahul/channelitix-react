@@ -6,7 +6,6 @@ import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
 import {Tour} from "../../../../models/tour_program/tour";
 import {TourService} from "../../../../services/tour.service";
-import {_switch} from "rxjs/operator/switch";
 declare let jQuery: any;
 
 @Component({

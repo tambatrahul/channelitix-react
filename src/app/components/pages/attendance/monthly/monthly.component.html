@@ -38,18 +38,14 @@
 
         <!-- Create Attendance View -->
         <div class="col-xs-12 col-md-6" *ngIf="attendance && !today">
+            <customer-selection [attendance_date]="attendance.date"></customer-selection>
             <div *ngIf="attendance.id">
                 <update-attendance [attendance]="attendance"
                                    (attendanceCreated)="attendanceCreated($event)"></update-attendance>
             </div>
             <div *ngIf="!attendance.id">
-                <!--<create-attendance [attendance]="attendance"
+                <create-attendance [attendance]="attendance"
                                    (attendanceCreated)="attendanceCreated($event)"></create-attendance>
-                -->
-                 <visit-component [attendance]="attendance"
-                                 (attendanceCreated)="attendanceCreated($event)"></visit-component>
-                <!--<order-component [attendance]="attendance"
-                                 (attendanceCreated)="attendanceCreated($event)"></order-component>-->
             </div>
         </div>
         <div class="col-xs-12 col-md-6" *ngIf="attendance && today">
@@ -73,4 +69,25 @@
         <!-- ./Create Attendance View -->
     </div>
     <!-- ./Attendance Monthly body -->
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #attendance_reporting>
+    <div class="modal-dialog modal-lg" role="document" *ngIf="attendance">
+        <div class="modal-content">
+            <div class="modal-body" style="padding: 0;">
+                <div class="row">
+                    <!-- Report section -->
+                    <div class="col-xs-12">
+                        <div>
+                            <report-component [attendance]="attendance"></report-component>
+                        </div>
+                    </div>
+                    <!-- ./Report section -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

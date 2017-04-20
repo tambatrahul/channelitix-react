@@ -3,11 +3,12 @@ import {Model} from "../model";
 export class VisitInput extends Model {
 
     name: string;
-    value: number;
+    value: number = 0;
 
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
-        this.value = info.value;
+        if (info.value)
+            this.value = parseInt(info.value);
     }
 }

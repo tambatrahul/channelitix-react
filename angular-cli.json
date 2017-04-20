@@ -21,6 +21,7 @@
         "../src/assets/less/bootstrap.less",
         "../node_modules/font-awesome/less/font-awesome.less",
         "../node_modules/air-datepicker/dist/css/datepicker.css",
+        "../node_modules/select2/dist/css/select2.css",
         "../node_modules/nvd3/build/nv.d3.css",
         "../src/assets/less/components.less",
         "../src/assets/less/layout.less",
@@ -44,6 +45,7 @@
         "../src/assets/js/nav-accordion.js",
         "../src/assets/js/jquery.loadmask.js",
         "../node_modules/air-datepicker/dist/js/datepicker.js",
+        "../node_modules/select2/dist/js/select2.js",
         "../node_modules/air-datepicker/dist/js/i18n/datepicker.en.js",
         "../node_modules/d3/d3.js",
         "../node_modules/nvd3/build/nv.d3.js"

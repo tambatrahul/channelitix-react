@@ -1,6 +1,7 @@
 import {Model} from "../model";
 import {Headquarter} from "./headquarter";
 import {CustomerType} from "../customer/customer_type";
+import {Brick} from "./brick";
 
 export class Territory extends Model {
 
@@ -9,10 +10,12 @@ export class Territory extends Model {
     hq_headquarter_id: number;
 
     // for internal user only
+    hq_bricks: Brick[] = [];
     customer_types: CustomerType[];
     total: number = 0;
 
     bricks_count: number = 0;
+
 
     constructor(info: any) {
         super(info.id);

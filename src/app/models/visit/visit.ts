@@ -1,5 +1,7 @@
 import {Model} from "../model";
 import {User} from "../user/user";
+import {VisitInput} from "./visit_input";
+import {Customer} from "../customer/customer";
 
 export class Visit extends Model {
 
@@ -10,6 +12,8 @@ export class Visit extends Model {
     customer_id: number;
     created_by: number;
     creator: User;
+    inputs: VisitInput[];
+    customer: Customer;
 
     // for internal use only
     isSunday: boolean = false;
@@ -27,6 +31,13 @@ export class Visit extends Model {
         this.creator = info.creator;
         this.isSunday = info.isSunday;
 
+        if (info.customer)
+            this.customer = new Customer(info.customer);
+
+        if (info.inputs)
+            this.inputs = info.inputs.map(function (input) {
+                return new VisitInput(input);
+            });
 
         // internal
         if (typeof info.visit_count == 'string')
@@ -37,5 +48,18 @@ export class Visit extends Model {
             this.visit_count = 0;
 
         this.visit_day = info.visit_day;
+    }
+
+    /**
+     * get input totals
+     *
+     * @returns {number}
+     */
+    get total_inputs() {
+        let total:number = 0;
+        this.inputs.map(function (input) {
+            total += input.value;
+        });
+        return total;
     }
 }

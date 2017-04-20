@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-widget widget-module">
+            <div class="widget-head clearfix">
+                <span class="h-icon"><i class="fa fa-tags"></i></span>
+                <h4>
+                    Select Customers you meet on {{ attendance_date }}
+                </h4>
+                <strong class="pull-right" style="padding: 10px;">{{ selectedCustomer_ids.length }} Selected</strong>
+            </div>
+            <div class="widget-container" #loading_box>
+                <div class=" widget-block">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <select multiple="multiple" #brick_selection class="form-control">
+                                <optgroup *ngFor="let territory of territories" [label]="territory.name">
+                                    <option [value]="brick.id" *ngFor="let brick of territory.hq_bricks">
+                                        {{ brick.name}}
+                                    </option>
+                                </optgroup>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" widget-block customer_table">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Mobile</th>
+                            <th>Type</th>
+                            <th>Grade</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Mobile</th>
+                            <th>Type</th>
+                            <th>Grade</th>
+                            <th>Actions</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr *ngFor="let customer of customers">
+                            <td>{{ customer.firm_name }}</td>
+                            <td>{{ customer.mobile }}</td>
+                            <td>{{ customer.customer_type.name }}</td>
+                            <td>{{ customer.grade.name }}</td>
+                            <td>
+                                <div *ngIf="selectedCustomer_ids.indexOf(customer.id) < 0">
+                                    <button (click)="addCustomer(customer.id)" class="btn btn-primary btn-xs">
+                                        select
+                                    </button>
+                                </div>
+                                <div *ngIf="selectedCustomer_ids.indexOf(customer.id) > -1">
+                                    <button (click)="removeCustomer(customer.id)" class="btn btn-danger btn-xs">
+                                        remove
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="customers.length == 0">
+                            <td colspan="5">Select Brick For Customers</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" widget-block customer_table" *ngIf="selectedCustomer_ids.length > 0">
+                    <button class="btn btn-block btn-primary" (click)="save()">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

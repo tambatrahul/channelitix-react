@@ -54,6 +54,21 @@ export class CustomerService extends BaseService {
     }
 
     /**
+     * get all customer for bricks
+     *
+     * @returns {Observable<Result>}
+     */
+    forBricks(brick_ids?: Array<number>): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('brick_ids', String(brick_ids ? brick_ids : []));
+
+        // make server call
+        return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
+    }
+
+    /**
      * Standard tour program for user
      *
      * @returns {Observable<Result>}

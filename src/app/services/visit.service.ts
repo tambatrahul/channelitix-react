@@ -76,6 +76,20 @@ export class VisitService extends BaseService {
     }
 
     /**
+     * customer select details
+     *
+     * @param date
+     */
+    for_date(date: string) {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/forDate/' + date;
+
+        // make post request
+        return this.get(url);
+    }
+
+    /**
      *
      * Create Visit
      *
@@ -89,5 +103,20 @@ export class VisitService extends BaseService {
 
         // make server call
         return this.post(url, visit);
+    }
+
+    /**
+     * customer select details
+     *
+     * @param customer_ids
+     * @param date
+     */
+    customer_select(customer_ids: Array<number>, date: string) {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/' + date + '/customer_select';
+
+        // make post request
+        return this.post(url, {'customer_ids': customer_ids});
     }
 }
