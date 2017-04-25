@@ -28,7 +28,16 @@ export class SecondarySaleCreateComponent extends ListComponent {
         return this._month;
     }
 
+    /**
+     * year
+     */
     public year: number;
+
+    /**
+     * current month & current year
+     */
+    public current_month: number;
+    public current_year: number;
 
     /**
      * title of page
@@ -70,6 +79,8 @@ export class SecondarySaleCreateComponent extends ListComponent {
      */
     ngOnInit() {
         super.ngOnInit();
+        this.current_month = moment().month();
+        this.current_year = moment().year();
     }
 
     /**
@@ -79,7 +90,7 @@ export class SecondarySaleCreateComponent extends ListComponent {
         this.route.params.subscribe(params => {
             this._customer_id = params['id'];
             this.month = parseInt(params['month']);
-            this.year = params['year'];
+            this.year = parseInt(params['year']);
             this.fetchSales()
         });
     }
@@ -196,5 +207,13 @@ export class SecondarySaleCreateComponent extends ListComponent {
         this.month = date.month;
         this.year = date.year;
         this.fetchSales();
+    }
+
+    /**
+     * is editable
+     * @returns {boolean}
+     */
+    get isEditable(): boolean {
+        return (this._month >= this.current_month - 1) && (this.year >= this.current_year);
     }
 }

@@ -15,7 +15,7 @@ export class SecondarySale extends Model {
     uom: UOM;
     opening: number;
     adjustment: number;
-    secondary_sale: number;
+    secondary_sale: number = 0;
     closing: number;
     unit_price: number;
 
@@ -28,7 +28,7 @@ export class SecondarySale extends Model {
     }
 
     // for internal use
-    sum_secondary_sale: number;
+    sum_secondary_sale: number = 0;
 
     constructor(info: any) {
         super(info.id);

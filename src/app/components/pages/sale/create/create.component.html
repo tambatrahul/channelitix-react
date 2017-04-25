@@ -32,7 +32,7 @@
             <month-picker [month]="_month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
         <div class="col-xs-12 col-md-9">
-            <button class="btn btn-primary pull-right" (click)="toggleEditing()" *ngIf="!editing">EDIT</button>
+            <button class="btn btn-primary pull-right" (click)="toggleEditing()" *ngIf="!editing && isEditable">EDIT</button>
             <button class="btn btn-danger pull-right" (click)="toggleEditing()" *ngIf="editing">CANCEL</button>
             <button class="btn btn-primary pull-right" (click)="save()" *ngIf="editing">SAVE</button>
         </div>
