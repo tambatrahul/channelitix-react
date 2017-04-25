@@ -32,6 +32,7 @@ export class Result {
     bricks: Brick[];
 
     // attendances models
+    attendance: Attendance;
     attendances: Attendance[];
     work_types: WorkType[];
     leave_types: LeaveType[];

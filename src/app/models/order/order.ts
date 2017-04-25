@@ -1,6 +1,7 @@
 import {Model} from "../model";
 import {User} from "../user/user";
 import {OrderItem} from "./order_item";
+import {Customer} from "../customer/customer";
 
 export class Order extends Model {
 
@@ -14,6 +15,8 @@ export class Order extends Model {
     created_by: number;
     creator: User;
     order_items: OrderItem[] = [];
+    delivered_by: number;
+    delivered_by_user: Customer;
 
     // for internal use only
     isSunday: boolean = false;
@@ -27,6 +30,7 @@ export class Order extends Model {
         this.total_discount = info.total_discount;
         this.total_points = info.total_points;
         this.comments = info.comments;
+        this.delivered_by = info.delivered_by;
 
         if (info.unit_price)
             this.unit_price = parseInt(info.unit_price);
@@ -40,7 +44,10 @@ export class Order extends Model {
         if (info.order_items)
             this.order_items = info.order_items.map(function (item) {
                 return new OrderItem(item);
-            })
+            });
+
+        if (info.delivered_by_user)
+            this.delivered_by_user = new Customer(info.delivered_by_user);
     }
 
     /**

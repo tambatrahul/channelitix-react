@@ -114,6 +114,7 @@ import {SummaryVisitOrderGraphComponent} from "./components/pages/user/summary/s
 import {OrderComponentComponent} from "./components/pages/order/order_component/order-component.component";
 import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
 import {ReportComponent} from "./components/pages/attendance/report/report.component";
+import {CustomerSelectComponent} from "./components/form_elements/attendance/customer/customer-select.component";
 
 
 enableProdMode();
@@ -218,7 +219,8 @@ enableProdMode();
         TourTypeSelectComponent,
         ReportComponent,
         OrderComponentComponent,
-        CustomerSelectionComponent
+        CustomerSelectionComponent,
+        CustomerSelectComponent
     ],
     imports: [
         BrowserModule,

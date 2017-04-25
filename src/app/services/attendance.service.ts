@@ -103,10 +103,31 @@ export class AttendanceService extends BaseService {
      * reporting for date
      *
      * @param date
+     * @returns {Observable<Result>}
+     */
+    reportForDate(date: string) {
+        return this.get(this.getBaseUrl() + '/' + date + '/report');
+    }
+
+    /**
+     * reporting for date
+     *
+     * @param date
      * @param data
      * @returns {Observable<Result>}
      */
-    reporting(date: string, data) {
-        return this.post(this.getBaseUrl() + '/' + date + '/reporting', data);
+    report(date: string, data) {
+        return this.post(this.getBaseUrl() + '/' + date + '/report', data);
+    }
+
+    /**
+     * reporting for date
+     *
+     * @param date
+     * @param data
+     * @returns {Observable<Result>}
+     */
+    report_submit(date: string) {
+        return this.post(this.getBaseUrl() + '/' + date + '/submit_report');
     }
 }

@@ -1,18 +1,13 @@
 import {Model} from "../model";
 
-export class VisitInput extends Model {
+export class InputAnswer extends Model {
 
-    name: string;
+    input_id: number;
     value: number = 0;
-
-    // for internal use only
-    answer_id: number;
 
     constructor(info: any) {
         super(info.id);
-        this.name = info.name;
-        this.answer_id = info.answer_id;
-
+        this.input_id = info.input_id;
         if (info.value)
             this.value = parseInt(info.value);
     }

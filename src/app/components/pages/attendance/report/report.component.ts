@@ -1,10 +1,9 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
 import {Attendance} from "../../../../models/attendance/attendance";
-import {Customer} from "../../../../models/customer/customer";
 import {VisitInput} from "../../../../models/visit/visit_input";
 import {AttendanceService} from "../../../../services/attendance.service";
 import {Product} from "../../../../models/order/product";
@@ -12,6 +11,7 @@ import {VisitService} from "../../../../services/visit.service";
 import {Visit} from "../../../../models/visit/visit";
 import {Order} from "../../../../models/order/order";
 import {OrderItem} from "../../../../models/order/order_item";
+import {Report} from "../../../../models/attendance/report";
 
 @Component({
     selector: 'report-component',
@@ -25,6 +25,17 @@ export class ReportComponent extends BaseAuthComponent {
      */
     @Input()
     date: string;
+
+    /**
+     * editable
+     */
+    @Input()
+    editable: string;
+
+    /**
+     * saved
+     */
+    saved: boolean = false;
 
     /**
      * form fields
@@ -41,7 +52,15 @@ export class ReportComponent extends BaseAuthComponent {
     /**
      * selected Customer
      */
-    selected_customer: {};
+    selected_customer: Report;
+
+    /**
+     * tour creation selection
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    attendance_confirmed = new EventEmitter();
 
     /**
      * inputs for
@@ -49,6 +68,11 @@ export class ReportComponent extends BaseAuthComponent {
      */
     public inputs: VisitInput[] = [];
     public products: Product[] = [];
+
+    @Input()
+    set refresh(value) {
+        this.fetchVisits();
+    }
 
     /**
      * Input attendance
@@ -103,15 +127,17 @@ export class ReportComponent extends BaseAuthComponent {
     }
 
     /**
-     * fetch visits for day
+     * fetch visits and orders for day
      */
     fetchVisits() {
         this.loading = true;
-        this.visitService.for_date(this.date).subscribe(
+        this.attendanceService.reportForDate(this.date).subscribe(
             response => {
                 this.loading = false;
                 this.formatData(response.visits.map(function (visit) {
                     return new Visit(visit);
+                }), response.orders.map(function (order) {
+                    return new Order(order);
                 }));
             },
             err => {
@@ -123,26 +149,68 @@ export class ReportComponent extends BaseAuthComponent {
     /**
      * format data
      */
-    formatData(visits) {
+    formatData(visits: Visit[], orders: Order[]) {
         let self = this;
         let data = [];
         visits.map(function (visit) {
+            // set inputs
             visit.inputs = self.inputs.map(input => new VisitInput(input));
+
+            // set answers
+            visit.input_answers.forEach(function (answer) {
+                visit.inputs.forEach(function (input) {
+                    if (input.id == answer.input_id) {
+                        input.value = answer.value;
+                        input.answer_id = answer.id
+                    }
+                });
+            });
+
+            // order setup
+            let order = new Order({
+                order_items: self.products.map(function (product) {
+                    return new OrderItem({
+                        product_id: product.id,
+                        product: product,
+                        uom_id: product.uoms[0].id,
+                        uom: product.uoms[0],
+                        unit_price: product.uoms[0].unit_price
+                    });
+                })
+            });
+
+            // add order item values
+            orders.forEach(function (o) {
+                if (o.customer_id == visit.customer_id) {
+                    o.order_items.forEach(function (item) {
+                        order.order_items.forEach(function (i) {
+                            if (i.product_id == item.product_id) {
+                                i.quantity = item.quantity;
+                                i.id = item.id;
+                            }
+                        });
+                    });
+                    order.id = o.id;
+                    order.delivered_by = o.delivered_by;
+                    order.delivered_by_user = o.delivered_by_user;
+                }
+            });
+
+            // remove items not ordered
+            if (self.editable == 'closed') {
+                order.order_items = order.order_items.filter(function (item) {
+                    return item.quantity > 0;
+                });
+            }
+
+            // push data to array
             data.push({
                 customer: visit.customer,
-                order: new Order({
-                    order_items: self.products.map(function (product) {
-                        return new OrderItem({
-                            product_id: product.id,
-                            product: product,
-                            uom_id: product.uoms[0].id,
-                            uom: product.uoms[0],
-                            unit_price: product.uoms[0].unit_price
-                        });
-                    })
-                }),
+                order: order,
                 visit: new Visit(visit)
             });
+
+
         });
         this.data = data;
         this.selectCustomer(data[0]);
@@ -153,6 +221,42 @@ export class ReportComponent extends BaseAuthComponent {
      */
     save() {
         this.loading = true;
+
+        // format data
+        let formatted_data = this.data.filter(function (d) {
+            return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0;
+        }).map(function (d) {
+            return {
+                customer_id: d.customer.id,
+                visit: d.visit.total_inputs > 0 ? d.visit : null,
+                order: d.order.total_amount > 0 ? d.order : null
+            };
+        });
+
+        this.attendanceService.report(this.date, {customers: formatted_data}).subscribe(
+            response => {
+                this.loading = false;
+                this.saved = true;
+            },
+            err => {
+                this.loading = false;
+            }
+        );
+    }
+
+    /**
+     * attendance confirmed
+     */
+    submit() {
+        this.attendanceService.report_submit(this.date).subscribe(
+            response => {
+                this.loading = false;
+                this.attendance_confirmed.emit();
+            },
+            err => {
+                this.loading = false;
+            }
+        );
     }
 
     /**
@@ -160,31 +264,15 @@ export class ReportComponent extends BaseAuthComponent {
      *
      * @param customer
      */
-    selectCustomer(customer: Customer) {
+    selectCustomer(customer) {
         this.selected_customer = customer;
     }
 
     /**
-     * when the customer is to be added
-     *
-     * @param customer
+     * set delivered by id
+     * @param customer_id
      */
-    addCustomer(customer: Customer) {
-        this.data.push({
-            customer: customer,
-            inputs: this.inputs.map(input => Object.assign({}, input)),
-            products: this.products.map(product => Object.assign({}, product))
-        });
-    }
-
-    /**
-     * when the customer is to be remove
-     *
-     * @param customer
-     */
-    removeCustomer(customer: Customer) {
-        this.data = this.data.filter(function (cus) {
-            return cus.id != customer.id;
-        });
+    setDeliveredBy(customer_id) {
+        this.selected_customer.order.delivered_by = customer_id;
     }
 }

@@ -49,10 +49,30 @@ export class CustomerSelectionComponent extends ListComponent {
     territories: Territory[] = [];
 
     /**
+     * tour creation selection
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    customers_selected = new EventEmitter();
+
+    /**
      * date of attendance
      */
+    _attendance_date: string;
     @Input()
-    attendance_date: string;
+    set attendance_date(attendance_date: string) {
+        this._attendance_date = attendance_date;
+        // brick selection
+        jQuery(this.brick_selection.nativeElement).select2({
+            placeholder: "Select bricks you worked in.",
+            allowClear: true
+        });
+    }
+
+    get attendance_date() {
+        return this._attendance_date;
+    }
 
     /**
      * customer selection constructor
@@ -162,6 +182,7 @@ export class CustomerSelectionComponent extends ListComponent {
         this.visitService.customer_select(this.selectedCustomer_ids, this.attendance_date).subscribe(
             response => {
                 this.loading = false;
+                this.customers_selected.emit();
             },
             err => {
                 this.loading = false;

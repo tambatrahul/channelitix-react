@@ -160,15 +160,8 @@ export class CreateAttendanceComponent extends FormComponent {
             this.attendanceService.create(data).subscribe(
                 response => {
                     this.loading = false;
-                    swal({
-                        title: "Attendance Marked Successfully",
-                        text: "I will close in 2 sec.",
-                        type: "success",
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
                     this.reset();
-                    this.attendanceCreated.emit();
+                    this.attendanceCreated.emit(response.attendance);
                 },
                 err => {
                     this.loading = false;

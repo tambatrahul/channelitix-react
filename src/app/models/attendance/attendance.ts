@@ -17,7 +17,7 @@ export class Attendance extends Model {
     working_with_id: number;
     no_of_calls: number = 0;
     pob_amount: number = 0;
-    reporting_status: string = "closed";
+    reporting_status: string = "open";
 
     // for internal use only
     isSunday: boolean = false;

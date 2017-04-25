@@ -42,7 +42,6 @@ export class CustomerService extends BaseService {
         params.set('customer_type_id', String(customer_type_id > 0 ? customer_type_id : ''));
         params.set('grade_id', String(grade_id > 0 ? grade_id : ''));
         params.set('page', String(page > 0 ? page : ''));
-        params.set('page', String(page > 0 ? page : ''));
         params.set('region_id', String(region_id > 0 ? region_id : ''));
         params.set('area_id', String(area_id > 0 ? area_id : ''));
         params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
@@ -54,15 +53,32 @@ export class CustomerService extends BaseService {
     }
 
     /**
+     * get all customer for user
+     *
+     * @returns {Observable<Result>}
+     */
+    forTypes(customer_type_id): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('customer_type_id', customer_type_id);
+
+        // make server call
+        return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
+    }
+
+    /**
      * get all customer for bricks
      *
      * @returns {Observable<Result>}
      */
-    forBricks(brick_ids?: Array<number>): Observable<Result> {
+    forBricks(brick_ids: Array<number>): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
-        params.set('brick_ids', String(brick_ids ? brick_ids : []));
+        brick_ids.map(function(brick_id) {
+            params.append('brick_ids[]', String(brick_id));
+        });
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));

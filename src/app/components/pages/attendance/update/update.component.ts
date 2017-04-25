@@ -62,6 +62,14 @@ export class UpdateAttendanceComponent extends FormComponent {
     attendanceUpdated = new EventEmitter();
 
     /**
+     * viewReport
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    viewReportEvent = new EventEmitter();
+
+    /**
      * form fields
      */
     _date: string;
@@ -259,7 +267,7 @@ export class UpdateAttendanceComponent extends FormComponent {
      */
     managerChanged(working_with_id) {
         this.working_with_id = working_with_id;
-        if(this.working_with_id == null)
+        if (this.working_with_id == null)
             this.working_with_id = 0;
         this.form.patchValue({working_with_id: working_with_id});
     }
@@ -269,5 +277,12 @@ export class UpdateAttendanceComponent extends FormComponent {
      */
     enableEditing() {
         this.edit = true;
+    }
+
+    /**
+     * View Attendance Report
+     */
+    viewReport() {
+        this.viewReportEvent.emit();
     }
 }
