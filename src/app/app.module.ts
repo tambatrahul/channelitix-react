@@ -115,7 +115,7 @@ import {OrderComponentComponent} from "./components/pages/order/order_component/
 import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
 import {ReportComponent} from "./components/pages/attendance/report/report.component";
 import {CustomerSelectComponent} from "./components/form_elements/attendance/customer/customer-select.component";
-
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 enableProdMode();
 @NgModule({
@@ -224,6 +224,7 @@ enableProdMode();
     ],
     imports: [
         BrowserModule,
+        MultiselectDropdownModule,
         ReactiveFormsModule,
         FormsModule,
         HttpModule,

@@ -82,11 +82,8 @@
                     </small>
                 </div>
                 <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2 && !_service.user.isHeadquarter">
-                    <user-select [value]="working_with_id"
-                                 [title]="'Working With'"
-                                 [first_value]="'Working Alone'"
-                                 [role_id]="3"
-                                 (onValueChanged)="managerChanged($event)"></user-select>
+                    <ss-multiselect-dropdown [options]="manager_options" [(ngModel)]="attendance.working_with_ids"
+                                             (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
                         {{ errors.working_with_id}}
                     </small>

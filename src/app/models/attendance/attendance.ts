@@ -15,6 +15,8 @@ export class Attendance extends Model {
     created_by: number;
     creator: User;
     working_with_id: number;
+    working_with_ids: Array<number>;
+    working_withs: User[];
     no_of_calls: number = 0;
     pob_amount: number = 0;
     reporting_status: string = "open";
@@ -32,6 +34,7 @@ export class Attendance extends Model {
         this.status = info.status;
         if (info.work_type)
             this.work_type = new WorkType(info.work_type);
+
         this.leave_type = info.leave_type;
         this.created_by = info.created_by;
         this.creator = info.creator;
@@ -46,5 +49,12 @@ export class Attendance extends Model {
 
         if (info.pob_amount)
             this.pob_amount = parseFloat(info.pob_amount);
+
+        if (info.working_withs) {
+            let self = this;
+            info.working_withs.map(function(user) {
+                self.working_with_ids.push(user.id);
+            })
+        }
     }
 }

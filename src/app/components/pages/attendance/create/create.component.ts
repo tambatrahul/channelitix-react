@@ -11,6 +11,7 @@ import {UserService} from "../../../../services/user.service";
 import {User} from "../../../../models/user/user";
 import * as moment from "moment";
 import {Attendance} from "../../../../models/attendance/attendance";
+import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 declare let jQuery: any;
 declare let swal: any;
 
@@ -39,6 +40,7 @@ export class CreateAttendanceComponent extends FormComponent {
      * user managers
      */
     managers: User[] = [];
+    manager_options: IMultiSelectOption[];
 
     /**
      * event Date selection
@@ -211,6 +213,11 @@ export class CreateAttendanceComponent extends FormComponent {
                     this.managers.push(manager);
                     manager = manager.manager;
                 }
+                this.manager_options = this.managers.map(function (manager) {
+                    return {
+                        id: manager.id, name: manager.full_name
+                    };
+                })
             },
             err => {
 
