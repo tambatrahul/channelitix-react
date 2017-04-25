@@ -11,6 +11,7 @@ import {UserService} from "../../../../services/user.service";
 import {User} from "../../../../models/user/user";
 import * as moment from "moment";
 import {Attendance} from "../../../../models/attendance/attendance";
+import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 declare let jQuery: any;
 declare let swal: any;
 
@@ -20,6 +21,13 @@ declare let swal: any;
     styleUrls: ['update.component.less']
 })
 export class UpdateAttendanceComponent extends FormComponent {
+
+    /**
+     * settings
+     */
+    settings = {
+        buttonClasses: "btn btn-default btn-secondary btn-block"
+    };
 
     /**
      * attendance id
@@ -52,6 +60,10 @@ export class UpdateAttendanceComponent extends FormComponent {
      * user managers
      */
     managers: User[] = [];
+    manager_options: IMultiSelectOption[] = [];
+    working_with_ids: Array<number> = [];
+    working_withs: User[] = [];
+    working_with_other: boolean;
 
     /**
      * event Date selection
@@ -85,7 +97,8 @@ export class UpdateAttendanceComponent extends FormComponent {
         date: [""],
         no_of_calls: [""],
         pob_amount: [""],
-        status: [""]
+        status: [""],
+        working_with_other: [""]
     });
 
     /**
@@ -98,6 +111,8 @@ export class UpdateAttendanceComponent extends FormComponent {
         this.id = attendance.id;
         this.no_of_calls = attendance.no_of_calls;
         this.pob_amount = attendance.pob_amount;
+        this.working_withs = attendance.working_withs;
+        this.working_with_other = attendance.working_with_other;
         this.workTypeChanged(attendance.work_type_id);
         this.leaveTypeChanged(attendance.leave_type_id);
         this.form.patchValue({
@@ -106,9 +121,14 @@ export class UpdateAttendanceComponent extends FormComponent {
             working_with_id: attendance.working_with_id,
             no_of_calls: attendance.no_of_calls,
             pob_amount: attendance.pob_amount,
-            status: attendance.status
+            status: attendance.status,
+            working_with_other: attendance.working_with_other
         });
         this.managerChanged(attendance.working_with_id);
+        this.working_with_ids = attendance.working_with_ids;
+        if (attendance.working_with_other) {
+            this.working_with_ids.push(0);
+        }
         this.active_str = attendance.status;
         this.errors = {};
 
@@ -233,6 +253,14 @@ export class UpdateAttendanceComponent extends FormComponent {
                     this.managers.push(manager);
                     manager = manager.manager;
                 }
+                this.manager_options = this.managers.map(function (manager) {
+                    return {
+                        id: manager.id, name: manager.full_name
+                    };
+                });
+                this.manager_options.push({
+                    id: 0, name: "Others"
+                });
             },
             err => {
 

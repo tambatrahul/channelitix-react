@@ -57,18 +57,20 @@
                 <div class="col-xs-12 col-md-6 form-group">
                     <work-type-select [value]="work_type_id" [work_types]="work_types" [loading]="loading"
                                       (onValueChanged)="workTypeChanged($event)"></work-type-select>
-                    <small *ngIf="errors?.work_type_id" class="text-danger text-center">
-                        {{ errors.work_type_id}}
+                    <small *ngIf="errors?.work_type_ids" class="text-danger text-center">
+                        {{ errors.work_type_ids }}
                     </small>
                 </div>
                 <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2 && _service.user.isHeadquarter">
-                    <manager-select [value]="working_with_id" [models]="managers" [loading]="loading"
-                                    [title]="'Working With'"
-                                    [first_value]="'Working Alone'"
-                                    (onValueChanged)="managerChanged($event)"></manager-select>
-                    <small *ngIf="errors?.working_with_id" class="text-danger text-center">
-                        {{ errors.working_with_id}}
-                    </small>
+                    <label>Working With</label>
+                    <div style="min-height: 50px;">
+                        <span *ngFor="let u of working_withs">
+                            {{ u.full_name }},
+                        </span>
+                        <span *ngIf="working_with_other">
+                            Others
+                        </span>
+                    </div>
                 </div>
 
                 <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2 && !_service.user.isHeadquarter">

@@ -23,6 +23,13 @@ declare let swal: any;
 export class CreateAttendanceComponent extends FormComponent {
 
     /**
+     * settings
+     */
+    settings = {
+        buttonClasses: "btn btn-default btn-secondary btn-block"
+    };
+
+    /**
      * active tab string
      * @type {string}
      */
@@ -41,6 +48,7 @@ export class CreateAttendanceComponent extends FormComponent {
      */
     managers: User[] = [];
     manager_options: IMultiSelectOption[];
+    working_with_ids: Array<number> = [];
 
     /**
      * event Date selection
@@ -67,7 +75,8 @@ export class CreateAttendanceComponent extends FormComponent {
         date: [""],
         status: [""],
         no_of_calls: [""],
-        pob_amount: [""]
+        pob_amount: [""],
+        working_with_other: [""]
     });
 
     /**
@@ -93,7 +102,8 @@ export class CreateAttendanceComponent extends FormComponent {
             working_with_id: attendance.working_with_id,
             no_of_calls: attendance.no_of_calls,
             pob_amount: attendance.pob_amount,
-            status: status
+            status: status,
+            working_with_other: attendance.working_with_other
         });
         this.isSunday = attendance.isSunday;
         this.active_str = status;
@@ -138,7 +148,8 @@ export class CreateAttendanceComponent extends FormComponent {
             working_with_id: 0,
             no_of_calls: 0,
             pob_amount: 0,
-            status: AppConstants.WORKING
+            status: AppConstants.WORKING,
+            working_with_other: false
         });
         this.active_str = AppConstants.WORKING;
         this.errors = {};
@@ -154,6 +165,7 @@ export class CreateAttendanceComponent extends FormComponent {
             let data = Object.assign({}, this.form.value);
             data.no_of_calls = this.no_of_calls;
             data.pob_amount = this.pob_amount;
+            data.working_with_ids = this.working_with_ids;
 
             // format joining date
             if (data.date)
@@ -217,7 +229,10 @@ export class CreateAttendanceComponent extends FormComponent {
                     return {
                         id: manager.id, name: manager.full_name
                     };
-                })
+                });
+                this.manager_options.push({
+                    id: 0, name: "Others"
+                });
             },
             err => {
 
@@ -260,5 +275,15 @@ export class CreateAttendanceComponent extends FormComponent {
      */
     toggleSunday() {
         this.isSunday = !this.isSunday;
+    }
+
+    /**
+     * working with changed
+     */
+    onWorkingWithChanged() {
+        if (this.working_with_ids.filter(id => id == 0).length > 0)
+            this.form.patchValue({working_with_other: true});
+        else
+            this.form.patchValue({working_with_other: false});
     }
 }

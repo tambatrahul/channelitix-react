@@ -2,7 +2,6 @@ import {Model} from "../model";
 import {WorkType} from "./work_type";
 import {LeaveType} from "./leave_type";
 import {User} from "../user/user";
-import * as moment from "moment";
 
 export class Attendance extends Model {
 
@@ -15,7 +14,8 @@ export class Attendance extends Model {
     created_by: number;
     creator: User;
     working_with_id: number;
-    working_with_ids: Array<number>;
+    working_with_ids: Array<number> = [];
+    working_with_other: boolean;
     working_withs: User[];
     no_of_calls: number = 0;
     pob_amount: number = 0;
@@ -28,21 +28,28 @@ export class Attendance extends Model {
     day: number;
     att_count: number = 0;
 
+
     constructor(info: any) {
         super(info.id);
         this.date = info.date;
         this.status = info.status;
-        if (info.work_type)
+        if (info.work_type) {
             this.work_type = new WorkType(info.work_type);
+        }
 
         this.leave_type = info.leave_type;
         this.created_by = info.created_by;
         this.creator = info.creator;
         this.day = info.day;
-        this.work_type_id = info.working_with_id;
+        this.work_type_id = info.work_type_id;
         this.leave_type_id = info.leave_type_id;
         this.working_with_id = info.working_with_id;
         this.reporting_status = info.reporting_status;
+
+        if (info.working_with_other == 1)
+            this.working_with_other = true;
+        else
+            this.working_with_other = false;
 
         if (info.no_of_calls)
             this.no_of_calls = parseInt(info.no_of_calls);
@@ -52,9 +59,12 @@ export class Attendance extends Model {
 
         if (info.working_withs) {
             let self = this;
-            info.working_withs.map(function(user) {
+            this.working_withs = info.working_withs;
+            info.working_withs.map(function (user) {
                 self.working_with_ids.push(user.id);
             })
+        } else {
+            this.working_with_ids = [];
         }
     }
 }

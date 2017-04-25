@@ -73,17 +73,21 @@
                     </small>
                 </div>
                 <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2 && _service.user.isHeadquarter">
-                    <manager-select [value]="working_with_id" [models]="managers" [loading]="loading"
-                                    [title]="'Working With'"
-                                    [first_value]="'Working Alone'"
-                                    (onValueChanged)="managerChanged($event)"></manager-select>
-                    <small *ngIf="errors?.working_with_id" class="text-danger text-center">
-                        {{ errors.working_with_id}}
+                    <label>Working With</label>
+                    <ss-multiselect-dropdown [options]="manager_options"
+                                             (ngModelChange)="onWorkingWithChanged($event)"
+                                             [settings]="settings"
+                                             [(ngModel)]="working_with_ids"></ss-multiselect-dropdown>
+                    <small *ngIf="errors?.working_with_ids" class="text-danger text-center">
+                        {{ errors.working_with_ids }}
                     </small>
                 </div>
                 <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2 && !_service.user.isHeadquarter">
-                    <ss-multiselect-dropdown [options]="manager_options" [(ngModel)]="attendance.working_with_ids"
-                                             (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+                    <user-select [value]="working_with_id"
+                                 [title]="'Working With'"
+                                 [first_value]="'Working Alone'"
+                                 [role_id]="3"
+                                 (onValueChanged)="managerChanged($event)"></user-select>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
                         {{ errors.working_with_id}}
                     </small>

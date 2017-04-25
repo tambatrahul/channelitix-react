@@ -90,7 +90,9 @@ export class MonthlyAttendanceComponent extends ListComponent {
         this.attendanceService.monthly(this.month + 1, this.year).subscribe(
             response => {
                 this.loading = false;
-                this.attendances = response.attendances;
+                this.attendances = response.attendances.map(function(att) {
+                    return new Attendance(att);
+                });
                 this.holidays = response.holidays;
             },
             err => {
