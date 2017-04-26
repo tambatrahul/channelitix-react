@@ -1,5 +1,8 @@
 import {Model} from "../model";
 import {User} from "../user/user";
+import {VisitInput} from "./visit_input";
+import {Customer} from "../customer/customer";
+import {InputAnswer} from "./input_answer";
 
 export class Visit extends Model {
 
@@ -10,6 +13,9 @@ export class Visit extends Model {
     customer_id: number;
     created_by: number;
     creator: User;
+    inputs: VisitInput[];
+    input_answers: InputAnswer[];
+    customer: Customer;
 
     // for internal use only
     isSunday: boolean = false;
@@ -27,15 +33,41 @@ export class Visit extends Model {
         this.creator = info.creator;
         this.isSunday = info.isSunday;
 
+        // set customer
+        if (info.customer)
+            this.customer = new Customer(info.customer);
+
+        // inputs
+        if (info.inputs)
+            this.inputs = info.inputs.map(function (input) {
+                return new VisitInput(input);
+            });
+
+        // input answers
+        if (info.input_answers)
+            this.input_answers = info.input_answers.map(function (input) {
+                return new InputAnswer(input);
+            });
 
         // internal
-        if (typeof info.visit_count == 'string')
+        if (info.visit_count)
             this.visit_count = parseInt(info.visit_count);
-        else if (info.visit_count)
-            this.visit_count = info.visit_count;
         else
             this.visit_count = 0;
 
         this.visit_day = info.visit_day;
+    }
+
+    /**
+     * get input totals
+     *
+     * @returns {number}
+     */
+    get total_inputs() {
+        let total: number = 0;
+        this.inputs.map(function (input) {
+            total += input.value;
+        });
+        return total;
     }
 }

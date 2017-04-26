@@ -43,6 +43,13 @@ export class AppConstants {
     static YEARLY: string = 'year';
     static date_types: Array<string> = ['day', 'month'];
 
+    static OPEN: string = 'open';
+    static CLOSED: string = 'closed';
+    static $reporting_statuses = [
+        AppConstants.OPEN,
+        AppConstants.CLOSED
+    ];
+
     // tour types
     static FIELD_WORK = 'Field Work';
     static MEETING = 'Meeting';

@@ -37,7 +37,7 @@ export class CalendarAttendanceStatusDirective {
         if (att && att.isSunday)
             this.el.nativeElement.style.backgroundColor = this.holiday;
 
-        if (att && att.status) {
+        if (att && att.status && att.reporting_status == 'closed') {
 
             // set background color depending on status
             if (att.status == AppConstants.LEAVE)

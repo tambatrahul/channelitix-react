@@ -3,7 +3,6 @@ import {NgModule, enableProdMode} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
-
 // base
 import {BaseComponent} from "./components/pages/base/base/base.component";
 import {NavComponent} from "./components/pages/base/nav/nav.component";
@@ -112,7 +111,11 @@ import {SummaryComponent} from "./components/pages/user/summary/index/summary.co
 import {SummaryDetailComponent} from "./components/pages/user/summary/detail/detail.component";
 import {AttendancePobStatusDirective} from "./components/pages/attendance/directives/attendance_pob_status.directive";
 import {SummaryVisitOrderGraphComponent} from "./components/pages/user/summary/summary_visit_order_graph/summary_visit_order_graph.component";
-
+import {OrderComponentComponent} from "./components/pages/order/order_component/order-component.component";
+import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
+import {ReportComponent} from "./components/pages/attendance/report/report.component";
+import {CustomerSelectComponent} from "./components/form_elements/attendance/customer/customer-select.component";
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 enableProdMode();
 @NgModule({
@@ -213,10 +216,15 @@ enableProdMode();
         CustomerTypeSelectComponent,
         GradeSelectComponent,
         StationSelectComponent,
-        TourTypeSelectComponent
+        TourTypeSelectComponent,
+        ReportComponent,
+        OrderComponentComponent,
+        CustomerSelectionComponent,
+        CustomerSelectComponent
     ],
     imports: [
         BrowserModule,
+        MultiselectDropdownModule,
         ReactiveFormsModule,
         FormsModule,
         HttpModule,

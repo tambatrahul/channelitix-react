@@ -4,6 +4,8 @@ import {Grade} from "./grade";
 import {Address} from "cluster";
 import {Brick} from "../territory/brick";
 import {Territory} from "../territory/territory";
+import {Input} from "@angular/core";
+import {Product} from "../order/product";
 
 export class Customer extends Model {
 
@@ -26,6 +28,10 @@ export class Customer extends Model {
 
     hq_brick: Brick;
     hq_territory: Territory;
+
+    // for internal user only
+    inputs: Input[];
+    products: Product[];
 
 
     constructor(info: any) {
