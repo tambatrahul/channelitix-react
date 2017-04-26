@@ -49,6 +49,11 @@ export class UpdateAttendanceComponent extends FormComponent {
     active_str: string = AppConstants.WORKING;
 
     /**
+     * updating attendance
+     */
+    _attendance: Attendance;
+
+    /**
      * work type and leave type array
      *
      * @type {Array}
@@ -108,6 +113,7 @@ export class UpdateAttendanceComponent extends FormComponent {
      */
     @Input()
     set attendance(attendance: Attendance) {
+        this._attendance = attendance;
         this.id = attendance.id;
         this.no_of_calls = attendance.no_of_calls;
         this.pob_amount = attendance.pob_amount;

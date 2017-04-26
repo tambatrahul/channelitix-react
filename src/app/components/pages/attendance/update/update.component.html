@@ -3,7 +3,9 @@
         <span class="h-icon"><i class="fa fa-bars"></i></span>
         <h4 *ngIf="!edit">Attendance for {{ _date }}</h4>
         <h4 *ngIf="edit">Update Attendance for {{ _date }}</h4>
-        <h4><a (click)="viewReport()" class="btn btn-primary btn-xs">View Report</a></h4>
+        <h4 *ngIf="_attendance.reporting_status == 'closed' && _attendance.work_type.name == 'Field Work'">
+            <a (click)="viewReport()" class="btn btn-primary btn-xs">View Report</a>
+        </h4>
     </div>
 
     <!-- Type of attendance -->
