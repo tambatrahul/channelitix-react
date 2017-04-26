@@ -8,6 +8,7 @@ import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
 import {Visit} from "../../../../models/visit/visit";
 import {VisitService} from "../../../../services/visit.service";
+import {AppConstants} from "../../../../app.constants";
 declare let jQuery: any;
 declare let swal: any;
 
@@ -145,7 +146,8 @@ export class MonthlyAttendanceComponent extends ListComponent {
         this.attendance = attendance;
         this.fetchAttendances();
         this.refresh = !this.refresh;
-        jQuery(this.customer_selection.nativeElement).modal();
+        if (attendance.work_type.name == AppConstants.FIELD_WORK)
+            jQuery(this.customer_selection.nativeElement).modal();
     }
 
     /**

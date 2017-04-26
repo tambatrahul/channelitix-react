@@ -175,7 +175,7 @@ export class CreateAttendanceComponent extends FormComponent {
                 response => {
                     this.loading = false;
                     this.reset();
-                    this.attendanceCreated.emit(response.attendance);
+                    this.attendanceCreated.emit(new Attendance(response.attendance));
                 },
                 err => {
                     this.loading = false;

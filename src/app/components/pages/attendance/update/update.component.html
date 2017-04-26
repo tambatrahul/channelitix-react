@@ -79,9 +79,6 @@
                                  [first_value]="'Working Alone'"
                                  [role_id]="3"
                                  (onValueChanged)="managerChanged($event)"></user-select>
-                    <small *ngIf="errors?.working_with_id" class="text-danger text-center">
-                        {{ errors.working_with_id}}
-                    </small>
                 </div>
                 <div class="col-xs-12 col-md-6" *ngIf="work_type_id == 2">
                     <div class="form-group">
