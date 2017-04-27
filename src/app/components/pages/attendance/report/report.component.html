@@ -16,7 +16,7 @@
                                 <div class="w-contact-widget">
                                     <div class="w-contact-list">
                                         <div class="w-contact-list-item"
-                                             [ngClass]="{'active': cus == selected_customer}"
+                                             [ngClass]="{'active': cus == selected_customer, 'invalid': cus.error}"
                                              *ngFor="let cus of data" (click)="selectCustomer(cus)">
                                             <div class="w-contact-thumbnail">
                                                 <a><img src="/assets/images/avatar/manager1.png"></a>
@@ -91,14 +91,43 @@
                                         <div class="w-contact-widget">
                                             <div class="w-contact-list">
                                                 <div class="w-contact-list-item"
-                                                     *ngIf="selected_customer.visit.customer.customer_type_id > 1">
+                                                     [ngClass]="{invalid: selected_customer.error}"
+                                                     *ngIf="selected_customer.visit.customer.customer_type_id > 2">
+                                                    <div class="w-contact-info">
+                                                        <h4 *ngIf="editable == 'open'">
+                                                            <a>
+                                                                <customer-select [title]="'Delivered By *'"
+                                                                                 [value]="selected_customer.order.delivered_by"
+                                                                                 (onValueChanged)="setDeliveredBy($event)"
+                                                                                 [customer_type_id]="[1,2]"></customer-select>
+                                                                <small *ngIf="selected_customer?.error"
+                                                                       class="text-danger text-center">
+                                                                    * required
+                                                                </small>
+                                                            </a>
+                                                        </h4>
+                                                        <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
+                                                            <a>
+                                                                <strong>Delivered By: </strong>{{
+                                                                selected_customer.order?.delivered_by_user?.firm_name}}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="w-contact-list-item"
+                                                     [ngClass]="{invalid: selected_customer.error}"
+                                                     *ngIf="selected_customer.visit.customer.customer_type_id == 2">
                                                     <div class="w-contact-info">
                                                         <h4 *ngIf="editable == 'open'">
                                                             <a>
                                                                 <customer-select [title]="'Delivered By'"
                                                                                  [value]="selected_customer.order.delivered_by"
                                                                                  (onValueChanged)="setDeliveredBy($event)"
-                                                                                 [customer_type_id]="[1,2]"></customer-select>
+                                                                                 [customer_type_id]="[1]"></customer-select>
+                                                                <small *ngIf="selected_customer?.error"
+                                                                       class="text-danger text-center">
+                                                                    * required
+                                                                </small>
                                                             </a>
                                                         </h4>
                                                         <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
@@ -141,6 +170,9 @@
             <div *ngIf="editable == 'open'">
                 <button class="btn btn-success pull-right" (click)="submit()" *ngIf="saved">Submit</button>
                 <button class="btn btn-primary pull-right" (click)="save()" *ngIf="!saved">Save</button>
+                <span *ngIf="saved" class="text-info pull-right" style="padding: 10px;">
+                    Report is Saved successfully.. Click on Submit to Send Report
+                </span>
             </div>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>

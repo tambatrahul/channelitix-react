@@ -1,0 +1,125 @@
+<div class="container-fluid sales">
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Secondary Sales for {{ customer?.firm_name }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Order Table -->
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-xs-12">
+            <a [routerLink]="['/sales/secondary']" class="btn btn-primary">
+                <i class="fa fa-arrow-left"></i> Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Filters for Order report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="_month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+        <div class="col-xs-12 col-md-9">
+            <button class="btn btn-primary pull-right" (click)="toggleEditing()" *ngIf="!editing && isEditable">EDIT</button>
+            <button class="btn btn-danger pull-right" (click)="toggleEditing()" *ngIf="editing">CANCEL</button>
+            <button class="btn btn-primary pull-right" (click)="save()" *ngIf="editing">SAVE</button>
+        </div>
+    </div>
+    <!-- ./Filters for Order report-->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4>Secondary Sales Report ({{ title }})</h4>
+                </div>
+                <div class="widget-container sales-table" #loading_box>
+                    <div class="widget-block">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 80px;">Product Code</th>
+                                    <th style="width: 200px;">Product</th>
+                                    <th style="width: 80px;">UOM</th>
+                                    <th style="width: 80px;">Opening</th>
+                                    <th style="width: 80px;">Inventory Adjustment</th>
+                                    <th style="width: 80px;">Secondary Sale</th>
+                                    <th style="width: 80px;">Closing</th>
+                                    <th style="width: 80px;">Secondary Value</th>
+                                    <th style="width: 80px;">Closing Value</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th style="width: 80px;">Product Code</th>
+                                    <th style="width: 200px;">Product</th>
+                                    <th style="width: 80px;">UOM</th>
+                                    <th style="width: 80px;">Opening</th>
+                                    <th style="width: 80px;">Inventory Adjustment</th>
+                                    <th style="width: 80px;">Secondary Sale</th>
+                                    <th style="width: 80px;">Closing</th>
+                                    <th style="width: 80px;">Secondary Value</th>
+                                    <th style="width: 80px;">Closing Value</th>
+                                </tr>
+                                </tfoot>
+
+                                <tbody>
+                                <tr *ngFor="let ss of secondary_sales; let index = index">
+                                    <td>{{ ss.product.code}}</td>
+                                    <td>{{ ss.product.name }}</td>
+                                    <td>{{ ss.uom.name }}</td>
+                                    <td>
+                                        {{ ss.opening | number : '1.2-2' }}
+                                    </td>
+                                    <td [ngClass]="{'editing': editing, 'empty': ss.adjustment <= 0}">
+                                        <span *ngIf="editing">
+                                            <input class="form-control" [(ngModel)]="ss.adjustment" type="number"
+                                                   value="0"/>
+                                        </span>
+                                        <span *ngIf="!editing">
+                                            {{ ss.adjustment | number : '1.2-2' }}
+                                        </span>
+                                    </td>
+                                    <td [ngClass]="{'editing': editing, 'empty': ss.secondary_sale <= 0}">
+                                        <span *ngIf="editing">
+                                            <input class="form-control" [(ngModel)]="ss.secondary_sale" type="number"
+                                                   value="0"/>
+                                        </span>
+                                        <span *ngIf="!editing">
+                                            {{ ss.secondary_sale | number : '1.2-2' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ ss.closing_qty | number : '1.2-2' }}
+                                    </td>
+                                    <td>
+                                        {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
+                                    </td>
+                                    <td>
+                                        {{ ss.closing_amount | number : '1.2-2' }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Order Table -->
+</div>

@@ -207,7 +207,8 @@ export class ReportComponent extends BaseAuthComponent {
             data.push({
                 customer: visit.customer,
                 order: order,
-                visit: new Visit(visit)
+                visit: new Visit(visit),
+                error: false
             });
 
 
@@ -221,11 +222,21 @@ export class ReportComponent extends BaseAuthComponent {
      */
     save() {
         this.loading = true;
+        let error = false;
+        let self = this;
 
         // format data
         let formatted_data = this.data.filter(function (d) {
             return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0;
         }).map(function (d) {
+            if (d.customer.customer_type_id > 1 && !d.order.delivered_by) {
+                error = true;
+                d.error = true;
+
+                if (d == self.selected_customer)
+                    self.selected_customer = d;
+            }
+
             return {
                 customer_id: d.customer.id,
                 visit: d.visit.total_inputs > 0 ? d.visit : null,
@@ -233,15 +244,20 @@ export class ReportComponent extends BaseAuthComponent {
             };
         });
 
-        this.attendanceService.report(this.date, {customers: formatted_data}).subscribe(
-            response => {
-                this.loading = false;
-                this.saved = true;
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+        if (!error) {
+            this.attendanceService.report(this.date, {customers: formatted_data}).subscribe(
+                response => {
+                    this.loading = false;
+                    this.saved = true;
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        } else {
+            this.loading = false;
+        }
+
     }
 
     /**

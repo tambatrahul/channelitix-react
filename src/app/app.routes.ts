@@ -30,8 +30,8 @@ import {RegionComponent} from "./components/pages/territory/region/index.compone
 import {AreaComponent} from "./components/pages/territory/area/index.component";
 import {HeadquarterComponent} from "./components/pages/territory/headquarter/index.component";
 import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
-import {SecondarySaleComponent} from "./components/pages/sale/index/index.component";
-import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
+import {SecondarySaleComponent} from "./components/pages/secondary_sale/index/index.component";
+import {SecondarySaleCreateComponent} from "./components/pages/secondary_sale/create/create.component";
 import {ProductComponent} from "./components/pages/product/index/index.component";
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 

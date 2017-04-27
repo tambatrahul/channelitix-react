@@ -100,8 +100,8 @@ import {HeadquarterComponent} from "./components/pages/territory/headquarter/ind
 import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
 import {GroupCountTableComponent} from "./components/pages/attendance/count/count.component";
 import {BroadcastMessageComponent} from "./components/pages/message/broadcast_message/broadcast_message.component";
-import {SecondarySaleComponent} from "./components/pages/sale/index/index.component";
-import {SecondarySaleCreateComponent} from "./components/pages/sale/create/create.component";
+import {SecondarySaleComponent} from "./components/pages/secondary_sale/index/index.component";
+import {SecondarySaleCreateComponent} from "./components/pages/secondary_sale/create/create.component";
 import {SecondarySaleService} from "./services/sale.service";
 import {UserWiseTourProgramComponent} from "./components/pages/tour_program/user_wise/user_wise.component";
 import {SalesTrendComponent} from "./components/pages/graphs/sales_trend_graph/sales_trend_graph.component";
@@ -115,7 +115,7 @@ import {OrderComponentComponent} from "./components/pages/order/order_component/
 import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
 import {ReportComponent} from "./components/pages/attendance/report/report.component";
 import {CustomerSelectComponent} from "./components/form_elements/attendance/customer/customer-select.component";
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 
 enableProdMode();
 @NgModule({
