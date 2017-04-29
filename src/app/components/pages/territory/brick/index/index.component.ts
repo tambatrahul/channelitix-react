@@ -81,6 +81,8 @@ export class BrickComponent extends ListComponent {
      * Update Brick
      */
     updateBrick(id: number) {
-        this._router.navigate(['/bricks/update/', id]);
+        this._router.navigate(['/territories/regions', this._region_id,
+            'areas', this._area_id, 'headquarters', this._headquarter_id,
+            'territories', this._territory_id , 'bricks', 'update', id]);
     }
 }

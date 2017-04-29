@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
-import {TerritoryService} from "../../../../../services/territory.service";
 import {FormComponent} from "../../../../base/form.component";
 import {AuthService} from "../../../../../services/AuthService";
 import {BrickService} from "../../../../../services/brick.service";
@@ -40,6 +39,14 @@ export class UpdateBrickComponent extends FormComponent {
     });
 
     /**
+     * region, territory, area, headquarter & brick id
+     */
+    public _region_id: number = 0;
+    public _area_id: number = 0;
+    public _territory_id: number = 0;
+    public _headquarter_id: number = 0;
+
+    /**
      * Update brick Constructor
      *
      * @param brickService
@@ -59,6 +66,10 @@ export class UpdateBrickComponent extends FormComponent {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.id = params['id'];
+            this._region_id = params['region_id'];
+            this._area_id = params['area_id'];
+            this._headquarter_id = params['headquarter_id'];
+            this._territory_id = params['territory_id'];
             this.loading = true;
             this.brickService.read(this.id).subscribe(response => {
                 this.form.patchValue({
@@ -95,7 +106,9 @@ export class UpdateBrickComponent extends FormComponent {
                         timer: 1500,
                         showConfirmButton: false
                     });
-                    this._router.navigate(['/bricks']);
+                    this._router.navigate(['/territories/regions', this._region_id,
+                        'areas', this._area_id, 'headquarters', this._headquarter_id,
+                        'territories', this._territory_id, 'bricks']);
                     this.loading = false;
                 },
                 err => {
