@@ -20,6 +20,7 @@ import {Message} from "./message/message";
 import {SecondarySale} from "./sale/secondary_sale";
 import {Product} from "./order/product";
 import {VisitInput} from "./visit/visit_input";
+import {PrimarySale} from "./sale/primary_sale";
 
 export class Result {
 
@@ -78,6 +79,9 @@ export class Result {
 
     // secondary sales
     secondary_sales: SecondarySale[];
+
+    // primary sales
+    primary_sales: PrimarySale[];
 
     // products
     products: Product[] = [];

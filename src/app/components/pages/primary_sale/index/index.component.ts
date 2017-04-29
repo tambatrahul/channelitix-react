@@ -1,10 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
-import {SecondarySale} from "../../../../models/sale/secondary_sale";
-import {SecondarySaleService} from "../../../../services/sale.service";
-import {Customer} from "../../../../models/customer/customer";
+import {PrimarySale} from "../../../../models/sale/primary_sale";
+import {PrimarySaleService} from "../../../../services/primary_sale.service";
 declare let jQuery: any;
 
 @Component({
@@ -12,6 +11,17 @@ declare let jQuery: any;
     styleUrls: ['index.component.less']
 })
 export class PrimarySaleComponent extends ListComponent {
+
+    /**
+     * loading identifier
+     */
+    @ViewChild('invoice_detail')
+    invoice_detail: ElementRef;
+
+    /**
+     * invoice to show on popup
+     */
+    invoice: PrimarySale;
 
     /**
      * year and month for calendar
@@ -29,17 +39,17 @@ export class PrimarySaleComponent extends ListComponent {
     }
 
     /**
-     * secondary sales
+     * primary sales
      *
      * @type {Array}
      */
-    public secondary_sales: SecondarySale[] = [];
+    public primary_sales: PrimarySale[] = [];
 
     /**
      * User Component Constructor
      *
      */
-    constructor(private saleService: SecondarySaleService, public _service: AuthService) {
+    constructor(private saleService: PrimarySaleService, public _service: AuthService) {
         super(_service);
     }
 
@@ -62,48 +72,14 @@ export class PrimarySaleComponent extends ListComponent {
                 this.loading = false;
 
                 // convert to models
-                let secondary_sales = response.secondary_sales.map(function (user, index) {
-                    return new SecondarySale(user);
+                this.primary_sales = response.primary_sales.map(function (user, index) {
+                    return new PrimarySale(user);
                 });
-
-                // convert to models
-                let customers = response.customers.map(function (customer, index) {
-                    return new Customer(customer);
-                });
-
-                // format data for display
-                this.formatSecondarySale(customers, secondary_sales);
             },
             err => {
                 this.loading = false;
             }
         );
-    }
-
-    /**
-     * format secondary sales
-     * @param customers
-     * @param secondary_sales
-     */
-    protected formatSecondarySale(customers: Customer[], secondary_sales: SecondarySale[]) {
-        for (let cus of customers) {
-            let present = false;
-            for (let sale of secondary_sales) {
-                if (cus.id == sale.customer_id) {
-                    present = true;
-                    break;
-                }
-            }
-            if (!present) {
-                secondary_sales.push(new SecondarySale({
-                    customer: cus,
-                    customer_id: cus.id,
-                    sum_secondary_sale: 0
-                }))
-            }
-        }
-
-        this.secondary_sales = secondary_sales;
     }
 
     /**
@@ -115,5 +91,14 @@ export class PrimarySaleComponent extends ListComponent {
         this.month = date.month;
         this.year = date.year;
         this.fetch();
+    }
+
+    /**
+     * show all tour for user
+     * @param invoice
+     */
+    showInvoice(invoice: PrimarySale) {
+        this.invoice = invoice;
+        jQuery(this.invoice_detail.nativeElement).modal();
     }
 }

@@ -1,37 +1,35 @@
 import {Model} from "../model";
 import {Customer} from "../customer/customer";
-import {Product} from "../order/product";
 import {UOM} from "../order/uom";
+import {PrimarySaleItem} from "./primary_sale_item";
 
 export class PrimarySale extends Model {
 
-    date: string;
+    doc_date: string;
     customer_id: number;
-    product_id: number;
     uom_id: number;
     customer: Customer;
-    product: Product;
     uom: UOM;
-    unit_price: number;
+    net_amt: number;
+
+    invoice_details: PrimarySaleItem[] = [];
 
     constructor(info: any) {
         super(info.id);
-        this.date = info.date;
+        this.doc_date = info.doc_date;
         this.customer_id = info.customer_id;
-        this.product_id = info.product_id;
         this.uom_id = info.uom_id;
 
-        if (info.unit_price)
-            this.unit_price = parseFloat(info.unit_price);
+        if (info.net_amt)
+            this.net_amt = parseFloat(info.net_amt);
 
         if (info.customer)
             this.customer = new Customer(info.customer);
 
-        if (info.product)
-            this.product = new Product(info.product);
-
         if (info.uom)
             this.uom = new UOM(info.uom);
 
+        if (info.invoice_details)
+            this.invoice_details = info.invoice_details.map(item => new PrimarySaleItem(item));
     }
 }

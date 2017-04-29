@@ -6,7 +6,8 @@
             <div class="col-md-7">
                 <div class="page-breadcrumb-wrap">
                     <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Secondary Statement Report
+                        <h2 class="breadcrumb-titles">
+                            Primary Sales Invoices
                         </h2>
                     </div>
                 </div>
@@ -31,7 +32,7 @@
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Secondary Sales Report for ({{ title }})</h4>
+                    <h4>Primary Sales Report for ({{ title }})</h4>
                 </div>
                 <div class="widget-container sales-table" #loading_box>
                     <div class="widget-block">
@@ -42,7 +43,8 @@
                                     <th>Stockist (Grade)</th>
                                     <th>Brick</th>
                                     <th>Territory</th>
-                                    <th style="width: 200px;">Secondary Sales Added</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -52,29 +54,25 @@
                                     <th>Stockist (Grade)</th>
                                     <th>Brick</th>
                                     <th>Territory</th>
-                                    <th>Secondary Sales Updated</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
 
                                 <tbody>
-                                <tr *ngFor="let ss of secondary_sales">
-                                    <td>{{ ss.customer.firm_name}} ({{ ss.customer.grade.name }})</td>
-                                    <td>{{ ss.customer.hq_brick.name}}</td>
-                                    <td>{{ ss.customer.hq_territory.name}}</td>
-                                    <td class="text-center">
-                                        <span *ngIf="ss.sum_secondary_sale > 0">
-                                            <i class="green fa fa-check-circle"></i>
-                                        </span>
-                                        <span *ngIf="ss.sum_secondary_sale <= 0">
-                                            <i class="red fa fa-times-circle"></i>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a [routerLink]="['/sales/secondary/create', month, year, ss.customer_id]"
-                                           class="btn btn-xs btn-primary">VIEW</a>
-                                    </td>
-                                </tr>
+                                <template ngFor let-ps [ngForOf]="primary_sales">
+                                    <tr *ngIf="ps.customer">
+                                        <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
+                                        <td>{{ ps.customer.hq_brick.name}}</td>
+                                        <td>{{ ps.customer.hq_territory.name}}</td>
+                                        <td>{{ ps.doc_date }}</td>
+                                        <td>{{ ps.net_amt}}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" (click)="showInvoice(ps)">View Items</button>
+                                        </td>
+                                    </tr>
+                                </template>
                                 </tbody>
                             </table>
                         </div>
@@ -84,4 +82,25 @@
         </div>
     </div>
     <!-- ./Order Table -->
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" #invoice_detail>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Create Tour View -->
+                <div class="row" *ngIf="invoice">
+                    <!-- Tour Table -->
+                    <div class="col-xs-12">
+                        <div>
+                            <invoice-detail [invoice]="invoice"></invoice-detail>
+                        </div>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -102,7 +102,7 @@ import {GroupCountTableComponent} from "./components/pages/attendance/count/coun
 import {BroadcastMessageComponent} from "./components/pages/message/broadcast_message/broadcast_message.component";
 import {SecondarySaleComponent} from "./components/pages/secondary_sale/index/index.component";
 import {SecondarySaleCreateComponent} from "./components/pages/secondary_sale/create/create.component";
-import {SecondarySaleService} from "./services/sale.service";
+import {SecondarySaleService} from "./services/secondary_sale.service";
 import {UserWiseTourProgramComponent} from "./components/pages/tour_program/user_wise/user_wise.component";
 import {SalesTrendComponent} from "./components/pages/graphs/sales_trend_graph/sales_trend_graph.component";
 import {ProductComponent} from "./components/pages/product/index/index.component";
@@ -115,7 +115,10 @@ import {OrderComponentComponent} from "./components/pages/order/order_component/
 import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
 import {ReportComponent} from "./components/pages/attendance/report/report.component";
 import {CustomerSelectComponent} from "./components/form_elements/attendance/customer/customer-select.component";
-import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
+import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect";
+import {PrimarySaleService} from "./services/primary_sale.service";
+import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
+import {InvoiceDetailComponent} from "./components/pages/primary_sale/invoice_detail/invoice_detail.component";
 
 enableProdMode();
 @NgModule({
@@ -186,6 +189,8 @@ enableProdMode();
         CalendarTourStatusDirective,
         TourCountDirective,
         AttendancePobStatusDirective,
+        PrimarySaleComponent,
+        InvoiceDetailComponent,
 
         // reusable components
         MonthPickerComponent,
@@ -246,6 +251,7 @@ enableProdMode();
         ReportService,
         StpService,
         SecondarySaleService,
+        PrimarySaleService,
         ProductService
     ],
     bootstrap: [AppComponent]

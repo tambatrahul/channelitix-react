@@ -9,7 +9,7 @@ import {OrderService} from "../../../../services/order.service";
 import {Order} from "../../../../models/order/order";
 import {ListComponent} from "../../../base/list.component";
 import {SecondarySale} from "../../../../models/sale/secondary_sale";
-import {SecondarySaleService} from "../../../../services/sale.service";
+import {SecondarySaleService} from "../../../../services/secondary_sale.service";
 import {Product} from "../../../../models/order/product";
 import {ProductService} from "../../../../services/product.service";
 declare let jQuery: any;

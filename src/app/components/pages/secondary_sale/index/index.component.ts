@@ -3,7 +3,7 @@ import * as moment from "moment";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
 import {SecondarySale} from "../../../../models/sale/secondary_sale";
-import {SecondarySaleService} from "../../../../services/sale.service";
+import {SecondarySaleService} from "../../../../services/secondary_sale.service";
 import {Customer} from "../../../../models/customer/customer";
 declare let jQuery: any;
 

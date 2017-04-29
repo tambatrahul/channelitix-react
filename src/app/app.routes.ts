@@ -34,6 +34,7 @@ import {SecondarySaleComponent} from "./components/pages/secondary_sale/index/in
 import {SecondarySaleCreateComponent} from "./components/pages/secondary_sale/create/create.component";
 import {ProductComponent} from "./components/pages/product/index/index.component";
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
+import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -245,6 +246,20 @@ export const routes: Routes = [
                             {
                                 path: 'create/:month/:year/:id',
                                 component: SecondarySaleCreateComponent
+                            }
+                        ]
+                    },
+                ]
+            },
+            {
+                path: 'primary',
+                children: [
+                    {
+                        path: 'invoices',
+                        children: [
+                            {
+                                path: '',
+                                component: PrimarySaleComponent
                             }
                         ]
                     },
