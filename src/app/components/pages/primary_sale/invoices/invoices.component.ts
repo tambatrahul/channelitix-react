@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef} from "@angular/core";
+import {Component, ViewChild, ElementRef, Input} from "@angular/core";
 import * as moment from "moment";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
@@ -7,10 +7,11 @@ import {PrimarySaleService} from "../../../../services/primary_sale.service";
 declare let jQuery: any;
 
 @Component({
-    templateUrl: 'index.component.html',
-    styleUrls: ['index.component.less']
+    selector: 'invoices',
+    templateUrl: 'invoices.component.html',
+    styleUrls: ['invoices.component.less']
 })
-export class PrimarySaleComponent extends ListComponent {
+export class InvoicesComponent extends ListComponent {
 
     /**
      * loading identifier
@@ -19,15 +20,15 @@ export class PrimarySaleComponent extends ListComponent {
     invoices: ElementRef;
 
     /**
-     * invoice to show on popup
+     * Tours
      */
+    @Input()
     invoice: PrimarySale;
 
-    /**
-     * year and month for calendar
-     * @type {number}
-     */
+    @Input()
     public month: number;
+
+    @Input()
     public year: number;
 
     /**
@@ -91,5 +92,14 @@ export class PrimarySaleComponent extends ListComponent {
         this.month = date.month;
         this.year = date.year;
         this.fetch();
+    }
+
+    /**
+     * show all tour for user
+     * @param invoice
+     */
+    showInvoice(invoice: PrimarySale) {
+        this.invoice = invoice;
+        jQuery(this.invoices.nativeElement).modal();
     }
 }

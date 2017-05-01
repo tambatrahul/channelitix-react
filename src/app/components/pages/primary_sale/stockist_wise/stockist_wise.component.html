@@ -1,7 +1,7 @@
 <div class="box-widget widget-module user_tour">
     <div class="widget-head clearfix">
         <span class="h-icon"><i class="fa fa-table"></i></span>
-        <h4>Invoice Details for {{ invoice.customer.firm_name}}</h4>
+        <h4>Stockist Wise Details for {{ invoice.customer.firm_name}}</h4>
     </div>
     <div class="widget-container" #loading_box>
         <div class="widget-block">
@@ -9,19 +9,17 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Product</th>
-                        <th>Uom</th>
+                        <th>Stockist</th>
                         <th>Qty</th>
-                        <th>Amount</th>
+                        <th>Total Amount</th>
                     </tr>
                     </thead>
 
                     <tfoot>
                     <tr>
-                        <th>Product</th>
-                        <th>Uom</th>
+                        <th>Stockist</th>
                         <th>Qty</th>
-                        <th>Amount</th>
+                        <th>Total Amount</th>
                     </tr>
                     </tfoot>
 
@@ -31,7 +29,6 @@
                             <td>
                                 {{ item.product?.name }}
                             </td>
-                            <td>{{ item.uom.name }}</td>
                             <td>{{ item.qty }}</td>
                             <td>{{ item.net_amt }}</td>
                         </tr>

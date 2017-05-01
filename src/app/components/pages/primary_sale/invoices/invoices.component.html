@@ -1,0 +1,50 @@
+<div class="box-widget widget-module user_tour">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-table"></i></span>
+        <h4>Primary Sales Report for ({{ title }})</h4>
+    </div>
+    <div class="widget-container" #loading_box>
+        <div class="widget-block">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Stockist (Grade)</th>
+                        <th>Brick</th>
+                        <th>Territory</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>Stockist (Grade)</th>
+                        <th>Brick</th>
+                        <th>Territory</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    <template ngFor let-ps [ngForOf]="primary_sales">
+                        <tr *ngIf="ps.customer">
+                            <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
+                            <td>{{ ps.customer.hq_brick.name}}</td>
+                            <td>{{ ps.customer.hq_territory.name}}</td>
+                            <td>{{ ps.doc_date }}</td>
+                            <td>{{ ps.net_amt}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" (click)="showInvoice(ps)">View Items</button>
+                            </td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

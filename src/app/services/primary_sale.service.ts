@@ -28,16 +28,48 @@ export class PrimarySaleService extends BaseService {
     }
 
     /**
-     * monthly attendance
+     * monthly invoice
      *
      * @param month
      * @param year
      * @returns {Observable<Result>}
      */
-    monthly(month: number, year: number): Observable<Result> {
+    monthly_invoice(month: number, year: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/invoices/' + month + "/" + year;
+
+        // make server call
+        return this.get(url, new RequestOptions());
+    }
+
+    /**
+     * monthly product
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    monthly_product(month: number, year: number): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/invoices/product_wise/' + month + "/" + year;
+
+        // make server call
+        return this.get(url, new RequestOptions());
+    }
+
+    /**
+     * monthly stockist
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    monthly_stockist(month: number, year: number): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/invoices/customer_wise/' + month + "/" + year;
 
         // make server call
         return this.get(url, new RequestOptions());
