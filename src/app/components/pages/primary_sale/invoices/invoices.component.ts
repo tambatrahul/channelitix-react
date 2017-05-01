@@ -2,8 +2,8 @@ import {Component, ViewChild, ElementRef, Input} from "@angular/core";
 import * as moment from "moment";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
-import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {PrimarySaleService} from "../../../../services/primary_sale.service";
+import {InvoiceDetail} from "../../../../models/SAP/invoice_detail";
 declare let jQuery: any;
 
 @Component({
@@ -20,16 +20,23 @@ export class InvoicesComponent extends ListComponent {
     invoices: ElementRef;
 
     /**
-     * Tours
+     * invoice to show on popup
      */
-    @Input()
-    invoice: PrimarySale;
+    invoice: InvoiceDetail;
 
+    public _month: number;
     @Input()
-    public month: number;
+    set month(month: number) {
+        this._month = month;
+        this.fetch();
+    }
 
+    public _year: number;
     @Input()
-    public year: number;
+    set year(year: number) {
+        this._year = year;
+        this.fetch();
+    }
 
     /**
      * get title of table
@@ -44,7 +51,7 @@ export class InvoicesComponent extends ListComponent {
      *
      * @type {Array}
      */
-    public primary_sales: PrimarySale[] = [];
+    public invoice_details: InvoiceDetail[] = [];
 
     /**
      * User Component Constructor
@@ -55,26 +62,17 @@ export class InvoicesComponent extends ListComponent {
     }
 
     /**
-     * on load of component load customer types
-     */
-    ngOnInit() {
-        this.month = moment().month();
-        this.year = moment().year();
-        super.ngOnInit();
-    }
-
-    /**
      * fetch customer secondary sales from server
      */
     fetch() {
         this.loading = true;
-        this.saleService.monthly_invoice(this.month + 1, this.year).subscribe(
+        this.saleService.monthly_invoice(this._month + 1, this._year).subscribe(
             response => {
                 this.loading = false;
 
                 // convert to models
-                this.primary_sales = response.primary_sales.map(function (user, index) {
-                    return new PrimarySale(user);
+                this.invoice_details = response.invoice_details.map(function (user, index) {
+                    return new InvoiceDetail(user);
                 });
             },
             err => {
@@ -98,7 +96,7 @@ export class InvoicesComponent extends ListComponent {
      * show all tour for user
      * @param invoice
      */
-    showInvoice(invoice: PrimarySale) {
+    showInvoice(invoice: InvoiceDetail) {
         this.invoice = invoice;
         jQuery(this.invoices.nativeElement).modal();
     }

@@ -24,13 +24,13 @@
                     </tfoot>
 
                     <tbody>
-                    <template ngFor let-item [ngForOf]="invoice.invoice_details">
+                    <template ngFor let-item [ngForOf]="invoice_details">
                         <tr>
                             <td>
                                 {{ item.product?.name }}
                             </td>
-                            <td>{{ item.qty }}</td>
-                            <td>{{ item.net_amt }}</td>
+                            <td>{{ item.total_qty }}</td>
+                            <td>{{ item.total_net_amount}}</td>
                         </tr>
                     </template>
 

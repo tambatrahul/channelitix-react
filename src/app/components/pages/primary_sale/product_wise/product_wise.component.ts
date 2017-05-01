@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
-import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {PrimarySaleService} from "../../../../services/primary_sale.service";
+import {InvoiceDetail} from "../../../../models/SAP/invoice_detail";
 declare let jQuery: any;
 
 @Component({
@@ -19,24 +19,26 @@ export class ProductWiseComponent extends ListComponent {
      */
     title: string = "";
 
+    public _month: number;
+    @Input()
+    set month(month: number) {
+        this._month = month;
+        this.fetch();
+    }
+
+    public _year: number;
+    @Input()
+    set year(year: number) {
+        this._year = year;
+        this.fetch();
+    }
+
     /**
-     * Tours
-     */
-    @Input()
-    invoice: PrimarySale;
-
-    @Input()
-    public month: number;
-
-    @Input()
-    public year: number;
-
-    /**
-     * primary sales
+     * invoice detail
      *
      * @type {Array}
      */
-    public primary_sales: PrimarySale[] = [];
+    public invoice_details: InvoiceDetail[] = [];
 
 
     /**
@@ -50,13 +52,13 @@ export class ProductWiseComponent extends ListComponent {
 
     fetch() {
         this.loading = true;
-        this.saleService.monthly_product(this.month + 1, this.year).subscribe(
+        this.saleService.monthly_product(this._month + 1, this._year).subscribe(
             response => {
                 this.loading = false;
 
                 // convert to models
-                this.primary_sales = response.primary_sales.map(function (user, index) {
-                    return new PrimarySale(user);
+                this.invoice_details = response.invoice_details.map(function (user, index) {
+                    return new InvoiceDetail(user);
                 });
             },
             err => {

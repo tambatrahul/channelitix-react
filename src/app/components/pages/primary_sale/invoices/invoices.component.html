@@ -30,7 +30,7 @@
                     </tfoot>
 
                     <tbody>
-                    <template ngFor let-ps [ngForOf]="primary_sales">
+                    <template ngFor let-ps [ngForOf]="invoices">
                         <tr *ngIf="ps.customer">
                             <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
                             <td>{{ ps.customer.hq_brick.name}}</td>

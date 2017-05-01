@@ -1,4 +1,4 @@
-<div class="container-fluid sales">
+<div class="container-fluid sales" #loading_box>
 
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
@@ -42,14 +42,14 @@
                     <div class="tab-pane active" id="product_wise">
                         <!-- product_wise Table -->
                         <div>
-                            <product-wise [month]="month" [year]="year" [invoice]="invoice"></product-wise>
+                            <product-wise [month]="month" [year]="year"></product-wise>
                         </div>
                         <!-- ./product_wise Table -->
                     </div>
                     <div class="tab-pane" id="stockist_wise">
                         <!-- stockist_wise Table -->
                         <div>
-                            <stockist-wise [month]="month" [year]="year" [invoice]="invoice"></stockist-wise>
+                            <stockist-wise [month]="month" [year]="year"></stockist-wise>
                         </div>
 
                         <!-- ./stockist_wise Table -->
@@ -58,7 +58,7 @@
 
                         <!-- Invoice Table -->
                         <div>
-                            <invoices [month]="month" [year]="year" [invoice]="invoice"></invoices>
+                            <invoices [month]="month" [year]="year"></invoices>
                         </div>
                         <!-- ./Invoice Table -->
                     </div>

@@ -21,6 +21,7 @@ import {SecondarySale} from "./sale/secondary_sale";
 import {Product} from "./order/product";
 import {VisitInput} from "./visit/visit_input";
 import {PrimarySale} from "./sale/primary_sale";
+import {InvoiceDetail} from "./SAP/invoice_detail";
 
 export class Result {
 
@@ -82,6 +83,9 @@ export class Result {
 
     // primary sales
     primary_sales: PrimarySale[];
+
+    // invoice detail
+    invoice_details: InvoiceDetail[];
 
     // products
     products: Product[] = [];
