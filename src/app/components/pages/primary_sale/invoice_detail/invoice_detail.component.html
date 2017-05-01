@@ -29,7 +29,7 @@
                     <template ngFor let-item [ngForOf]="invoice.invoice_details">
                         <tr>
                             <td>
-                                {{ item.product.name }}
+                                {{ item.product?.name }}
                             </td>
                             <td>{{ item.uom.name }}</td>
                             <td>{{ item.qty }}</td>
