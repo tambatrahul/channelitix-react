@@ -1,46 +1,67 @@
 <div class="box-widget widget-module user_tour">
-    <div class="widget-container" #loading_box>
-        <div class="widget-block">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Stockist (Grade)</th>
-                        <th>Brick</th>
-                        <th>Territory</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th></th>
-                    </tr>
-                    </thead>
+  <div class="widget-container" #loading_box>
+    <div class="widget-block">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Stockist (Grade)</th>
+            <th>Brick</th>
+            <th>Territory</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th></th>
+          </tr>
+          </thead>
 
-                    <tfoot>
-                    <tr>
-                        <th>Stockist (Grade)</th>
-                        <th>Brick</th>
-                        <th>Territory</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th></th>
-                    </tr>
-                    </tfoot>
+          <tfoot>
+          <tr>
+            <th>Stockist (Grade)</th>
+            <th>Brick</th>
+            <th>Territory</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th></th>
+          </tr>
+          </tfoot>
 
-                    <tbody>
-                    <template ngFor let-ps [ngForOf]="primary_sales">
-                        <tr *ngIf="ps.customer">
-                            <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
-                            <td>{{ ps.customer.hq_brick.name}}</td>
-                            <td>{{ ps.customer.hq_territory.name}}</td>
-                            <td>{{ ps.doc_date }}</td>
-                            <td>{{ ps.net_amt}}</td>
-                            <td>
-                                <button class="btn btn-primary btn-xs" (click)="showInvoice(ps)">View Items</button>
-                            </td>
-                        </tr>
-                    </template>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+          <tbody>
+          <template ngFor let-ps [ngForOf]="primary_sales">
+            <tr *ngIf="ps.customer">
+              <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
+              <td>{{ ps.customer.hq_brick.name}}</td>
+              <td>{{ ps.customer.hq_territory.name}}</td>
+              <td>{{ ps.doc_date }}</td>
+              <td>{{ ps.net_amt}}</td>
+              <td>
+                <button class="btn btn-primary btn-xs" (click)="showInvoice(ps)">View Items</button>
+              </td>
+            </tr>
+          </template>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" #invoice_detail>
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- Create Tour View -->
+        <div class="row" *ngIf="invoice">
+          <!-- Tour Table -->
+          <div class="col-xs-12">
+            <div>
+              <invoice-detail [invoice]="invoice"></invoice-detail>
+            </div>
+          </div>
+          <!-- ./Tour Table -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

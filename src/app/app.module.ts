@@ -121,6 +121,7 @@ import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.
 import {ProductWiseComponent} from "./components/pages/primary_sale/product_wise/product_wise.component";
 import {StockistWiseComponent} from "./components/pages/primary_sale/stockist_wise/stockist_wise.component";
 import {InvoicesComponent} from "./components/pages/primary_sale/invoices/invoices.component";
+import {InvoiceDetailComponent} from "./components/pages/primary_sale/invoice_detail/invoice_detail.component";
 
 enableProdMode();
 @NgModule({
@@ -182,6 +183,7 @@ enableProdMode();
         ProductWiseComponent,
         StockistWiseComponent,
         InvoicesComponent,
+        InvoiceDetailComponent,
 
         // directives
         AttendanceStatusDirective,
