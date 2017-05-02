@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
 import {Result} from "../models/result";
-import {Stp} from "../models/customer/stp";
 
 @Injectable()
 export class ReportService extends BaseService {
@@ -56,5 +55,25 @@ export class ReportService extends BaseService {
 
         // make server call
         return this.get(url);
+    }
+
+    /**
+     * get order and visit trends
+     *
+     * @returns {Observable<Result>}
+     */
+    visit_order_trend(from_date, to_date, year): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('from_date', String(from_date ? from_date : ''));
+        params.set('to_date', String(to_date ? to_date : ''));
+        params.set('year', String(year > 0 ? year : ''));
+
+        // prepare url
+        let url = this.getBaseUrl() + '/visit_order_trend/';
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
     }
 }

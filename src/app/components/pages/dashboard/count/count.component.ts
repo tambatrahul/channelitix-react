@@ -19,7 +19,10 @@ export class DashBoardCountComponent {
         total_users: 0,
         total_active_users: 0,
         total_customers: 0,
-        total_working_days: 0
+        total_visits: 0,
+        call_average: 0,
+        productive_calls: 0,
+        total_bricks: 0
     };
 
     /**

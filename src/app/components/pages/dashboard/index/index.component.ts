@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Output, EventEmitter} from "@angular/core";
 import {AttendanceService} from "../../../../services/attendance.service";
 import {ReportService} from "../../../../services/report.service";
 declare let jQuery: any;
@@ -21,6 +21,14 @@ export class DashBoardComponent {
     };
 
     /**
+     * total visit and total pob
+     * @type {number}
+     */
+    public total_visits: number = 0;
+    public total_pob: number = 0;
+    public productive_calls: number = 0;
+
+    /**
      * Dashboard Component Constructor
      */
     constructor(private reportService: ReportService) {
@@ -39,5 +47,15 @@ export class DashBoardComponent {
      */
     onDateChanged(dates) {
         this.dates = dates;
+    }
+
+    /**
+     * total visit and pob values
+     * @param data
+     */
+    totalVisitOrders(data) {
+        this.total_visits = data.visits;
+        this.total_pob = data.orders;
+        this.productive_calls = (data.visits > 0) ? parseInt(((data.total_orders / data.visits) * 100).toFixed(2)) : 0
     }
 }

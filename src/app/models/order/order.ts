@@ -21,6 +21,7 @@ export class Order extends Model {
     // for internal use only
     isSunday: boolean = false;
     order_total_count: number = 0;
+    order_day_total_count: number = 0;
     order_day: number;
 
     constructor(info: any) {
@@ -40,6 +41,9 @@ export class Order extends Model {
         this.creator = info.creator;
         this.isSunday = info.isSunday;
         this.order_total_count = info.order_total_count;
+        if (info.order_day_total_count)
+            this.order_day_total_count = parseInt(info.order_day_total_count);
+        this.order_day = info.order_day;
 
         if (info.order_items)
             this.order_items = info.order_items.map(function (item) {

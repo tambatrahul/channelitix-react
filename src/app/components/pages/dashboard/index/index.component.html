@@ -47,22 +47,25 @@
             <!-- Visit Order Trend -->
             <div class="row">
                 <div class="col-xs-12 col-md-9">
-                    <visit_order_trend></visit_order_trend>
+                    <visit-count-graph [dates]="dates" (totalVisitOrders)="totalVisitOrders($event)"></visit-count-graph>
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="mini-stats-widget full-block-mini-chart">
                                 <div class="mini-stats-top">
-                                    <span class="mini-stats-value">6,000</span>
+                                    <span class="mini-stats-value">{{ total_visits }}</span>
                                     <span class="mini-stats-label">Total Visits</span>
+                                </div>
+                                <div class="mini-stats-bottom">
+                                    <span></span> Prod. Calls <span>{{ productive_calls}} % </span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12">
                             <div class="mini-stats-widget full-block-mini-chart">
                                 <div class="mini-stats-top">
-                                    <span class="mini-stats-value">6,000</span>
+                                    <span class="mini-stats-value">{{ total_pob }}</span>
                                     <span class="mini-stats-label">POB</span>
                                 </div>
                             </div>

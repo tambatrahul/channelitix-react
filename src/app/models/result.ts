@@ -90,5 +90,9 @@ export class Result {
     total_users: number = 0;
     total_active_users: number = 0;
     total_customers: number = 0;
-    total_working_days: number = 0;
+    total_visits: number = 0;
+    call_average: number = 0;
+    productive_calls: number = 0;
+    total_bricks: number = 0;
+    total_orders: number = 0;
 }
