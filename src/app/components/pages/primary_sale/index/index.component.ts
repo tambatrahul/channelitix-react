@@ -2,8 +2,8 @@ import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
-import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {PrimarySaleService} from "../../../../services/primary_sale.service";
+import {InvoiceDetail} from "../../../../models/SAP/invoice_detail";
 declare let jQuery: any;
 
 @Component({
@@ -11,17 +11,6 @@ declare let jQuery: any;
     styleUrls: ['index.component.less']
 })
 export class PrimarySaleComponent extends ListComponent {
-
-    /**
-     * loading identifier
-     */
-    @ViewChild('invoice_detail')
-    invoice_detail: ElementRef;
-
-    /**
-     * invoice to show on popup
-     */
-    invoice: PrimarySale;
 
     /**
      * year and month for calendar
@@ -39,11 +28,11 @@ export class PrimarySaleComponent extends ListComponent {
     }
 
     /**
-     * primary sales
+     * invoice detail
      *
      * @type {Array}
      */
-    public primary_sales: PrimarySale[] = [];
+    public invoice_details: InvoiceDetail[] = [];
 
     /**
      * User Component Constructor
@@ -66,20 +55,7 @@ export class PrimarySaleComponent extends ListComponent {
      * fetch customer secondary sales from server
      */
     fetch() {
-        this.loading = true;
-        this.saleService.monthly(this.month + 1, this.year).subscribe(
-            response => {
-                this.loading = false;
 
-                // convert to models
-                this.primary_sales = response.primary_sales.map(function (user, index) {
-                    return new PrimarySale(user);
-                });
-            },
-            err => {
-                this.loading = false;
-            }
-        );
     }
 
     /**
@@ -90,15 +66,5 @@ export class PrimarySaleComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
-        this.fetch();
-    }
-
-    /**
-     * show all tour for user
-     * @param invoice
-     */
-    showInvoice(invoice: PrimarySale) {
-        this.invoice = invoice;
-        jQuery(this.invoice_detail.nativeElement).modal();
     }
 }

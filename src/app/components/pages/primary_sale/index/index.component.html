@@ -1,4 +1,4 @@
-<div class="container-fluid sales">
+<div class="container-fluid sales" #loading_box>
 
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
@@ -26,81 +26,45 @@
     </div>
     <!-- ./Filters for Order report-->
 
-    <!-- Order Table -->
+    <!-- Tabs -->
     <div class="row">
         <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Primary Sales Report for ({{ title }})</h4>
-                </div>
-                <div class="widget-container sales-table" #loading_box>
-                    <div class="widget-block">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Stockist (Grade)</th>
-                                    <th>Brick</th>
-                                    <th>Territory</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-
-                                <tfoot>
-                                <tr>
-                                    <th>Stockist (Grade)</th>
-                                    <th>Brick</th>
-                                    <th>Territory</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
-
-                                <tbody>
-                                <template ngFor let-ps [ngForOf]="primary_sales">
-                                    <tr *ngIf="ps.customer">
-                                        <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
-                                        <td>{{ ps.customer.hq_brick.name}}</td>
-                                        <td>{{ ps.customer.hq_territory.name}}</td>
-                                        <td>{{ ps.doc_date }}</td>
-                                        <td>{{ ps.net_amt}}</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-xs" (click)="showInvoice(ps)">View Items</button>
-                                        </td>
-                                    </tr>
-                                </template>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ./Order Table -->
-</div>
-<div class="modal fade" tabindex="-1" role="dialog" #invoice_detail>
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <!-- Create Tour View -->
-                <div class="row" *ngIf="invoice">
-                    <!-- Tour Table -->
-                    <div class="col-xs-12">
+            <div class="full-tab-container">
+                <ul class="main-tab nav nav-tabs">
+                    <li class="active"><a href="#product_wise" data-toggle="tab">Product Wise</a>
+                    </li>
+                    <li><a href="#stockist_wise" data-toggle="tab">Stockist Wise</a>
+                    </li>
+                    <li><a href="#invoice" data-toggle="tab">Invoice</a>
+                    </li>
+                </ul>
+                <div class="main-tab-content tab-content">
+                    <div class="tab-pane active" id="product_wise">
+                        <!-- product_wise Table -->
                         <div>
-                            <invoice-detail [invoice]="invoice"></invoice-detail>
+                            <product-wise [month]="month" [year]="year"></product-wise>
                         </div>
+                        <!-- ./product_wise Table -->
                     </div>
-                    <!-- ./Tour Table -->
+                    <div class="tab-pane" id="stockist_wise">
+                        <!-- stockist_wise Table -->
+                        <div>
+                            <stockist-wise [month]="month" [year]="year"></stockist-wise>
+                        </div>
+
+                        <!-- ./stockist_wise Table -->
+                    </div>
+                    <div class="tab-pane" id="invoice">
+
+                        <!-- Invoice Table -->
+                        <div>
+                            <invoices [month]="month" [year]="year"></invoices>
+                        </div>
+                        <!-- ./Invoice Table -->
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+    <!-- ./Tabs -->
 </div>

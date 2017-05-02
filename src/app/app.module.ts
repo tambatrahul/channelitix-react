@@ -118,7 +118,9 @@ import {CustomerSelectComponent} from "./components/form_elements/attendance/cus
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect";
 import {PrimarySaleService} from "./services/primary_sale.service";
 import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
-import {InvoiceDetailComponent} from "./components/pages/primary_sale/invoice_detail/invoice_detail.component";
+import {ProductWiseComponent} from "./components/pages/primary_sale/product_wise/product_wise.component";
+import {StockistWiseComponent} from "./components/pages/primary_sale/stockist_wise/stockist_wise.component";
+import {InvoicesComponent} from "./components/pages/primary_sale/invoices/invoices.component";
 
 enableProdMode();
 @NgModule({
@@ -177,6 +179,9 @@ enableProdMode();
         ProductComponent,
         SummaryComponent,
         SummaryDetailComponent,
+        ProductWiseComponent,
+        StockistWiseComponent,
+        InvoicesComponent,
 
         // directives
         AttendanceStatusDirective,
@@ -190,7 +195,6 @@ enableProdMode();
         TourCountDirective,
         AttendancePobStatusDirective,
         PrimarySaleComponent,
-        InvoiceDetailComponent,
 
         // reusable components
         MonthPickerComponent,
