@@ -3,7 +3,7 @@ import {User} from "./user/user";
 import {Customer} from "./customer/customer";
 import {CustomerType} from "./customer/customer_type";
 import {Territory} from "./territory/territory";
-import {Area} from "./territory/Area";
+import {Area} from "./territory/area";
 import {Headquarter} from "./territory/headquarter";
 import {Brick} from "./territory/brick";
 import {Region} from "./territory/region";
@@ -99,4 +99,7 @@ export class Result {
     productive_calls: number = 0;
     total_bricks: number = 0;
     total_orders: number = 0;
+
+    // Product Wise sale
+    product_wise_sale  = [];
 }

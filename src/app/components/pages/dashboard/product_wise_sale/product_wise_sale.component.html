@@ -8,8 +8,42 @@
                 </h4>
             </div>
             <div class="widget-container details-table" #loading_box>
-                <div class="widget-block" style="padding: 0">
+                <div class="widget-block">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Target</th>
+                                <th>Actual sale</th>
+                                <th>Performance(%)</th>
+                            </tr>
+                            </thead>
 
+                            <tfoot>
+                            <tr>
+                                <th>Product</th>
+                                <th>Target</th>
+                                <th>Actual sale</th>
+                                <th>Performance(%)</th>
+                            </tr>
+                            </tfoot>
+
+                            <tbody>
+                            <template ngFor let-item [ngForOf]="product_wise_sale">
+                                <tr>
+                                    <td>
+                                        {{ item.product?.name }}
+                                    </td>
+                                    <td>{{ item.target }}</td>
+                                    <td>{{ item.actual_sale }}</td>
+                                    <td>{{ (item.actual_sale / item.target) * 100 }}</td>
+                                </tr>
+                            </template>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
