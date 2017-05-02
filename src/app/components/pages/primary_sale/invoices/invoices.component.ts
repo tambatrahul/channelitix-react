@@ -4,6 +4,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
 import {PrimarySaleService} from "../../../../services/primary_sale.service";
 import {InvoiceDetail} from "../../../../models/SAP/invoice_detail";
+import {PrimarySale} from "../../../../models/sale/primary_sale";
 declare let jQuery: any;
 
 @Component({
@@ -24,6 +25,9 @@ export class InvoicesComponent extends ListComponent {
      */
     invoice: InvoiceDetail;
 
+    /**
+     * month of invoice
+     */
     public _month: number;
     @Input()
     set month(month: number) {
@@ -31,11 +35,13 @@ export class InvoicesComponent extends ListComponent {
         this.fetch();
     }
 
+    /**
+     * year of invoice
+     */
     public _year: number;
     @Input()
     set year(year: number) {
         this._year = year;
-        this.fetch();
     }
 
     /**
@@ -43,7 +49,7 @@ export class InvoicesComponent extends ListComponent {
      * @returns {string}
      */
     get title(): string {
-        return moment().year(this.year).month(this.month).format("MMMM, YYYY");
+        return moment().year(this._year).month(this._month).format("MMMM, YYYY");
     }
 
     /**
@@ -51,7 +57,7 @@ export class InvoicesComponent extends ListComponent {
      *
      * @type {Array}
      */
-    public invoice_details: InvoiceDetail[] = [];
+    public primary_sales: PrimarySale[] = [];
 
     /**
      * User Component Constructor
@@ -65,31 +71,22 @@ export class InvoicesComponent extends ListComponent {
      * fetch customer secondary sales from server
      */
     fetch() {
-        this.loading = true;
-        this.saleService.monthly_invoice(this._month + 1, this._year).subscribe(
-            response => {
-                this.loading = false;
+        if (this._month && this._year) {
+            this.loading = true;
+            this.saleService.monthly_invoice(this._month + 1, this._year).subscribe(
+                response => {
+                    this.loading = false;
 
-                // convert to models
-                this.invoice_details = response.invoice_details.map(function (user, index) {
-                    return new InvoiceDetail(user);
-                });
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
-
-    /**
-     * month and year changed
-     *
-     * @param date
-     */
-    monthYearChanged(date) {
-        this.month = date.month;
-        this.year = date.year;
-        this.fetch();
+                    // convert to models
+                    this.primary_sales = response.primary_sales.map(function (user, index) {
+                        return new PrimarySale(user);
+                    });
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        }
     }
 
     /**

@@ -54,9 +54,7 @@ export class PrimarySaleComponent extends ListComponent {
     /**
      * fetch customer secondary sales from server
      */
-    fetch() {
-
-    }
+    fetch() {}
 
     /**
      * month and year changed

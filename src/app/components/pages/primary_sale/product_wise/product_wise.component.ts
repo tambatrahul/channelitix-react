@@ -19,6 +19,9 @@ export class ProductWiseComponent extends ListComponent {
      */
     title: string = "";
 
+    /**
+     * month of invoice
+     */
     public _month: number;
     @Input()
     set month(month: number) {
@@ -26,11 +29,13 @@ export class ProductWiseComponent extends ListComponent {
         this.fetch();
     }
 
+    /**
+     * year of invoice
+     */
     public _year: number;
     @Input()
     set year(year: number) {
         this._year = year;
-        this.fetch();
     }
 
     /**
@@ -44,6 +49,7 @@ export class ProductWiseComponent extends ListComponent {
     /**
      * Monthly Tour Program Constructor
      *
+     * @param saleService
      * @param _service
      */
     constructor(private saleService: PrimarySaleService, public _service: AuthService) {
@@ -51,19 +57,21 @@ export class ProductWiseComponent extends ListComponent {
     }
 
     fetch() {
-        this.loading = true;
-        this.saleService.monthly_product(this._month + 1, this._year).subscribe(
-            response => {
-                this.loading = false;
+        if (this._month && this._year) {
+            this.loading = true;
+            this.saleService.monthly_product(this._month + 1, this._year).subscribe(
+                response => {
+                    this.loading = false;
 
-                // convert to models
-                this.invoice_details = response.invoice_details.map(function (user, index) {
-                    return new InvoiceDetail(user);
-                });
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+                    // convert to models
+                    this.invoice_details = response.invoice_details.map(function (user, index) {
+                        return new InvoiceDetail(user);
+                    });
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        }
     }
 }

@@ -30,7 +30,6 @@ export class StockistWiseComponent extends ListComponent {
     @Input()
     set year(year: number) {
         this._year = year;
-        this.fetch();
     }
 
     /**
@@ -43,26 +42,32 @@ export class StockistWiseComponent extends ListComponent {
     /**
      * Monthly Tour Program Constructor
      *
+     * @param saleService
      * @param _service
      */
     constructor(private saleService: PrimarySaleService, public _service: AuthService) {
         super(_service);
     }
 
+    /**
+     * fetch from server
+     */
     fetch() {
-        this.loading = true;
-        this.saleService.monthly_stockist(this._month + 1, this._year).subscribe(
-            response => {
-                this.loading = false;
+        if (this._month && this._year) {
+            this.loading = true;
+            this.saleService.monthly_stockist(this._month + 1, this._year).subscribe(
+                response => {
+                    this.loading = false;
 
-                // convert to models
-                this.invoice_details = response.invoice_details.map(function (user, index) {
-                    return new InvoiceDetail(user);
-                });
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+                    // convert to models
+                    this.invoice_details = response.invoice_details.map(function (user, index) {
+                        return new InvoiceDetail(user);
+                    });
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        }
     }
 }

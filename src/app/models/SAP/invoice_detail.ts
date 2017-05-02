@@ -12,8 +12,8 @@ export class InvoiceDetail extends Model {
 
     constructor(info: any) {
         super(info.id);
-        this.total_qty = info.total_qty;
-        this.total_net_amount = info.total_net_amount;
+        this.total_qty = parseInt(info.total_qty);
+        this.total_net_amount = parseFloat(info.total_net_amount);
 
         if (info.product)
             this.product = new Product(info.product);

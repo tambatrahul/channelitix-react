@@ -1,8 +1,4 @@
 <div class="box-widget widget-module user_tour">
-    <div class="widget-head clearfix">
-        <span class="h-icon"><i class="fa fa-table"></i></span>
-        <h4>Primary Sales Report for ({{ title }})</h4>
-    </div>
     <div class="widget-container" #loading_box>
         <div class="widget-block">
             <div class="table-responsive">
@@ -30,7 +26,7 @@
                     </tfoot>
 
                     <tbody>
-                    <template ngFor let-ps [ngForOf]="invoices">
+                    <template ngFor let-ps [ngForOf]="primary_sales">
                         <tr *ngIf="ps.customer">
                             <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
                             <td>{{ ps.customer.hq_brick.name}}</td>
