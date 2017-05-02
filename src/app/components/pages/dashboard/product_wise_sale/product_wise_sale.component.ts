@@ -5,7 +5,7 @@ import {ReportService} from "../../../../services/report.service";
 import {Product} from "../../../../models/order/product";
 @Component({
     selector: 'product-wise-sale',
-    styleUrls: ['product_wise_sale.component.less'],
+    styleUrls: ['../../visit/index/index.component.less'],
     templateUrl: 'product_wise_sale.component.html',
 })
 export class ProductWiseSaleComponent extends ListComponent {
@@ -22,16 +22,24 @@ export class ProductWiseSaleComponent extends ListComponent {
     }];
 
     /**
-     * dates
-     *
-     * @type {}
+     * month of invoice
      */
-    _dates = {from_date: '', to_date: '', year: ''};
+    public _month: number;
     @Input()
-    set dates(dates) {
-        this._dates = dates;
+    set month(month: number) {
+        this._month = month;
         this.fetch();
     }
+
+    /**
+     * year of invoice
+     */
+    public _year: number;
+    @Input()
+    set year(year: number) {
+        this._year = year;
+    }
+
 
     constructor(public _service: AuthService, private reportService: ReportService) {
         super(_service);
@@ -41,7 +49,7 @@ export class ProductWiseSaleComponent extends ListComponent {
      * fetch counts from server
      */
     protected fetch() {
-        this.reportService.product_wise_sale(this._dates.from_date, this._dates.to_date, this._dates.year).subscribe(
+        this.reportService.product_wise_sale(this._month, this._year).subscribe(
             response => {
                 this.product_wise_sale = response.product_wise_sale;
             }, err => {

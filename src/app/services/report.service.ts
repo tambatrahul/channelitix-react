@@ -82,15 +82,9 @@ export class ReportService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    product_wise_sale(from_date, to_date, year): Observable<Result> {
-
-        // prepare get params
-        let params = new URLSearchParams();
-        params.set('from_date', String(from_date ? from_date : ''));
-        params.set('to_date', String(to_date ? to_date : ''));
-        params.set('year', String(year > 0 ? year : ''));
+    product_wise_sale(month, year): Observable<Result> {
 
         // make server call
-        return this.get(this.getBaseUrl() + '/target/performance/', new RequestOptions({search: params}));
+        return this.get(this.getBaseUrl() + '/target_performance/'+ month+'/'+year);
     }
 }

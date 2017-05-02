@@ -1,4 +1,5 @@
 import {Component, Output, EventEmitter} from "@angular/core";
+import * as moment from "moment";
 import {AttendanceService} from "../../../../services/attendance.service";
 import {ReportService} from "../../../../services/report.service";
 declare let jQuery: any;
@@ -29,6 +30,13 @@ export class DashBoardComponent {
     public productive_calls: number = 0;
 
     /**
+     * year and month for calendar
+     * @type {number}
+     */
+    public month: number;
+    public year: number;
+
+    /**
      * Dashboard Component Constructor
      */
     constructor(private reportService: ReportService) {
@@ -38,7 +46,8 @@ export class DashBoardComponent {
      * on load of component load customer types
      */
     ngOnInit() {
-
+        this.month = moment().month();
+        this.year = moment().year();
     }
 
     /**
