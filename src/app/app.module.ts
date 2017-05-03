@@ -123,6 +123,8 @@ import {StockistWiseComponent} from "./components/pages/primary_sale/stockist_wi
 import {InvoicesComponent} from "./components/pages/primary_sale/invoices/invoices.component";
 import {TillMonthChartComponent} from "./components/pages/dashboard/till_month_chart/till_month_chart.component";
 import {MonthlyPrimarySecondaryTargetComponent} from "./components/pages/dashboard/monthly_primary_secondary_target/monthly_primary_secondary_target.component";
+import {InvoiceDetailComponent} from "./components/pages/primary_sale/invoice_detail/invoice_detail.component";
+import {ProductWiseSaleComponent} from "./components/pages/dashboard/product_wise_sale/product_wise_sale.component";
 
 enableProdMode();
 @NgModule({
@@ -184,6 +186,8 @@ enableProdMode();
         ProductWiseComponent,
         StockistWiseComponent,
         InvoicesComponent,
+        InvoiceDetailComponent,
+        ProductWiseSaleComponent,
 
         // directives
         AttendanceStatusDirective,

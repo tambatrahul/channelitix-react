@@ -108,4 +108,15 @@ export class ReportService extends BaseService {
         // make server call
         return this.get(url, new RequestOptions({search: params}));
     }
+
+    /**
+     * get all product wise sale for dashboard
+     *
+     * @returns {Observable<Result>}
+     */
+    product_wise_sale(month, year): Observable<Result> {
+
+        // make server call
+        return this.get(this.getBaseUrl() + '/target_performance/'+ month+'/'+year);
+    }
 }

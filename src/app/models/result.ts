@@ -3,7 +3,7 @@ import {User} from "./user/user";
 import {Customer} from "./customer/customer";
 import {CustomerType} from "./customer/customer_type";
 import {Territory} from "./territory/territory";
-import {Area} from "./territory/Area";
+import {Area} from "./territory/area";
 import {Headquarter} from "./territory/headquarter";
 import {Brick} from "./territory/brick";
 import {Region} from "./territory/region";
@@ -105,4 +105,7 @@ export class Result {
     year_till_month: YearTillMonth;
 
     performance: Performance;
+
+    // Product Wise sale
+    product_wise_sale  = [];
 }
