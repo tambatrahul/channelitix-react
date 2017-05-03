@@ -22,6 +22,7 @@ import {Product} from "./order/product";
 import {VisitInput} from "./visit/visit_input";
 import {PrimarySale} from "./sale/primary_sale";
 import {InvoiceDetail} from "./SAP/invoice_detail";
+import {YearTillMonth} from "./SAP/year_till_month";
 
 export class Result {
 
@@ -99,4 +100,9 @@ export class Result {
     productive_calls: number = 0;
     total_bricks: number = 0;
     total_orders: number = 0;
+
+    // target till month and sales till month
+    year_till_month: YearTillMonth;
+
+    performance: Performance;
 }

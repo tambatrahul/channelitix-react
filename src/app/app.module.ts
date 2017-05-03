@@ -121,6 +121,8 @@ import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.
 import {ProductWiseComponent} from "./components/pages/primary_sale/product_wise/product_wise.component";
 import {StockistWiseComponent} from "./components/pages/primary_sale/stockist_wise/stockist_wise.component";
 import {InvoicesComponent} from "./components/pages/primary_sale/invoices/invoices.component";
+import {TillMonthChartComponent} from "./components/pages/dashboard/till_month_chart/till_month_chart.component";
+import {MonthlyPrimarySecondaryTargetComponent} from "./components/pages/dashboard/monthly_primary_secondary_target/monthly_primary_secondary_target.component";
 
 enableProdMode();
 @NgModule({
@@ -195,6 +197,8 @@ enableProdMode();
         TourCountDirective,
         AttendancePobStatusDirective,
         PrimarySaleComponent,
+        TillMonthChartComponent,
+        MonthlyPrimarySecondaryTargetComponent,
 
         // reusable components
         MonthPickerComponent,

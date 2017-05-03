@@ -14,11 +14,16 @@ export class PrimarySale extends Model {
 
     invoice_details: PrimarySaleItem[] = [];
 
+    // for internal use only
+    total_net_amount: number;
+    month: number;
+
     constructor(info: any) {
         super(info.id);
         this.doc_date = info.doc_date;
         this.customer_id = info.customer_id;
         this.uom_id = info.uom_id;
+        this.month = info.month;
 
         if (info.net_amt)
             this.net_amt = parseFloat(info.net_amt);
@@ -31,5 +36,8 @@ export class PrimarySale extends Model {
 
         if (info.invoice_details)
             this.invoice_details = info.invoice_details.map(item => new PrimarySaleItem(item));
+
+        if (info.total_net_amount)
+            this.total_net_amount = parseFloat(info.total_net_amount);
     }
 }

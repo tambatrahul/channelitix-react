@@ -76,4 +76,36 @@ export class ReportService extends BaseService {
         // make server call
         return this.get(url, new RequestOptions({search: params}));
     }
+
+    /**
+     * get details till month
+     * @returns {Observable<Result>}
+     */
+    till_month_chart(): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+
+        // prepare url
+        let url = this.getBaseUrl() + '/sap/till_month';
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * get performance for year
+     * @returns {Observable<Result>}
+     */
+    performance(year: number): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+
+        // prepare url
+        let url = this.getBaseUrl() + '/performance/' + year;
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
 }

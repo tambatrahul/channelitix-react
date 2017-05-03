@@ -19,6 +19,10 @@ export class SecondarySale extends Model {
     closing: number;
     unit_price: number;
 
+    // for internal user only
+    total_amount: number = 0;
+
+
     get closing_qty(): number {
         return this.adjustment + this.opening - this.secondary_sale;
     }
@@ -72,6 +76,9 @@ export class SecondarySale extends Model {
 
         if (info.uom)
             this.uom = new UOM(info.uom);
+
+        if (info.total_amount)
+            this.total_amount = parseFloat(info.total_amount);
 
     }
 }

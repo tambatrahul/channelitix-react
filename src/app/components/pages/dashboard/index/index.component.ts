@@ -1,5 +1,4 @@
-import {Component, Output, EventEmitter} from "@angular/core";
-import {AttendanceService} from "../../../../services/attendance.service";
+import {Component} from "@angular/core";
 import {ReportService} from "../../../../services/report.service";
 declare let jQuery: any;
 

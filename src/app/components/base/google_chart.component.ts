@@ -37,6 +37,26 @@ export class GoogleChartComponent implements OnInit {
     }
 
     /**
+     * create column chart
+     *
+     * @param element
+     * @returns {google.visualization.BarChart}
+     */
+    createColumnChart(element: any): any {
+        return new google.visualization.ColumnChart(element);
+    }
+
+    /**
+     * create line chart
+     *
+     * @param element
+     * @returns {google.visualization.BarChart}
+     */
+    createLineChart(element: any): any {
+        return new google.visualization.LineChart(element);
+    }
+
+    /**
      * create combo chart
      *
      * @param element

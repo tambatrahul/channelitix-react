@@ -32,6 +32,7 @@ export class AppConstants {
 
     // week days
     static week_days: Array<string> = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    static months: Array<string> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
     // attendance static values
     static WORKING: string = 'working';
@@ -58,6 +59,16 @@ export class AppConstants {
     static tour_types: Array<string> = [
         AppConstants.FIELD_WORK, AppConstants.MEETING, AppConstants.TRANSIT, AppConstants.LEAVE, AppConstants.HOLIDAY
     ];
+
+    /**
+     * return string month
+     *
+     * @param id
+     * @returns {string}
+     */
+    static getMonth(id){
+        return AppConstants.months[id];
+    }
 
     /**
      * get list of all child roles

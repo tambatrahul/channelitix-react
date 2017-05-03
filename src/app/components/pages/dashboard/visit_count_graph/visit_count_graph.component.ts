@@ -90,8 +90,8 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
         this.data = this.createDataTable(this.chart_data);
 
         this.options = {
+            chartArea: {left: 60, top: 40, bottom: 40, right: 20, width: "100%", height: "100%"},
             title: '',
-            chartArea: {width: '70%'},
             hAxis: {
                 title: 'Date',
                 minValue: 1

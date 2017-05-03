@@ -44,6 +44,21 @@
         <div class="col-md-10 col-md-pull-2">
             <dashboard-count [dates]="dates"></dashboard-count>
 
+            <div class="row">
+
+                <!-- Highest Call graph -->
+                <div class="col-xs-12 col-md-6">
+                    <till-month-chart></till-month-chart>
+                </div>
+                <!-- ./Highest Call graph -->
+
+                <!-- Highest Order graph -->
+                <div class="col-xs-12 col-md-6">
+                    <monthly-primary-secondary-target></monthly-primary-secondary-target>
+                </div>
+                <!-- ./Highest Order graph -->
+            </div>
+
             <!-- Visit Order Trend -->
             <div class="row">
                 <div class="col-xs-12 col-md-9">
@@ -82,21 +97,6 @@
                 </div>
             </div>
             <!-- ./Sales Trend -->
-
-            <div class="row">
-
-                <!-- Highest Call graph -->
-                <div class="col-xs-12 col-md-6">
-                    <highest_call_graph></highest_call_graph>
-                </div>
-                <!-- ./Highest Call graph -->
-
-                <!-- Highest Order graph -->
-                <div class="col-xs-12 col-md-6">
-                    <highest_order_graph></highest_order_graph>
-                </div>
-                <!-- ./Highest Order graph -->
-            </div>
         </div>
     </div>
     <!-- ./pages layout -->

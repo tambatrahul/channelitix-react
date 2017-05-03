@@ -1,4 +1,4 @@
-import {Directive, ElementRef, ViewChild} from "@angular/core";
+import {Directive, ElementRef} from "@angular/core";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {AppConstants} from "../../../../app.constants";
 
