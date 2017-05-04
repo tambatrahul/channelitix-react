@@ -46,6 +46,36 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     }
 
     /**
+     * country id for filter
+     */
+    _region_ids: Array<number> = [];
+    @Input()
+    set region_ids(region_ids) {
+        this._region_ids = region_ids;
+        this.fetch();
+    };
+
+    /**
+     * area id for filter
+     */
+    _area_ids: Array<number> = [];
+    @Input()
+    set area_ids(area_ids) {
+        this._area_ids = area_ids;
+        this.fetch();
+    };
+
+    /**
+     * headquarter id for filter
+     */
+    _headquarter_ids: Array<number> = [];
+    @Input()
+    set headquarter_ids(headquarter_ids) {
+        this._headquarter_ids = headquarter_ids;
+        this.fetch();
+    };
+
+    /**
      * TillMonthChartComponent constructor
      */
     constructor(private reportService: ReportService) {
@@ -122,11 +152,11 @@ export class TillMonthChartComponent extends GoogleChartComponent {
         data.addColumn('number', 'Performance');
         data.addColumn({type: 'number', role: 'annotation'});
         data.addRows([
-            ['YTD('+ this.previous_month +')', year_till_month.till_month_target, year_till_month.till_month_target,
+            ['YTD(' + this.previous_month + ')', year_till_month.till_month_target, year_till_month.till_month_target,
                 year_till_month.till_month_sale, year_till_month.till_month_sale],
             [this.month, year_till_month.month_target, year_till_month.month_target,
                 year_till_month.month_sale, year_till_month.month_sale],
-            ['YTD('+ this.month +')', (year_till_month.till_month_target + year_till_month.month_target),
+            ['YTD(' + this.month + ')', (year_till_month.till_month_target + year_till_month.month_target),
                 (year_till_month.till_month_target + year_till_month.month_target),
                 (year_till_month.till_month_sale + year_till_month.month_sale),
                 (year_till_month.till_month_sale + year_till_month.month_sale)],

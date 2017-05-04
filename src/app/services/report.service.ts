@@ -81,10 +81,25 @@ export class ReportService extends BaseService {
      * get details till month
      * @returns {Observable<Result>}
      */
-    till_month_chart(): Observable<Result> {
+    till_month_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
+        if (headquarter_ids && headquarter_ids.length > 0) {
+            headquarter_ids.map(function (h_id) {
+                params.append('headquarter_id[]', String(h_id));
+            });
+        }
+        if (area_ids && area_ids.length > 0) {
+            area_ids.map(function (area_id) {
+                params.append('area_id[]', String(area_id));
+            });
+        }
+        if (region_ids && region_ids.length > 0) {
+            region_ids.map(function (region_id) {
+                params.append('region_id[]', String(region_id));
+            });
+        }
 
         // prepare url
         let url = this.getBaseUrl() + '/sap/till_month';
@@ -117,6 +132,6 @@ export class ReportService extends BaseService {
     product_wise_sale(month, year): Observable<Result> {
 
         // make server call
-        return this.get(this.getBaseUrl() + '/target_performance/'+ month+'/'+year);
+        return this.get(this.getBaseUrl() + '/target_performance/' + month + '/' + year);
     }
 }
