@@ -83,12 +83,12 @@ export class OrderComponent extends BaseAuthComponent {
     /**
      * Adding Orders to skeleton
      *
+     * @param users
      * @param orders
      * @param holidays
      */
-    addOrderToSkeleton(orders: Order[], holidays: Holiday[]) {
+    addOrderToSkeleton(users: User[], orders: Order[], holidays: Holiday[]) {
         let data_skeleton = {};
-        let users: User[] = [];
 
         let skeleton = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
 
@@ -121,7 +121,13 @@ export class OrderComponent extends BaseAuthComponent {
         this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
             response => {
                 this.loading = false;
-                this.addOrderToSkeleton(response.orders, response.holidays);
+
+                // convert to models
+                let children = response.children.map(function (user, index) {
+                    return new User(user);
+                });
+
+                this.addOrderToSkeleton(children, response.orders, response.holidays);
             },
             err => {
                 this.loading = false;

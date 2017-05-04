@@ -101,6 +101,7 @@ export class Result {
     productive_calls: number = 0;
     total_bricks: number = 0;
     total_orders: number = 0;
+    performance_per: number = 0;
 
     // target till month and sales till month
     year_till_month: YearTillMonth;

@@ -33,13 +33,6 @@
                     <span class="nav-label">Area Master</span>
                 </a>
             </li>
-            <li *ngIf="_auth_service.user?.isAdmin">
-                <a class="waves-effect"
-                   [routerLink]="['visits']">
-                    <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
-                    <span class="nav-label">Visits</span>
-                </a>
-            </li>
             <li *ngIf="_auth_service.user?.isArea">
                 <a class="waves-effect"
                    [routerLink]="['/territories/regions/', _auth_service.user.hq_region_id, 'areas', _auth_service.user.hq_area_id, 'headquarters']">
@@ -77,6 +70,18 @@
                         <a class="waves-effect" routerLink="/users/summary">
                             <span class="nav-icon"><i class="fa fa-bar-chart-o"></i></span>
                             <span class="nav-label">User Reporting Summary</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" routerLink="/visits">
+                            <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+                            <span class="nav-label">Daily Visit Report</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" routerLink="/orders">
+                            <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+                            <span class="nav-label">Daily POB Report</span>
                         </a>
                     </li>
                 </ul>

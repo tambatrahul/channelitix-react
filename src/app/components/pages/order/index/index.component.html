@@ -29,13 +29,6 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
-        <div class="col-xs-12 col-md-3" *roleCheck="4">
-            <role-select [value]="role_id" (onValueChanged)="roleChanged($event)"></role-select>
-        </div>
-        <div class="col-xs-12 col-md-3" *ngIf="manager_role_id > 0">
-            <user-select [role_id]="manager_role_id" [value]="manager_id" [title]="'Select Manager'"
-                         (onValueChanged)="managerChanged($event)"></user-select>
-        </div>
     </div>
     <!-- ./Filters for Order report-->
 

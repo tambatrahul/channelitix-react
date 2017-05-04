@@ -24,7 +24,8 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
         total_visits: 0,
         call_average: 0,
         productive_calls: 0,
-        total_bricks: 0
+        total_bricks: 0,
+        performance_per: 0
     };
 
     /**
