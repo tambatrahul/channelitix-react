@@ -1,6 +1,6 @@
-import {Component, Output, EventEmitter} from "@angular/core";
+import {Component} from "@angular/core";
 import * as moment from "moment";
-import {AttendanceService} from "../../../../services/attendance.service";
+import {BaseComponent} from "../../../base/base.component";
 import {ReportService} from "../../../../services/report.service";
 declare let jQuery: any;
 
@@ -8,7 +8,7 @@ declare let jQuery: any;
     templateUrl: 'index.component.html',
     styleUrls: ['index.component.less']
 })
-export class DashBoardComponent {
+export class DashBoardComponent extends BaseComponent {
 
     /**
      * dates
@@ -30,6 +30,15 @@ export class DashBoardComponent {
     public productive_calls: number = 0;
 
     /**
+     * selected regions, areas and headquarters
+     *
+     * @type {Array}
+     */
+    public region_ids: Array<number> = [];
+    public area_ids: Array<number> = [];
+    public headquarter_ids: Array<number> = [];
+
+    /**
      * year and month for calendar
      * @type {number}
      */
@@ -40,6 +49,7 @@ export class DashBoardComponent {
      * Dashboard Component Constructor
      */
     constructor(private reportService: ReportService) {
+        super();
     }
 
     /**
@@ -66,5 +76,32 @@ export class DashBoardComponent {
         this.total_visits = data.visits;
         this.total_pob = data.orders;
         this.productive_calls = (data.visits > 0) ? parseInt(((data.total_orders / data.visits) * 100).toFixed(2)) : 0
+    }
+
+    /**
+     * region selected action
+     *
+     * @param region_ids
+     */
+    regionSelected(region_ids: Array<number>) {
+        this.region_ids = region_ids;
+    }
+
+    /**
+     * area selected action
+     *
+     * @param area_ids
+     */
+    areaSelected(area_ids: Array<number>) {
+        this.area_ids = area_ids;
+    }
+
+    /**
+     * headquarter selected action
+     *
+     * @param headquarter_ids
+     */
+    headquarterSelected(headquarter_ids: Array<number>) {
+        this.headquarter_ids = headquarter_ids;
     }
 }

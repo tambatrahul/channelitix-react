@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {MultipleBaseSelectComponent} from "../../base-multiple-select.component";
 import {TerritoryService} from "../../../../services/territory.service";
 import {Headquarter} from "../../../../models/territory/headquarter";
@@ -16,20 +16,36 @@ export class MultipleHeadquarterSelectComponent extends MultipleBaseSelectCompon
     title: string = "Select Headquarters";
 
     /**
-     * Select Headquarter
+     * Select headquarters
      *
      * @type {Array}
      */
     @Input()
-    territory_ids: Array<number> = [];
+    headquarter_ids: Array<number> = [];
 
     /**
-     * area id for filter
+     * output selected events
+     * @type {EventEmitter}
      */
-    private _area_id: number;
+    @Output()
+    selectedHeadquarter = new EventEmitter();
 
     /**
-     * Multiple territory select component
+     * country id for filter
+     */
+    _area_ids: Array<number> = [];
+    @Input()
+    set area_ids(area_ids) {
+        this._area_ids = area_ids;
+        this.fetch();
+    };
+
+    get area_ids() {
+        return this._area_ids;
+    }
+
+    /**
+     * Multiple headquarter select component
      * @param service
      */
     constructor(private service: TerritoryService) {
@@ -37,26 +53,11 @@ export class MultipleHeadquarterSelectComponent extends MultipleBaseSelectCompon
     }
 
     /**
-     * area_id getter and setters
-     *
-     * @param area_id
-     */
-    @Input()
-    set area_id(area_id: number) {
-        this._area_id = area_id;
-        this.fetch();
-    }
-
-    get area_id(): number {
-        return this._area_id;
-    }
-
-    /**
      * load headquarters
      */
     fetch() {
         this.loading = true;
-        this.service.headquarter(this._area_id).subscribe(
+        this.service.headquarter(null, null, this.area_ids).subscribe(
             response => {
                 this.loading = false;
                 this.models = response.headquarters.map(function (t, key) {
@@ -67,5 +68,19 @@ export class MultipleHeadquarterSelectComponent extends MultipleBaseSelectCompon
                 this.loading = false;
             }
         );
+    }
+
+    /**
+     * when region is selected
+     * @param id
+     */
+    selectValue(id: number) {
+        let headquarters = this.headquarter_ids.map(a_id => a_id);
+        if (headquarters.indexOf(id) < 0)
+            headquarters.push(id);
+        else
+            headquarters.splice(headquarters.indexOf(id), 1);
+
+        this.selectedHeadquarter.emit(headquarters);
     }
 }
