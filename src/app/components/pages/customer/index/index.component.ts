@@ -145,6 +145,7 @@ export class CustomerComponent extends ListComponent {
      */
     brickChanged(brick_id) {
         this.brick_id = brick_id;
+        this.customerTypeChanged(0);
         this.fetch();
     }
 

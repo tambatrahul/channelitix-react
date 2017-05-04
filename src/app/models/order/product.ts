@@ -9,16 +9,26 @@ export class Product extends Model {
     uoms: UOM[] = [];
     code: string;
 
+    // for internal use only
+    target: number = 0;
+    performance: number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
         this.code = info.code;
         this.short_name = this.name.replace(/ *\([^)]*\) */g, "");
-        
+
         if (info.uoms) {
             for (let u of info.uoms) {
                 this.uoms.push(new UOM(u));
             }
         }
+
+        if (info.target)
+            this.target = parseFloat(info.target);
+
+        if (info.performance)
+            this.performance = parseFloat(info.performance);
     }
 }

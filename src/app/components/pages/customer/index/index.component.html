@@ -2,7 +2,10 @@
     <div class="forum-list-container">
         <div class="container-fluid customers">
             <div class="forum-header">
-                <customer_count (onCustomerTypeChanged)="customerTypeChanged($event)"></customer_count>
+                <customer-count (onCustomerTypeChanged)="customerTypeChanged($event)"
+                                [region_id]="region_id" [area_id]="area_id"
+                                [headquarter_id]="headquarter_id" [territory_id]="territory_id"
+                                [brick_id]="brick_id"></customer-count>
                 <div class="row">
                     <div class="col-md-4">
                         <h2 class="forum-title">Customer Database</h2>
@@ -38,8 +41,8 @@
                         <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
                             <div *ngIf="territory_id > 0">
                                 <brick-select [value]="brick_id" [territory_id]="territory_id"
-                                                  [title]="'Select Brick'"
-                                                  (onValueChanged)="brickChanged($event)"></brick-select>
+                                              [title]="'Select Brick'"
+                                              (onValueChanged)="brickChanged($event)"></brick-select>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">

@@ -102,10 +102,19 @@ export class CustomerService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    counts(): Observable<Result> {
+    counts(region_id?: number, area_id?: number, headquarter_id?: number,
+           territory_id?: number, brick_id?: number): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+        params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
+        params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
 
         // make server call
-        return this.get(this.getBaseUrl() + '/counts');
+        return this.get(this.getBaseUrl() + '/counts', new RequestOptions({search: params}));
     }
 
     /**

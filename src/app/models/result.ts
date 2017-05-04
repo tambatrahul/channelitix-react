@@ -23,6 +23,7 @@ import {VisitInput} from "./visit/visit_input";
 import {PrimarySale} from "./sale/primary_sale";
 import {InvoiceDetail} from "./SAP/invoice_detail";
 import {YearTillMonth} from "./SAP/year_till_month";
+import {OrderItem} from "./order/order_item";
 
 export class Result {
 
@@ -107,5 +108,5 @@ export class Result {
     performance: Performance;
 
     // Product Wise sale
-    product_wise_sale  = [];
+    product_wise_sale: OrderItem[];
 }

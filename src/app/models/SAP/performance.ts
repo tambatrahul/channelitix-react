@@ -1,6 +1,7 @@
 import {PrimarySale} from "../sale/primary_sale";
 import {Target} from "./target";
 import {SecondarySale} from "../sale/secondary_sale";
+import {Product} from "../order/product";
 
 
 export class Performance {
@@ -9,6 +10,8 @@ export class Performance {
     targets: Target[];
     primary_sales: PrimarySale[];
     secondary_sales: SecondarySale[];
+
+    products: Product[];
 
     constructor(info: any) {
         if (info.targets) {
@@ -22,5 +25,8 @@ export class Performance {
         if (info.secondary_sales) {
             this.secondary_sales = info.secondary_sales.map(tar => new SecondarySale(tar));
         }
+
+        if (info.products)
+            this.products = info.products.map(pro => new Product(pro));
     }
 }

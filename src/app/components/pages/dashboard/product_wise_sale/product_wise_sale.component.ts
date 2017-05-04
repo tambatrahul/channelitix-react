@@ -1,7 +1,8 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {ListComponent} from "../../../base/list.component";
 import {AuthService} from "../../../../services/AuthService";
 import {ReportService} from "../../../../services/report.service";
+import {Performance} from "../../../../models/SAP/performance";
 import {Product} from "../../../../models/order/product";
 @Component({
     selector: 'product-wise-sale',
@@ -9,17 +10,6 @@ import {Product} from "../../../../models/order/product";
     templateUrl: 'product_wise_sale.component.html',
 })
 export class ProductWiseSaleComponent extends ListComponent {
-
-    /**
-     * get all Product Wise sale
-     *
-     * @type {}
-     */
-    product_wise_sale = [{
-        product: String,
-        target: 0,
-        actual_sale: 0
-    }];
 
     /**
      * month of invoice
@@ -40,6 +30,11 @@ export class ProductWiseSaleComponent extends ListComponent {
         this._year = year;
     }
 
+    /**
+     * products wise performance
+     */
+    products: Product[];
+
 
     constructor(public _service: AuthService, private reportService: ReportService) {
         super(_service);
@@ -49,12 +44,37 @@ export class ProductWiseSaleComponent extends ListComponent {
      * fetch counts from server
      */
     protected fetch() {
-        this.reportService.product_wise_sale(this._month, this._year).subscribe(
-            response => {
-                this.product_wise_sale = response.product_wise_sale;
-            }, err => {
-            }
-        );
+        if (this._month && this._year) {
+            this.reportService.product_wise_sale(this._month + 1, this._year).subscribe(
+                response => {
+                    this.formatData(new Performance(response.performance));
+                }, err => {
+                }
+            );
+        }
     }
 
+    /**
+     * format performance data
+     */
+    protected formatData(performance: Performance) {
+        // get products
+        let products: Product[] = performance.products;
+
+        // set target values
+        performance.targets.map(function (target) {
+            products.map(function(product) {
+                if (product.id == target.product_id)
+                    product.target = target.total_target;
+            })
+        });
+
+        // set performance values
+        performance.secondary_sales.map(function (ss) {
+            products.map(function(product) {
+                if (product.id == ss.product_id)
+                    product.performance = ss.total_amount;
+            })
+        });
+    }
 }
