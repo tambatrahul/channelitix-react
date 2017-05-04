@@ -6,6 +6,8 @@ import {AuthService} from "../../../../../services/AuthService";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
 import {Headquarter} from "../../../../../models/territory/headquarter";
+import {Customer} from "../../../../../models/customer/customer";
+import {CustomerService} from "../../../../../services/customer.service";
 declare let jQuery: any;
 
 @Component({
@@ -19,14 +21,8 @@ export class HeadquarterStpComponent extends ListComponent {
      *
      * @type {Array}
      */
+    public customers: Customer[] = [];
     public customer_types: CustomerType[] = [];
-
-    /**
-     * stp list
-     *
-     * @type {Array}
-     */
-    public stps: Stp[] = [];
     public headquarters: Headquarter[] = [];
 
     /**
@@ -39,11 +35,11 @@ export class HeadquarterStpComponent extends ListComponent {
     /**
      * Customer Component constructor
      *
-     * @param stpService
+     * @param customerService
      * @param _service
      * @param route
      */
-    constructor(private stpService: StpService, public _service: AuthService, public route: ActivatedRoute) {
+    constructor(private customerService: CustomerService, public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
     }
 
@@ -63,14 +59,17 @@ export class HeadquarterStpComponent extends ListComponent {
             this._country_id = params['country_id'];
             this._area_id = params['area_id'];
             this.loading = true;
-            this.stpService.all(null, null, this._area_id).subscribe(
+            this.customerService.stp(this._area_id, this._region_id , this._country_id).subscribe(
                 response => {
                     this.loading = false;
-                    this.stps = response.stps.map(function (stp, index) {
-                        return new Stp(stp);
+                    this.customers = response.customers.map(function (cus, index) {
+                        return new Customer(cus);
                     });
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
+                    });
+                    this.headquarters = response.regions.map(function (headquarter, index) {
+                        return new Headquarter(headquarter);
                     });
                     this.formatCustomerData();
                 },
@@ -87,36 +86,26 @@ export class HeadquarterStpComponent extends ListComponent {
     formatCustomerData() {
         let headquarters = {};
 
-        // preparing brick skeleton
-        for (let stp of this.stps) {
-            if (!headquarters.hasOwnProperty(stp.hq_headquarter_id)) {
-                headquarters[stp.hq_headquarter_id] = {
-                    total: 0,
-                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
-                };
-                this.headquarters.push(stp.hq_headquarter);
+        // preparing hq_headquarter skeleton
+        for (let cus of this.customers) {
+            if (!headquarters.hasOwnProperty(cus.hq_headquarter_id)) {
+                headquarters[cus.hq_headquarter_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
-            for (let ct of headquarters[stp.hq_headquarter_id].customer_types) {
-                for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id) {
-                        grade.customer_count = stp.customer_count;
-                        headquarters[stp.hq_headquarter_id].total += stp.customer_count
-                    }
-
+            for(let ct of headquarters[cus.hq_headquarter_id].customer_types) {
+                for(let grade of ct.grades) {
+                    if (grade.id == cus.grade_id)
+                        grade.customer_count = cus.total_customers;
                 }
             }
         }
 
         // format customers
-        for (let headquarter of this.headquarters) {
-            if (!headquarters.hasOwnProperty(headquarter.id)) {
+        for(let headquarter of this.headquarters) {
+            if (!headquarters.hasOwnProperty(headquarter.id))
                 headquarter.customer_types = Object.assign([], this.customer_types);
-                headquarter.total = 0;
-            } else {
+            else
                 headquarter.customer_types = headquarters[headquarter.id].customer_types;
-                headquarter.total = headquarters[headquarter.id].total;
-            }
         }
     }
 }

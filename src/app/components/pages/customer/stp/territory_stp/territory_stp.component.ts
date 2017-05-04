@@ -6,6 +6,8 @@ import {AuthService} from "../../../../../services/AuthService";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
 import {Territory} from "../../../../../models/territory/territory";
+import {Customer} from "../../../../../models/customer/customer";
+import {CustomerService} from "../../../../../services/customer.service";
 declare let jQuery: any;
 
 @Component({
@@ -19,14 +21,8 @@ export class TerritoryStpComponent extends ListComponent {
      *
      * @type {Array}
      */
+    public customers: Customer[] = [];
     public customer_types: CustomerType[] = [];
-
-    /**
-     * stp list
-     *
-     * @type {Array}
-     */
-    public stps: Stp[] = [];
     public territories: Territory[] = [];
 
     /**
@@ -40,11 +36,11 @@ export class TerritoryStpComponent extends ListComponent {
     /**
      * Customer Component constructor
      *
-     * @param stpService
+     * @param customerService
      * @param _service
      * @param route
      */
-    constructor(private stpService: StpService, public _service: AuthService, public route: ActivatedRoute) {
+    constructor(private customerService: CustomerService, public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
     }
 
@@ -65,14 +61,17 @@ export class TerritoryStpComponent extends ListComponent {
             this._region_id = params['region_id'];
             this._country_id = params['country_id'];
             this.loading = true;
-            this.stpService.all(null, null, null, this._headquarter_id).subscribe(
+            this.customerService.stp(this._headquarter_id, this._area_id, this._region_id, this._country_id).subscribe(
                 response => {
                     this.loading = false;
-                    this.stps = response.stps.map(function (stp, index) {
-                        return new Stp(stp);
+                    this.customers = response.customers.map(function (cus, index) {
+                        return new Customer(cus);
                     });
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
+                    });
+                    this.territories = response.regions.map(function (territory, index) {
+                        return new Territory(territory);
                     });
                     this.formatCustomerData();
                 },
@@ -90,21 +89,15 @@ export class TerritoryStpComponent extends ListComponent {
         let territories = {};
 
         // preparing brick skeleton
-        for (let stp of this.stps) {
-            if (!territories.hasOwnProperty(stp.hq_territory_id)) {
-                territories[stp.hq_territory_id] = {
-                    total: 0,
-                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
-                };
-                this.territories.push(stp.hq_territory);
+        for (let cus of this.customers) {
+            if (!territories.hasOwnProperty(cus.hq_territory_id)) {
+                territories[cus.hq_territory_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
-            for (let ct of territories[stp.hq_territory_id].customer_types) {
-                for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id) {
-                        grade.customer_count = stp.customer_count;
-                        territories[stp.hq_territory_id].total += stp.customer_count
-                    }
+            for(let ct of territories[cus.hq_territory_id].customer_types) {
+                for(let grade of ct.grades) {
+                    if (grade.id == cus.grade_id)
+                        grade.customer_count = cus.total_customers;
                 }
             }
         }

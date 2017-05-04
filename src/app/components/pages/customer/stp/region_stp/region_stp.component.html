@@ -23,7 +23,7 @@
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Stp Report for <strong>{{ regions[0]?.hq_country.name}}</strong></h4>
+                    <h4>Stp Report</h4>
                 </div>
                 <div class="widget-container stp-table" #loading_box>
                     <div class="widget-block">
@@ -47,19 +47,19 @@
                                 </thead>
 
                                 <tbody>
-                                <tr *ngFor="let br of regions">
-                                    <td>{{ br.name }}</td>
-                                    <template ngFor let-ct [ngForOf]="br.customer_types">
+                                <tr *ngFor="let rg of regions">
+                                    <td>{{ rg.name }}</td>
+                                    <template ngFor let-ct [ngForOf]="rg.customer_types">
                                         <td *ngFor="let grade of ct.grades">
                                             <span *ngIf="grade.customer_count > 0">
                                                 {{ grade.customer_count }}
                                             </span>
                                         </td>
                                     </template>
-                                    <td>{{ br.total }}</td>
+                                    <td>{{ rg.total }}</td>
                                     <td></td>
                                     <td>
-                                        <a class="btn btn-primary btn-xs" [routerLink]="['/stps', _country_id, 'regions', br.id]">View By Area</a>
+                                        <a class="btn btn-primary btn-xs" [routerLink]="['/stps', _country_id, 'regions', rg.id]">View By Area</a>
                                     </td>
                                 </tr>
                                 </tbody>

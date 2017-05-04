@@ -1,11 +1,12 @@
 import {Component} from "@angular/core";
 import {ListComponent} from "../../../../base/list.component";
-import {Stp} from "../../../../../models/customer/stp";
-import {StpService} from "../../../../../services/stp.service";
 import {AuthService} from "../../../../../services/AuthService";
-import {Region} from "../../../../../models/territory/region";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
+import {Customer} from "../../../../../models/customer/customer";
+import {Input} from "../../../../../../../node_modules/@angular/core/src/metadata/directives";
+import {CustomerService} from "../../../../../services/customer.service";
+import {Region} from "../../../../../models/territory/region";
 declare let jQuery: any;
 
 @Component({
@@ -19,37 +20,39 @@ export class RegionStpComponent extends ListComponent {
      *
      * @type {Array}
      */
+    public customers: Customer[] = [];
     public customer_types: CustomerType[] = [];
-
-    /**
-     * stp list
-     *
-     * @type {Array}
-     */
-    public stps: Stp[] = [];
     public regions: Region[] = [];
 
     /**
-     * Headquarter id for filter
+     * Country id for filter
      */
-    private _country_id: number;
+    private _country_id: number = 1;
+
+    /**
+     * country_id getter and setters
+     *
+     * @param country_id
+     */
+    @Input()
+    set country_id(country_id: number) {
+        this._country_id = country_id;
+        this.fetch();
+    }
+
+    get country_id(): number {
+        return this._country_id;
+    }
+
 
     /**
      * Customer Component constructor
      *
-     * @param stpService
+     * @param customerService
      * @param _service
-     * @param route
      */
-    constructor(private stpService: StpService, public _service: AuthService, public route: ActivatedRoute) {
+    constructor(private customerService: CustomerService, public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
-    }
-
-    /**
-     * on load of component
-     */
-    ngOnInit() {
-        super.ngOnInit();
     }
 
     /**
@@ -59,14 +62,17 @@ export class RegionStpComponent extends ListComponent {
         this.route.params.subscribe(params => {
             this._country_id = params['country_id'];
             this.loading = true;
-            this.stpService.all(this._country_id).subscribe(
+            this.customerService.stp(this._country_id).subscribe(
                 response => {
                     this.loading = false;
-                    this.stps = response.stps.map(function (stp, index) {
-                        return new Stp(stp);
+                    this.customers = response.customers.map(function (cus, index) {
+                        return new Customer(cus);
                     });
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
+                    });
+                    this.regions = response.regions.map(function (area, index) {
+                        return new Region(area);
                     });
                     this.formatCustomerData();
                 },
@@ -83,35 +89,26 @@ export class RegionStpComponent extends ListComponent {
     formatCustomerData() {
         let regions = {};
 
-        // preparing brick skeleton
-        for (let stp of this.stps) {
-            if (!regions.hasOwnProperty(stp.hq_region_id)) {
-                regions[stp.hq_region_id] = {
-                    total: 0,
-                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
-                };
-                this.regions.push(stp.hq_region);
+        // preparing hq_region skeleton
+        for (let cus of this.customers) {
+            if (!regions.hasOwnProperty(cus.hq_region_id)) {
+                regions[cus.hq_region_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
-            for (let ct of regions[stp.hq_region_id].customer_types) {
-                for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id) {
-                        grade.customer_count = stp.customer_count;
-                        regions[stp.hq_region_id].total += stp.customer_count
-                    }
+            for(let ct of regions[cus.hq_region_id].customer_types) {
+                for(let grade of ct.grades) {
+                    if (grade.id == cus.grade_id)
+                        grade.customer_count = cus.total_customers;
                 }
             }
         }
 
         // format customers
-        for (let region of this.regions) {
-            if (!regions.hasOwnProperty(region.id)) {
+        for(let region of this.regions) {
+            if (!regions.hasOwnProperty(region.id))
                 region.customer_types = Object.assign([], this.customer_types);
-                region.total = 0;
-            } else {
+            else
                 region.customer_types = regions[region.id].customer_types;
-                region.total = regions[region.id].total;
-            }
         }
     }
 }

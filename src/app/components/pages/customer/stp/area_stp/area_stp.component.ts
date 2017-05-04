@@ -6,6 +6,8 @@ import {AuthService} from "../../../../../services/AuthService";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
 import {Area} from "../../../../../models/territory/area";
+import {Customer} from "../../../../../models/customer/customer";
+import {CustomerService} from "../../../../../services/customer.service";
 declare let jQuery: any;
 
 @Component({
@@ -19,14 +21,8 @@ export class AreaStpComponent extends ListComponent {
      *
      * @type {Array}
      */
+    public customers: Customer[] = [];
     public customer_types: CustomerType[] = [];
-
-    /**
-     * stp list
-     *
-     * @type {Array}
-     */
-    public stps: Stp[] = [];
     public areas: Area[] = [];
 
     /**
@@ -38,11 +34,11 @@ export class AreaStpComponent extends ListComponent {
     /**
      * Customer Component constructor
      *
-     * @param stpService
+     * @param customerService
      * @param _service
      * @param route
      */
-    constructor(private stpService: StpService, public _service: AuthService, public route: ActivatedRoute) {
+    constructor(private customerService: CustomerService, public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
     }
 
@@ -61,14 +57,17 @@ export class AreaStpComponent extends ListComponent {
             this._region_id = params['region_id'];
             this._country_id = params['country_id'];
             this.loading = true;
-            this.stpService.all(null, this._region_id).subscribe(
+            this.customerService.stp(this._region_id, this._country_id).subscribe(
                 response => {
                     this.loading = false;
-                    this.stps = response.stps.map(function (stp, index) {
-                        return new Stp(stp);
+                    this.customers = response.customers.map(function (cus, index) {
+                        return new Customer(cus);
                     });
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
+                    });
+                    this.areas = response.regions.map(function (area, index) {
+                        return new Area(area);
                     });
                     this.formatCustomerData();
                 },
@@ -86,34 +85,25 @@ export class AreaStpComponent extends ListComponent {
         let areas = {};
 
         // preparing brick skeleton
-        for (let stp of this.stps) {
-            if (!areas.hasOwnProperty(stp.hq_area_id)) {
-                areas[stp.hq_area_id] = {
-                    total: 0,
-                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
-                };
-                this.areas.push(stp.hq_area);
+        for (let cus of this.customers) {
+            if (!areas.hasOwnProperty(cus.hq_area_id)) {
+                areas[cus.hq_area_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
-            for (let ct of areas[stp.hq_area_id].customer_types) {
-                for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id) {
-                        grade.customer_count = stp.customer_count;
-                        areas[stp.hq_area_id].total += stp.customer_count
-                    }
+            for(let ct of areas[cus.hq_area_id].customer_types) {
+                for(let grade of ct.grades) {
+                    if (grade.id == cus.grade_id)
+                        grade.customer_count = cus.total_customers;
                 }
             }
         }
 
         // format customers
-        for (let area of this.areas) {
-            if (!areas.hasOwnProperty(area.id)) {
+        for(let area of this.areas) {
+            if (!areas.hasOwnProperty(area.id))
                 area.customer_types = Object.assign([], this.customer_types);
-                area.total = 0;
-            } else {
+            else
                 area.customer_types = areas[area.id].customer_types;
-                area.total = areas[area.id].total;
-            }
         }
     }
 }

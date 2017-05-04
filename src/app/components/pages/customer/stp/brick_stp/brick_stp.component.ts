@@ -6,6 +6,8 @@ import {AuthService} from "../../../../../services/AuthService";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
 import {Brick} from "../../../../../models/territory/brick";
+import {Customer} from "../../../../../models/customer/customer";
+import {CustomerService} from "../../../../../services/customer.service";
 declare let jQuery: any;
 
 @Component({
@@ -19,19 +21,8 @@ export class BrickStpComponent extends ListComponent {
      *
      * @type {Array}
      */
+    public customers: Customer[] = [];
     public customer_types: CustomerType[] = [];
-
-    /**
-     * editing false
-     */
-    editing: boolean = false;
-
-    /**
-     * stp list
-     *
-     * @type {Array}
-     */
-    public stps: Stp[] = [];
     public bricks: Brick[] = [];
 
     /**
@@ -46,11 +37,11 @@ export class BrickStpComponent extends ListComponent {
     /**
      * Customer Component constructor
      *
-     * @param stpService
+     * @param customerService
      * @param _service
      * @param route
      */
-    constructor(private stpService: StpService, public _service: AuthService, public route: ActivatedRoute) {
+    constructor(private customerService: CustomerService, public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
     }
 
@@ -72,14 +63,17 @@ export class BrickStpComponent extends ListComponent {
             this._region_id = params['region_id'];
             this._country_id = params['country_id'];
             this.loading = true;
-            this.stpService.all(null, null, null, null, this._territory_id).subscribe(
+            this.customerService.stp(this._territory_id, this._headquarter_id, this._area_id, this._region_id,this._country_id).subscribe(
                 response => {
                     this.loading = false;
-                    this.stps = response.stps.map(function (stp, index) {
-                        return new Stp(stp);
+                    this.customers = response.customers.map(function (cus, index) {
+                        return new Customer(cus);
                     });
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
+                    });
+                    this.bricks = response.regions.map(function (brick, index) {
+                        return new Brick(brick);
                     });
                     this.formatCustomerData();
                 },
@@ -95,77 +89,27 @@ export class BrickStpComponent extends ListComponent {
      */
     formatCustomerData() {
         let bricks = {};
-        this.bricks = [];
 
         // preparing brick skeleton
-        for (let stp of this.stps) {
-            if (!bricks.hasOwnProperty(stp.hq_brick_id)) {
-                bricks[stp.hq_brick_id] = {
-                    total: 0,
-                    customer_types: this.customer_types.map(ct => new CustomerType(ct))
-                };
-                this.bricks.push(stp.hq_brick);
+        for (let cus of this.customers) {
+            if (!bricks.hasOwnProperty(cus.hq_brick_id)) {
+                bricks[cus.hq_brick_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
-            for (let ct of bricks[stp.hq_brick_id].customer_types) {
-                for (let grade of ct.grades) {
-                    if (grade.id == stp.grade_id) {
-                        grade.customer_count = stp.customer_count;
-                        bricks[stp.hq_brick_id].total += stp.customer_count
-                    }
+            for(let ct of bricks[cus.hq_brick_id].customer_types) {
+                for(let grade of ct.grades) {
+                    if (grade.id == cus.grade_id)
+                        grade.customer_count = cus.total_customers;
                 }
             }
         }
 
         // format customers
-        for (let brick of this.bricks) {
-            if (!bricks.hasOwnProperty(brick.id)) {
+        for(let brick of this.bricks) {
+            if (!bricks.hasOwnProperty(brick.id))
                 brick.customer_types = Object.assign([], this.customer_types);
-                brick.total = 0;
-            } else {
+            else
                 brick.customer_types = bricks[brick.id].customer_types;
-                brick.total = bricks[brick.id].total;
-            }
         }
-    }
-
-    /**
-     * save stp
-     */
-    save() {
-
-        // prepare stps to save
-        let stps: Stp[] = [];
-        for (let brick of this.bricks) {
-            for (let ct of brick.customer_types) {
-                for (let grade of ct.grades) {
-                    stps.push(new Stp({
-                        grade_id: grade.id,
-                        customer_count: grade.customer_count ? grade.customer_count: 0,
-                        hq_brick_id: brick.id
-                    }));
-                }
-            }
-        }
-
-        // create to server
-        this.loading = true;
-        this.stpService.create(stps).subscribe(
-            response => {
-                this.loading = false;
-                this.editing = false;
-                this.fetch();
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
-
-    /**
-     * toggle editing
-     */
-    toggleEditing() {
-        this.editing = !this.editing;
     }
 }
