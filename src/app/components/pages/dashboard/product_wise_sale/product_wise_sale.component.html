@@ -30,14 +30,14 @@
                             </tfoot>
 
                             <tbody>
-                            <template ngFor let-item [ngForOf]="product_wise_sale">
+                            <template ngFor let-item [ngForOf]="products">
                                 <tr>
                                     <td>
-                                        {{ item.product?.name }}
+                                        {{ item.name }}
                                     </td>
                                     <td>{{ item.target }}</td>
-                                    <td>{{ item.actual_sale }}</td>
-                                    <td>{{ (item.actual_sale / item.target) * 100 }}</td>
+                                    <td>{{ item.performance }}</td>
+                                    <td>{{ item.target > 0 ? (item.performance / item.target) * 100 : 0 }}</td>
                                 </tr>
                             </template>
 

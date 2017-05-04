@@ -6,7 +6,7 @@ import {Performance} from "../../../../models/SAP/performance";
 import {Product} from "../../../../models/order/product";
 @Component({
     selector: 'product-wise-sale',
-    styleUrls: ['../../visit/index/index.component.less'],
+    styleUrls: ['product_wise_sale.component.less'],
     templateUrl: 'product_wise_sale.component.html',
 })
 export class ProductWiseSaleComponent extends ListComponent {
@@ -76,5 +76,7 @@ export class ProductWiseSaleComponent extends ListComponent {
                     product.performance = ss.total_amount;
             })
         });
+
+        this.products = products;
     }
 }

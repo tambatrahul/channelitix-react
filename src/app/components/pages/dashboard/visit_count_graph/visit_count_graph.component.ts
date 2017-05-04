@@ -9,7 +9,7 @@ declare let d3: any;
 
 @Component({
     selector: 'visit-count-graph',
-    styleUrls: ['../../visit/index/index.component.less'],
+    styleUrls: ['visit_count_graph.component.less'],
     templateUrl: 'visit_count_graph.component.html',
 })
 export class VisitCountGraphComponent extends GoogleChartComponent {
