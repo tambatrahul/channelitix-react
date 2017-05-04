@@ -89,11 +89,12 @@ export class CustomerService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    stp(region_id?: number, area_id?: number, headquarter_id?: number,
+    stp(country_id?: number, region_id?: number, area_id?: number, headquarter_id?: number,
         territory_id?: number, brick_id?: number) {
 
         // prepare get params
         let params = new URLSearchParams();
+        params.set('country_id', String(country_id > 0 ? country_id : ''));
         params.set('region_id', String(region_id > 0 ? region_id : ''));
         params.set('area_id', String(area_id > 0 ? area_id : ''));
         params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));

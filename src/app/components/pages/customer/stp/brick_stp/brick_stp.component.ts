@@ -63,7 +63,8 @@ export class BrickStpComponent extends ListComponent {
             this._region_id = params['region_id'];
             this._country_id = params['country_id'];
             this.loading = true;
-            this.customerService.stp(this._territory_id, this._headquarter_id, this._area_id, this._region_id,this._country_id).subscribe(
+            this.customerService.stp(this._country_id, this._region_id, this._area_id, this._headquarter_id,
+                this._territory_id).subscribe(
                 response => {
                     this.loading = false;
                     this.customers = response.customers.map(function (cus, index) {
@@ -72,7 +73,7 @@ export class BrickStpComponent extends ListComponent {
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
                     });
-                    this.bricks = response.regions.map(function (brick, index) {
+                    this.bricks = response.bricks.map(function (brick, index) {
                         return new Brick(brick);
                     });
                     this.formatCustomerData();
@@ -96,8 +97,8 @@ export class BrickStpComponent extends ListComponent {
                 bricks[cus.hq_brick_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
-            for(let ct of bricks[cus.hq_brick_id].customer_types) {
-                for(let grade of ct.grades) {
+            for (let ct of bricks[cus.hq_brick_id].customer_types) {
+                for (let grade of ct.grades) {
                     if (grade.id == cus.grade_id)
                         grade.customer_count = cus.total_customers;
                 }
@@ -105,7 +106,7 @@ export class BrickStpComponent extends ListComponent {
         }
 
         // format customers
-        for(let brick of this.bricks) {
+        for (let brick of this.bricks) {
             if (!bricks.hasOwnProperty(brick.id))
                 brick.customer_types = Object.assign([], this.customer_types);
             else

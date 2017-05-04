@@ -59,7 +59,7 @@ export class HeadquarterStpComponent extends ListComponent {
             this._country_id = params['country_id'];
             this._area_id = params['area_id'];
             this.loading = true;
-            this.customerService.stp(this._area_id, this._region_id , this._country_id).subscribe(
+            this.customerService.stp(this._country_id, this._region_id, this._area_id).subscribe(
                 response => {
                     this.loading = false;
                     this.customers = response.customers.map(function (cus, index) {
@@ -68,7 +68,7 @@ export class HeadquarterStpComponent extends ListComponent {
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
                     });
-                    this.headquarters = response.regions.map(function (headquarter, index) {
+                    this.headquarters = response.headquarters.map(function (headquarter, index) {
                         return new Headquarter(headquarter);
                     });
                     this.formatCustomerData();

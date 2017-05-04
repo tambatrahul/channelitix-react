@@ -57,7 +57,7 @@ export class AreaStpComponent extends ListComponent {
             this._region_id = params['region_id'];
             this._country_id = params['country_id'];
             this.loading = true;
-            this.customerService.stp(this._region_id, this._country_id).subscribe(
+            this.customerService.stp(this._country_id, this._region_id).subscribe(
                 response => {
                     this.loading = false;
                     this.customers = response.customers.map(function (cus, index) {
@@ -66,7 +66,7 @@ export class AreaStpComponent extends ListComponent {
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
                     });
-                    this.areas = response.regions.map(function (area, index) {
+                    this.areas = response.areas.map(function (area, index) {
                         return new Area(area);
                     });
                     this.formatCustomerData();

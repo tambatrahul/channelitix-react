@@ -6,6 +6,8 @@ import {Brick} from "../territory/brick";
 import {Territory} from "../territory/territory";
 import {Input} from "@angular/core";
 import {Product} from "../order/product";
+import {Headquarter} from "../territory/headquarter";
+import {Region} from "../territory/region";
 
 export class Customer extends Model {
 
@@ -28,6 +30,8 @@ export class Customer extends Model {
 
     hq_brick: Brick;
     hq_territory: Territory;
+    hq_headquarter: Headquarter;
+    hq_region: Region;
 
     // for internal user only
     inputs: Input[];
@@ -60,5 +64,9 @@ export class Customer extends Model {
         // add territory
         if (info.hq_territory)
             this.hq_territory = new Territory(info.hq_territory);
+
+        // add headquarter
+        if (info.hq_headquarter)
+            this.hq_headquarter = new Headquarter(info.hq_headquarter);
     }
 }
