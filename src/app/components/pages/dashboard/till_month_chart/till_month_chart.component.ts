@@ -146,28 +146,30 @@ export class TillMonthChartComponent extends GoogleChartComponent {
      * prepare data for graph
      */
     prepareData(year_till_month: YearTillMonth) {
-        let google = this.getGoogle();
+        this.getGoogle().charts.setOnLoadCallback(() => {
+            let google = this.getGoogle();
 
-        let data = new google.visualization.DataTable();
-        data.addColumn('string', 'YTD');
-        data.addColumn('number', 'Target');
-        data.addColumn({type: 'number', role: 'annotation'});
-        data.addColumn('number', 'Performance');
-        data.addColumn({type: 'number', role: 'annotation'});
-        data.addRows([
-            ['YTD(' + this.previous_month + ')', year_till_month.till_month_target, year_till_month.till_month_target,
-                year_till_month.till_month_sale, year_till_month.till_month_sale],
-            [this.month, year_till_month.month_target, year_till_month.month_target,
-                year_till_month.month_sale, year_till_month.month_sale],
-            ['YTD(' + this.month + ')', (year_till_month.till_month_target + year_till_month.month_target),
-                (year_till_month.till_month_target + year_till_month.month_target),
-                (year_till_month.till_month_sale + year_till_month.month_sale),
-                (year_till_month.till_month_sale + year_till_month.month_sale)],
-        ]);
+            let data = new google.visualization.DataTable();
+            data.addColumn('string', 'YTD');
+            data.addColumn('number', 'Target');
+            data.addColumn({type: 'number', role: 'annotation'});
+            data.addColumn('number', 'Performance');
+            data.addColumn({type: 'number', role: 'annotation'});
+            data.addRows([
+                ['YTD(' + this.previous_month + ')', year_till_month.till_month_target, year_till_month.till_month_target,
+                    year_till_month.till_month_sale, year_till_month.till_month_sale],
+                [this.month, year_till_month.month_target, year_till_month.month_target,
+                    year_till_month.month_sale, year_till_month.month_sale],
+                ['YTD(' + this.month + ')', (year_till_month.till_month_target + year_till_month.month_target),
+                    (year_till_month.till_month_target + year_till_month.month_target),
+                    (year_till_month.till_month_sale + year_till_month.month_sale),
+                    (year_till_month.till_month_sale + year_till_month.month_sale)],
+            ]);
 
-        this.data = data;
+            this.data = data;
 
-        // set chart data callback
-        this.getGoogle().charts.setOnLoadCallback(() => this.drawGraph());
+            // set chart data callback
+            this.drawGraph();
+        });
     }
 }

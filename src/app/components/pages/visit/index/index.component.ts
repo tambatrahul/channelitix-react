@@ -67,6 +67,13 @@ export class VisitComponent extends BaseAuthComponent {
     public users: User[] = [];
 
     /**
+     * users
+     *
+     * @type {{}}
+     */
+    public managers: User[] = [];
+
+    /**
      * User Component Constructor
      *
      */
@@ -87,18 +94,24 @@ export class VisitComponent extends BaseAuthComponent {
     /**
      * Adding visits to skeleton
      *
+     * @param users
      * @param visits
      * @param holidays
      */
-    addVisitToSkeleton(visits: Visit[], holidays: Holiday[]) {
+    addVisitToSkeleton(users: User[], visits: Visit[], holidays: Holiday[]) {
         let data_skeleton = {};
-        let users: User[] = [];
+        let managers: User[] = [];
+        let zone_managers: User[] = [];
 
         let skeleton: Array<Visit> = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
 
+        // get skeleton
+        for (let user of users) {
+            data_skeleton[user.id] = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+        }
+
         // prepare visit skeleton
         for (let visit of visits) {
-
             // add user if not present
             if (!data_skeleton.hasOwnProperty(visit.created_by)) {
                 data_skeleton[visit.created_by] = skeleton.map(visit => Object.assign(new Visit({}), visit));
@@ -111,8 +124,75 @@ export class VisitComponent extends BaseAuthComponent {
 
         // add skeleton to user
         for (let user of users) {
-            user.visits = data_skeleton[user.id];
+            if (data_skeleton.hasOwnProperty(user.id))
+                user.visits = data_skeleton[user.id];
+            else
+                user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
         }
+
+        // add skeleton to user
+        for (let user of users) {
+            if (data_skeleton.hasOwnProperty(user.id))
+                user.visits = data_skeleton[user.id];
+            else
+                user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+
+            // separate csm and zsm
+            if (user.role_str == this.ROLE_CSM) {
+                managers.push(user);
+            } else if (user.role_str == this.ROLE_ZSM) {
+                zone_managers.push(user);
+            }
+        }
+
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_ZSM) {
+            this._service.user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+            this._service.user.children = [];
+            this._service.user.cse_count = 0;
+            zone_managers.push(this._service.user)
+        }
+
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_CSM) {
+            this._service.user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+            this._service.user.children = [];
+            managers.push(this._service.user)
+        }
+
+        // add children to managers
+        for (let u of users) {
+            for (let m of managers) {
+                if (u.manager_id == m.id) {
+                    m.children.push(u);
+                    u.visits.forEach(function (att, index) {
+                        if (att.id) {
+                            m.visits[index].visit_count += 1;
+                        }
+                    });
+                }
+            }
+        }
+
+        // add to zone manager
+        for (let z of zone_managers) {
+            for (let m of managers) {
+                if (m.manager_id == z.id) {
+                    z.children.push(m);
+                    m.visits.forEach(function (att, index) {
+                        z.visits[index].visit_count += att.visit_count;
+                    });
+                    z.cse_count += m.children.length
+                }
+            }
+        }
+
+        // depending on list show view
+        if (zone_managers.length > 0)
+            this.managers = zone_managers;
+        else
+            this.managers = managers;
+
 
         this.users = users;
     }
@@ -135,7 +215,12 @@ export class VisitComponent extends BaseAuthComponent {
                     return new Holiday(visit);
                 });
 
-                this.addVisitToSkeleton(visits, holidays);
+                // convert to models
+                let children = response.children.map(function (user, index) {
+                    return new User(user);
+                });
+
+                this.addVisitToSkeleton(children, visits, holidays);
                 this.prepareChart(visits, holidays);
             },
             err => {

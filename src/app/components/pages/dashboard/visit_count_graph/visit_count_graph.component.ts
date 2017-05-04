@@ -137,7 +137,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
 
                     this.total_orders = response.total_orders;
 
-                    this.prepareData();
+                    this.getGoogle().charts.setOnLoadCallback(() => {this.prepareData();});
                     this.loading = false;
                 },
                 err => {

@@ -31,9 +31,10 @@ export abstract class GoogleChartComponent extends BaseDashboardComponent implem
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (!GoogleChartComponent.googleLoaded) {
             GoogleChartComponent.googleLoaded = true;
-            google.charts.load('current', {packages: ['corechart']});
+            google.charts.load('current', {packages: ['corechart', 'table']});
         }
     }
 

@@ -1,98 +1,192 @@
 <div class="container-fluid visits">
 
-  <!-- Page Breadcrumb -->
-  <div class="page-breadcrumb">
-    <div class="row">
-      <div class="col-md-5">
-        <div class="page-breadcrumb-wrap">
-          <div class="page-breadcrumb-info">
-            <h2 class="breadcrumb-titles">Visits
-              <small>Visit Report for all Users</small>
-            </h2>
-            <ul class="list-page-breadcrumb">
-              <li><a href="#">Home</a>
-              </li>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Visits
+                            <small>Visit Report for all Users</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a href="#">Home</a>
+                            </li>
 
-              <li class="active-page"> Visits</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-7">
-        <div class="hidden-sm hidden-xs">
-          <!--<visit_count_graph [data]="chart_data"></visit_count_graph>-->
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Page Breadcrumb -->
-
-  <!-- Filters for Visit report-->
-  <div class="row">
-    <div class="col-xs-12 col-md-3">
-      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-    </div>
-    <div class="col-xs-12 col-md-3" *roleCheck="4">
-      <role-select [value]="role_id" (onValueChanged)="roleChanged($event)"></role-select>
-    </div>
-    <div class="col-xs-12 col-md-3" *ngIf="manager_role_id > 0">
-      <user-select [role_id]="manager_role_id" [value]="manager_id" [title]="'Select Manager'"
-                   (onValueChanged)="managerChanged($event)"></user-select>
-    </div>
-  </div>
-  <!-- ./Filters for Visit report-->
-
-  <!-- Visit Table -->
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box-widget widget-module">
-        <div class="widget-head clearfix">
-          <span class="h-icon"><i class="fa fa-table"></i></span>
-          <h4>Visit Report for ({{ title }})</h4>
-        </div>
-        <div class="widget-container report-table" #loading_box>
-          <div class="widget-block">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                <tr>
-                  <th style="min-width: 200px;">
-                    Users
-                  </th>
-                  <th></th>
-                  <th *ngFor="let d of dates">
-                    {{ d }}
-                  </th>
-                </tr>
-                </thead>
-
-                <tfoot>
-                <tr>
-                  <th>
-                    Users
-                  </th>
-                  <th></th>
-                  <th *ngFor="let d of dates">
-                    {{ d }}
-                  </th>
-                </tr>
-                </tfoot>
-
-                <tbody>
-                <tr *ngFor="let user of users">
-                  <td>{{ user.full_name }}</td>
-                  <td>
-                    <i status [field]="user.status"></i>
-                  </td>
-                  <td *ngFor="let visit of user.visits" visitCount [visit]="visit"></td>
-                </tr>
-                </tbody>
-              </table>
+                            <li class="active-page"> Visits</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-md-7">
+                <div class="hidden-sm hidden-xs">
+                    <!--<visit_count_graph [data]="chart_data"></visit_count_graph>-->
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- ./Visit Table -->
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Visit report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+    </div>
+    <!-- ./Filters for Visit report-->
+
+    <!-- Attendance Table -->
+    <div class="row" #loading_box>
+        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+            <div class="row" *ngFor="let z of managers">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4><strong>{{ z.full_name }}</strong></h4>
+                        </div>
+                        <div>
+                            <div class="widget-container report-table">
+                                <div class="widget-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="min-width: 200px;">Users</th>
+                                                <th *ngIf="!compact_view">Headquarter</th>
+                                                <th *ngIf="!compact_view"></th>
+                                                <th *ngIf="compact_view">CSE Count</th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                            <tr>
+                                                <th>Users</th>
+                                                <th *ngIf="!compact_view">Headquarter</th>
+                                                <th *ngIf="!compact_view"></th>
+                                                <th *ngIf="compact_view">CSE Count</th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </tfoot>
+
+                                            <tbody *ngIf="!compact_view">
+                                            <template ngFor let-mg [ngForOf]="z.children">
+                                                <tr>
+                                                    <td [colSpan]="mg.children[0]?.visits.length + 2"
+                                                        class="text-center">
+                                                        <strong>{{ mg.full_name }}</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngFor="let user of mg.children">
+                                                    <td>{{ user.full_name }}</td>
+                                                    <td>{{ user.hq_headquarter?.name }}</td>
+                                                    <td>
+                                                        <i status [field]="user.status"></i>
+                                                    </td>
+                                                    <td *ngFor="let visit of user.visits" visitCount
+                                                        [visit]="visit"></td>
+                                                </tr>
+                                            </template>
+                                            </tbody>
+                                            <tbody *ngIf="compact_view">
+                                            <tr>
+                                                <td><strong>Total CSE</strong></td>
+                                                <td>{{ z.cse_count }}</td>
+                                                <td *ngFor="let visit of z.visits"
+                                                    [ngClass]="{'green': z.cse_count == att.visit_count}">
+                                                <span *ngIf="visit.visit_count > 0">
+                                                    {{ visit.visit_count }}
+                                                </span>
+                                                </td>
+                                            </tr>
+                                            <template ngFor let-mg [ngForOf]="z.children">
+                                                <tr>
+                                                    <td><strong>{{ mg.full_name }}</strong></td>
+                                                    <td>{{ mg.children.length }}</td>
+                                                    <td *ngFor="let visit of mg.visits"
+                                                        [ngClass]="{'green': mg.children.length== visit.att_count}">
+                                                <span *ngIf="visit.visit_count > 0">
+                                                    {{ visit.visit_count }}
+                                                </span>
+                                                    </td>
+                                                </tr>
+                                            </template>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12" *ngIf="_service.user.isArea">
+            <div class="row" *ngFor="let z of managers">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4><strong>{{ z.full_name }}</strong></h4>
+                        </div>
+                        <div>
+                            <div class="widget-container report-table">
+                                <div class="widget-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="min-width: 200px;">
+                                                    Users
+                                                </th>
+                                                <th>
+                                                    Headquarter
+                                                </th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                            <tr>
+                                                <th>
+                                                    Users
+                                                </th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </tfoot>
+
+                                            <tbody>
+                                            <tr *ngFor="let user of z.children">
+                                                <td>{{ user.full_name }}</td>
+                                                <td>{{ user.hq_headquarter.name }}</td>
+                                                <td>
+                                                    <i status [field]="user.status"></i>
+                                                </td>
+                                                <td *ngFor="let visit of user.visits" visitCount=""
+                                                    [visit]="visit"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./Attendance Table -->
 </div>

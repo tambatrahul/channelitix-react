@@ -122,63 +122,66 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
      * prepare data for graph
      */
     prepareData(performance: Performance) {
-        let google = this.getGoogle();
-        let data = new google.visualization.DataTable();
-        data.addColumn('string', 'Months');
-        data.addColumn('number', 'Target');
-        data.addColumn('number', 'Primary Sales');
-        data.addColumn('number', 'Secondary Sales');
-        // data.addColumn('number', 'Closing');
+        this.getGoogle().charts.setOnLoadCallback(() => {
+            let google = this.getGoogle();
+            let data = new google.visualization.DataTable();
+            data.addColumn('string', 'Months');
+            data.addColumn('number', 'Target');
+            data.addColumn('number', 'Primary Sales');
+            data.addColumn('number', 'Secondary Sales');
+            // data.addColumn('number', 'Closing');
 
-        let per_data = {};
+            let per_data = {};
 
-        // add target to object
-        performance.targets.forEach(function (target) {
-            per_data[target.month - 1] = {
-                target: parseFloat((target.total_net_amount / 1000).toFixed(2)),
-                primary: 0,
-                secondary: 0
-            };
-        });
-
-        // add primary sale to object
-        performance.primary_sales.forEach(function (ps) {
-            if (!per_data.hasOwnProperty(ps.month - 1)) {
-                per_data[ps.month - 1] = {
-                    target: 0,
-                    primary: parseFloat((ps.total_net_amount / 1000).toFixed(2)),
+            // add target to object
+            performance.targets.forEach(function (target) {
+                per_data[target.month - 1] = {
+                    target: parseFloat((target.total_net_amount / 1000).toFixed(2)),
+                    primary: 0,
                     secondary: 0
                 };
-            } else
-                per_data[ps.month - 1].primary = parseFloat((ps.total_net_amount / 1000).toFixed(2))
+            });
+
+            // add primary sale to object
+            performance.primary_sales.forEach(function (ps) {
+                if (!per_data.hasOwnProperty(ps.month - 1)) {
+                    per_data[ps.month - 1] = {
+                        target: 0,
+                        primary: parseFloat((ps.total_net_amount / 1000).toFixed(2)),
+                        secondary: 0
+                    };
+                } else
+                    per_data[ps.month - 1].primary = parseFloat((ps.total_net_amount / 1000).toFixed(2))
+            });
+
+            // add secondary sale to object
+            performance.secondary_sales.forEach(function (ss) {
+                if (!per_data.hasOwnProperty(ss.month - 1)) {
+                    per_data[ss.month - 1] = {
+                        target: 0,
+                        primary: 0,
+                        secondary: parseFloat((ss.total_amount / 1000).toFixed(2))
+                    };
+                } else
+                    per_data[ss.month].secondary = parseFloat((ss.total_amount / 1000).toFixed(2))
+            });
+
+            // prepare data
+            let prepared_data = [];
+            for (let key in per_data) {
+                prepared_data.push([AppConstants.getMonth(key), per_data[key].target,
+                    per_data[key].primary, per_data[key].secondary])
+            }
+
+            // prepared data
+            data.addRows(prepared_data);
+
+            // set chart data
+            this.chart_data = data;
+
+            // set chart data callback
+            this.drawGraph();
         });
 
-        // add secondary sale to object
-        performance.secondary_sales.forEach(function (ss) {
-            if (!per_data.hasOwnProperty(ss.month - 1)) {
-                per_data[ss.month - 1] = {
-                    target: 0,
-                    primary: 0,
-                    secondary: parseFloat((ss.total_amount / 1000).toFixed(2))
-                };
-            } else
-                per_data[ss.month].secondary = parseFloat((ss.total_amount / 1000).toFixed(2))
-        });
-
-        // prepare data
-        let prepared_data = [];
-        for (let key in per_data) {
-            prepared_data.push([AppConstants.getMonth(key), per_data[key].target,
-                per_data[key].primary, per_data[key].secondary])
-        }
-
-        // prepared data
-        data.addRows(prepared_data);
-
-        // set chart data
-        this.chart_data = data;
-
-        // set chart data callback
-        this.getGoogle().charts.setOnLoadCallback(() => this.drawGraph());
     }
 }

@@ -106,4 +106,8 @@ export class SummaryVisitOrderGraphComponent extends GoogleChartComponent {
             this.getGoogle().charts.setOnLoadCallback(() => this.drawGraph());
         }
     }
+
+    fetch() {
+
+    }
 }

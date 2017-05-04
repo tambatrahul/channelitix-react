@@ -9,9 +9,9 @@ import {Visit} from "../models/visit/visit";
 })
 export class VisitCountDirective {
 
-  below_5: string = "#e74c3c";
-  below_15: string = "#f1c40f";
-  above_15: string = "#2ecc71";
+  below_20: string = "#e74c3c";
+  below_30: string = "#f1c40f";
+  above_30: string = "#2ecc71";
   holiday: string = "#ecf0f1";
 
   /**
@@ -33,12 +33,12 @@ export class VisitCountDirective {
       this.el.nativeElement.innerText = visit.visit_count;
 
       // set background color depending on status
-      if (visit.visit_count < 5)
-        this.el.nativeElement.style.backgroundColor = this.below_5;
-      else if (visit.visit_count < 15)
-        this.el.nativeElement.style.backgroundColor = this.below_15;
+      if (visit.visit_count < 20)
+        this.el.nativeElement.style.backgroundColor = this.below_20;
+      else if (visit.visit_count < 30)
+        this.el.nativeElement.style.backgroundColor = this.below_30;
       else
-        this.el.nativeElement.style.backgroundColor = this.above_15;
+        this.el.nativeElement.style.backgroundColor = this.above_30;
     }
 
     if (visit.isSunday) {

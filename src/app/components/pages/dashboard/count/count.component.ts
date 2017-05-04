@@ -52,14 +52,16 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
      */
     fetch() {
         this.loading = true;
-        this.reportService.counts(this._dates.from_date, this._dates.to_date, this._dates.year,
-            this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
-            response => {
-                this.counts = response;
-                this.loading = false;
-            }, err => {
-                this.loading = false;
-            }
-        );
+        if (this._dates.year) {
+            this.reportService.counts(this._dates.from_date, this._dates.to_date, this._dates.year,
+                this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
+                response => {
+                    this.counts = response;
+                    this.loading = false;
+                }, err => {
+                    this.loading = false;
+                }
+            );
+        }
     }
 }
