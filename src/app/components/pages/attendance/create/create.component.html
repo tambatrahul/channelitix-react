@@ -92,24 +92,6 @@
                         {{ errors.working_with_id}}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
-                    <label class="control-label">Number of calls</label>
-                    <div class="">
-                        <input [(ngModel)]="no_of_calls" class="form-control" type="text">
-                        <small *ngIf="errors?.no_of_calls" class="text-danger text-center">
-                            {{ errors.no_of_calls}}
-                        </small>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
-                    <label class="control-label">POB Amount</label>
-                    <div class="">
-                        <input [(ngModel)]="pob_amount" class="form-control" type="text">
-                        <small *ngIf="errors?.pob_amount" class="text-danger text-center">
-                            {{ errors.pob_amount}}
-                        </small>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

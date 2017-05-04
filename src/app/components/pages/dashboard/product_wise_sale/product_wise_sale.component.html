@@ -27,7 +27,7 @@
                                     </td>
                                     <td>{{ item.target }}</td>
                                     <td>{{ item.performance }}</td>
-                                    <td>{{ item.target > 0 ? (item.performance / item.target) * 100 : 0 }}</td>
+                                    <td>{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2) }}</td>
                                 </tr>
                             </template>
 

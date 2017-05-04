@@ -106,7 +106,7 @@ export class ReportService extends BaseService {
         }
 
         // prepare url
-        let url = this.getBaseUrl() + '/visit_order_trend/';
+        let url = this.getBaseUrl() + '/visit_order_trend';
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));

@@ -126,7 +126,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
             let google = this.getGoogle();
             let data = new google.visualization.DataTable();
             data.addColumn('string', 'Months');
-            data.addColumn('number', 'Target');
+            data.addColumn('number', 'Targets');
             data.addColumn('number', 'Primary Sales');
             data.addColumn('number', 'Secondary Sales');
             // data.addColumn('number', 'Closing');
@@ -136,7 +136,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
             // add target to object
             performance.targets.forEach(function (target) {
                 per_data[target.month - 1] = {
-                    target: parseFloat((target.total_net_amount / 1000).toFixed(2)),
+                    target: parseFloat((target.total_target / 1000).toFixed(2)),
                     primary: 0,
                     secondary: 0
                 };
