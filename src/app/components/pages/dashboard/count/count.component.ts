@@ -1,5 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {ReportService} from "../../../../services/report.service";
+import {BaseAuthComponent} from "../../../base/base_auth.component";
+import {AuthService} from "../../../../services/AuthService";
 declare let jQuery: any;
 
 @Component({
@@ -7,7 +9,7 @@ declare let jQuery: any;
     templateUrl: 'count.component.html',
     styleUrls: ['count.component.less']
 })
-export class DashBoardCountComponent {
+export class DashBoardCountComponent extends BaseAuthComponent {
 
     /**
      * get all count
@@ -40,17 +42,21 @@ export class DashBoardCountComponent {
     /**
      * Dashboard Component Constructor
      */
-    constructor(private reportService: ReportService) {
+    constructor(private reportService: ReportService, protected _authService: AuthService) {
+        super(_authService);
     }
 
     /**
      * fetch counts from server
      */
     fetchCounts() {
+        this.loading = true;
         this.reportService.counts(this._dates.from_date, this._dates.to_date, this._dates.year).subscribe(
             response => {
                 this.counts = response;
+                this.loading = false;
             }, err => {
+                this.loading = false;
             }
         );
     }

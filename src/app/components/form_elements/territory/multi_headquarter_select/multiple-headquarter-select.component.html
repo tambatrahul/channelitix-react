@@ -6,7 +6,7 @@
         <ul class="list-group multiple-select">
             <li class="list-group-item" *ngFor="let m of models">
                 <label>
-                    <input type="checkbox" value="m.id"><span>{{ m.name }}</span>
+                    <input type="checkbox" value="m.id" (change)="selectValue(m.id)"><span>{{ m.name }}</span>
                 </label>
             </li>
         </ul>

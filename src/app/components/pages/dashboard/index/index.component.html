@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="region_ids.length > 0">
                 <div class="col-xs-12">
                     <div class="row">
                         <multiple-area-select [region_ids]="region_ids" [area_ids]="area_ids"
@@ -35,10 +35,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="area_ids.length > 0">
                 <div class="col-xs-12">
                     <div class="row">
-                        <multiple-headquarter-select [area_ids]="area_ids"
+                        <multiple-headquarter-select [area_ids]="area_ids" [headquarter_ids]="headquarter_ids"
                                                      (selectedHeadquarter)="headquarterSelected($event)">
 
                         </multiple-headquarter-select>
@@ -53,13 +53,17 @@
 
                 <!-- Highest Call graph -->
                 <div class="col-xs-12 col-md-6">
-                    <till-month-chart></till-month-chart>
+                    <till-month-chart [region_ids]="region_ids" [area_ids]="area_ids"
+                                      [headquarter_ids]="headquarter_ids"></till-month-chart>
                 </div>
                 <!-- ./Highest Call graph -->
 
                 <!-- Highest Order graph -->
                 <div class="col-xs-12 col-md-6">
-                    <monthly-primary-secondary-target></monthly-primary-secondary-target>
+                    <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids"
+                                                      [headquarter_ids]="headquarter_ids">
+
+                    </monthly-primary-secondary-target>
                 </div>
                 <!-- ./Highest Order graph -->
             </div>
@@ -68,7 +72,9 @@
             <div class="row">
                 <div class="col-xs-12 col-md-9">
                     <visit-count-graph [dates]="dates"
-                                       (totalVisitOrders)="totalVisitOrders($event)"></visit-count-graph>
+                                       (totalVisitOrders)="totalVisitOrders($event)"
+                                       [region_ids]="region_ids" [area_ids]="area_ids"
+                                       [headquarter_ids]="headquarter_ids"></visit-count-graph>
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <div class="row">
@@ -99,5 +105,10 @@
     </div>
     <!-- ./pages layout -->
 
-    <product-wise-sale [year]="year" [month]="month"></product-wise-sale>
+    <div class="row">
+        <div class="col-xs-6">
+            <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
+                               [headquarter_ids]="headquarter_ids"></product-wise-sale>
+        </div>
+    </div>
 </div>

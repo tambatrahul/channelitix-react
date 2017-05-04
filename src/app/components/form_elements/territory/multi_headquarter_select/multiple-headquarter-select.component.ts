@@ -80,6 +80,7 @@ export class MultipleHeadquarterSelectComponent extends MultipleBaseSelectCompon
             headquarters.push(id);
         else
             headquarters.splice(headquarters.indexOf(id), 1);
+        console.log(headquarters);
 
         this.selectedHeadquarter.emit(headquarters);
     }

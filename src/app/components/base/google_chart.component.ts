@@ -1,11 +1,13 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
+import {BaseDashboardComponent} from "../pages/dashboard/base_dashboard.component";
+import {AuthService} from "../../services/AuthService";
 declare let google: any;
 declare let jQuery: any;
 
 @Component({
     selector: 'chart'
 })
-export class GoogleChartComponent implements OnInit {
+export abstract class GoogleChartComponent extends BaseDashboardComponent implements OnInit {
     private static googleLoaded: any;
 
 
@@ -20,7 +22,8 @@ export class GoogleChartComponent implements OnInit {
      */
     protected _loading: boolean;
 
-    constructor() {
+    constructor(public _service: AuthService) {
+        super(_service);
     }
 
     getGoogle() {

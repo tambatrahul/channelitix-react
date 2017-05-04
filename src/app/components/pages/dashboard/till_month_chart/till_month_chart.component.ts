@@ -3,6 +3,7 @@ import {GoogleChartComponent} from "../../../base/google_chart.component";
 import {ReportService} from "../../../../services/report.service";
 import {YearTillMonth} from "../../../../models/SAP/year_till_month";
 import * as moment from "moment";
+import {AuthService} from "../../../../services/AuthService";
 
 declare let jQuery: any;
 declare let d3: any;
@@ -46,7 +47,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     }
 
     /**
-     * country id for filter
+     * region id for filter
      */
     _region_ids: Array<number> = [];
     @Input()
@@ -78,8 +79,8 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     /**
      * TillMonthChartComponent constructor
      */
-    constructor(private reportService: ReportService) {
-        super();
+    constructor(private reportService: ReportService, public _service: AuthService) {
+        super(_service);
     }
 
     /**
@@ -130,9 +131,10 @@ export class TillMonthChartComponent extends GoogleChartComponent {
      */
     fetch() {
         this.loading = true;
-        this.reportService.till_month_chart().subscribe(
+        this.reportService.till_month_chart(this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
             response => {
                 this.prepareData(new YearTillMonth(response.year_till_month));
+                this.loading = false;
             },
             err => {
                 this.loading = false;

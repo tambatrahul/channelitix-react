@@ -62,13 +62,30 @@ export class ReportService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    visit_order_trend(from_date, to_date, year): Observable<Result> {
+    visit_order_trend(from_date, to_date, year,
+                      region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
         params.set('from_date', String(from_date ? from_date : ''));
         params.set('to_date', String(to_date ? to_date : ''));
         params.set('year', String(year > 0 ? year : ''));
+
+        if (headquarter_ids && headquarter_ids.length > 0) {
+            headquarter_ids.map(function (h_id) {
+                params.append('headquarter_id[]', String(h_id));
+            });
+        }
+        if (area_ids && area_ids.length > 0) {
+            area_ids.map(function (area_id) {
+                params.append('area_id[]', String(area_id));
+            });
+        }
+        if (region_ids && region_ids.length > 0) {
+            region_ids.map(function (region_id) {
+                params.append('region_id[]', String(region_id));
+            });
+        }
 
         // prepare url
         let url = this.getBaseUrl() + '/visit_order_trend/';
@@ -112,10 +129,26 @@ export class ReportService extends BaseService {
      * get performance for year
      * @returns {Observable<Result>}
      */
-    performance(year: number): Observable<Result> {
+    performance(year: number, region_ids?: Array<number>,
+                area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
+        if (headquarter_ids && headquarter_ids.length > 0) {
+            headquarter_ids.map(function (h_id) {
+                params.append('headquarter_id[]', String(h_id));
+            });
+        }
+        if (area_ids && area_ids.length > 0) {
+            area_ids.map(function (area_id) {
+                params.append('area_id[]', String(area_id));
+            });
+        }
+        if (region_ids && region_ids.length > 0) {
+            region_ids.map(function (region_id) {
+                params.append('region_id[]', String(region_id));
+            });
+        }
 
         // prepare url
         let url = this.getBaseUrl() + '/performance/' + year;
@@ -129,9 +162,27 @@ export class ReportService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    product_wise_sale(month, year): Observable<Result> {
+    product_wise_sale(month, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        if (headquarter_ids && headquarter_ids.length > 0) {
+            headquarter_ids.map(function (h_id) {
+                params.append('headquarter_id[]', String(h_id));
+            });
+        }
+        if (area_ids && area_ids.length > 0) {
+            area_ids.map(function (area_id) {
+                params.append('area_id[]', String(area_id));
+            });
+        }
+        if (region_ids && region_ids.length > 0) {
+            region_ids.map(function (region_id) {
+                params.append('region_id[]', String(region_id));
+            });
+        }
 
         // make server call
-        return this.get(this.getBaseUrl() + '/target_performance/' + month + '/' + year);
+        return this.get(this.getBaseUrl() + '/target_performance/' + month + '/' + year, new RequestOptions({search: params}));
     }
 }

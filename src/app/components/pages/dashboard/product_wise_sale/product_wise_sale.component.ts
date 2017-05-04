@@ -4,12 +4,13 @@ import {AuthService} from "../../../../services/AuthService";
 import {ReportService} from "../../../../services/report.service";
 import {Performance} from "../../../../models/SAP/performance";
 import {Product} from "../../../../models/order/product";
+import {BaseDashboardComponent} from "../base_dashboard.component";
 @Component({
     selector: 'product-wise-sale',
     styleUrls: ['product_wise_sale.component.less'],
     templateUrl: 'product_wise_sale.component.html',
 })
-export class ProductWiseSaleComponent extends ListComponent {
+export class ProductWiseSaleComponent extends BaseDashboardComponent {
 
     /**
      * month of invoice
@@ -46,9 +47,11 @@ export class ProductWiseSaleComponent extends ListComponent {
     protected fetch() {
         if (this._month && this._year) {
             this.loading = true;
-            this.reportService.product_wise_sale(this._month + 1, this._year).subscribe(
+            this.reportService.product_wise_sale(this._month + 1, this._year,
+                this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
                 response => {
                     this.formatData(new Performance(response.performance));
+                    this.loading = false;
                 }, err => {
                     this.loading = false;
                 }
@@ -65,7 +68,7 @@ export class ProductWiseSaleComponent extends ListComponent {
 
         // set target values
         performance.targets.map(function (target) {
-            products.map(function(product) {
+            products.map(function (product) {
                 if (product.id == target.product_id)
                     product.target = target.total_target;
             })
@@ -73,7 +76,7 @@ export class ProductWiseSaleComponent extends ListComponent {
 
         // set performance values
         performance.secondary_sales.map(function (ss) {
-            products.map(function(product) {
+            products.map(function (product) {
                 if (product.id == ss.product_id)
                     product.performance = ss.total_amount;
             })
