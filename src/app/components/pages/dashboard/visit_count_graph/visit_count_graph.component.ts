@@ -4,6 +4,7 @@ import {ReportService} from "../../../../services/report.service";
 import {Order} from "../../../../models/order/order";
 import {Visit} from "../../../../models/visit/visit";
 import {Attendance} from "../../../../models/attendance/attendance";
+import {AuthService} from "../../../../services/AuthService";
 declare let jQuery: any;
 declare let d3: any;
 
@@ -21,6 +22,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     public total_visits: number = 0;
     public total_pob: number = 0;
     public total_orders: number = 0;
+
 
     /**
      * return total visit and orders
@@ -74,8 +76,8 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     /**
      *
      */
-    constructor(private reportService: ReportService) {
-        super();
+    constructor(private reportService: ReportService, public _service: AuthService) {
+        super(_service);
     }
 
     ngOnInit() {
@@ -118,27 +120,31 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
      * Chart data
      */
     fetch() {
-        this.loading = true;
-        this.reportService.visit_order_trend(this._dates.from_date, this._dates.to_date, this._dates.year).subscribe(
-            response => {
-                this.visits = response.visits.map(function (visit) {
-                    return new Visit(visit);
-                });
-                this.orders = response.orders.map(function (order) {
-                    return new Order(order);
-                });
-                this.attendances = response.attendances.map(function (att) {
-                    return new Attendance(att);
-                });
+        if (this._dates && this._dates.from_date && this._dates.to_date) {
+            this.loading = true;
+            this.reportService.visit_order_trend(this._dates.from_date, this._dates.to_date, this._dates.year,
+                this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
+                response => {
+                    this.visits = response.visits.map(function (visit) {
+                        return new Visit(visit);
+                    });
+                    this.orders = response.orders.map(function (order) {
+                        return new Order(order);
+                    });
+                    this.attendances = response.attendances.map(function (att) {
+                        return new Attendance(att);
+                    });
 
-                this.total_orders = response.total_orders;
+                    this.total_orders = response.total_orders;
 
-                this.prepareData();
-            },
-            err => {
-                this.loading = false;
-            }
-        )
+                    this.prepareData();
+                    this.loading = false;
+                },
+                err => {
+                    this.loading = false;
+                }
+            )
+        }
     }
 
     /**

@@ -3,6 +3,7 @@ import {GoogleChartComponent} from "../../../base/google_chart.component";
 import {ReportService} from "../../../../services/report.service";
 import {Performance} from "../../../../models/SAP/performance";
 import {AppConstants} from "../../../../app.constants";
+import {AuthService} from "../../../../services/AuthService";
 declare let jQuery: any;
 declare let d3: any;
 
@@ -39,10 +40,40 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
     }
 
     /**
+     * region id for filter
+     */
+    _region_ids: Array<number> = [];
+    @Input()
+    set region_ids(region_ids) {
+        this._region_ids = region_ids;
+        this.fetch();
+    };
+
+    /**
+     * area id for filter
+     */
+    _area_ids: Array<number> = [];
+    @Input()
+    set area_ids(area_ids) {
+        this._area_ids = area_ids;
+        this.fetch();
+    };
+
+    /**
+     * headquarter id for filter
+     */
+    _headquarter_ids: Array<number> = [];
+    @Input()
+    set headquarter_ids(headquarter_ids) {
+        this._headquarter_ids = headquarter_ids;
+        this.fetch();
+    };
+
+    /**
      *
      */
-    constructor(private reportService: ReportService) {
-        super();
+    constructor(private reportService: ReportService, public _service: AuthService) {
+        super(_service);
     }
 
     ngOnInit() {
@@ -76,14 +107,15 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
      */
     fetch() {
         this.loading = true;
-        this.reportService.performance(2017).subscribe(
+        this.reportService.performance(2017, this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
             response => {
+                this.loading = false;
                 this.prepareData(new Performance(response.performance));
             },
             err => {
                 this.loading = false;
             }
-        )
+        );
     }
 
     /**
@@ -102,7 +134,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
 
         // add target to object
         performance.targets.forEach(function (target) {
-            per_data[target.month-1] = {
+            per_data[target.month - 1] = {
                 target: parseFloat((target.total_net_amount / 1000).toFixed(2)),
                 primary: 0,
                 secondary: 0
@@ -111,20 +143,20 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
 
         // add primary sale to object
         performance.primary_sales.forEach(function (ps) {
-            if (!per_data.hasOwnProperty(ps.month-1)) {
-                per_data[ps.month-1] = {
+            if (!per_data.hasOwnProperty(ps.month - 1)) {
+                per_data[ps.month - 1] = {
                     target: 0,
                     primary: parseFloat((ps.total_net_amount / 1000).toFixed(2)),
                     secondary: 0
                 };
             } else
-                per_data[ps.month-1].primary = parseFloat((ps.total_net_amount / 1000).toFixed(2))
+                per_data[ps.month - 1].primary = parseFloat((ps.total_net_amount / 1000).toFixed(2))
         });
 
         // add secondary sale to object
         performance.secondary_sales.forEach(function (ss) {
-            if (!per_data.hasOwnProperty(ss.month-1)) {
-                per_data[ss.month-1] = {
+            if (!per_data.hasOwnProperty(ss.month - 1)) {
+                per_data[ss.month - 1] = {
                     target: 0,
                     primary: 0,
                     secondary: parseFloat((ss.total_amount / 1000).toFixed(2))
