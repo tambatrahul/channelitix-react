@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-xs-12">
-        <div class="row small-space">
-            <div class="col-xs-6" *ngFor="let t of types">
-                <button class="btn btn-default btn-xs btn-block" [ngClass]="{'btn-primary': t == type}"
-                        (click)="onTypeChanged(t)">
-                    {{ t|uppercase }}
-                </button>
-            </div>
-        </div>
+        <!--<div class="row small-space">-->
+            <!--<div class="col-xs-6" *ngFor="let t of types">-->
+                <!--<button class="btn btn-default btn-xs btn-block" [ngClass]="{'btn-primary': t == type}"-->
+                        <!--(click)="onTypeChanged(t)">-->
+                    <!--{{ t|uppercase }}-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="row small-space" *ngIf="type == types[0]">
             <div class="col-xs-6 form-group form-group-sm">
                 <date-picker [date]="from_date" [title]="'From'" [date_format]="'dd M yy'"

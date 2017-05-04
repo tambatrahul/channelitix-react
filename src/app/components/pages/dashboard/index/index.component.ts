@@ -85,6 +85,7 @@ export class DashBoardComponent extends BaseComponent {
      */
     regionSelected(region_ids: Array<number>) {
         this.region_ids = region_ids;
+        this.area_ids = [];
     }
 
     /**
@@ -94,6 +95,7 @@ export class DashBoardComponent extends BaseComponent {
      */
     areaSelected(area_ids: Array<number>) {
         this.area_ids = area_ids;
+        this.headquarter_ids = [];
     }
 
     /**
