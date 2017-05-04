@@ -19,24 +19,29 @@
                     <dates-select (onDateChanged)="onDateChanged($event)"></dates-select>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *roleCheck="ROLE_ADMIN">
                 <div class="col-xs-12">
                     <div class="row">
-                        <multiple-user-select></multiple-user-select>
+                        <multiple-region-select [region_ids]="region_ids"
+                                                (selectedRegion)="regionSelected($event)"></multiple-region-select>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="row">
-                        <multiple-territory-select></multiple-territory-select>
+                        <multiple-area-select [region_ids]="region_ids" [area_ids]="area_ids"
+                                              (selectedArea)="areaSelected($event)"></multiple-area-select>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="row">
-                        <multiple-headquarter-select></multiple-headquarter-select>
+                        <multiple-headquarter-select [area_ids]="area_ids"
+                                                     (selectedHeadquarter)="headquarterSelected($event)">
+
+                        </multiple-headquarter-select>
                     </div>
                 </div>
             </div>
@@ -62,7 +67,8 @@
             <!-- Visit Order Trend -->
             <div class="row">
                 <div class="col-xs-12 col-md-9">
-                    <visit-count-graph [dates]="dates" (totalVisitOrders)="totalVisitOrders($event)"></visit-count-graph>
+                    <visit-count-graph [dates]="dates"
+                                       (totalVisitOrders)="totalVisitOrders($event)"></visit-count-graph>
                 </div>
                 <div class="col-xs-12 col-md-3">
                     <div class="row">

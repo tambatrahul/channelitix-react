@@ -1,12 +1,12 @@
 <div class="box-widget widget-module no-border filters">
     <div class="widget-head clearfix">
-        <h4><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> {{ title }}</h4>
+        <h4><i class="fa fa-spinner fa-spin" *ngIf="loading"></i>  {{ title }}</h4>
     </div>
     <div class="widget-container">
         <ul class="list-group multiple-select">
             <li class="list-group-item" *ngFor="let m of models">
                 <label>
-                    <input type="checkbox" value="m.id"><span>{{ m.name }}</span>
+                    <input type="checkbox" value="m.id" (change)="selectValue(m.id)"><span>{{ m.name }}</span>
                 </label>
             </li>
         </ul>
