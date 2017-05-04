@@ -99,12 +99,13 @@ export class TillMonthChartComponent extends GoogleChartComponent {
      * Chart data
      */
     fetch() {
+        this.loading = true;
         this.reportService.till_month_chart().subscribe(
             response => {
                 this.prepareData(new YearTillMonth(response.year_till_month));
             },
             err => {
-
+                this.loading = false;
             }
         )
     }

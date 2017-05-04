@@ -118,6 +118,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
      * Chart data
      */
     fetch() {
+        this.loading = true;
         this.reportService.visit_order_trend(this._dates.from_date, this._dates.to_date, this._dates.year).subscribe(
             response => {
                 this.visits = response.visits.map(function (visit) {
@@ -135,7 +136,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
                 this.prepareData();
             },
             err => {
-
+                this.loading = false;
             }
         )
     }

@@ -45,10 +45,12 @@ export class ProductWiseSaleComponent extends ListComponent {
      */
     protected fetch() {
         if (this._month && this._year) {
+            this.loading = true;
             this.reportService.product_wise_sale(this._month + 1, this._year).subscribe(
                 response => {
                     this.formatData(new Performance(response.performance));
                 }, err => {
+                    this.loading = false;
                 }
             );
         }

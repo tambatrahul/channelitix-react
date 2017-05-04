@@ -12,7 +12,6 @@ declare let d3: any;
     templateUrl: 'monthly_primary_secondary_target.component.html',
 })
 export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent {
-
     /**
      * data for chart
      */
@@ -76,12 +75,13 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
      * Chart data
      */
     fetch() {
+        this.loading = true;
         this.reportService.performance(2017).subscribe(
             response => {
                 this.prepareData(new Performance(response.performance));
             },
             err => {
-
+                this.loading = false;
             }
         )
     }
