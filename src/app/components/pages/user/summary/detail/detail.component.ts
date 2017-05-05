@@ -164,7 +164,7 @@ export class SummaryDetailComponent extends BaseAuthComponent {
         // prepare tour skeleton
         for (let tour of tours) {
             // set tour details
-            data_skeleton[tour.tour_day].tour_count = tour.tour_count;
+            data_skeleton[tour.tour_day - 1].tour_count = tour.tour_count;
         }
 
         this._user.tours = data_skeleton;

@@ -7,10 +7,10 @@ import {Order} from "./models/order/order";
 import {Tour} from "./models/tour_program/tour";
 
 export class AppConstants {
-    static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
+    // static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
     // static API_ENDPOINT: string = 'http://35.189.172.175/api/v1/';
     // static API_ENDPOINT: string = 'http://104.198.41.92/api/v1/';
-    // static API_ENDPOINT: string = '/api/v1/';
+    static API_ENDPOINT: string = '/api/v1/';
     static EMAIL_REGEX: string = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
     // roles of user
