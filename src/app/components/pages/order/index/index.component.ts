@@ -63,6 +63,13 @@ export class OrderComponent extends BaseAuthComponent {
     public users: User[] = [];
 
     /**
+     * users
+     *
+     * @type {{}}
+     */
+    public managers: User[] = [];
+
+    /**
      * User Component Constructor
      *
      */
@@ -89,15 +96,20 @@ export class OrderComponent extends BaseAuthComponent {
      */
     addOrderToSkeleton(users: User[], orders: Order[], holidays: Holiday[]) {
         let data_skeleton = {};
+        let managers: User[] = [];
+        let zone_managers: User[] = [];
 
-        let skeleton = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+        // get skeleton
+        for (let user of users) {
+            data_skeleton[user.id] = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+        }
 
         // prepare order skeleton
         for (let order of orders) {
 
             // add user if not present
             if (!data_skeleton.hasOwnProperty(order.created_by)) {
-                data_skeleton[order.created_by] = skeleton.map(order => Object.assign({}, order));
+                data_skeleton[order.created_by] = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
                 users.push(order.creator);
             }
 
@@ -107,10 +119,57 @@ export class OrderComponent extends BaseAuthComponent {
 
         // add skeleton to user
         for (let user of users) {
-            user.orders = data_skeleton[user.id];
+            if (data_skeleton.hasOwnProperty(user.id))
+                user.orders = data_skeleton[user.id];
+            else
+                user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+
+            // separate csm and zsm
+            if (user.role_str == this.ROLE_CSM) {
+                managers.push(user);
+            } else if (user.role_str == this.ROLE_ZSM) {
+                zone_managers.push(user);
+            }
         }
 
-        this.users = users;
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_ZSM) {
+            this._service.user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            this._service.user.children = [];
+            this._service.user.cse_count = 0;
+            zone_managers.push(this._service.user)
+        }
+
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_CSM) {
+            this._service.user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            this._service.user.children = [];
+            managers.push(this._service.user)
+        }
+
+        // add children to managers
+        for (let u of users) {
+            for (let m of managers) {
+                if (u.manager_id == m.id) {
+                    m.children.push(u);
+                }
+            }
+        }
+
+        // add to zone manager
+        for (let z of zone_managers) {
+            for (let m of managers) {
+                if (m.manager_id == z.id) {
+                    z.children.push(m);
+                }
+            }
+        }
+
+        // depending on list show view
+        if (zone_managers.length > 0)
+            this.managers = zone_managers;
+        else
+            this.managers = managers;
     }
 
     /**

@@ -33,51 +33,127 @@
     <!-- ./Filters for Order report-->
 
     <!-- Order Table -->
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Order Report in thousand for ({{ title }})</h4>
+    <!-- Attendance Table -->
+    <div class="row" #loading_box>
+        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+            <div class="row" *ngFor="let z of managers">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4><strong>{{ z.full_name }}</strong></h4>
+                        </div>
+                        <div>
+                            <div class="widget-container report-table">
+                                <div class="widget-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="min-width: 200px;">Users</th>
+                                                <th>Headquarter</th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                            <tr>
+                                                <th>Users</th>
+                                                <th>Headquarter</th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </tfoot>
+
+                                            <tbody>
+                                            <template ngFor let-mg [ngForOf]="z.children">
+                                                <tr>
+                                                    <td [colSpan]="mg.children[0]?.orders.length + 2"
+                                                        class="text-center">
+                                                        <strong>{{ mg.full_name }}</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngFor="let user of mg.children">
+                                                    <td>{{ user.full_name }}</td>
+                                                    <td>{{ user.hq_headquarter?.name }}</td>
+                                                    <td>
+                                                        <i status [field]="user.status"></i>
+                                                    </td>
+                                                    <td *ngFor="let order of user.orders" orderCount
+                                                        [order]="order"></td>
+                                                </tr>
+                                            </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="widget-container report-table" #loading_box>
-                    <div class="widget-block">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th style="min-width: 200px;">
-                                        Users
-                                    </th>
-                                    <th></th>
-                                    <th *ngFor="let d of dates">
-                                        {{ d }}
-                                    </th>
-                                </tr>
-                                </thead>
+            </div>
+        </div>
 
-                                <tfoot>
-                                <tr>
-                                    <th>
-                                        Users
-                                    </th>
-                                    <th></th>
-                                    <th *ngFor="let d of dates">
-                                        {{ d }}
-                                    </th>
-                                </tr>
-                                </tfoot>
+        <div class="col-xs-12" *ngIf="_service.user.isArea">
+            <div class="row" *ngFor="let z of managers">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4><strong>{{ z.full_name }}</strong></h4>
+                        </div>
+                        <div>
+                            <div class="widget-container report-table">
+                                <div class="widget-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="min-width: 200px;">
+                                                    Users
+                                                </th>
+                                                <th>
+                                                    Headquarter
+                                                </th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </thead>
 
-                                <tbody>
-                                <tr *ngFor="let user of users">
-                                    <td>{{ user.full_name }}</td>
-                                    <td>
-                                        <i status [field]="user.status"></i>
-                                    </td>
-                                    <td *ngFor="let order of user.orders" orderCount [order]="order"></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                            <tfoot>
+                                            <tr>
+                                                <th>
+                                                    Users
+                                                </th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </tfoot>
+
+                                            <tbody>
+                                            <tr *ngFor="let user of z.children">
+                                                <td>{{ user.full_name }}</td>
+                                                <td>{{ user.hq_headquarter.name }}</td>
+                                                <td>
+                                                    <i status [field]="user.status"></i>
+                                                </td>
+                                                <td *ngFor="let order of user.orders" orderCount
+                                                    [order]="order"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
