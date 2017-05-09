@@ -14,6 +14,7 @@ export class CalendarAttendanceStatusDirective {
     holiday: string = "#bdc3c7";
     nothing: string = "#ecf0f1";
     not_marked: string = "#e67e22";
+    reporting_status: string = "#f1c40f";
 
     /**
      * Attendance Status Directive
@@ -46,7 +47,9 @@ export class CalendarAttendanceStatusDirective {
                 this.el.nativeElement.style.backgroundColor = this.working;
             else if (att.status == AppConstants.HOLIDAY)
                 this.el.nativeElement.style.backgroundColor = this.holiday;
-        }
+        } else if (att && att.status && att.status == AppConstants.WORKING && att.reporting_status == AppConstants.OPEN)
+            this.el.nativeElement.style.backgroundColor = this.reporting_status;
+
 
         // mark holiday
         if (att && att.isHoliday)
