@@ -11,6 +11,7 @@ export class PrimarySale extends Model {
     customer: Customer;
     uom: UOM;
     net_amt: number;
+    stockist_code: number;
 
     invoice_details: PrimarySaleItem[] = [];
 
@@ -24,6 +25,7 @@ export class PrimarySale extends Model {
         this.customer_id = info.customer_id;
         this.uom_id = info.uom_id;
         this.month = info.month;
+        this.stockist_code = info.stockist_code;
 
         if (info.net_amt)
             this.net_amt = parseFloat(info.net_amt);
@@ -35,7 +37,7 @@ export class PrimarySale extends Model {
             this.uom = new UOM(info.uom);
 
         if (info.invoice_details)
-            this.invoice_details = info.invoice_details.map(item => new PrimarySaleItem(item));
+            this.invoice_details = info.invoice_details.filter(item => item.product).map(item => new PrimarySaleItem(item));
 
         if (info.total_net_amount)
             this.total_net_amount = parseFloat(info.total_net_amount);

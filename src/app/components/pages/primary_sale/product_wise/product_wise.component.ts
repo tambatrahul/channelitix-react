@@ -3,6 +3,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
 import {PrimarySaleService} from "../../../../services/primary_sale.service";
 import {InvoiceDetail} from "../../../../models/SAP/invoice_detail";
+import {Product} from "../../../../models/order/product";
 declare let jQuery: any;
 
 @Component({
@@ -45,6 +46,8 @@ export class ProductWiseComponent extends ListComponent {
      */
     public invoice_details: InvoiceDetail[] = [];
 
+    public products: Product[] = [];
+
 
     /**
      * Monthly Tour Program Constructor
@@ -67,11 +70,24 @@ export class ProductWiseComponent extends ListComponent {
                     this.invoice_details = response.invoice_details.map(function (user, index) {
                         return new InvoiceDetail(user);
                     });
+
+                    this.products = response.products.map(product => new Product(product));
+                    this.prepareData();
                 },
                 err => {
                     this.loading = false;
                 }
             );
         }
+    }
+
+    prepareData() {
+        let self = this;
+        this.products.map(function (product) {
+            self.invoice_details.map(function (id) {
+                if (id.product && id.product.id == product.id)
+                    product.invoice_detail = id;
+            });
+        });
     }
 }

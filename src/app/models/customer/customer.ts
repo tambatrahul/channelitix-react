@@ -13,6 +13,7 @@ export class Customer extends Model {
 
     firm_name: string;
     owner_name: string;
+    code: number;
     email: string;
     mobile: string;
     customer_type_id: number;
@@ -56,6 +57,7 @@ export class Customer extends Model {
         this.hq_area_id = info.hq_area_id;
         this.hq_region_id = info.hq_region_id;
         this.address = info.address;
+        this.code = info.code;
 
         // add brick
         if (info.hq_brick)

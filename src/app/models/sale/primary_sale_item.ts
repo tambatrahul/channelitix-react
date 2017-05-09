@@ -15,15 +15,13 @@ export class PrimarySaleItem extends Model {
         super(info.id);
         this.product_id = info.product_id;
         this.uom_id = info.uom_id;
+        this.uom = info.uom;
 
         if (info.net_amt)
             this.net_amt = parseFloat(info.net_amt);
 
         if (info.product)
             this.product = new Product(info.product);
-
-        if (info.uom)
-            this.uom = new UOM(info.uom);
 
         if (info.qty)
             this.qty = parseInt(info.qty)

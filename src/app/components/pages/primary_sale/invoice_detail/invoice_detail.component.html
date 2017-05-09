@@ -9,6 +9,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Product</th>
                         <th>Uom</th>
                         <th>Qty</th>
@@ -18,6 +19,7 @@
 
                     <tfoot>
                     <tr>
+                        <th></th>
                         <th>Product</th>
                         <th>Uom</th>
                         <th>Qty</th>
@@ -26,17 +28,18 @@
                     </tfoot>
 
                     <tbody>
-                    <template ngFor let-item [ngForOf]="invoice.invoice_details">
-                        <tr>
+                    <template ngFor let-item [ngForOf]="invoice.invoice_details" let-i="index">
+                        <tr *ngIf="item.product">
+                            <td>{{ i }}</td>
                             <td>
                                 {{ item.product?.name }}
                             </td>
-                            <td>{{ item.uom.name }}</td>
+                            <td>{{ item.uom }}</td>
                             <td>{{ item.qty }}</td>
-                            <td>{{ item.net_amt }}</td>
+                            <td><i class="fa fa-rupee"></i>  {{ item.net_amt }}</td>
                         </tr>
                     </template>
-
+                    <tr *ngIf="invoice.invoice_details.length == 0" ><td colspan="4">No Items</td></tr>
                     </tbody>
                 </table>
             </div>

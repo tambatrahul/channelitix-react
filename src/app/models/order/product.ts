@@ -1,5 +1,6 @@
 import {Model} from "../model";
 import {UOM} from "./uom";
+import {InvoiceDetail} from "../SAP/invoice_detail";
 
 
 export class Product extends Model {
@@ -12,6 +13,7 @@ export class Product extends Model {
     // for internal use only
     target: number = 0;
     performance: number = 0;
+    invoice_detail: InvoiceDetail;
 
     constructor(info: any) {
         super(info.id);
@@ -24,6 +26,9 @@ export class Product extends Model {
                 this.uoms.push(new UOM(u));
             }
         }
+
+        if (info.invoice_detail)
+            this.invoice_detail = new InvoiceDetail(info.invoice_detail);
 
         if (info.target)
             this.target = parseFloat(info.target);

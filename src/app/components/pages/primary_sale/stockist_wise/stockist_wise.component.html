@@ -5,6 +5,8 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th></th>
+                        <th>Code</th>
                         <th>Stockist</th>
                         <th>Qty</th>
                         <th>Total Amount</th>
@@ -13,6 +15,8 @@
 
                     <tfoot>
                     <tr>
+                        <th></th>
+                        <th>Code</th>
                         <th>Stockist</th>
                         <th>Qty</th>
                         <th>Total Amount</th>
@@ -20,13 +24,17 @@
                     </tfoot>
 
                     <tbody>
-                    <template ngFor let-item [ngForOf]="invoice_details">
+                    <template ngFor let-item [ngForOf]="invoice_details" let-i="index">
                         <tr>
+                            <td>{{ i+1 }}</td>
+                            <td>
+                                {{ item.customer.code }}
+                            </td>
                             <td>
                                 {{ item.customer?.firm_name }}
                             </td>
                             <td>{{ item.total_qty }}</td>
-                            <td>{{ item.total_net_amount }}</td>
+                            <td><i class="fa fa-rupee"></i> {{ item.total_net_amount }}</td>
                         </tr>
                     </template>
 
