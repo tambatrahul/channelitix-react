@@ -32,4 +32,20 @@ export class Brick extends Model {
         if (info.hq_territory)
             this.hq_territory = new Territory(info.hq_territory);
     }
+
+    /**
+     * get total number of customers
+     *
+     * @returns {number}
+     */
+    get total_customer_count() {
+        let total = 0;
+        this.customer_types.map(cus => {
+            cus.grades.map(grade => {
+                if (grade.customer_count)
+                    total += grade.customer_count;
+            })
+        });
+        return total;
+    }
 }

@@ -1,10 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {ListComponent} from "../../../../base/list.component";
 import {AuthService} from "../../../../../services/AuthService";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
 import {Customer} from "../../../../../models/customer/customer";
-import {Input} from "../../../../../../../node_modules/@angular/core/src/metadata/directives";
 import {CustomerService} from "../../../../../services/customer.service";
 import {Region} from "../../../../../models/territory/region";
 declare let jQuery: any;
