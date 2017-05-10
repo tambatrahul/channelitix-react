@@ -23,6 +23,7 @@ export class Order extends Model {
     order_total_count: number = 0;
     order_day_total_count: number = 0;
     order_day: number;
+    order_month: number;
 
     constructor(info: any) {
         super(info.id);
@@ -44,6 +45,7 @@ export class Order extends Model {
         if (info.order_day_total_count)
             this.order_day_total_count = parseInt(info.order_day_total_count);
         this.order_day = info.order_day;
+        this.order_month = info.order_month;
 
         if (info.order_items)
             this.order_items = info.order_items.map(function (item) {

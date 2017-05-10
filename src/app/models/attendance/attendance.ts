@@ -27,6 +27,7 @@ export class Attendance extends Model {
     isDisabled: boolean = false;
     day: number;
     att_day: number;
+    att_month: number;
     att_count: number = 0;
 
 
@@ -47,6 +48,7 @@ export class Attendance extends Model {
         this.working_with_id = info.working_with_id;
         this.reporting_status = info.reporting_status;
         this.att_day = info.att_day;
+        this.att_month = info.att_month;
 
         if (info.working_with_other == 1)
             this.working_with_other = true;

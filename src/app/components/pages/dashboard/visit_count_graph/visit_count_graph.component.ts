@@ -137,7 +137,9 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
 
                     this.total_orders = response.total_orders;
 
-                    this.getGoogle().charts.setOnLoadCallback(() => {this.prepareData();});
+                    this.getGoogle().charts.setOnLoadCallback(() => {
+                        this.prepareData();
+                    });
                     this.loading = false;
                 },
                 err => {
@@ -156,7 +158,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
 
         let data_object = {};
         this.attendances.forEach(function (att) {
-            data_object[att.att_day] = {
+            data_object[String(att.att_day) + '/' + String(att.att_month)] = {
                 visit_count: 0,
                 order_count: 0,
                 att_count: att.att_count
@@ -165,14 +167,14 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
 
         // add visit to data
         this.visits.forEach(function (visit) {
-            if (data_object.hasOwnProperty(visit.visit_day))
-                data_object[visit.visit_day].visit_count = visit.visit_count;
+            if (data_object.hasOwnProperty(String(visit.visit_day) + '/' + String(visit.visit_month)))
+                data_object[String(visit.visit_day) + '/' + String(visit.visit_month)].visit_count = visit.visit_count;
         });
 
         // add order to data
         this.orders.forEach(function (order) {
-            if (data_object.hasOwnProperty(order.order_day))
-                data_object[order.order_day].order_count = order.order_day_total_count;
+            if (data_object.hasOwnProperty(String(order.order_day) + '/' + String(order.order_month)))
+                data_object[String(order.order_day) + '/' + String(order.order_month)].order_count = order.order_day_total_count;
         });
 
         this.chart_data = [];
