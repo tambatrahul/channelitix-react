@@ -9,8 +9,8 @@ import {AppConstants} from "../app.constants";
 })
 export class OrderCountDirective {
 
-    below_500: string = "#e74c3c";
-    below_2500: string = "#f1c40f";
+    below_500: string = "#f1c40f";
+    below_2500: string = "#00BCD4";
     above_2500: string = "#2ecc71";
     holiday: string = "#ecf0f1";
     leave: string = "#e74c3c";

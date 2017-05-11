@@ -135,8 +135,8 @@ export class VisitComponent extends BaseAuthComponent {
 
         // add attendance to visit skeleton
         for (let att of attendances) {
-            // set visit details
-            data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
+            if (data_skeleton.hasOwnProperty(att.created_by))
+                data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
         }
 
         // add skeleton to user
