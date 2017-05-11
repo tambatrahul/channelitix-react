@@ -1,6 +1,7 @@
 import {Directive, ElementRef} from "@angular/core";
 import {Visit} from "../models/visit/visit";
 import {environment} from "../../environments/environment";
+import {AppConstants} from "../app.constants";
 
 
 @Directive({
@@ -12,7 +13,8 @@ export class VisitCountDirective {
     environment = environment;
 
     below_20: string = "#e74c3c";
-    below_15: string = "#e74c3c";
+    leave: string = "#e74c3c";
+    below_15: string = "#f1c40f";
     below_30: string = "#f1c40f";
     above_30: string = "#2ecc71";
     above_15: string = "#2ecc71";
@@ -33,7 +35,7 @@ export class VisitCountDirective {
      */
     set visit(visit: Visit) {
         if (environment.envName != 'sk_group') {
-            if (visit.visit_count > 0) {
+            if (visit.visit_count >= 0 && visit.attendance.status == AppConstants.WORKING) {
                 // set text value
                 this.el.nativeElement.innerText = visit.visit_count;
 
@@ -51,7 +53,7 @@ export class VisitCountDirective {
                 this.el.nativeElement.style.backgroundColor = this.holiday;
             }
         } else {
-            if (visit.visit_count > 0) {
+            if (visit.visit_count >= 0 && visit.attendance.status == AppConstants.WORKING) {
                 // set text value
                 this.el.nativeElement.innerText = visit.visit_count;
 
@@ -66,6 +68,17 @@ export class VisitCountDirective {
                 this.el.nativeElement.innerText = 'H';
                 this.el.nativeElement.style.backgroundColor = this.holiday;
             }
+        }
+
+        if (visit.attendance.status) {
+            if (visit.attendance.status != AppConstants.WORKING)
+                this.el.nativeElement.innerText = visit.attendance.status.charAt(0).toUpperCase();
+
+            // set background color depending on status
+            if (visit.attendance.status == AppConstants.LEAVE)
+                this.el.nativeElement.style.backgroundColor = this.leave;
+            else if (visit.attendance.status == AppConstants.HOLIDAY)
+                this.el.nativeElement.style.backgroundColor = this.holiday;
         }
     }
 }

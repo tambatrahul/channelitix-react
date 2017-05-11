@@ -7,6 +7,9 @@ import {AuthService} from "../../../../services/AuthService";
 import {Holiday} from "../../../../models/holiday";
 import {OrderService} from "../../../../services/order.service";
 import {Order} from "../../../../models/order/order";
+import {Observable} from "rxjs/Rx";
+import {AttendanceService} from "../../../../services/attendance.service";
+import {Attendance} from "../../../../models/attendance/attendance";
 declare let jQuery: any;
 
 @Component({
@@ -73,7 +76,8 @@ export class OrderComponent extends BaseAuthComponent {
      * User Component Constructor
      *
      */
-    constructor(private orderService: OrderService, public _service: AuthService) {
+    constructor(private orderService: OrderService, private attendanceService: AttendanceService,
+                public _service: AuthService) {
         super(_service);
     }
 
@@ -84,7 +88,7 @@ export class OrderComponent extends BaseAuthComponent {
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
-        this.fetchOrders();
+        this.fetchData();
     }
 
     /**
@@ -93,8 +97,9 @@ export class OrderComponent extends BaseAuthComponent {
      * @param users
      * @param orders
      * @param holidays
+     * @param attendances
      */
-    addOrderToSkeleton(users: User[], orders: Order[], holidays: Holiday[]) {
+    addOrderToSkeleton(users: User[], orders: Order[], holidays: Holiday[], attendances: Attendance[]) {
         let data_skeleton = {};
         let managers: User[] = [];
         let zone_managers: User[] = [];
@@ -115,6 +120,12 @@ export class OrderComponent extends BaseAuthComponent {
 
             // set order details
             data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
+        }
+
+        // add attendance to visit skeleton
+        for (let att of attendances) {
+            // set visit details
+            data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
         }
 
         // add skeleton to user
@@ -173,25 +184,26 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     /**
-     * load attendance for children of logged in user
+     * fetch server data for visits
      */
-    fetchOrders() {
+    fetchData() {
         this.loading = true;
-        this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
-            response => {
-                this.loading = false;
+        Observable.forkJoin(
+            this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id),
+            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id)
+        ).subscribe(data => {
 
-                // convert to models
-                let children = response.children.map(function (user, index) {
-                    return new User(user);
-                });
+            this.loading = false;
 
-                this.addOrderToSkeleton(children, response.orders, response.holidays);
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+            // convert to models
+            let children = data[1].children.map(function (user, index) {
+                return new User(user);
+            });
+
+            this.addOrderToSkeleton(children, data[1].orders, data[1].holidays, data[0].attendances);
+        }, err => {
+            this.loading = false;
+        });
     }
 
     /**
@@ -202,7 +214,7 @@ export class OrderComponent extends BaseAuthComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
-        this.fetchOrders();
+        this.fetchData();
     }
 
     /**
@@ -222,6 +234,6 @@ export class OrderComponent extends BaseAuthComponent {
      */
     managerChanged(manager_id) {
         this.manager_id = manager_id;
-        this.fetchOrders();
+        this.fetchData();
     }
 }

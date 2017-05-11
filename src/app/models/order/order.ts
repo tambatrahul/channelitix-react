@@ -2,6 +2,7 @@ import {Model} from "../model";
 import {User} from "../user/user";
 import {OrderItem} from "./order_item";
 import {Customer} from "../customer/customer";
+import {Attendance} from "../attendance/attendance";
 
 export class Order extends Model {
 
@@ -24,6 +25,7 @@ export class Order extends Model {
     order_day_total_count: number = 0;
     order_day: number;
     order_month: number;
+    attendance: Attendance = new Attendance({});
 
     constructor(info: any) {
         super(info.id);
@@ -41,11 +43,14 @@ export class Order extends Model {
         this.created_by = info.created_by;
         this.creator = info.creator;
         this.isSunday = info.isSunday;
-        this.order_total_count = info.order_total_count;
-        if (info.order_day_total_count)
-            this.order_day_total_count = parseInt(info.order_day_total_count);
         this.order_day = info.order_day;
         this.order_month = info.order_month;
+
+        if (info.order_total_count)
+            this.order_total_count = parseFloat(info.order_total_count);
+
+        if (info.order_day_total_count)
+            this.order_day_total_count = parseInt(info.order_day_total_count);
 
         if (info.order_items)
             this.order_items = info.order_items.map(function (item) {

@@ -7,6 +7,9 @@ import {Visit} from "../../../../models/visit/visit";
 import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
 import {Holiday} from "../../../../models/holiday";
+import {AttendanceService} from "../../../../services/attendance.service";
+import {Attendance} from "../../../../models/attendance/attendance";
+import {Observable} from "rxjs/Rx";
 declare let jQuery: any;
 declare let d3: any;
 
@@ -67,6 +70,12 @@ export class VisitComponent extends BaseAuthComponent {
     public users: User[] = [];
 
     /**
+     * list of attendances
+     * @type {Array}
+     */
+    public attendances: Attendance[] = [];
+
+    /**
      * users
      *
      * @type {{}}
@@ -77,7 +86,8 @@ export class VisitComponent extends BaseAuthComponent {
      * User Component Constructor
      *
      */
-    constructor(private visitService: VisitService, public _service: AuthService) {
+    constructor(private visitService: VisitService, private attendanceService: AttendanceService,
+                public _service: AuthService) {
         super(_service);
     }
 
@@ -88,7 +98,7 @@ export class VisitComponent extends BaseAuthComponent {
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
-        this.fetchVisits();
+        this.fetchData();
     }
 
     /**
@@ -97,8 +107,9 @@ export class VisitComponent extends BaseAuthComponent {
      * @param users
      * @param visits
      * @param holidays
+     * @param attendances
      */
-    addVisitToSkeleton(users: User[], visits: Visit[], holidays: Holiday[]) {
+    addVisitToSkeleton(users: User[], visits: Visit[], holidays: Holiday[], attendances: Attendance[]) {
         let data_skeleton = {};
         let managers: User[] = [];
         let zone_managers: User[] = [];
@@ -120,6 +131,12 @@ export class VisitComponent extends BaseAuthComponent {
 
             // set visit details
             data_skeleton[visit.created_by][visit.visit_day - 1].visit_count = visit.visit_count;
+        }
+
+        // add attendance to visit skeleton
+        for (let att of attendances) {
+            // set visit details
+            data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
         }
 
         // add skeleton to user
@@ -192,61 +209,39 @@ export class VisitComponent extends BaseAuthComponent {
             this.managers = zone_managers;
         else
             this.managers = managers;
-
-
-        this.users = users;
     }
 
     /**
-     * load attendance for children of logged in user
+     * fetch server data for visits
      */
-    fetchVisits() {
+    fetchData() {
         this.loading = true;
-        this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id).subscribe(
-            response => {
-                this.loading = false;
-                // convert to visits
-                let visits: Visit[] = response.visits.map(function (visit, index) {
-                    return new Visit(visit);
-                });
+        Observable.forkJoin(
+            this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id),
+            this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id)
+        ).subscribe(data => {
 
-                // convert to holidays
-                let holidays: Holiday[] = response.holidays.map(function (visit, index) {
-                    return new Holiday(visit);
-                });
+            this.loading = false;
 
-                // convert to models
-                let children = response.children.map(function (user, index) {
-                    return new User(user);
-                });
+            // convert to visits
+            let visits: Visit[] = data[1].visits.map(function (visit, index) {
+                return new Visit(visit);
+            });
 
-                this.addVisitToSkeleton(children, visits, holidays);
-                this.prepareChart(visits, holidays);
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
+            // convert to holidays
+            let holidays: Holiday[] = data[1].holidays.map(function (visit, index) {
+                return new Holiday(visit);
+            });
 
-    /**
-     * prepare chart for visit counts
-     */
-    prepareChart(visits: Visit[], holidays: Holiday[]) {
-        let counts: Array<number> = AppConstants.prepareSkeletonForMonth(this.month, this.year, holidays);
+            // convert to models
+            let children = data[1].children.map(function (user, index) {
+                return new User(user);
+            });
 
-        // prepare visit skeleton
-        for (let visit of visits) {
-            if (counts[visit.visit_day - 1] > -1)
-                counts[visit.visit_day - 1] += visit.visit_count;
-        }
-
-        this.chart_data = counts.map((count, index) => {
-            return {
-                label: index + 1,
-                value: count
-            };
-        }).filter(count => count.value >= 0);
+            this.addVisitToSkeleton(children, visits, holidays, data[0].attendances);
+        }, err => {
+            this.loading = false;
+        });
     }
 
     /**
@@ -257,26 +252,6 @@ export class VisitComponent extends BaseAuthComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
-        this.fetchVisits();
-    }
-
-    /**
-     * when role is changed filter list of visits
-     * @param role_id
-     */
-    roleChanged(role_id) {
-        this.role_id = role_id;
-        this.manager_role_id = parseInt(role_id) + 1;
-        this.managerChanged(0);
-    }
-
-    /**
-     * when role is changed filter list of users
-     *
-     * @param manager_id
-     */
-    managerChanged(manager_id) {
-        this.manager_id = manager_id;
-        this.fetchVisits();
+        this.fetchData();
     }
 }

@@ -3,6 +3,7 @@ import {User} from "../user/user";
 import {VisitInput} from "./visit_input";
 import {Customer} from "../customer/customer";
 import {InputAnswer} from "./input_answer";
+import {Attendance} from "../attendance/attendance";
 
 export class Visit extends Model {
 
@@ -22,6 +23,7 @@ export class Visit extends Model {
     visit_count: number = 0;
     visit_day: number;
     visit_month: number;
+    attendance: Attendance = new Attendance({});
 
     constructor(info: any) {
         super(info.id);
