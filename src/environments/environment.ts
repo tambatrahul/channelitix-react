@@ -6,5 +6,5 @@
 export const environment = {
     production: false,
     envName: '',
-    server_url: ''
+    server_url: '/api/v1/'
 };

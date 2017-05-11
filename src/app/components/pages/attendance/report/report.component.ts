@@ -63,6 +63,14 @@ export class ReportComponent extends BaseAuthComponent {
     attendance_confirmed = new EventEmitter();
 
     /**
+     * tour creation selection
+     *
+     * @type {EventEmitter}
+     */
+    @Output()
+    add_more_customer = new EventEmitter();
+
+    /**
      * inputs for
      * @type {Array}
      */
@@ -290,5 +298,12 @@ export class ReportComponent extends BaseAuthComponent {
      */
     setDeliveredBy(customer_id) {
         this.selected_customer.order.delivered_by = customer_id;
+    }
+
+    /**
+     * add more customers
+     */
+    addMoreCustomer() {
+        this.add_more_customer.emit();
     }
 }

@@ -1,16 +1,11 @@
 import {ViewChild, ElementRef} from "@angular/core";
 import {AuthService} from "../../services/AuthService";
 import {BaseComponent} from "./base.component";
-import {environment} from "../../../environments/environment";
+
 declare let jQuery: any;
 
 
 export abstract class BaseAuthComponent extends BaseComponent {
-
-    /**
-     * get environment details
-     */
-    environment = environment;
 
     /**
      * loading identifier

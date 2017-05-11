@@ -211,7 +211,7 @@ export class VisitComponent extends BaseAuthComponent {
                 });
 
                 // convert to holidays
-                let holidays: Holiday[] = response.visits.map(function (visit, index) {
+                let holidays: Holiday[] = response.holidays.map(function (visit, index) {
                     return new Holiday(visit);
                 });
 

@@ -189,4 +189,12 @@ export class MonthlyAttendanceComponent extends ListComponent {
     viewReport() {
         jQuery(this.attendance_reporting.nativeElement).modal();
     }
+
+    /**
+     * Add more customers
+     */
+    addMoreCustomer() {
+        jQuery(this.attendance_reporting.nativeElement).modal('hide');
+        jQuery(this.customer_selection.nativeElement).modal();
+    }
 }

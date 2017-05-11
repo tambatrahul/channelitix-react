@@ -13,6 +13,7 @@ export class Grade extends Model {
         super(info.id);
         this.name = info.name;
         this.customer_type = info.customer_type;
-        this.customer_count = info.customer_count;
+        if (info.customer_count)
+            this.customer_count = parseInt(info.customer_count);
     }
 }

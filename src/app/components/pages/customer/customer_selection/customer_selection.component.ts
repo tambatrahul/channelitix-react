@@ -68,6 +68,9 @@ export class CustomerSelectionComponent extends ListComponent {
             placeholder: "Select bricks you worked in.",
             allowClear: true
         });
+
+        this.fetchCustomers();
+        this.fetchAlreadySelectedCustomers();
     }
 
     get attendance_date() {
@@ -150,6 +153,25 @@ export class CustomerSelectionComponent extends ListComponent {
                 this.customers = response.customers.map(function (customer) {
                     return new Customer(customer);
                 });
+            },
+            err => {
+                this.loading = false;
+            }
+        );
+    }
+
+    /**
+     * fetch all visit for date
+     */
+    fetchAlreadySelectedCustomers() {
+        this.loading = true;
+        this.visitService.for_date(this._attendance_date).subscribe(
+            response => {
+                this.loading = false;
+                this.selectedCustomer_ids = [];
+                response.visits.map(visit => {
+                    this.selectedCustomer_ids.push(visit.customer_id);
+                })
             },
             err => {
                 this.loading = false;

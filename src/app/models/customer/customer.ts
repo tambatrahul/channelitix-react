@@ -50,7 +50,8 @@ export class Customer extends Model {
         this.grade_id = info.grade_id;
         this.grade = info.grade;
         this.status = info.status;
-        this.total_customers = info.total_customers;
+        if (info.total_customers)
+            this.total_customers = parseInt(info.total_customers);
         this.hq_brick_id = info.hq_brick_id;
         this.hq_territory_id = info.hq_territory_id;
         this.hq_headquarter_id = info.hq_headquarter_id;

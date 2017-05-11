@@ -50,7 +50,7 @@
             <dashboard-count [dates]="dates" [region_ids]="region_ids" [area_ids]="area_ids"
                              [headquarter_ids]="headquarter_ids"></dashboard-count>
 
-            <div class="row" *ngIf="environment != 'sk_group'">
+            <div class="row" *ngIf="environment.envName != 'sk_group'">
 
                 <!-- Highest Call graph -->
                 <div class="col-xs-12 col-md-6">
@@ -102,11 +102,23 @@
                 </div>
             </div>
             <!-- ./Visit Order Trend -->
+
+            <div class="row" *ngIf="environment.envName == 'sk_group'">
+
+                <!-- Monthly Primary graph -->
+                <div class="col-xs-12">
+                    <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids"
+                                                      [headquarter_ids]="headquarter_ids">
+
+                    </monthly-primary-secondary-target>
+                </div>
+                <!-- ./Monthly Primary graph -->
+            </div>
         </div>
     </div>
     <!-- ./pages layout -->
 
-    <div class="row" *ngIf="environment != 'sk_group'">
+    <div class="row" *ngIf="environment.envName != 'sk_group'">
         <div class="col-xs-6">
             <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
                                [headquarter_ids]="headquarter_ids"></product-wise-sale>

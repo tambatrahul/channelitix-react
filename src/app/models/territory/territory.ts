@@ -37,7 +37,7 @@ export class Territory extends Model {
      * @returns {number}
      */
     get total_customer() {
-        let total = 0;
+        let total: number = 0;
         this.customer_types.map(cus => {
             cus.grades.map(grade => {
                 if (grade.customer_count)

@@ -39,7 +39,7 @@ export class Brick extends Model {
      * @returns {number}
      */
     get total_customer_count() {
-        let total = 0;
+        let total: number = 0;
         this.customer_types.map(cus => {
             cus.grades.map(grade => {
                 if (grade.customer_count)

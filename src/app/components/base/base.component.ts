@@ -1,9 +1,13 @@
-import {ViewChild, ElementRef} from "@angular/core";
-import {AuthService} from "../../services/AuthService";
+import {environment} from "../../../environments/environment";
 declare let jQuery: any;
 
 
 export abstract class BaseComponent {
+
+    /**
+     * get environment details
+     */
+    environment = environment;
 
     public ROLE_CSE = 'HQ_MNG';
     public ROLE_CSM = 'AREA_MNG';

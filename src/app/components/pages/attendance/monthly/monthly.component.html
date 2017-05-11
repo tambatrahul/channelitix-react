@@ -103,7 +103,8 @@
                         <div>
                             <report-component [attendance]="attendance" [refresh]="refresh"
                                               [editable]="attendance.reporting_status"
-                                              (attendance_confirmed)="reportSubmitted($event)"></report-component>
+                                              (attendance_confirmed)="reportSubmitted($event)"
+                                              (add_more_customer)="addMoreCustomer($event)"></report-component>
                         </div>
                     </div>
                     <!-- ./Report section -->

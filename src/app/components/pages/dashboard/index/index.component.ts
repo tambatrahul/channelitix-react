@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import * as moment from "moment";
 import {BaseComponent} from "../../../base/base.component";
 import {ReportService} from "../../../../services/report.service";
-import {environment} from "../../../../../environments/environment";
 declare let jQuery: any;
 
 @Component({
@@ -10,13 +9,6 @@ declare let jQuery: any;
     styleUrls: ['index.component.less']
 })
 export class DashBoardComponent extends BaseComponent {
-
-    /**
-     * get environment details
-     *
-     * @type {string}
-     */
-    environment = environment.envName;
 
     /**
      * dates
