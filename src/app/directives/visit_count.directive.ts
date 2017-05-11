@@ -12,13 +12,15 @@ export class VisitCountDirective {
 
     environment = environment;
 
-    below_20: string = "#e74c3c";
     leave: string = "#e74c3c";
-    below_15: string = "#f1c40f";
-    below_30: string = "#f1c40f";
-    above_30: string = "#2ecc71";
-    above_15: string = "#2ecc71";
     holiday: string = "#ecf0f1";
+
+    below_15: string = "#f1c40f";
+    above_15: string = "#2ecc71";
+
+    below_20: string = "#f1c40f";
+    below_30: string = "#FF9800";
+    above_30: string = "#2ecc71";
 
     /**
      * Attendance Status Directive

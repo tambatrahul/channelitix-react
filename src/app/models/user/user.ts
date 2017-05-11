@@ -39,6 +39,7 @@ export class User extends Model {
     tours: Tour[] = [];
     children: User[] = [];
     cse_count: number = 0;
+    total_target: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -66,6 +67,9 @@ export class User extends Model {
 
         if (!info.attendances)
             this.attendances = [];
+
+        if (info.total_target)
+            this.total_target = parseFloat(info.total_target);
     }
 
     /**

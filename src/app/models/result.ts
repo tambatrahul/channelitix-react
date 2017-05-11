@@ -24,6 +24,7 @@ import {PrimarySale} from "./sale/primary_sale";
 import {InvoiceDetail} from "./SAP/invoice_detail";
 import {YearTillMonth} from "./SAP/year_till_month";
 import {OrderItem} from "./order/order_item";
+import {Target} from "./SAP/target";
 
 export class Result {
 
@@ -110,4 +111,7 @@ export class Result {
 
     // Product Wise sale
     product_wise_sale: OrderItem[];
+
+    // targets
+    targets: Target[]
 }

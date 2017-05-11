@@ -1,6 +1,6 @@
 import {Model} from "../model";
 import {Product} from "../order/product";
-import {Customer} from "../customer/customer";
+import {Headquarter} from "../territory/headquarter";
 
 
 export class Target extends Model {
@@ -10,11 +10,14 @@ export class Target extends Model {
     total_target: number = 0;
     total_net_amount: number = 0;
     month: number;
+    hq_headquarter_id: number;
+    hq_headquarter: Headquarter;
 
     constructor(info: any) {
         super(info.id);
         this.month = info.month;
         this.product_id = info.product_id;
+        this.hq_headquarter_id = info.hq_headquarter_id;
 
         if (info.total_target)
             this.total_target = parseFloat(info.total_target);

@@ -10,6 +10,7 @@ import {Order} from "../../../../models/order/order";
 import {Observable} from "rxjs/Rx";
 import {AttendanceService} from "../../../../services/attendance.service";
 import {Attendance} from "../../../../models/attendance/attendance";
+import {Target} from "../../../../models/SAP/target";
 declare let jQuery: any;
 
 @Component({
@@ -98,8 +99,9 @@ export class OrderComponent extends BaseAuthComponent {
      * @param orders
      * @param holidays
      * @param attendances
+     * @param targets
      */
-    addOrderToSkeleton(users: User[], orders: Order[], holidays: Holiday[], attendances: Attendance[]) {
+    addOrderToSkeleton(users: User[], orders: Order[], holidays: Holiday[], attendances: Attendance[], targets: Target[]) {
         let data_skeleton = {};
         let managers: User[] = [];
         let zone_managers: User[] = [];
@@ -130,6 +132,11 @@ export class OrderComponent extends BaseAuthComponent {
 
         // add skeleton to user
         for (let user of users) {
+            targets.map(target => {
+                if (target.hq_headquarter_id == user.hq_headquarter_id)
+                    user.total_target = target.total_target;
+            });
+
             if (data_skeleton.hasOwnProperty(user.id))
                 user.orders = data_skeleton[user.id];
             else
@@ -200,7 +207,10 @@ export class OrderComponent extends BaseAuthComponent {
                 return new User(user);
             });
 
-            this.addOrderToSkeleton(children, data[1].orders, data[1].holidays, data[0].attendances);
+            // format targets
+            let targets = data[1].targets.map(target => new Target(target));
+
+            this.addOrderToSkeleton(children, data[1].orders, data[1].holidays, data[0].attendances, targets);
         }, err => {
             this.loading = false;
         });

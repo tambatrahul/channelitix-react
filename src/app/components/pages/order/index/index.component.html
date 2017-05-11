@@ -52,6 +52,7 @@
                                             <tr>
                                                 <th style="min-width: 200px;">Users</th>
                                                 <th>Headquarter</th>
+                                                <th>Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -63,6 +64,7 @@
                                             <tr>
                                                 <th>Users</th>
                                                 <th>Headquarter</th>
+                                                <th>Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -81,11 +83,12 @@
                                                 <tr *ngFor="let user of mg.children">
                                                     <td>{{ user.full_name }}</td>
                                                     <td>{{ user.hq_headquarter?.name }}</td>
+                                                    <td>{{ ((user.total_target * 0.25) / 24).toFixed(1) }}</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
                                                     <td *ngFor="let order of user.orders" orderCount
-                                                        [order]="order"></td>
+                                                        [order]="order" [target]="user.total_target"></td>
                                                 </tr>
                                             </template>
                                             </tbody>
