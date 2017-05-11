@@ -28,17 +28,14 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>Code</th>
                                             <th>Product Name</th>
                                             <th>UOM</th>
                                             <th>Price</th>
-                                            <th>MRP</th>
                                         </tr>
                                         </thead>
 
                                         <tfoot>
                                         <tr *ngFor="let product of products">
-                                            <td>{{ product.code }}</td>
                                             <td>{{ product.name }}</td>
                                             <template ngFor let-uom [ngForOf]="product.uoms">
                                                 <td>
@@ -46,9 +43,6 @@
                                                 </td>
                                                 <td>
                                                     {{ uom.unit_price }}
-                                                </td>
-                                                <td>
-                                                    {{ uom.mrp }}
                                                 </td>
                                             </template>
                                         </tr>
