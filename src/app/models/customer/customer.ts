@@ -28,6 +28,7 @@ export class Customer extends Model {
     hq_area_id: number;
     hq_region_id: number;
     address: Address;
+    synergy: boolean;
 
     hq_brick: Brick;
     hq_territory: Territory;
@@ -59,6 +60,7 @@ export class Customer extends Model {
         this.hq_region_id = info.hq_region_id;
         this.address = info.address;
         this.code = info.code;
+        this.synergy = info.synergy;
 
         // add brick
         if (info.hq_brick)

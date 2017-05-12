@@ -77,4 +77,18 @@ export class Order extends Model {
         });
         return total.toFixed(2);
     }
+
+    /**
+     * get synergy product
+     *
+     * @returns {number}
+     */
+    get isSynergy() {
+        let synergy = false;
+        this.order_items.map(function (item) {
+            if(item.quantity > 0 && item.product.synergy)
+                synergy = true;
+        });
+        return synergy;
+    }
 }

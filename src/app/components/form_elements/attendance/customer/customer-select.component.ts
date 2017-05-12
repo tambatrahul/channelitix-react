@@ -26,6 +26,7 @@ export class CustomerSelectComponent extends BaseSelectComponent {
      */
     private _customer_type_id;
     private _grade_id: number;
+    private _synergy: number;
 
     /**
      * territory filters
@@ -55,6 +56,21 @@ export class CustomerSelectComponent extends BaseSelectComponent {
     }
 
     /**
+     * synergy getter and setters
+     *
+     * @param synergy
+     */
+    @Input()
+    set synergy(synergy: number) {
+        this._synergy = synergy;
+        this.fetch();
+    }
+
+    get synergy(): number {
+        return this._synergy;
+    }
+
+    /**
      * grade_id getter and setters
      *
      * @param grade_id
@@ -68,7 +84,6 @@ export class CustomerSelectComponent extends BaseSelectComponent {
     get grade_id(): number {
         return this._grade_id;
     }
-
     /**
      * country_id getter and setters
      *

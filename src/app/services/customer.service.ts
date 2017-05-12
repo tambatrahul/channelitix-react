@@ -35,7 +35,7 @@ export class CustomerService extends BaseService {
      */
     all(customer_type_id?: number, grade_id?: number, page?: number,
         region_id?: number, area_id?: number, headquarter_id?: number,
-        territory_id?: number, brick_id?: number): Observable<Result> {
+        territory_id?: number, brick_id?: number, synergy?: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
@@ -47,6 +47,7 @@ export class CustomerService extends BaseService {
         params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
         params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
         params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
+        params.set('synergy', String(synergy >= 0 ? synergy : ''));
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
