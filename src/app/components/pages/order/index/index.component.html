@@ -83,7 +83,7 @@
                                                 <tr *ngFor="let user of mg.children">
                                                     <td>{{ user.full_name }}</td>
                                                     <td>{{ user.hq_headquarter?.name }}</td>
-                                                    <td>{{ ((user.total_target * 0.25) / 24).toFixed(1) }}</td>
+                                                    <td>{{ (((user.total_target/1000) * 0.25) / 24).toFixed(1) }}</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
@@ -123,6 +123,7 @@
                                                 <th>
                                                     Headquarter
                                                 </th>
+                                                <th>Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -135,6 +136,10 @@
                                                 <th>
                                                     Users
                                                 </th>
+                                                <th>
+                                                    Headquarter
+                                                </th>
+                                                <th>Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -146,6 +151,7 @@
                                             <tr *ngFor="let user of z.children">
                                                 <td>{{ user.full_name }}</td>
                                                 <td>{{ user.hq_headquarter.name }}</td>
+                                                <td>{{ (((user.total_target/1000) * 0.25) / 24).toFixed(1) }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>
