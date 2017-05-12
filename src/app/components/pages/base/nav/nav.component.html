@@ -40,6 +40,7 @@
                     <span class="nav-label">Headquarter Master</span>
                 </a>
             </li>
+
             <li *ngIf="!_auth_service.user?.isAdmin && !_auth_service.user?.isRegion">
                 <a class="waves-effect" routerLink="/attendances/monthly">
                     <span class="nav-icon"><i class="fa fa-calendar"></i></span>
