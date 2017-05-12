@@ -79,6 +79,12 @@
                             <span class="nav-label">User Reporting Summary</span>
                         </a>
                     </li>
+                    <li *roleCheck="ROLE_CSM">
+                        <a class="waves-effect" routerLink="/reports/brick_wise_customers">
+                            <span class="nav-icon"><i class="fa fa-arrow-circle-o-right"></i></span>
+                            <span class="nav-label">Customer Distribution Report</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li *ngIf="_auth_service.user?.isAdmin">

@@ -10,6 +10,7 @@ export class Headquarter extends Model {
 
     // for internal user only
     customer_types: CustomerType[];
+    total_bricks: number = 0;
 
     territories_count: number = 0;
     bricks_count: number = 0;
@@ -29,6 +30,9 @@ export class Headquarter extends Model {
 
         if (info.bricks_count)
             this.bricks_count = info.bricks_count.aggregate;
+
+        if (info.total_bricks)
+            this.total_bricks = parseInt(info.total_bricks);
     }
 
     /**

@@ -203,4 +203,11 @@ export class ReportService extends BaseService {
         // make server call
         return this.get(this.getBaseUrl() + '/target_performance/' + month + '/' + year, new RequestOptions({search: params}));
     }
+
+    /**
+     * brick wise customers
+     */
+    brick_wise_customers() {
+        return this.get(this.getBaseUrl() + '/brick_wise_customers');
+    }
 }

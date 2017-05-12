@@ -35,6 +35,7 @@ import {SecondarySaleCreateComponent} from "./components/pages/secondary_sale/cr
 import {ProductComponent} from "./components/pages/product/index/index.component";
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
+import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wise_customer/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -271,6 +272,15 @@ export const routes: Routes = [
                     {
                         path: '',
                         component: ProductComponent,
+                    },
+                ]
+            },
+            {
+                path: 'reports',
+                children: [
+                    {
+                        path: 'brick_wise_customers',
+                        component: BrickWiseCustomerComponent,
                     },
                 ]
             }

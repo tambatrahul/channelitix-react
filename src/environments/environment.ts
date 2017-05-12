@@ -5,6 +5,6 @@
 
 export const environment = {
     production: false,
-    envName: 'dev',
+    envName: 'geo',
     server_url: '/api/v1/'
 };

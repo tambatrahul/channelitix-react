@@ -1,6 +1,7 @@
 import {Model} from "../model";
 import {CustomerType} from "../customer/customer_type";
 import {Country} from "./country";
+import {Area} from "./area";
 
 export class Region extends Model {
 
@@ -9,6 +10,8 @@ export class Region extends Model {
 
     // for internal user only
     customer_types: CustomerType[];
+    areas: Area[] = [];
+    area_objects = {};
     total: number = 0;
 
     areas_count: number = 0;

@@ -7,6 +7,9 @@ export class CustomerType extends Model {
     grades: Grade[] = [];
     customer_count: number = 0;
 
+    // for internal use
+    brick_count: number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
@@ -17,5 +20,9 @@ export class CustomerType extends Model {
         } else {
             this.grades = [];
         }
+    }
+
+    get withNoAdded() {
+        return "Bricks With No " + this.name;
     }
 }

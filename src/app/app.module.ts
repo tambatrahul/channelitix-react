@@ -127,6 +127,7 @@ import {InvoiceDetailComponent} from "./components/pages/primary_sale/invoice_de
 import {ProductWiseSaleComponent} from "./components/pages/dashboard/product_wise_sale/product_wise_sale.component";
 import {MultipleRegionSelectComponent} from "./components/form_elements/territory/multi_region_select/multiple-region-select.component";
 import {MultipleAreaSelectComponent} from "./components/form_elements/territory/multi_area_select/multiple-area-select.component";
+import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wise_customer/index.component";
 
 enableProdMode();
 @NgModule({
@@ -205,6 +206,7 @@ enableProdMode();
         PrimarySaleComponent,
         TillMonthChartComponent,
         MonthlyPrimarySecondaryTargetComponent,
+        BrickWiseCustomerComponent,
 
         // reusable components
         MonthPickerComponent,

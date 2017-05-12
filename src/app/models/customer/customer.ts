@@ -37,7 +37,8 @@ export class Customer extends Model {
     // for internal user only
     inputs: Input[];
     products: Product[];
-
+    customer_types: CustomerType[];
+    brick_counts: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -71,5 +72,8 @@ export class Customer extends Model {
         // add headquarter
         if (info.hq_headquarter)
             this.hq_headquarter = new Headquarter(info.hq_headquarter);
+
+        if (info.brick_counts)
+            this.brick_counts = parseInt(info.brick_counts);
     }
 }

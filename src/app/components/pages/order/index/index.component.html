@@ -52,7 +52,7 @@
                                             <tr>
                                                 <th style="min-width: 200px;">Users</th>
                                                 <th>Headquarter</th>
-                                                <th>Daily Target</th>
+                                                <th *ngIf="environment.envName == 'geo'">Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -64,7 +64,7 @@
                                             <tr>
                                                 <th>Users</th>
                                                 <th>Headquarter</th>
-                                                <th>Daily Target</th>
+                                                <th *ngIf="environment.envName == 'geo'">Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -83,7 +83,7 @@
                                                 <tr *ngFor="let user of mg.children">
                                                     <td>{{ user.full_name }}</td>
                                                     <td>{{ user.hq_headquarter?.name }}</td>
-                                                    <td>{{ user.daily_target }}</td>
+                                                    <td *ngIf="environment.envName == 'geo'">{{ user.daily_target }}</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
@@ -123,7 +123,7 @@
                                                 <th>
                                                     Headquarter
                                                 </th>
-                                                <th>Daily Target</th>
+                                                <th *ngIf="environment.envName == 'geo'">Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -139,7 +139,7 @@
                                                 <th>
                                                     Headquarter
                                                 </th>
-                                                <th>Daily Target</th>
+                                                <th *ngIf="environment.envName == 'geo'">Daily Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -151,7 +151,7 @@
                                             <tr *ngFor="let user of z.children">
                                                 <td>{{ user.full_name }}</td>
                                                 <td>{{ user.hq_headquarter.name }}</td>
-                                                <td>{{ user.daily_target }}</td>
+                                                <td *ngIf="environment.envName == 'geo'">{{ user.daily_target }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>
