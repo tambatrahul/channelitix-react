@@ -9,6 +9,7 @@ export class Product extends Model {
     short_name: string;
     uoms: UOM[] = [];
     code: string;
+    synergy: boolean;
 
     // for internal use only
     target: number = 0;
@@ -20,6 +21,7 @@ export class Product extends Model {
         this.name = info.name;
         this.code = info.code;
         this.short_name = this.name.replace(/ *\([^)]*\) */g, "");
+        this.synergy = info.synergy;
 
         if (info.uoms) {
             for (let u of info.uoms) {

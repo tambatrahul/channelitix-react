@@ -104,8 +104,20 @@
                                                                 <customer-select [title]="'Delivered By *'"
                                                                                  [value]="selected_customer.order.delivered_by"
                                                                                  (onValueChanged)="setDeliveredBy($event)"
-                                                                                 [customer_type_id]="[1,2]"></customer-select>
+                                                                                 [customer_type_id]="[1,2]" [synergy]="[0]"></customer-select>
                                                                 <small *ngIf="selected_customer?.error"
+                                                                       class="text-danger text-center">
+                                                                    * required
+                                                                </small>
+                                                            </a>
+                                                        </h4>
+                                                        <h4 *ngIf="editable == 'open' && selected_customer.order.isSynergy">
+                                                            <a>
+                                                                <customer-select [title]="'Delivered By *'"
+                                                                                 [value]="selected_synergy_customer.order.delivered_by"
+                                                                                 (onValueChanged)="setSynergyDeliveredBy($event)"
+                                                                                 [customer_type_id]="[1,2]" [synergy]="[1]"></customer-select>
+                                                                <small *ngIf="selected_synergy_customer?.error"
                                                                        class="text-danger text-center">
                                                                     * required
                                                                 </small>

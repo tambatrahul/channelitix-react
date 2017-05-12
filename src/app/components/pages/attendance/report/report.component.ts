@@ -55,6 +55,11 @@ export class ReportComponent extends BaseAuthComponent {
     selected_customer: Report;
 
     /**
+     * Selected Synergy
+     */
+    selected_synergy_customer: Report;
+
+    /**
      * tour creation selection
      *
      * @type {EventEmitter}
@@ -76,6 +81,12 @@ export class ReportComponent extends BaseAuthComponent {
      */
     public inputs: VisitInput[] = [];
     public products: Product[] = [];
+
+    /**
+     * Synergy flag
+     * @type {boolean}
+     */
+    public flag_synergy:boolean = false
 
     @Input()
     set refresh(value) {
@@ -177,6 +188,7 @@ export class ReportComponent extends BaseAuthComponent {
             // order setup
             let order = new Order({
                 order_items: self.products.map(function (product) {
+
                     return new OrderItem({
                         product_id: product.id,
                         product: product,
@@ -191,6 +203,7 @@ export class ReportComponent extends BaseAuthComponent {
             orders.forEach(function (o) {
                 if (o.customer_id == visit.customer_id) {
                     o.order_items.forEach(function (item) {
+
                         order.order_items.forEach(function (i) {
                             if (i.product_id == item.product_id) {
                                 i.quantity = item.quantity;
@@ -241,8 +254,10 @@ export class ReportComponent extends BaseAuthComponent {
                 error = true;
                 d.error = true;
 
-                if (d == self.selected_customer)
+                if (d == self.selected_customer){
                     self.selected_customer = d;
+                    self.selected_synergy_customer = d;
+                }
             }
 
             return {
@@ -290,6 +305,18 @@ export class ReportComponent extends BaseAuthComponent {
      */
     selectCustomer(customer) {
         this.selected_customer = customer;
+
+        if(customer.synergy)
+            this.selectSynergyCustomer(customer);
+    }
+
+    /**
+     * select Synergy Customer
+     *
+     * @param customer
+     */
+    selectSynergyCustomer(customer) {
+        this.selected_synergy_customer = customer;
     }
 
     /**
@@ -298,6 +325,14 @@ export class ReportComponent extends BaseAuthComponent {
      */
     setDeliveredBy(customer_id) {
         this.selected_customer.order.delivered_by = customer_id;
+    }
+
+    /**
+     * set synergy delivered by id
+     * @param customer_id
+     */
+    setSynergyDeliveredBy(customer_id) {
+        this.selected_synergy_customer.order.delivered_by = customer_id;
     }
 
     /**

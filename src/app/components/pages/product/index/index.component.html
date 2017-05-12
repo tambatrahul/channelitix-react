@@ -28,14 +28,23 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
+                                            <template *ngIf="environment.envName != 'sk_group'">
+                                                <th>Code</th>
+                                            </template>
                                             <th>Product Name</th>
                                             <th>UOM</th>
                                             <th>Price</th>
+                                            <template *ngIf="environment.envName != 'sk_group'">
+                                                <th>MRP</th>
+                                            </template>
                                         </tr>
                                         </thead>
 
                                         <tfoot>
                                         <tr *ngFor="let product of products">
+                                            <template *ngIf="environment.envName != 'sk_group'">
+                                                <td>{{ product.code }}</td>
+                                            </template>
                                             <td>{{ product.name }}</td>
                                             <template ngFor let-uom [ngForOf]="product.uoms">
                                                 <td>
@@ -44,12 +53,16 @@
                                                 <td>
                                                     {{ uom.unit_price }}
                                                 </td>
+                                                <template *ngIf="environment.envName != 'sk_group'">
+                                                    <td>
+                                                        {{ uom.mrp }}
+                                                    </td>
+                                                </template>
                                             </template>
                                         </tr>
                                         </tfoot>
 
                                         <tbody>
-
                                         </tbody>
                                     </table>
                                 </div>

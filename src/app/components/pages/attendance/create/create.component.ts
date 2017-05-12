@@ -47,7 +47,7 @@ export class CreateAttendanceComponent extends FormComponent {
      * user managers
      */
     managers: User[] = [];
-    manager_options: IMultiSelectOption[];
+    manager_options: IMultiSelectOption[] = [];
     working_with_ids: Array<number> = [];
 
     /**
