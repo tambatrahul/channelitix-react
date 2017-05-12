@@ -83,12 +83,12 @@
                                                 <tr *ngFor="let user of mg.children">
                                                     <td>{{ user.full_name }}</td>
                                                     <td>{{ user.hq_headquarter?.name }}</td>
-                                                    <td>{{ (((user.total_target/1000) * 0.25) / 24).toFixed(1) }}</td>
+                                                    <td>{{ user.daily_target }}</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
                                                     <td *ngFor="let order of user.orders" orderCount
-                                                        [order]="order" [target]="user.total_target"></td>
+                                                        [order]="order" [target]="user.daily_target"></td>
                                                 </tr>
                                             </template>
                                             </tbody>
@@ -151,12 +151,12 @@
                                             <tr *ngFor="let user of z.children">
                                                 <td>{{ user.full_name }}</td>
                                                 <td>{{ user.hq_headquarter.name }}</td>
-                                                <td>{{ (((user.total_target/1000) * 0.25) / 24).toFixed(1) }}</td>
+                                                <td>{{ user.daily_target }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>
                                                 <td *ngFor="let order of user.orders" orderCount
-                                                    [order]="order"></td>
+                                                    [order]="order" [target]="user.daily_target"></td>
                                             </tr>
                                             </tbody>
                                         </table>

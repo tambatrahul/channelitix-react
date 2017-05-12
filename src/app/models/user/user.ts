@@ -72,6 +72,10 @@ export class User extends Model {
             this.total_target = parseFloat(info.total_target);
     }
 
+    get daily_target(): number {
+        return parseFloat((((this.total_target / 1000) * 0.25) / 24).toFixed(1))
+    }
+
     /**
      * if role is less then 3
      * @returns {boolean}

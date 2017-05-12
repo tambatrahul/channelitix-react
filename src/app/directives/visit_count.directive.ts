@@ -38,6 +38,10 @@ export class VisitCountDirective {
     set visit(visit: Visit) {
         if (environment.envName != 'sk_group') {
             if (visit.visit_count >= 0 && visit.attendance.status == AppConstants.WORKING) {
+
+                if (visit.visit_count == 0 && visit.attendance.no_of_calls > 0)
+                    visit.visit_count = visit.attendance.no_of_calls;
+
                 // set text value
                 this.el.nativeElement.innerText = visit.visit_count;
 

@@ -51,11 +51,14 @@ export class OrderCountDirective {
     formatCell() {
         if (this._order.order_total_count >= 0 && this._order.attendance.status == AppConstants.WORKING) {
 
+            if (this._order.order_total_count == 0 && this._order.attendance.pob_amount > 0)
+                this._order.order_total_count = this._order.attendance.pob_amount;
+
             // set text value
             this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
 
             // set background color depending on status
-            if (this._order.order_total_count < this._target)
+            if ((this._order.order_total_count/1000) < this._target)
                 this.el.nativeElement.style.backgroundColor = this.below_500;
             else
                 this.el.nativeElement.style.backgroundColor = this.above_2500;

@@ -99,9 +99,9 @@
                                                 <td>{{ z.cse_count }}</td>
                                                 <td *ngFor="let visit of z.visits"
                                                     [ngClass]="{'green': z.cse_count == att.visit_count}">
-                                                <span *ngIf="visit.visit_count > 0">
-                                                    {{ visit.visit_count }}
-                                                </span>
+                                                    <span *ngIf="visit.visit_count > 0">
+                                                        {{ visit.visit_count }}
+                                                    </span>
                                                 </td>
                                             </tr>
                                             <template ngFor let-mg [ngForOf]="z.children">
@@ -189,4 +189,4 @@
             </div>
         </div>
         <!-- ./Attendance Table -->
-</div>
+    </div>

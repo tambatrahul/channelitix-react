@@ -5,6 +5,6 @@
 
 export const environment = {
     production: false,
-    envName: '',
+    envName: 'dev',
     server_url: '/api/v1/'
 };

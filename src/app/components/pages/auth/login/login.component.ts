@@ -59,7 +59,7 @@ export class LoginComponent extends FormComponent {
                     this._cookieService.put('auth_token', this._service.user.auth_token);
 
                     if (response.user.role_str != this.ROLE_CSE)
-                        this._router.navigate(['/attendances']);
+                        this._router.navigate(['/visits']);
                     else
                         this._router.navigate(['/attendances/monthly']);
                     this.loading = false;
