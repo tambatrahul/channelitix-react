@@ -210,4 +210,11 @@ export class ReportService extends BaseService {
     brick_wise_customers() {
         return this.get(this.getBaseUrl() + '/brick_wise_customers');
     }
+
+    /**
+     * brick wise customers
+     */
+    hq_wise_visit_counts(month: number, year: number) {
+        return this.get(this.getBaseUrl() + '/hq_wise_visits/' + month + "/" + year);
+    }
 }

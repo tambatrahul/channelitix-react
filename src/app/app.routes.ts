@@ -36,6 +36,7 @@ import {ProductComponent} from "./components/pages/product/index/index.component
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
 import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wise_customer/index.component";
+import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count/hq_wise_visit_count.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -281,7 +282,10 @@ export const routes: Routes = [
                     {
                         path: 'brick_wise_customers',
                         component: BrickWiseCustomerComponent,
-                    },
+                    }, {
+                        path: 'hq_wise_visits',
+                        component: HQWiseVisitComponent,
+                    }
                 ]
             }
         ]

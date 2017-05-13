@@ -128,6 +128,7 @@ import {ProductWiseSaleComponent} from "./components/pages/dashboard/product_wis
 import {MultipleRegionSelectComponent} from "./components/form_elements/territory/multi_region_select/multiple-region-select.component";
 import {MultipleAreaSelectComponent} from "./components/form_elements/territory/multi_area_select/multiple-area-select.component";
 import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wise_customer/index.component";
+import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count/hq_wise_visit_count.component";
 
 enableProdMode();
 @NgModule({
@@ -191,6 +192,7 @@ enableProdMode();
         InvoicesComponent,
         InvoiceDetailComponent,
         ProductWiseSaleComponent,
+        HQWiseVisitComponent,
 
         // directives
         AttendanceStatusDirective,

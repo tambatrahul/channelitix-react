@@ -24,6 +24,10 @@ export class Visit extends Model {
     visit_day: number;
     visit_month: number;
     attendance: Attendance = new Attendance({});
+    hq_headquarter_id: number;
+    hq_area_id: number;
+    hq_region_id: number;
+    grade_id: number;
 
     constructor(info: any) {
         super(info.id);
@@ -35,6 +39,10 @@ export class Visit extends Model {
         this.created_by = info.created_by;
         this.creator = info.creator;
         this.isSunday = info.isSunday;
+        this.hq_headquarter_id = info.hq_headquarter_id;
+        this.hq_area_id = info.hq_area_id;
+        this.hq_region_id = info.hq_region_id;
+        this.grade_id = info.grade_id;
 
         // set customer
         if (info.customer)

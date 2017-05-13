@@ -40,6 +40,7 @@ export class Customer extends Model {
     products: Product[];
     customer_types: CustomerType[];
     brick_counts: number = 0;
+    visit_count: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -77,5 +78,9 @@ export class Customer extends Model {
 
         if (info.brick_counts)
             this.brick_counts = parseInt(info.brick_counts);
+
+        // visit count
+        if (info.visit_count)
+            this.visit_count = parseInt(info.visit_count);
     }
 }

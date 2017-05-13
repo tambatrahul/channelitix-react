@@ -1,0 +1,109 @@
+<div class="container-fluid bricks">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb" #loading_box>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Headquarter wise Customer Distribution
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Visit report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+    </div>
+    <!-- ./Filters for Visit report-->
+
+    <!-- Attendance Table -->
+    <div class="row" *ngFor="let z of regions">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4><strong>{{ z.name }}</strong></h4>
+                </div>
+                <div>
+                    <div class="widget-container report-table">
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th colspan="4">Stockist</th>
+                                        <th colspan="2">Semi</th>
+                                        <th colspan="2">Hub</th>
+                                        <th colspan="2">Retailer</th>
+                                        <th colspan="2">Physician</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th colspan="2">A</th>
+                                        <th colspan="2">B</th>
+                                        <th colspan="2"></th>
+                                        <th colspan="2"></th>
+                                        <th colspan="2"></th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="min-width: 150px;">Headquarters</th>
+                                        <th>Total Bricks</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <template ngFor let-area [ngForOf]="z.areas">
+                                        <tr>
+                                            <td [colSpan]="14" class="text-center">
+                                                <strong>{{ area.name }}</strong>
+                                            </td>
+                                        </tr>
+                                        <tr *ngFor="let hq of area.headquarters">
+                                            <td>{{ hq.name }}</td>
+                                            <td>{{ hq.total_bricks }}</td>
+                                            <td>{{ hq.customer_types[0].aCustomerCount }}</td>
+                                            <td>{{ hq.customer_types[0].aVisitCount }}</td>
+                                            <td>{{ hq.customer_types[0].bCustomerCount }}</td>
+                                            <td>{{ hq.customer_types[0].bVisitCount }}</td>
+                                            <td>{{ hq.customer_types[1].customerCount }}</td>
+                                            <td>{{ hq.customer_types[1].visitCount }}</td>
+                                            <td>{{ hq.customer_types[2].customerCount }}</td>
+                                            <td>{{ hq.customer_types[2].visitCount }}</td>
+                                            <td>{{ hq.customer_types[3].customerCount }}</td>
+                                            <td>{{ hq.customer_types[3].visitCount }}</td>
+                                            <td>{{ hq.customer_types[4].customerCount }}</td>
+                                            <td>{{ hq.customer_types[4].visitCount }}</td>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
