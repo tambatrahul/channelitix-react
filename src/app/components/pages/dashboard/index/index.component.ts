@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import * as moment from "moment";
 import {BaseComponent} from "../../../base/base.component";
 import {ReportService} from "../../../../services/report.service";
+import {AuthService} from "../../../../services/AuthService";
 declare let jQuery: any;
 
 @Component({
@@ -48,7 +49,7 @@ export class DashBoardComponent extends BaseComponent {
     /**
      * Dashboard Component Constructor
      */
-    constructor(private reportService: ReportService) {
+    constructor(private reportService: ReportService, private _service: AuthService) {
         super();
     }
 
@@ -58,6 +59,10 @@ export class DashBoardComponent extends BaseComponent {
     ngOnInit() {
         this.month = moment().month();
         this.year = moment().year();
+        if (this._service.user.hq_region_id)
+            this.region_ids.push(this._service.user.hq_region_id);
+        if (this._service.user.hq_area_id)
+            this.area_ids.push(this._service.user.hq_area_id);
     }
 
     /**

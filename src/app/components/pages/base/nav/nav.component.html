@@ -12,7 +12,7 @@
     <!-- Navigation items -->
     <div class="left-navigation">
         <ul class="list-accordion">
-            <li *ngIf="_auth_service.user?.isAdmin">
+            <li *roleCheck="ROLE_CSM">
                 <a class="waves-effect"
                    [routerLink]="'/dashboard'">
                     <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>

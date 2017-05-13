@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="row" *ngIf="region_ids.length > 0">
-                <div class="col-xs-12">
+                <div class="col-xs-12" *roleCheck="ROLE_ZSM">
                     <div class="row">
                         <multiple-area-select [region_ids]="region_ids" [area_ids]="area_ids"
                                               (selectedArea)="areaSelected($event)"></multiple-area-select>
@@ -103,7 +103,7 @@
             </div>
             <!-- ./Visit Order Trend -->
 
-            <div class="row" *ngIf="environment.envName != 'sk_group'">
+            <div class="row" *ngIf="environment.envName == 'sk_group'">
 
                 <!-- Monthly Primary graph -->
                 <div class="col-xs-12">
