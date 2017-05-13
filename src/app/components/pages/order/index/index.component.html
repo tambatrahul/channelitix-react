@@ -29,6 +29,9 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
+        <div class="col-xs-12 col-md-3" *ngIf="environment.envName == 'sk_group'">
+            <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 10px;">Switch to Abbott</button>
+        </div>
     </div>
     <!-- ./Filters for Order report-->
 

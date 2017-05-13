@@ -27,6 +27,13 @@ export class OrderComponent extends BaseAuthComponent {
     public manager_role_id: number = 0;
 
     /**
+     * abbott check
+     *
+     * @type {boolean}
+     */
+    public abbott: boolean = false;
+
+    /**
      * manager_id
      */
     public manager_id: number = 0;
@@ -183,6 +190,17 @@ export class OrderComponent extends BaseAuthComponent {
             }
         }
 
+        if (this.environment.envName == 'sk_group' && this.abbott) {
+            let abbott_user = new User({full_name: 'Abbott'});
+            abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            abbott_user.children = [];
+            abbott_user.cse_count = 0;
+            zone_managers.push(abbott_user);
+            for (let m of managers) {
+                zone_managers[0].children.push(m);
+            }
+        }
+
         // depending on list show view
         if (zone_managers.length > 0)
             this.managers = zone_managers;
@@ -195,9 +213,14 @@ export class OrderComponent extends BaseAuthComponent {
      */
     fetchData() {
         this.loading = true;
+
+        let synergy;
+        if (this.environment.envName == 'sk_group')
+            synergy = this.abbott ? 1 : 0;
+
         Observable.forkJoin(
-            this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id),
-            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id)
+            this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy),
+            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy)
         ).subscribe(data => {
 
             this.loading = false;
@@ -244,6 +267,14 @@ export class OrderComponent extends BaseAuthComponent {
      */
     managerChanged(manager_id) {
         this.manager_id = manager_id;
+        this.fetchData();
+    }
+
+    /**
+     * switch to abbott
+     */
+    switchToAbbott() {
+        this.abbott = !this.abbott;
         this.fetchData();
     }
 }
