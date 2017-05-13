@@ -8,6 +8,8 @@ import {Holiday} from "../../../../../models/holiday";
 import {AppConstants} from "../../../../../app.constants";
 import * as moment from "moment";
 import {Tour} from "../../../../../models/tour_program/tour";
+import {Visit} from "../../../../../models/visit/visit";
+import {Order} from "../../../../../models/order/order";
 declare let jQuery: any;
 
 @Component({
@@ -104,17 +106,21 @@ export class SummaryDetailComponent extends BaseAuthComponent {
                     this.loading = false;
 
                     // get attendances
-                    let attendances = response.attendances.map(function (attendance) {
-                        return new Attendance(attendance);
-                    });
+                    let attendances = response.attendances.map(att => new Attendance(att));
+
+                    // visit and order formatting
+                    let visits = response.visits.map(visit => new Visit(visit));
+                    let orders = response.orders.map(order => new Order(order));
 
                     // prepare skeleton for attendance
-                    this.addAttendanceToSkeleton(this._user, attendances, response.holidays);
+                    this.addAttendanceToSkeleton(this._user, attendances, response.holidays, visits, orders);
 
                     // get tours
                     let tours = response.tours.map(function (tour) {
                         return new Tour(tour);
                     });
+
+                    this._user.total_target = response.targets[0].total_target;
 
                     // prepare skeleton for tours
                     this.addTourToSkeleton(this._user, tours, response.holidays);
@@ -132,8 +138,10 @@ export class SummaryDetailComponent extends BaseAuthComponent {
      * @param user
      * @param attendances
      * @param holidays
+     * @param visits
+     * @param orders
      */
-    addAttendanceToSkeleton(user: User, attendances: Attendance[], holidays: Holiday[]) {
+    addAttendanceToSkeleton(user: User, attendances: Attendance[], holidays: Holiday[], visits: Visit[], orders: Order[]) {
         let data_skeleton = AppConstants.prepareMonthAttendanceSkeleton(
             this._month, this._year, holidays, user.joining_date, user.leaving_date);
 
@@ -146,6 +154,18 @@ export class SummaryDetailComponent extends BaseAuthComponent {
             data_skeleton[moment(att.date, "YYYY-MM-DD").date() - 1].no_of_calls = att.no_of_calls;
             data_skeleton[moment(att.date, "YYYY-MM-DD").date() - 1].pob_amount = att.pob_amount;
         }
+
+        // add visit to attendance
+        visits.map(visit => {
+            if (visit.visit_count > 0)
+                data_skeleton[visit.visit_day - 1].no_of_calls = visit.visit_count;
+        });
+
+        // add order to attendance
+        orders.map(order => {
+            if (order.order_day_total_count > 0)
+                data_skeleton[order.order_day - 1].pob_amount = order.order_day_total_count;
+        });
 
         this._user.attendances = data_skeleton;
     }
@@ -172,6 +192,7 @@ export class SummaryDetailComponent extends BaseAuthComponent {
 
     /**
      * show all tour for user
+     *
      * @param user
      */
     showAllTourForUser() {

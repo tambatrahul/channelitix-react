@@ -51,7 +51,7 @@ export class Order extends Model {
             this.order_total_count = parseFloat(info.order_total_count);
 
         if (info.order_day_total_count)
-            this.order_day_total_count = parseInt(info.order_day_total_count);
+            this.order_day_total_count = parseFloat(info.order_day_total_count);
 
         if (info.order_items)
             this.order_items = info.order_items.map(function (item) {

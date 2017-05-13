@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    envName: 'production',
+    envName: 'geo',
     server_url: 'http://master.channelitix.com/api/v1/'
 };

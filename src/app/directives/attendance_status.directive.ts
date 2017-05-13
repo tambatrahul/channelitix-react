@@ -1,7 +1,7 @@
 import {Directive, ElementRef} from "@angular/core";
 import {Attendance} from "../models/attendance/attendance";
 import {AppConstants} from "../app.constants";
-import {isUndefined} from "util";
+import {environment} from "../../environments/environment";
 
 
 @Directive({
@@ -10,10 +10,17 @@ import {isUndefined} from "util";
 })
 export class AttendanceStatusDirective {
 
+    environment = environment;
+
     leave: string = "#e74c3c";
-    working: string = "#2ecc71";
     holiday: string = "#ecf0f1";
 
+    below_15: string = "#f1c40f";
+    above_15: string = "#2ecc71";
+
+    below_20: string = "#f1c40f";
+    below_30: string = "#FF9800";
+    above_30: string = "#2ecc71";
     /**
      * Attendance Status Directive
      *
@@ -29,41 +36,52 @@ export class AttendanceStatusDirective {
      */
     set attendance(att: Attendance) {
 
-        if (att.isSunday) {
-            this.el.nativeElement.innerText = 'S';
-            this.el.nativeElement.style.backgroundColor = this.holiday;
+        if (environment.envName != 'sk_group') {
+            if (att.no_of_calls >= 0 && att.status == AppConstants.WORKING) {
+
+                // set text value
+                this.el.nativeElement.innerText = att.no_of_calls;
+
+                // set background color depending on status
+                if (att.no_of_calls < 20)
+                    this.el.nativeElement.style.backgroundColor = this.below_20;
+                else if (att.no_of_calls < 30)
+                    this.el.nativeElement.style.backgroundColor = this.below_30;
+                else
+                    this.el.nativeElement.style.backgroundColor = this.above_30;
+            }
+
+            if (att.isSunday) {
+                this.el.nativeElement.innerText = 'H';
+                this.el.nativeElement.style.backgroundColor = this.holiday;
+            }
+        } else {
+            if (att.no_of_calls >= 0 && att.status == AppConstants.WORKING) {
+                // set text value
+                this.el.nativeElement.innerText = att.no_of_calls;
+
+                // set background color depending on status
+                if (att.no_of_calls < 15)
+                    this.el.nativeElement.style.backgroundColor = this.below_15;
+                else
+                    this.el.nativeElement.style.backgroundColor = this.above_15;
+            }
+
+            if (att.isSunday) {
+                this.el.nativeElement.innerText = 'H';
+                this.el.nativeElement.style.backgroundColor = this.holiday;
+            }
         }
 
         if (att.status) {
-            // set text value
-            if (att.status == AppConstants.WORKING) {
-                if (att.work_type.name == AppConstants.FIELD_WORK) {
-                    if (!isUndefined(att.no_of_calls) && att.no_of_calls)
-                        this.el.nativeElement.innerText = att.no_of_calls;
-                    else
-                        this.el.nativeElement.innerText = 0;
-                } else {
-                    this.el.nativeElement.innerText = att.work_type.name.charAt(0).toUpperCase();
-                }
-            } else {
+            if (att.status != AppConstants.WORKING)
                 this.el.nativeElement.innerText = att.status.charAt(0).toUpperCase();
-            }
 
             // set background color depending on status
             if (att.status == AppConstants.LEAVE)
                 this.el.nativeElement.style.backgroundColor = this.leave;
-            else if (att.status == AppConstants.WORKING)
-                this.el.nativeElement.style.backgroundColor = this.working;
             else if (att.status == AppConstants.HOLIDAY)
                 this.el.nativeElement.style.backgroundColor = this.holiday;
         }
-
-        if (att.isHoliday) {
-            this.el.nativeElement.innerText = 'H';
-            this.el.nativeElement.style.backgroundColor = this.holiday;
-        }
-
-        if (att.isDisabled)
-            this.el.nativeElement.style.backgroundColor = this.holiday;
     }
 }
