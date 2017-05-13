@@ -58,11 +58,12 @@ export class CustomerService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    forTypes(customer_type_id): Observable<Result> {
+    forTypes(customer_type_id, synergy?: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
         params.set('customer_type_id', customer_type_id);
+        params.set('synergy', String(synergy));
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));

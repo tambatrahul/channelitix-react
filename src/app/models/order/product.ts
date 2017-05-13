@@ -9,7 +9,7 @@ export class Product extends Model {
     short_name: string;
     uoms: UOM[] = [];
     code: string;
-    synergy: boolean;
+    synergy: number = 0;
 
     // for internal use only
     target: number = 0;

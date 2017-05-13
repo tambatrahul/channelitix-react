@@ -158,6 +158,7 @@ export class ReportComponent extends BaseAuthComponent {
                 }), response.orders.map(function (order) {
                     return new Order(order);
                 }));
+                this.saved = false;
             },
             err => {
                 this.loading = false;
@@ -213,7 +214,9 @@ export class ReportComponent extends BaseAuthComponent {
                     });
                     order.id = o.id;
                     order.delivered_by = o.delivered_by;
+                    order.delivered_by_synergy = o.delivered_by_synergy;
                     order.delivered_by_user = o.delivered_by_user;
+                    order.delivered_by_synergy_user = o.delivered_by_synergy_user;
                 }
             });
 
@@ -250,13 +253,14 @@ export class ReportComponent extends BaseAuthComponent {
         let formatted_data = this.data.filter(function (d) {
             return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0;
         }).map(function (d) {
-            if (d.customer.customer_type_id > 1 && !d.order.delivered_by) {
+            if (d.customer.customer_type_id > 1
+                && ((d.order.isNonSynergy && !d.order.delivered_by)
+                || (d.order.isSynergy && !d.order.delivered_by_synergy))) {
                 error = true;
                 d.error = true;
 
                 if (d == self.selected_customer){
                     self.selected_customer = d;
-                    // self.selected_synergy_customer = d;
                 }
             }
 
@@ -272,6 +276,7 @@ export class ReportComponent extends BaseAuthComponent {
                 response => {
                     this.loading = false;
                     this.saved = true;
+
                 },
                 err => {
                     this.loading = false;
@@ -304,19 +309,7 @@ export class ReportComponent extends BaseAuthComponent {
      */
     selectCustomer(customer) {
         this.selected_customer = customer;
-
-        // if(customer.synergy)
-        //     this.selectSynergyCustomer(customer);
     }
-
-    /**
-     * select Synergy Customer
-     *
-     * @param customer
-     */
-    // selectSynergyCustomer(customer) {
-    //     this.selected_synergy_customer = customer;
-    // }
 
     /**
      * set delivered by id
@@ -330,9 +323,9 @@ export class ReportComponent extends BaseAuthComponent {
      * set synergy delivered by id
      * @param customer_id
      */
-    // setSynergyDeliveredBy(customer_id) {
-    //     this.selected_synergy_customer.order.delivered_by = customer_id;
-    // }
+    setSynergyDeliveredBy(customer_id) {
+        this.selected_customer.order.delivered_by_synergy = customer_id;
+    }
 
     /**
      * add more customers

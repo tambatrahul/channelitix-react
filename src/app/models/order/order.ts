@@ -17,7 +17,9 @@ export class Order extends Model {
     creator: User;
     order_items: OrderItem[] = [];
     delivered_by: number;
+    delivered_by_synergy: number;
     delivered_by_user: Customer;
+    delivered_by_synergy_user: Customer;
 
     // for internal use only
     isSunday: boolean = false;
@@ -36,6 +38,7 @@ export class Order extends Model {
         this.total_points = info.total_points;
         this.comments = info.comments;
         this.delivered_by = info.delivered_by;
+        this.delivered_by_synergy = info.delivered_by_synergy;
 
         if (info.unit_price)
             this.unit_price = parseInt(info.unit_price);
@@ -60,6 +63,9 @@ export class Order extends Model {
 
         if (info.delivered_by_user)
             this.delivered_by_user = new Customer(info.delivered_by_user);
+
+        if (info.delivered_by_synergy_user)
+            this.delivered_by_synergy_user = new Customer(info.delivered_by_synergy_user);
 
         if (info.total_target)
             this.total_target = parseFloat(info.total_target);
@@ -86,9 +92,23 @@ export class Order extends Model {
     get isSynergy() {
         let synergy = false;
         this.order_items.map(function (item) {
-            if(item.quantity > 0 && item.product.synergy)
+            if (item.quantity > 0 && item.product.synergy == 1)
                 synergy = true;
         });
         return synergy;
+    }
+
+    /**
+     * get synergy product
+     *
+     * @returns {number}
+     */
+    get isNonSynergy() {
+        let no_synergy = false;
+        this.order_items.map(function (item) {
+            if (item.quantity > 0 && item.product.synergy == 0)
+                no_synergy = true;
+        });
+        return no_synergy;
     }
 }

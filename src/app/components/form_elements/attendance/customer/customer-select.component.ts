@@ -149,7 +149,7 @@ export class CustomerSelectComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.customerService.forTypes(this.customer_type_id)
+        this.customerService.forTypes(this.customer_type_id, this._synergy)
             .subscribe(
                 response => {
                     this.loading = false;
