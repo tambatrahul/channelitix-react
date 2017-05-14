@@ -161,8 +161,9 @@
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>
-                                                <td *ngFor="let order of user.orders" orderCount
-                                                    [order]="order" [target]="user.daily_target"></td>
+                                                <td *ngFor="let order of user.orders; let i = index" orderCount
+                                                    [order]="order" [target]="user.daily_target" class="user_click"
+                                                    (click)="selectUser(user, i + 1)"></td>
                                             </tr>
                                             </tbody>
                                         </table>
