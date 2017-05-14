@@ -6,5 +6,6 @@
 export const environment = {
     production: false,
     envName: 'geo',
+    projectName: '',
     server_url: '/api/v1/'
 };
