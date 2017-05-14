@@ -55,11 +55,6 @@ export class ReportComponent extends BaseAuthComponent {
     selected_customer: Report;
 
     /**
-     * Selected Synergy
-     */
-    selected_synergy_customer: Report;
-
-    /**
      * tour creation selection
      *
      * @type {EventEmitter}
@@ -81,12 +76,6 @@ export class ReportComponent extends BaseAuthComponent {
      */
     public inputs: VisitInput[] = [];
     public products: Product[] = [];
-
-    /**
-     * Synergy flag
-     * @type {boolean}
-     */
-    public flag_synergy:boolean = false
 
     @Input()
     set refresh(value) {
@@ -259,7 +248,7 @@ export class ReportComponent extends BaseAuthComponent {
                 error = true;
                 d.error = true;
 
-                if (d == self.selected_customer){
+                if (d == self.selected_customer) {
                     self.selected_customer = d;
                 }
             }
@@ -332,5 +321,12 @@ export class ReportComponent extends BaseAuthComponent {
      */
     addMoreCustomer() {
         this.add_more_customer.emit();
+    }
+
+    /**
+     * reset save
+     */
+    resetSave() {
+        this.saved = false;
     }
 }

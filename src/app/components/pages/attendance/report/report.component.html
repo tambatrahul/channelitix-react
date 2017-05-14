@@ -73,7 +73,7 @@
                                                         </div>
                                                         <div *ngIf="editable == 'open'">
                                                             <input class="form-control" type="number" placeholder="0"
-                                                                   [(ngModel)]="input.value"/>
+                                                                   [(ngModel)]="input.value" (change)="resetSave()"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,7 +104,7 @@
                                                                 <customer-select [title]="'SK Products Delivered By *'"
                                                                                  [value]="selected_customer.order.delivered_by"
                                                                                  (onValueChanged)="setDeliveredBy($event)"
-                                                                                 [customer_type_id]="[1,2]" [synergy]="[0]"></customer-select>
+                                                                                 [customer_type_id]="[1,2]" [synergy]="0"></customer-select>
                                                                 <small *ngIf="selected_customer?.error"
                                                                        class="text-danger text-center">
                                                                     * required
@@ -116,7 +116,7 @@
                                                                 <customer-select [title]="'Synergy Products Delivered By *'"
                                                                                  [value]="selected_customer.order.delivered_by_synergy"
                                                                                  (onValueChanged)="setSynergyDeliveredBy($event)"
-                                                                                 [customer_type_id]="[1,2]" [synergy]="[1]"></customer-select>
+                                                                                 [customer_type_id]="[1,2]" [synergy]="1"></customer-select>
                                                                 <small *ngIf="selected_customer?.error"
                                                                        class="text-danger text-center">
                                                                     * required
@@ -125,8 +125,12 @@
                                                         </h4>
                                                         <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
                                                             <a>
-                                                                <strong>Delivered By: </strong>{{
+                                                                <strong>Sk Products Delivered By: </strong>{{
                                                                 selected_customer.order?.delivered_by_user?.firm_name}}
+                                                            </a>
+                                                            <a>
+                                                                <strong>Abbott Products Delivered By: </strong>{{
+                                                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
                                                             </a>
                                                         </h4>
                                                     </div>
@@ -169,7 +173,7 @@
                                                         </div>
                                                         <div *ngIf="editable == 'open'">
                                                             <input class="form-control" type="number" placeholder="0"
-                                                                   [(ngModel)]="item.quantity"/>
+                                                                   [(ngModel)]="item.quantity" (change)="resetSave()"/>
                                                         </div>
                                                     </div>
                                                 </div>
