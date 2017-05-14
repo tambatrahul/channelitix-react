@@ -13,6 +13,7 @@ export class Order extends Model {
     total_points: number;
     comments: string;
     customer_id: number;
+    customer: Customer;
     created_by: number;
     creator: User;
     order_items: OrderItem[] = [];
@@ -49,6 +50,9 @@ export class Order extends Model {
         this.isSunday = info.isSunday;
         this.order_day = info.order_day;
         this.order_month = info.order_month;
+
+        if (info.customer)
+            this.customer = new Customer(info.customer);
 
         if (info.order_total_count)
             this.order_total_count = parseFloat(info.order_total_count);
@@ -110,5 +114,18 @@ export class Order extends Model {
                 no_synergy = true;
         });
         return no_synergy;
+    }
+
+    /**
+     * calculated total for order
+     *
+     * @returns {number}
+     */
+    get calculated_total() {
+        let total = 0;
+        this.order_items.map(item => {
+            total += (item.quantity * item.unit_price);
+        });
+        return total;
     }
 }

@@ -40,6 +40,22 @@ export class OrderService extends BaseService {
     }
 
     /**
+     * get monthly report
+     */
+    forUser(user_id: number, month: number, year: number, day?: number): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year;
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('date', String(day > 0 ? day : ''));
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
      * get visit counts for user
      *
      * @param month

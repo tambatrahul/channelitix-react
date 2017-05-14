@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../../../models/user/user";
 import {AppConstants} from "../../../../app.constants";
@@ -20,11 +20,27 @@ declare let jQuery: any;
 export class OrderComponent extends BaseAuthComponent {
 
     /**
+     * user tour program modal loading identifier
+     */
+    @ViewChild('user_order_table')
+    user_order_table: ElementRef;
+
+    /**
      * manager and user Role id
      * @type {number}
      */
     public role_id: number = 0;
     public manager_role_id: number = 0;
+
+    /**
+     * user id
+     */
+    user: User;
+
+    /**
+     * date
+     */
+    date: number;
 
     /**
      * abbott check
@@ -276,5 +292,16 @@ export class OrderComponent extends BaseAuthComponent {
     switchToAbbott() {
         this.abbott = !this.abbott;
         this.fetchData();
+    }
+
+    /**
+     * select user to view list
+     * @param user
+     * @param date
+     */
+    selectUser(user: User, date: number) {
+        this.user = user;
+        this.date = date;
+        jQuery(this.user_order_table.nativeElement).modal();
     }
 }

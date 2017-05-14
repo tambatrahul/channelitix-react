@@ -30,7 +30,8 @@
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
         <div class="col-xs-12 col-md-3" *ngIf="environment.envName == 'sk_group'">
-            <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 10px;">Switch to Abbott</button>
+            <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 10px;">Switch to Abbott
+            </button>
         </div>
     </div>
     <!-- ./Filters for Order report-->
@@ -86,12 +87,14 @@
                                                 <tr *ngFor="let user of mg.children">
                                                     <td>{{ user.full_name }}</td>
                                                     <td>{{ user.hq_headquarter?.name }}</td>
-                                                    <td *ngIf="environment.envName == 'geo'">{{ user.daily_target }}</td>
+                                                    <td *ngIf="environment.envName == 'geo'">{{ user.daily_target }}
+                                                    </td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
-                                                    <td *ngFor="let order of user.orders" orderCount
-                                                        [order]="order" [target]="user.daily_target"></td>
+                                                    <td *ngFor="let order of user.orders; let i = index" orderCount
+                                                        [order]="order" [target]="user.daily_target" class="user_click"
+                                                        (click)="selectUser(user, i + 1)"></td>
                                                 </tr>
                                             </template>
                                             </tbody>
@@ -173,4 +176,27 @@
         </div>
     </div>
     <!-- ./Order Table -->
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #user_order_table>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Create Tour View -->
+                <div class="row" *ngIf="user">
+                    <!-- Tour Table -->
+                    <div class="col-xs-12">
+                        <div>
+                            <user-order-list [user]="user" [date]="date" [month]="month"
+                                             [year]="year"></user-order-list>
+                        </div>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

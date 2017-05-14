@@ -1,0 +1,63 @@
+<div class="box-widget widget-module daily_tour">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-table"></i></span>
+        <h4>Order on <span [innerHTML]="title"></span></h4>
+    </div>
+    <div class="widget-container" #loading_box>
+        <div class="widget-block">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Customer</th>
+                        <th>Total Amount</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <template ngFor let-o [ngForOf]="orders">
+                        <tr>
+                            <td>{{ o.id }}</td>
+                            <td>{{ o.customer.firm_name }}</td>
+                            <td>{{ o.calculated_total.toFixed(2) }}</td>
+                            <td>{{ o.order_date }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" (click)="selectOrder(o.id)"
+                                        *ngIf="o.id != selectedOrderId">
+                                    View Details
+                                </button>
+                            </td>
+                        </tr>
+                        <template [ngIf]="o.id == selectedOrderId">
+                            <tr>
+                                <td></td>
+                                <td colspan="4" style="padding: 10px;">
+                                    <table class="table table-bordered sub-table">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Uom</th>
+                                        </tr>
+                                        <tr *ngFor="let item of o.order_items">
+                                            <td>{{ item.product.name }}</td>
+                                            <td>{{ (item.unit_price * item.quantity).toFixed(2) }}
+                                            </td>
+                                            <td>{{ item.uom.name }}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </template>
+                    </template>
+                    <tr *ngIf="orders.length <= 0">
+                        <td colspan="3">No Orders</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
