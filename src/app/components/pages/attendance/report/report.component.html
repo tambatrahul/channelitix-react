@@ -101,7 +101,7 @@
                                                     <div class="w-contact-info">
                                                         <h4 *ngIf="editable == 'open'">
                                                             <a>
-                                                                <customer-select [title]="'Delivered By *'"
+                                                                <customer-select [title]="'SK Products Delivered By *'"
                                                                                  [value]="selected_customer.order.delivered_by"
                                                                                  (onValueChanged)="setDeliveredBy($event)"
                                                                                  [customer_type_id]="[1,2]" [synergy]="[0]"></customer-select>
@@ -113,7 +113,7 @@
                                                         </h4>
                                                         <h4 *ngIf="editable == 'open' && selected_customer.order.isSynergy">
                                                             <a>
-                                                                <customer-select [title]="'Delivered By *'"
+                                                                <customer-select [title]="'Synergy Products Delivered By *'"
                                                                                  [value]="selected_customer.order.delivered_by_synergy"
                                                                                  (onValueChanged)="setSynergyDeliveredBy($event)"
                                                                                  [customer_type_id]="[1,2]" [synergy]="[1]"></customer-select>

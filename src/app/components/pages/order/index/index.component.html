@@ -30,7 +30,11 @@
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
         <div class="col-xs-12 col-md-3" *ngIf="environment.envName == 'sk_group'">
-            <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 10px;">Switch to Abbott
+            <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 10px;" *ngIf="!abbott">
+                Switch to Abbott
+            </button>
+            <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 10px;" *ngIf="abbott">
+                Back to SK
             </button>
         </div>
     </div>
