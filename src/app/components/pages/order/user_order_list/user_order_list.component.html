@@ -13,7 +13,7 @@
                         <th>Customer</th>
                         <th>Type</th>
                         <th>Total Amount</th>
-                        <th>Date</th>
+                        <th>Delivered By</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -25,7 +25,7 @@
                             <td>{{ o.customer.firm_name }}</td>
                             <td>{{ o.customer.customer_type.name }}</td>
                             <td><i class="fa fa-rupee"></i> {{ o.calculated_total.toFixed(2) }}</td>
-                            <td>{{ o.order_date }}</td>
+                            <td>{{ o.delivered_by_user?.firm_name }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" (click)="selectOrder(o.id)"
                                         *ngIf="o.id != selectedOrderId">
@@ -48,6 +48,7 @@
                                             <td>{{ item.quantity }}</td>
                                             <td><i class="fa fa-rupee"></i> {{ (item.unit_price * item.quantity).toFixed(2) }}
                                             </td>
+
                                         </tr>
                                     </table>
                                 </td>
