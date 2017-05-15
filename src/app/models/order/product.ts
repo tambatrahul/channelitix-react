@@ -21,7 +21,8 @@ export class Product extends Model {
         this.name = info.name;
         this.code = info.code;
         this.short_name = this.name.replace(/ *\([^)]*\) */g, "");
-        this.synergy = info.synergy;
+        if (info.synergy)
+            this.synergy = info.synergy;
 
         if (info.uoms) {
             for (let u of info.uoms) {

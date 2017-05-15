@@ -1,6 +1,6 @@
-<div class="container-fluid bricks">
+<div class="container-fluid bricks" #loading_box>
     <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb" #loading_box>
+    <div class="page-breadcrumb">
         <div class="row">
             <div class="col-md-4">
                 <div class="page-breadcrumb-wrap">
@@ -24,7 +24,7 @@
     <!-- ./Filters for Visit report-->
 
     <!-- Attendance Table -->
-    <div class="row" *ngFor="let z of regions">
+    <div class="row" *ngFor="let z of regions" >
         <div class="col-xs-12">
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
