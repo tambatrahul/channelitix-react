@@ -13,6 +13,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
+                                <th>code</th>
                                 <th>Product</th>
                                 <th>Target</th>
                                 <th>Actual sale</th>
@@ -22,6 +23,9 @@
                             <tbody>
                             <template ngFor let-item [ngForOf]="products">
                                 <tr>
+                                    <td>
+                                        {{ item.code }}
+                                    </td>
                                     <td>
                                         {{ item.name }}
                                     </td>
