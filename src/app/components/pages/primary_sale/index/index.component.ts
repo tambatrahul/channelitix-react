@@ -20,6 +20,13 @@ export class PrimarySaleComponent extends ListComponent {
     public year: number;
 
     /**
+     * region, area & headquarter
+     */
+    public region_id: number = 0;
+    public area_id: number = 0;
+    public headquarter_id: number = 0;
+
+    /**
      * get title of table
      * @returns {string}
      */
@@ -64,5 +71,31 @@ export class PrimarySaleComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+    }
+
+    /**
+     * when region is changed filter list of customer
+     * @param region_id
+     */
+    regionChanged(region_id) {
+        this.region_id = region_id;
+        this.areaChanged(0);
+    }
+
+    /**
+     * when area is changed filter list of customer
+     * @param area_id
+     */
+    areaChanged(area_id) {
+        this.area_id = area_id;
+        this.headquarterChanged(0);
+    }
+
+    /**
+     * when headquarter is changed filter list of customer
+     * @param headquarter_id
+     */
+    headquarterChanged(headquarter_id) {
+        this.headquarter_id = headquarter_id;
     }
 }

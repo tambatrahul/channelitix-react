@@ -33,6 +33,30 @@ export class StockistWiseComponent extends ListComponent {
     }
 
     /**
+     * region, area, headquarter
+     */
+    _region_id: number = 0;
+    @Input()
+    set region_id(region_id: number) {
+        this._region_id = region_id;
+        this.fetch();
+    }
+
+    _area_id: number = 0;
+    @Input()
+    set area_id(area_id: number) {
+        this._area_id = area_id;
+        this.fetch();
+    }
+
+    _headquarter_id: number = 0;
+    @Input()
+    set headquarter_id(headquarter_id: number) {
+        this._headquarter_id = headquarter_id;
+        this.fetch();
+    }
+
+    /**
      * invoice detail
      *
      * @type {Array}
@@ -55,7 +79,8 @@ export class StockistWiseComponent extends ListComponent {
     fetch() {
         if (this._month && this._year) {
             this.loading = true;
-            this.saleService.monthly_stockist(this._month + 1, this._year).subscribe(
+            this.saleService.monthly_stockist(this._month + 1,
+                this._year, this._region_id, this._area_id, this._headquarter_id).subscribe(
                 response => {
                     this.loading = false;
 

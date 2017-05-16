@@ -93,7 +93,7 @@
                         <div class="col-xs-12">
                             <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
                                 <div class="mini-stats-top">
-                                    <span class="mini-stats-value">{{ total_pob.toFixed(2) }}</span>
+                                    <span class="mini-stats-value">{{ total_pob.toFixed(2) | number : fractionSize }}</span>
                                     <span class="mini-stats-label">POB</span>
                                 </div>
                             </div>

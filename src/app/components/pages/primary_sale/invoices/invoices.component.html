@@ -38,7 +38,7 @@
                             <td>{{ ps.customer.hq_brick.name}}</td>
                             <td>{{ ps.customer.hq_territory.name}}</td>
                             <td>{{ ps.doc_date }}</td>
-                            <td><i class="fa fa-rupee"></i> {{ ps.net_amt}}</td>
+                            <td><i class="fa fa-rupee"></i> {{ ps.net_amt | number : fractionSize }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" (click)="showInvoice(ps)">View Items</button>
                             </td>

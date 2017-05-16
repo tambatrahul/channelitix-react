@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, RequestOptions} from "@angular/http";
+import {Http, RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -32,15 +32,24 @@ export class PrimarySaleService extends BaseService {
      *
      * @param month
      * @param year
+     * @param region_id
+     * @param area_id
+     * @param headquarter_id
      * @returns {Observable<Result>}
      */
-    monthly_invoice(month: number, year: number): Observable<Result> {
+    monthly_invoice(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/invoices/' + month + "/" + year;
 
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
         // make server call
-        return this.get(url, new RequestOptions());
+        return this.get(url, new RequestOptions({search: params}));
     }
 
     /**
@@ -48,15 +57,24 @@ export class PrimarySaleService extends BaseService {
      *
      * @param month
      * @param year
+     * @param region_id
+     * @param area_id
+     * @param headquarter_id
      * @returns {Observable<Result>}
      */
-    monthly_product(month: number, year: number): Observable<Result> {
+    monthly_product(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/invoices/product_wise/' + month + "/" + year;
 
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
         // make server call
-        return this.get(url, new RequestOptions());
+        return this.get(url, new RequestOptions({search: params}));
     }
 
     /**
@@ -64,14 +82,24 @@ export class PrimarySaleService extends BaseService {
      *
      * @param month
      * @param year
+     * @param region_id
+     * @param area_id
+     * @param headquarter_id
      * @returns {Observable<Result>}
      */
-    monthly_stockist(month: number, year: number): Observable<Result> {
+    monthly_stockist(month: number, year: number,
+                     region_id?: number, area_id?: number, headquarter_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/invoices/customer_wise/' + month + "/" + year;
 
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
         // make server call
-        return this.get(url, new RequestOptions());
+        return this.get(url, new RequestOptions({search: params}));
     }
 }

@@ -8,93 +8,118 @@ import {PrimarySale} from "../../../../models/sale/primary_sale";
 declare let jQuery: any;
 
 @Component({
-  selector: 'invoices',
-  templateUrl: 'invoices.component.html',
-  styleUrls: ['invoices.component.less']
+    selector: 'invoices',
+    templateUrl: 'invoices.component.html',
+    styleUrls: ['invoices.component.less']
 })
 export class InvoicesComponent extends ListComponent {
 
-  /**
-   * loading identifier
-   */
-@ViewChild('invoice_detail')
-  invoice_detail: ElementRef;
+    /**
+     * loading identifier
+     */
+    @ViewChild('invoice_detail')
+    invoice_detail: ElementRef;
 
-  /**
-   * invoice to show on popup
-   */
-  invoice: InvoiceDetail;
-
-  /**
-   * month of invoice
-   */
-  public _month: number;
+    /**
+     * region, area, headquarter
+     */
+    _region_id: number = 0;
     @Input()
-  set month(month: number) {
-    this._month = month;
-    this.fetch();
-  }
-
-  /**
-   * year of invoice
-   */
-  public _year: number;
-    @Input()
-  set year(year: number) {
-    this._year = year;
-  }
-
-  /**
-   * get title of table
-   * @returns {string}
-   */
-  get title(): string {
-    return moment().year(this._year).month(this._month).format("MMMM, YYYY");
-  }
-
-  /**
-   * primary sales
-   *
-   * @type {Array}
-   */
-  public primary_sales: PrimarySale[] = [];
-
-  /**
-   * User Component Constructor
-   *
-   */
-  constructor(private saleService: PrimarySaleService, public _service: AuthService) {
-    super(_service);
-  }
-
-  /**
-   * fetch customer secondary sales from server
-   */
-  fetch() {
-    if (this._month && this._year) {
-      this.loading = true;
-      this.saleService.monthly_invoice(this._month + 1, this._year).subscribe(
-          response => {
-          this.loading = false;
-
-          // convert to models
-          this.primary_sales = response.primary_sales.map(function (user, index) {
-            return new PrimarySale(user);
-          });
-        },
-          err => {
-          this.loading = false;
-        }
-      );
+    set region_id(region_id: number) {
+        this._region_id = region_id;
+        this.fetch();
     }
-  }
 
-  /**
-   * show all tour for user
-   * @param invoice
-   */
-  showInvoice(invoice: InvoiceDetail) {
-    this.invoice = invoice;
-    jQuery(this.invoice_detail.nativeElement).modal();
-  }
+    _area_id: number = 0;
+    @Input()
+    set area_id(area_id: number) {
+        this._area_id = area_id;
+        this.fetch();
+    }
+
+    _headquarter_id: number = 0;
+    @Input()
+    set headquarter_id(headquarter_id: number) {
+        this._headquarter_id = headquarter_id;
+        this.fetch();
+    }
+
+    /**
+     * invoice to show on popup
+     */
+    invoice: InvoiceDetail;
+
+    /**
+     * month of invoice
+     */
+    public _month: number;
+    @Input()
+    set month(month: number) {
+        this._month = month;
+        this.fetch();
+    }
+
+    /**
+     * year of invoice
+     */
+    public _year: number;
+    @Input()
+    set year(year: number) {
+        this._year = year;
+    }
+
+    /**
+     * get title of table
+     * @returns {string}
+     */
+    get title(): string {
+        return moment().year(this._year).month(this._month).format("MMMM, YYYY");
+    }
+
+    /**
+     * primary sales
+     *
+     * @type {Array}
+     */
+    public primary_sales: PrimarySale[] = [];
+
+    /**
+     * User Component Constructor
+     *
+     */
+    constructor(private saleService: PrimarySaleService, public _service: AuthService) {
+        super(_service);
+    }
+
+    /**
+     * fetch customer secondary sales from server
+     */
+    fetch() {
+        if (this._month && this._year) {
+            this.loading = true;
+            this.saleService.monthly_invoice(this._month + 1, this._year,
+                this._region_id, this._area_id, this._headquarter_id).subscribe(
+                response => {
+                    this.loading = false;
+
+                    // convert to models
+                    this.primary_sales = response.primary_sales.map(function (user, index) {
+                        return new PrimarySale(user);
+                    });
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        }
+    }
+
+    /**
+     * show all tour for user
+     * @param invoice
+     */
+    showInvoice(invoice: InvoiceDetail) {
+        this.invoice = invoice;
+        jQuery(this.invoice_detail.nativeElement).modal();
+    }
 }
