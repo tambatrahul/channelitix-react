@@ -163,7 +163,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
                         secondary: parseFloat((ss.total_amount / 1000).toFixed(2))
                     };
                 } else
-                    per_data[ss.month].secondary = parseFloat((ss.total_amount / 1000).toFixed(2))
+                    per_data[ss.month - 1].secondary = parseFloat((ss.total_amount / 1000).toFixed(2));
             });
 
             // prepare data

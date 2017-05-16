@@ -24,7 +24,10 @@ export class PrimarySale extends Model {
         this.doc_date = info.doc_date;
         this.customer_id = info.customer_id;
         this.uom_id = info.uom_id;
-        this.month = info.month;
+
+        if (info.month)
+            this.month = parseInt(info.month);
+
         this.stockist_code = info.stockist_code;
 
         if (info.net_amt)

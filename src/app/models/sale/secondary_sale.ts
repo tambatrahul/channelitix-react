@@ -36,7 +36,10 @@ export class SecondarySale extends Model {
 
     constructor(info: any) {
         super(info.id);
-        this.month = info.month;
+
+        if (info.month)
+            this.month = parseInt(info.month);
+
         this.year = info.year;
         this.customer_id = info.customer_id;
         this.product_id = info.product_id;
