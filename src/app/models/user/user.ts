@@ -73,6 +73,8 @@ export class User extends Model {
     }
 
     get daily_target(): number {
+        if (this.environment.envName == 'sk_group')
+            return this.total_target;
         return parseFloat((((this.total_target / 1000) * 0.25) / 24).toFixed(1))
     }
 

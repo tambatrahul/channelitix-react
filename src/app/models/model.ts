@@ -1,9 +1,12 @@
+import {environment} from "../../environments/environment";
+
 export class Model {
 
-  id: number;
+    environment = environment;
+    id: number;
 
-  constructor(id: number) {
-    this.id = id;
-  }
+    constructor(id: number) {
+        this.id = id;
+    }
 
 }
