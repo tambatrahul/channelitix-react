@@ -169,12 +169,24 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
         this.visits.forEach(function (visit) {
             if (data_object.hasOwnProperty(String(visit.visit_day) + '/' + String(visit.visit_month)))
                 data_object[String(visit.visit_day) + '/' + String(visit.visit_month)].visit_count = visit.visit_count;
+            else
+                data_object[String(visit.visit_day) + '/' + String(visit.visit_month)] = {
+                    visit_count: visit.visit_count,
+                    order_count: 0,
+                    att_count: 0
+                };
         });
 
         // add order to data
         this.orders.forEach(function (order) {
             if (data_object.hasOwnProperty(String(order.order_day) + '/' + String(order.order_month)))
                 data_object[String(order.order_day) + '/' + String(order.order_month)].order_count = order.order_day_total_count;
+            else
+                data_object[String(order.order_day) + '/' + String(order.order_month)] = {
+                    visit_count: 0,
+                    order_count: order.order_day_total_count,
+                    att_count: 0
+                };
         });
 
         this.chart_data = [];

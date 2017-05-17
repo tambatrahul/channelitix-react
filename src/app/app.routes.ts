@@ -37,6 +37,7 @@ import {SummaryComponent} from "./components/pages/user/summary/index/summary.co
 import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
 import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wise_customer/index.component";
 import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count/hq_wise_visit_count.component";
+import {VideoComponent} from "./components/pages/video/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -287,6 +288,12 @@ export const routes: Routes = [
                         component: HQWiseVisitComponent,
                     }
                 ]
+            },
+
+            {
+                path: 'videos',
+                component: VideoComponent
+
             }
         ]
     },
