@@ -197,7 +197,11 @@ export class OrderComponent extends BaseAuthComponent {
             for (let m of managers) {
                 if (u.manager_id == m.id) {
                     m.children.push(u);
+
                     u.orders.forEach(function (ord, index) {
+                        if (m.children.length == 1) {
+                            m.orders[index].order_total_count = 0;
+                        }
                         m.orders[index].order_total_count += ord.order_total_count;
                     });
                 }

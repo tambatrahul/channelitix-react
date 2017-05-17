@@ -42,11 +42,13 @@ export class Order extends Model {
         this.delivered_by_synergy = info.delivered_by_synergy;
 
         if (info.unit_price)
-            this.unit_price = parseInt(info.unit_price);
+            this.unit_price = parseFloat(info.unit_price);
 
         this.customer_id = info.customer_id;
-        this.created_by = info.created_by;
-        this.creator = info.creator;
+        if (info.created_by)
+            this.created_by = parseInt(info.created_by);
+        if (info.creator)
+            this.creator = new User(info.creator);
         this.isSunday = info.isSunday;
         this.order_day = info.order_day;
         this.order_month = info.order_month;
