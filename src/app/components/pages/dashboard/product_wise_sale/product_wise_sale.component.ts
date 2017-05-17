@@ -13,6 +13,14 @@ import {BaseDashboardComponent} from "../base_dashboard.component";
 export class ProductWiseSaleComponent extends BaseDashboardComponent {
 
     /**
+     * total target and actual
+     *
+     * @type {number}
+     */
+    total_target: number = 0;
+    total_actual: number = 0;
+
+    /**
      * month of invoice
      */
     public _month: number;
@@ -63,22 +71,28 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
      * format performance data
      */
     protected formatData(performance: Performance) {
+        let self = this;
+
         // get products
         let products: Product[] = performance.products;
 
         // set target values
         performance.targets.map(function (target) {
             products.map(function (product) {
-                if (product.id == target.product_id)
+                if (product.id == target.product_id) {
                     product.target = target.total_target;
-            })
+                    self.total_target += target.total_target;
+                }
+            });
         });
 
         // set performance values
         performance.secondary_sales.map(function (ss) {
             products.map(function (product) {
-                if (product.id == ss.product_id)
+                if (product.id == ss.product_id) {
                     product.performance = ss.total_amount;
+                    self.total_actual += ss.total_amount;
+                }
             })
         });
 

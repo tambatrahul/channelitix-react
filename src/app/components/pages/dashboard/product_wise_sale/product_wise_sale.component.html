@@ -34,7 +34,13 @@
                                     <td>{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)  }}</td>
                                 </tr>
                             </template>
-
+                            <tr>
+                                <td></td>
+                                <th>Total</th>
+                                <th>{{ total_target }}</th>
+                                <th>{{ total_actual }}</th>
+                                <th>{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

@@ -149,8 +149,12 @@ export class OrderComponent extends BaseAuthComponent {
 
         // add attendance to visit skeleton
         for (let att of attendances) {
-            if (data_skeleton.hasOwnProperty(att.created_by))
+            if (data_skeleton.hasOwnProperty(att.created_by)) {
                 data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
+                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count == 0
+                    && att.status == AppConstants.WORKING)
+                    data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count = att.pob_amount;
+            }
         }
 
         // add skeleton to user
@@ -193,6 +197,9 @@ export class OrderComponent extends BaseAuthComponent {
             for (let m of managers) {
                 if (u.manager_id == m.id) {
                     m.children.push(u);
+                    u.orders.forEach(function (ord, index) {
+                        m.orders[index].order_total_count += ord.order_total_count;
+                    });
                 }
             }
         }
@@ -249,7 +256,10 @@ export class OrderComponent extends BaseAuthComponent {
             // format targets
             let targets = data[1].targets.map(target => new Target(target));
 
-            this.addOrderToSkeleton(children, data[1].orders, data[1].holidays, data[0].attendances, targets);
+            // format orders
+            let orders = data[1].orders.map(order => new Order(order));
+
+            this.addOrderToSkeleton(children, orders, data[1].holidays, data[0].attendances, targets);
         }, err => {
             this.loading = false;
         });

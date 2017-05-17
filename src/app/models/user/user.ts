@@ -3,6 +3,7 @@ import {Attendance} from "../attendance/attendance";
 import {AppConstants} from "../../app.constants";
 import {Tour} from "../tour_program/tour";
 import {Headquarter} from "../territory/headquarter";
+import {Visit} from "../visit/visit";
 
 export class User extends Model {
 
@@ -34,7 +35,7 @@ export class User extends Model {
 
     // for local use only
     attendances = [];
-    visits = [];
+    visits: Visit[] = [];
     orders = [];
     tours: Tour[] = [];
     children: User[] = [];
@@ -168,5 +169,27 @@ export class User extends Model {
      */
     get isHeadquarter(): boolean {
         return this.role_str == AppConstants.ROLE_CSE;
+    }
+
+    /**
+     * get total visits count
+     *
+     * @returns {any}
+     */
+    get total_visit_count(): number {
+        return this.visits.reduce((v1, v2) => {
+            return v1 + v2.visit_count;
+        }, 0);
+    }
+
+    /**
+     * get total pob count
+     *
+     * @returns {any}
+     */
+    get total_pob_count(): number {
+        return this.orders.reduce((o1, o2) => {
+            return o1 + o2.order_total_count;
+        }, 0);
     }
 }

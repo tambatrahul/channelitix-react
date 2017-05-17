@@ -21,7 +21,7 @@ export class Visit extends Model {
     // for internal use only
     isSunday: boolean = false;
     visit_count: number = 0;
-    visit_day: number;
+    visit_day: number = 0;
     visit_month: number;
     attendance: Attendance = new Attendance({});
     hq_headquarter_id: number;
@@ -36,8 +36,13 @@ export class Visit extends Model {
         this.latitude = info.latitude;
         this.longitude = info.longitude;
         this.customer_id = info.customer_id;
-        this.created_by = info.created_by;
-        this.creator = info.creator;
+
+        if (info.created_by)
+            this.created_by = parseInt(info.created_by);
+
+        if (info.creator)
+            this.creator = new User(info.creator);
+
         this.isSunday = info.isSunday;
         this.hq_headquarter_id = info.hq_headquarter_id;
         this.hq_area_id = info.hq_area_id;
@@ -66,7 +71,8 @@ export class Visit extends Model {
         else
             this.visit_count = 0;
 
-        this.visit_day = info.visit_day;
+        if (info.visit_day)
+            this.visit_day = parseInt(info.visit_day);
         this.visit_month = info.visit_month;
     }
 

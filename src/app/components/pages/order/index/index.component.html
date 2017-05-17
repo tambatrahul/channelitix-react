@@ -61,6 +61,7 @@
                                                 <th style="min-width: 200px;">Users</th>
                                                 <th>Headquarter</th>
                                                 <th>Daily Target</th>
+                                                <th>Total</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -73,6 +74,7 @@
                                                 <th>Users</th>
                                                 <th>Headquarter</th>
                                                 <th>Daily Target</th>
+                                                <th>Total</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -88,11 +90,23 @@
                                                         <strong>{{ mg.full_name }}</strong>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td>Total</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
+                                                    <td></td>
+                                                    <td *ngFor="let order of mg.orders">
+                                                        {{ (order.order_total_count / 1000).toFixed(1) }}
+                                                    </td>
+
+                                                </tr>
                                                 <tr *ngFor="let user of mg.children">
                                                     <td>{{ user.full_name }}</td>
                                                     <td>{{ user.hq_headquarter?.name }}</td>
                                                     <td>{{ user.daily_target }}
                                                     </td>
+                                                    <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
@@ -134,6 +148,7 @@
                                                     Headquarter
                                                 </th>
                                                 <th>Daily Target</th>
+                                                <th>Total</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -150,6 +165,7 @@
                                                     Headquarter
                                                 </th>
                                                 <th>Daily Target</th>
+                                                <th>Total</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -162,6 +178,7 @@
                                                 <td>{{ user.full_name }}</td>
                                                 <td>{{ user.hq_headquarter.name }}</td>
                                                 <td>{{ user.daily_target }}</td>
+                                                <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>

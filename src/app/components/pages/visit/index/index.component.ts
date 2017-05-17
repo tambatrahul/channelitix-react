@@ -121,8 +121,6 @@ export class VisitComponent extends BaseAuthComponent {
         let managers: User[] = [];
         let zone_managers: User[] = [];
 
-        let skeleton: Array<Visit> = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
-
         // get skeleton
         for (let user of users) {
             data_skeleton[user.id] = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
@@ -132,7 +130,7 @@ export class VisitComponent extends BaseAuthComponent {
         for (let visit of visits) {
             // add user if not present
             if (!data_skeleton.hasOwnProperty(visit.created_by)) {
-                data_skeleton[visit.created_by] = skeleton.map(visit => Object.assign(new Visit({}), visit));
+                data_skeleton[visit.created_by] = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
                 users.push(visit.creator);
             }
 
@@ -142,16 +140,11 @@ export class VisitComponent extends BaseAuthComponent {
 
         // add attendance to visit skeleton
         for (let att of attendances) {
-            if (data_skeleton.hasOwnProperty(att.created_by))
+            if (data_skeleton.hasOwnProperty(att.created_by)) {
                 data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
-        }
-
-        // add skeleton to user
-        for (let user of users) {
-            if (data_skeleton.hasOwnProperty(user.id))
-                user.visits = data_skeleton[user.id];
-            else
-                user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].visit_count == 0)
+                    data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].visit_count = att.no_of_calls;
+            }
         }
 
         // add skeleton to user
@@ -188,12 +181,10 @@ export class VisitComponent extends BaseAuthComponent {
         for (let u of users) {
             for (let m of managers) {
                 if (u.manager_id == m.id) {
-                    m.children.push(u);
-                    u.visits.forEach(function (att, index) {
-                        if (att.id) {
-                            m.visits[index].visit_count += 1;
-                        }
+                    u.visits.forEach(function (vis, index) {
+                        m.visits[index].visit_count += vis.visit_count;
                     });
+                    m.children.push(u);
                 }
             }
         }
@@ -203,10 +194,9 @@ export class VisitComponent extends BaseAuthComponent {
             for (let m of managers) {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
-                    m.visits.forEach(function (att, index) {
-                        z.visits[index].visit_count += att.visit_count;
+                    m.visits.forEach(function (vis, index) {
+                        z.visits[index].visit_count += vis.visit_count;
                     });
-                    z.cse_count += m.children.length
                 }
             }
         }
@@ -261,7 +251,7 @@ export class VisitComponent extends BaseAuthComponent {
             });
 
             // convert to models
-            let children = data[1].children.map(function (user, index) {
+            let children: User[] = data[1].children.map(function (user, index) {
                 return new User(user);
             });
 

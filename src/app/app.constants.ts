@@ -167,12 +167,12 @@ export class AppConstants {
         let date = moment().year(year).month(month);
 
         // get start date and end date of month
-        let start_day = date.startOf('month').date();
-        let end_day = date.endOf('month').date();
+        let start_day: number = date.startOf('month').date();
+        let end_day: number = date.endOf('month').date();
 
         // prepare skeleton for all date
         let skeleton = new Array<Visit>(end_day);
-        for (let date = start_day; date <= end_day; date++) {
+        for (let date: number = start_day; date <= end_day; date++) {
 
             // set visit
             skeleton[date - 1] = new Visit({});
