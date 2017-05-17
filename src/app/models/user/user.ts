@@ -177,9 +177,11 @@ export class User extends Model {
      * @returns {any}
      */
     get total_visit_count(): number {
-        return this.visits.reduce((v1, v2) => {
-            return v1 + v2.visit_count;
-        }, 0);
+        let total: number = 0;
+        this.visits.map(vis => {
+            total += vis.visit_count;
+        });
+        return total;
     }
 
     /**
@@ -188,8 +190,10 @@ export class User extends Model {
      * @returns {any}
      */
     get total_pob_count(): number {
-        return this.orders.reduce((o1, o2) => {
-            return o1 + o2.order_total_count;
-        }, 0);
+        let total: number = 0;
+        this.orders.map(vis => {
+            total += vis.order_total_count;
+        });
+        return total;
     }
 }

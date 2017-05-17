@@ -1,12 +1,10 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Brick} from "../../../../models/territory/brick";
 import {ListComponent} from "../../../base/list.component";
 import {AuthService} from "../../../../services/AuthService";
 import {ReportService} from "../../../../services/report.service";
 import {Customer} from "../../../../models/customer/customer";
 import {CustomerType} from "../../../../models/customer/customer_type";
-import {Region} from "../../../../models/territory/region";
 import {Headquarter} from "../../../../models/territory/headquarter";
 
 
@@ -97,7 +95,7 @@ export class BrickWiseCustomerComponent extends ListComponent {
                             ct.brick_count = cus.brick_counts
                     })
                 }
-            })
+            });
         });
 
         // set

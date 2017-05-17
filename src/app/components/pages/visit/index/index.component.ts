@@ -182,7 +182,8 @@ export class VisitComponent extends BaseAuthComponent {
             for (let m of managers) {
                 if (u.manager_id == m.id) {
                     u.visits.forEach(function (vis, index) {
-                        m.visits[index].visit_count += vis.visit_count;
+                        if (vis.visit_count)
+                            m.visits[index].visit_count += vis.visit_count;
                     });
                     m.children.push(u);
                 }
