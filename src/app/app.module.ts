@@ -131,6 +131,7 @@ import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wis
 import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count/hq_wise_visit_count.component";
 import {UserOrderListComponent} from "./components/pages/order/user_order_list/user_order_list.component";
 import {VideoComponent} from "./components/pages/video/index.component";
+import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
 
 enableProdMode();
 @NgModule({
@@ -197,6 +198,7 @@ enableProdMode();
         HQWiseVisitComponent,
         UserOrderListComponent,
         VideoComponent,
+        StockistWisePobComponent,
 
         // directives
         AttendanceStatusDirective,

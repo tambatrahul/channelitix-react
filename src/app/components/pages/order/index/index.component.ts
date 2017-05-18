@@ -263,7 +263,9 @@ export class OrderComponent extends BaseAuthComponent {
             // format orders
             let orders = data[1].orders.map(order => new Order(order));
 
-            this.addOrderToSkeleton(children, orders, data[1].holidays, data[0].attendances, targets);
+            let attendances = data[0].attendances.map(att => new Attendance(att));
+
+            this.addOrderToSkeleton(children, orders, data[1].holidays, attendances, targets);
         }, err => {
             this.loading = false;
         });

@@ -1,0 +1,71 @@
+<div class="container-fluid bricks" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Visit Distribution Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Visit report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+        <div class="col-md-9">
+            <div class="col-xs-12 col-md-3">
+                <div>
+                    <headquarter-select [value]="headquarter_id"
+                                        [title]="'Select Head Quarter'"
+                                        (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Filters for Visit report-->
+
+    <!-- Attendance Table -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4><strong>Stockist Wise POB Report</strong></h4>
+                </div>
+                <div>
+                    <div class="widget-container report-table">
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Visits Till Date</th>
+                                        <th>Pob Till Date</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr *ngFor="let cus of customers">
+                                        <td>{{ cus.firm_name }}</td>
+                                        <td>{{ cus.visit_count }}</td>
+                                        <td>{{ cus.order_count }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

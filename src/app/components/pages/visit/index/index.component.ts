@@ -142,7 +142,8 @@ export class VisitComponent extends BaseAuthComponent {
         for (let att of attendances) {
             if (data_skeleton.hasOwnProperty(att.created_by)) {
                 data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
-                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].visit_count == 0)
+                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].visit_count == 0
+                    && att.status == AppConstants.WORKING)
                     data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].visit_count = att.no_of_calls;
             }
         }
@@ -181,11 +182,13 @@ export class VisitComponent extends BaseAuthComponent {
         for (let u of users) {
             for (let m of managers) {
                 if (u.manager_id == m.id) {
-                    u.visits.forEach(function (vis, index) {
-                        if (vis.visit_count)
-                            m.visits[index].visit_count += vis.visit_count;
-                    });
                     m.children.push(u);
+                    u.visits.forEach(function (vis, index) {
+                        if (m.children.length == 1) {
+                            m.visits[index].visit_count = 0;
+                        }
+                        m.visits[index].visit_count += vis.visit_count;
+                    });
                 }
             }
         }
@@ -242,21 +245,18 @@ export class VisitComponent extends BaseAuthComponent {
             this.loading = false;
 
             // convert to visits
-            let visits: Visit[] = data[1].visits.map(function (visit, index) {
-                return new Visit(visit);
-            });
+            let visits: Visit[] = data[1].visits.map(vis => new Visit(vis));
 
             // convert to holidays
-            let holidays: Holiday[] = data[1].holidays.map(function (visit, index) {
-                return new Holiday(visit);
-            });
+            let holidays: Holiday[] = data[1].holidays.map(holi => new Holiday(holi));
 
             // convert to models
-            let children: User[] = data[1].children.map(function (user, index) {
-                return new User(user);
-            });
+            let children: User[] = data[1].children.map(user => new User(user));
 
-            this.addVisitToSkeleton(children, visits, holidays, data[0].attendances);
+            // convert to attendances
+            let attendances = data[0].attendances.map(att => new Attendance(att));
+
+            this.addVisitToSkeleton(children, visits, holidays, attendances);
         }, err => {
             this.loading = false;
         });

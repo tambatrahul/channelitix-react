@@ -41,6 +41,7 @@ export class Customer extends Model {
     customer_types: CustomerType[];
     brick_counts: number = 0;
     visit_count: number = 0;
+    order_count: number = 0;
 
     constructor(info: any) {
         super(info.id);

@@ -76,6 +76,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
         // get products
         let products: Product[] = performance.products;
 
+        self.total_target = 0;
         // set target values
         performance.targets.map(function (target) {
             products.map(function (product) {
@@ -86,6 +87,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
             });
         });
 
+        self.total_actual = 0;
         // set performance values
         performance.secondary_sales.map(function (ss) {
             products.map(function (product) {
