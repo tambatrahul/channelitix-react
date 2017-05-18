@@ -133,6 +133,7 @@ import {UserOrderListComponent} from "./components/pages/order/user_order_list/u
 import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
 
+
 enableProdMode();
 @NgModule({
     declarations: [

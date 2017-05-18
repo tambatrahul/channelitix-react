@@ -35,15 +35,18 @@ export class PrimarySaleService extends BaseService {
      * @param region_id
      * @param area_id
      * @param headquarter_id
+     * @param page
      * @returns {Observable<Result>}
      */
-    monthly_invoice(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number): Observable<Result> {
+    monthly_invoice(month: number, year: number,
+                    region_id?: number, area_id?: number, headquarter_id?: number, page?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/invoices/' + month + "/" + year;
 
         // prepare get params
         let params = new URLSearchParams();
+        params.set('page', String(page > 0 ? page : ''));
         params.set('region_id', String(region_id > 0 ? region_id : ''));
         params.set('area_id', String(area_id > 0 ? area_id : ''));
         params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));

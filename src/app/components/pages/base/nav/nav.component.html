@@ -162,7 +162,7 @@
                     <span class="nav-label">Product Catalog</span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="environment.envName == 'sk_group'">
                 <a class="waves-effect" routerLink="/videos">
                     <span class="nav-icon"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
                     <span class="nav-label">Video Guide</span>

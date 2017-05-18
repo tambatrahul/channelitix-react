@@ -15,6 +15,14 @@ declare let jQuery: any;
 export class InvoicesComponent extends ListComponent {
 
     /**
+     * pages number for customer and total customers
+     *
+     * @type {number}
+     */
+    public page: number = 1;
+    public total: number = 10;
+
+    /**
      * loading identifier
      */
     @ViewChild('invoice_detail')
@@ -98,7 +106,7 @@ export class InvoicesComponent extends ListComponent {
         if (this._month && this._year) {
             this.loading = true;
             this.saleService.monthly_invoice(this._month + 1, this._year,
-                this._region_id, this._area_id, this._headquarter_id).subscribe(
+                this._region_id, this._area_id, this._headquarter_id, this.page).subscribe(
                 response => {
                     this.loading = false;
 
@@ -106,6 +114,7 @@ export class InvoicesComponent extends ListComponent {
                     this.primary_sales = response.primary_sales.map(function (user, index) {
                         return new PrimarySale(user);
                     });
+                    this.total = response.total;
                 },
                 err => {
                     this.loading = false;
@@ -121,5 +130,15 @@ export class InvoicesComponent extends ListComponent {
     showInvoice(invoice: InvoiceDetail) {
         this.invoice = invoice;
         jQuery(this.invoice_detail.nativeElement).modal();
+    }
+
+    /**
+     * Page changed
+     *
+     * @param page
+     */
+    pageChanged(page) {
+        this.page = page;
+        this.fetch();
     }
 }

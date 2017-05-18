@@ -110,7 +110,6 @@ export class StockistWisePobComponent extends ListComponent {
             });
         });
         this.customers = customers;
-        console.log(customers);
     }
 
     /**

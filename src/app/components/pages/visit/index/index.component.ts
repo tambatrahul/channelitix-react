@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../../../models/user/user";
 import {AppConstants} from "../../../../app.constants";
@@ -18,6 +18,12 @@ declare let d3: any;
     styleUrls: ['index.component.less']
 })
 export class VisitComponent extends BaseAuthComponent {
+
+    /**
+     * loading identifier
+     */
+    @ViewChild('visit_table')
+    visit_table: ElementRef;
 
     /**
      * manager and user Role id
@@ -279,5 +285,13 @@ export class VisitComponent extends BaseAuthComponent {
     switchToAbbott() {
         this.abbott = !this.abbott;
         this.fetchData();
+    }
+
+
+    export_table() {
+        jQuery("#visit_table2").tableExport({
+            formats: ['xlsx'],
+            bootstrap: true
+        });
     }
 }
