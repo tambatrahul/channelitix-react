@@ -25,6 +25,17 @@ export class VisitComponent extends BaseAuthComponent {
     @ViewChild('visit_table')
     visit_table: ElementRef;
 
+
+    /**
+     * user id
+     */
+    user: User;
+
+    /**
+     * date
+     */
+    date: number;
+
     /**
      * manager and user Role id
      * @type {number}
@@ -294,4 +305,17 @@ export class VisitComponent extends BaseAuthComponent {
             bootstrap: true
         });
     }
+
+    /**
+     * select user to view list
+     * @param user
+     * @param date
+     */
+    selectUser(user: User, date: number) {
+        this.user = user;
+        this.date = date;
+        jQuery(this.visit_table.nativeElement).modal();
+    }
+
+
 }

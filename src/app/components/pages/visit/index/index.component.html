@@ -107,8 +107,9 @@
                                                         <i status [field]="user.status"></i>
                                                     </td>
                                                     <td>{{ user.total_visit_count }}</td>
-                                                    <td *ngFor="let visit of user.visits" visitCount
-                                                        [visit]="visit"></td>
+                                                    <td *ngFor="let visit of user.visits; let i = index" visitCount
+                                                        [visit]="visit"
+                                                        class="user_click" (click)="selectUser(user, i + 1)"></td>
                                                 </tr>
                                             </template>
                                             </tbody>
@@ -174,8 +175,9 @@
                                                     <i status [field]="user.status"></i>
                                                 </td>
                                                 <td>{{ user.total_visit_count }}</td>
-                                                <td *ngFor="let visit of user.visits" visitCount=""
-                                                    [visit]="visit"></td>
+                                                <td *ngFor="let visit of user.visits; let i = index" visitCount
+                                                    [visit]="visit"
+                                                    class="user_click" (click)="selectUser(user, i + 1)"></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -189,3 +191,27 @@
         </div>
         <!-- ./Attendance Table -->
     </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #visit_table>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Visit View -->
+                <div class="row" *ngIf="user">
+                    <!-- Visit Table -->
+                    <div class="col-xs-12">
+                        <div>
+                            <user-visit-list [user]="user" [date]="date" [month]="month"
+                                             [year]="year"></user-visit-list>
+                        </div>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
