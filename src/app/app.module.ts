@@ -132,6 +132,7 @@ import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count
 import {UserOrderListComponent} from "./components/pages/order/user_order_list/user_order_list.component";
 import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
+import {UserVisitListComponent} from "./components/pages/visit/user_visit_list/user_visit_list.component";
 
 
 enableProdMode();
@@ -200,6 +201,7 @@ enableProdMode();
         UserOrderListComponent,
         VideoComponent,
         StockistWisePobComponent,
+        UserVisitListComponent,
 
         // directives
         AttendanceStatusDirective,

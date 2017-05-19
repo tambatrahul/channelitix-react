@@ -1,0 +1,62 @@
+<div class="box-widget widget-module daily_tour">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-table"></i></span>
+        <h4>Visit on <span [innerHTML]="title"></span></h4>
+    </div>
+    <div class="widget-container" #loading_box>
+        <div class="widget-block">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Customer</th>
+                        <th>Type</th>
+                        <th>Visit Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <template ngFor let-vis [ngForOf]="visits">
+                        <tr>
+                            <td>{{ vis.id }}</td>
+                            <td>{{ vis.customer.firm_name }}</td>
+                            <td>{{ vis.customer.customer_type.name }}</td>
+                            <td>{{ vis.visit_date }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" (click)="selectVisit(vis.id)"
+                                        *ngIf="vis.id != selectedVisitId">
+                                    View Details
+                                </button>
+                            </td>
+                        </tr>
+                        <template [ngIf]="vis.id == selectedVisitId">
+                            <tr>
+                                <td></td>
+                                <td colspan="4" style="padding: 10px;">
+                                    <table class="table table-bordered sub-table">
+                                        <tr>
+                                            <th>Input</th>
+                                            <th>Answer</th>
+                                        </tr>
+                                        <template ngFor let-item [ngForOf]="vis.input_answers">
+                                            <tr *ngIf="item.value > 0">
+                                                <td>{{ item.input.name }}</td>
+                                                <td>{{ item.value }}</td>
+                                            </tr>
+                                        </template>
+                                    </table>
+                                </td>
+                            </tr>
+                        </template>
+                    </template>
+                    <tr *ngIf="visits.length <= 0">
+                        <td colspan="5">No Visits</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
