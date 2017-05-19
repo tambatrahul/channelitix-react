@@ -28,6 +28,8 @@ export class Visit extends Model {
     hq_area_id: number;
     hq_region_id: number;
     grade_id: number;
+    visited_twice: number = 0;
+    visited_thrice: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -74,6 +76,12 @@ export class Visit extends Model {
         if (info.visit_day)
             this.visit_day = parseInt(info.visit_day);
         this.visit_month = info.visit_month;
+
+        if (info.visited_twice)
+            this.visited_twice = parseInt(info.visited_twice);
+
+        if (info.visited_thrice)
+            this.visited_thrice = parseInt(info.visited_thrice);
     }
 
     /**

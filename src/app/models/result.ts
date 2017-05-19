@@ -44,6 +44,7 @@ export class Result {
 
     //Visits models
     visits: Visit[];
+    v2_v3_visits: Visit[];
     inputs: VisitInput[];
 
     //Orders models
