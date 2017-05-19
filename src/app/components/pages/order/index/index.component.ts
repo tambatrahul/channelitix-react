@@ -19,6 +19,8 @@ declare let jQuery: any;
 })
 export class OrderComponent extends BaseAuthComponent {
 
+    excel_loaded: boolean = false;
+
     /**
      * user tour program modal loading identifier
      */
@@ -233,6 +235,17 @@ export class OrderComponent extends BaseAuthComponent {
             this.managers = zone_managers;
         else
             this.managers = managers;
+
+        setTimeout(() => {
+            if (!this.excel_loaded) {
+                this.excel_loaded = true;
+                jQuery(".visit_table").tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+            }
+        }, 1000);
     }
 
     /**

@@ -1,4 +1,4 @@
-<div class="container-fluid visits">
+<div class="container-fluid visits" #loading_box>
 
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
@@ -44,7 +44,7 @@
     <!-- ./Filters for Visit report-->
 
     <!-- Attendance Table -->
-    <div class="row" #loading_box>
+    <div class="row">
         <div class="col-xs-12" *roleCheck="ROLE_ZSM">
             <div class="row" *ngFor="let z of managers">
                 <div class="col-xs-12">
@@ -57,7 +57,7 @@
                             <div class="widget-container report-table">
                                 <div class="widget-block">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="visit_table{{z.id}}">
+                                        <table class="table table-bordered visit_table">
                                             <thead>
                                             <tr>
                                                 <th style="min-width: 200px;">Users</th>
@@ -85,10 +85,10 @@
                                             <tbody>
                                             <template ngFor let-mg [ngForOf]="z.children">
                                                 <tr>
-                                                    <td [colSpan]="mg.children[0]?.visits.length + 4"
+                                                    <th [colSpan]="mg.children[0]?.visits.length + 4"
                                                         class="text-center">
                                                         <strong>{{ mg.full_name }}</strong>
-                                                    </td>
+                                                    </th>
                                                 </tr>
                                                 <tr>
                                                     <td>Total</td>
@@ -101,8 +101,8 @@
 
                                                 </tr>
                                                 <tr *ngFor="let user of mg.children">
-                                                    <td>{{ user.full_name }}</td>
-                                                    <td>{{ user.hq_headquarter?.name }}</td>
+                                                    <th>{{ user.full_name }}</th>
+                                                    <th>{{ user.hq_headquarter?.name }}</th>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>

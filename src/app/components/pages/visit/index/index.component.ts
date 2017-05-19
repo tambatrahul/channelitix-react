@@ -19,6 +19,7 @@ declare let d3: any;
 })
 export class VisitComponent extends BaseAuthComponent {
 
+    excel_loaded: boolean = false;
     /**
      * loading identifier
      */
@@ -232,6 +233,18 @@ export class VisitComponent extends BaseAuthComponent {
             this.managers = zone_managers;
         else
             this.managers = managers;
+
+        setTimeout(() => {
+            if (!this.excel_loaded) {
+                this.excel_loaded = true;
+                jQuery(".visit_table").tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+            }
+        }, 1000);
+
     }
 
     /**
@@ -285,13 +298,5 @@ export class VisitComponent extends BaseAuthComponent {
     switchToAbbott() {
         this.abbott = !this.abbott;
         this.fetchData();
-    }
-
-
-    export_table() {
-        jQuery("#visit_table2").tableExport({
-            formats: ['xlsx'],
-            bootstrap: true
-        });
     }
 }

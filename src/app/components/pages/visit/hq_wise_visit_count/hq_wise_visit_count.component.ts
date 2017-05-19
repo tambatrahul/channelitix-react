@@ -8,7 +8,7 @@ import {Headquarter} from "../../../../models/territory/headquarter";
 import {Visit} from "../../../../models/visit/visit";
 import * as moment from "moment";
 import {Customer} from "../../../../models/customer/customer";
-
+declare let jQuery: any;
 
 @Component({
     templateUrl: 'hq_wise_visit_count.component.html',
@@ -16,6 +16,7 @@ import {Customer} from "../../../../models/customer/customer";
 })
 export class HQWiseVisitComponent extends ListComponent {
 
+    excel_loaded: boolean = false;
     /**
      * bricks
      *
@@ -159,6 +160,16 @@ export class HQWiseVisitComponent extends ListComponent {
             this.regions.push(region);
         }
 
+        setTimeout(() => {
+            if (!this.excel_loaded) {
+                this.excel_loaded = true;
+                jQuery(".visit_table").tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+            }
+        }, 1000);
     }
 
     /**
