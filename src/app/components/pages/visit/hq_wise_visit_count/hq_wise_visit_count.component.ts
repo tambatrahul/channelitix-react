@@ -57,29 +57,34 @@ export class HQWiseVisitComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        this.loading = true;
-        this.reportService.hq_wise_visit_counts(this.month + 1, this.year).subscribe(
-            response => {
-                this.loading = false;
+        if (this.month && this.year) {
+            this.loading = true;
+            this.reportService.hq_wise_visit_counts(this.month + 1, this.year).subscribe(
+                response => {
+                    this.loading = false;
 
-                // prepare headquarters
-                let headquarters = response.headquarters.map(head => new Headquarter(head));
+                    // prepare headquarters
+                    let headquarters = response.headquarters.map(head => new Headquarter(head));
 
-                // prepare customers
-                let customers = response.customers.map(cus => new Customer(cus));
-                let visits = response.visits.map(visit => new Visit(visit));
+                    // prepare customers
+                    let customers = response.customers.map(cus => new Customer(cus));
+                    let visits = response.visits.map(visit => new Visit(visit));
 
-                // prepare customer types
-                let customer_types = response.customer_types.map(ct => new CustomerType(ct));
-                this.customer_types = customer_types;
+                    // get v2 and v3 visits
+                    let v2_v3_visits = response.v2_v3_visits.map(visit => new Visit(visit));
 
-                // prepare data for table
-                this.prepareData(headquarters, visits, customer_types, customers);
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+                    // prepare customer types
+                    let customer_types = response.customer_types.map(ct => new CustomerType(ct));
+                    this.customer_types = customer_types;
+
+                    // prepare data for table
+                    this.prepareData(headquarters, visits, customer_types, customers, v2_v3_visits);
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
+        }
     }
 
     /**
@@ -88,8 +93,10 @@ export class HQWiseVisitComponent extends ListComponent {
      * @param headquarters
      * @param visits
      * @param customer_types
+     * @param customers
      */
-    prepareData(headquarters: Headquarter[], visits: Visit[], customer_types: CustomerType[], customers: Customer[]) {
+    prepareData(headquarters: Headquarter[], visits: Visit[], customer_types: CustomerType[],
+                customers: Customer[], v2_v3_visits: Visit[]) {
 
         // prepare headquarters
         let regions = {};
@@ -129,6 +136,15 @@ export class HQWiseVisitComponent extends ListComponent {
                                 grade.customer_count = cus.visit_count
                         });
                     })
+                }
+            })
+        });
+
+        v2_v3_visits.map(visit => {
+            regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
+                if (hq.id == visit.hq_headquarter_id) {
+                    hq.customer_types[0].v2_count = visit.visited_twice;
+                    hq.customer_types[0].v3_count = visit.visited_thrice;
                 }
             })
         });

@@ -58,7 +58,7 @@
                                         <table class="table table-bordered">
                                             <thead>
                                             <tr>
-                                                <th style="min-width: 200px;">Users</th>
+                                                <th style="min-width: 150px;">Users</th>
                                                 <th>Headquarter</th>
                                                 <th>Daily Target</th>
                                                 <th>Total</th>
@@ -85,13 +85,13 @@
                                             <tbody>
                                             <template ngFor let-mg [ngForOf]="z.children">
                                                 <tr>
-                                                    <td [colSpan]="mg.children[0]?.orders.length + 5"
+                                                    <th [colSpan]="mg.children[0]?.orders.length + 5"
                                                         class="text-center">
                                                         <strong>{{ mg.full_name }}</strong>
-                                                    </td>
+                                                    </th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Total</td>
+                                                    <th>Total</th>
                                                     <td></td>
                                                     <td></td>
                                                     <td>{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
@@ -102,8 +102,8 @@
 
                                                 </tr>
                                                 <tr *ngFor="let user of mg.children">
-                                                    <td>{{ user.full_name }}</td>
-                                                    <td>{{ user.hq_headquarter?.name }}</td>
+                                                    <th>{{ user.full_name }}</th>
+                                                    <th>{{ user.hq_headquarter?.name }}</th>
                                                     <td>{{ user.daily_target }}
                                                     </td>
                                                     <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
