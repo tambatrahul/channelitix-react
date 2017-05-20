@@ -1,4 +1,4 @@
-<div class="container-fluid orders">
+<div class="container-fluid orders" #loading_box>
 
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
@@ -42,7 +42,7 @@
 
     <!-- Order Table -->
     <!-- Attendance Table -->
-    <div class="row" #loading_box>
+    <div class="row">
         <div class="col-xs-12" *roleCheck="ROLE_ZSM">
             <div class="row" *ngFor="let z of managers">
                 <div class="col-xs-12">
@@ -58,14 +58,15 @@
                                         <table class="table table-bordered visit_table">
                                             <thead>
                                             <tr>
-                                                <th style="min-width: 150px;">Users</th>
+                                                <th style="min-width: 120px;">Users</th>
                                                 <th>Headquarter</th>
-                                                <th>Daily Target</th>
-                                                <th>Total</th>
+                                                <th>Daily POB Target</th>
+                                                <th>% to POB Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
                                                 </th>
+                                                <th>Total POB</th>
                                             </tr>
                                             </thead>
 
@@ -73,12 +74,13 @@
                                             <tr>
                                                 <th>Users</th>
                                                 <th>Headquarter</th>
-                                                <th>Daily Target</th>
-                                                <th>Total</th>
+                                                <th>Daily POB Target</th>
+                                                <th>% to POB Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
                                                 </th>
+                                                <th>Total POB</th>
                                             </tr>
                                             </tfoot>
 
@@ -90,29 +92,30 @@
                                                         <strong>{{ mg.full_name }}</strong>
                                                     </th>
                                                 </tr>
-                                                <tr>
+                                                <tr class="grey">
                                                     <th>Total</th>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td>{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
+                                                    <td>{{ mg.daily_target }}</td>
+                                                    <td>{{ mg.percent_pob }} %</td>
                                                     <td></td>
                                                     <td *ngFor="let order of mg.orders">
                                                         {{ (order.order_total_count / 1000).toFixed(1) }}
                                                     </td>
+                                                    <td>{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
 
                                                 </tr>
                                                 <tr *ngFor="let user of mg.children">
                                                     <th>{{ user.full_name }}</th>
                                                     <th>{{ user.hq_headquarter?.name }}</th>
-                                                    <td>{{ user.daily_target }}
-                                                    </td>
-                                                    <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
+                                                    <td>{{ user.daily_target }}</td>
+                                                    <td>{{ user.percent_pob }} %</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
                                                     <td *ngFor="let order of user.orders; let i = index" orderCount
                                                         [order]="order" [target]="user.daily_target" class="user_click"
                                                         (click)="selectUser(user, i + 1)"></td>
+                                                    <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
                                                 </tr>
                                             </template>
                                             </tbody>

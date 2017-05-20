@@ -206,6 +206,7 @@ export class OrderComponent extends BaseAuthComponent {
                         }
                         m.orders[index].order_total_count += ord.order_total_count;
                     });
+                    m.total_target += u.total_target;
                 }
             }
         }

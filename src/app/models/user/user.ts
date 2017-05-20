@@ -1,9 +1,9 @@
 import {Model} from "../model";
-import {Attendance} from "../attendance/attendance";
 import {AppConstants} from "../../app.constants";
 import {Tour} from "../tour_program/tour";
 import {Headquarter} from "../territory/headquarter";
 import {Visit} from "../visit/visit";
+import * as moment from "moment";
 
 export class User extends Model {
 
@@ -196,5 +196,11 @@ export class User extends Model {
             total += vis.order_total_count;
         });
         return total;
+    }
+
+    get percent_pob() {
+        let day = moment().date();
+        day = day - parseInt((day / 7).toFixed(0));
+        return (((this.total_pob_count / 1000)/(this.daily_target * day)) * 100).toFixed(0)
     }
 }
