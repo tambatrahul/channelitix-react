@@ -232,4 +232,11 @@ export class ReportService extends BaseService {
 
         return this.get(this.getBaseUrl() + '/stockist_report/' + month + "/" + year, new RequestOptions({search: params}));
     }
+
+    /**
+     * executive summary report api
+     */
+    executive_summary(month: number, year: number) {
+        return this.get(this.getBaseUrl() + '/executive_summary/' + month + "/" + year, new RequestOptions({}));
+    }
 }

@@ -39,6 +39,7 @@ import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wis
 import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count/hq_wise_visit_count.component";
 import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
+import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -290,6 +291,9 @@ export const routes: Routes = [
                     }, {
                         path: 'stockist_wise_pob',
                         component: StockistWisePobComponent,
+                    }, {
+                        path: 'executive_summary',
+                        component: ExecutiveSummaryComponent,
                     }
                 ]
             },

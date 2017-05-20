@@ -11,6 +11,11 @@ export class Headquarter extends Model {
     // for internal user only
     customer_types: CustomerType[];
     total_bricks: number = 0;
+    target: number = 0;
+    primary: number = 0;
+    total_pob: number = 0;
+    total_visit: number = 0;
+    total_att: number = 0;
 
     territories_count: number = 0;
     bricks_count: number = 0;

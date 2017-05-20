@@ -29,6 +29,7 @@ export class Attendance extends Model {
     att_day: number;
     att_month: number;
     att_count: number = 0;
+    hq_headquarter_id: number = 0;
 
 
     constructor(info: any) {
@@ -49,17 +50,16 @@ export class Attendance extends Model {
         this.reporting_status = info.reporting_status;
         this.att_day = info.att_day;
         this.att_month = info.att_month;
-
-        if (info.working_with_other == 1)
-            this.working_with_other = true;
-        else
-            this.working_with_other = false;
+        this.working_with_other = info.working_with_other == 1;
 
         if (info.no_of_calls)
             this.no_of_calls = parseInt(info.no_of_calls);
 
         if (info.pob_amount)
             this.pob_amount = parseFloat(info.pob_amount);
+
+        if (info.att_count)
+            this.att_count = parseFloat(info.att_count);
 
         if (info.working_withs) {
             let self = this;
@@ -70,5 +70,8 @@ export class Attendance extends Model {
         } else {
             this.working_with_ids = [];
         }
+
+        if (info.hq_headquarter_id)
+            this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
     }
 }

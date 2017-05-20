@@ -8,6 +8,7 @@ export class Target extends Model {
     product_id: number;
     product: Product;
     total_target: number = 0;
+    target: number = 0;
     total_net_amount: number = 0;
     month: number;
     hq_headquarter_id: number;
@@ -24,5 +25,8 @@ export class Target extends Model {
 
         if (info.total_net_amount)
             this.total_net_amount = parseFloat(info.total_net_amount);
+
+        if (info.target)
+            this.target = parseInt(info.target);
     }
 }

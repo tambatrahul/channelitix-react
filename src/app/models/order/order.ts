@@ -30,6 +30,7 @@ export class Order extends Model {
     order_month: number;
     attendance: Attendance = new Attendance({});
     total_target: number = 0;
+    hq_headquarter_id: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -75,6 +76,9 @@ export class Order extends Model {
 
         if (info.total_target)
             this.total_target = parseFloat(info.total_target);
+
+        if (info.hq_headquarter_id)
+            this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
     }
 
     /**

@@ -46,10 +46,12 @@ export class Visit extends Model {
             this.creator = new User(info.creator);
 
         this.isSunday = info.isSunday;
-        this.hq_headquarter_id = info.hq_headquarter_id;
         this.hq_area_id = info.hq_area_id;
         this.hq_region_id = info.hq_region_id;
         this.grade_id = info.grade_id;
+
+        if (info.hq_headquarter_id)
+            this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
 
         // set customer
         if (info.customer)

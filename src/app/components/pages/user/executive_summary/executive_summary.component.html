@@ -1,0 +1,165 @@
+<div class="container-fluid users" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Users
+                            <small>List of all Users</small>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <div class="row">
+        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+            <div class="row" *ngFor="let region of regions">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4><strong>{{ region.name }}</strong></h4>
+                        </div>
+                        <div>
+                            <div class="widget-container report-table">
+                                <div class="widget-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered visit_table">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th colspan="3" class="grey">Primary Sale</th>
+                                                <th colspan="3">POB</th>
+                                                <th class="grey">Call Avg</th>
+                                                <th colspan="4">Stockist</th>
+                                                <th colspan="3" class="grey">Semi</th>
+                                                <th colspan="3">Retailer</th>
+                                                <th colspan="3" class="grey">Hub</th>
+                                                <th colspan="3">Physician</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Headquarters</th>
+                                                <th class="grey">Tgt</th>
+                                                <th class="grey">Ach</th>
+                                                <th class="grey">% Ach</th>
+                                                <th>Tgt</th>
+                                                <th>Ach</th>
+                                                <th>% Ach</th>
+                                                <th class="grey"></th>
+                                                <th>A/B</th>
+                                                <th>V1 %</th>
+                                                <th>V2 %</th>
+                                                <th>V3 %</th>
+                                                <th class="grey">Total</th>
+                                                <th class="grey">Met</th>
+                                                <th class="grey">% Cov</th>
+                                                <th>Total</th>
+                                                <th>Met</th>
+                                                <th>% Cov</th>
+                                                <th class="grey">Total</th>
+                                                <th class="grey">Met</th>
+                                                <th class="grey">% Cov</th>
+                                                <th>Total</th>
+                                                <th>Met</th>
+                                                <th>% Cov</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                            <tr>
+                                                <th>Headquarters</th>
+                                                <th class="grey">Tgt</th>
+                                                <th class="grey">Ach</th>
+                                                <th class="grey">% Ach</th>
+                                                <th>Tgt</th>
+                                                <th>Ach</th>
+                                                <th>% Ach</th>
+                                                <th class="grey"></th>
+                                                <th>A/B</th>
+                                                <th>V1 %</th>
+                                                <th>V2 %</th>
+                                                <th>V3 %</th>
+                                                <th class="grey">Total</th>
+                                                <th class="grey">Met</th>
+                                                <th class="grey">% Cov</th>
+                                                <th>Total</th>
+                                                <th>Met</th>
+                                                <th>% Cov</th>
+                                                <th class="grey">Total</th>
+                                                <th class="grey">Met</th>
+                                                <th class="grey">% Cov</th>
+                                                <th>Total</th>
+                                                <th>Met</th>
+                                                <th>% Cov</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th colspan="3" class="grey">Primary Sale</th>
+                                                <th colspan="3">POB</th>
+                                                <th class="grey">Call Avg</th>
+                                                <th colspan="4">Stockist</th>
+                                                <th colspan="3" class="grey">Semi</th>
+                                                <th colspan="3">Retailer</th>
+                                                <th colspan="3" class="grey">Hub</th>
+                                                <th colspan="3">Physician</th>
+                                            </tr>
+                                            </tfoot>
+
+                                            <tbody>
+                                            <template ngFor let-area [ngForOf]="region.areas">
+                                                <tr>
+                                                    <th colspan="25" class="text-center">{{ area.name }}</th>
+                                                </tr>
+                                                <tr *ngFor="let hq of area.headquarters">
+                                                    <th>{{ hq.name }}</th>
+                                                    <td class="grey">{{ hq.target | number : fractionSize}}</td>
+                                                    <td class="grey">{{ hq.primary.toFixed(0) }}</td>
+                                                    <td class="grey">{{ (hq.primary * 100 / hq.target).toFixed(1) }} %
+                                                    </td>
+                                                    <td>{{ (hq.target * 0.3).toFixed(1) | number : fractionSize }}</td>
+                                                    <td>{{ hq.total_pob.toFixed(0) | number : fractionSize }}</td>
+                                                    <td>
+                                                        {{ (hq.total_pob * 100 /(hq.target * 0.3)).toFixed(0) | number :
+                                                        fractionSize}} %
+                                                    </td>
+                                                    <td class="grey">{{ (hq.total_visit / hq.total_att).toFixed(1) }}
+                                                    </td>
+                                                    <td>{{ hq.customer_types[0].customerCount }}</td>
+                                                    <td>{{ hq.customer_types[0].percentageCount.toFixed(0)}} %</td>
+                                                    <td>{{ hq.customer_types[0].v2PercentageCount.toFixed(0)}} %</td>
+                                                    <td>{{ hq.customer_types[0].v3PercentageCount.toFixed(0)}} %</td>
+
+                                                    <td class="grey">{{ hq.customer_types[1].customerCount }}</td>
+                                                    <td class="grey">{{ hq.customer_types[1].visitCount }}</td>
+                                                    <td class="grey">{{ hq.customer_types[1].percentageCount.toFixed(0)}} %</td>
+
+                                                    <td>{{ hq.customer_types[2].customerCount }}</td>
+                                                    <td>{{ hq.customer_types[2].visitCount }}</td>
+                                                    <td>{{ hq.customer_types[2].percentageCount.toFixed(0)}} %</td>
+
+                                                    <td class="grey">{{ hq.customer_types[3].customerCount }}</td>
+                                                    <td class="grey">{{ hq.customer_types[3].visitCount }}</td>
+                                                    <td class="grey">{{ hq.customer_types[3].percentageCount.toFixed(0)}} %</td>
+
+                                                    <td>{{ hq.customer_types[4].customerCount }}</td>
+                                                    <td>{{ hq.customer_types[4].visitCount }}</td>
+                                                    <td>{{ hq.customer_types[4].percentageCount.toFixed(0)}} %</td>
+                                                </tr>
+                                            </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Users Table -->
+</div>

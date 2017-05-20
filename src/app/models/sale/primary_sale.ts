@@ -17,6 +17,7 @@ export class PrimarySale extends Model {
 
     // for internal use only
     total_net_amount: number;
+    hq_headquarter_id: number;
     month: number;
 
     constructor(info: any) {
@@ -44,5 +45,8 @@ export class PrimarySale extends Model {
 
         if (info.total_net_amount)
             this.total_net_amount = parseFloat(info.total_net_amount);
+
+        if (info.hq_headquarter_id)
+            this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
     }
 }

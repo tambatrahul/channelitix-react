@@ -39,6 +39,9 @@ export class Region extends Model {
 
         if (info.bricks_count)
             this.bricks_count = info.bricks_count.aggregate;
+
+        if (info.areas)
+            this.areas = info.areas.map(area=> new Area(area));
     }
 
     /**
