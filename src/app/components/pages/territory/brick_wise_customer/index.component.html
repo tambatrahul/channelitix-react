@@ -1,6 +1,6 @@
-<div class="container-fluid bricks">
+<div class="container-fluid bricks" #loading_box>
     <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb" #loading_box>
+    <div class="page-breadcrumb" >
         <div class="row">
             <div class="col-md-4">
                 <div class="page-breadcrumb-wrap">
@@ -29,37 +29,39 @@
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th style="min-width: 200px;">Headquarters</th>
+                                        <th>Headquarters</th>
                                         <th>Total Bricks</th>
-                                        <th *ngFor="let ct of customer_types.slice(0,2)">Bricks With {{ ct.name }}</th>
-                                        <th *ngFor="let ct of customer_types.slice(2,customer_types.length)">{{ ct.withNoAdded }}</th>
+                                        <th colspan="2">Retailer</th>
+                                        <th colspan="2">Semi</th>
+                                        <th colspan="2">Hub Chemist</th>
+                                        <th colspan="2">Physician</th>
                                     </tr>
                                     </thead>
-
-                                    <tfoot>
-                                    <tr>
-                                        <th style="min-width: 200px;">Headquarters</th>
-                                        <th>Total Bricks</th>
-                                        <th *ngFor="let ct of customer_types.slice(0,2)">Bricks With {{ ct.name }}</th>
-                                        <th *ngFor="let ct of customer_types.slice(2,customer_types.length)">{{ ct.withNoAdded }}</th>
-                                    </tr>
-                                    </tfoot>
-
                                     <tbody>
                                     <template ngFor let-area [ngForOf]="z.areas">
                                         <tr>
-                                            <td [colSpan]="area.headquarters[0]?.customer_types.length + 2"
+                                            <th [colSpan]="area.headquarters[0]?.customer_types.length + 5"
                                                 class="text-center">
                                                 <strong>{{ area.name }}</strong>
-                                            </td>
+                                            </th>
                                         </tr>
                                         <tr *ngFor="let hq of area.headquarters">
-                                            <td>{{ hq.name }}</td>
+                                            <th>{{ hq.name }}</th>
                                             <td>{{ hq.total_bricks }}</td>
-                                            <td *ngFor="let ct of hq.customer_types.slice(0,2)">{{ ct.brick_count }}</td>
-                                            <td *ngFor="let ct of hq.customer_types.slice(2,customer_types.length)" [ngClass]="{'incomplete': (hq.total_bricks - ct.brick_count) > 2}">
-                                                {{ hq.total_bricks - ct.brick_count }}
+                                            <td>{{ hq.retailer_count }}</td>
+                                            <td [ngClass]="{'above_80': ((hq.retailer_count / hq.total_bricks) * 100) > 80}">
+                                                {{ ((hq.retailer_count / hq.total_bricks) * 100).toFixed(0) }} %
                                             </td>
+                                            <td>{{ hq.semi_count }}</td>
+                                            <td [ngClass]="{'above_70': ((hq.semi_count / hq.total_bricks) * 100) > 70}">
+                                                {{ ((hq.semi_count / hq.total_bricks) * 100).toFixed(0) }} %
+                                            </td>
+                                            <td>{{ hq.hub_count }}</td>
+                                            <td [ngClass]="{'above_50': ((hq.hub_count / hq.total_bricks) * 100) > 50}">
+                                                {{ ((hq.hub_count / hq.total_bricks) * 100).toFixed(0) }} %
+                                            </td>
+                                            <td>{{ hq.phy_count }}</td>
+                                            <td>{{ ((hq.phy_count / hq.total_bricks) * 100).toFixed(0) }} %</td>
                                         </tr>
                                     </template>
                                     </tbody>

@@ -40,13 +40,53 @@ export class Headquarter extends Model {
      *
      * @returns {number}
      */
-    get total_customer() {
+    get total_customer(): number {
         let total: number = 0;
         this.customer_types.map(cus => {
             cus.grades.map(grade => {
                 if (grade.customer_count)
                     total += grade.customer_count;
             })
+        });
+        return total;
+    }
+
+    get retailer_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Retailer") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get semi_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Semi") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get hub_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Hub Chemist") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get phy_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Physician") {
+                total = cus.brick_count
+            }
         });
         return total;
     }

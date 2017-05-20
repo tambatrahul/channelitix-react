@@ -20,6 +20,7 @@ declare let jQuery: any;
 export class OrderComponent extends BaseAuthComponent {
 
     excel_loaded: boolean = false;
+    table_list;
 
     /**
      * user tour program modal loading identifier
@@ -240,7 +241,7 @@ export class OrderComponent extends BaseAuthComponent {
         setTimeout(() => {
             if (!this.excel_loaded) {
                 this.excel_loaded = true;
-                jQuery(".visit_table").tableExport({
+                this.table_list = jQuery("table").tableExport({
                     formats: ['xlsx'],
                     bootstrap: true,
                     position: "top"
@@ -293,6 +294,7 @@ export class OrderComponent extends BaseAuthComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+        this.excel_loaded = false;
         this.fetchData();
     }
 

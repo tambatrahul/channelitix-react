@@ -300,6 +300,7 @@ export class VisitComponent extends BaseAuthComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+        this.excel_loaded = false;
         this.fetchData();
     }
 
@@ -308,19 +309,8 @@ export class VisitComponent extends BaseAuthComponent {
      */
     switchToAbbott() {
         this.abbott = !this.abbott;
+        this.excel_loaded = false;
         this.fetchData();
+
     }
-
-    /**
-     * select user to view list
-     * @param user
-     * @param date
-     */
-    selectUser(user: User, date: number) {
-        this.user = user;
-        this.date = date;
-        jQuery(this.visit_table.nativeElement).modal();
-    }
-
-
 }
