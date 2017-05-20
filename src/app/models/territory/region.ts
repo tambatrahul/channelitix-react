@@ -13,6 +13,12 @@ export class Region extends Model {
     areas: Area[] = [];
     area_objects = {};
     total: number = 0;
+    total_bricks: number = 0;
+    target: number = 0;
+    primary: number = 0;
+    total_pob: number = 0;
+    total_visit: number = 0;
+    total_att: number = 0;
 
     areas_count: number = 0;
     territories_count: number = 0;

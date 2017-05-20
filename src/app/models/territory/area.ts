@@ -12,6 +12,12 @@ export class Area extends Model {
     customer_types: CustomerType[];
     headquarters: Headquarter[] = [];
     total: number = 0;
+    total_bricks: number = 0;
+    target: number = 0;
+    primary: number = 0;
+    total_pob: number = 0;
+    total_visit: number = 0;
+    total_att: number = 0;
 
     territories_count: number = 0;
     headquarters_count: number = 0;
@@ -52,5 +58,60 @@ export class Area extends Model {
             })
         });
         return total;
+    }
+
+    /**
+     * get area target
+     *
+     * @returns {number}
+     */
+    get area_target() {
+        return this.headquarters.reduce((a, b) => {
+            return a + b.target;
+        }, 0)
+    }
+
+    /**
+     * get area target
+     *
+     * @returns {number}
+     */
+    get area_primary() {
+        return this.headquarters.reduce((a, b) => {
+            return a + b.primary;
+        }, 0)
+    }
+
+    /**
+     * get area pob
+     *
+     * @returns {number}
+     */
+    get area_total_pob() {
+        return this.headquarters.reduce((a, b) => {
+            return a + b.total_pob;
+        }, 0)
+    }
+
+    /**
+     * get area visits
+     *
+     * @returns {number}
+     */
+    get area_total_visit() {
+        return this.headquarters.reduce((a, b) => {
+            return a + b.total_visit;
+        }, 0)
+    }
+
+    /**
+     * get total attendance
+     *
+     * @returns {number}
+     */
+    get area_total_att() {
+        return this.headquarters.reduce((a, b) => {
+            return a + b.total_att;
+        }, 0)
     }
 }

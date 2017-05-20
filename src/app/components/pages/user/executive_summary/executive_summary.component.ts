@@ -21,6 +21,8 @@ declare let jQuery: any;
 })
 export class ExecutiveSummaryComponent extends ListComponent {
 
+    excel_loaded: boolean = false;
+
     /**
      * year and month for calendar
      * @type {number}
@@ -88,6 +90,17 @@ export class ExecutiveSummaryComponent extends ListComponent {
 
                 this.prepareData(visit_counts, customers, v2_v3_visits);
                 this.loading = false;
+
+                setTimeout(() => {
+                    if (!this.excel_loaded) {
+                        this.excel_loaded = true;
+                        jQuery("table").tableExport({
+                            formats: ['xlsx'],
+                            bootstrap: true,
+                            position: "top"
+                        });
+                    }
+                }, 1000);
             });
 
             this.reportService.executive_summary(this.month + 1, this.year).subscribe(
@@ -114,29 +127,59 @@ export class ExecutiveSummaryComponent extends ListComponent {
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
                     visits.map(vis => {
-                        if (vis.hq_headquarter_id == headquarter.id)
+                        if (vis.hq_headquarter_id == headquarter.id) {
                             headquarter.customer_types.map(ct => {
                                 ct.grades.map(grade => {
                                     if (grade.id == vis.grade_id)
                                         grade.visit_count = vis.visit_count
                                 });
-                            })
+                            });
+                            area.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == vis.grade_id)
+                                        grade.visit_count += vis.visit_count
+                                });
+                            });
+                            region.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == vis.grade_id)
+                                        grade.visit_count += vis.visit_count
+                                });
+                            });
+                        }
                     });
 
                     customers.map(cus => {
-                        if (cus.hq_headquarter_id == headquarter.id)
+                        if (cus.hq_headquarter_id == headquarter.id) {
                             headquarter.customer_types.map(ct => {
                                 ct.grades.map(grade => {
                                     if (grade.id == cus.grade_id)
                                         grade.customer_count = cus.visit_count
                                 });
-                            })
+                            });
+                            area.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == cus.grade_id)
+                                        grade.customer_count += cus.visit_count
+                                });
+                            });
+                            region.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == cus.grade_id)
+                                        grade.customer_count += cus.visit_count
+                                });
+                            });
+                        }
                     });
 
                     v2_v3_visits.map(visit => {
                         if (visit.hq_headquarter_id == headquarter.id) {
                             headquarter.customer_types[0].v2_count = visit.visited_twice;
                             headquarter.customer_types[0].v3_count = visit.visited_thrice;
+                            area.customer_types[0].v2_count = visit.visited_twice;
+                            area.customer_types[0].v3_count += visit.visited_thrice;
+                            region.customer_types[0].v2_count = visit.visited_twice;
+                            region.customer_types[0].v3_count += visit.visited_thrice;
                         }
                     });
                 });
@@ -155,12 +198,17 @@ export class ExecutiveSummaryComponent extends ListComponent {
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
                     targets.map(target => {
-                        if (target.hq_headquarter_id == headquarter.id)
-                            headquarter.target = target.total_target;
+                        if (target.hq_headquarter_id == headquarter.id) {
+                            headquarter.target = target.total_target ? target.total_target : 0;
+                            area.target += target.total_target ? target.total_target : 0;
+                            region.target += target.total_target ? target.total_target : 0;
+                        }
                     });
                     headquarter.customer_types = customer_types.map(ct => new CustomerType(ct));
                 });
+                area.customer_types = customer_types.map(ct => new CustomerType(ct));
             });
+            region.customer_types = customer_types.map(ct => new CustomerType(ct));
         });
     }
 
@@ -174,8 +222,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
                     primaries.map(primary => {
-                        if (primary.hq_headquarter_id == headquarter.id)
+                        if (primary.hq_headquarter_id == headquarter.id) {
                             headquarter.primary = primary.total_net_amount;
+                            area.primary += primary.total_net_amount;
+                            region.primary += primary.total_net_amount;
+                        }
                     })
                 });
             });
@@ -192,8 +243,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
                     orders.map(ord => {
-                        if (ord.hq_headquarter_id == headquarter.id)
+                        if (ord.hq_headquarter_id == headquarter.id) {
                             headquarter.total_pob += ord.order_total_count;
+                            area.total_pob += ord.order_total_count;
+                            region.total_pob += ord.order_total_count;
+                        }
                     })
                 });
             });
@@ -215,11 +269,20 @@ export class ExecutiveSummaryComponent extends ListComponent {
                             headquarter.total_pob += att.pob_amount;
                             headquarter.total_visit += att.no_of_calls;
                             headquarter.total_att += att.att_count;
+                            area.total_pob += att.pob_amount;
+                            area.total_visit += att.no_of_calls;
+                            area.total_att += att.att_count;
+                            region.total_pob += att.pob_amount;
+                            region.total_visit += att.no_of_calls;
+                            region.total_att += att.att_count;
                         }
                     });
                     visits.map(vis => {
-                        if (vis.hq_headquarter_id == headquarter.id)
+                        if (vis.hq_headquarter_id == headquarter.id) {
                             headquarter.total_visit += vis.visit_count;
+                            area.total_visit += vis.visit_count;
+                            region.total_visit += vis.visit_count;
+                        }
                     });
                 });
             });
