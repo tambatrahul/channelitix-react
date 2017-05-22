@@ -92,7 +92,7 @@
                         </a>
                     </li>
                     <li *roleCheck="ROLE_CSM">
-                        <a class="waves-effect" routerLink="/reports/stockist_wise_pob">
+                        <a class="waves-effect" routerLink="/reports/stockist_wise_pob"  *ngIf="environment.envName == 'geo'">
                             <span class="nav-icon"><i class="fa fa-table"></i></span>
                             <span class="nav-label">Stockist POB Report</span>
                         </a>

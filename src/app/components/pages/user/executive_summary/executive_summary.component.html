@@ -32,7 +32,11 @@
                                             <tr>
                                                 <th></th>
                                                 <th></th>
-                                                <th colspan="3" class="grey">Primary Sale</th>
+                                                <template [ngIf]="environment.envName != 'sk_group'">
+                                                    <th colspan="3" class="grey">
+                                                        Primary Sale
+                                                    </th>
+                                                </template>
                                                 <th colspan="3">POB</th>
                                                 <th class="grey">Call Avg</th>
                                                 <th colspan="4">Stockist</th>
@@ -44,9 +48,11 @@
                                             <tr>
                                                 <th></th>
                                                 <th>Headquarters</th>
-                                                <th class="grey">Tgt</th>
-                                                <th class="grey">Ach</th>
-                                                <th class="grey">% Ach</th>
+                                                <template [ngIf]="environment.envName != 'sk_group'">
+                                                    <th class="grey">Tgt</th>
+                                                    <th class="grey">Ach</th>
+                                                    <th class="grey">% Ach</th>
+                                                </template>
                                                 <th>Tgt</th>
                                                 <th>Ach</th>
                                                 <th>% Ach</th>
@@ -74,9 +80,11 @@
                                             <tr>
                                                 <th></th>
                                                 <th>Headquarters</th>
-                                                <th class="grey">Tgt</th>
-                                                <th class="grey">Ach</th>
-                                                <th class="grey">% Ach</th>
+                                                <template [ngIf]="environment.envName != 'sk_group'">
+                                                    <th class="grey">Tgt</th>
+                                                    <th class="grey">Ach</th>
+                                                    <th class="grey">% Ach</th>
+                                                </template>
                                                 <th>Tgt</th>
                                                 <th>Ach</th>
                                                 <th>% Ach</th>
@@ -101,7 +109,11 @@
                                             <tr>
                                                 <th></th>
                                                 <th></th>
-                                                <th colspan="3" class="grey">Primary Sale</th>
+                                                <template [ngIf]="environment.envName != 'sk_group'">
+                                                    <th colspan="3" class="grey">
+                                                        Primary Sale
+                                                    </th>
+                                                </template>
                                                 <th colspan="3">POB</th>
                                                 <th class="grey">Call Avg</th>
                                                 <th colspan="4">Stockist</th>
@@ -116,21 +128,36 @@
                                             <tr class="dark_grey">
                                                 <th>Total</th>
                                                 <th></th>
-                                                <td class="grey">{{ region.target | number : fractionSize}}</td>
-                                                <td class="grey">{{ region.primary.toFixed(0) | number : fractionSize  }}</td>
-                                                <td class="grey">
-                                                    {{ region.target > 0 ? ((region.primary * 100 / region.target).toFixed(1)) :
-                                                    0 }} %
-                                                </td>
-
+                                                <template [ngIf]="environment.envName != 'sk_group'">
+                                                    <td class="grey">{{
+                                                        region.target | number : fractionSize}}
+                                                    </td>
+                                                    <td class="grey">{{
+                                                        region.primary.toFixed(0) | number : fractionSize }}
+                                                    </td>
+                                                    <td class="grey">
+                                                        {{ region.target > 0 ? ((region.primary * 100 /
+                                                        region.target).toFixed(1)) :
+                                                        0 }} %
+                                                    </td>
                                                 <td>{{ (region.target * 0.3).toFixed(1) | number : fractionSize }}</td>
                                                 <td>{{ region.total_pob.toFixed(0) | number : fractionSize }}</td>
                                                 <td>
                                                     {{ region.target > 0 ?((region.total_pob * 100 /(region.target *
                                                     0.3)).toFixed(0)) : 0 }} %
                                                 </td>
+                                                </template>
 
-                                                <td class="grey">{{ (region.total_visit / region.total_att).toFixed(1) }}
+                                                <template [ngIf]="environment.envName == 'sk_group'">
+                                                    <td>{{ (region.target).toFixed(1) | number : fractionSize }}</td>
+                                                    <td>{{ region.total_pob.toFixed(0) | number : fractionSize }}</td>
+                                                    <td>
+                                                        {{ region.target > 0 ?((region.total_pob * 100 /(region.target)).toFixed(0)) : 0 }} %
+                                                    </td>
+                                                </template>
+
+                                                <td class="grey">{{ (region.total_visit / region.total_att).toFixed(1)
+                                                    }}
                                                 </td>
 
                                                 <td>{{ region.customer_types[0].customerCount }}</td>
@@ -162,21 +189,38 @@
                                                 <tr class="grey">
                                                     <th>{{ area.name }}</th>
                                                     <th></th>
-                                                    <td class="grey">{{ area.target | number : fractionSize}}</td>
-                                                    <td class="grey">{{ area.primary.toFixed(0) | number : fractionSize  }}</td>
+
+                                                    <template [ngIf]="environment.envName != 'sk_group'">
+                                                        <td class="grey">{{ area.target | number : fractionSize}}</td>
+                                                        <td class="grey">{{ area.primary.toFixed(0) | number :
+                                                            fractionSize }}
+                                                        </td>
+                                                        <td class="grey">
+                                                            {{ area.target > 0 ? ((area.primary * 100 /
+                                                            area.target).toFixed(1)) :
+                                                            0 }} %
+                                                        </td>
+                                                        <td>{{ (area.target * 0.3).toFixed(1) | number : fractionSize }}
+                                                        </td>
+                                                        <td>{{ area.total_pob.toFixed(0) | number : fractionSize }}</td>
+                                                        <td>
+                                                            {{ area.target > 0 ?((area.total_pob * 100 /(area.target *
+                                                            0.3)).toFixed(0)) : 0 }} %
+                                                        </td>
+                                                    </template>
+
+                                                    <template [ngIf]="environment.envName == 'sk_group'">
+                                                        <td>{{ (area.target).toFixed(1) | number : fractionSize }}</td>
+                                                        <td>{{ area.total_pob.toFixed(0) | number : fractionSize }}</td>
+                                                        <td>
+                                                            {{ area.target > 0 ?((area.total_pob * 100 /(area.target)).toFixed(0)) : 0 }} %
+                                                        </td>
+                                                    </template>
+
+
+
                                                     <td class="grey">
-                                                        {{ area.target > 0 ? ((area.primary * 100 / area.target).toFixed(1)) :
-                                                        0 }} %
-                                                    </td>
-
-                                                    <td>{{ (area.target * 0.3).toFixed(1) | number : fractionSize }}</td>
-                                                    <td>{{ area.total_pob.toFixed(0) | number : fractionSize }}</td>
-                                                    <td>
-                                                        {{ area.target > 0 ?((area.total_pob * 100 /(area.target *
-                                                        0.3)).toFixed(0)) : 0 }} %
-                                                    </td>
-
-                                                    <td class="grey">{{ (area.total_visit / area.total_att).toFixed(1) }}
+                                                        {{ (area.total_visit / area.total_att).toFixed(1)}}
                                                     </td>
 
                                                     <td>{{ area.customer_types[0].customerCount }}</td>
@@ -208,21 +252,35 @@
                                                     <th></th>
                                                     <th>{{ hq.name }}</th>
 
-                                                    <td class="grey">{{ hq.target | number : fractionSize}}</td>
-                                                    <td class="grey">{{ hq.primary.toFixed(0) | number : fractionSize  }}</td>
+                                                    <template [ngIf]="environment.envName != 'sk_group'">
+                                                        <td class="grey">{{ hq.target | number : fractionSize}}</td>
+                                                        <td class="grey">{{ hq.primary.toFixed(0) | number :
+                                                            fractionSize
+                                                            }}
+                                                        </td>
+                                                        <td class="grey">
+                                                            {{ hq.target > 0 ? ((hq.primary * 100 /
+                                                            hq.target).toFixed(1)) :
+                                                            0 }} %
+                                                        </td>
+                                                        <td>{{ (hq.target * 0.3).toFixed(1) | number : fractionSize }}</td>
+                                                        <td>{{ hq.total_pob.toFixed(0) | number : fractionSize }}</td>
+                                                        <td>
+                                                            {{ hq.target > 0 ?((hq.total_pob * 100 /(hq.target *
+                                                            0.3)).toFixed(0)) : 0 }} %
+                                                        </td>
+                                                    </template>
+
+                                                    <template [ngIf]="environment.envName == 'sk_group'">
+                                                        <td>{{ (hq.target).toFixed(1) | number : fractionSize }}</td>
+                                                        <td>{{ hq.total_pob.toFixed(0) | number : fractionSize }}</td>
+                                                        <td>
+                                                            {{ hq.target > 0 ?((hq.total_pob * 100 /(hq.target)).toFixed(0)) : 0 }} %
+                                                        </td>
+                                                    </template>
+
                                                     <td class="grey">
-                                                        {{ hq.target > 0 ? ((hq.primary * 100 / hq.target).toFixed(1)) :
-                                                        0 }} %
-                                                    </td>
-
-                                                    <td>{{ (hq.target * 0.3).toFixed(1) | number : fractionSize }}</td>
-                                                    <td>{{ hq.total_pob.toFixed(0) | number : fractionSize }}</td>
-                                                    <td>
-                                                        {{ hq.target > 0 ?((hq.total_pob * 100 /(hq.target *
-                                                        0.3)).toFixed(0)) : 0 }} %
-                                                    </td>
-
-                                                    <td class="grey">{{ (hq.total_visit / hq.total_att).toFixed(1) }}
+                                                        {{ hq.total_att > 0 ? ((hq.total_visit / hq.total_att).toFixed(1)): 0 }}
                                                     </td>
 
                                                     <td>{{ hq.customer_types[0].customerCount }}</td>
