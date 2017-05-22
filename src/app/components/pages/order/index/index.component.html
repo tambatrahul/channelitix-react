@@ -37,6 +37,18 @@
                 Back to SK
             </button>
         </div>
+        <div class="col-xs-12 col-md-3">
+            <button class="btn bt-primary" (click)="viewByQuantity()" style="margin-top: 10px;" *ngIf="!view_quantity">
+                View By Quantity
+            </button>
+            <button class="btn bt-primary" (click)="viewByQuantity()" style="margin-top: 10px;" *ngIf="view_quantity">
+                View By Rs
+            </button>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <product-select [value]="product_id" [title]="'Select Product'"
+                            (onValueChanged)="productChanged($event)"></product-select>
+        </div>
     </div>
     <!-- ./Filters for Order report-->
 
@@ -114,6 +126,7 @@
                                                     </td>
                                                     <td *ngFor="let order of user.orders; let i = index" orderCount
                                                         [order]="order" [target]="user.daily_target" class="user_click"
+                                                        [view_quantity]="view_quantity"
                                                         (click)="selectUser(user, i + 1)"></td>
                                                     <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
                                                 </tr>

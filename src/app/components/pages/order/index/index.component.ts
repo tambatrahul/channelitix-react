@@ -36,6 +36,11 @@ export class OrderComponent extends BaseAuthComponent {
     public manager_role_id: number = 0;
 
     /**
+     * Product Id
+     */
+    public product_id: number = 0;
+
+    /**
      * user id
      */
     user: User;
@@ -51,6 +56,13 @@ export class OrderComponent extends BaseAuthComponent {
      * @type {boolean}
      */
     public abbott: boolean = false;
+
+    /**
+     * view by quantity
+     *
+     * @type {boolean}
+     */
+    public view_quantity: boolean = false;
 
     /**
      * manager_id
@@ -147,16 +159,21 @@ export class OrderComponent extends BaseAuthComponent {
             }
 
             // set order details
-            data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
+            if (this.view_quantity == false)
+                data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
+            else
+                data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity;
         }
 
         // add attendance to visit skeleton
         for (let att of attendances) {
             if (data_skeleton.hasOwnProperty(att.created_by)) {
                 data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
-                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count == 0
-                    && att.status == AppConstants.WORKING)
-                    data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count = att.pob_amount;
+                if (this.view_quantity == false) {
+                    if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count == 0
+                        && att.status == AppConstants.WORKING)
+                        data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count = att.pob_amount;
+                }
             }
         }
 
@@ -204,8 +221,10 @@ export class OrderComponent extends BaseAuthComponent {
                     u.orders.forEach(function (ord, index) {
                         if (m.children.length == 1) {
                             m.orders[index].order_total_count = 0;
+                            m.orders[index].order_total_quantity = 0;
                         }
                         m.orders[index].order_total_count += ord.order_total_count;
+                        m.orders[index].order_total_quantity += ord.order_total_quantity;
                     });
                     m.total_target += u.total_target;
                 }
@@ -262,7 +281,7 @@ export class OrderComponent extends BaseAuthComponent {
 
         Observable.forkJoin(
             this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy),
-            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy)
+            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy,this.product_id)
         ).subscribe(data => {
 
             this.loading = false;
@@ -327,6 +346,14 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     /**
+     * View by Quantity
+     */
+    viewByQuantity() {
+        this.view_quantity = !this.view_quantity;
+        this.fetchData();
+    }
+
+    /**
      * select user to view list
      * @param user
      * @param date
@@ -335,5 +362,15 @@ export class OrderComponent extends BaseAuthComponent {
         this.user = user;
         this.date = date;
         jQuery(this.user_order_table.nativeElement).modal();
+    }
+
+    /**
+     * product Filter
+     *
+     * @param product_id
+     */
+    productChanged(product_id) {
+        this.product_id = product_id;
+        this.fetchData();
     }
 }

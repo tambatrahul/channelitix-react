@@ -134,6 +134,7 @@ import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
 import {UserVisitListComponent} from "./components/pages/visit/user_visit_list/user_visit_list.component";
 import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
+import {ProductSelectComponent} from "./components/form_elements/order/product_select/product-select.component";
 
 
 enableProdMode();
@@ -256,7 +257,8 @@ enableProdMode();
         ReportComponent,
         OrderComponentComponent,
         CustomerSelectionComponent,
-        CustomerSelectComponent
+        CustomerSelectComponent,
+        ProductSelectComponent
     ],
     imports: [
         BrowserModule,
