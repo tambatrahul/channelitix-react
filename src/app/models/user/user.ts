@@ -198,6 +198,10 @@ export class User extends Model {
         return total;
     }
 
+    /**
+     * percentage pob
+     * @returns {string|number}
+     */
     get percent_pob() {
         let day = moment().date();
         day = day - parseInt((day / 7).toFixed(0));

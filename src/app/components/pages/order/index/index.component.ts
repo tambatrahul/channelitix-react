@@ -257,13 +257,13 @@ export class OrderComponent extends BaseAuthComponent {
         setTimeout(() => {
             if (!this.excel_loaded) {
                 this.excel_loaded = true;
-                this.table_list = jQuery("table").tableExport({
+                jQuery("table").tableExport({
                     formats: ['xlsx'],
                     bootstrap: true,
                     position: "top"
                 });
             }
-        }, 1000);
+        }, 2000);
     }
 
     /**
@@ -339,6 +339,7 @@ export class OrderComponent extends BaseAuthComponent {
      */
     switchToAbbott() {
         this.abbott = !this.abbott;
+        this.excel_loaded = false;
         this.fetchData();
     }
 
@@ -347,6 +348,7 @@ export class OrderComponent extends BaseAuthComponent {
      */
     viewByQuantity() {
         this.view_quantity = !this.view_quantity;
+        this.excel_loaded = false;
         this.fetchData();
     }
 

@@ -247,7 +247,7 @@ export class VisitComponent extends BaseAuthComponent {
         setTimeout(() => {
             if (!this.excel_loaded) {
                 this.excel_loaded = true;
-                jQuery(".visit_table").tableExport({
+                jQuery("table").tableExport({
                     formats: ['xlsx'],
                     bootstrap: true,
                     position: "top"
