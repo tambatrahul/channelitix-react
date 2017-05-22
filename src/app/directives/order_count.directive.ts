@@ -5,7 +5,7 @@ import {AppConstants} from "../app.constants";
 
 @Directive({
     selector: '[orderCount]',
-    inputs: ['order', 'target']
+    inputs: ['order', 'target','view_quantity']
 })
 export class OrderCountDirective {
 
@@ -13,6 +13,8 @@ export class OrderCountDirective {
     above_2500: string = "#2ecc71";
     holiday: string = "#ecf0f1";
     leave: string = "#e74c3c";
+    below_250: string = "#f1c40f";
+    above_250: string = "#2ecc71";
 
     /**
      * Order Status Directive
@@ -46,6 +48,18 @@ export class OrderCountDirective {
     }
 
     /**
+     * view quantity
+     *
+     * @type {number}
+     * @private
+     */
+    _view_quantity: boolean = false;
+    set view_quantity(view_quantity) {
+        this._view_quantity = view_quantity;
+        this.formatCell();
+    }
+
+    /**
      * format cell for targets
      */
     formatCell() {
@@ -55,13 +69,23 @@ export class OrderCountDirective {
                 this._order.order_total_count = this._order.attendance.pob_amount;
 
             // set text value
-            this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
+            if(this._view_quantity)
+                this.el.nativeElement.innerText = this._order.order_total_quantity.toFixed(0);
+            else
+                this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
 
             // set background color depending on status
-            if ((this._order.order_total_count/1000) < this._target)
-                this.el.nativeElement.style.backgroundColor = this.below_500;
-            else
-                this.el.nativeElement.style.backgroundColor = this.above_2500;
+            if(!this._view_quantity) {
+                if ((this._order.order_total_count / 1000) < this._target)
+                    this.el.nativeElement.style.backgroundColor = this.below_500;
+                else
+                    this.el.nativeElement.style.backgroundColor = this.above_2500;
+            }else {
+                if (this._order.order_total_quantity < 250)
+                    this.el.nativeElement.style.backgroundColor = this.below_250;
+                else
+                    this.el.nativeElement.style.backgroundColor = this.above_250;
+            }
         }
 
         if (this._order.isSunday) {

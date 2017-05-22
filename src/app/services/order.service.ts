@@ -63,9 +63,10 @@ export class OrderService extends BaseService {
      * @param role_id
      * @param manager_id
      * @param synergy
+     * @param product_id
      * @returns {Observable<Result>}
      */
-    monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number): Observable<Result> {
+    monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, product_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + "/monthly/forChildren/" + month + "/" + year + "/count";
@@ -74,6 +75,7 @@ export class OrderService extends BaseService {
         let params = new URLSearchParams();
         params.set('role_id', String(role_id > 0 ? role_id : ''));
         params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+        params.set('product_id', String(product_id > 0 ? product_id : ''));
         if (synergy || synergy == 0)
             params.set('synergy', String(synergy));
 
