@@ -70,7 +70,7 @@ export class OrderCountDirective {
 
             // set text value
             if(this._view_quantity)
-                this.el.nativeElement.innerText = this._order.order_total_quantity.toFixed(0);
+                this.el.nativeElement.innerText = parseFloat(String(this._order.order_total_quantity)).toFixed(0);
             else
                 this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
 

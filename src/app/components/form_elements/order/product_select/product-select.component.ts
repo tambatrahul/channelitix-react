@@ -22,6 +22,26 @@ export class ProductSelectComponent extends BaseSelectComponent {
     first_value: string = "All";
 
     /**
+     * Area id for filter
+     */
+    private _abbott: boolean;
+
+    /**
+     * Synergy Filter
+     *
+     * @type {boolean}
+     */
+    @Input()
+    set abbott(abbott: boolean) {
+        this._abbott = abbott;
+        this.fetch();
+    }
+
+    get abbott(): boolean {
+        return this._abbott;
+    }
+
+    /**
      * Role Select Component with AuthService
      */
     constructor(private productService: ProductService) {
@@ -33,7 +53,7 @@ export class ProductSelectComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.productService.all()
+        this.productService.all(this._abbott)
             .subscribe(
                 response => {
                     this.loading = false;

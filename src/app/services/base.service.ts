@@ -1,3 +1,4 @@
+import {environment} from "../../environments/environment";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -7,6 +8,11 @@ import {AppConstants} from "../app.constants";
 import {User} from "../models/user/user";
 
 export abstract class BaseService {
+
+    /**
+     * get environment details
+     */
+    environment = environment;
 
     /**
      * model url for server call
