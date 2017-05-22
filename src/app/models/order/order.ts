@@ -62,7 +62,7 @@ export class Order extends Model {
             this.order_total_count = parseFloat(info.order_total_count);
 
         if (info.order_total_quantity)
-            this.order_total_quantity = info.order_total_quantity;
+            this.order_total_quantity = parseFloat(info.order_total_quantity);
 
         if (info.order_day_total_count)
             this.order_day_total_count = parseFloat(info.order_day_total_count);

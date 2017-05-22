@@ -198,6 +198,19 @@ export class User extends Model {
         return total;
     }
 
+    /**
+     * get total pob quantity count
+     *
+     * @returns {any}
+     */
+    get total_pob_quantity_count() {
+        let total: number = 0;
+        this.orders.map(vis => {
+            total += parseFloat(String(vis.order_total_quantity));
+        });
+        return total;
+    }
+
     get percent_pob() {
         let day = moment().date();
         day = day - parseInt((day / 7).toFixed(0));

@@ -78,7 +78,8 @@
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
                                                 </th>
-                                                <th>Total POB</th>
+                                                <th *ngIf="!view_quantity">Total POB</th>
+                                                <th *ngIf="view_quantity">Total Quantity</th>
                                             </tr>
                                             </thead>
 
@@ -92,7 +93,8 @@
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
                                                 </th>
-                                                <th>Total POB</th>
+                                                <th *ngIf="!view_quantity">Total POB</th>
+                                                <th *ngIf="view_quantity">Total Quantity</th>
                                             </tr>
                                             </tfoot>
 
@@ -110,10 +112,16 @@
                                                     <td>{{ mg.daily_target }}</td>
                                                     <td>{{ mg.percent_pob }} %</td>
                                                     <td></td>
-                                                    <td *ngFor="let order of mg.orders">
-                                                        {{ (order.order_total_count / 1000).toFixed(1) }}
-                                                    </td>
-                                                    <td>{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
+                                                    <template ngFor let-order [ngForOf]="mg.orders">
+                                                        <td *ngIf="!view_quantity">
+                                                            {{ (order.order_total_count / 1000).toFixed(1) }}
+                                                        </td>
+                                                        <td *ngIf="view_quantity">
+                                                            {{ (order.order_total_quantity) }}
+                                                        </td>
+                                                    </template>
+                                                    <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
+                                                    <td *ngIf="view_quantity">{{ (mg.total_pob_quantity_count) }}</td>
 
                                                 </tr>
                                                 <tr *ngFor="let user of mg.children">
@@ -128,7 +136,12 @@
                                                         [order]="order" [target]="user.daily_target" class="user_click"
                                                         [view_quantity]="view_quantity"
                                                         (click)="selectUser(user, i + 1)"></td>
-                                                    <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
+                                                    <td *ngIf="!view_quantity">
+                                                        {{ (user.total_pob_count / 1000).toFixed(1) }}
+                                                    </td>
+                                                    <td *ngIf="view_quantity">
+                                                        {{ (user.total_pob_quantity_count) }}
+                                                    </td>
                                                 </tr>
                                             </template>
                                             </tbody>
@@ -194,12 +207,19 @@
                                                 <td>{{ user.full_name }}</td>
                                                 <td>{{ user.hq_headquarter.name }}</td>
                                                 <td>{{ user.daily_target }}</td>
-                                                <td>{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
+                                                <td *ngIf="!view_quantity">
+                                                    {{ (user.total_pob_count / 1000).toFixed(1) }}
+                                                </td>
+                                                <td *ngIf="view_quantity">
+                                                    {{ (user.total_pob_quantity_count) }}
+                                                </td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
                                                 </td>
                                                 <td *ngFor="let order of user.orders; let i = index" orderCount
-                                                    [order]="order" [target]="user.daily_target" class="user_click"
+                                                    [order]="order" [target]="user.daily_target"
+                                                    [view_quantity]="view_quantity"
+                                                    class="user_click"
                                                     (click)="selectUser(user, i + 1)"></td>
                                             </tr>
                                             </tbody>
