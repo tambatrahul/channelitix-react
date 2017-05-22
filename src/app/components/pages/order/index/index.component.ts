@@ -160,6 +160,7 @@ export class OrderComponent extends BaseAuthComponent {
 
             // set order details
             data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
+
             data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity;
         }
 

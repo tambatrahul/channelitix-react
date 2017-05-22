@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions} from "@angular/http";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
@@ -30,8 +30,15 @@ export class ProductService extends BaseService {
     /**
      * get monthly report
      */
-    all(): Observable<Result> {
+    all(abbott?: boolean): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        if (this.environment.envName == 'sk_group') {
+            params.set('synergy', String(abbott == true ? 1 : 0));
+        }
+
         // make server call
-        return this.get(this.getBaseUrl());
+        return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
     }
 }
