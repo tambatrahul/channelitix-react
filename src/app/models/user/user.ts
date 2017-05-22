@@ -75,8 +75,8 @@ export class User extends Model {
 
     get daily_target(): number {
         if (this.environment.envName == 'sk_group')
-            return parseFloat(((this.total_target / 1000) / 24).toFixed(1));
-        return parseFloat((((this.total_target / 1000) * 0.25) / 24).toFixed(1))
+            return this.total_target > 0 ? parseFloat(((this.total_target / 1000) / 24).toFixed(1)) : 0;
+        return this.total_target > 0 ? parseFloat((((this.total_target / 1000) * 0.25) / 24).toFixed(1)) : 0;
     }
 
     /**
@@ -201,6 +201,6 @@ export class User extends Model {
     get percent_pob() {
         let day = moment().date();
         day = day - parseInt((day / 7).toFixed(0));
-        return (((this.total_pob_count / 1000)/(this.daily_target * day)) * 100).toFixed(0)
+        return this.daily_target > 0 ? (((this.total_pob_count / 1000)/(this.daily_target * day)) * 100).toFixed(0) : 0
     }
 }

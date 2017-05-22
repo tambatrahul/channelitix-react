@@ -159,21 +159,17 @@ export class OrderComponent extends BaseAuthComponent {
             }
 
             // set order details
-            if (this.view_quantity == false)
-                data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
-            else
-                data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity;
+            data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
+            data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity;
         }
 
         // add attendance to visit skeleton
         for (let att of attendances) {
             if (data_skeleton.hasOwnProperty(att.created_by)) {
                 data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
-                if (this.view_quantity == false) {
-                    if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count == 0
-                        && att.status == AppConstants.WORKING)
-                        data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count = att.pob_amount;
-                }
+                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count == 0
+                    && att.status == AppConstants.WORKING)
+                    data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count = att.pob_amount;
             }
         }
 
@@ -281,7 +277,7 @@ export class OrderComponent extends BaseAuthComponent {
 
         Observable.forkJoin(
             this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy),
-            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy,this.product_id)
+            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.product_id)
         ).subscribe(data => {
 
             this.loading = false;
