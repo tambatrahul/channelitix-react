@@ -4,10 +4,10 @@ import {ListComponent} from "../../../base/list.component";
 import {AuthService} from "../../../../services/AuthService";
 import {ReportService} from "../../../../services/report.service";
 import {CustomerType} from "../../../../models/customer/customer_type";
-import {Visit} from "../../../../models/visit/visit";
 import * as moment from "moment";
-import {Customer} from "../../../../models/customer/customer";
 import {Order} from "../../../../models/order/order";
+import {Product} from "../../../../models/order/product";
+import {Customer} from "../../../../models/customer/customer";
 
 
 @Component({
@@ -22,6 +22,7 @@ export class StockistWisePobComponent extends ListComponent {
      * @type {{}}
      */
     public customers: Customer[] = [];
+    public products: Product[] = [];
 
     /**
      * region, area & headquarter
@@ -72,12 +73,13 @@ export class StockistWisePobComponent extends ListComponent {
                     this.loading = false;
 
                     // prepare visits and orders
-                    let visits = response.visits.map(visit => new Visit(visit));
                     let orders = response.orders.map(order => new Order(order));
-                    let customers = response.customers.map(customer => new Customer(customer));
 
-                    // prepare data for table
-                    this.prepareData(visits, orders, customers);
+                    // product list
+                    let products = response.products.map(pro => new Product(pro));
+
+                    // prepare data
+                    this.prepareData(orders, products);
                 },
                 err => {
                     this.loading = false;
@@ -87,29 +89,34 @@ export class StockistWisePobComponent extends ListComponent {
     }
 
     /**
-     * prepare data for headquarter wise customers
+     * prepare data
      *
-     * @param visits
      * @param orders
-     * @param customers
+     * @param products
      */
-    prepareData(visits: Visit[], orders: Order[], customers: Customer[]) {
-
+    prepareData(orders: Order[], products: Product[]) {
         // prepare customers
-        customers.map(customer => {
-            // add visits to customer
-            visits.map(visit => {
-                if (visit.customer_id == customer.id)
-                    customer.visit_count = visit.visit_count;
-            });
+        let customers = {};
 
-            // add orders to customer
-            orders.map(order => {
-                if (order.delivered_by == customer.id)
-                    customer.order_count = order.order_total_count;
+        // prepare list of customers
+        orders.map(order => {
+            if (!customers.hasOwnProperty(order.delivered_by)) {
+                customers[order.delivered_by] = order.delivered_by_user;
+                customers[order.delivered_by].products = products.map(pro => new Product(pro));
+            }
+            customers[order.delivered_by].products.map(pro => {
+                if (pro.id == order.product_id)
+                    pro.amount = order.order_total_count;
             });
         });
-        this.customers = customers;
+
+        console.log(customers);
+        this.customers = [];
+        for (let i in customers) {
+            let customer = customers[i];
+            this.customers.push(customer);
+        }
+        this.products = products;
     }
 
     /**

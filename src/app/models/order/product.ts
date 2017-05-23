@@ -15,6 +15,7 @@ export class Product extends Model {
     target: number = 0;
     performance: number = 0;
     invoice_detail: InvoiceDetail;
+    amount: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -38,5 +39,8 @@ export class Product extends Model {
 
         if (info.performance)
             this.performance = parseFloat(info.performance);
+
+        if (info.amount)
+            this.amount = parseFloat(info.amount);
     }
 }

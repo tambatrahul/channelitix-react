@@ -3,6 +3,7 @@ import {User} from "../user/user";
 import {OrderItem} from "./order_item";
 import {Customer} from "../customer/customer";
 import {Attendance} from "../attendance/attendance";
+import {Product} from "./product";
 
 export class Order extends Model {
 
@@ -32,6 +33,7 @@ export class Order extends Model {
     attendance: Attendance = new Attendance({});
     total_target: number = 0;
     hq_headquarter_id: number = 0;
+    product_id: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -42,6 +44,7 @@ export class Order extends Model {
         this.comments = info.comments;
         this.delivered_by = info.delivered_by;
         this.delivered_by_synergy = info.delivered_by_synergy;
+        this.product_id = info.product_id;
 
         if (info.unit_price)
             this.unit_price = parseFloat(info.unit_price);

@@ -48,16 +48,18 @@
                                     <thead>
                                     <tr>
                                         <th>Customer</th>
-                                        <th>Visits Till Date</th>
-                                        <th>Pob Till Date</th>
+                                        <th *ngFor="let pro of products">
+                                            {{ pro.name }}
+                                        </th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
                                     <tr *ngFor="let cus of customers">
                                         <td>{{ cus.firm_name }}</td>
-                                        <td>{{ cus.visit_count }}</td>
-                                        <td>{{ cus.order_count }}</td>
+                                        <td *ngFor="let pro of cus.products">
+                                            {{ pro.amount }}
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
