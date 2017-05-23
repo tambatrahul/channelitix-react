@@ -142,12 +142,14 @@ export class HQWiseVisitComponent extends ListComponent {
         });
 
         v2_v3_visits.map(visit => {
-            regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
-                if (hq.id == visit.hq_headquarter_id) {
-                    hq.customer_types[0].v2_count = visit.visited_twice;
-                    hq.customer_types[0].v3_count = visit.visited_thrice;
-                }
-            })
+            if (regions.hasOwnProperty(visit.hq_region_id)) {
+                regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
+                    if (hq.id == visit.hq_headquarter_id) {
+                        hq.customer_types[0].v2_count = visit.visited_twice;
+                        hq.customer_types[0].v3_count = visit.visited_thrice;
+                    }
+                });
+            }
         });
 
         // set
