@@ -23,6 +23,7 @@ export class StockistWisePobComponent extends ListComponent {
      */
     public customers: Customer[] = [];
     public products: Product[] = [];
+    public all_total: number = 0;
 
     /**
      * region, area & headquarter
@@ -102,15 +103,26 @@ export class StockistWisePobComponent extends ListComponent {
         orders.map(order => {
             if (!customers.hasOwnProperty(order.delivered_by)) {
                 customers[order.delivered_by] = order.delivered_by_user;
-                customers[order.delivered_by].products = products.map(pro => new Product(pro));
+                customers[order.delivered_by].products = products.map(pro => {
+                    let prod = new Product(pro);
+                    prod.amount = 0;
+                    return prod;
+                });
             }
             customers[order.delivered_by].products.map(pro => {
-                if (pro.id == order.product_id)
+                if (pro.id == order.product_id) {
                     pro.amount = order.order_total_count;
+                    customers[order.delivered_by].total_pob += order.order_total_count;
+                }
             });
+            products.map(prod => {
+                if (prod.id == order.product_id) {
+                    prod.amount += order.order_total_count;
+                    this.all_total += order.order_total_count;
+                }
+            })
         });
 
-        console.log(customers);
         this.customers = [];
         for (let i in customers) {
             let customer = customers[i];

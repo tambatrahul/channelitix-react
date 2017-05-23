@@ -6,7 +6,7 @@
                 <div class="page-breadcrumb-wrap">
                     <div class="page-breadcrumb-info">
                         <h2 class="breadcrumb-titles">
-                            Visit Distribution Report
+                            Stockist wise POB report
                         </h2>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4><strong>Stockist Wise POB Report</strong></h4>
+                    <h4><strong>Stockist wise POB report (in Rupee)</strong></h4>
                 </div>
                 <div>
                     <div class="widget-container report-table">
@@ -47,7 +47,8 @@
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Customer</th>
+                                        <th class="grey">Customer</th>
+                                        <th class="grey">Total</th>
                                         <th *ngFor="let pro of products">
                                             {{ pro.name }}
                                         </th>
@@ -55,11 +56,22 @@
                                     </thead>
 
                                     <tbody>
+                                    <tr>
+                                        <th class="grey">Total</th>
+                                        <th class="grey">{{ all_total.toFixed(2) }}</th>
+                                        <th *ngFor="let pro of products">
+                                            {{ pro.amount.toFixed(2) }}
+                                        </th>
+                                    </tr>
                                     <tr *ngFor="let cus of customers">
-                                        <td>{{ cus.firm_name }}</td>
+                                        <th class="grey">{{ cus.firm_name }}</th>
+                                        <th class="grey">{{ cus.total_pob.toFixed(2) }}</th>
                                         <td *ngFor="let pro of cus.products">
-                                            {{ pro.amount }}
+                                            {{ pro.amount.toFixed(2) }}
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <th [colSpan]="products.length + 2">No Entries</th>
                                     </tr>
                                     </tbody>
                                 </table>
