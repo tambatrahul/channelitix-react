@@ -130,7 +130,6 @@ export class StockistWisePobComponent extends ListComponent {
             this.customers.push(customer);
         }
         this.products = products;
-        console.log(this.customers);
     }
 
     /**
