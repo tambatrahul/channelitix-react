@@ -98,6 +98,7 @@ export class StockistWisePobComponent extends ListComponent {
     prepareData(orders: Order[], products: Product[]) {
         // prepare customers
         let customers = {};
+        this.all_total = 0;
 
         // prepare list of customers
         orders.map(order => {
@@ -129,6 +130,7 @@ export class StockistWisePobComponent extends ListComponent {
             this.customers.push(customer);
         }
         this.products = products;
+        console.log(this.customers);
     }
 
     /**
