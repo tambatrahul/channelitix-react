@@ -138,7 +138,7 @@ export class HQWiseVisitComponent extends ListComponent {
                         });
                     })
                 }
-            })
+            });
         });
 
         v2_v3_visits.map(visit => {
