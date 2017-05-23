@@ -8,13 +8,15 @@ import * as moment from "moment";
 import {Order} from "../../../../models/order/order";
 import {Product} from "../../../../models/order/product";
 import {Customer} from "../../../../models/customer/customer";
-
+declare let jQuery: any;
 
 @Component({
     templateUrl: 'stockist_wise_pob.component.html',
     styleUrls: ['stockist_wise_pob.component.less']
 })
 export class StockistWisePobComponent extends ListComponent {
+
+    excel_loaded: boolean = false;
 
     /**
      * bricks
@@ -130,7 +132,17 @@ export class StockistWisePobComponent extends ListComponent {
             this.customers.push(customer);
         }
         this.products = products;
-        console.log(this.customers);
+
+        setTimeout(() => {
+            if (!this.excel_loaded) {
+                this.excel_loaded = true;
+                jQuery("table").tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+            }
+        }, 1000);
     }
 
     /**
