@@ -339,6 +339,7 @@ export class OrderComponent extends BaseAuthComponent {
      */
     switchToAbbott() {
         this.abbott = !this.abbott;
+        this.productChanged(0);
         this.excel_loaded = false;
         this.fetchData();
     }

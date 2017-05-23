@@ -199,6 +199,19 @@ export class User extends Model {
     }
 
     /**
+     * get total pob quantity count
+     *
+     * @returns {any}
+     */
+    get total_pob_quantity_count() {
+        let total: number = 0;
+        this.orders.map(vis => {
+            total += parseFloat(String(vis.order_total_quantity));
+        });
+        return total;
+    }
+
+    /**
      * percentage pob
      * @returns {string|number}
      */
