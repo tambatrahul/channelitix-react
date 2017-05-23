@@ -30,7 +30,7 @@ export class StockistWisePobComponent extends ListComponent {
      */
     public region_id: number = 0;
     public area_id: number = 0;
-    public headquarter_id: number = 1;
+    public headquarter_id: number = 0;
 
     /**
      * customer types
@@ -149,6 +149,7 @@ export class StockistWisePobComponent extends ListComponent {
     regionChanged(region_id) {
         this.region_id = region_id;
         this.areaChanged(0);
+        this.fetch();
     }
 
     /**
@@ -158,6 +159,7 @@ export class StockistWisePobComponent extends ListComponent {
     areaChanged(area_id) {
         this.area_id = area_id;
         this.headquarterChanged(0);
+        this.fetch();
     }
 
     /**

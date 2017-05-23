@@ -17,13 +17,23 @@
 
     <!-- Filters for Visit report-->
     <div class="row">
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-2">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
-        <div class="col-md-9">
-            <div class="col-xs-12 col-md-3">
-                <div>
-                    <headquarter-select [value]="headquarter_id"
+        <div class="col-md-10">
+            <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+                <region-select [value]="region_id" [title]="'Select Region'"
+                               (onValueChanged)="regionChanged($event)"></region-select>
+            </div>
+            <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+                <div *ngIf="region_id > 0">
+                    <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                                 (onValueChanged)="areaChanged($event)"></area-select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+                <div *ngIf="area_id > 0">
+                    <headquarter-select [value]="headquarter_id" [area_id]="area_id"
                                         [title]="'Select Head Quarter'"
                                         (onValueChanged)="headquarterChanged($event)"></headquarter-select>
                 </div>
@@ -40,7 +50,7 @@
                     <span class="h-icon"><i class="fa fa-table"></i></span>
                     <h4><strong>Stockist wise POB report (in Rupee)</strong></h4>
                 </div>
-                <div>
+                <div *ngIf="headquarter_id > 0">
                     <div class="widget-container report-table">
                         <div class="widget-block">
                             <div class="table-responsive">
@@ -78,6 +88,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div *ngIf="headquarter_id == 0">
+                    <p class="margin-left">Please Select Headquarter</p>
                 </div>
             </div>
         </div>

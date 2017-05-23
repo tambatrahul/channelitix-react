@@ -221,8 +221,7 @@ export class ReportService extends BaseService {
     /**
      * brick wise customers
      */
-    stockist_wise_pob(month: number, year: number,
-                      region_id?: number, area_id?: number, headquarter_id?: number) {
+    stockist_wise_pob(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number) {
 
         // prepare get params
         let params = new URLSearchParams();
