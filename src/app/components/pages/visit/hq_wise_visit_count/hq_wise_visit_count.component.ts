@@ -136,7 +136,7 @@ export class HQWiseVisitComponent extends ListComponent {
                             if (grade.id == cus.grade_id)
                                 grade.customer_count = cus.visit_count
                         });
-                    })
+                    });
                 }
             });
         });
