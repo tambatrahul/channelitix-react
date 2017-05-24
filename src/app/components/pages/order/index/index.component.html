@@ -72,8 +72,8 @@
                                             <tr>
                                                 <th style="min-width: 120px;">Users</th>
                                                 <th>Headquarter</th>
-                                                <th *ngIf="_auth_service.user.username != 'abbottadmin'">Daily POB Target</th>
-                                                <th *ngIf="_auth_service.user.username != 'abbottadmin'">% to POB Target</th>
+                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target</th>
+                                                <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -87,8 +87,8 @@
                                             <tr>
                                                 <th>Users</th>
                                                 <th>Headquarter</th>
-                                                <th *ngIf="_auth_service.user.username != 'abbottadmin'">Daily POB Target</th>
-                                                <th *ngIf="_auth_service.user.username != 'abbottadmin'">% to POB Target</th>
+                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target</th>
+                                                <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
@@ -109,8 +109,8 @@
                                                 <tr class="grey">
                                                     <th>Total</th>
                                                     <td></td>
-                                                    <td *ngIf="_auth_service.user.username != 'abbottadmin'">{{ mg.daily_target }}</td>
-                                                    <td *ngIf="_auth_service.user.username != 'abbottadmin'">{{ mg.percent_pob }} %</td>
+                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ mg.daily_target }}</td>
+                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ mg.percent_pob }} %</td>
                                                     <td></td>
                                                     <template ngFor let-order [ngForOf]="mg.orders">
                                                         <td *ngIf="!view_quantity">
@@ -127,8 +127,8 @@
                                                 <tr *ngFor="let user of mg.children">
                                                     <th>{{ user.full_name }}</th>
                                                     <th>{{ user.hq_headquarter?.name }}</th>
-                                                    <td *ngIf="_auth_service.user.username != 'abbottadmin'">{{ user.daily_target }}</td>
-                                                    <td *ngIf="_auth_service.user.username != 'abbottadmin'">{{ user.percent_pob }} %</td>
+                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ user.daily_target }}</td>
+                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ user.percent_pob }} %</td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>

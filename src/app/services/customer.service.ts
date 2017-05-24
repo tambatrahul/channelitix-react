@@ -62,7 +62,13 @@ export class CustomerService extends BaseService {
 
         // prepare get params
         let params = new URLSearchParams();
-        params.set('customer_type_id', customer_type_id);
+        if (customer_type_id && Array.isArray(customer_type_id))
+            customer_type_id.map(function(customer_type) {
+                params.append('customer_type_id[]', String(customer_type));
+            });
+        else {
+            params.set('customer_type_id', customer_type_id);
+        }
         params.set('synergy', String(synergy));
 
         // make server call

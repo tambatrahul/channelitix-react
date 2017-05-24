@@ -44,11 +44,20 @@
                                             <th>Price</th>
                                         </tr>
                                         <tr *ngFor="let item of o.order_items">
-                                            <td>{{ item.product.name }}</td>
-                                            <td>{{ item.quantity }}</td>
-                                            <td><i class="fa fa-rupee"></i> {{ (item.unit_price * item.quantity).toFixed(2) }}
-                                            </td>
-
+                                            <template [ngIf]="item.product.synergy == 1 && _service.user.username == 'abbottadmin'">
+                                                <td>{{ item.product.name }}</td>
+                                                <td>{{ item.quantity }}</td>
+                                                <td><i class="fa fa-rupee"></i> {{ (item.unit_price *
+                                                    item.quantity).toFixed(2) }}
+                                                </td>
+                                            </template>
+                                            <template [ngIf]="_service.user.username != 'abbottadmin'">
+                                                <td>{{ item.product.name }}</td>
+                                                <td>{{ item.quantity }}</td>
+                                                <td><i class="fa fa-rupee"></i> {{ (item.unit_price *
+                                                    item.quantity).toFixed(2) }}
+                                                </td>
+                                            </template>
                                         </tr>
                                     </table>
                                 </td>

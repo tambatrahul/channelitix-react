@@ -1,16 +1,10 @@
 import {Component, Input} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../../../models/user/user";
-import {AppConstants} from "../../../../app.constants";
 import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
-import {Holiday} from "../../../../models/holiday";
 import {OrderService} from "../../../../services/order.service";
 import {Order} from "../../../../models/order/order";
-import {Observable} from "rxjs/Rx";
-import {AttendanceService} from "../../../../services/attendance.service";
-import {Attendance} from "../../../../models/attendance/attendance";
-import {Target} from "../../../../models/SAP/target";
 declare let jQuery: any;
 
 @Component({
@@ -93,6 +87,13 @@ export class UserOrderListComponent extends BaseAuthComponent {
             this.orderService.forUser(this._user.id, this.month + 1, this.year, this._date).subscribe(
                 response => {
                     this.orders = response.orders.map(order => new Order(order));
+                    if (this._service.user.username == 'abbottadmin')
+                        this.orders = this.orders.filter(order => {
+                            if (order.isSynergy) {
+                                return true;
+                            }
+                            return false;
+                        });
                     this.loading = false;
                 },
                 err => {

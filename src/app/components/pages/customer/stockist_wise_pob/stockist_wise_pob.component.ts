@@ -161,8 +161,6 @@ export class StockistWisePobComponent extends ListComponent {
                     this.all_total += order.order_total_count;
                 }
             });
-
-            console.log(this.products);
         });
 
         this.customers = [];
