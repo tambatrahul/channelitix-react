@@ -135,6 +135,7 @@ import {StockistWisePobComponent} from "./components/pages/customer/stockist_wis
 import {UserVisitListComponent} from "./components/pages/visit/user_visit_list/user_visit_list.component";
 import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
 import {ProductSelectComponent} from "./components/form_elements/order/product_select/product-select.component";
+import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
 
 
 enableProdMode();
@@ -205,6 +206,7 @@ enableProdMode();
         StockistWisePobComponent,
         UserVisitListComponent,
         ExecutiveSummaryComponent,
+        SynergyStockistWisePobComponent,
 
         // directives
         AttendanceStatusDirective,

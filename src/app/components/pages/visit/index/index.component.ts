@@ -120,6 +120,9 @@ export class VisitComponent extends BaseAuthComponent {
      */
     ngOnInit() {
         super.ngOnInit();
+        if(this._service.user.username == 'abbottadmin') {
+            this.abbott = true;
+        }
         this.month = moment().month();
         this.year = moment().year();
         this.fetchData();
@@ -222,7 +225,7 @@ export class VisitComponent extends BaseAuthComponent {
             }
         }
 
-        if (this.environment.envName == 'sk_group' && this.abbott) {
+        if (this.environment.envName == 'sk_group' && this.abbott && this._service.user.role_str != this.ROLE_ADMIN) {
             let abbott_user = new User({full_name: 'Abbott'});
             abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             abbott_user.children = [];

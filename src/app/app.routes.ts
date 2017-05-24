@@ -40,6 +40,7 @@ import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count
 import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
 import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
+import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -291,6 +292,9 @@ export const routes: Routes = [
                     }, {
                         path: 'stockist_wise_pob',
                         component: StockistWisePobComponent,
+                    }, {
+                        path: 'synergy_stockist_wise_pob',
+                        component: SynergyStockistWisePobComponent,
                     }, {
                         path: 'executive_summary',
                         component: ExecutiveSummaryComponent,

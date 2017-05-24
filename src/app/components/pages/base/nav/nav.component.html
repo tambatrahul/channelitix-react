@@ -11,7 +11,29 @@
 
     <!-- Navigation items -->
     <div class="left-navigation">
-        <ul class="list-accordion">
+
+        <ul class="list-accordion" *ngIf="_auth_service.user.username == 'abbottadmin'">
+            <li>
+                <a class="waves-effect" routerLink="/visits">
+                    <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                    <span class="nav-label">Daily Visit Report</span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect" routerLink="/orders">
+                    <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+                    <span class="nav-label">Daily POB Report</span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect" routerLink="/reports/synergy_stockist_wise_pob">
+                    <span class="nav-icon"><i class="fa fa-table"></i></span>
+                    <span class="nav-label">Stockist POB Report</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="list-accordion" *ngIf="_auth_service.user.username != 'abbottadmin'">
             <li *roleCheck="ROLE_CSM">
                 <a class="waves-effect"
                    [routerLink]="'/dashboard'">

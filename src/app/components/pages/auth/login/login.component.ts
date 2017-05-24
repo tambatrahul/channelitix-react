@@ -58,7 +58,10 @@ export class LoginComponent extends FormComponent {
                     this._service.user = new User(response.user);
                     this._cookieService.put('auth_token', this._service.user.auth_token);
 
-                    if (response.user.role_str != this.ROLE_CSE)
+                    if (response.user.username == 'abbottadmin') {
+                        this._router.navigate(['/visits']);
+                    }
+                    else if (response.user.role_str != this.ROLE_CSE)
                         this._router.navigate(['/visits']);
                     else
                         this._router.navigate(['/attendances/monthly']);
