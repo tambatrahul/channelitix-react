@@ -13,6 +13,7 @@ declare let d3: any;
     selector: 'till-month-chart',
     styleUrls: ['till_month_chart.component.less'],
     templateUrl: 'till_month_chart.component.html',
+    inputs: ['refresh']
 })
 export class TillMonthChartComponent extends GoogleChartComponent {
 
@@ -43,6 +44,18 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     @Input()
     set dates(dates) {
         this._dates = dates;
+        this.fetch();
+    }
+
+    /**
+     * view quantity
+     *
+     * @type {number}
+     * @private
+     */
+    _refresh: boolean;
+    set refresh(refresh) {
+        this._refresh = refresh;
         this.fetch();
     }
 

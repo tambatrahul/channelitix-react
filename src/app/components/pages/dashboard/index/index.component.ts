@@ -31,6 +31,13 @@ export class DashBoardComponent extends BaseComponent {
     public productive_calls: number = 0;
 
     /**
+     * refresh button
+     *
+     * @type {boolean}
+     */
+    public refresh: boolean = false;
+
+    /**
      * selected regions, areas and headquarters
      *
      * @type {Array}
@@ -91,6 +98,13 @@ export class DashBoardComponent extends BaseComponent {
     regionSelected(region_ids: Array<number>) {
         this.region_ids = region_ids;
         this.area_ids = [];
+    }
+
+    /**
+     * Refresh Page
+     */
+    pageRefresh() {
+        this.refresh = !this.refresh;
     }
 
     /**

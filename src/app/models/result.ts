@@ -102,6 +102,7 @@ export class Result {
     call_average: number = 0;
     productive_calls: number = 0;
     total_bricks: number = 0;
+    total_headquarters: number = 0;
     total_orders: number = 0;
     performance_per: number = 0;
 

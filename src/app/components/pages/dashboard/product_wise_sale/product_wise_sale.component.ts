@@ -9,6 +9,7 @@ import {BaseDashboardComponent} from "../base_dashboard.component";
     selector: 'product-wise-sale',
     styleUrls: ['product_wise_sale.component.less'],
     templateUrl: 'product_wise_sale.component.html',
+    inputs: ['refresh']
 })
 export class ProductWiseSaleComponent extends BaseDashboardComponent {
 
@@ -27,6 +28,18 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     @Input()
     set month(month: number) {
         this._month = month;
+        this.fetch();
+    }
+
+    /**
+     * view quantity
+     *
+     * @type {number}
+     * @private
+     */
+    _refresh: boolean;
+    set refresh(refresh) {
+        this._refresh = refresh;
         this.fetch();
     }
 

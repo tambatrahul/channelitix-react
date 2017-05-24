@@ -81,13 +81,15 @@ export class ReportService extends BaseService {
      * @returns {Observable<Result>}
      */
     visit_order_trend(from_date, to_date, year,
-                      region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
+                      region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+                      product_id?: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
         params.set('from_date', String(from_date ? from_date : ''));
         params.set('to_date', String(to_date ? to_date : ''));
         params.set('year', String(year > 0 ? year : ''));
+        params.set('product_id', String(product_id > 0 ? product_id : ''));
 
         if (headquarter_ids && headquarter_ids.length > 0) {
             headquarter_ids.map(function (h_id) {

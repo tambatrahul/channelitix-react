@@ -12,6 +12,7 @@ declare let d3: any;
     selector: 'visit-count-graph',
     styleUrls: ['visit_count_graph.component.less'],
     templateUrl: 'visit_count_graph.component.html',
+    inputs: ['refresh']
 })
 export class VisitCountGraphComponent extends GoogleChartComponent {
 
@@ -23,6 +24,22 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     public total_pob: number = 0;
     public total_orders: number = 0;
 
+    /**
+     * Product Id
+     */
+    public product_id: number = 0;
+
+    /**
+     * view quantity
+     *
+     * @type {number}
+     * @private
+     */
+    _refresh: boolean;
+    set refresh(refresh) {
+        this._refresh = refresh;
+        this.fetch();
+    }
 
     /**
      * return total visit and orders
@@ -123,7 +140,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
         if (this._dates && this._dates.from_date && this._dates.to_date) {
             this.loading = true;
             this.reportService.visit_order_trend(this._dates.from_date, this._dates.to_date, this._dates.year,
-                this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
+                this._region_ids, this._area_ids, this._headquarter_ids,this.product_id).subscribe(
                 response => {
                     this.visits = response.visits.map(function (visit) {
                         return new Visit(visit);
@@ -202,5 +219,15 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
 
         // set chart data callback
         this.getGoogle().charts.setOnLoadCallback(() => this.drawGraph());
+    }
+
+    /**
+     * product Filter
+     *
+     * @param product_id
+     */
+    productChanged(product_id) {
+        this.product_id = product_id;
+        this.fetch();
     }
 }

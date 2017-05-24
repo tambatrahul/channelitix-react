@@ -11,6 +11,7 @@ declare let d3: any;
     selector: 'monthly-primary-secondary-target',
     styleUrls: ['monthly_primary_secondary_target.component.less'],
     templateUrl: 'monthly_primary_secondary_target.component.html',
+    inputs: ['refresh']
 })
 export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent {
     /**
@@ -36,6 +37,18 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
     @Input()
     set dates(dates) {
         this._dates = dates;
+        this.fetch();
+    }
+
+    /**
+     * view quantity
+     *
+     * @type {number}
+     * @private
+     */
+    _refresh: boolean;
+    set refresh(refresh) {
+        this._refresh = refresh;
         this.fetch();
     }
 

@@ -2,10 +2,20 @@
     <div class="topic-container new-ticket">
         <div class="box-widget widget-module" style="margin-bottom: 0;">
             <div class="widget-head clearfix">
-                <span class="h-icon"><i class="fa fa-table"></i></span>
-                <h4>
-                    Visit Order Trend
-                </h4>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <span class="h-icon"><i class="fa fa-table"></i></span>
+                        <h4>
+                            Visit Order Trend
+                        </h4>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div style="margin-right: 7px;">
+                        <product-select [value]="product_id" [title]="''"  [first_value]="'Select Product'" [abbott]="abbott"
+                                        (onValueChanged)="productChanged($event)"></product-select>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="widget-container details-table" #loading_box>
                 <div class="widget-block" style="padding: 0">

@@ -8,7 +8,8 @@ declare let jQuery: any;
 @Component({
     selector: 'dashboard-count',
     templateUrl: 'count.component.html',
-    styleUrls: ['count.component.less']
+    styleUrls: ['count.component.less'],
+    inputs: ['refresh']
 })
 export class DashBoardCountComponent extends BaseDashboardComponent {
 
@@ -25,6 +26,7 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
         call_average: 0,
         productive_calls: 0,
         total_bricks: 0,
+        total_headquarters: 0,
         performance_per: 0
     };
 
@@ -40,6 +42,17 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
         this.fetch();
     }
 
+    /**
+     * view quantity
+     *
+     * @type {number}
+     * @private
+     */
+    _refresh: boolean;
+    set refresh(refresh) {
+        this._refresh = refresh;
+        this.fetch();
+    }
 
     /**
      * Dashboard Component Constructor
