@@ -34,8 +34,8 @@ export class ProductService extends BaseService {
 
         // prepare get params
         let params = new URLSearchParams();
-        if (this.environment.envName == 'sk_group') {
-            params.set('synergy', String(abbott == true ? 1 : 0));
+        if (this.environment.envName == 'sk_group' && (abbott || abbott == false)) {
+            params.set('synergy', String(abbott ? 1 : 0));
         }
 
         // make server call
