@@ -70,14 +70,14 @@
                                         <th class="grey">Total</th>
                                         <th class="grey">{{ all_total.toFixed(2) }}</th>
                                         <th *ngFor="let pro of products">
-                                            {{ pro.amount.toFixed(2) }}
+                                            {{ pro.amount.toFixed(2) | number : fractionSize }}
                                         </th>
                                     </tr>
                                     <tr *ngFor="let cus of customers">
                                         <th class="grey">{{ cus.firm_name }}</th>
                                         <th class="grey">{{ cus.total_pob.toFixed(2) }}</th>
                                         <td *ngFor="let pro of cus.products">
-                                            {{ pro.amount.toFixed(2) }}
+                                            {{ pro.amount.toFixed(2) | number : fractionSize }}
                                         </td>
                                     </tr>
                                     <template *ngIf="customers.length == 0">
