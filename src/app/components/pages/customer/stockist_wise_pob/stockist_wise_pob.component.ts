@@ -8,6 +8,7 @@ import * as moment from "moment";
 import {Order} from "../../../../models/order/order";
 import {Product} from "../../../../models/order/product";
 import {Customer} from "../../../../models/customer/customer";
+import {Observable} from "rxjs/Rx";
 declare let jQuery: any;
 
 @Component({
@@ -73,25 +74,114 @@ export class StockistWisePobComponent extends ListComponent {
     fetch() {
         if (this.region_id && this.month && this.year) {
             this.loading = true;
-            this.reportService.stockist_wise_pob(this.month + 1, this.year,
-                this.region_id, this.area_id, this.headquarter_id).subscribe(
-                response => {
+            if (this.environment.envName == 'sk_group') {
+                Observable.forkJoin(
+                    this.reportService.stockist_wise_pob(this.month + 1, this.year,
+                        this.region_id, this.area_id, this.headquarter_id),
+                    this.reportService.synergy_stockist_wise_pob(this.month + 1, this.year,
+                        this.region_id, this.area_id, this.headquarter_id)
+                ).subscribe(data => {
                     this.loading = false;
 
                     // prepare visits and orders
-                    let orders = response.orders.map(order => new Order(order));
+                    let orders = data[0].orders.map(order => new Order(order));
 
                     // product list
-                    let products = response.products.map(pro => new Product(pro));
+                    let products = data[0].products.map(pro => new Product(pro));
 
                     // prepare data
-                    this.prepareData(orders, products);
-                },
-                err => {
-                    this.loading = false;
-                }
-            );
+                    let customers = this.prepareData(orders, products);
+                    this.addSynergyData(customers, data[1].orders.map(order => new Order(order)))
+                });
+            } else {
+                this.reportService.stockist_wise_pob(this.month + 1, this.year,
+                    this.region_id, this.area_id, this.headquarter_id).subscribe(
+                    response => {
+                        this.loading = false;
+
+                        // prepare visits and orders
+                        let orders = response.orders.map(order => new Order(order));
+
+                        // product list
+                        let products = response.products.map(pro => new Product(pro));
+
+                        // prepare data
+                        let customers = this.prepareData(orders, products);
+
+                        this.customers = [];
+                        for (let i in customers) {
+                            let customer = customers[i];
+                            this.customers.push(customer);
+                        }
+
+                        setTimeout(() => {
+                            if (this.upload_excel)
+                                this.upload_excel.reset();
+                            else
+                                this.upload_excel = jQuery("table").tableExport({
+                                    formats: ['xlsx'],
+                                    bootstrap: true,
+                                    position: "top"
+                                });
+                        }, 1000);
+                    },
+                    err => {
+                        this.loading = false;
+                    }
+                );
+            }
         }
+    }
+
+    /**
+     * add synergy details
+     * @param customers
+     * @param orders
+     */
+    addSynergyData(customers, orders: Order[]) {
+        // prepare list of customers
+        orders.map(order => {
+            if (!customers.hasOwnProperty(order.delivered_by_synergy)) {
+                customers[order.delivered_by_synergy] = order.delivered_by_synergy_user;
+                customers[order.delivered_by_synergy].products = this.products.map(pro => {
+                    let prod = new Product(pro);
+                    prod.amount = 0;
+                    return prod;
+                });
+            }
+            customers[order.delivered_by_synergy].products.map(pro => {
+                if (pro.id == order.product_id) {
+                    pro.amount = order.order_total_count;
+                    customers[order.delivered_by_synergy].total_pob += order.order_total_count;
+                }
+            });
+            this.products.map(prod => {
+                if (prod.id == order.product_id) {
+                    prod.amount += order.order_total_count;
+                    this.all_total += order.order_total_count;
+                }
+            });
+
+            console.log(this.products);
+        });
+
+        this.customers = [];
+        for (let i in customers) {
+            let customer = customers[i];
+            this.customers.push(customer);
+        }
+
+        setTimeout(() => {
+            if (this.upload_excel)
+                this.upload_excel.reset();
+            else
+                this.upload_excel = jQuery("table").tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+        }, 1000);
+
     }
 
     /**
@@ -126,26 +216,12 @@ export class StockistWisePobComponent extends ListComponent {
                     prod.amount += order.order_total_count;
                     this.all_total += order.order_total_count;
                 }
-            })
+            });
         });
 
-        this.customers = [];
-        for (let i in customers) {
-            let customer = customers[i];
-            this.customers.push(customer);
-        }
         this.products = products;
 
-        setTimeout(() => {
-            if (this.upload_excel)
-                this.upload_excel.reset();
-            else
-                this.upload_excel = jQuery("table").tableExport({
-                    formats: ['xlsx'],
-                    bootstrap: true,
-                    position: "top"
-                });
-        }, 1000);
+        return customers;
     }
 
     /**
