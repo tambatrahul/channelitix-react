@@ -101,11 +101,12 @@
                                                     <div class="w-contact-info">
                                                         <h4 *ngIf="editable == 'open'">
                                                             <a>
-                                                                <customer-select [title]="environment.projectName + ' Products Delivered By *'"
-                                                                                 [value]="selected_customer.order.delivered_by"
-                                                                                 (onValueChanged)="setDeliveredBy($event)"
-                                                                                 [customer_type_id]="[1,2]"
-                                                                                 [synergy]="0"></customer-select>
+                                                                <customer-select
+                                                                        [title]="environment.projectName + ' Products Delivered By *'"
+                                                                        [value]="selected_customer.order.delivered_by"
+                                                                        (onValueChanged)="setDeliveredBy($event)"
+                                                                        [customer_type_id]="[1,2]"
+                                                                        [synergy]="''"></customer-select>
                                                                 <small *ngIf="selected_customer?.error"
                                                                        class="text-danger text-center">
                                                                     * required
@@ -128,7 +129,8 @@
                                                         </h4>
                                                         <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
                                                             <a>
-                                                                <strong>{{ environment.projectName }} Products Delivered By: </strong>{{
+                                                                <strong>{{ environment.projectName }} Products Delivered
+                                                                    By: </strong>{{
                                                                 selected_customer.order?.delivered_by_user?.firm_name}}
                                                             </a>
                                                         </h4>
@@ -149,7 +151,22 @@
                                                                 <customer-select [title]="'Delivered By'"
                                                                                  [value]="selected_customer.order.delivered_by"
                                                                                  (onValueChanged)="setDeliveredBy($event)"
-                                                                                 [customer_type_id]="[1]"></customer-select>
+                                                                                 [customer_type_id]="[1]"
+                                                                                 [synergy]="''"></customer-select>
+                                                                <small *ngIf="selected_customer?.error"
+                                                                       class="text-danger text-center">
+                                                                    * required
+                                                                </small>
+                                                            </a>
+                                                        </h4>
+                                                        <h4 *ngIf="editable == 'open' && selected_customer.order.isSynergy">
+                                                            <a>
+                                                                <customer-select
+                                                                        [title]="'Synergy Products Delivered By *'"
+                                                                        [value]="selected_customer.order.delivered_by_synergy"
+                                                                        (onValueChanged)="setSynergyDeliveredBy($event)"
+                                                                        [customer_type_id]="[1]"
+                                                                        [synergy]="1"></customer-select>
                                                                 <small *ngIf="selected_customer?.error"
                                                                        class="text-danger text-center">
                                                                     * required
@@ -160,6 +177,12 @@
                                                             <a>
                                                                 <strong>Delivered By: </strong>{{
                                                                 selected_customer.order?.delivered_by_user?.firm_name}}
+                                                            </a>
+                                                        </h4>
+                                                        <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_synergy_user">
+                                                            <a>
+                                                                <strong>Abbott Products Delivered By: </strong>{{
+                                                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
                                                             </a>
                                                         </h4>
                                                     </div>
