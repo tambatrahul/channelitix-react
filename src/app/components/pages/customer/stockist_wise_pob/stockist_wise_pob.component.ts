@@ -17,6 +17,7 @@ declare let jQuery: any;
 export class StockistWisePobComponent extends ListComponent {
 
     excel_loaded: boolean = false;
+    upload_excel;
 
     /**
      * bricks
@@ -62,13 +63,15 @@ export class StockistWisePobComponent extends ListComponent {
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
+        this.regionChanged(this._service.user.hq_region_id);
+        this.areaChanged(this._service.user.hq_area_id);
     }
 
     /**
      * load users for logged in user
      */
     fetch() {
-        if (this.headquarter_id && this.month && this.year) {
+        if (this.region_id && this.month && this.year) {
             this.loading = true;
             this.reportService.stockist_wise_pob(this.month + 1, this.year,
                 this.region_id, this.area_id, this.headquarter_id).subscribe(
@@ -134,14 +137,14 @@ export class StockistWisePobComponent extends ListComponent {
         this.products = products;
 
         setTimeout(() => {
-            if (!this.excel_loaded) {
-                this.excel_loaded = true;
-                jQuery("table").tableExport({
+            if (this.upload_excel)
+                this.upload_excel.reset();
+            else
+                this.upload_excel = jQuery("table").tableExport({
                     formats: ['xlsx'],
                     bootstrap: true,
                     position: "top"
                 });
-            }
         }, 1000);
     }
 

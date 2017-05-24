@@ -50,7 +50,7 @@
                     <span class="h-icon"><i class="fa fa-table"></i></span>
                     <h4><strong>Stockist wise POB report (in Rupee)</strong></h4>
                 </div>
-                <div *ngIf="headquarter_id > 0">
+                <div *ngIf="region_id > 0 && customers.length > 0">
                     <div class="widget-container report-table">
                         <div class="widget-block">
                             <div class="table-responsive">
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="headquarter_id == 0">
+                <div *ngIf="region_id == 0">
                     <p class="margin-left">Please Select Headquarter</p>
                 </div>
             </div>
