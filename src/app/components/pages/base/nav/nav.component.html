@@ -125,6 +125,12 @@
                             <span class="nav-label">Executive Summary</span>
                         </a>
                     </li>
+                    <li *roleCheck="ROLE_CSM">
+                        <a class="waves-effect" routerLink="/reports/productivity_analysis">
+                            <span class="nav-icon"><i class="fa fa-table"></i></span>
+                            <span class="nav-label">Productivity Analysis</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li *ngIf="_auth_service.user?.isAdmin">

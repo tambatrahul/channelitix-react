@@ -1,0 +1,109 @@
+<div class="container-fluid bricks" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Productivity Analysis Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Visit report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <dates-select (onDateChanged)="onDateChanged($event)"></dates-select>
+        </div>
+    </div>
+    <!-- ./Filters for Visit report-->
+
+    <!-- Attendance Table -->
+    <div class="row" *ngFor="let z of regions" >
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4><strong>{{ z.name }}</strong></h4>
+                </div>
+                <div>
+                    <div class="widget-container report-table">
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered visit_table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th colspan="3">Physician</th>
+                                        <th colspan="3">Hub</th>
+                                        <th colspan="3">Semi</th>
+                                        <th colspan="3">Retailer</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Headquarters</th>
+                                        <th>Total POB</th>
+                                        <th>Calls</th>
+                                        <th>Productive Calls</th>
+                                        <th>PUB</th>
+                                        <th>Calls</th>
+                                        <th>Productive Calls</th>
+                                        <th>PUB</th>
+                                        <th>Calls</th>
+                                        <th>Productive Calls</th>
+                                        <th>PUB</th>
+                                        <th>Calls</th>
+                                        <th>Productive Calls</th>
+                                        <th>PUB</th>
+                                        <th>Total Call Avg</th>
+                                        <th>Totat Productive Avg</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <template ngFor let-area [ngForOf]="z.areas">
+                                        <tr>
+                                            <th [colSpan]="17" class="text-center">
+                                                {{ area.name }}
+                                            </th>
+                                        </tr>
+                                        <tr *ngFor="let hq of area.headquarters">
+                                            <th>{{ hq.name }}</th>
+                                            <td>{{ hq.customer_types[0].customerCount }}</td>
+                                            <td>{{ hq.customer_types[0].percentageCount.toFixed(0)}} %</td>
+                                            <td>{{ hq.customer_types[0].v2PercentageCount.toFixed(0)}} %</td>
+                                            <td>{{ hq.customer_types[0].v3PercentageCount.toFixed(0)}} %</td>
+
+                                            <td>{{ hq.customer_types[1].customerCount }}</td>
+                                            <td>{{ hq.customer_types[1].visitCount }}</td>
+                                            <td>{{ hq.customer_types[1].percentageCount.toFixed(0)}} %</td>
+
+                                            <td>{{ hq.customer_types[2].customerCount }}</td>
+                                            <td>{{ hq.customer_types[2].visitCount }}</td>
+                                            <td>{{ hq.customer_types[2].percentageCount.toFixed(0)}} %</td>
+
+                                            <td>{{ hq.customer_types[3].customerCount }}</td>
+                                            <td>{{ hq.customer_types[3].visitCount }}</td>
+                                            <td>{{ hq.customer_types[3].percentageCount.toFixed(0)}} %</td>
+
+                                            <td>{{ hq.customer_types[4].customerCount }}</td>
+                                            <td>{{ hq.customer_types[4].visitCount }}</td>
+                                            <td>{{ hq.customer_types[4].percentageCount.toFixed(0)}} %</td>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
