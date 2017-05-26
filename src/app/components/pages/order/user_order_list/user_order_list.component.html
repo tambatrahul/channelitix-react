@@ -14,6 +14,7 @@
                         <th>Type</th>
                         <th>Total Amount</th>
                         <th>Delivered By</th>
+                        <th *ngIf="environment.envName == 'sk_group'">Synergy Delivered By</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -26,6 +27,7 @@
                             <td>{{ o.customer.customer_type.name }}</td>
                             <td><i class="fa fa-rupee"></i> {{ o.calculated_total.toFixed(2) }}</td>
                             <td>{{ o.delivered_by_user?.firm_name }}</td>
+                            <td *ngIf="environment.envName == 'sk_group'">{{ o.delivered_by_synergy_user?.firm_name }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" (click)="selectOrder(o.id)"
                                         *ngIf="o.id != selectedOrderId">
