@@ -73,10 +73,8 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
     fetch() {
         if (this._dates && this._dates.from_date && this._dates.to_date) {
             this.loading = true;
-            this.reportService.productivity_analysis(this._dates.from_date, this._dates.to_date,
-                this._dates.year).subscribe(
+            this.reportService.productivity_analysis(this._dates.from_date, this._dates.to_date).subscribe(
                 response => {
-                    this.loading = false;
 
                     // prepare headquarters
                     let headquarters = response.headquarters.map(head => new Headquarter(head));
@@ -91,13 +89,14 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
                     let orders = response.orders.map(order => new Order(order));
 
                     // prepare attendances
-                    let attendances = response.orders.map(attendance => new Attendance(attendance));
+                    let attendances = response.attendances.map(attendance => new Attendance(attendance));
 
                     // prepare customer types
-                    let customer_types = response.customer_types.map(ct => new CustomerType(ct));
-                    this.customer_types = customer_types;
+                    this.customer_types = response.customer_types.map(ct => new CustomerType(ct));
 
-                    this.prepareData(headquarters, customer_types, customers, attendances, visits, orders);
+                    this.prepareData(headquarters, customers, attendances, visits, orders);
+
+                    this.loading = false;
                 },
                 err => {
                     this.loading = false;
@@ -110,14 +109,13 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
      * prepare data for headquarter wise customers
      *
      * @param headquarters
-     * @param customer_types
      * @param customers
      * @param attendances
      * @param visits
      * @param orders
      */
-    prepareData(headquarters: Headquarter[], customer_types: CustomerType[], customers: Customer[],
-                attendances: Attendance[], visits: Visit[],orders: Order[]) {
+    prepareData(headquarters: Headquarter[], customers: Customer[],
+                attendances: Attendance[], visits: Visit[], orders: Order[]) {
 
         // prepare headquarters
         let regions = {};
@@ -129,7 +127,7 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
                 regions[hq.hq_area.hq_region.id].area_objects[hq.hq_area.id] = hq.hq_area;
 
             // add customer type
-            hq.customer_types = customer_types.map(ct => new CustomerType(ct));
+            hq.customer_types = this.customer_types.map(ct => new CustomerType(ct));
             regions[hq.id].headquarters.push(hq);
         });
 
