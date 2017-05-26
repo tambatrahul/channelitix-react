@@ -30,6 +30,7 @@ export class Attendance extends Model {
     att_month: number;
     att_count: number = 0;
     hq_headquarter_id: number = 0;
+    attendance_count: number = 0;
 
 
     constructor(info: any) {

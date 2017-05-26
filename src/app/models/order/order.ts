@@ -34,6 +34,7 @@ export class Order extends Model {
     total_target: number = 0;
     hq_headquarter_id: number = 0;
     product_id: number = 0;
+    order_count: number = 0;
 
     constructor(info: any) {
         super(info.id);

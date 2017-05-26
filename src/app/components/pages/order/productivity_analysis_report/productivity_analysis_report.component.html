@@ -52,18 +52,18 @@
                                         <th>Total POB</th>
                                         <th>Calls</th>
                                         <th>Productive Calls</th>
-                                        <th>PUB</th>
+                                        <th>POB</th>
                                         <th>Calls</th>
                                         <th>Productive Calls</th>
-                                        <th>PUB</th>
+                                        <th>POB</th>
                                         <th>Calls</th>
                                         <th>Productive Calls</th>
-                                        <th>PUB</th>
+                                        <th>POB</th>
                                         <th>Calls</th>
                                         <th>Productive Calls</th>
-                                        <th>PUB</th>
+                                        <th>POB</th>
                                         <th>Total Call Avg</th>
-                                        <th>Totat Productive Avg</th>
+                                        <th>Total Productive Avg</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -75,26 +75,26 @@
                                         </tr>
                                         <tr *ngFor="let hq of area.headquarters">
                                             <th>{{ hq.name }}</th>
-                                            <td>{{ hq.customer_types[0].customerCount }}</td>
-                                            <td>{{ hq.customer_types[0].percentageCount.toFixed(0)}} %</td>
-                                            <td>{{ hq.customer_types[0].v2PercentageCount.toFixed(0)}} %</td>
-                                            <td>{{ hq.customer_types[0].v3PercentageCount.toFixed(0)}} %</td>
+                                            <td>{{ hq.customer_types.totalPob }}</td>
 
-                                            <td>{{ hq.customer_types[1].customerCount }}</td>
-                                            <td>{{ hq.customer_types[1].visitCount }}</td>
-                                            <td>{{ hq.customer_types[1].percentageCount.toFixed(0)}} %</td>
+                                            <td>{{ hq.customer_types[0].calls }} </td>
+                                            <td>{{ hq.customer_types[0].productiveCalls }}</td>
+                                            <td>{{ hq.customer_types[0].pob }}</td>
 
-                                            <td>{{ hq.customer_types[2].customerCount }}</td>
-                                            <td>{{ hq.customer_types[2].visitCount }}</td>
-                                            <td>{{ hq.customer_types[2].percentageCount.toFixed(0)}} %</td>
+                                            <td>{{ hq.customer_types[1].calls }}</td>
+                                            <td>{{ hq.customer_types[1].productiveCalls }}</td>
+                                            <td>{{ hq.customer_types[1].pob }}</td>
 
-                                            <td>{{ hq.customer_types[3].customerCount }}</td>
-                                            <td>{{ hq.customer_types[3].visitCount }}</td>
-                                            <td>{{ hq.customer_types[3].percentageCount.toFixed(0)}} %</td>
+                                            <td>{{ hq.customer_types[2].calls }}</td>
+                                            <td>{{ hq.customer_types[2].productiveCalls }}</td>
+                                            <td>{{ hq.customer_types[2].pob}}</td>
 
-                                            <td>{{ hq.customer_types[4].customerCount }}</td>
-                                            <td>{{ hq.customer_types[4].visitCount }}</td>
-                                            <td>{{ hq.customer_types[4].percentageCount.toFixed(0)}} %</td>
+                                            <td>{{ hq.customer_types[3].calls }}</td>
+                                            <td>{{ hq.customer_types[3].productiveCalls }}</td>
+                                            <td>{{ hq.customer_types[3].pob }}</td>
+
+                                            <td>{{ hq.customer_types.totalCallAvg }}</td>
+                                            <td>{{ hq.customer_types.totalPob }}</td>
                                         </tr>
                                     </template>
                                     </tbody>

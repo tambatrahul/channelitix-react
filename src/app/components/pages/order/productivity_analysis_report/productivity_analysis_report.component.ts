@@ -10,6 +10,7 @@ import * as moment from "moment";
 import {Customer} from "../../../../models/customer/customer";
 import {Order} from "../../../../models/order/order";
 import {Attendance} from "../../../../models/attendance/attendance";
+import {Region} from "../../../../models/territory/region";
 declare let jQuery: any;
 
 @Component({
@@ -32,11 +33,11 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
     };
 
     /**
-     * bricks
+     * get regions
      *
-     * @type {{}}
+     * @type {Array}
      */
-    public regions = [];
+    regions: Region[] = [];
 
     /**
      * customer types
@@ -73,31 +74,27 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
     fetch() {
         if (this._dates && this._dates.from_date && this._dates.to_date) {
             this.loading = true;
-            this.reportService.productivity_analysis(this._dates.from_date, this._dates.to_date,
-                this._dates.year).subscribe(
-                response => {
-                    this.loading = false;
-
-                    // prepare headquarters
-                    let headquarters = response.headquarters.map(head => new Headquarter(head));
+            this.reportService.productivity_analysis(this._dates.from_date, this._dates.to_date).subscribe(
+                data => {
+                    // get regions
+                    this.regions = data[0].regions.map(region => new Region(region));
+                    this.customer_types = data[0].customer_types.map(ct => new CustomerType(ct));
 
                     // prepare customers
-                    let customers = response.customers.map(cus => new Customer(cus));
+                    let customers = data[1].customers.map(cus => new Customer(cus));
 
                     // prepare visits
-                    let visits = response.visits.map(visit => new Visit(visit));
+                    let visits = data[0].visits.map(vis => new Visit(vis));
 
                     // prepare orders
-                    let orders = response.orders.map(order => new Order(order));
+                    let orders = data[0].orders.map(ord => new Order(ord));
 
                     // prepare attendances
-                    let attendances = response.orders.map(attendance => new Attendance(attendance));
+                    let attendances = data[0].attendances.map(att => new Attendance(att));
 
-                    // prepare customer types
-                    let customer_types = response.customer_types.map(ct => new CustomerType(ct));
-                    this.customer_types = customer_types;
+                    this.prepareData(customers, attendances, visits, orders);
 
-                    this.prepareData(headquarters, customer_types, customers, attendances, visits, orders);
+                    this.loading = false;
                 },
                 err => {
                     this.loading = false;
@@ -116,76 +113,82 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
      * @param visits
      * @param orders
      */
-    prepareData(headquarters: Headquarter[], customer_types: CustomerType[], customers: Customer[],
-                attendances: Attendance[], visits: Visit[],orders: Order[]) {
+    prepareData(customers: Customer[], attendances: Attendance[], visits: Visit[],orders: Order[]) {
 
-        // prepare headquarters
-        let regions = {};
-        headquarters.map(hq => {
-            if (!regions.hasOwnProperty(hq.hq_area.hq_region.id))
-                regions[hq.hq_area.hq_region.id] = hq.hq_area.hq_region;
-
-            if (!regions[hq.hq_area.hq_region.id].area_objects.hasOwnProperty(hq.hq_area.id))
-                regions[hq.hq_area.hq_region.id].area_objects[hq.hq_area.id] = hq.hq_area;
-
-            // add customer type
-            hq.customer_types = customer_types.map(ct => new CustomerType(ct));
-            regions[hq.id].headquarters.push(hq);
-        });
-
-        // add counts to customer types
-        visits.map(visit => {
-            regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
-                if (hq.id == visit.hq_headquarter_id) {
-                    hq.customer_types.map(ct => {
-
-                    })
-                }
-            })
-        });
-
-        // add counts to customer types
-        customers.map(cus => {
-            regions[cus.hq_region_id].area_objects[cus.hq_area_id].headquarters.map(hq => {
-                if (hq.id == cus.hq_headquarter_id) {
-                    hq.customer_types.map(ct => {
-
+        this.regions.map(region => {
+            region.areas.map(area => {
+                area.headquarters.map(headquarter => {
+                    attendances.map(att => {
+                        if (att.hq_headquarter_id == headquarter.id) {
+                            headquarter.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == att.hq_headquarter_id)
+                                    ct.attendance_count = att.attendance_count
+                            });
+                            area.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == att.hq_headquarter_id)
+                                    ct.attendance_count += att.attendance_count
+                            });
+                            region.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == att.hq_headquarter_id)
+                                    ct.attendance_count += att.attendance_count
+                            });
+                        }
                     });
-                }
+
+                    customers.map(cus => {
+                        if (cus.hq_headquarter_id == headquarter.id) {
+                            headquarter.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == cus.hq_headquarter_id)
+                                    ct.visit_count = cus.visit_count
+                            });
+                            area.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == cus.hq_headquarter_id)
+                                    ct.visit_count += cus.visit_count
+                            });
+                            region.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == cus.hq_headquarter_id)
+                                    ct.visit_count += cus.visit_count
+                            });
+                        }
+                    });
+
+                    visits.map(vis => {
+                        if (vis.hq_headquarter_id == headquarter.id) {
+                            headquarter.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == vis.hq_headquarter_id)
+                                    ct.visit_count = vis.visit_count
+                            });
+                            area.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == vis.hq_headquarter_id)
+                                    ct.visit_count += vis.visit_count
+                            });
+                            region.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == vis.hq_headquarter_id)
+                                    ct.visit_count += vis.visit_count
+                            });
+                        }
+                    });
+
+                    orders.map(ord => {
+                        if (ord.hq_headquarter_id == headquarter.id) {
+                            headquarter.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == ord.hq_headquarter_id)
+                                    ct.order_count = ord.order_count
+                            });
+                            area.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == ord.hq_headquarter_id)
+                                    ct.order_count += ord.order_count
+                            });
+                            region.customer_types.map(ct => {
+                                if (ct.hq_headquarter_id == ord.hq_headquarter_id)
+                                    ct.order_count += ord.order_count
+                            });
+                        }
+                    });
+
+                });
             });
         });
-
-        // add counts to
-        attendances.map(att => {
-            regions[att.hq_headquarter_id].area_objects[att.hq_headquarter_id].headquarters.map(hq => {
-                if (hq.id == att.hq_headquarter_id) {
-                    hq.customer_types.map(ct => {
-
-                    });
-                }
-            });
-        });
-
-        // add counts to order pob
-        orders.map(ord => {
-            regions[ord.hq_headquarter_id].area_objects[ord.hq_headquarter_id].headquarters.map(hq => {
-                if (hq.id == ord.hq_headquarter_id) {
-                    hq.customer_types.map(ct => {
-
-                    });
-                }
-            });
-        });
-
-        // set
-        this.regions = [];
-        for (let i in regions) {
-            let region = regions[i];
-            for (let j in region.customer_types) {
-                region.customer_types.push(region.customer_type_objects[j]);
-            }
-            this.regions.push(region);
-        }
 
         setTimeout(() => {
             if (!this.excel_loaded) {

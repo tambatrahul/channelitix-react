@@ -11,6 +11,13 @@ export class CustomerType extends Model {
     brick_count: number = 0;
     v2_count: number = 0;
     v3_count: number = 0;
+    hq_headquarter_id: number = 0;
+    visit_count: number = 0;
+    attendance_count: number = 0;
+    order_count: number = 0;
+    total_pob: number = 0;
+    total_call_avg: number = 0;
+    total_productive_avg: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -141,5 +148,59 @@ export class CustomerType extends Model {
         if (this.v3_count == 0)
             return 0;
         return (this.v3_count/customerCount) * 100
+    }
+
+    /**
+     * calculate Calls
+     * @returns {number}
+     */
+    get calls() {
+        return (this.visit_count/this.attendance_count)
+    }
+
+    /**
+     * calculate Calls
+     * @returns {number}
+     */
+    get productiveCalls() {
+        return (this.visit_count/this.order_count)
+    }
+
+    /**
+     * calculate Calls
+     * @returns {number}
+     */
+    get pob() {
+        return (this.order_count)
+    }
+
+    /**
+     * calculate Calls
+     * @returns {number}
+     */
+    get totalPob() {
+
+        let total_pob = this.pob;
+        return (this.order_count + total_pob)
+    }
+
+    /**
+     * calculate Calls
+     * @returns {number}
+     */
+    get totalCallAvg() {
+
+        let total_call_avg = this.calls;
+        return (this.total_call_avg + total_call_avg)
+    }
+
+    /**
+     * calculate Calls
+     * @returns {number}
+     */
+    get totalProductiveAvg() {
+
+        let total_productive_avg = this.productiveCalls;
+        return (this.total_productive_avg + total_productive_avg)
     }
 }
