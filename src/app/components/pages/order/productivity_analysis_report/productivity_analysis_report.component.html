@@ -75,26 +75,26 @@
                                         </tr>
                                         <tr *ngFor="let hq of area.headquarters">
                                             <th>{{ hq.name }}</th>
-                                            <td>{{ hq.customer_types.totalPob }}</td>
+                                            <td>{{ (hq.total_pob / 1000).toFixed(2) }}</td>
 
-                                            <td>{{ hq.customer_types[0].calls }} </td>
-                                            <td>{{ hq.customer_types[0].productiveCalls }}</td>
-                                            <td>{{ hq.customer_types[0].pob }}</td>
+                                            <td>{{ hq.customer_types[4].visit_count }} </td>
+                                            <td>{{ hq.customer_types[4].total_productive_avg }}</td>
+                                            <td>{{ (hq.customer_types[4].order_count/ 1000).toFixed(2) }}</td>
 
-                                            <td>{{ hq.customer_types[1].calls }}</td>
-                                            <td>{{ hq.customer_types[1].productiveCalls }}</td>
-                                            <td>{{ hq.customer_types[1].pob }}</td>
+                                            <td>{{ hq.customer_types[3].visit_count }}</td>
+                                            <td>{{ hq.customer_types[3].total_productive_avg }}</td>
+                                            <td>{{ (hq.customer_types[3].order_count/ 1000).toFixed(2) }}</td>
 
-                                            <td>{{ hq.customer_types[2].calls }}</td>
-                                            <td>{{ hq.customer_types[2].productiveCalls }}</td>
-                                            <td>{{ hq.customer_types[2].pob}}</td>
+                                            <td>{{ hq.customer_types[1].visit_count }}</td>
+                                            <td>{{ hq.customer_types[1].total_productive_avg }}</td>
+                                            <td>{{ (hq.customer_types[1].order_count/ 1000).toFixed(2)}}</td>
 
-                                            <td>{{ hq.customer_types[3].calls }}</td>
-                                            <td>{{ hq.customer_types[3].productiveCalls }}</td>
-                                            <td>{{ hq.customer_types[3].pob }}</td>
+                                            <td>{{ hq.customer_types[2].visit_count }}</td>
+                                            <td>{{ hq.customer_types[2].total_productive_avg }}</td>
+                                            <td>{{ (hq.customer_types[2].order_count/ 1000).toFixed(2) }}</td>
 
-                                            <td>{{ hq.customer_types.totalCallAvg }}</td>
-                                            <td>{{ hq.customer_types.totalPob }}</td>
+                                            <td>{{ hq.total_att > 0 ? (hq.total_visit / hq.total_att).toFixed(1): 0 }}</td>
+                                            <td>{{ hq.total_att > 0 ? (hq.total_order / hq.total_att).toFixed(1): 0 }}</td>
                                         </tr>
                                     </template>
                                     </tbody>

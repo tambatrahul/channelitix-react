@@ -49,6 +49,7 @@ export class Result {
 
     //Orders models
     orders: Order[];
+    order_counts: Order[];
 
     // holidays models
     holidays: Holiday[];

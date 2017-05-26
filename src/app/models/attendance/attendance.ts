@@ -74,5 +74,8 @@ export class Attendance extends Model {
 
         if (info.hq_headquarter_id)
             this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
+
+        if (info.attendance_count)
+            this.attendance_count = parseInt(info.attendance_count);
     }
 }
