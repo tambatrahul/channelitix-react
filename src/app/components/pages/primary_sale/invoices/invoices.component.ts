@@ -22,6 +22,8 @@ export class InvoicesComponent extends ListComponent {
     public page: number = 1;
     public total: number = 10;
 
+    upload_excel;
+
     /**
      * loading identifier
      */
@@ -104,6 +106,7 @@ export class InvoicesComponent extends ListComponent {
      */
     fetch() {
         if (this._month && this._year) {
+            let self = this;
             this.loading = true;
             this.saleService.monthly_invoice(this._month + 1, this._year,
                 this._region_id, this._area_id, this._headquarter_id, this.page).subscribe(
@@ -115,6 +118,17 @@ export class InvoicesComponent extends ListComponent {
                         return new PrimarySale(user);
                     });
                     this.total = response.total;
+
+                    setTimeout(() => {
+                        if (this.upload_excel)
+                            this.upload_excel.reset();
+                        else
+                            this.upload_excel = jQuery("table").tableExport({
+                                formats: ['xlsx'],
+                                bootstrap: true,
+                                position: "top"
+                            });
+                    }, 1000);
                 },
                 err => {
                     this.loading = false;

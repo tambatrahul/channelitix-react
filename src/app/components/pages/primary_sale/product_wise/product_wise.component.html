@@ -22,14 +22,21 @@
                     </tfoot>
 
                     <tbody>
+                    <tr class="grey">
+                        <th></th>
+                        <th>Total Amount</th>
+                        <th colspan="2" class="align-right"><i class="fa fa-rupee"></i> {{ total_amount.toFixed(2) | number : fractionSize }}</th>
+                    </tr>
                     <template ngFor let-item [ngForOf]="products" let-i="index">
                         <tr>
                             <td>{{ i+1 }}</td>
-                            <td>
+                            <th>
                                 {{ item.name }}
-                            </td>
+                            </th>
                             <td>{{ item.invoice_detail? item.invoice_detail.total_qty: 0 }}</td>
-                            <td><i class="fa fa-rupee"></i> {{ item.invoice_detail? item.invoice_detail.total_net_amount: 0}}</td>
+                            <td><i class="fa fa-rupee"></i> {{ (item.invoice_detail?
+                                item.invoice_detail.total_net_amount: 0) | number}}
+                            </td>
                         </tr>
                     </template>
 

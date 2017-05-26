@@ -20,6 +20,9 @@ export class ProductWiseComponent extends ListComponent {
      */
     title: string = "";
 
+    total_amount: number = 0;
+
+    upload_excel;
     /**
      * region, area, headquarter
      */
@@ -85,6 +88,8 @@ export class ProductWiseComponent extends ListComponent {
 
     fetch() {
         if (this._month && this._year) {
+            if (this.upload_excel)
+                this.upload_excel.remove();
             this.loading = true;
             this.saleService.monthly_product(this._month + 1, this._year,
                 this._region_id, this._area_id, this._headquarter_id).subscribe(
@@ -108,11 +113,25 @@ export class ProductWiseComponent extends ListComponent {
 
     prepareData() {
         let self = this;
+        this.total_amount = 0;
         this.products.map(function (product) {
             self.invoice_details.map(function (id) {
-                if (id.product && id.product.id == product.id)
+                if (id.product && id.product.id == product.id) {
                     product.invoice_detail = id;
+                    self.total_amount += id.total_net_amount;
+                }
             });
         });
+
+        setTimeout(() => {
+            if (this.upload_excel)
+                this.upload_excel.reset();
+            else
+                this.upload_excel = jQuery("table").tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+        }, 1000);
     }
 }

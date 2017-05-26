@@ -24,17 +24,24 @@
                     </tfoot>
 
                     <tbody>
+                    <tr class="grey">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="">Total</th>
+                        <th class="align-right"><i class="fa fa-rupee"></i> {{ total_amount | number }}</th>
+                    </tr>
                     <template ngFor let-item [ngForOf]="invoice_details" let-i="index">
                         <tr>
                             <td>{{ i+1 }}</td>
                             <td>
-                                {{ item.customer.code }}
+                                {{ item.customer?.code }}
                             </td>
                             <td>
                                 {{ item.customer?.firm_name }}
                             </td>
                             <td>{{ item.total_qty }}</td>
-                            <td><i class="fa fa-rupee"></i> {{ item.total_net_amount }}</td>
+                            <td><i class="fa fa-rupee"></i> {{ item.total_net_amount | number }}</td>
                         </tr>
                     </template>
 

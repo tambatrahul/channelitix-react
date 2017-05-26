@@ -19,6 +19,10 @@ export class StockistWiseComponent extends ListComponent {
      */
     title: string = "";
 
+    upload_excel;
+
+    total_amount: number = 0;
+
     public _month: number;
     @Input()
     set month(month: number) {
@@ -77,6 +81,7 @@ export class StockistWiseComponent extends ListComponent {
      * fetch from server
      */
     fetch() {
+        let self = this;
         if (this._month && this._year) {
             this.loading = true;
             this.saleService.monthly_stockist(this._month + 1,
@@ -85,9 +90,23 @@ export class StockistWiseComponent extends ListComponent {
                     this.loading = false;
 
                     // convert to models
+                    self.total_amount = 0;
                     this.invoice_details = response.invoice_details.map(function (user, index) {
-                        return new InvoiceDetail(user);
+                        let invoice_de = new InvoiceDetail(user);
+                        self.total_amount += invoice_de.total_net_amount;
+                        return invoice_de;
                     });
+
+                    setTimeout(() => {
+                        if (this.upload_excel)
+                            this.upload_excel.reset();
+                        else
+                            this.upload_excel = jQuery("table").tableExport({
+                                formats: ['xlsx'],
+                                bootstrap: true,
+                                position: "top"
+                            });
+                    }, 1000);
                 },
                 err => {
                     this.loading = false;
