@@ -8,6 +8,8 @@ import {Headquarter} from "../../../../models/territory/headquarter";
 import {Visit} from "../../../../models/visit/visit";
 import * as moment from "moment";
 import {Customer} from "../../../../models/customer/customer";
+import {Order} from "../../../../models/order/order";
+import {Attendance} from "../../../../models/attendance/attendance";
 declare let jQuery: any;
 
 @Component({
@@ -81,42 +83,21 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
 
                     // prepare customers
                     let customers = response.customers.map(cus => new Customer(cus));
+
+                    // prepare visits
                     let visits = response.visits.map(visit => new Visit(visit));
+
+                    // prepare orders
+                    let orders = response.orders.map(order => new Order(order));
+
+                    // prepare attendances
+                    let attendances = response.orders.map(attendance => new Attendance(attendance));
 
                     // prepare customer types
                     let customer_types = response.customer_types.map(ct => new CustomerType(ct));
                     this.customer_types = customer_types;
 
-                    // prepare total_pob
-                    let total_pob;
-
-                    // prepare physician
-                    let p_total_pob;
-                    let p_calls
-                    let p_productive_calls;
-
-                    // prepare hub_chemist
-                    let h_total_pob;
-                    let h_calls
-                    let h_productive_calls;
-
-                    // prepare semi
-                    let s_total_pob;
-                    let s_calls
-                    let s_productive_calls;
-
-                    // prepare retailer
-                    let r_total_pob;
-                    let r_calls
-                    let r_productive_calls;
-
-                    // prepare total_call_avg
-                    let total_call_avg;
-
-                    // prepare product_call_avg
-                    let product_call_avg;
-
-                    //this.prepareData();
+                    this.prepareData(headquarters, customer_types, customers, attendances, visits, orders);
                 },
                 err => {
                     this.loading = false;
@@ -129,12 +110,14 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
      * prepare data for headquarter wise customers
      *
      * @param headquarters
-     * @param visits
      * @param customer_types
      * @param customers
+     * @param attendances
+     * @param visits
+     * @param orders
      */
-    prepareData(headquarters: Headquarter[], visits: Visit[], customer_types: CustomerType[],
-                customers: Customer[], v2_v3_visits: Visit[]) {
+    prepareData(headquarters: Headquarter[], customer_types: CustomerType[], customers: Customer[],
+                attendances: Attendance[], visits: Visit[],orders: Order[]) {
 
         // prepare headquarters
         let regions = {};
@@ -147,7 +130,7 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
 
             // add customer type
             hq.customer_types = customer_types.map(ct => new CustomerType(ct));
-            regions[hq.hq_area.hq_region.id].area_objects[hq.hq_area.id].headquarters.push(hq);
+            regions[hq.id].headquarters.push(hq);
         });
 
         // add counts to customer types
@@ -155,10 +138,7 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
             regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
                 if (hq.id == visit.hq_headquarter_id) {
                     hq.customer_types.map(ct => {
-                        ct.grades.map(grade => {
-                            if (grade.id == visit.grade_id)
-                                grade.visit_count = visit.visit_count
-                        });
+
                     })
                 }
             })
@@ -169,32 +149,40 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
             regions[cus.hq_region_id].area_objects[cus.hq_area_id].headquarters.map(hq => {
                 if (hq.id == cus.hq_headquarter_id) {
                     hq.customer_types.map(ct => {
-                        ct.grades.map(grade => {
-                            if (grade.id == cus.grade_id)
-                                grade.customer_count = cus.visit_count
-                        });
+
                     });
                 }
             });
         });
 
-        v2_v3_visits.map(visit => {
-            if (regions.hasOwnProperty(visit.hq_region_id)) {
-                regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
-                    if (hq.id == visit.hq_headquarter_id) {
-                        hq.customer_types[0].v2_count = visit.visited_twice;
-                        hq.customer_types[0].v3_count = visit.visited_thrice;
-                    }
-                });
-            }
+        // add counts to
+        attendances.map(att => {
+            regions[att.hq_headquarter_id].area_objects[att.hq_headquarter_id].headquarters.map(hq => {
+                if (hq.id == att.hq_headquarter_id) {
+                    hq.customer_types.map(ct => {
+
+                    });
+                }
+            });
+        });
+
+        // add counts to order pob
+        orders.map(ord => {
+            regions[ord.hq_headquarter_id].area_objects[ord.hq_headquarter_id].headquarters.map(hq => {
+                if (hq.id == ord.hq_headquarter_id) {
+                    hq.customer_types.map(ct => {
+
+                    });
+                }
+            });
         });
 
         // set
         this.regions = [];
         for (let i in regions) {
             let region = regions[i];
-            for (let j in region.area_objects) {
-                region.areas.push(region.area_objects[j]);
+            for (let j in region.customer_types) {
+                region.customer_types.push(region.customer_type_objects[j]);
             }
             this.regions.push(region);
         }
