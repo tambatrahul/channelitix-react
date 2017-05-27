@@ -87,9 +87,13 @@ export class ProductWiseComponent extends ListComponent {
     }
 
     fetch() {
-        if (this._month && this._year) {
-            if (this.upload_excel)
-                this.upload_excel.remove();
+        for (let i = 0; i < localStorage.length; i++){
+            if (localStorage.key(i).substring(0,3) == 'te-') {
+                localStorage.removeItem(localStorage.key(i));
+            }
+        }
+
+        if (this._month && this._year && !this.loading) {
             this.loading = true;
             this.saleService.monthly_product(this._month + 1, this._year,
                 this._region_id, this._area_id, this._headquarter_id).subscribe(
@@ -124,10 +128,11 @@ export class ProductWiseComponent extends ListComponent {
         });
 
         setTimeout(() => {
-            if (this.upload_excel)
+            if (this.upload_excel) {
                 this.upload_excel.reset();
+            }
             else
-                this.upload_excel = jQuery("table").tableExport({
+                this.upload_excel = jQuery("#product_wise_sale").tableExport({
                     formats: ['xlsx'],
                     bootstrap: true,
                     position: "top"

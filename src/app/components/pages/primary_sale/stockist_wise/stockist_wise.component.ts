@@ -82,12 +82,15 @@ export class StockistWiseComponent extends ListComponent {
      */
     fetch() {
         let self = this;
-        if (this._month && this._year) {
+        if (this._month && this._year && !this.loading) {
+            if (this.upload_excel) {
+                this.upload_excel.remove();
+            }
+
             this.loading = true;
             this.saleService.monthly_stockist(this._month + 1,
                 this._year, this._region_id, this._area_id, this._headquarter_id).subscribe(
                 response => {
-                    this.loading = false;
 
                     // convert to models
                     self.total_amount = 0;
@@ -97,15 +100,14 @@ export class StockistWiseComponent extends ListComponent {
                         return invoice_de;
                     });
 
+                    this.loading = false;
+
                     setTimeout(() => {
-                        if (this.upload_excel)
-                            this.upload_excel.reset();
-                        else
-                            this.upload_excel = jQuery("table").tableExport({
-                                formats: ['xlsx'],
-                                bootstrap: true,
-                                position: "top"
-                            });
+                        self.upload_excel = jQuery("#stockist_wise_sale1").tableExport({
+                            formats: ['xlsx'],
+                            bootstrap: true,
+                            position: "top"
+                        });
                     }, 1000);
                 },
                 err => {
