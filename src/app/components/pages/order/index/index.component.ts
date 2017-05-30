@@ -251,6 +251,18 @@ export class OrderComponent extends BaseAuthComponent {
             }
         }
 
+        // Third Party User Check
+        if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
+            let third_party_user = this._service.user;
+            third_party_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            third_party_user.children = [];
+            third_party_user.cse_count = 0;
+            zone_managers.push(third_party_user);
+            for (let m of managers) {
+                zone_managers[0].children.push(m);
+            }
+        }
+
         // depending on list show view
         if (zone_managers.length > 0)
             this.managers = zone_managers;
