@@ -82,6 +82,15 @@ export class AppConstants {
     }
 
     /**
+     * get list of all third party child roles
+     *
+     * @param role_id
+     */
+    static getThirdPartyChildRoles(role_id) {
+        return AppConstants.roles.filter(role => role.id < role_id)
+    }
+
+    /**
      * get role from id
      * @param role_id
      * @returns {Role}
