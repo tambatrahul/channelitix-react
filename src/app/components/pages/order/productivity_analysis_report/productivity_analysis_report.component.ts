@@ -183,6 +183,8 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
                     attendances.map(att => {
                         if (att.hq_headquarter_id == headquarter.id) {
                             headquarter.total_att += att.attendance_count;
+                            headquarter.total_pob += att.pob_amount;
+                            headquarter.total_visit += att.no_of_calls;
                         }
                     });
 

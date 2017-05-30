@@ -40,30 +40,35 @@
                                     <tr>
                                         <th></th>
                                         <th></th>
-                                        <th colspan="3">Physician</th>
+                                        <th colspan="3" class="grey">Physician</th>
                                         <th colspan="3">Hub</th>
-                                        <th colspan="3">Semi</th>
+                                        <th colspan="3" class="grey">Semi</th>
                                         <th colspan="3">Retailer</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th class="grey"></th>
+                                        <th class="grey"></th>
                                     </tr>
                                     <tr>
                                         <th>Headquarters</th>
                                         <th>Total POB</th>
+
+                                        <th class="grey">Calls</th>
+                                        <th class="grey">Productive Calls</th>
+                                        <th class="grey">POB</th>
+
                                         <th>Calls</th>
                                         <th>Productive Calls</th>
                                         <th>POB</th>
+
+                                        <th class="grey">Calls</th>
+                                        <th class="grey">Productive Calls</th>
+                                        <th class="grey">POB</th>
+
                                         <th>Calls</th>
                                         <th>Productive Calls</th>
                                         <th>POB</th>
-                                        <th>Calls</th>
-                                        <th>Productive Calls</th>
-                                        <th>POB</th>
-                                        <th>Calls</th>
-                                        <th>Productive Calls</th>
-                                        <th>POB</th>
-                                        <th>Total Call Avg</th>
-                                        <th>Total Productive Avg</th>
+
+                                        <th class="grey">Total Call Avg</th>
+                                        <th class="grey">Total Productive Avg</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -75,26 +80,26 @@
                                         </tr>
                                         <tr *ngFor="let hq of area.headquarters">
                                             <th>{{ hq.name }}</th>
-                                            <td>{{ (hq.total_pob / 1000).toFixed(2) }}</td>
+                                            <td>{{ (hq.total_pob / 1000).toFixed(1) }}</td>
 
-                                            <td>{{ hq.customer_types[4].visit_count }} </td>
-                                            <td>{{ hq.customer_types[4].total_productive_avg }}</td>
-                                            <td>{{ (hq.customer_types[4].order_count/ 1000).toFixed(2) }}</td>
+                                            <td class="grey">{{ hq.customer_types[4].visit_count }} </td>
+                                            <td class="grey">{{ hq.customer_types[4].total_productive_avg }}</td>
+                                            <td class="grey">{{ (hq.customer_types[4].order_count/ 1000).toFixed(2) }}</td>
 
                                             <td>{{ hq.customer_types[3].visit_count }}</td>
                                             <td>{{ hq.customer_types[3].total_productive_avg }}</td>
                                             <td>{{ (hq.customer_types[3].order_count/ 1000).toFixed(2) }}</td>
 
-                                            <td>{{ hq.customer_types[1].visit_count }}</td>
-                                            <td>{{ hq.customer_types[1].total_productive_avg }}</td>
-                                            <td>{{ (hq.customer_types[1].order_count/ 1000).toFixed(2)}}</td>
+                                            <td class="grey">{{ hq.customer_types[1].visit_count }}</td>
+                                            <td class="grey">{{ hq.customer_types[1].total_productive_avg }}</td>
+                                            <td class="grey">{{ (hq.customer_types[1].order_count/ 1000).toFixed(2)}}</td>
 
                                             <td>{{ hq.customer_types[2].visit_count }}</td>
                                             <td>{{ hq.customer_types[2].total_productive_avg }}</td>
                                             <td>{{ (hq.customer_types[2].order_count/ 1000).toFixed(2) }}</td>
 
-                                            <td>{{ hq.total_att > 0 ? (hq.total_visit / hq.total_att).toFixed(1): 0 }}</td>
-                                            <td>{{ hq.total_att > 0 ? (hq.total_order / hq.total_att).toFixed(1): 0 }}</td>
+                                            <td class="grey">{{ hq.total_att > 0 ? (hq.total_visit / hq.total_att).toFixed(1): 0 }}</td>
+                                            <td class="grey">{{ hq.total_att > 0 ? (hq.total_order / hq.total_att).toFixed(1): 0 }}</td>
                                         </tr>
                                     </template>
                                     </tbody>

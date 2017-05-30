@@ -91,6 +91,9 @@ export class Order extends Model {
 
         if (info.customer_type_id)
             this.customer_type_id = parseInt(info.customer_type_id);
+
+        if (info.order_count)
+            this.order_count = parseInt(info.order_count);
     }
 
     /**
