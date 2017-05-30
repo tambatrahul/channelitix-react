@@ -11,6 +11,13 @@ export class CustomerType extends Model {
     brick_count: number = 0;
     v2_count: number = 0;
     v3_count: number = 0;
+    hq_headquarter_id: number = 0;
+    visit_count: number = 0;
+    attendance_count: number = 0;
+    order_count: number = 0;
+    total_pob: number = 0;
+    total_call_avg: number = 0;
+    total_productive_avg: number = 0;
 
     constructor(info: any) {
         super(info.id);

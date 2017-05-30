@@ -41,6 +41,7 @@ import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
 import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
 import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
+import {ProductivityAnalysisReportComponent} from "./components/pages/order/productivity_analysis_report/productivity_analysis_report.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -298,6 +299,9 @@ export const routes: Routes = [
                     }, {
                         path: 'executive_summary',
                         component: ExecutiveSummaryComponent,
+                    }, {
+                        path: 'productivity_analysis',
+                        component: ProductivityAnalysisReportComponent,
                     }
                 ]
             },

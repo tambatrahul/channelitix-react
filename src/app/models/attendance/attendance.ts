@@ -30,6 +30,7 @@ export class Attendance extends Model {
     att_month: number;
     att_count: number = 0;
     hq_headquarter_id: number = 0;
+    attendance_count: number = 0;
 
 
     constructor(info: any) {
@@ -73,5 +74,8 @@ export class Attendance extends Model {
 
         if (info.hq_headquarter_id)
             this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
+
+        if (info.attendance_count)
+            this.attendance_count = parseInt(info.attendance_count);
     }
 }

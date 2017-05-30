@@ -254,4 +254,23 @@ export class ReportService extends BaseService {
     executive_summary(month: number, year: number) {
         return this.get(this.getBaseUrl() + '/executive_summary/' + month + "/" + year, new RequestOptions({}));
     }
+
+    /**
+     * get order and visit trends
+     *
+     * @returns {Observable<Result>}
+     */
+    productivity_analysis(from_date, to_date): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('from_date', String(from_date ? from_date : ''));
+        params.set('to_date', String(to_date ? to_date : ''));
+
+        // prepare url
+        let url = this.getBaseUrl() + '/productivity_analysis';
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
 }

@@ -30,6 +30,7 @@ export class Visit extends Model {
     grade_id: number;
     visited_twice: number = 0;
     visited_thrice: number = 0;
+    customer_type_id: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -84,6 +85,9 @@ export class Visit extends Model {
 
         if (info.visited_thrice)
             this.visited_thrice = parseInt(info.visited_thrice);
+
+        if (info.customer_type_id)
+            this.customer_type_id = parseInt(info.customer_type_id);
     }
 
     /**

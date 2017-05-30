@@ -1,0 +1,114 @@
+<div class="container-fluid bricks" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Productivity Analysis Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Visit report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <dates-select (onDateChanged)="onDateChanged($event)"></dates-select>
+        </div>
+    </div>
+    <!-- ./Filters for Visit report-->
+
+    <!-- Attendance Table -->
+    <div class="row" *ngFor="let z of regions" >
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4><strong>{{ z.name }}</strong></h4>
+                </div>
+                <div>
+                    <div class="widget-container report-table">
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered visit_table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th colspan="3" class="grey">Physician</th>
+                                        <th colspan="3">Hub</th>
+                                        <th colspan="3" class="grey">Semi</th>
+                                        <th colspan="3">Retailer</th>
+                                        <th class="grey"></th>
+                                        <th class="grey"></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Headquarters</th>
+                                        <th>Total POB</th>
+
+                                        <th class="grey">Calls</th>
+                                        <th class="grey">Productive Calls</th>
+                                        <th class="grey">POB</th>
+
+                                        <th>Calls</th>
+                                        <th>Productive Calls</th>
+                                        <th>POB</th>
+
+                                        <th class="grey">Calls</th>
+                                        <th class="grey">Productive Calls</th>
+                                        <th class="grey">POB</th>
+
+                                        <th>Calls</th>
+                                        <th>Productive Calls</th>
+                                        <th>POB</th>
+
+                                        <th class="grey">Total Call Avg</th>
+                                        <th class="grey">Total Productive Avg</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <template ngFor let-area [ngForOf]="z.areas">
+                                        <tr>
+                                            <th [colSpan]="17" class="text-center">
+                                                {{ area.name }}
+                                            </th>
+                                        </tr>
+                                        <tr *ngFor="let hq of area.headquarters">
+                                            <th>{{ hq.name }}</th>
+                                            <td>{{ (hq.total_pob / 1000).toFixed(1) }}</td>
+
+                                            <td class="grey">{{ hq.customer_types[4].visit_count }} </td>
+                                            <td class="grey">{{ hq.customer_types[4].total_productive_avg }}</td>
+                                            <td class="grey">{{ (hq.customer_types[4].order_count/ 1000).toFixed(2) }}</td>
+
+                                            <td>{{ hq.customer_types[3].visit_count }}</td>
+                                            <td>{{ hq.customer_types[3].total_productive_avg }}</td>
+                                            <td>{{ (hq.customer_types[3].order_count/ 1000).toFixed(2) }}</td>
+
+                                            <td class="grey">{{ hq.customer_types[1].visit_count }}</td>
+                                            <td class="grey">{{ hq.customer_types[1].total_productive_avg }}</td>
+                                            <td class="grey">{{ (hq.customer_types[1].order_count/ 1000).toFixed(2)}}</td>
+
+                                            <td>{{ hq.customer_types[2].visit_count }}</td>
+                                            <td>{{ hq.customer_types[2].total_productive_avg }}</td>
+                                            <td>{{ (hq.customer_types[2].order_count/ 1000).toFixed(2) }}</td>
+
+                                            <td class="grey">{{ hq.total_att > 0 ? (hq.total_visit / hq.total_att).toFixed(1): 0 }}</td>
+                                            <td class="grey">{{ hq.total_att > 0 ? (hq.total_order / hq.total_att).toFixed(1): 0 }}</td>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

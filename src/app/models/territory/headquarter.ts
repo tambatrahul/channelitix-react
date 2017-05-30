@@ -16,6 +16,7 @@ export class Headquarter extends Model {
     total_pob: number = 0;
     total_visit: number = 0;
     total_att: number = 0;
+    total_order: number = 0;
 
     territories_count: number = 0;
     bricks_count: number = 0;
@@ -38,6 +39,9 @@ export class Headquarter extends Model {
 
         if (info.total_bricks)
             this.total_bricks = parseInt(info.total_bricks);
+
+        if (info.total_order)
+            this.total_order = parseInt(info.total_order);
     }
 
     /**
