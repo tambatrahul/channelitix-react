@@ -216,4 +216,62 @@ export class SecondarySaleCreateComponent extends ListComponent {
     get isEditable(): boolean {
         return (this._month >= this.current_month - 1) && (this.year >= this.current_year);
     }
+
+    /**
+     * get total opening amount
+     * @returns {number}
+     */
+    get opening_total() {
+        return this.secondary_sales.reduce((s1, s2) => {
+            return s1 + s2.opening
+        }, 0);
+    }
+
+    /**
+     * get total adjustment amount
+     * @returns {number}
+     */
+    get adjustment_total() {
+        return this.secondary_sales.reduce((s1, s2) => {
+            return s1 + s2.adjustment
+        }, 0);
+    }
+
+    /**
+     * get total secondary amount
+     * @returns {number}
+     */
+    get secondary_total() {
+        return this.secondary_sales.reduce((s1, s2) => {
+            return s1 + s2.secondary_sale;
+        }, 0);
+    }
+
+    /**
+     * get total closing amount
+     * @returns {number}
+     */
+    get closing_total(): number {
+        return this.adjustment_total + this.opening_total - this.secondary_total;
+    }
+
+    /**
+     * get total closing amount
+     * @returns {number}
+     */
+    get closing_value(): number {
+        return this.secondary_sales.reduce((s1, s2) => {
+            return s1 + (s2.closing_qty * s2.unit_price);
+        }, 0);
+    }
+
+    /**
+     * get total closing amount
+     * @returns {number}
+     */
+    get secondary_value(): number {
+        return this.secondary_sales.reduce((s1, s2) => {
+            return s1 + (s2.secondary_sale * s2.unit_price);
+        }, 0);
+    }
 }
