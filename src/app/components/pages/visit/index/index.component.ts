@@ -241,6 +241,22 @@ export class VisitComponent extends BaseAuthComponent {
             }
         }
 
+        // Third Party User check
+        if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
+            let third_party_user = this._service.user;
+            third_party_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+            third_party_user.children = [];
+            third_party_user.cse_count = 0;
+            zone_managers.push(third_party_user);
+            for (let m of managers) {
+                zone_managers[0].children.push(m);
+                m.visits.forEach(function (att, index) {
+                    zone_managers[0].visits[index].visit_count += att.visit_count;
+                });
+                zone_managers[0].cse_count += m.children.length
+            }
+        }
+
         // depending on list show view
         if (zone_managers.length > 0)
             this.managers = zone_managers;

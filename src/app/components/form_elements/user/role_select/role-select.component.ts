@@ -34,6 +34,9 @@ export class RoleSelectComponent extends BaseSelectComponent {
      * fetch roles from constants
      */
     fetch() {
-        this.roles = AppConstants.getChildRoles(this._authService.user.role_id);
+        if (this._authService.user.role_str != 'THIRD_PARTY')
+            this.roles = AppConstants.getChildRoles(this._authService.user.role_id);
+        else
+            this.roles = AppConstants.getThirdPartyChildRoles(5);
     }
 }
