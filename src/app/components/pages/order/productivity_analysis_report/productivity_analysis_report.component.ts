@@ -72,6 +72,11 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
+        for (let i = 0; i < localStorage.length; i++){
+            if (localStorage.key(i).substring(0,3) == 'te-') {
+                localStorage.removeItem(localStorage.key(i));
+            }
+        }
         if (this._dates && this._dates.from_date && this._dates.to_date && !this.loading) {
             this.loading = true;
             this.reportService.productivity_analysis(this._dates.from_date, this._dates.to_date).subscribe(
@@ -112,9 +117,6 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
      * @param total_orders
      */
     prepareData(attendances: Attendance[], visits: Visit[], orders: Order[], total_orders: Order[]) {
-        if (this.uploads) {
-            this.uploads.remove();
-        }
         this.regions.map(region => {
             // add customer types
             region.customer_types = this.customer_types.map(ct => new CustomerType(ct));

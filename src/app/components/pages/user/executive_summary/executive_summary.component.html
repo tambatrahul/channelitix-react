@@ -137,7 +137,7 @@
                                                     </td>
                                                     <td class="grey">
                                                         {{ region.target > 0 ? ((region.primary * 100 /
-                                                        region.target).toFixed(1)) :
+                                                        region.target).toFixed(0)) :
                                                         0 }} %
                                                     </td>
                                                 <td>{{ (region.target * 0.3).toFixed(1) | number : fractionSize }}</td>
@@ -149,7 +149,7 @@
                                                 </template>
 
                                                 <template [ngIf]="environment.envName == 'sk_group'">
-                                                    <td>{{ (region.target).toFixed(1) | number : fractionSize }}</td>
+                                                    <td>{{ (region.target).toFixed(0) | number : fractionSize }}</td>
                                                     <td>{{ region.total_pob.toFixed(0) | number : fractionSize }}</td>
                                                     <td>
                                                         {{ region.target > 0 ?((region.total_pob * 100 /(region.target)).toFixed(0)) : 0 }} %
@@ -197,10 +197,10 @@
                                                         </td>
                                                         <td class="grey">
                                                             {{ area.target > 0 ? ((area.primary * 100 /
-                                                            area.target).toFixed(1)) :
+                                                            area.target).toFixed(0)) :
                                                             0 }} %
                                                         </td>
-                                                        <td>{{ (area.target * 0.3).toFixed(1) | number : fractionSize }}
+                                                        <td>{{ (area.target * 0.3).toFixed(0) | number : fractionSize }}
                                                         </td>
                                                         <td>{{ area.total_pob.toFixed(0) | number : fractionSize }}</td>
                                                         <td>
@@ -210,7 +210,7 @@
                                                     </template>
 
                                                     <template [ngIf]="environment.envName == 'sk_group'">
-                                                        <td>{{ (area.target).toFixed(1) | number : fractionSize }}</td>
+                                                        <td>{{ (area.target).toFixed(0) | number : fractionSize }}</td>
                                                         <td>{{ area.total_pob.toFixed(0) | number : fractionSize }}</td>
                                                         <td>
                                                             {{ area.target > 0 ?((area.total_pob * 100 /(area.target)).toFixed(0)) : 0 }} %
@@ -220,7 +220,7 @@
 
 
                                                     <td class="grey">
-                                                        {{ (area.total_visit / area.total_att).toFixed(1)}}
+                                                        {{ (area.total_visit / area.total_att).toFixed(0)}}
                                                     </td>
 
                                                     <td>{{ area.customer_types[0].customerCount }}</td>
@@ -260,10 +260,10 @@
                                                         </td>
                                                         <td class="grey">
                                                             {{ hq.target > 0 ? ((hq.primary * 100 /
-                                                            hq.target).toFixed(1)) :
+                                                            hq.target).toFixed(0)) :
                                                             0 }} %
                                                         </td>
-                                                        <td>{{ (hq.target * 0.3).toFixed(1) | number : fractionSize }}</td>
+                                                        <td>{{ (hq.target * 0.3).toFixed(0) | number : fractionSize }}</td>
                                                         <td>{{ hq.total_pob.toFixed(0) | number : fractionSize }}</td>
                                                         <td>
                                                             {{ hq.target > 0 ?((hq.total_pob * 100 /(hq.target *
@@ -272,7 +272,7 @@
                                                     </template>
 
                                                     <template [ngIf]="environment.envName == 'sk_group'">
-                                                        <td>{{ (hq.target).toFixed(1) | number : fractionSize }}</td>
+                                                        <td>{{ (hq.target).toFixed(0) | number : fractionSize }}</td>
                                                         <td>{{ hq.total_pob.toFixed(0) | number : fractionSize }}</td>
                                                         <td>
                                                             {{ hq.target > 0 ?((hq.total_pob * 100 /(hq.target)).toFixed(0)) : 0 }} %
@@ -280,7 +280,7 @@
                                                     </template>
 
                                                     <td class="grey">
-                                                        {{ hq.total_att > 0 ? ((hq.total_visit / hq.total_att).toFixed(1)): 0 }}
+                                                        {{ hq.total_att > 0 ? ((hq.total_visit / hq.total_att).toFixed(0)): 0 }}
                                                     </td>
 
                                                     <td>{{ hq.customer_types[0].customerCount }}</td>
