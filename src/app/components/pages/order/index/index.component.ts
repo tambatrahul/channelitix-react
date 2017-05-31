@@ -198,7 +198,7 @@ export class OrderComponent extends BaseAuthComponent {
         }
 
         // if user is zone manager add it to list
-        if (this._service.user.role_str == this.ROLE_ZSM) {
+        if (this._service.user.role_str == this.ROLE_ZSM && !this.abbott) {
             this._service.user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
             this._service.user.children = [];
             this._service.user.cse_count = 0;
@@ -240,7 +240,24 @@ export class OrderComponent extends BaseAuthComponent {
             }
         }
 
-        if (this.environment.envName == 'sk_group' && this.abbott && this._service.user.role_str != this.ROLE_ADMIN) {
+        if(this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group'){
+            let abbott_user = new User({full_name: 'Abbott'});
+            abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+            abbott_user.children = [];
+            abbott_user.cse_count = 0;
+            zone_managers.push(abbott_user);
+            for (let m of managers) {
+                zone_managers[0].children.push(m);
+                m.visits.forEach(function (att, index) {
+                    zone_managers[0].visits[index].visit_count += att.visit_count;
+                });
+                zone_managers[0].cse_count += m.children.length
+
+            }
+        }
+
+        if (this.environment.envName == 'sk_group' && this.abbott && this._service.user.role_str != this.ROLE_ADMIN
+            && this._service.user.role_str != this.ROLE_CSM) {
             let abbott_user = new User({full_name: 'Abbott'});
             abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
             abbott_user.children = [];
