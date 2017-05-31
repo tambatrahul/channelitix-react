@@ -120,6 +120,19 @@
                                         {{ ss.closing_amount | number : '1.2-2' }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <template *ngIf="environment.envName != 'sk_group'">
+                                        <th></th>
+                                    </template>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th>{{ opening_total | number : '1.2-2' }}</th>
+                                    <th>{{ adjustment_total | number : '1.2-2' }}</th>
+                                    <th>{{ secondary_total | number : '1.2-2' }}</th>
+                                    <th>{{ closing_total | number : '1.2-2' }}</th>
+                                    <th>{{ secondary_value | number : '1.2-2' }}</th>
+                                    <th>{{ closing_value | number : '1.2-2' }}</th>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
