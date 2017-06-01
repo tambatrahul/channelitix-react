@@ -1,10 +1,11 @@
 import {Component, Input} from "@angular/core";
-import {ListComponent} from "../../../base/list.component";
 import {AuthService} from "../../../../services/AuthService";
 import {ReportService} from "../../../../services/report.service";
 import {Performance} from "../../../../models/SAP/performance";
 import {Product} from "../../../../models/order/product";
+import * as moment from "moment";
 import {BaseDashboardComponent} from "../base_dashboard.component";
+
 @Component({
     selector: 'product-wise-sale',
     styleUrls: ['product_wise_sale.component.less'],
@@ -63,6 +64,17 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     }
 
     /**
+     * initialize data
+     */
+    ngOnInit() {
+        super.ngOnInit();
+        let current_month = moment();
+        this._month = current_month.month();
+        this._year = current_month.year();
+        this.fetch();
+    }
+
+    /**
      * fetch counts from server
      */
     protected fetch() {
@@ -112,5 +124,17 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
         });
 
         this.products = products;
+    }
+
+    /**
+     * month and year changed
+     *
+     * @param date
+     */
+    monthYearChanged(date) {
+        let current_month = moment().month(date.month).year(date.year);
+        this._month = current_month.month();
+        this._year = current_month.year();
+        this.fetch();
     }
 }

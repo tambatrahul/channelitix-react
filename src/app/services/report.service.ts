@@ -118,7 +118,8 @@ export class ReportService extends BaseService {
      * get details till month
      * @returns {Observable<Result>}
      */
-    till_month_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
+    till_month_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+                     month?: number, year?: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
@@ -137,6 +138,10 @@ export class ReportService extends BaseService {
                 params.append('region_id[]', String(region_id));
             });
         }
+        if (month)
+            params.append('month', String(month));
+        if (year)
+            params.append('year', String(year));
 
         // prepare url
         let url = this.getBaseUrl() + '/sap/till_month';

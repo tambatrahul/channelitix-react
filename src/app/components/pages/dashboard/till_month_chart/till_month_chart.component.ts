@@ -28,8 +28,10 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     private data;
     private chart;
 
-    month: string;
+    month_str: string;
     previous_month: string;
+    month: number;
+    year: number;
 
     /**
      * dates
@@ -102,8 +104,11 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     ngOnInit() {
         super.ngOnInit();
         this.fetch();
-        this.month = moment().format('MMM');
-        this.previous_month = moment().subtract(1, 'M').format('MMM');
+        let current_month = moment();
+        this.month = current_month.month();
+        this.year = current_month.year();
+        this.month_str = current_month.format('MMM');
+        this.previous_month = current_month.subtract(1, 'M').format('MMM');
     }
 
     /**
@@ -144,7 +149,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
      */
     fetch() {
         this.loading = true;
-        this.reportService.till_month_chart(this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
+        this.reportService.till_month_chart(this._region_ids, this._area_ids, this._headquarter_ids, this.month +1, this.year).subscribe(
             response => {
                 this.prepareData(new YearTillMonth(response.year_till_month));
                 this.loading = false;
@@ -171,9 +176,9 @@ export class TillMonthChartComponent extends GoogleChartComponent {
             data.addRows([
                 ['YTD(' + this.previous_month + ')', year_till_month.till_month_target, year_till_month.till_month_target,
                     year_till_month.till_month_sale, year_till_month.till_month_sale],
-                [this.month, year_till_month.month_target, year_till_month.month_target,
+                [this.month_str, year_till_month.month_target, year_till_month.month_target,
                     year_till_month.month_sale, year_till_month.month_sale],
-                ['YTD(' + this.month + ')', (year_till_month.till_month_target + year_till_month.month_target),
+                ['YTD(' + this.month_str + ')', (year_till_month.till_month_target + year_till_month.month_target),
                     (year_till_month.till_month_target + year_till_month.month_target),
                     (year_till_month.till_month_sale + year_till_month.month_sale),
                     (year_till_month.till_month_sale + year_till_month.month_sale)],
@@ -184,5 +189,19 @@ export class TillMonthChartComponent extends GoogleChartComponent {
             // set chart data callback
             this.drawGraph();
         });
+    }
+
+    /**
+     * month and year changed
+     *
+     * @param date
+     */
+    monthYearChanged(date) {
+        let current_month = moment().month(date.month).year(date.year);
+        this.month = current_month.month();
+        this.year = current_month.year();
+        this.month_str = current_month.format('MMM');
+        this.previous_month = current_month.subtract(1, 'M').format('MMM');
+        this.fetch();
     }
 }

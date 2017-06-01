@@ -15,6 +15,9 @@ export class MonthPickerComponent {
     @Output()
     onMonthYearChanged = new EventEmitter();
 
+    @Input()
+    title: string = 'Select Month & Year';
+
     @ViewChild('month_year_input')
     month_year_input: ElementRef;
 

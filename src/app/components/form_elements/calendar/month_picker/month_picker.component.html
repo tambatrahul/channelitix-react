@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label> Select Month & Year</label>
+    <label *ngIf="title">{{ title }}</label>
     <input type="text" class="form-control" #month_year_input
            data-language='en'
            data-min-view="months"
