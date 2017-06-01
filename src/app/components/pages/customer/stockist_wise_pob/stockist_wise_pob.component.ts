@@ -6,6 +6,7 @@ import {ReportService} from "../../../../services/report.service";
 import {CustomerType} from "../../../../models/customer/customer_type";
 import * as moment from "moment";
 import {Order} from "../../../../models/order/order";
+import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {Product} from "../../../../models/order/product";
 import {Customer} from "../../../../models/customer/customer";
 import {Observable} from "rxjs/Rx";
@@ -28,6 +29,7 @@ export class StockistWisePobComponent extends ListComponent {
     public customers: Customer[] = [];
     public products: Product[] = [];
     public all_total: number = 0;
+    public primary_sale_total: number = 0;
 
     /**
      * region, area & headquarter
@@ -90,7 +92,7 @@ export class StockistWisePobComponent extends ListComponent {
                     let products = data[0].products.map(pro => new Product(pro));
 
                     // prepare data
-                    let customers = this.prepareData(orders, products);
+                    let customers = this.prepareData(orders, products, null);
                     this.addSynergyData(customers, data[1].orders.map(order => new Order(order)))
                 });
             } else {
@@ -102,11 +104,13 @@ export class StockistWisePobComponent extends ListComponent {
                         // prepare visits and orders
                         let orders = response.orders.map(order => new Order(order));
 
+                        let primary_sales = response.primary_sales.map(primary_sale => new PrimarySale(primary_sale));
+
                         // product list
                         let products = response.products.map(pro => new Product(pro));
 
                         // prepare data
-                        let customers = this.prepareData(orders, products);
+                        let customers = this.prepareData(orders, products, primary_sales);
 
                         this.customers = [];
                         for (let i in customers) {
@@ -187,13 +191,14 @@ export class StockistWisePobComponent extends ListComponent {
      *
      * @param orders
      * @param products
+     * @param primary_sales
      */
-    prepareData(orders: Order[], products: Product[]) {
+    prepareData(orders: Order[], products: Product[], primary_sales: PrimarySale[]) {
         // prepare customers
-        let customers = {};
+        let customers = [];
         this.all_total = 0;
 
-        // prepare list of customers
+        // prepare list of customers with POB
         orders.map(order => {
             if (!customers.hasOwnProperty(order.delivered_by)) {
                 customers[order.delivered_by] = order.delivered_by_user;
@@ -209,13 +214,37 @@ export class StockistWisePobComponent extends ListComponent {
                     customers[order.delivered_by].total_pob += order.order_total_count;
                 }
             });
+
             products.map(prod => {
                 if (prod.id == order.product_id) {
                     prod.amount += order.order_total_count;
                     this.all_total += order.order_total_count;
                 }
             });
+
         });
+
+        // prepare list of customers with primary sale
+        if (primary_sales) {
+            primary_sales.map(primary_sale => {
+                customers.map(customer => {
+                    if (customer.code == primary_sale.stockist_code) {
+                        customers[customer.id].products.map(prod => {
+                            if (prod.code == primary_sale.prd_code) {
+                                prod.primary_sale = primary_sale.total_net_amount;
+                                customers[customer.id].total_primary_sale += primary_sale.total_net_amount;
+                            }
+                        });
+                    }
+                });
+                products.map(prod => {
+                    if (parseInt(prod.code) == primary_sale.prd_code) {
+                        prod.primary_sale_amount += primary_sale.total_net_amount;
+                        this.primary_sale_total += primary_sale.total_net_amount;
+                    }
+                });
+            });
+        }
 
         this.products = products;
 

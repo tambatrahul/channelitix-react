@@ -12,6 +12,7 @@ export class PrimarySale extends Model {
     uom: UOM;
     net_amt: number;
     stockist_code: number;
+    prd_code: number;
 
     invoice_details: PrimarySaleItem[] = [];
 
@@ -30,6 +31,7 @@ export class PrimarySale extends Model {
             this.month = parseInt(info.month);
 
         this.stockist_code = info.stockist_code;
+        this.prd_code = info.prd_code;
 
         if (info.net_amt)
             this.net_amt = parseFloat(info.net_amt);

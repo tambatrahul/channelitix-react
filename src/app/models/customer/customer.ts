@@ -43,6 +43,7 @@ export class Customer extends Model {
     visit_count: number = 0;
     order_count: number = 0;
     total_pob: number = 0;
+    total_primary_sale: number = 0;
 
     constructor(info: any) {
         super(info.id);
