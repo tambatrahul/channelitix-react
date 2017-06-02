@@ -16,6 +16,8 @@ export class Product extends Model {
     performance: number = 0;
     invoice_detail: InvoiceDetail;
     amount: number = 0;
+    primary_sale_amount: number = 0;
+    primary_sale: number = 0;
 
     constructor(info: any) {
         super(info.id);
