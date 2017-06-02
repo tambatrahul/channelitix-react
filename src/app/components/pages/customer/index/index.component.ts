@@ -5,6 +5,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {Customer} from "../../../../models/customer/customer";
 import {ListComponent} from "../../../base/list.component";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     templateUrl: 'index.component.html',
@@ -154,5 +155,31 @@ export class CustomerComponent extends ListComponent {
      */
     updateCustomer(id: number) {
         this._router.navigate(['/customers/update/', id]);
+    }
+
+    /**
+     * deactivate Brick
+     *
+     * @param id
+     */
+    deactivate(id: number) {
+        let self = this;
+        swal({
+            title: "Are you sure?",
+            text: "You want to Deactivate this Customer",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            self.customerService.deactivate(id).subscribe(
+                response => {
+                    swal("Customer Deactivated");
+                    self.fetch();
+                },
+                err => {
+                }
+            );
+        });
     }
 }

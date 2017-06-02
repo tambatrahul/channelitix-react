@@ -5,7 +5,7 @@ import {Brick} from "../../../../../models/territory/brick";
 import {BrickService} from "../../../../../services/brick.service";
 import {AuthService} from "../../../../../services/AuthService";
 import {TerritoryService} from "../../../../../services/territory.service";
-
+declare let swal: any;
 
 @Component({
     templateUrl: 'index.component.html',
@@ -83,6 +83,32 @@ export class BrickComponent extends ListComponent {
     updateBrick(id: number) {
         this._router.navigate(['/territories/regions', this._region_id,
             'areas', this._area_id, 'headquarters', this._headquarter_id,
-            'territories', this._territory_id , 'bricks', 'update', id]);
+            'territories', this._territory_id, 'bricks', 'update', id]);
+    }
+
+    /**
+     * deactivate Brick
+     *
+     * @param id
+     */
+    deactivate(id: number) {
+        let self = this;
+        swal({
+            title: "Are you sure?",
+            text: "You want to Deactivate Brick",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            self.brickService.deactivate(id).subscribe(
+                response => {
+                    swal("Brick Deactivated");
+                    self.fetch();
+                },
+                err => {
+                }
+            );
+        });
     }
 }

@@ -79,4 +79,18 @@ export class BrickService extends BaseService {
         return this.http.get(this.getBaseUrl() + '/excel/download', content);
 
     }
+
+    /**
+     * Deactivate brick
+     */
+    deactivate(brick_id): Observable<Result> {
+        return this.post(this.getBaseUrl() + '/' + brick_id + '/deactivate')
+    }
+
+    /**
+     * Activate brick
+     */
+    activate(brick_id): Observable<Result> {
+        return this.post(this.getBaseUrl() + '/' + brick_id + '/activate')
+    }
 }

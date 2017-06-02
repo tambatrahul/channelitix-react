@@ -159,4 +159,18 @@ export class CustomerService extends BaseService {
     masters(): Observable<Result> {
         return this.get(this.getBaseUrl() + '/masters');
     }
+
+    /**
+     * Deactivate brick
+     */
+    deactivate(brick_id): Observable<Result> {
+        return this.post(this.getBaseUrl() + '/' + brick_id + '/deactivate')
+    }
+
+    /**
+     * Activate brick
+     */
+    activate(brick_id): Observable<Result> {
+        return this.post(this.getBaseUrl() + '/' + brick_id + '/activate')
+    }
 }
