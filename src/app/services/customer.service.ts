@@ -1,6 +1,6 @@
 import {Customer} from './../models/customer/customer';
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, ResponseContentType, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -63,7 +63,7 @@ export class CustomerService extends BaseService {
         // prepare get params
         let params = new URLSearchParams();
         if (customer_type_id && Array.isArray(customer_type_id))
-            customer_type_id.map(function(customer_type) {
+            customer_type_id.map(function (customer_type) {
                 params.append('customer_type_id[]', String(customer_type));
             });
         else {
@@ -84,7 +84,7 @@ export class CustomerService extends BaseService {
 
         // prepare get params
         let params = new URLSearchParams();
-        brick_ids.map(function(brick_id) {
+        brick_ids.map(function (brick_id) {
             params.append('brick_ids[]', String(brick_id));
         });
 
@@ -158,5 +158,30 @@ export class CustomerService extends BaseService {
      */
     masters(): Observable<Result> {
         return this.get(this.getBaseUrl() + '/masters');
+    }
+
+    /**
+     * get all bricks user
+     */
+    excel_download(region_id?: number, area_id?: number, headquarter_id?: number,
+                   territory_id?: number, brick_id?: number): Observable<Response> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+        params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
+        params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        // make server call
+        return this.http.get(this.getBaseUrl() + '/excel/download', content);
+
     }
 }

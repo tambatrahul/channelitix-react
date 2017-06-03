@@ -5,6 +5,17 @@
     </div>
     <div class="widget-container" #loading_box>
         <div class="widget-block">
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="btn btn-primary btn-block btn-margin" *ngIf="!btn_loading"
+                       (click)="excel_download()">
+                        Export to xlsx
+                    </a>
+                    <div class="btn btn-primary btn-block btn-margin" *ngIf="btn_loading">
+                        <i class="fa fa-spinner fa-spin"></i>Export to xlsx
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
@@ -27,7 +38,8 @@
                             <td>{{ o.customer.customer_type.name }}</td>
                             <td><i class="fa fa-rupee"></i> {{ o.calculated_total.toFixed(2) }}</td>
                             <td>{{ o.delivered_by_user?.firm_name }}</td>
-                            <td *ngIf="environment.envName == 'sk_group'">{{ o.delivered_by_synergy_user?.firm_name }}</td>
+                            <td *ngIf="environment.envName == 'sk_group'">{{ o.delivered_by_synergy_user?.firm_name }}
+                            </td>
                             <td>
                                 <button class="btn btn-primary btn-xs" (click)="selectOrder(o.id)"
                                         *ngIf="o.id != selectedOrderId">
@@ -46,7 +58,8 @@
                                             <th>Price</th>
                                         </tr>
                                         <tr *ngFor="let item of o.order_items">
-                                            <template [ngIf]="item.product.synergy == 1 && _service.user.username == 'abbottadmin'">
+                                            <template
+                                                    [ngIf]="item.product.synergy == 1 && _service.user.username == 'abbottadmin'">
                                                 <td>{{ item.product.name }}</td>
                                                 <td>{{ item.quantity }}</td>
                                                 <td><i class="fa fa-rupee"></i> {{ (item.unit_price *

@@ -18,6 +18,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
      * selected order id
      */
     selectedOrderId: number;
+    public btn_loading: boolean = false;
 
     _user: User;
     @Input()
@@ -110,5 +111,27 @@ export class UserOrderListComponent extends BaseAuthComponent {
      */
     selectOrder(order_id: number) {
         this.selectedOrderId = order_id;
+    }
+
+    /**
+     * Download Excel For Bricks
+     */
+    excel_download() {
+        this.btn_loading = true;
+        this.orderService.excel_download(this._user.id, this.month + 1, this.year, this._date).subscribe(
+            response => {
+                let blob: Blob = response.blob();
+
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Orders.xls";
+                link.click();
+                this.btn_loading = false;
+            },
+            err => {
+                this.btn_loading = false;
+            }
+        );
     }
 }
