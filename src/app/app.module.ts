@@ -137,6 +137,7 @@ import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summa
 import {ProductSelectComponent} from "./components/form_elements/order/product_select/product-select.component";
 import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
 import {ProductivityAnalysisReportComponent} from "./components/pages/order/productivity_analysis_report/productivity_analysis_report.component";
+import {CustomerTypeService} from "./services/customer_type.service";
 
 
 enableProdMode();
@@ -289,7 +290,8 @@ enableProdMode();
         StpService,
         SecondarySaleService,
         PrimarySaleService,
-        ProductService
+        ProductService,
+        CustomerTypeService
     ],
     bootstrap: [AppComponent]
 })

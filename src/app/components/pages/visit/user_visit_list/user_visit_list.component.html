@@ -12,6 +12,7 @@
                         <th>id</th>
                         <th>Customer</th>
                         <th>Type</th>
+                        <th>Brick Name</th>
                         <th>Visit Date</th>
                         <th>Actions</th>
                     </tr>
@@ -23,6 +24,7 @@
                             <td>{{ vis.id }}</td>
                             <td>{{ vis.customer.firm_name }}</td>
                             <td>{{ vis.customer.customer_type.name }}</td>
+                            <td>{{ vis.customer.hq_brick.name }}</td>
                             <td>{{ vis.visit_date }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" (click)="selectVisit(vis.id)"
@@ -52,7 +54,7 @@
                         </template>
                     </template>
                     <tr *ngIf="visits.length <= 0">
-                        <td colspan="5">No Visits</td>
+                        <td colspan="6">No Visits</td>
                     </tr>
                     </tbody>
                 </table>

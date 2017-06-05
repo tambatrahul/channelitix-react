@@ -1,5 +1,6 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
+import {CustomerTypeService} from "../../../../services/customer_type.service";
 
 @Component({
     selector: 'customer-type-select',
@@ -22,7 +23,7 @@ export class CustomerTypeSelectComponent extends BaseSelectComponent {
     /**
      * Role Select Component with AuthService
      */
-    constructor() {
+    constructor(private customerTypeService: CustomerTypeService) {
         super();
     }
 
@@ -30,5 +31,16 @@ export class CustomerTypeSelectComponent extends BaseSelectComponent {
      * fetch customer types from constants
      */
     fetch() {
+        this.loading = true;
+        this.customerTypeService.all()
+            .subscribe(
+                response => {
+                    this.loading = false;
+                    this.models = response.customer_types;
+                },
+                err => {
+                    this.loading = false;
+                }
+            );
     }
 }

@@ -23,6 +23,7 @@
                         <th>id</th>
                         <th>Customer</th>
                         <th>Type</th>
+                        <th>Brick Name</th>
                         <th>Total Amount</th>
                         <th>Delivered By</th>
                         <th *ngIf="environment.envName == 'sk_group'">Synergy Delivered By</th>
@@ -36,6 +37,7 @@
                             <td>{{ o.id }}</td>
                             <td>{{ o.customer.firm_name }}</td>
                             <td>{{ o.customer.customer_type.name }}</td>
+                            <td>{{ o.customer.hq_brick.name }}</td>
                             <td><i class="fa fa-rupee"></i> {{ o.calculated_total.toFixed(2) }}</td>
                             <td>{{ o.delivered_by_user?.firm_name }}</td>
                             <td *ngIf="environment.envName == 'sk_group'">{{ o.delivered_by_synergy_user?.firm_name }}
@@ -80,7 +82,7 @@
                         </template>
                     </template>
                     <tr *ngIf="orders.length <= 0">
-                        <td colspan="5">No Orders</td>
+                        <td colspan="6">No Orders</td>
                     </tr>
                     </tbody>
                 </table>
