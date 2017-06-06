@@ -32,6 +32,9 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
+        <div class="col-xs-12 col-md-3">
+            <customer-type-select [value]="customer_type_id" (onValueChanged)="customerTypeChanged($event)"></customer-type-select>
+        </div>
         <template *ngIf="_service.user.role_str != 'THIRD_PARTY'">
             <div class="col-xs-12 col-md-3"
                  *ngIf="environment.envName == 'sk_group' && _service.user.username != 'abbottadmin'">

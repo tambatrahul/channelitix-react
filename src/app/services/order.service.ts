@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, ResponseContentType, Response} from "@angular/http";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
@@ -81,5 +81,28 @@ export class OrderService extends BaseService {
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * get all bricks user
+     */
+    excel_download(user_id: number, month: number, year: number, day?: number): Observable<Response> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('date', String(day > 0 ? day : ''));
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        // prepare url
+        let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year;
+
+        // make server call
+        return this.http.get(url + '/excel/download', content);
+
     }
 }

@@ -50,7 +50,7 @@ export class VisitService extends BaseService {
      * @param synergy
      * @returns {Observable<Result>}
      */
-    monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number): Observable<Result> {
+    monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, customer_type_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + "/monthly/forChildren/" + month + "/" + year + "/count";
@@ -60,6 +60,7 @@ export class VisitService extends BaseService {
         params.set('role_id', String(role_id > 0 ? role_id : ''));
         params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
         params.set('synergy', String(synergy ? synergy : ''));
+        params.set('customer_type_id', String(customer_type_id > 0? customer_type_id : ''));
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));

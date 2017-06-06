@@ -36,6 +36,8 @@ export class CustomerComponent extends ListComponent {
     private customer_type_id: number = 0;
     private grade_id: number = 0;
 
+    public btn_loading: boolean = false;
+
     /**
      * customer list
      *
@@ -181,5 +183,28 @@ export class CustomerComponent extends ListComponent {
                 }
             );
         });
+    }
+
+    /**
+     * Download Excel For Bricks
+     */
+    excel_download() {
+        this.btn_loading = true;
+        this.customerService.excel_download(this.region_id,
+            this.area_id, this.headquarter_id, this.territory_id, this.brick_id).subscribe(
+            response => {
+                let blob: Blob = response.blob();
+
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Customers.xls";
+                link.click();
+                this.btn_loading = false;
+            },
+            err => {
+                this.btn_loading = false;
+            }
+        );
     }
 }

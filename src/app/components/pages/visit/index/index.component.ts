@@ -66,6 +66,11 @@ export class VisitComponent extends BaseAuthComponent {
     public year: number;
 
     /**
+     * customer type id
+     */
+    private customer_type_id: number = 0;
+
+    /**
      * get date range
      *
      * @returns {Array<number>}
@@ -303,7 +308,7 @@ export class VisitComponent extends BaseAuthComponent {
 
         Observable.forkJoin(
             this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy),
-            this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy)
+            this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.customer_type_id)
         ).subscribe(data => {
 
             this.loading = false;
@@ -338,6 +343,15 @@ export class VisitComponent extends BaseAuthComponent {
         this.fetchData();
     }
 
+    /**
+     * customer type changed
+     * @param c_t_id
+     */
+    customerTypeChanged(c_t_id) {
+        console.log(c_t_id);
+        this.customer_type_id = c_t_id;
+        this.fetchData();
+    }
     /**
      * switch to abbott
      */

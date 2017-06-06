@@ -1,6 +1,6 @@
 import {Customer} from './../models/customer/customer';
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, ResponseContentType, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -172,5 +172,30 @@ export class CustomerService extends BaseService {
      */
     activate(brick_id): Observable<Result> {
         return this.post(this.getBaseUrl() + '/' + brick_id + '/activate')
+    }
+
+    /**
+     * get all bricks user
+     */
+    excel_download(region_id?: number, area_id?: number, headquarter_id?: number,
+                   territory_id?: number, brick_id?: number): Observable<Response> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+        params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
+        params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        // make server call
+        return this.http.get(this.getBaseUrl() + '/excel/download', content);
+
     }
 }
