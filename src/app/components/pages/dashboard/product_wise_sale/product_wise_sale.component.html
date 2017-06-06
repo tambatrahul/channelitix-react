@@ -36,16 +36,16 @@
                                     <td>
                                         {{ item.name }}
                                     </td>
-                                    <td>{{ item.target | number : fractionSize }}</td>
-                                    <td>{{ item.performance | number : fractionSize }}</td>
+                                    <td>{{ item.target.toFixed(0) | number : fractionSize }}</td>
+                                    <td>{{ item.performance.toFixed(0) | number : fractionSize }}</td>
                                     <td>{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)  }}</td>
                                 </tr>
                             </template>
                             <tr>
                                 <td></td>
                                 <th>Total</th>
-                                <th>{{ total_target.toFixed(2) }}</th>
-                                <th>{{ total_actual.toFixed(2) }}</th>
+                                <th>{{ total_target.toFixed(0) }}</th>
+                                <th>{{ total_actual.toFixed(0) }}</th>
                                 <th>{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>
                             </tr>
                             </tbody>

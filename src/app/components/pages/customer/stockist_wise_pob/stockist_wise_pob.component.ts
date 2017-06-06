@@ -195,8 +195,9 @@ export class StockistWisePobComponent extends ListComponent {
      */
     prepareData(orders: Order[], products: Product[], primary_sales: PrimarySale[]) {
         // prepare customers
-        let customers = [];
+        let customers = {};
         this.all_total = 0;
+        this.primary_sale_total = 0;
 
         // prepare list of customers with POB
         orders.map(order => {
@@ -227,18 +228,23 @@ export class StockistWisePobComponent extends ListComponent {
         // prepare list of customers with primary sale
         if (primary_sales) {
             primary_sales.map(primary_sale => {
-                customers.map(customer => {
-                    if (customer.code == primary_sale.stockist_code) {
-                        customers[customer.id].products.map(prod => {
-                            if (prod.code == primary_sale.prd_code) {
-                                prod.primary_sale = primary_sale.total_net_amount;
-                                customers[customer.id].total_primary_sale += primary_sale.total_net_amount;
-                            }
-                        });
+                if (!customers.hasOwnProperty(primary_sale.customer.id)) {
+                    customers[primary_sale.customer.id] = primary_sale.customer;
+                    customers[primary_sale.customer.id].products = products.map(pro => {
+                        let prod = new Product(pro);
+                        prod.amount = 0;
+                        return prod;
+                    });
+                }
+                customers[primary_sale.customer.id].products.map(prd => {
+                    if (prd.id == primary_sale.product.id) {
+                        prd.primary_sale = primary_sale.total_net_amount;
+                        customers[primary_sale.customer.id].total_primary_sale += primary_sale.total_net_amount;
                     }
                 });
+
                 products.map(prod => {
-                    if (parseInt(prod.code) == primary_sale.prd_code) {
+                    if (prod.id == primary_sale.product.id) {
                         prod.primary_sale_amount += primary_sale.total_net_amount;
                         this.primary_sale_total += primary_sale.total_net_amount;
                     }

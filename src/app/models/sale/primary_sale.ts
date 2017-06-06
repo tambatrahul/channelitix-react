@@ -2,6 +2,7 @@ import {Model} from "../model";
 import {Customer} from "../customer/customer";
 import {UOM} from "../order/uom";
 import {PrimarySaleItem} from "./primary_sale_item";
+import {Product} from "../order/product";
 
 export class PrimarySale extends Model {
 
@@ -13,6 +14,7 @@ export class PrimarySale extends Model {
     net_amt: number;
     stockist_code: number;
     prd_code: number;
+    product: Product;
 
     invoice_details: PrimarySaleItem[] = [];
 
@@ -50,5 +52,8 @@ export class PrimarySale extends Model {
 
         if (info.hq_headquarter_id)
             this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
+
+        if (info.product)
+            this.product = new Product(info.product);
     }
 }
