@@ -138,6 +138,18 @@ import {ProductSelectComponent} from "./components/form_elements/order/product_s
 import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
 import {ProductivityAnalysisReportComponent} from "./components/pages/order/productivity_analysis_report/productivity_analysis_report.component";
 import {CustomerTypeService} from "./services/customer_type.service";
+import {AbbottStpComponent} from "./components/pages/standard_tour_program_pages/index/index.component";
+import {AgraHQComponent} from "./components/pages/standard_tour_program_pages/agrahq/index.component";
+import {BalliaHQComponent} from "./components/pages/standard_tour_program_pages/balliahq/index.component";
+import {BareillyHQComponent} from "./components/pages/standard_tour_program_pages/bareillyhq/index.component";
+import {DehradunHQComponent} from "./components/pages/standard_tour_program_pages/dehradunhq/index.component";
+import {GhaziabadHQComponent} from "./components/pages/standard_tour_program_pages/ghaziabadhq/index.component";
+import {KanpurHQComponent} from "./components/pages/standard_tour_program_pages/kanpurhq/index.component";
+import {LucknowHQComponent} from "./components/pages/standard_tour_program_pages/lucknowhq/index.component";
+import {MeerutHQComponent} from "./components/pages/standard_tour_program_pages/meeruthq/index.component";
+import {MoradabadHQComponent} from "./components/pages/standard_tour_program_pages/moradabadhq/index.component";
+import {PadraunaHQComponent} from "./components/pages/standard_tour_program_pages/padraunahq/index.component";
+import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
 
 
 enableProdMode();
@@ -263,7 +275,21 @@ enableProdMode();
         OrderComponentComponent,
         CustomerSelectionComponent,
         CustomerSelectComponent,
-        ProductSelectComponent
+        ProductSelectComponent,
+
+        // Abbott Stp Component
+        AbbottStpComponent,
+        AgraHQComponent,
+        BalliaHQComponent,
+        BareillyHQComponent,
+        DehradunHQComponent,
+        GhaziabadHQComponent,
+        KanpurHQComponent,
+        LucknowHQComponent,
+        MeerutHQComponent,
+        MoradabadHQComponent,
+        PadraunaHQComponent,
+        SitapurHQComponent
     ],
     imports: [
         BrowserModule,

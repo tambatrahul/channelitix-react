@@ -42,6 +42,18 @@ import {StockistWisePobComponent} from "./components/pages/customer/stockist_wis
 import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
 import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
 import {ProductivityAnalysisReportComponent} from "./components/pages/order/productivity_analysis_report/productivity_analysis_report.component";
+import {AbbottStpComponent} from "./components/pages/standard_tour_program_pages/index/index.component";
+import {AgraHQComponent} from "./components/pages/standard_tour_program_pages/agrahq/index.component";
+import {BalliaHQComponent} from "./components/pages/standard_tour_program_pages/balliahq/index.component";
+import {BareillyHQComponent} from "./components/pages/standard_tour_program_pages/bareillyhq/index.component";
+import {DehradunHQComponent} from "./components/pages/standard_tour_program_pages/dehradunhq/index.component";
+import {GhaziabadHQComponent} from "./components/pages/standard_tour_program_pages/ghaziabadhq/index.component";
+import {KanpurHQComponent} from "./components/pages/standard_tour_program_pages/kanpurhq/index.component";
+import {LucknowHQComponent} from "./components/pages/standard_tour_program_pages/lucknowhq/index.component";
+import {MeerutHQComponent} from "./components/pages/standard_tour_program_pages/meeruthq/index.component";
+import {MoradabadHQComponent} from "./components/pages/standard_tour_program_pages/moradabadhq/index.component";
+import {PadraunaHQComponent} from "./components/pages/standard_tour_program_pages/padraunahq/index.component";
+import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -309,6 +321,66 @@ export const routes: Routes = [
             {
                 path: 'videos',
                 component: VideoComponent
+            },
+
+            // Abbott STP
+            {
+                path: 'abbott',
+                children: [
+                    {
+                        path: 'stps',
+                        children: [
+                            {
+                                path: '',
+                                component: AbbottStpComponent
+                            },
+                            {
+                                path: 'agra',
+                                component: AgraHQComponent
+                            },
+                            {
+                                path: 'ballia',
+                                component: BalliaHQComponent
+                            },
+                            {
+                                path: 'bareilly',
+                                component: BareillyHQComponent
+                            },
+                            {
+                                path: 'dehradun',
+                                component: DehradunHQComponent
+                            },
+                            {
+                                path: 'ghaziabad',
+                                component: GhaziabadHQComponent
+                            },
+                            {
+                                path: 'kanpur',
+                                component: KanpurHQComponent
+                            },
+                            {
+                                path: 'lucknow',
+                                component: LucknowHQComponent
+                            },
+                            {
+                                path: 'meerut',
+                                component: MeerutHQComponent
+                            },
+                            {
+                                path: 'moradabad',
+                                component: MoradabadHQComponent
+                            },
+                            {
+                                path: 'padrauna',
+                                component: PadraunaHQComponent
+                            },
+                            {
+                                path: 'sitapur',
+                                component: SitapurHQComponent
+                            },
+                        ]
+                    },
+                ]
             }
         ]
     },

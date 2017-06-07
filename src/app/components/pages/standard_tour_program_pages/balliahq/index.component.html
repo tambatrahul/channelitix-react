@@ -1,0 +1,420 @@
+<div class="container-fluid sales">
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">STP Details
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <a class="btn btn-primary btn-block btn-margin pull-right"
+                   href="/assets/stp_excels/ballia.xlsx" download>
+                    Export to xlsx
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Order Table -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4>Ballia Headquarter</h4>
+                </div>
+                <div class="widget-container sales-table" #loading_box>
+                    <div class="widget-block">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr style="padding:2px;font:12px Helvetica,Arial,sans-serif;
+                                            border-collapse:collapse;width:100%;border-spacing:0px;font:14px Helvetica,Arial,sans-serif;
+                                             background-color:#13547a;font-weight:bold;color: white;">
+                                    <td style="min-width:50px;border:solid #7090a1">CSE HQ</td>
+                                    <td style="min-width:50px;border:solid #7090a1">Place</td>
+                                    <td style="min-width:50px;border:solid #7090a1">HQ/ Ex/Out</td>
+                                    <td style="min-width:50px;border:solid #7090a1">No of
+                                        stockist
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1">Number of
+                                        Semis
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1">No of retailers</td>
+                                    <td style="min-width:50px;border:solid #7090a1">Interior Town
+                                        covered
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1">Name of Covering
+                                        stockiest
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1">No of Field
+                                        working days
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1">Synergy Market</td>
+                                    <td style="min-width:50px;border:solid #7090a1">Esgipyrine Potential (in boxes)</td>
+                                </tr>
+                                <tr style="background-color:#f4cccc">
+                                    <td style=min-width:50px>Ballia</td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>HQ</td>
+                                    <td style=min-width:50px>2</td>
+                                    <td style=min-width:50px>6</td>
+                                    <td style=min-width:50px>25</td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>2</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>{{ (615.75).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>2</td>
+                                    <td style=min-width:50px>24</td>
+                                    <td style=min-width:50px>BELTHARA</td>
+                                    <td style=min-width:50px>P K PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (199.50).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>24</td>
+                                    <td style=min-width:50px>SIKANDAR PUR</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>206</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>6</td>
+                                    <td style=min-width:50px>24</td>
+                                    <td style=min-width:50px>BAIRIYA</td>
+                                    <td style=min-width:50px>ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>41</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>LALGANJ</td>
+                                    <td style=min-width:50px>ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>82</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>REOTI</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>41</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>SAHATWAR</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (510.40).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>BANSDIH</td>
+                                    <td style=min-width:50px>SELF</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>126</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>MANIYAR</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (82.40).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>RASRA</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (219.50).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>NAGRA</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (87.80).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>24</td>
+                                    <td style=min-width:50px>BELTHARA</td>
+                                    <td style=min-width:50px>G S PHARMA/ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (199.50).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>BALLIA</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>BAIRIYA</td>
+                                    <td style=min-width:50px>ANOOP PHARMA</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>41</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>GHAZIPUR</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>GHAZIPUR</td>
+                                    <td style=min-width:50px>SHYAM M/A</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (648.49).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>GHAZIPUR</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>SAIDPUR</td>
+                                    <td style=min-width:50px>SELF</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (206.38).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>GHAZIPUR</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>22</td>
+                                    <td style=min-width:50px>MOHAMDABAD</td>
+                                    <td style=min-width:50px>SELF</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>154</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>GHAZIPUR</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>KOTWANARIYANPUR</td>
+                                    <td style=min-width:50px>SELF</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (92.44).toFixed(0) }}</td>
+                                </tr>
+                                <tr style="background-color:#f4cccc">
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>MAU</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>MAU</td>
+                                    <td style=min-width:50px>BARANWAL M/A</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>{{ (1046.09).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>MAU</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>GHOSI</td>
+                                    <td style=min-width:50px>BARANWAL M/A</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (262.72).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>MAU</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>MADHUBAN</td>
+                                    <td style=min-width:50px>BARANWAL M/A</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (171.90).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>MAU</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>MOHAMDABAD</td>
+                                    <td style=min-width:50px>BARANWAL M/A</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>154</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>AZAMGARAH</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>2</td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>AZAMGARAH</td>
+                                    <td style=min-width:50px>SURESH M/A</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>629</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>AZAMGARAH</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>MUBARAKPUR</td>
+                                    <td style=min-width:50px>SURESH M/M</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (161.60).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>AZAMGARAH</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>18</td>
+                                    <td style=min-width:50px>BILARIYA GANJ</td>
+                                    <td style=min-width:50px>SURESH M/A</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (161.60).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>AZAMGARAH</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>17</td>
+                                    <td style=min-width:50px>SRINAGAR</td>
+                                    <td style=min-width:50px>SURESH M/S</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (88.60).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                </tr>
+                                <tr style="background-color: #ddd9c3">
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>TOTAL</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>6</td>
+                                    <td style=min-width:50px>16</td>
+                                    <td style=min-width:50px>500</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Order Table -->
+</div>

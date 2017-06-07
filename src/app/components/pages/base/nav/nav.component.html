@@ -32,6 +32,12 @@
                         <span class="nav-label">Stockist POB Report</span>
                     </a>
                 </li>
+                <li>
+                    <a class="waves-effect" routerLink="/abbott/stps">
+                        <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+                        <span class="nav-label">Standard Tour Program</span>
+                    </a>
+                </li>
             </ul>
 
             <ul class="list-accordion" *ngIf="_auth_service.user.username != 'abbottadmin'">
@@ -227,12 +233,12 @@
                         <span class="nav-label">Daily Visit Report</span>
                     </a>
                 </li>
-              <!--  <li>
-                    <a class="waves-effect" routerLink="/orders">
-                        <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
-                        <span class="nav-label">Daily POB Report</span>
-                    </a>
-                </li>-->
+                <!--  <li>
+                      <a class="waves-effect" routerLink="/orders">
+                          <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+                          <span class="nav-label">Daily POB Report</span>
+                      </a>
+                  </li>-->
                 <li>
                     <a class="waves-effect" routerLink="/users" *roleCheck="ROLE_CSM">
                         <span class="nav-icon"><i class="fa fa-address-book"></i></span>

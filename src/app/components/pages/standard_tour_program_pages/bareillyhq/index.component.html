@@ -1,0 +1,382 @@
+<div class="container-fluid sales">
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">STP Details
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <a class="btn btn-primary btn-block btn-margin pull-right"
+                   href="/assets/stp_excels/bareilly.xlsx" download>
+                    Export to xlsx
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Order Table -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4>Bareilly Headquarter</h4>
+                </div>
+                <div class="widget-container sales-table" #loading_box>
+                    <div class="widget-block">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr style="padding:2px;font:12px Helvetica,Arial,sans-serif;
+                                            border-collapse:collapse;width:100%;border-spacing:0px;font:14px Helvetica,Arial,sans-serif;
+                                             background-color:#13547a;font-weight:bold;color: white;">
+                                    <td style="min-width:50px;border:solid #7090a1;">CSE HQ</td>
+                                    <td style="min-width:50px;border:solid #7090a1;">Place</td>
+                                    <td style="min-width:50px;border:solid #7090a1;">HQ/ Ex/
+                                        Out
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1;">No of
+                                        stockist
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1;">Number of
+                                        Semis
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1;">No of retailers</td>
+                                    <td style="min-width:50px;border:solid #7090a1;">Interior Town
+                                        covered
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1;">No of Field
+                                        working days
+                                    </td>
+                                    <td style="min-width:50px;border:solid #7090a1;">Synergy Town</td>
+                                    <td style="min-width:50px;border:solid #7090a1;">Esgipyrine Potential
+                                        (in boxes)
+                                    </td>
+                                </tr>
+                                <tr style="background-color:#f4cccc">
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>H.Q.</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>3</td>
+                                    <td style=min-width:50px>60</td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>2</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>2102</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>30</td>
+                                    <td style=min-width:50px>Baheri</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (720.93).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>25</td>
+                                    <td style=min-width:50px>Fareedpur</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (318.47).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>22</td>
+                                    <td style=min-width:50px>Fatteganj Paschimi</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (102.41).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>26</td>
+                                    <td style=min-width:50px>Meerganj</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (256.04).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>21</td>
+                                    <td style=min-width:50px>Bhojipura</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (80.10).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>28</td>
+                                    <td style=min-width:50px>Anola</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (338.88).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Bareilly</td>
+                                    <td style=min-width:50px>EX</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Nawabganj</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (213.70).toFixed(0) }}</td>
+                                </tr>
+                                <tr style="background-color:#f4cccc">
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Badayun</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>0</td>
+                                    <td style=min-width:50px>40</td>
+                                    <td style=min-width:50px>Badaun</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>{{ (776.30).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Badayun</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>23</td>
+                                    <td style=min-width:50px>Bisauli</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (375.38).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Badayun</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>24</td>
+                                    <td style=min-width:50px>Bilsi</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (223.86).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Badayun</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>Dataganj</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (548.64).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Badayun</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>Saheswan</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (280.41).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Badayun</td>
+                                    <td style=min-width:50px>OUT</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>Ujhani</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>110</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>6</td>
+                                    <td style=min-width:50px>40</td>
+                                    <td style=min-width:50px>Wazirganj</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>110</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>21</td>
+                                    <td style=min-width:50px>Sakanu/Allahpur/miaoo</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (137.16).toFixed(0) }}</td>
+                                </tr>
+                                <tr style="background-color:#f4cccc">
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>40</td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>{{ (514.50).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>19</td>
+                                    <td style=min-width:50px>Ponta/Tikri/Barkhera</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (125.82).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>28</td>
+                                    <td style=min-width:50px>neuriya,Manjhola</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (134.25).toFixed(0) }}</td>
+                                </tr>
+                                <tr style="background-color:#f4cccc">
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>Puranpur</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>{{ (254.04).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>Sherpur/Madhoh Tanda/Kali Nagar</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (101.61).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>25</td>
+                                    <td style=min-width:50px>Bithora/Gajrola/Jara</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (205.80).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>Amariya,Jahanabad</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>Yes</td>
+                                    <td style=min-width:50px>{{ (205.80).toFixed(0) }}</td>
+                                </tr>
+                                <tr style="background-color:#f4cccc">
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>Pilibhit</td>
+                                    <td style=min-width:50px>Ex</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>20</td>
+                                    <td style=min-width:50px>Bisalpur</td>
+                                    <td style=min-width:50px>1</td>
+                                    <td style=min-width:50px>No</td>
+                                    <td style=min-width:50px>{{ (566.10).toFixed(0) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                </tr>
+                                <tr style="background-color: #ddd9c3">
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>TOTAL</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>2</td>
+                                    <td style=min-width:50px>9</td>
+                                    <td style=min-width:50px>612</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px>25</td>
+                                    <td style=min-width:50px></td>
+                                    <td style=min-width:50px></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Order Table -->
+</div>
