@@ -183,17 +183,32 @@ export class TourComponent extends BaseMonthlyComponent {
 
     if (this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group') {
       let abbott_user = new User({full_name: 'Abbott'});
-      abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+      abbott_user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
       abbott_user.children = [];
       abbott_user.cse_count = 0;
       zone_managers.push(abbott_user);
       for (let m of managers) {
         zone_managers[0].children.push(m);
-        m.visits.forEach(function (att, index) {
-          zone_managers[0].visits[index].visit_count += att.visit_count;
+        m.tours.forEach(function (att, index) {
+          zone_managers[0].tours[index].t_count += att.t_count;
         });
-        zone_managers[0].cse_count += m.children.length
+        zone_managers[0].cse_count += m.children.length;
+      }
+    }
 
+    // Third Party User Check
+    if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
+      let third_party_user = this._service.user;
+      third_party_user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
+      third_party_user.children = [];
+      third_party_user.cse_count = 0;
+      zone_managers.push(third_party_user);
+      for (let m of managers) {
+        zone_managers[0].children.push(m);
+        m.tours.forEach(function (att, index) {
+          zone_managers[0].tours[index].t_count += att.t_count;
+        });
+        zone_managers[0].cse_count += m.children.length;
       }
     }
 

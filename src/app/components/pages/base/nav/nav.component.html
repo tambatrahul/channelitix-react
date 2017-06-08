@@ -239,14 +239,24 @@
             <span class="nav-label">Daily Visit Report</span>
           </a>
         </li>
-        <!--  <li>
-              <a class="waves-effect" routerLink="/orders">
-                  <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
-                  <span class="nav-label">Daily POB Report</span>
+        <li *roleCheck="ROLE_CSM">
+          <a>
+                    <span class="nav-icon">
+                        <i class="fa fa-pie-chart"></i>
+                    </span>
+            <span class="nav-label">Reports</span>
+          </a>
+          <ul>
+            <li>
+              <a class="waves-effect" routerLink="/tours">
+                <span class="nav-icon"><i class="fa fa-map-marker"></i></span>
+                <span class="nav-label">Tour Program Report</span>
               </a>
-          </li>-->
+            </li>
+          </ul>
+        </li>
         <li>
-          <a class="waves-effect" routerLink="/users" *roleCheck="ROLE_CSM">
+          <a class="waves-effect" routerLink="/users">
             <span class="nav-icon"><i class="fa fa-address-book"></i></span>
             <span class="nav-label">User Management</span>
           </a>

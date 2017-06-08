@@ -38,7 +38,8 @@ export class Tour extends Model {
         this.isHoliday = info.isHoliday;
         this.hq_brick = info.hq_brick;
         this.hq_territory = info.hq_territory;
-        this.tour_count = info.tour_count;
+        if (info.tour_count)
+            this.tour_count = parseInt(info.tour_count);
         this.user = info.user;
         this.tour_day = info.tour_day;
         this.working_with = info.working_with;
