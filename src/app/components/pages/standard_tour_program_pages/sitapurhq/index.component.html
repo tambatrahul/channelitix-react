@@ -1,410 +1,410 @@
 <div class="container-fluid sales">
 
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">STP Details
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <a class="btn btn-primary btn-block btn-margin pull-right"
-                   href="/assets/stp_excels/sitapur.xlsx" download>
-                    Export to xlsx
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Order Table -->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Sitapur Headquarter</h4>
-                </div>
-                <div class="widget-container sales-table" #loading_box>
-                    <div class="widget-block">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tr style="padding:2px;font:12px Helvetica,Arial,sans-serif;
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">STP Details
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <a class="btn btn-primary btn-block btn-margin pull-right"
+           href="/assets/stp_excels/sitapur.xlsx" target="_blank">
+          Export to xlsx
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Order Table -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4>Sitapur Headquarter</h4>
+        </div>
+        <div class="widget-container sales-table" #loading_box>
+          <div class="widget-block">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tr style="padding:2px;font:12px Helvetica,Arial,sans-serif;
                                             border-collapse:collapse;width:100%;border-spacing:0px;font:14px Helvetica,Arial,sans-serif;
                                              background-color:#13547a;font-weight:bold;color: white;">
-                                    <td style="min-width:50px;border:solid #7090a1;">CSE HQ</td>
-                                    <td style="min-width:50px;border:solid #7090a1;">Place</td>
-                                    <td style="min-width:50px;border:solid #7090a1;">HQ/ Ex/
-                                        Out
-                                    </td>
-                                    <td style="min-width:50px;border:solid #7090a1;">No of
-                                        stockist
-                                    </td>
-                                    <td style="min-width:50px;border:solid #7090a1;">Number of
-                                        Semis
-                                    </td>
-                                    <td style="min-width:50px;border:solid #7090a1;">No of retailers</td>
-                                    <td style="min-width:50px;border:solid #7090a1;">Interior Town
-                                        covered
-                                    </td>
-                                    <td style="min-width:50px;border:solid #7090a1;">Name of Covering
-                                        stockiest
-                                    </td>
-                                    <td style="min-width:50px;border:solid #7090a1;">No of Field
-                                        working days
-                                    </td>
-                                    <td style="min-width:50px;border:solid #7090a1;">Synergy Market</td>
-                                    <td style="min-width:50px;border:solid #7090a1;">Esgipyrine Potential (in boxes)</td>
-                                </tr>
-                                <tr style="background-color:#f4cccc">
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>HQ</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px>12</td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Sitapur Local</td>
-                                    <td style=min-width:50px>KGN</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>No</td>
-                                    <td style=min-width:50px>619</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Magaljang</td>
-                                    <td style=min-width:50px>Jyoti</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px></td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>23</td>
-                                    <td style=min-width:50px>Biswan</td>
-                                    <td style=min-width:50px>KGN</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (471.57).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Sidhauli</td>
-                                    <td style=min-width:50px>KGN</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (207.51).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Neemsar</td>
-                                    <td style=min-width:50px>JYOTI</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (93.40).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>21</td>
-                                    <td style=min-width:50px>Hargawn</td>
-                                    <td style=min-width:50px>KGN</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (215.60).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Badagawn</td>
-                                    <td style=min-width:50px>KGN</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (93.40).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Mahmudabad</td>
-                                    <td style=min-width:50px>JYOTI</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (277.74).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>22</td>
-                                    <td style=min-width:50px>Reausha</td>
-                                    <td style=min-width:50px>Jyoti</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (104.79).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Sitapur</td>
-                                    <td style=min-width:50px>EX</td>
-                                    <td style=min-width:50px>2</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Rampurmathura</td>
-                                    <td style=min-width:50px>KGN</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (111.09).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>6</td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Gola</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (224.57).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>25</td>
-                                    <td style=min-width:50px>Aurangabad</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (175.80).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Mohmadi</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (287.99).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Tikuniya</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (85.94).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Dhauhrara</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (330.72).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>23</td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (537.16).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Katauli</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (82.68).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Lakhimpur</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>21</td>
-                                    <td style=min-width:50px>Paliya</td>
-                                    <td style=min-width:50px>K S MEDICAL AG</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (236.07).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Bahrich</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>4</td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Kaserganj</td>
-                                    <td style=min-width:50px>RASTOGI MEDICO</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (197.50).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Bahrich</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Prayagpur</td>
-                                    <td style=min-width:50px>RASTOGI MEDICO</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (206.80).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Bahrich</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>23</td>
-                                    <td style=min-width:50px>Gilola</td>
-                                    <td style=min-width:50px>RASTOGI MEDICO</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (75.85).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Bahrich</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>24</td>
-                                    <td style=min-width:50px>Nanpara</td>
-                                    <td style=min-width:50px>RASTOGI MEDICO</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (444.80).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Bahrich</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Rupideha</td>
-                                    <td style=min-width:50px>RASTOGI MEDICO</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (111.20).toFixed(0) }}</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Bahrich</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>23</td>
-                                    <td style=min-width:50px>Hajurpur</td>
-                                    <td style=min-width:50px>RASTOGI MEDICO</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>79</td>
-                                </tr>
-                                <tr>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>Khutar</td>
-                                    <td style=min-width:50px>OUT</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>20</td>
-                                    <td style=min-width:50px>Khutar</td>
-                                    <td style=min-width:50px>MANSORI M/S</td>
-                                    <td style=min-width:50px>1</td>
-                                    <td style=min-width:50px>Yes</td>
-                                    <td style=min-width:50px>{{ (97.90).toFixed(0) }}</td>
-                                </tr>
+                  <td style="min-width:50px;border:solid #7090a1;">CSE HQ</td>
+                  <td style="min-width:50px;border:solid #7090a1;">Place</td>
+                  <td style="min-width:50px;border:solid #7090a1;">HQ/ Ex/
+                    Out
+                  </td>
+                  <td style="min-width:50px;border:solid #7090a1;">No of
+                    stockist
+                  </td>
+                  <td style="min-width:50px;border:solid #7090a1;">Number of
+                    Semis
+                  </td>
+                  <td style="min-width:50px;border:solid #7090a1;">No of retailers</td>
+                  <td style="min-width:50px;border:solid #7090a1;">Interior Town
+                    covered
+                  </td>
+                  <td style="min-width:50px;border:solid #7090a1;">Name of Covering
+                    stockiest
+                  </td>
+                  <td style="min-width:50px;border:solid #7090a1;">No of Field
+                    working days
+                  </td>
+                  <td style="min-width:50px;border:solid #7090a1;">Synergy Market</td>
+                  <td style="min-width:50px;border:solid #7090a1;">Esgipyrine Potential (in boxes)</td>
+                </tr>
+                <tr style="background-color:#f4cccc">
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>HQ</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px>12</td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Sitapur Local</td>
+                  <td style=min-width:50px>KGN</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>No</td>
+                  <td style=min-width:50px>619</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Magaljang</td>
+                  <td style=min-width:50px>Jyoti</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px></td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>23</td>
+                  <td style=min-width:50px>Biswan</td>
+                  <td style=min-width:50px>KGN</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (471.57).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Sidhauli</td>
+                  <td style=min-width:50px>KGN</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (207.51).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Neemsar</td>
+                  <td style=min-width:50px>JYOTI</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (93.40).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>21</td>
+                  <td style=min-width:50px>Hargawn</td>
+                  <td style=min-width:50px>KGN</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (215.60).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Badagawn</td>
+                  <td style=min-width:50px>KGN</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (93.40).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Mahmudabad</td>
+                  <td style=min-width:50px>JYOTI</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (277.74).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>22</td>
+                  <td style=min-width:50px>Reausha</td>
+                  <td style=min-width:50px>Jyoti</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (104.79).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Sitapur</td>
+                  <td style=min-width:50px>EX</td>
+                  <td style=min-width:50px>2</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Rampurmathura</td>
+                  <td style=min-width:50px>KGN</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (111.09).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>6</td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Gola</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (224.57).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>25</td>
+                  <td style=min-width:50px>Aurangabad</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (175.80).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Mohmadi</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (287.99).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Tikuniya</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (85.94).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Dhauhrara</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (330.72).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>23</td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (537.16).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Katauli</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (82.68).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Lakhimpur</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>21</td>
+                  <td style=min-width:50px>Paliya</td>
+                  <td style=min-width:50px>K S MEDICAL AG</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (236.07).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Bahrich</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>4</td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Kaserganj</td>
+                  <td style=min-width:50px>RASTOGI MEDICO</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (197.50).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Bahrich</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Prayagpur</td>
+                  <td style=min-width:50px>RASTOGI MEDICO</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (206.80).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Bahrich</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>23</td>
+                  <td style=min-width:50px>Gilola</td>
+                  <td style=min-width:50px>RASTOGI MEDICO</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (75.85).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Bahrich</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>24</td>
+                  <td style=min-width:50px>Nanpara</td>
+                  <td style=min-width:50px>RASTOGI MEDICO</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (444.80).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Bahrich</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Rupideha</td>
+                  <td style=min-width:50px>RASTOGI MEDICO</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (111.20).toFixed(0) }}</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Bahrich</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>23</td>
+                  <td style=min-width:50px>Hajurpur</td>
+                  <td style=min-width:50px>RASTOGI MEDICO</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>79</td>
+                </tr>
+                <tr>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>Khutar</td>
+                  <td style=min-width:50px>OUT</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>20</td>
+                  <td style=min-width:50px>Khutar</td>
+                  <td style=min-width:50px>MANSORI M/S</td>
+                  <td style=min-width:50px>1</td>
+                  <td style=min-width:50px>Yes</td>
+                  <td style=min-width:50px>{{ (97.90).toFixed(0) }}</td>
+                </tr>
 
-                                <tr style="background-color: #ddd9c3">
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>TOTAL</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px>35</td>
-                                    <td style=min-width:50px>22</td>
-                                    <td style=min-width:50px>525</td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px></td>
-                                    <td style=min-width:50px></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <tr style="background-color: #ddd9c3">
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>TOTAL</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px>35</td>
+                  <td style=min-width:50px>22</td>
+                  <td style=min-width:50px>525</td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px></td>
+                  <td style=min-width:50px></td>
+                </tr>
+              </table>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- ./Order Table -->
+  </div>
+  <!-- ./Order Table -->
 </div>
