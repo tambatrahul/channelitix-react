@@ -29,7 +29,8 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
-        <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'sk_group' && _service.user.username != 'abbottadmin'">
+        <div class="col-xs-12 col-md-2"
+             *ngIf="environment.envName == 'sk_group' && _service.user.username != 'abbottadmin'">
             <button class="btn btn-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="!abbott">
                 Switch to Abbott
             </button>
@@ -72,7 +73,8 @@
                                             <tr>
                                                 <th style="min-width: 120px;">Users</th>
                                                 <th>Headquarter</th>
-                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target</th>
+                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target
+                                                </th>
                                                 <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
@@ -87,7 +89,8 @@
                                             <tr>
                                                 <th>Users</th>
                                                 <th>Headquarter</th>
-                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target</th>
+                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target
+                                                </th>
                                                 <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
                                                 <th></th>
                                                 <th *ngFor="let d of dates">
@@ -109,8 +112,24 @@
                                                 <tr class="grey">
                                                     <th>Total</th>
                                                     <td></td>
-                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ mg.daily_target }}</td>
-                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ mg.percent_pob }} %</td>
+                                                    <template *ngIf="environment.server_url != 'geo'">
+                                                        <td *ngIf="_service.user.username != 'abbottadmin'">
+                                                            {{ mg.daily_target }}
+                                                        </td>
+                                                        <td *ngIf="_service.user.username != 'abbottadmin'">
+                                                            {{ mg.percent_pob }} %
+                                                        </td>
+                                                    </template>
+                                                    <template *ngIf="environment.server_url == 'geo'">
+                                                        <template *ngIf="z.username != 'delhiregion'">
+                                                            <td>{{ mg.daily_target }}</td>
+                                                            <td>{{ mg.percent_pob }} %</td>
+                                                        </template>
+                                                        <template *ngIf="z.username == 'delhiregion'">
+                                                            <td>{{ mg.daily_target_40 }}</td>
+                                                            <td>{{ mg.percent_pob_40 }} %</td>
+                                                        </template>
+                                                    </template>
                                                     <td></td>
                                                     <template ngFor let-order [ngForOf]="mg.orders">
                                                         <td *ngIf="!view_quantity">
@@ -120,15 +139,21 @@
                                                             {{ (order.order_total_quantity) }}
                                                         </td>
                                                     </template>
-                                                    <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
+                                                    <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1)
+                                                        }}
+                                                    </td>
                                                     <td *ngIf="view_quantity">{{ (mg.total_pob_quantity_count) }}</td>
 
                                                 </tr>
                                                 <tr *ngFor="let user of mg.children">
                                                     <th>{{ user.full_name }}</th>
                                                     <th>{{ user.hq_headquarter?.name }}</th>
-                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ user.daily_target }}</td>
-                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{ user.percent_pob }} %</td>
+                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{
+                                                        user.daily_target }}
+                                                    </td>
+                                                    <td *ngIf="_service.user.username != 'abbottadmin'">{{
+                                                        user.percent_pob }} %
+                                                    </td>
                                                     <td>
                                                         <i status [field]="user.status"></i>
                                                     </td>
@@ -206,7 +231,19 @@
                                             <tr *ngFor="let user of z.children">
                                                 <td>{{ user.full_name }}</td>
                                                 <td>{{ user.hq_headquarter.name }}</td>
-                                                <td>{{ user.daily_target }}</td>
+                                                <template [ngIf]="environment.envName != 'geo'">
+                                                    <td>
+                                                        {{ user.daily_target }}
+                                                    </td>
+                                                </template>
+                                                <template [ngIf]="environment.envName == 'geo'">
+                                                    <td *ngIf="user.region_id == 2">
+                                                        {{ user.daily_target_40 }}
+                                                    </td>
+                                                    <td *ngIf="user.region_id != 2">
+                                                        {{ user.daily_target }}
+                                                    </td>
+                                                </template>
                                                 <td *ngIf="!view_quantity">
                                                     {{ (user.total_pob_count / 1000).toFixed(1) }}
                                                 </td>
