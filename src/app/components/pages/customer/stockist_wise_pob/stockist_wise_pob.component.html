@@ -58,51 +58,24 @@
                                     <thead>
                                     <tr>
                                         <th class="grey">Customer</th>
-                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
-                                        <th class="grey">Total</th>
-                                        <th *ngFor="let pro of products">
-                                            {{ pro.name }}
-                                        </th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Target</th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Sales</th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">POB Target</th>
+                                        <th class="grey">POB</th>
+                                        <th class="grey">Visits</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <tr *ngIf="environment.envName != 'sk_group'">
-                                        <th class="grey" [rowSpan]="2">Total</th>
-                                        <th class="grey">Primary Sale</th>
-                                        <th class="grey">{{ primary_sale_total.toFixed(0) }}</th>
-                                        <th *ngFor="let pro of products">
-                                            {{ pro.primary_sale_amount.toFixed(0) | number : fractionSize }}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th class="grey" *ngIf="environment.envName == 'sk_group'">Total</th>
-                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">POB</th>
-                                        <th class="grey">{{ all_total.toFixed(0) }}</th>
-                                        <th *ngFor="let pro of products">
-                                            {{ pro.amount.toFixed(0) | number : fractionSize }}
-                                        </th>
-                                    </tr>
                                     <template ngFor let-cus [ngForOf]="customers">
-                                        <tr *ngIf="environment.envName != 'sk_group'">
-                                            <th class="grey" [rowSpan]="2">{{ cus.firm_name }}</th>
-                                            <th class="grey">Primary Sale</th>
-                                            <th class="grey">{{ cus.total_primary_sale.toFixed(0) }}</th>
-                                            <td *ngFor="let pro of cus.products">
-                                                {{ pro.primary_sale.toFixed(0) | number : fractionSize }}
-                                            </td>
-                                        </tr>
                                         <tr>
-                                            <th class="grey" *ngIf="environment.envName == 'sk_group'">
-                                                {{ cus.firm_name }}
-                                            </th>
-                                            <th class="grey" *ngIf="environment.envName != 'sk_group'">
-                                                POB
-                                            </th>
+                                            <th class="grey">{{ cus.firm_name }}</th>
+                                            <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                            <th class="grey" *ngIf="environment.envName != 'sk_group'">{{ cus.total_primary_sale.toFixed(0) }}</th>
+                                            <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                             <th class="grey">{{ cus.total_pob.toFixed(0) }}</th>
-                                            <td *ngFor="let pro of cus.products">
-                                                {{ pro.amount.toFixed(0) | number : fractionSize }}
-                                            </td>
+                                            <th class="grey">{{ cus.days }}</th>
+
                                         </tr>
                                     </template>
                                     <template *ngIf="customers.length == 0">

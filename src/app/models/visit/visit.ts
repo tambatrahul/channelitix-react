@@ -31,6 +31,7 @@ export class Visit extends Model {
     visited_twice: number = 0;
     visited_thrice: number = 0;
     customer_type_id: number = 0;
+    days: string;
 
     constructor(info: any) {
         super(info.id);
@@ -50,6 +51,9 @@ export class Visit extends Model {
         this.hq_area_id = info.hq_area_id;
         this.hq_region_id = info.hq_region_id;
         this.grade_id = info.grade_id;
+
+        if (info.days)
+            this.days = info.days;
 
         if (info.hq_headquarter_id)
             this.hq_headquarter_id = parseInt(info.hq_headquarter_id);

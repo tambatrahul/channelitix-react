@@ -10,6 +10,7 @@ import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {Product} from "../../../../models/order/product";
 import {Customer} from "../../../../models/customer/customer";
 import {Observable} from "rxjs/Rx";
+import {Visit} from "../../../../models/visit/visit";
 declare let jQuery: any;
 
 @Component({
@@ -88,11 +89,14 @@ export class StockistWisePobComponent extends ListComponent {
                     // prepare visits and orders
                     let orders = data[0].orders.map(order => new Order(order));
 
+                    // visit list
+                    let visits = data[0].visits.map(visit => new Visit(visit));
+
                     // product list
                     let products = data[0].products.map(pro => new Product(pro));
 
                     // prepare data
-                    let customers = this.prepareData(orders, products, null);
+                    let customers = this.prepareData(orders, products, null, visits);
                     this.addSynergyData(customers, data[1].orders.map(order => new Order(order)))
                 });
             } else {
@@ -109,8 +113,11 @@ export class StockistWisePobComponent extends ListComponent {
                         // product list
                         let products = response.products.map(pro => new Product(pro));
 
+                        // visit list
+                        let visits = response.visits.map(visit => new Visit(visit));
+
                         // prepare data
-                        let customers = this.prepareData(orders, products, primary_sales);
+                        let customers = this.prepareData(orders, products, primary_sales, visits);
 
                         this.customers = [];
                         for (let i in customers) {
@@ -192,8 +199,9 @@ export class StockistWisePobComponent extends ListComponent {
      * @param orders
      * @param products
      * @param primary_sales
+     * @param visits
      */
-    prepareData(orders: Order[], products: Product[], primary_sales: PrimarySale[]) {
+    prepareData(orders: Order[], products: Product[], primary_sales: PrimarySale[], visits: Visit[]) {
         // prepare customers
         let customers = {};
         this.all_total = 0;
@@ -221,6 +229,11 @@ export class StockistWisePobComponent extends ListComponent {
                     prod.amount += order.order_total_count;
                     this.all_total += order.order_total_count;
                 }
+            });
+
+            visits.map(visit => {
+                if (visit.customer_id == order.delivered_by)
+                    customers[order.delivered_by].days = visit.days;
             });
 
         });

@@ -125,7 +125,8 @@ export class CustomerType extends Model {
         let customerCount = this.customerCount;
         if (customerCount == 0)
             return 0;
-        return (visitCount/customerCount) * 100
+
+        return (visitCount / customerCount) * 100;
     }
 
     /**
@@ -136,7 +137,7 @@ export class CustomerType extends Model {
         let customerCount = this.customerCount;
         if (this.v2_count == 0)
             return 0;
-        return (this.v2_count/customerCount) * 100
+        return (this.v2_count / customerCount) * 100
     }
 
     /**
@@ -147,6 +148,6 @@ export class CustomerType extends Model {
         let customerCount = this.customerCount;
         if (this.v3_count == 0)
             return 0;
-        return (this.v3_count/customerCount) * 100
+        return (this.v3_count / customerCount) * 100
     }
 }
