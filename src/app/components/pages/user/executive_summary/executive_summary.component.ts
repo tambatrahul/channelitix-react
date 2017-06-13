@@ -174,11 +174,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
 
                     v2_v3_visits.map(visit => {
                         if (visit.hq_headquarter_id == headquarter.id) {
-                            headquarter.customer_types[0].v2_count = visit.visited_twice;
-                            headquarter.customer_types[0].v3_count = visit.visited_thrice;
-                            area.customer_types[0].v2_count = visit.visited_twice;
+                            headquarter.customer_types[0].v2_count += visit.visited_twice;
+                            headquarter.customer_types[0].v3_count += visit.visited_thrice;
+                            area.customer_types[0].v2_count += visit.visited_twice;
                             area.customer_types[0].v3_count += visit.visited_thrice;
-                            region.customer_types[0].v2_count = visit.visited_twice;
+                            region.customer_types[0].v2_count += visit.visited_twice;
                             region.customer_types[0].v3_count += visit.visited_thrice;
                         }
                     });
