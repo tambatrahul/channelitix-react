@@ -1,6 +1,6 @@
 <div class="container-fluid bricks" #loading_box>
     <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb" >
+    <div class="page-breadcrumb">
         <div class="row">
             <div class="col-md-4">
                 <div class="page-breadcrumb-wrap">
@@ -30,23 +30,43 @@
                                     <thead>
                                     <tr>
                                         <th>Headquarters</th>
-                                        <th>Total Bricks</th>
-                                        <th colspan="2">Retailer</th>
-                                        <th colspan="2">Semi</th>
-                                        <th colspan="2">Hub Chemist</th>
-                                        <th colspan="2">Physician</th>
+                                        <th colspan="5">Total</th>
+                                        <th rowspan="2">Total Bricks</th>
+                                        <th colspan="2" rowspan="2">Retailer</th>
+                                        <th colspan="2" rowspan="2">Semi</th>
+                                        <th colspan="2" rowspan="2">Hub Chemist</th>
+                                        <th colspan="2" rowspan="2">Physician</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>Customer</th>
+                                        <th>Retailers</th>
+                                        <th>Semi</th>
+                                        <th>Hub Chemist</th>
+                                        <th>Physician</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <template ngFor let-area [ngForOf]="z.areas">
                                         <tr>
-                                            <th [colSpan]="area.headquarters[0]?.customer_types.length + 5"
+                                            <th [colSpan]="area.headquarters[0]?.customer_types.length + 10"
                                                 class="text-center">
                                                 <strong>{{ area.name }}</strong>
                                             </th>
                                         </tr>
                                         <tr *ngFor="let hq of area.headquarters">
                                             <th>{{ hq.name }}</th>
+                                            <th>{{ hq.customer_types[0].customer_count
+                                                + hq.customer_types[1].customer_count
+                                                + hq.customer_types[2].customer_count
+                                                + hq.customer_types[3].customer_count
+                                                + hq.customer_types[4].customer_count
+                                                }}
+                                            </th>
+                                            <th>{{ hq.customer_types[2].customer_count }}</th>
+                                            <th>{{ hq.customer_types[1].customer_count }}</th>
+                                            <th>{{ hq.customer_types[3].customer_count }}</th>
+                                            <th>{{ hq.customer_types[4].customer_count }}</th>
                                             <td>{{ hq.total_bricks }}</td>
                                             <td>{{ hq.retailer_count }}</td>
                                             <td [ngClass]="{'above_80': ((hq.retailer_count / hq.total_bricks) * 100) > 80}">
