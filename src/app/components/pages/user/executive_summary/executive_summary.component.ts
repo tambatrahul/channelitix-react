@@ -275,6 +275,8 @@ export class ExecutiveSummaryComponent extends ListComponent {
                             region.total_pob += att.pob_amount;
                             region.total_visit += att.no_of_calls;
                             region.total_att += att.att_count;
+
+
                         }
                     });
                     visits.map(vis => {

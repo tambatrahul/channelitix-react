@@ -69,6 +69,7 @@ export class StockistWisePobComponent extends ListComponent {
         this.year = moment().year();
         this.regionChanged(this._service.user.hq_region_id);
         this.areaChanged(this._service.user.hq_area_id);
+        this.region_id = 2;
     }
 
     /**

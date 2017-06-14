@@ -6,7 +6,7 @@
                 <div class="page-breadcrumb-wrap">
                     <div class="page-breadcrumb-info">
                         <h2 class="breadcrumb-titles">
-                            Stockist wise POB report
+                            A/B Stockist Visit & POB Report
                         </h2>
                     </div>
                 </div>
@@ -48,18 +48,20 @@
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4><strong>Stockist wise POB report (in Rupee)</strong></h4>
+                    <h4><strong>A/B Stockist Visit & POB Report</strong></h4>
                 </div>
-                <div *ngIf="region_id > 0 && customers.length > 0">
+                <div *ngIf="region_id > 0 && customers.length > 0 && region_id != ''">
                     <div class="widget-container report-table">
                         <div class="widget-block">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th class="grey">Customer</th>
-                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Target</th>
-                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Sales</th>
+                                        <th class="grey">Name Of Customer</th>
+                                        <th class="grey">Brick Name</th>
+                                        <th class="grey">Headquarter Name</th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Primary Target</th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Primary Sales</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">POB Target</th>
                                         <th class="grey">POB</th>
                                         <th class="grey">Visits</th>
@@ -70,6 +72,8 @@
                                     <template ngFor let-cus [ngForOf]="customers">
                                         <tr>
                                             <th class="grey">{{ cus.firm_name }}</th>
+                                            <th class="grey">{{ cus.hq_brick.name }}</th>
+                                            <th class="grey">{{ cus.hq_headquarter.name }}</th>
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'">{{ cus.total_primary_sale.toFixed(0) }}</th>
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
@@ -90,7 +94,7 @@
                     </div>
                 </div>
                 <div *ngIf="region_id == 0">
-                    <p class="margin-left">Please Select Headquarter</p>
+                    <p class="margin-left">Please Select Region</p>
                 </div>
             </div>
         </div>
