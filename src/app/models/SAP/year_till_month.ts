@@ -11,15 +11,15 @@ export class YearTillMonth {
     constructor(info: any) {
 
         if (info.month_target)
-            this.month_target = parseFloat((parseFloat(info.month_target)/100000).toFixed(2));
+            this.month_target = parseFloat((parseFloat(info.month_target)/100000).toFixed(0));
 
         if (info.till_month_target)
-            this.till_month_target = parseFloat((parseFloat(info.till_month_target)/100000).toFixed(2));
+            this.till_month_target = parseFloat((parseFloat(info.till_month_target)/100000).toFixed(0));
 
         if (info.month_sale)
-            this.month_sale = parseFloat((parseFloat(info.month_sale)/100000).toFixed(2));
+            this.month_sale = parseFloat((parseFloat(info.month_sale)/100000).toFixed(0));
 
         if (info.till_month_sale)
-            this.till_month_sale = parseFloat((parseFloat(info.till_month_sale)/100000).toFixed(2));
+            this.till_month_sale = parseFloat((parseFloat(info.till_month_sale)/100000).toFixed(0));
     }
 }

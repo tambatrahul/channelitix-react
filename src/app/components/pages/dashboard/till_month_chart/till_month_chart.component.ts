@@ -119,7 +119,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
         let options = {
             chartArea: {left: 60, top: 40, bottom: 40, right: 40, width: "100%", height: "100%"},
             legend: {position: 'top', alignment: 'start'},
-            title: 'Sales Performance in Thousands',
+            title: 'Sales Performance in Lakhs',
             annotations: {
                 alwaysOutside: true,
                 textStyle: {
