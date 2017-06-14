@@ -8,6 +8,7 @@ import {Headquarter} from "../../../../models/territory/headquarter";
 import {Visit} from "../../../../models/visit/visit";
 import * as moment from "moment";
 import {Customer} from "../../../../models/customer/customer";
+import {Region} from "../../../../models/territory/region";
 declare let jQuery: any;
 
 @Component({
@@ -64,6 +65,9 @@ export class HQWiseVisitComponent extends ListComponent {
                 response => {
                     this.loading = false;
 
+                    // get regions
+                    this.regions = response.regions.map(region => new Region(region));
+
                     // prepare headquarters
                     let headquarters = response.headquarters.map(head => new Headquarter(head));
 
@@ -76,10 +80,10 @@ export class HQWiseVisitComponent extends ListComponent {
 
                     // prepare customer types
                     let customer_types = response.customer_types.map(ct => new CustomerType(ct));
-                    this.customer_types = customer_types;
+                    this.mapTypes(customer_types);
 
                     // prepare data for table
-                    this.prepareData(headquarters, visits, customer_types, customers, v2_v3_visits);
+                    this.prepareData(visits, customers, v2_v3_visits);
                 },
                 err => {
                     this.loading = false;
@@ -89,78 +93,94 @@ export class HQWiseVisitComponent extends ListComponent {
     }
 
     /**
+     * map targets
+     *
+     * @param customer_types
+     */
+    mapTypes(customer_types: CustomerType[]) {
+        this.regions.map(region => {
+            region.areas.map(area => {
+                area.headquarters.map(headquarter => {
+                    headquarter.customer_types = customer_types.map(ct => new CustomerType(ct));
+                });
+                area.customer_types = customer_types.map(ct => new CustomerType(ct));
+            });
+            region.customer_types = customer_types.map(ct => new CustomerType(ct));
+        });
+    }
+
+    /**
      * prepare data for headquarter wise customers
      *
-     * @param headquarters
      * @param visits
-     * @param customer_types
      * @param customers
+     * @param v2_v3_visits
      */
-    prepareData(headquarters: Headquarter[], visits: Visit[], customer_types: CustomerType[],
-                customers: Customer[], v2_v3_visits: Visit[]) {
+    prepareData(visits: Visit[], customers: Customer[], v2_v3_visits: Visit[]) {
 
-        // prepare headquarters
-        let regions = {};
-        headquarters.map(hq => {
-            if (!regions.hasOwnProperty(hq.hq_area.hq_region.id))
-                regions[hq.hq_area.hq_region.id] = hq.hq_area.hq_region;
+        this.regions.map(region => {
+            region.areas.map(area => {
+                area.headquarters.map(headquarter => {
+                    visits.map(vis => {
+                        if (vis.hq_headquarter_id == headquarter.id) {
+                            headquarter.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == vis.grade_id)
+                                        grade.visit_count = vis.visit_count
+                                });
+                            });
 
-            if (!regions[hq.hq_area.hq_region.id].area_objects.hasOwnProperty(hq.hq_area.id))
-                regions[hq.hq_area.hq_region.id].area_objects[hq.hq_area.id] = hq.hq_area;
-
-            // add customer type
-            hq.customer_types = customer_types.map(ct => new CustomerType(ct));
-            regions[hq.hq_area.hq_region.id].area_objects[hq.hq_area.id].headquarters.push(hq);
-        });
-
-        // add counts to customer types
-        visits.map(visit => {
-            regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
-                if (hq.id == visit.hq_headquarter_id) {
-                    hq.customer_types.map(ct => {
-                        ct.grades.map(grade => {
-                            if (grade.id == visit.grade_id)
-                                grade.visit_count = visit.visit_count
-                        });
-                    })
-                }
-            })
-        });
-
-        // add counts to customer types
-        customers.map(cus => {
-            regions[cus.hq_region_id].area_objects[cus.hq_area_id].headquarters.map(hq => {
-                if (hq.id == cus.hq_headquarter_id) {
-                    hq.customer_types.map(ct => {
-                        ct.grades.map(grade => {
-                            if (grade.id == cus.grade_id)
-                                grade.customer_count = cus.visit_count
-                        });
+                            area.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == vis.grade_id)
+                                        grade.visit_count += vis.visit_count
+                                });
+                            });
+                            region.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == vis.grade_id)
+                                        grade.visit_count += vis.visit_count
+                                });
+                            });
+                        }
                     });
-                }
+
+                    customers.map(cus => {
+                        if (cus.hq_headquarter_id == headquarter.id) {
+                            headquarter.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == cus.grade_id)
+                                        grade.customer_count = cus.visit_count
+                                });
+                            });
+                            area.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == cus.grade_id)
+                                        grade.customer_count += cus.visit_count
+                                });
+                            });
+                            region.customer_types.map(ct => {
+                                ct.grades.map(grade => {
+                                    if (grade.id == cus.grade_id)
+                                        grade.customer_count += cus.visit_count
+                                });
+                            });
+                        }
+                    });
+
+                    v2_v3_visits.map(visit => {
+                        if (visit.hq_headquarter_id == headquarter.id) {
+                            headquarter.customer_types[0].v2_count += visit.visited_twice;
+                            headquarter.customer_types[0].v3_count += visit.visited_thrice;
+                            area.customer_types[0].v2_count += visit.visited_twice;
+                            area.customer_types[0].v3_count += visit.visited_thrice;
+                            region.customer_types[0].v2_count += visit.visited_twice;
+                            region.customer_types[0].v3_count += visit.visited_thrice;
+                        }
+                    });
+                });
             });
         });
-
-        v2_v3_visits.map(visit => {
-            if (regions.hasOwnProperty(visit.hq_region_id)) {
-                regions[visit.hq_region_id].area_objects[visit.hq_area_id].headquarters.map(hq => {
-                    if (hq.id == visit.hq_headquarter_id) {
-                        hq.customer_types[0].v2_count = visit.visited_twice;
-                        hq.customer_types[0].v3_count = visit.visited_thrice;
-                    }
-                });
-            }
-        });
-
-        // set
-        this.regions = [];
-        for (let i in regions) {
-            let region = regions[i];
-            for (let j in region.area_objects) {
-                region.areas.push(region.area_objects[j]);
-            }
-            this.regions.push(region);
-        }
 
         setTimeout(() => {
             if (!this.excel_loaded) {

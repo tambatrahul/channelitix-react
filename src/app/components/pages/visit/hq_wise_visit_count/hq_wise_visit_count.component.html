@@ -24,12 +24,12 @@
     <!-- ./Filters for Visit report-->
 
     <!-- Attendance Table -->
-    <div class="row" *ngFor="let z of regions">
+    <div class="row" *ngFor="let region of regions">
         <div class="col-xs-12">
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4><strong>{{ z.name }}</strong></h4>
+                    <h4><strong>{{ region.name }}</strong></h4>
                 </div>
                 <div>
                     <div class="widget-container report-table">
@@ -39,93 +39,256 @@
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th colspan="3">Total</th>
+                                        <th></th>
+                                        <th colspan="3" class="grey">Total</th>
                                         <th colspan="4">Stockist</th>
-                                        <th colspan="3">Semi</th>
+                                        <th colspan="3" class="grey">Semi</th>
                                         <th colspan="3">Retailer</th>
-                                        <th colspan="3">Hub</th>
+                                        <th colspan="3" class="grey">Hub</th>
                                         <th colspan="3">Physician</th>
                                     </tr>
                                     <tr>
+                                        <th></th>
                                         <th>Headquarters</th>
-                                        <th>Customer</th>
-                                        <th>Met</th>
-                                        <th>% Cov</th>
+                                        <th class="grey">Customer</th>
+                                        <th class="grey">Met</th>
+                                        <th class="grey">% Cov</th>
                                         <th>A/B</th>
                                         <th>V1</th>
                                         <th>V2</th>
                                         <th>V3</th>
+                                        <th class="grey">Total</th>
+                                        <th class="grey">Met</th>
+                                        <th class="grey">% Cov</th>
                                         <th>Total</th>
                                         <th>Met</th>
                                         <th>% Cov</th>
-                                        <th>Total</th>
-                                        <th>Met</th>
-                                        <th>% Cov</th>
-                                        <th>Total</th>
-                                        <th>Met</th>
-                                        <th>% Cov</th>
+                                        <th class="grey">Total</th>
+                                        <th class="grey">Met</th>
+                                        <th class="grey">% Cov</th>
                                         <th>Total</th>
                                         <th>Met</th>
                                         <th>% Cov</th>
                                     </tr>
                                     </thead>
+
+                                    <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th>Headquarters</th>
+                                        <th class="grey">Customer</th>
+                                        <th class="grey">Met</th>
+                                        <th class="grey">% Cov</th>
+                                        <th>A/B</th>
+                                        <th>V1</th>
+                                        <th>V2</th>
+                                        <th>V3</th>
+                                        <th class="grey">Total</th>
+                                        <th class="grey">Met</th>
+                                        <th class="grey">% Cov</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                        <th>% Cov</th>
+                                        <th class="grey">Total</th>
+                                        <th class="grey">Met</th>
+                                        <th class="grey">% Cov</th>
+                                        <th>Total</th>
+                                        <th>Met</th>
+                                        <th>% Cov</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th colspan="3" class="grey">Total</th>
+                                        <th colspan="4">Stockist</th>
+                                        <th colspan="3" class="grey">Semi</th>
+                                        <th colspan="3">Retailer</th>
+                                        <th colspan="3" class="grey">Hub</th>
+                                        <th colspan="3">Physician</th>
+                                    </tr>
+                                    </tfoot>
+
                                     <tbody>
-                                    <template ngFor let-area [ngForOf]="z.areas">
-                                        <tr>
-                                            <th [colSpan]="17" class="text-center">
-                                                {{ area.name }}
-                                            </th>
-                                        </tr>
-                                        <tr *ngFor="let hq of area.headquarters">
-                                            <th>{{ hq.name }}</th>
+                                    <tr class="dark_grey">
+                                        <th>Total</th>
+                                        <th></th>
+                                        <td>
+                                            {{ region.customer_types[0].customerCount
+                                            +region.customer_types[1].customerCount
+                                            +region.customer_types[2].customerCount
+                                            +region.customer_types[3].customerCount
+                                            +region.customer_types[4].customerCount}}
+                                        </td>
+                                        <td>
+                                            {{ region.customer_types[0].visitCount
+                                            +region.customer_types[1].visitCount
+                                            +region.customer_types[2].visitCount
+                                            +region.customer_types[3].visitCount
+                                            +region.customer_types[4].visitCount}}
+                                        </td>
+                                        <td>
+                                            {{
+                                            (((region.customer_types[0].visitCount
+                                            +region.customer_types[1].visitCount
+                                            +region.customer_types[2].visitCount
+                                            +region.customer_types[3].visitCount
+                                            +region.customer_types[4].visitCount)
+                                            /(region.customer_types[0].customerCount
+                                            +region.customer_types[1].customerCount
+                                            +region.customer_types[2].customerCount
+                                            +region.customer_types[3].customerCount
+                                            +region.customer_types[4].customerCount)) * 100).toFixed(0)
+                                            }} %
+                                        </td>
+                                        <td>{{ region.customer_types[0].aCustomerCount
+                                            + region.customer_types[0].bCustomerCount }}</td>
+                                        <td>{{ region.customer_types[0].aVisitCount
+                                            + region.customer_types[0].bVisitCount }}</td>
+                                        <td>{{ region.customer_types[0].v2_count }}</td>
+                                        <td>{{ region.customer_types[0].v3_count }}</td>
+
+                                        <td class="grey">{{ region.customer_types[1].customerCount }}</td>
+                                        <td class="grey">{{ region.customer_types[1].visitCount }}</td>
+                                        <td class="grey">{{
+                                            region.customer_types[1].percentageCount.toFixed(0)}} %
+                                        </td>
+
+                                        <td>{{ region.customer_types[2].customerCount }}</td>
+                                        <td>{{ region.customer_types[2].visitCount }}</td>
+                                        <td>{{ region.customer_types[2].percentageCount.toFixed(0)}} %</td>
+
+                                        <td class="grey">{{ region.customer_types[3].customerCount }}</td>
+                                        <td class="grey">{{ region.customer_types[3].visitCount }}</td>
+                                        <td class="grey">{{
+                                            region.customer_types[3].percentageCount.toFixed(0)}} %
+                                        </td>
+
+                                        <td>{{ region.customer_types[4].customerCount }}</td>
+                                        <td>{{ region.customer_types[4].visitCount }}</td>
+                                        <td>{{ region.customer_types[4].percentageCount.toFixed(0)}} %</td>
+                                    </tr>
+                                    <template ngFor let-area [ngForOf]="region.areas">
+                                        <tr class="grey">
+                                            <th>{{ area.name }}</th>
+                                            <th></th>
                                             <td>
                                                 {{
-                                                hq.customer_types[0].customerCount +
-                                                hq.customer_types[1].customerCount +
-                                                hq.customer_types[2].customerCount +
-                                                hq.customer_types[3].customerCount +
-                                                hq.customer_types[4].customerCount
+                                                area.customer_types[0].customerCount
+                                                +area.customer_types[1].customerCount
+                                                +area.customer_types[2].customerCount
+                                                +area.customer_types[3].customerCount
+                                                +area.customer_types[4].customerCount
                                                 }}
                                             </td>
                                             <td>
                                                 {{
-                                                hq.customer_types[0].visitCount +
-                                                hq.customer_types[1].visitCount +
-                                                hq.customer_types[2].visitCount +
-                                                hq.customer_types[3].visitCount +
-                                                hq.customer_types[4].visitCount
+                                                area.customer_types[0].visitCount
+                                                +area.customer_types[1].visitCount
+                                                +area.customer_types[2].visitCount
+                                                +area.customer_types[3].visitCount
+                                                +area.customer_types[4].visitCount
                                                 }}
                                             </td>
                                             <td>
                                                 {{
-                                                (((hq.customer_types[0].visitCount +
-                                                hq.customer_types[1].visitCount +
-                                                hq.customer_types[2].visitCount +
-                                                hq.customer_types[3].visitCount +
-                                                hq.customer_types[4].visitCount)/
-                                                (hq.customer_types[0].customerCount +
-                                                hq.customer_types[1].customerCount +
-                                                hq.customer_types[2].customerCount +
-                                                hq.customer_types[3].customerCount +
-                                                hq.customer_types[4].customerCount)) * 100).toFixed(0)
+                                                (((area.customer_types[0].visitCount
+                                                +area.customer_types[1].visitCount
+                                                +area.customer_types[2].visitCount
+                                                +area.customer_types[3].visitCount
+                                                +area.customer_types[4].visitCount)
+                                                /(area.customer_types[0].customerCount
+                                                +area.customer_types[1].customerCount
+                                                +area.customer_types[2].customerCount
+                                                +area.customer_types[3].customerCount
+                                                +area.customer_types[4].customerCount)) * 100).toFixed(0)
                                                 }} %
                                             </td>
-                                            <td>{{ hq.customer_types[0].customerCount }}</td>
-                                            <td>{{ hq.customer_types[0].visitCount }}</td>
-                                            <td>{{ hq.customer_types[0].v2_count }}</td>
-                                            <td>{{ hq.customer_types[0].v3_count }}</td>
+                                            <td>{{ area.customer_types[0].aCustomerCount
+                                                + area.customer_types[0].bCustomerCount }}</td>
+                                            <td>{{ area.customer_types[0].aVisitCount
+                                                + area.customer_types[0].bVisitCount }}</td>
+                                            <td>{{ area.customer_types[0].v2_count }}</td>
+                                            <td>{{ area.customer_types[0].v3_count}}</td>
 
-                                            <td>{{ hq.customer_types[1].customerCount }}</td>
-                                            <td>{{ hq.customer_types[1].visitCount }}</td>
-                                            <td>{{ hq.customer_types[1].percentageCount.toFixed(0)}} %</td>
+                                            <td class="grey">{{ area.customer_types[1].customerCount }}</td>
+                                            <td class="grey">{{ area.customer_types[1].visitCount }}</td>
+                                            <td class="grey">{{
+                                                area.customer_types[1].percentageCount.toFixed(0)}} %
+                                            </td>
+
+                                            <td>{{ area.customer_types[2].customerCount }}</td>
+                                            <td>{{ area.customer_types[2].visitCount }}</td>
+                                            <td>{{ area.customer_types[2].percentageCount.toFixed(0)}} %</td>
+
+                                            <td class="grey">{{ area.customer_types[3].customerCount }}</td>
+                                            <td class="grey">{{ area.customer_types[3].visitCount }}</td>
+                                            <td class="grey">{{
+                                                area.customer_types[3].percentageCount.toFixed(0)}} %
+                                            </td>
+
+                                            <td>{{ area.customer_types[4].customerCount }}</td>
+                                            <td>{{ area.customer_types[4].visitCount }}</td>
+                                            <td>{{ area.customer_types[4].percentageCount.toFixed(0)}} %</td>
+                                        </tr>
+                                        <tr *ngFor="let hq of area.headquarters">
+                                            <th></th>
+                                            <th>{{ hq.name }}</th>
+
+                                            <td class="grey">
+                                                {{
+                                                hq.customer_types[0].customerCount
+                                                +hq.customer_types[1].customerCount
+                                                +hq.customer_types[2].customerCount
+                                                +hq.customer_types[3].customerCount
+                                                +hq.customer_types[4].customerCount
+                                                }}
+                                            </td>
+                                            <td class="grey">
+                                                {{
+                                                hq.customer_types[0].visitCount
+                                                +hq.customer_types[1].visitCount
+                                                +hq.customer_types[2].visitCount
+                                                +hq.customer_types[3].visitCount
+                                                +hq.customer_types[4].visitCount
+                                                }}
+                                            </td>
+                                            <td class="grey">
+                                                {{
+                                                (((hq.customer_types[0].visitCount
+                                                +hq.customer_types[1].visitCount
+                                                +hq.customer_types[2].visitCount
+                                                +hq.customer_types[3].visitCount
+                                                +hq.customer_types[4].visitCount)/
+                                                (hq.customer_types[0].customerCount
+                                                +hq.customer_types[1].customerCount
+                                                +hq.customer_types[2].customerCount
+                                                +hq.customer_types[3].customerCount
+                                                +hq.customer_types[4].customerCount))*100).toFixed(0)
+                                                }} %
+                                            </td>
+
+                                            <td>{{ hq.customer_types[0].aCustomerCount
+                                                + hq.customer_types[0].bCustomerCount }}</td>
+                                            <td>{{ hq.customer_types[0].aVisitCount
+                                                + hq.customer_types[0].bVisitCount }}</td>
+                                            <td>{{ hq.customer_types[0].v2_count}}</td>
+                                            <td>{{ hq.customer_types[0].v3_count}}</td>
+
+                                            <td class="grey">{{ hq.customer_types[1].customerCount }}</td>
+                                            <td class="grey">{{ hq.customer_types[1].visitCount }}</td>
+                                            <td class="grey">{{
+                                                hq.customer_types[1].percentageCount.toFixed(0)}} %
+                                            </td>
 
                                             <td>{{ hq.customer_types[2].customerCount }}</td>
                                             <td>{{ hq.customer_types[2].visitCount }}</td>
                                             <td>{{ hq.customer_types[2].percentageCount.toFixed(0)}} %</td>
 
-                                            <td>{{ hq.customer_types[3].customerCount }}</td>
-                                            <td>{{ hq.customer_types[3].visitCount }}</td>
-                                            <td>{{ hq.customer_types[3].percentageCount.toFixed(0)}} %</td>
+                                            <td class="grey">{{ hq.customer_types[3].customerCount }}</td>
+                                            <td class="grey">{{ hq.customer_types[3].visitCount }}</td>
+                                            <td class="grey">{{
+                                                hq.customer_types[3].percentageCount.toFixed(0)}} %
+                                            </td>
 
                                             <td>{{ hq.customer_types[4].customerCount }}</td>
                                             <td>{{ hq.customer_types[4].visitCount }}</td>
