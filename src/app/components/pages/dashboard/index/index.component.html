@@ -101,7 +101,7 @@
                             <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
                                 <div class="mini-stats-top">
                                     <span class="mini-stats-value"><i class="fa fa-rupee"></i>
-                                        {{ total_pob.toFixed(2) | number : fractionSize }}
+                                        {{(total_pob/1000).toFixed(0) | number : fractionSize }} K
                                     </span>
                                     <span class="mini-stats-label">POB</span>
                                 </div>
