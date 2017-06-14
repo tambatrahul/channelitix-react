@@ -58,6 +58,8 @@
                                     <thead>
                                     <tr>
                                         <th class="grey">Customer</th>
+                                        <th class="grey">Headquarter</th>
+                                        <th class="grey">Brick</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">Target</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">Sales</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">POB Target</th>
@@ -69,6 +71,9 @@
                                     <tbody>
                                     <template ngFor let-cus [ngForOf]="customers">
                                         <tr>
+                                            <th class="grey">{{ cus.firm_name }}</th>
+                                            <th class="grey">{{ cus.hq_headquarter.name }}</th>
+                                            <th class="grey">{{ cus.hq_brick.name }}</th>
                                             <th class="grey">{{ cus.firm_name }}</th>
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'">{{ cus.total_primary_sale.toFixed(0) }}</th>
