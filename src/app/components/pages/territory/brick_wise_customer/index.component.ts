@@ -50,12 +50,15 @@ export class BrickWiseCustomerComponent extends ListComponent {
                 // prepare customers
                 let customers = response.customers.map(customer => new Customer(customer));
 
+                // prepare headquarter wise customers
+                let hq_wise_customers = response.hq_wise_customers.map(customer => new Customer(customer));
+
                 // prepare customer types
                 let customer_types = response.customer_types.map(ct => new CustomerType(ct));
                 this.customer_types = customer_types;
 
                 // prepare data for table
-                this.prepareData(headquarters, customers, customer_types);
+                this.prepareData(headquarters, customers, customer_types, hq_wise_customers);
             },
             err => {
                 this.loading = false;
@@ -69,8 +72,10 @@ export class BrickWiseCustomerComponent extends ListComponent {
      * @param headquarters
      * @param customers
      * @param customer_types
+     * @param hq_wise_customers
      */
-    prepareData(headquarters: Headquarter[], customers: Customer[], customer_types: CustomerType[]) {
+    prepareData(headquarters: Headquarter[], customers: Customer[], customer_types: CustomerType[],
+                hq_wise_customers: Customer[]) {
 
         // prepare headquarters
         let regions = {};
@@ -98,11 +103,22 @@ export class BrickWiseCustomerComponent extends ListComponent {
             });
         });
 
+        hq_wise_customers.map(hq_wise_cus => {
+            regions[hq_wise_cus.hq_region_id].area_objects[hq_wise_cus.hq_area_id].headquarters.map(hq => {
+                if (hq.id == hq_wise_cus.hq_headquarter_id) {
+                    hq.customer_types.map(ct => {
+                        if (ct.id == hq_wise_cus.customer_type_id)
+                            ct.customer_count += hq_wise_cus.visit_count
+                    })
+                }
+            });
+        });
+
         // set
         this.regions = [];
-        for(let i in regions) {
+        for (let i in regions) {
             let region = regions[i];
-            for(let j in region.area_objects) {
+            for (let j in region.area_objects) {
                 region.areas.push(region.area_objects[j]);
             }
             this.regions.push(region);
