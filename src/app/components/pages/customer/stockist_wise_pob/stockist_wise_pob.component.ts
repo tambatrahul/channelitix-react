@@ -69,7 +69,6 @@ export class StockistWisePobComponent extends ListComponent {
         this.year = moment().year();
         this.regionChanged(this._service.user.hq_region_id);
         this.areaChanged(this._service.user.hq_area_id);
-        this.region_id = 2;
     }
 
     /**
@@ -93,11 +92,11 @@ export class StockistWisePobComponent extends ListComponent {
                     // visit list
                     let visits = data[0].visits.map(visit => new Visit(visit));
 
-                    // product list
-                    let products = data[0].products.map(pro => new Product(pro));
+                    // customers
+                    let all_customers = data[0].customers.map(cus => new Customer(cus));
 
                     // prepare data
-                    let customers = this.prepareData(orders, products, null, visits);
+                    let customers = this.prepareData(all_customers, orders, null, visits);
                     this.addSynergyData(customers, data[1].orders.map(order => new Order(order)))
                 });
             } else {
@@ -111,14 +110,15 @@ export class StockistWisePobComponent extends ListComponent {
 
                         let primary_sales = response.primary_sales.map(primary_sale => new PrimarySale(primary_sale));
 
-                        // product list
-                        let products = response.products.map(pro => new Product(pro));
-
                         // visit list
                         let visits = response.visits.map(visit => new Visit(visit));
 
+                        // customers
+                        let all_customers = response.customers.map(cus => new Customer(cus));
+
+
                         // prepare data
-                        let customers = this.prepareData(orders, products, primary_sales, visits);
+                        let customers = this.prepareData(all_customers, orders, primary_sales, visits);
 
                         this.customers = [];
                         for (let i in customers) {
@@ -197,76 +197,40 @@ export class StockistWisePobComponent extends ListComponent {
     /**
      * prepare data
      *
+     * @param all_customers
      * @param orders
-     * @param products
      * @param primary_sales
      * @param visits
      */
-    prepareData(orders: Order[], products: Product[], primary_sales: PrimarySale[], visits: Visit[]) {
+    prepareData(all_customers: Customer[], orders: Order[], primary_sales: PrimarySale[], visits: Visit[]) {
         // prepare customers
         let customers = {};
         this.all_total = 0;
         this.primary_sale_total = 0;
 
+        // add all customers
+        all_customers.map(cus => {
+            customers[cus.id] = cus;
+        });
+
         // prepare list of customers with POB
         orders.map(order => {
-            if (!customers.hasOwnProperty(order.delivered_by)) {
-                customers[order.delivered_by] = order.delivered_by_user;
-                customers[order.delivered_by].products = products.map(pro => {
-                    let prod = new Product(pro);
-                    prod.amount = 0;
-                    return prod;
-                });
-            }
-            customers[order.delivered_by].products.map(pro => {
-                if (pro.id == order.product_id) {
-                    pro.amount = order.order_total_count;
-                    customers[order.delivered_by].total_pob += order.order_total_count;
-                }
-            });
+            customers[order.delivered_by].total_pob += order.order_total_count;
+            this.all_total += order.order_total_count;
+        });
 
-            products.map(prod => {
-                if (prod.id == order.product_id) {
-                    prod.amount += order.order_total_count;
-                    this.all_total += order.order_total_count;
-                }
-            });
-
-            visits.map(visit => {
-                if (visit.customer_id == order.delivered_by)
-                    customers[order.delivered_by].days = visit.days;
-            });
-
+        // prepare list of visits for customers
+        visits.map(visit => {
+            customers[visit.customer_id].days = visit.days;
         });
 
         // prepare list of customers with primary sale
         if (primary_sales) {
             primary_sales.map(primary_sale => {
-                if (!customers.hasOwnProperty(primary_sale.customer.id)) {
-                    customers[primary_sale.customer.id] = primary_sale.customer;
-                    customers[primary_sale.customer.id].products = products.map(pro => {
-                        let prod = new Product(pro);
-                        prod.amount = 0;
-                        return prod;
-                    });
-                }
-                customers[primary_sale.customer.id].products.map(prd => {
-                    if (prd.id == primary_sale.product.id) {
-                        prd.primary_sale = primary_sale.total_net_amount;
-                        customers[primary_sale.customer.id].total_primary_sale += primary_sale.total_net_amount;
-                    }
-                });
-
-                products.map(prod => {
-                    if (prod.id == primary_sale.product.id) {
-                        prod.primary_sale_amount += primary_sale.total_net_amount;
-                        this.primary_sale_total += primary_sale.total_net_amount;
-                    }
-                });
+                customers[primary_sale.customer_id].total_primary_sale += primary_sale.total_net_amount;
+                this.primary_sale_total += primary_sale.total_net_amount;
             });
         }
-
-        this.products = products;
 
         return customers;
     }
