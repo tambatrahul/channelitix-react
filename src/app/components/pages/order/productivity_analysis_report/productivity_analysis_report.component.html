@@ -40,6 +40,7 @@
                                     <tr>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                         <th colspan="3" class="grey">Physician</th>
                                         <th colspan="3">Hub</th>
                                         <th colspan="3" class="grey">Semi</th>
@@ -48,6 +49,7 @@
                                         <th class="grey"></th>
                                     </tr>
                                     <tr>
+                                        <th></th>
                                         <th>Headquarters</th>
                                         <th>Total POB</th>
 
@@ -72,36 +74,57 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr class="dark_grey">
                                         <th>Total</th>
                                         <th></th>
+                                        <th>{{ (z.total_pob / 1000).toFixed(1) }}</th>
 
-                                        <th class="grey"></th>
-                                        <th class="grey"></th>
-                                        <th class="grey"></th>
+                                        <td class="grey">{{ z.customer_types[4].visit_count }} </td>
+                                        <td class="grey">{{ z.customer_types[4].total_productive_avg }}</td>
+                                        <td class="grey">{{ (z.customer_types[4].order_count/ 1000).toFixed(2) }}</td>
 
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <td>{{ z.customer_types[3].visit_count }}</td>
+                                        <td>{{ z.customer_types[3].total_productive_avg }}</td>
+                                        <td>{{ (z.customer_types[3].order_count/ 1000).toFixed(2) }}</td>
 
-                                        <th class="grey"></th>
-                                        <th class="grey"></th>
-                                        <th class="grey"></th>
+                                        <td class="grey">{{ z.customer_types[1].visit_count }}</td>
+                                        <td class="grey">{{ z.customer_types[1].total_productive_avg }}</td>
+                                        <td class="grey">{{ (z.customer_types[1].order_count/ 1000).toFixed(2)}}</td>
 
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <td>{{ z.customer_types[2].visit_count }}</td>
+                                        <td>{{ z.customer_types[2].total_productive_avg }}</td>
+                                        <td>{{ (z.customer_types[2].order_count/ 1000).toFixed(2) }}</td>
 
-                                        <th class="grey"></th>
-                                        <th class="grey"></th>
+                                        <td class="grey">{{ z.total_att > 0 ? (z.total_visit / z.total_att).toFixed(1): 0 }}</td>
+                                        <td class="grey">{{ z.total_att > 0 ? (z.total_order / z.total_att).toFixed(1): 0 }}</td>
                                     </tr>
                                     <template ngFor let-area [ngForOf]="z.areas">
-                                        <tr>
-                                            <th [colSpan]="17" class="text-center">
-                                                {{ area.name }}
-                                            </th>
+                                        <tr class="grey">
+                                            <th>{{ area.name }}</th>
+                                            <th></th>
+                                            <td>{{ (area.total_pob / 1000).toFixed(1) }}</td>
+
+                                            <td class="grey">{{ area.customer_types[4].visit_count }} </td>
+                                            <td class="grey">{{ area.customer_types[4].total_productive_avg }}</td>
+                                            <td class="grey">{{ (area.customer_types[4].order_count/ 1000).toFixed(2) }}</td>
+
+                                            <td>{{ area.customer_types[3].visit_count }}</td>
+                                            <td>{{ area.customer_types[3].total_productive_avg }}</td>
+                                            <td>{{ (area.customer_types[3].order_count/ 1000).toFixed(2) }}</td>
+
+                                            <td class="grey">{{ area.customer_types[1].visit_count }}</td>
+                                            <td class="grey">{{ area.customer_types[1].total_productive_avg }}</td>
+                                            <td class="grey">{{ (area.customer_types[1].order_count/ 1000).toFixed(2)}}</td>
+
+                                            <td>{{ area.customer_types[2].visit_count }}</td>
+                                            <td>{{ area.customer_types[2].total_productive_avg }}</td>
+                                            <td>{{ (area.customer_types[2].order_count/ 1000).toFixed(2) }}</td>
+
+                                            <td class="grey">{{ area.total_att > 0 ? (area.total_visit / area.total_att).toFixed(1): 0 }}</td>
+                                            <td class="grey">{{ area.total_att > 0 ? (area.total_order / area.total_att).toFixed(1): 0 }}</td>
                                         </tr>
                                         <tr *ngFor="let hq of area.headquarters">
+                                            <th></th>
                                             <th>{{ hq.name }}</th>
                                             <td>{{ (hq.total_pob / 1000).toFixed(1) }}</td>
 

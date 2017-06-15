@@ -29,8 +29,9 @@
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Headquarters</th>
-                                        <th colspan="5">Total</th>
+                                        <th></th>
+                                        <th rowspan="2">Headquarters</th>
+                                        <th colspan="6">Total</th>
                                         <th rowspan="2">Total Bricks</th>
                                         <th colspan="2" rowspan="2">Retailer</th>
                                         <th colspan="2" rowspan="2">Semi</th>
@@ -40,6 +41,7 @@
                                     <tr>
                                         <th></th>
                                         <th>Customer</th>
+                                        <th>Stockist</th>
                                         <th>Retailers</th>
                                         <th>Semi</th>
                                         <th>Hub Chemist</th>
@@ -47,26 +49,84 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <tr class="dark_grey">
+                                        <th>Total</th>
+                                        <th></th>
+                                        <td>{{ z.customer_types[0].customer_count
+                                            + z.customer_types[1].customer_count
+                                            + z.customer_types[2].customer_count
+                                            + z.customer_types[3].customer_count
+                                            + z.customer_types[4].customer_count
+                                            }}
+                                        </td>
+                                        <td>{{ z.customer_types[0].customer_count }}</td>
+                                        <td>{{ z.customer_types[2].customer_count }}</td>
+                                        <td>{{ z.customer_types[1].customer_count }}</td>
+                                        <td>{{ z.customer_types[3].customer_count }}</td>
+                                        <td>{{ z.customer_types[4].customer_count }}</td>
+                                        <td>{{ z.total_bricks }}</td>
+                                        <td>{{ z.retailer_count }}</td>
+                                        <td [ngClass]="{'above_80': ((z.retailer_count / z.total_bricks) * 100) > 80}">
+                                            {{ ((z.retailer_count / z.total_bricks) * 100).toFixed(0) }} %
+                                        </td>
+                                        <td>{{ z.semi_count }}</td>
+                                        <td [ngClass]="{'above_70': ((z.semi_count / z.total_bricks) * 100) > 70}">
+                                            {{ ((z.semi_count / z.total_bricks) * 100).toFixed(0) }} %
+                                        </td>
+                                        <td>{{ z.hub_count }}</td>
+                                        <td [ngClass]="{'above_50': ((z.hub_count / z.total_bricks) * 100) > 50}">
+                                            {{ ((z.hub_count / z.total_bricks) * 100).toFixed(0) }} %
+                                        </td>
+                                        <td>{{ z.phy_count }}</td>
+                                        <td>{{ ((z.phy_count / z.total_bricks) * 100).toFixed(0) }} %</td>
+                                    </tr>
                                     <template ngFor let-area [ngForOf]="z.areas">
-                                        <tr>
-                                            <th [colSpan]="area.headquarters[0]?.customer_types.length + 10"
-                                                class="text-center">
-                                                <strong>{{ area.name }}</strong>
-                                            </th>
+                                        <tr class="grey">
+                                            <th>{{ area.name }}</th>
+                                            <th></th>
+                                            <td>{{ area.customer_types[0].customer_count
+                                                + area.customer_types[1].customer_count
+                                                + area.customer_types[2].customer_count
+                                                + area.customer_types[3].customer_count
+                                                + area.customer_types[4].customer_count
+                                                }}
+                                            </td>
+                                            <td>{{ area.customer_types[0].customer_count }}</td>
+                                            <td>{{ area.customer_types[2].customer_count }}</td>
+                                            <td>{{ area.customer_types[1].customer_count }}</td>
+                                            <td>{{ area.customer_types[3].customer_count }}</td>
+                                            <td>{{ area.customer_types[4].customer_count }}</td>
+                                            <td>{{ area.total_bricks }}</td>
+                                            <td>{{ area.retailer_count }}</td>
+                                            <td [ngClass]="{'above_80': ((area.retailer_count / area.total_bricks) * 100) > 80}">
+                                                {{ ((area.retailer_count / area.total_bricks) * 100).toFixed(0) }} %
+                                            </td>
+                                            <td>{{ area.semi_count }}</td>
+                                            <td [ngClass]="{'above_70': ((area.semi_count / area.total_bricks) * 100) > 70}">
+                                                {{ ((area.semi_count / area.total_bricks) * 100).toFixed(0) }} %
+                                            </td>
+                                            <td>{{ area.hub_count }}</td>
+                                            <td [ngClass]="{'above_50': ((area.hub_count / area.total_bricks) * 100) > 50}">
+                                                {{ ((area.hub_count / area.total_bricks) * 100).toFixed(0) }} %
+                                            </td>
+                                            <td>{{ area.phy_count }}</td>
+                                            <td>{{ ((area.phy_count / area.total_bricks) * 100).toFixed(0) }} %</td>
                                         </tr>
                                         <tr *ngFor="let hq of area.headquarters">
+                                            <th></th>
                                             <th>{{ hq.name }}</th>
-                                            <th>{{ hq.customer_types[0].customer_count
+                                            <td>{{ hq.customer_types[0].customer_count
                                                 + hq.customer_types[1].customer_count
                                                 + hq.customer_types[2].customer_count
                                                 + hq.customer_types[3].customer_count
                                                 + hq.customer_types[4].customer_count
                                                 }}
-                                            </th>
-                                            <th>{{ hq.customer_types[2].customer_count }}</th>
-                                            <th>{{ hq.customer_types[1].customer_count }}</th>
-                                            <th>{{ hq.customer_types[3].customer_count }}</th>
-                                            <th>{{ hq.customer_types[4].customer_count }}</th>
+                                            </td>
+                                            <td>{{ hq.customer_types[0].customer_count }}</td>
+                                            <td>{{ hq.customer_types[2].customer_count }}</td>
+                                            <td>{{ hq.customer_types[1].customer_count }}</td>
+                                            <td>{{ hq.customer_types[3].customer_count }}</td>
+                                            <td>{{ hq.customer_types[4].customer_count }}</td>
                                             <td>{{ hq.total_bricks }}</td>
                                             <td>{{ hq.retailer_count }}</td>
                                             <td [ngClass]="{'above_80': ((hq.retailer_count / hq.total_bricks) * 100) > 80}">

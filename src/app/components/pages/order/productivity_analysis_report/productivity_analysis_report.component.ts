@@ -144,6 +144,8 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
                                     ct.visit_count += vis.visit_count;
                             });
                             headquarter.total_visit += vis.visit_count;
+                            area.total_visit += vis.visit_count;
+                            region.total_visit += vis.visit_count;
                         }
                     });
 
@@ -162,6 +164,8 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
                                     ct.order_count += ord.order_total_count;
                             });
                             headquarter.total_pob += ord.order_total_count;
+                            area.total_pob += ord.order_total_count;
+                            region.total_pob += ord.order_total_count;
                         }
                     });
 
@@ -180,6 +184,8 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
                                     ct.total_productive_avg += ord.order_count
                             });
                             headquarter.total_order += ord.order_count;
+                            area.total_order += ord.order_count;
+                            region.total_order += ord.order_count;
                         }
                     });
 
@@ -188,6 +194,14 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
                             headquarter.total_att += att.attendance_count;
                             headquarter.total_pob += att.pob_amount;
                             headquarter.total_visit += att.no_of_calls;
+
+                            area.total_att += att.attendance_count;
+                            area.total_pob += att.pob_amount;
+                            area.total_visit += att.no_of_calls;
+
+                            region.total_att += att.attendance_count;
+                            region.total_pob += att.pob_amount;
+                            region.total_visit += att.no_of_calls;
                         }
                     });
 
