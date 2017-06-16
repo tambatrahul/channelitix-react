@@ -1,98 +1,156 @@
 <div class="container-fluid bricks" #loading_box>
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Headquarter wise Customer Distribution
-                        </h2>
-                    </div>
-                </div>
-            </div>
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Headquarter wise Customer Distribution
+            </h2>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- Page Breadcrumb -->
+  </div>
+  <!-- Page Breadcrumb -->
 
-    <!-- Attendance Table -->
-    <div class="row" *ngFor="let z of regions">
-        <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4><strong>{{ z.name }}</strong></h4>
-                </div>
-                <div>
-                    <div class="widget-container report-table">
-                        <div class="widget-block">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Headquarters</th>
-                                        <th colspan="6">Total</th>
-                                        <th rowspan="2">Total Bricks</th>
-                                        <th colspan="2" rowspan="2">Retailer</th>
-                                        <th colspan="2" rowspan="2">Semi</th>
-                                        <th colspan="2" rowspan="2">Hub Chemist</th>
-                                        <th colspan="2" rowspan="2">Physician</th>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <th>Customer</th>
-                                        <th>Stockists</th>
-                                        <th>Retailers</th>
-                                        <th>Semi</th>
-                                        <th>Hub Chemist</th>
-                                        <th>Physician</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <template ngFor let-area [ngForOf]="z.areas">
-                                        <tr>
-                                            <th [colSpan]="area.headquarters[0]?.customer_types.length + 11"
-                                                class="text-center">
-                                                <strong>{{ area.name }}</strong>
-                                            </th>
-                                        </tr>
-                                        <tr *ngFor="let hq of area.headquarters">
-                                            <th>{{ hq.name }}</th>
-                                            <td>{{ hq.customer_types[0].customer_count
-                                                + hq.customer_types[1].customer_count
-                                                + hq.customer_types[2].customer_count
-                                                + hq.customer_types[3].customer_count
-                                                + hq.customer_types[4].customer_count
-                                                }}
-                                            </td>
-                                            <td>{{ hq.customer_types[0].customer_count }}</td>
-                                            <td>{{ hq.customer_types[2].customer_count }}</td>
-                                            <td>{{ hq.customer_types[1].customer_count }}</td>
-                                            <td>{{ hq.customer_types[3].customer_count }}</td>
-                                            <td>{{ hq.customer_types[4].customer_count }}</td>
-                                            <td>{{ hq.total_bricks }}</td>
-                                            <td>{{ hq.retailer_count }}</td>
-                                            <td [ngClass]="{'above_80': ((hq.retailer_count / hq.total_bricks) * 100) > 80}">
-                                                {{ ((hq.retailer_count / hq.total_bricks) * 100).toFixed(0) }} %
-                                            </td>
-                                            <td>{{ hq.semi_count }}</td>
-                                            <td [ngClass]="{'above_70': ((hq.semi_count / hq.total_bricks) * 100) > 70}">
-                                                {{ ((hq.semi_count / hq.total_bricks) * 100).toFixed(0) }} %
-                                            </td>
-                                            <td>{{ hq.hub_count }}</td>
-                                            <td [ngClass]="{'above_50': ((hq.hub_count / hq.total_bricks) * 100) > 50}">
-                                                {{ ((hq.hub_count / hq.total_bricks) * 100).toFixed(0) }} %
-                                            </td>
-                                            <td>{{ hq.phy_count }}</td>
-                                            <td>{{ ((hq.phy_count / hq.total_bricks) * 100).toFixed(0) }} %</td>
-                                        </tr>
-                                    </template>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Attendance Table -->
+  <div class="row" *ngFor="let z of regions">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4><strong>{{ z.name }}</strong></h4>
         </div>
+        <div>
+          <div class="widget-container report-table">
+            <div class="widget-block">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th rowspan="2">Headquarters</th>
+                    <th colspan="6">Total</th>
+                    <th rowspan="2">Total Bricks</th>
+                    <th colspan="2" rowspan="2">Retailer</th>
+                    <th colspan="2" rowspan="2">Semi</th>
+                    <th colspan="2" rowspan="2">Hub Chemist</th>
+                    <th colspan="2" rowspan="2">Physician</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>Customer</th>
+                    <th>Stockist</th>
+                    <th>Retailers</th>
+                    <th>Semi</th>
+                    <th>Hub Chemist</th>
+                    <th>Physician</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="dark_grey">
+                    <th>Total</th>
+                    <th></th>
+                    <td>{{ z.customer_types[0].customer_count
+                      + z.customer_types[1].customer_count
+                      + z.customer_types[2].customer_count
+                      + z.customer_types[3].customer_count
+                      + z.customer_types[4].customer_count
+                      }}
+                    </td>
+                    <td>{{ z.customer_types[0].customer_count }}</td>
+                    <td>{{ z.customer_types[2].customer_count }}</td>
+                    <td>{{ z.customer_types[1].customer_count }}</td>
+                    <td>{{ z.customer_types[3].customer_count }}</td>
+                    <td>{{ z.customer_types[4].customer_count }}</td>
+                    <td>{{ z.total_bricks }}</td>
+                    <td>{{ z.retailer_count }}</td>
+                    <td [ngClass]="{'above_80': ((z.retailer_count / z.total_bricks) * 100) > 80}">
+                      {{ ((z.retailer_count / z.total_bricks) * 100).toFixed(0) }} %
+                    </td>
+                    <td>{{ z.semi_count }}</td>
+                    <td [ngClass]="{'above_70': ((z.semi_count / z.total_bricks) * 100) > 70}">
+                      {{ ((z.semi_count / z.total_bricks) * 100).toFixed(0) }} %
+                    </td>
+                    <td>{{ z.hub_count }}</td>
+                    <td [ngClass]="{'above_50': ((z.hub_count / z.total_bricks) * 100) > 50}">
+                      {{ ((z.hub_count / z.total_bricks) * 100).toFixed(0) }} %
+                    </td>
+                    <td>{{ z.phy_count }}</td>
+                    <td>{{ ((z.phy_count / z.total_bricks) * 100).toFixed(0) }} %</td>
+                  </tr>
+                  <template ngFor let-area [ngForOf]="z.areas">
+                    <tr class="grey">
+                      <th>{{ area.name }}</th>
+                      <th></th>
+                      <td>{{ area.customer_types[0].customer_count
+                        + area.customer_types[1].customer_count
+                        + area.customer_types[2].customer_count
+                        + area.customer_types[3].customer_count
+                        + area.customer_types[4].customer_count
+                        }}
+                      </td>
+                      <td>{{ area.customer_types[0].customer_count }}</td>
+                      <td>{{ area.customer_types[2].customer_count }}</td>
+                      <td>{{ area.customer_types[1].customer_count }}</td>
+                      <td>{{ area.customer_types[3].customer_count }}</td>
+                      <td>{{ area.customer_types[4].customer_count }}</td>
+                      <td>{{ area.total_bricks }}</td>
+                      <td>{{ area.retailer_count }}</td>
+                      <td [ngClass]="{'above_80': ((area.retailer_count / area.total_bricks) * 100) > 80}">
+                        {{ ((area.retailer_count / area.total_bricks) * 100).toFixed(0) }} %
+                      </td>
+                      <td>{{ area.semi_count }}</td>
+                      <td [ngClass]="{'above_70': ((area.semi_count / area.total_bricks) * 100) > 70}">
+                        {{ ((area.semi_count / area.total_bricks) * 100).toFixed(0) }} %
+                      </td>
+                      <td>{{ area.hub_count }}</td>
+                      <td [ngClass]="{'above_50': ((area.hub_count / area.total_bricks) * 100) > 50}">
+                        {{ ((area.hub_count / area.total_bricks) * 100).toFixed(0) }} %
+                      </td>
+                      <td>{{ area.phy_count }}</td>
+                      <td>{{ ((area.phy_count / area.total_bricks) * 100).toFixed(0) }} %</td>
+                    </tr>
+                    <tr *ngFor="let hq of area.headquarters">
+                      <th></th>
+                      <th>{{ hq.name }}</th>
+                      <td>{{ hq.customer_types[0].customer_count
+                        + hq.customer_types[1].customer_count
+                        + hq.customer_types[2].customer_count
+                        + hq.customer_types[3].customer_count
+                        + hq.customer_types[4].customer_count
+                        }}
+                      </td>
+                      <td>{{ hq.customer_types[0].customer_count }}</td>
+                      <td>{{ hq.customer_types[2].customer_count }}</td>
+                      <td>{{ hq.customer_types[1].customer_count }}</td>
+                      <td>{{ hq.customer_types[3].customer_count }}</td>
+                      <td>{{ hq.customer_types[4].customer_count }}</td>
+                      <td>{{ hq.total_bricks }}</td>
+                      <td>{{ hq.retailer_count }}</td>
+                      <td [ngClass]="{'above_80': ((hq.retailer_count / hq.total_bricks) * 100) > 80}">
+                        {{ ((hq.retailer_count / hq.total_bricks) * 100).toFixed(0) }} %
+                      </td>
+                      <td>{{ hq.semi_count }}</td>
+                      <td [ngClass]="{'above_70': ((hq.semi_count / hq.total_bricks) * 100) > 70}">
+                        {{ ((hq.semi_count / hq.total_bricks) * 100).toFixed(0) }} %
+                      </td>
+                      <td>{{ hq.hub_count }}</td>
+                      <td [ngClass]="{'above_50': ((hq.hub_count / hq.total_bricks) * 100) > 50}">
+                        {{ ((hq.hub_count / hq.total_bricks) * 100).toFixed(0) }} %
+                      </td>
+                      <td>{{ hq.phy_count }}</td>
+                      <td>{{ ((hq.phy_count / hq.total_bricks) * 100).toFixed(0) }} %</td>
+                    </tr>
+                  </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

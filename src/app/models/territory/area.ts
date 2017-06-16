@@ -23,6 +23,8 @@ export class Area extends Model {
     territories_count: number = 0;
     headquarters_count: number = 0;
     bricks_count: number = 0;
+    total_order: number = 0;
+
 
     constructor(info: any) {
         super(info.id);
@@ -43,6 +45,12 @@ export class Area extends Model {
 
         if (info.headquarters)
             this.headquarters = info.headquarters.map(area=> new Headquarter(area));
+
+        if (info.total_order)
+            this.total_order = parseInt(info.total_order);
+
+        if (info.total_visit)
+            this.total_visit = parseInt(info.total_visit);
     }
 
     /**
@@ -114,5 +122,45 @@ export class Area extends Model {
         return this.headquarters.reduce((a, b) => {
             return a + b.total_att;
         }, 0)
+    }
+
+    get retailer_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Retailer") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get semi_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Semi") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get hub_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Hub Chemist") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get phy_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Physician") {
+                total = cus.brick_count
+            }
+        });
+        return total;
     }
 }

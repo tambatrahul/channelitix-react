@@ -20,6 +20,7 @@ export class Region extends Model {
     total_visit: number = 0;
     total_att: number = 0;
     fw_days: number = 0;
+    total_order: number = 0;
 
     areas_count: number = 0;
     territories_count: number = 0;
@@ -49,6 +50,12 @@ export class Region extends Model {
 
         if (info.areas)
             this.areas = info.areas.map(area=> new Area(area));
+
+        if (info.total_order)
+            this.total_order = parseInt(info.total_order);
+
+        if (info.total_visit)
+            this.total_visit = parseInt(info.total_visit);
     }
 
     /**
@@ -63,6 +70,46 @@ export class Region extends Model {
                 if (grade.customer_count)
                     total += grade.customer_count;
             })
+        });
+        return total;
+    }
+
+    get retailer_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Retailer") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get semi_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Semi") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get hub_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Hub Chemist") {
+                total = cus.brick_count
+            }
+        });
+        return total;
+    }
+
+    get phy_count(): number {
+        let total: number = 0;
+        this.customer_types.map(cus => {
+            if (cus.name == "Physician") {
+                total = cus.brick_count
+            }
         });
         return total;
     }
