@@ -280,6 +280,13 @@ export class ReportService extends BaseService {
     }
 
     /**
+     * Customer Data Dashboard Service
+     */
+    customer_data() {
+        return this.get(this.getBaseUrl() + '/dashboard/customer_data', new RequestOptions({}));
+    }
+
+    /**
      * Sales API
      *
      * @param month

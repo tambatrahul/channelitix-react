@@ -151,7 +151,7 @@ import {MoradabadHQComponent} from "./components/pages/standard_tour_program_pag
 import {PadraunaHQComponent} from "./components/pages/standard_tour_program_pages/padraunahq/index.component";
 import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
 import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
-import {SalesComponent} from "./components/pages/dashboard/report_component/sales/sales.component";
+import {CustomerDataComponent} from "./components/pages/dashboard/report/customer_data/customer_data.component";
 
 
 enableProdMode();
@@ -201,6 +201,7 @@ enableProdMode();
         MessageCreateComponent,
         BroadcastMessageComponent,
         DashBoardCountComponent,
+        DashBoardReportComponent,
         RegionComponent,
         AreaComponent,
         HeadquarterComponent,
@@ -226,9 +227,7 @@ enableProdMode();
         ProductivityAnalysisReportComponent,
 
         //dashboard report Component
-        DashBoardReportComponent,
         SalesComponent,
-
         // directives
         AttendanceStatusDirective,
         CustomerTypeDirective,
@@ -244,6 +243,7 @@ enableProdMode();
         TillMonthChartComponent,
         MonthlyPrimarySecondaryTargetComponent,
         BrickWiseCustomerComponent,
+        CustomerDataComponent,
 
         // reusable components
         MonthPickerComponent,

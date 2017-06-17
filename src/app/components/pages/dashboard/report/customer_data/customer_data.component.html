@@ -1,0 +1,20 @@
+<!-- Customer Data -->
+
+<tr #loading_box>
+  <th rowspan="3" class="middle">Customer Data</th>
+</tr>
+<tr>
+  <th>Hqs with customer list as per Norms</th>
+  <td>{{ total_hq_with_norms }} / {{ total_hq }}</td>
+  <td *ngFor="let region of regions">
+    {{ region.total_hq_with_norms }} / {{ region.headquarters_count }}
+  </td>
+</tr>
+<tr>
+  <th>HQs with 70% Bricks have Hub & Phy</th>
+  <td>{{ total_brick_hq }} / {{ total_hq }}</td>
+  <td *ngFor="let region of regions">
+    {{ region.bricks_count }} / {{ region.headquarters_count }}
+  </td>
+</tr>
+<!-- ./Customer Data -->

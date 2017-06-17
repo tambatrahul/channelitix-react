@@ -25,97 +25,101 @@ import {InvoiceDetail} from "./SAP/invoice_detail";
 import {YearTillMonth} from "./SAP/year_till_month";
 import {OrderItem} from "./order/order_item";
 import {Target} from "./SAP/target";
+import {BrickCustomerCount} from "./territory/brick_customer_count";
 
 export class Result {
 
-    // territory arrays
-    countries: Country[];
-    regions: Region[];
-    areas: Area[];
-    territories: Territory[];
-    headquarters: Headquarter[];
-    bricks: Brick[];
+  // territory arrays
+  countries: Country[];
+  regions: Region[];
+  areas: Area[];
+  territories: Territory[];
+  headquarters: Headquarter[];
+  bricks: Brick[];
 
-    // attendances models
-    attendance: Attendance;
-    attendances: Attendance[];
-    work_types: WorkType[];
-    leave_types: LeaveType[];
+  // attendances models
+  attendance: Attendance;
+  attendances: Attendance[];
+  work_types: WorkType[];
+  leave_types: LeaveType[];
 
-    //Visits models
-    visits: Visit[];
-    v2_v3_visits: Visit[];
-    inputs: VisitInput[];
+  //Visits models
+  visits: Visit[];
+  v2_v3_visits: Visit[];
+  inputs: VisitInput[];
 
-    //Orders models
-    orders: Order[];
-    order_counts: Order[];
+  //Orders models
+  orders: Order[];
+  order_counts: Order[];
 
-    // holidays models
-    holidays: Holiday[];
+  // holidays models
+  holidays: Holiday[];
 
-    // tour models
-    tours: Tour[];
+  // tour models
+  tours: Tour[];
 
-    // Message models
-    messages: Message[];
+  // Message models
+  messages: Message[];
 
-    // brick models
-    brick: Brick;
+  // brick models
+  brick: Brick;
 
-    // users models
-    user: User;
-    users: User[];
-    all_users: User[];
-    manager: User;
-    children: User[];
+  // users models
+  user: User;
+  users: User[];
+  all_users: User[];
+  manager: User;
+  children: User[];
 
-    // customer models
-    customer: Customer;
-    customers: Customer[];
-    hq_wise_customers: Customer[];
-    customer_types: CustomerType[];
-    customer_grades: Grade[];
-    grades: Grade[];
+  // customer models
+  customer: Customer;
+  customers: Customer[];
+  hq_wise_customers: Customer[];
+  customer_types: CustomerType[];
+  customer_grades: Grade[];
+  grades: Grade[];
 
-    // total number
-    total: number;
+  // total number
+  total: number;
 
-    // stps
-    stps: Stp[];
+  // stps
+  stps: Stp[];
 
-    // secondary sales
-    secondary_sales: SecondarySale[];
+  // secondary sales
+  secondary_sales: SecondarySale[];
 
-    // primary sales
-    primary_sales: PrimarySale[];
+  // primary sales
+  primary_sales: PrimarySale[];
 
-    // invoice detail
-    invoice_details: InvoiceDetail[];
+  // invoice detail
+  invoice_details: InvoiceDetail[];
 
-    // products
-    products: Product[] = [];
+  // products
+  products: Product[] = [];
 
-    // get total counts for reports
-    total_users: number = 0;
-    total_active_users: number = 0;
-    total_customers: number = 0;
-    total_visits: number = 0;
-    call_average: number = 0;
-    productive_calls: number = 0;
-    total_bricks: number = 0;
-    total_headquarters: number = 0;
-    total_orders: number = 0;
-    performance_per: number = 0;
+  // get total counts for reports
+  total_users: number = 0;
+  total_active_users: number = 0;
+  total_customers: number = 0;
+  total_visits: number = 0;
+  call_average: number = 0;
+  productive_calls: number = 0;
+  total_bricks: number = 0;
+  total_headquarters: number = 0;
+  total_orders: number = 0;
+  performance_per: number = 0;
 
-    // target till month and sales till month
-    year_till_month: YearTillMonth;
+  // target till month and sales till month
+  year_till_month: YearTillMonth;
 
-    performance: Performance;
+  performance: Performance;
 
-    // Product Wise sale
-    product_wise_sale: OrderItem[];
+  // Product Wise sale
+  product_wise_sale: OrderItem[];
 
-    // targets
-    targets: Target[]
+  // targets
+  targets: Target[];
+
+  // brick customer counts
+  brick_customer_counts: BrickCustomerCount[];
 }
