@@ -54,6 +54,7 @@ import {MeerutHQComponent} from "./components/pages/standard_tour_program_pages/
 import {MoradabadHQComponent} from "./components/pages/standard_tour_program_pages/moradabadhq/index.component";
 import {PadraunaHQComponent} from "./components/pages/standard_tour_program_pages/padraunahq/index.component";
 import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
+import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -65,7 +66,16 @@ export const routes: Routes = [
             // add attendance routes
             {
                 path: 'dashboard',
-                component: DashBoardComponent
+                children: [
+                    {
+                        path: '',
+                        component: DashBoardComponent
+                    },
+                    {
+                        path: 'report',
+                        component: DashBoardReportComponent
+                    }
+                ]
             },
 
             // add attendance routes

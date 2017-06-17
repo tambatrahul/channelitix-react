@@ -1,0 +1,364 @@
+<div class="container-fluid bricks" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+    </div>
+    <!-- ./Filters for report-->
+
+    <!-- Report Table -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4><strong>region_name</strong></h4>
+                </div>
+                <div>
+                    <div class="widget-container report-table">
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered visit_table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2">Region name</th>
+                                        <th>GEO</th>
+                                        <th>Lucknow</th>
+                                        <th>Delhi</th>
+                                        <th>Kolkata</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tfoot>
+                                    <tr>
+                                        <th colspan="2">Region name</th>
+                                        <th>GEO</th>
+                                        <th>Lucknow</th>
+                                        <th>Delhi</th>
+                                        <th>Kolkata</th>
+                                    </tr>
+                                    </tfoot>
+
+                                    <tbody>
+                                    <!-- Sales -->
+                                    <tr>
+                                        <th rowspan="8" class="middle">Sales</th>
+                                    </tr>
+                                    <tr>
+                                        <td>% Sales Contribution</td>
+                                        <td>100</td>
+                                        <td>30.77</td>
+                                        <td>35.46</td>
+                                        <td>17.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MTD % ACH</td>
+                                        <td>85.00</td>
+                                        <td>92.50</td>
+                                        <td>80.40</td>
+                                        <td>17.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>YTD % ACH</td>
+                                        <td>100</td>
+                                        <td>30.77</td>
+                                        <td>35.46</td>
+                                        <td>17.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td># Brands on Budget out of 8 Brands</td>
+                                        <td>100</td>
+                                        <td>30.77</td>
+                                        <td>35.46</td>
+                                        <td>17.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% HQ on Budget</td>
+                                        <td>100</td>
+                                        <td>30.77</td>
+                                        <td>35.46</td>
+                                        <td>17.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% HQ >=90 & <100</td>
+                                        <td>100</td>
+                                        <td>30.77</td>
+                                        <td>35.46</td>
+                                        <td>17.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% HQ <90</td>
+                                        <td>100</td>
+                                        <td>30.77</td>
+                                        <td>35.46</td>
+                                        <td>17.08</td>
+                                    </tr>
+                                    <!-- ./Sales -->
+
+                                    <tr>
+                                        <td colspan="6"></td>
+                                    </tr>
+
+                                    <!-- Customer Data -->
+                                    <tr>
+                                        <th rowspan="3" class="middle">Customer Data</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Hqs with customer list as per Norms</td>
+                                        <td>90.00</td>
+                                        <td>95.00</td>
+                                        <td>100.00</td>
+                                        <td>80.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HQs with 70% Bricks have Hub & Phy</td>
+                                        <td>94.69</td>
+                                        <td>100.00</td>
+                                        <td>50.00</td>
+                                        <td>85.00</td>
+                                    </tr>
+                                    <!-- ./Customer Data -->
+
+                                    <tr>
+                                        <td colspan="6"></td>
+                                    </tr>
+
+                                    <!-- Managers Activity -->
+                                    <tr>
+                                        <th rowspan="7" class="middle">Managers Activity</th>
+                                    </tr>
+                                    <tr>
+                                        <td>No. of FW days (ZSM) (Norm 18)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. of FW days (CSMs) (Norm 21)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>A/B stockists Met (ZSM) (Norm 30)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>A/B stockists Met (CSMs) (Norm 50)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Activities conducted (ZSM) (Norm 5)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Activities conducted (CSMs) (Norm 10)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- ./Managers Activity -->
+
+                                    <tr>
+                                        <td colspan="6"></td>
+                                    </tr>
+
+                                    <!-- FF Effort Metrics -->
+                                    <tr>
+                                        <th rowspan="9" class="middle">FF Effort Metrics</th>
+                                    </tr>
+                                    <tr>
+                                        <td>POB as % to Primary sales (Norm 30%)</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% of HQ >=POB Target</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% Coverage of A/B Stockists ( Norms >= 85 )</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% of HQ >=85% Coverage</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Call Avg as per norms 25</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% of HQ >= Call Avg</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FWD Days as per norms 23</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% of HQ >=23 FWD Days</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <!-- ./FF Effort Metrics -->
+
+                                    <tr>
+                                        <td colspan="6"></td>
+                                    </tr>
+
+                                    <!-- Activities -->
+                                    <tr>
+                                        <th rowspan="8" class="middle">Activities</th>
+                                    </tr>
+                                    <tr>
+                                        <td>% "A & B" Class Stockiest Sales June'17</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% "A & B"Stockiest enrolled in Loyalty program</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% A&B Stockiest secondary data in Channelitix</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No of Hub meetings (Norm 100)</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. of Semi engagement programs</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. of Stockist salesmen programs</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. of Taxi tours</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <!-- ./Activities -->
+
+                                    <tr>
+                                        <td colspan="6"></td>
+                                    </tr>
+
+                                    <!-- Activities -->
+                                    <tr>
+                                        <th rowspan="5" class="middle">People</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Vacant HQ</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vacant HQ (more than 15 days)</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Attrition (From April)</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>% Attrition</td>
+                                        <td>20.00</td>
+                                        <td>24.00</td>
+                                        <td>20.00</td>
+                                        <td>18.00</td>
+                                    </tr>
+                                    <!-- ./Activities -->
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Report Table -->
+</div>

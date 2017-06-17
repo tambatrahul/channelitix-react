@@ -150,6 +150,7 @@ import {MeerutHQComponent} from "./components/pages/standard_tour_program_pages/
 import {MoradabadHQComponent} from "./components/pages/standard_tour_program_pages/moradabadhq/index.component";
 import {PadraunaHQComponent} from "./components/pages/standard_tour_program_pages/padraunahq/index.component";
 import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
+import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
 
 
 enableProdMode();
@@ -199,6 +200,7 @@ enableProdMode();
         MessageCreateComponent,
         BroadcastMessageComponent,
         DashBoardCountComponent,
+        DashBoardReportComponent,
         RegionComponent,
         AreaComponent,
         HeadquarterComponent,
