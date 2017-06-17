@@ -278,4 +278,25 @@ export class ReportService extends BaseService {
         // make server call
         return this.get(url, new RequestOptions({search: params}));
     }
+
+    /**
+     * Sales API
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    sales(month: number, year: number){
+        return this.get(this.getBaseUrl() + '/dashboard/sales/' + month + "/" + year);
+    }
+
+    /**
+     * Yearly Sales
+     *
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    sales_yearly(year: number){
+        return this.get(this.getBaseUrl() + '/dashboard/sales_yearly/' + year);
+    }
 }
