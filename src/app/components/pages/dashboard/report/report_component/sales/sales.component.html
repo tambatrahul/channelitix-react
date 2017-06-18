@@ -1,0 +1,54 @@
+<!-- Sales -->
+<tr>
+  <th rowspan="8" class="middle">Sales</th>
+</tr>
+<tr>
+  <th>% Sales Contribution</th>
+  <td>100.00</td>
+  <td *ngFor="let r of regions">
+    {{ ((r.target / total_target)* 100).toFixed(2) }} %
+  </td>
+</tr>
+<tr>
+  <th>MTD % ACH</th>
+  <td>{{ ((total_primary_sale / total_target)* 100).toFixed(2) }}</td>
+  <td *ngFor="let r of regions">
+    {{ ((r.primary / total_primary_sale)* 100).toFixed(2) }} %
+  </td>
+</tr>
+<tr>
+  <th>YTD % ACH</th>
+  <td>{{ ((total_yearly_primary_sale / total_yearly_target)* 100).toFixed(2) }}</td>
+  <td *ngFor="let r of regions">
+    {{ ((r.yearly_primary / total_yearly_primary_sale)* 100).toFixed(2) }} %
+  </td>
+</tr>
+<tr>
+  <th># Brands on Budget out of {{ products.length }} Brands</th>
+  <td>{{ onTargetCount }}</td>
+  <td *ngFor="let r of regions">
+    {{r.onTargetCount}}
+  </td>
+</tr>
+<tr>
+  <th>% HQ on Budget</th>
+  <td>{{ onBudgetHqTotal }} / {{ onHqTotal }}</td>
+  <td *ngFor="let r of regions">
+    {{ r.onBudgetHq }} / {{ r.totalHq }}
+  </td>
+</tr>
+<tr>
+  <th>% HQ >=90 & <100</th>
+  <td>{{ onBudgetHq90Total }} / {{ onHqTotal }}</td>
+  <td *ngFor="let r of regions">
+    {{ r.onBudgetHq90 }} / {{ r.totalHq }}
+  </td>
+</tr>
+<tr>
+  <th>% HQ <90</th>
+  <td>{{ onBudgetHqLess90Total }} / {{ onHqTotal }}</td>
+  <td *ngFor="let r of regions">
+    {{ r.onBudgetHqLess90 }} / {{ r.totalHq }}
+  </td>
+</tr>
+<!-- ./Sales -->

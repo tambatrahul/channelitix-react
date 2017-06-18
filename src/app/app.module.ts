@@ -152,6 +152,7 @@ import {PadraunaHQComponent} from "./components/pages/standard_tour_program_page
 import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
 import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
 import {CustomerDataComponent} from "./components/pages/dashboard/report/customer_data/customer_data.component";
+import {SalesComponent} from "./components/pages/dashboard/report/report_component/sales/sales.component";
 
 
 enableProdMode();

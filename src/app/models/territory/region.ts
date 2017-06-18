@@ -2,6 +2,7 @@ import {Model} from "../model";
 import {CustomerType} from "../customer/customer_type";
 import {Country} from "./country";
 import {Area} from "./area";
+import {Product} from "../order/product";
 
 export class Region extends Model {
 
@@ -21,6 +22,9 @@ export class Region extends Model {
   total_att: number = 0;
   fw_days: number = 0;
   total_order: number = 0;
+  yearly_target: number = 0;
+  yearly_primary: number = 0;
+  products: Product[] = [];
 
   areas_count: number = 0;
   territories_count: number = 0;
@@ -60,6 +64,9 @@ export class Region extends Model {
 
     if (info.total_visit)
       this.total_visit = parseInt(info.total_visit);
+
+    if (info.products)
+      this.products = info.products.map(prd => new Product(prd));
   }
 
   /**
@@ -136,5 +143,54 @@ export class Region extends Model {
       });
     });
     return total_count;
+  }
+
+  get onTargetCount() {
+    return this.products.filter(prd => prd.onTarget).length;
+  }
+
+
+  /**
+   * get count of hq on budget
+   * @returns {number}
+   */
+  get onBudgetHq() {
+    let total = 0;
+    this.areas.map(area => {
+      total += area.headquarters.filter(hq => hq.onBudget).length;
+    });
+    return total;
+  }
+
+  /**
+   * get count of hq on 90 % budget
+   * @returns {number}
+   */
+  get onBudgetHq90() {
+    let total = 0;
+    this.areas.map(area => {
+      total += area.headquarters.filter(hq => hq.onBudget90).length;
+    });
+    return total;
+  }
+
+  /**
+   * get count of hq on < 90 % budget
+   * @returns {number}
+   */
+  get onBudgetHqLess90() {
+    let total = 0;
+    this.areas.map(area => {
+      total += area.headquarters.filter(hq => hq.onBudgetLess90).length;
+    });
+    return total;
+  }
+
+  get totalHq() {
+    let total = 0;
+    this.areas.map(area => {
+      total += area.headquarters.length;
+    });
+    return total;
   }
 }
