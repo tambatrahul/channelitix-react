@@ -41,6 +41,10 @@ export class VacancyDataComponent extends ListComponent {
     this._year = year;
   }
 
+  total_active: number = 0;
+  total_attritions: number = 0;
+  total_attritions_yearly: number = 0;
+
   /**
    * User Component Constructor
    */
@@ -75,14 +79,17 @@ export class VacancyDataComponent extends ListComponent {
           this._regions.map(region => {
             // adding active users
             users.map(user => {
-              if (region.id == user.hq_region_id)
+              if (region.id == user.hq_region_id) {
                 region.active_users_count += user.user_count;
+              }
             });
 
             // add attritions monthly
             attritions_month.map(user => {
-              if (region.id == user.hq_region_id)
+              if (region.id == user.hq_region_id) {
                 region.attritions_month_count += user.user_count;
+                this.total_attritions += user.user_count;
+              }
             });
 
             // add attritions yearly
@@ -90,6 +97,10 @@ export class VacancyDataComponent extends ListComponent {
               if (region.id == user.hq_region_id)
                 region.attritions_year_count += user.user_count;
             });
+
+            this.total_active += (region.headquarters_count - region.active_users_count);
+            this.total_attritions += region.attritions_month_count;
+            this.total_attritions_yearly += region.attritions_year_count;
           });
 
           this.loading = false;
