@@ -177,7 +177,7 @@
                                                 </template>
 
                                                 <td class="grey">{{ region.total_att }}</td>
-                                                <td class="grey">{{ (region.total_visit / region.total_att).toFixed(1)
+                                                <td class="grey">{{ (region.all_total_visit / region.total_att).toFixed(1)
                                                     }}
                                                 </td>
 
@@ -271,7 +271,7 @@
 
                                                     <td class="grey">{{ (area.total_att).toFixed(0) }}</td>
                                                     <td class="grey">
-                                                        {{ (area.total_visit / area.total_att).toFixed(0)}}
+                                                        {{ (area.all_total_visit / area.total_att).toFixed(0)}}
                                                     </td>
                                                     <td>
                                                         {{
@@ -367,7 +367,7 @@
 
                                                     <td class="grey">{{ hq.total_att }}</td>
                                                     <td class="grey">
-                                                        {{ hq.total_att > 0 ? ((hq.total_visit /
+                                                        {{ hq.total_att > 0 ? ((hq.all_total_visit /
                                                         hq.total_att).toFixed(0)): 0 }}
                                                     </td>
                                                     <td>

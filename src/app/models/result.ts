@@ -45,6 +45,7 @@ export class Result {
 
   //Visits models
   visits: Visit[];
+  all_visits: Visit[];
   v2_v3_visits: Visit[];
   inputs: VisitInput[];
 

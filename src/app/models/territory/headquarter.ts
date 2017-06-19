@@ -18,6 +18,7 @@ export class Headquarter extends Model {
   total_pob: number = 0;
   fw_days: number = 0;
   total_visit: number = 0;
+  all_total_visit: number = 0;
   total_att: number = 0;
   total_order: number = 0;
 

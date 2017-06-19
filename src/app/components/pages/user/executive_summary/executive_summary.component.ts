@@ -79,7 +79,10 @@ export class ExecutiveSummaryComponent extends ListComponent {
 
                 let visits = data[0].visits.map(vis => new Visit(vis));
                 let attendances = data[0].attendances.map(att => new Attendance(att));
-                this.mapAttendances(attendances, visits);
+
+                let all_visits = data[1].all_visits.map(vis => new Visit(vis));
+                this.mapAttendances(attendances, visits, all_visits);
+
 
                 // prepare customers
                 let customers = data[1].customers.map(cus => new Customer(cus));
@@ -259,8 +262,10 @@ export class ExecutiveSummaryComponent extends ListComponent {
      *
      * @param attendances
      * @param visits
+     * @param all_visits
      */
-    mapAttendances(attendances: Attendance[], visits: Visit[]) {
+    mapAttendances(attendances: Attendance[], visits: Visit[], all_visits: Visit[]) {
+
         this.regions.map(region => {
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
@@ -286,10 +291,19 @@ export class ExecutiveSummaryComponent extends ListComponent {
                             region.total_visit += vis.visit_count;
                         }
                     });
+
+                    all_visits.map(vis => {
+                        if (vis.hq_headquarter_id == headquarter.id) {
+                            headquarter.all_total_visit += vis.visit_count;
+                            area.all_total_visit += vis.visit_count;
+                            region.all_total_visit += vis.visit_count;
+                        }
+                    });
                 });
             });
         });
     }
+
 
     /**
      * month and year changed
