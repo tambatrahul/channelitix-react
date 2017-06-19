@@ -13,6 +13,9 @@
   <th>MTD % ACH</th>
   <td>{{ ((total_primary_sale / total_target)* 100).toFixed(2) }}</td>
   <td *ngFor="let r of regions">
+    <div class="cell" [ngClass]="{'green': r.primary >= r.target, 'orange': r.primary >= (r.target * 0.9), 'red': r.primary < (r.target * 0.9)}">
+
+    </div>
     {{ ((r.primary / total_primary_sale)* 100).toFixed(2) }} %
   </td>
 </tr>
