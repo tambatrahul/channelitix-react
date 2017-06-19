@@ -293,7 +293,7 @@ export class ReportService extends BaseService {
      * @param year
      * @returns {Observable<Result>}
      */
-    sales(month: number, year: number) {
+    sales(month: number, year: number){
         return this.get(this.getBaseUrl() + '/dashboard/sales/' + month + "/" + year);
     }
 
@@ -303,7 +303,7 @@ export class ReportService extends BaseService {
      * @param year
      * @returns {Observable<Result>}
      */
-    sales_yearly(year: number) {
+    sales_yearly(year: number){
         return this.get(this.getBaseUrl() + '/dashboard/sales_yearly/' + year);
     }
 
@@ -323,5 +323,16 @@ export class ReportService extends BaseService {
      */
     ff_effort_metrics(month: number, year: number) {
         return this.get(this.getBaseUrl() + '/dashboard/ff_effort_metrics/' + month + '/' + year);
+    }
+
+    /**
+     * Dashboard people route
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    people(month: number, year: number) {
+        return this.get(this.getBaseUrl() + '/dashboard/people/' + month + "/" + year, new RequestOptions({}));
     }
 }

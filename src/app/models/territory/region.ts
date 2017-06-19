@@ -32,6 +32,10 @@ export class Region extends Model {
   bricks_count: number = 0;
   hub_physician_count: number = 0;
 
+  active_users_count: number = 0;
+  attritions_month_count: number = 0;
+  attritions_year_count: number = 0;
+
   constructor(info: any) {
     super(info.id);
     this.name = info.name;

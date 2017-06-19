@@ -1,0 +1,24 @@
+<tr #loading_box>
+  <th rowspan="5" class="middle">People</th>
+</tr>
+<tr>
+  <td>Vacant HQ</td>
+  <td>20.00</td>
+  <td *ngFor="let r of _regions">
+    {{ r.active_users_count }}
+  </td>
+</tr>
+<tr>
+  <td>Attrition (From April)</td>
+  <td>20.00</td>
+  <td *ngFor="let r of _regions">
+    {{ r.attritions_month_count }}
+  </td>
+</tr>
+<tr>
+  <td>% Attrition</td>
+  <td>20.00</td>
+  <td *ngFor="let r of _regions">
+    {{ r.attritions_year_count }}
+  </td>
+</tr>
