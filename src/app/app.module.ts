@@ -153,6 +153,8 @@ import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages
 import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
 import {CustomerDataComponent} from "./components/pages/dashboard/report/customer_data/customer_data.component";
 import {SalesComponent} from "./components/pages/dashboard/report/report_component/sales/sales.component";
+import {FFEffortMetricsComponent} from "./components/pages/dashboard/report/report_component/ff_effort_metrics/ff_effort_metrics.component";
+import {ManagerActivitiesComponent} from "./components/pages/dashboard/report/report_component/manager_activities/manager_activities.component";
 
 
 enableProdMode();
@@ -229,6 +231,9 @@ enableProdMode();
 
         //dashboard report Component
         SalesComponent,
+        FFEffortMetricsComponent,
+        ManagerActivitiesComponent,
+
         // directives
         AttendanceStatusDirective,
         CustomerTypeDirective,
