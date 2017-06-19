@@ -1,62 +1,62 @@
 <!-- FF Effort Metrics -->
 <tr>
-  <th rowspan="9" class="middle">FF Effort Metrics</th>
+    <th rowspan="9" class="middle">FF Effort Metrics</th>
 </tr>
 <tr>
-  <td>POB as % to Primary sales (Norm 30%)</td>
-  <td>{{ total_pob_to_30_target.toFixed(2) }}</td>
-  <td *ngFor="let r of _regions">
-    {{ r.targetTo30.toFixed(2) }}
-  </td>
+    <td>POB as % to Primary sales (Norm 30%)</td>
+    <td>{{ total_pob_to_30_target.toFixed(2) }}</td>
+    <td *ngFor="let r of _regions">
+        {{ r.targetTo30.toFixed(2) }}
+    </td>
 </tr>
 <tr>
-  <td>No. of HQ >=POB Target</td>
-  <td>{{ hq_on_target_count }} / {{ total_hq }}</td>
-  <td *ngFor="let r of _regions">
-    {{ r.hqAboveTarget }} / {{ r.headquarters_count }}
-  </td>
+    <td>No. of HQ >=POB Target</td>
+    <td>{{ hq_on_target_count }} / {{ total_hq }}</td>
+    <td *ngFor="let r of _regions">
+        {{ r.hqAboveTarget }} / {{ r.headquarters_count }}
+    </td>
 </tr>
 <tr>
-  <td>% Coverage of A/B Stockists ( Norms >= 85 )</td>
-  <td>20.00</td>
-  <td>24.00</td>
-  <td>20.00</td>
-  <td>18.00</td>
+    <td>% Coverage of A/B Stockists ( Norms >= 85 )</td>
+    <td>{{ (total_hq_ab_coverage/total_hq).toFixed(2) }}</td>
+    <td *ngFor="let r of _regions">
+        {{ (r.totalHqCoverage/r.headquarters_count).toFixed(2) }}
+    </td>
 </tr>
 <tr>
-  <td>% of HQ >=85% Coverage</td>
-  <td>20.00</td>
-  <td>24.00</td>
-  <td>20.00</td>
-  <td>18.00</td>
+    <td>% of HQ >=85% Coverage</td>
+    <td>{{ total_hq_att_as_per_norm_85 }} / {{ total_hq }}</td>
+    <td *ngFor="let r of _regions">
+        {{ r.totalHqCoverageAsPerNorm85 }} / {{ r.headquarters_count }}
+    </td>
 </tr>
 <tr>
-  <td>Call Avg as per norms 25</td>
-  <td>{{ total_att > 0 ? ((total_visits / total_att) ).toFixed(2) : 0}}</td>
-  <td *ngFor="let r of _regions">
-    {{ r.call_average }}
-  </td>
+    <td>Call Avg as per norms 25</td>
+    <td>{{ total_att > 0 ? ((total_visits / total_att) ).toFixed(2) : 0}}</td>
+    <td *ngFor="let r of _regions">
+        {{ (r.call_average).toFixed(2) }}
+    </td>
 
 </tr>
 <tr>
-  <td>No. of HQ >= Call Avg</td>
-  <td>{{ total_hq_above_call_average }} / {{ total_hq }}</td>
-  <td *ngFor="let r of _regions">
-    {{ r.hqAboveCallAverage }} / {{ r.headquarters_count }}
-  </td>
+    <td>No. of HQ >= Call Avg</td>
+    <td>{{ total_hq_above_call_average }} / {{ total_hq }}</td>
+    <td *ngFor="let r of _regions">
+        {{ r.hqAboveCallAverage }} / {{ r.headquarters_count }}
+    </td>
 </tr>
 <tr>
-  <td>FWD Days as per norms 23</td>
-  <td>20.00</td>
-  <td>24.00</td>
-  <td>20.00</td>
-  <td>18.00</td>
+    <td>FWD Days as per norms 23</td>
+    <td>{{ (total_hq_att / total_hq).toFixed(2) }}</td>
+    <td *ngFor="let r of _regions">
+        {{ (r.total_att/r.headquarters_count).toFixed(2) }}
+    </td>
 </tr>
 <tr>
-  <td>No. of HQ >=23 FWD Days</td>
-  <td>{{ total_hq_att_as_per_norm_23 }} / {{ total_hq }}</td>
-  <td *ngFor="let r of _regions">
-    {{ r.totalHqAttAsPerNorm23 }} / {{ r.headquarters_count }}
-  </td>
+    <td>No. of HQ >=23 FWD Days</td>
+    <td>{{ total_hq_att_as_per_norm_23 }} / {{ total_hq }}</td>
+    <td *ngFor="let r of _regions">
+        {{ r.totalHqAttAsPerNorm23 }} / {{ r.headquarters_count }}
+    </td>
 </tr>
 <!-- ./FF Effort Metrics -->
