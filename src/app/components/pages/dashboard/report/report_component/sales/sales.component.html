@@ -1,5 +1,5 @@
 <!-- Sales -->
-<tr>
+<tr #loading_box>
   <th rowspan="8" class="middle">Sales</th>
 </tr>
 <tr>
@@ -50,7 +50,7 @@
   </td>
 </tr>
 <tr>
-  <th>% HQ on Budget</th>
+  <th>No. of HQ on Budget</th>
   <td>{{ onBudgetHqTotal }} / {{ onHqTotal }}</td>
   <td *ngFor="let r of regions">
     {{ r.onBudgetHq }} / {{ r.totalHq }}
