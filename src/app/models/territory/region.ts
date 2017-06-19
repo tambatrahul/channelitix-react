@@ -190,10 +190,75 @@ export class Region extends Model {
     return total;
   }
 
+  /**
+   * total headquarters
+   * @returns {number}
+   */
   get totalHq() {
     let total = 0;
     this.areas.map(area => {
       total += area.headquarters.length;
+    });
+    return total;
+  }
+
+  /**
+   * check if region is on target.
+   * @returns {boolean}
+   */
+  get targetTo30() {
+    return (this.total_pob / (this.target * 0.3)) * 100;
+  }
+
+  /**
+   * check if region is on target.
+   * @returns {boolean}
+   */
+  get onTarget() {
+    return this.total_pob >= (this.target * 0.3);
+  }
+
+  /**
+   * get headquarter above target
+   * @returns {number}
+   */
+  get hqAboveTarget() {
+    let total = 0;
+    this.areas.map(area => {
+      total += area.headquarters.filter(hq => hq.onTarget).length;
+    });
+    return total;
+  }
+
+  /**
+   * percentage coverage
+   *
+   * @returns {number}
+   */
+  get call_average() {
+    return this.total_att > 0 ? (this.total_visit / this.total_att) : 0;
+  }
+
+  /**
+   * hq count above call average
+   * @returns {number}
+   */
+  get hqAboveCallAverage() {
+    let total = 0;
+    this.areas.map(area => {
+      total += area.headquarters.filter(hq => hq.call_average > 25).length;
+    });
+    return total;
+  }
+
+  /**
+   * hq count above call average
+   * @returns {number}
+   */
+  get totalHqAttAsPerNorm23() {
+    let total = 0;
+    this.areas.map(area => {
+      total += area.headquarters.filter(hq => hq.attAsPerNorm23).length;
     });
     return total;
   }
