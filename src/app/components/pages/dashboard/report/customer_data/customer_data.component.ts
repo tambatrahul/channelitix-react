@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {ListComponent} from "../../../../base/list.component";
 import {AuthService} from "../../../../../services/AuthService";
@@ -16,7 +16,14 @@ declare let jQuery: any;
 })
 export class CustomerDataComponent extends ListComponent {
 
-  public regions: Region[] = [];
+  public _regions: Region[];
+  @Input()
+  set regions(regions) {
+    this._regions = regions;
+    this.fetch();
+  }
+
+  show_data: boolean = false;
 
   public total_hq = 0;
   public total_brick_hq = 0;
@@ -40,36 +47,31 @@ export class CustomerDataComponent extends ListComponent {
    * load users for logged in user
    */
   fetch() {
-    this.loading = true;
-    this.reportService.customer_data().subscribe(
-      response => {
+    if (this._regions && this._regions.length > 0) {
+      this.loading = true;
+      this.reportService.customer_data().subscribe(
+        response => {
 
-        // get regions
-        let regions = response.regions.map(region => new Region(region));
+          // get customer type Data
+          let customer_types = response.customer_types.map(customer_type => new CustomerType(customer_type));
 
-        // get customer type Data
-        let customer_types = response.customer_types.map(customer_type => new CustomerType(customer_type));
+          // get hq wise brick counts
+          let brick_customer_counts = response.brick_customer_counts.map(bcc => new BrickCustomerCount(bcc));
 
-        // get hq wise brick counts
-        let brick_customer_counts = response.brick_customer_counts.map(bcc => new BrickCustomerCount(bcc));
-
-        // get customer Data
-        let customers = response.customers.map(customer => new Customer(customer))
-          .filter(cus => {
-            if (this.environment.envName == 'geo') {
-              return (cus.customer_type_id == 2 && cus.visit_count >= 20 && cus.visit_count <= 30)
-                || (cus.customer_type_id == 3 && cus.visit_count >= 300)
-                || (cus.customer_type_id == 4 && cus.visit_count >= 25)
-                || (cus.customer_type_id == 5 && cus.visit_count >= 70);
-            }
-            return false;
-          });
-
-        // get hq wise customers
-        let hq_wise_customers =
+          // get customer Data
+          let customers = response.customers.map(customer => new Customer(customer))
+            .filter(cus => {
+              if (this.environment.envName == 'geo') {
+                return (cus.customer_type_id == 2 && cus.visit_count >= 20 && cus.visit_count <= 30)
+                  || (cus.customer_type_id == 3 && cus.visit_count >= 300)
+                  || (cus.customer_type_id == 4 && cus.visit_count >= 25)
+                  || (cus.customer_type_id == 5 && cus.visit_count >= 70);
+              }
+              return false;
+            });
 
           // map customer count with regions
-          regions.map(region => {
+          this._regions.map(region => {
             region.bricks_count = 0;
             region.headquarters_count = 0;
             region.areas.map(area => {
@@ -77,6 +79,7 @@ export class CustomerDataComponent extends ListComponent {
 
                 // add customer counts with norms
                 hq.customer_types = customer_types.map(customer_type => new CustomerType(customer_type));
+                console.log(hq.customer_types);
                 customers.map(cus => {
                   hq.customer_types.map(ct => {
                     if (ct.id == cus.customer_type_id && hq.id == cus.hq_headquarter_id) {
@@ -101,12 +104,12 @@ export class CustomerDataComponent extends ListComponent {
             this.total_hq_with_norms += region.total_hq_with_norms;
           });
 
-        this.regions = regions;
-
-        this.loading = false;
-      }, error => {
-        this.loading = false;
-      }
-    );
+          this.show_data = true;
+          this.loading = false;
+        }, error => {
+          this.loading = false;
+        }
+      );
+    }
   }
 }

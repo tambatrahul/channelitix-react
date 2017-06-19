@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {ReportService} from "../../../../../../services/report.service";
 import {AuthService} from "../../../../../../services/AuthService";
 import * as moment from "moment";
@@ -15,6 +15,12 @@ import {Product} from "../../../../../../models/order/product";
   templateUrl: 'sales.component.html'
 })
 export class SalesComponent extends ListComponent {
+
+  /**
+   * Date changed emitter
+   */
+  @Output()
+  setRegions = new EventEmitter();
 
   /**
    * month of sales
@@ -35,12 +41,15 @@ export class SalesComponent extends ListComponent {
   }
 
   /**
-   * bricks
+   * regions
    *
    * @type {{}}
    */
-  public regions = [];
+  public regions: Region[] = [];
 
+  /**
+   * List of Products
+   */
   public products: Product[] = [];
 
   /**
@@ -92,11 +101,12 @@ export class SalesComponent extends ListComponent {
       // prepare data for table
       this.prepareData(targets, primaries, this.products);
       this.prepareYearlyData(yearly_targets, yearly_primaries, this.products);
+      this.setRegions.emit(this.regions);
     });
   }
 
   /**
-   *
+   * Prepare data for primary sales
    * @param targets
    * @param primaries
    * @param products

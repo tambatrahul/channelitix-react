@@ -29,7 +29,7 @@
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4><strong>region_name</strong></h4>
+                    <h4><strong>Dashboard</strong></h4>
                 </div>
                 <div>
                     <div class="widget-container report-table">
@@ -58,10 +58,10 @@
 
                                     <tbody>
 
-                                    <tbody sales [year]="year" [month]="month"></tbody>
+                                    <tbody sales [year]="year" [month]="month" (setRegions)="setRegions($event)"></tbody>
 
                                     <!-- Customer Data -->
-                                    <tbody customer-data-report=""></tbody>
+                                    <tbody customer-data-report="" [regions]="regions"></tbody>
                                     <!-- ./Customer Data -->
 
                                     <!-- Managers Activity -->
