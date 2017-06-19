@@ -1,7 +1,3 @@
-import {Model} from "../model";
-import {CustomerType} from "../customer/customer_type";
-import {Area} from "./area";
-
 export class Headquarter extends Model {
 
     name: string;
@@ -135,9 +131,9 @@ export class Headquarter extends Model {
      * @returns {boolean}
      */
     get onTarget() {
-       if(this.total_pob > 0){
-           return this.total_pob >= (this.target * 0.3);
-       }
+        if(this.total_pob > 0){
+            return this.total_pob >= (this.target * 0.3);
+        }
     }
 
     /**

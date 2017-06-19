@@ -11,15 +11,34 @@
 </tr>
 <tr>
   <th>MTD % ACH</th>
-  <td>{{ ((total_primary_sale / total_target)* 100).toFixed(2) }}</td>
+  <td>
+    <div class="cell"
+         [ngClass]="{'green': total_primary_sale >= total_target, 'orange': total_primary_sale >= (total_target * 0.9), 'red': total_primary_sale < (total_target * 0.9)}">
+    </div>
+    {{ ((total_primary_sale / total_target)* 100).toFixed(2) }}
+  </td>
   <td *ngFor="let r of regions">
+    <div class="cell"
+         [ngClass]="{'green': r.primary >= r.target, 'orange': r.primary >= (r.target * 0.9), 'red': r.primary < (r.target * 0.9)}">
+
+    </div>
     {{ ((r.primary / total_primary_sale)* 100).toFixed(2) }} %
   </td>
 </tr>
 <tr>
   <th>YTD % ACH</th>
-  <td>{{ ((total_yearly_primary_sale / total_yearly_target)* 100).toFixed(2) }}</td>
+  <td>
+    <div class="cell"
+         [ngClass]="{'green': total_yearly_primary_sale >= total_yearly_target, 'orange': total_yearly_primary_sale >= (total_yearly_target * 0.9), 'red': total_yearly_primary_sale < (total_yearly_target * 0.9)}">
+
+    </div>
+    {{ ((total_yearly_primary_sale / total_yearly_target)* 100).toFixed(2) }}
+  </td>
   <td *ngFor="let r of regions">
+    <div class="cell"
+         [ngClass]="{'green': r.yearly_primary >= r.yearly_target, 'orange': r.yearly_primary >= (r.yearly_target * 0.9), 'red': r.yearly_primary < (r.yearly_target * 0.9)}">
+
+    </div>
     {{ ((r.yearly_primary / total_yearly_primary_sale)* 100).toFixed(2) }} %
   </td>
 </tr>

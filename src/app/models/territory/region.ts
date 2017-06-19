@@ -288,7 +288,7 @@ export class Region extends Model {
         let total = 0;
         this.areas.map(area => {
             area.headquarters.map(hq => {
-            total += hq.coverage;
+                total += hq.coverage;
             });
         });
         return total;
