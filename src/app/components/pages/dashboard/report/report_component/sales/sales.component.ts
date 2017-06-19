@@ -80,7 +80,7 @@ export class SalesComponent extends ListComponent {
    */
   fetch() {
     Observable.forkJoin(
-      this.reportService.sales(this._month, this._year),
+      this.reportService.sales(this._month + 1, this._year),
       this.reportService.sales_yearly(this._year)
     ).subscribe(data => {
 

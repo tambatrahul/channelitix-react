@@ -68,6 +68,8 @@ export class Result {
   user: User;
   users: User[];
   all_users: User[];
+  attritions_month: User[];
+  attritions_year: User[];
   manager: User;
   children: User[];
 

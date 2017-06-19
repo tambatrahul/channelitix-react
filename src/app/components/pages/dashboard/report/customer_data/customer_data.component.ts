@@ -79,7 +79,6 @@ export class CustomerDataComponent extends ListComponent {
 
                 // add customer counts with norms
                 hq.customer_types = customer_types.map(customer_type => new CustomerType(customer_type));
-                console.log(hq.customer_types);
                 customers.map(cus => {
                   hq.customer_types.map(ct => {
                     if (ct.id == cus.customer_type_id && hq.id == cus.hq_headquarter_id) {
