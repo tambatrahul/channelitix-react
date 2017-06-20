@@ -25,12 +25,12 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     public year: number;
 
 
-  /**
-   * region, territory, area, headquarter & brick id
-   */
-  public region_id: number = 0;
-  public area_id: number = 0;
-  public headquarter_id: number = 0;
+    /**
+     * region, territory, area, headquarter & brick id
+     */
+    public region_id: number = 0;
+    public area_id: number = 0;
+    public headquarter_id: number = 0;
 
     /**
      * User Component Constructor
@@ -39,93 +39,93 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         super(_service);
     }
 
-  /**
-   * on load of component load customer types
-   */
-  ngOnInit() {
-    super.ngOnInit();
-    this.month = moment().month();
-    this.year = moment().year();
-    this.region_id = 2;
-    this.area_id = 3;
-    this.headquarter_id=4;
-  }
+    /**
+     * on load of component load customer types
+     */
+    ngOnInit() {
+        super.ngOnInit();
+        this.month = moment().month();
+        this.year = moment().year();
+        this.region_id = 2;
+        this.area_id = 3;
+        this.headquarter_id = 4;
+        this.fetch();
+    }
 
     /**
      * load users for logged in user
      */
     fetch() {
-        this.reportService.brick_coverage(this.month + 1, this.year).subscribe(
-            response => {
+        if (this.month && this.year) {
+            this.reportService.brick_coverage(this.month + 1, this.year, this.headquarter_id).subscribe(
+                response => {
+                    let bricks = response.bricks.map(brick => new Brick(brick));
+                    let visits = response.visits.map(visit => new Visit(visit));
+                    let orders = response.orders.map(order => new Order(order));
+                    let targets = response.targets.map(target => new Target(target));
 
-                let bricks = response.bricks.map(brick => new Brick(brick));
-                let visits = response.visits.map(visit => new Visit(visit));
-                let orders = response.orders.map(order => new Order(order));
-                let targets = response.targets.map(target => new Target(target));
+                    bricks.map(brick => {
 
-                bricks.map(brick => {
+                        visits.map(visit => {
 
-                    visits.map(visit => {
+                            if (visit.hq_brick_id == brick.id) {
 
-                        if (visit.hq_brick_id == brick.id) {
+                            }
+                        });
 
-                        }
+                        orders.map(order => {
+
+                            if (order.hq_brick_id == brick.id) {
+
+                            }
+                        });
+
+                        targets.map(target => {
+
+                        });
+
                     });
 
-                    orders.map(order => {
-
-                        if (order.hq_brick_id == brick.id) {
-
-                        }
-                    });
-
-                    targets.map(target => {
-
-                        if (target.hq_brick_id == brick.id) {
-
-                        }
-                    });
-
-                });
-            }
-        );
+                }
+            );
+        }
     }
 
-  /**
-   * when region is changed filter list of customer
-   * @param region_id
-   */
-  regionChanged(region_id) {
-    this.region_id = region_id;
-    this.areaChanged(0);
-  }
+    /**
+     * when region is changed filter list of customer
+     * @param region_id
+     */
+    regionChanged(region_id) {
+        this.region_id = region_id;
+        this.areaChanged(0);
+    }
 
-  /**
-   * when area is changed filter list of customer
-   * @param area_id
-   */
-  areaChanged(area_id) {
-    this.area_id = area_id;
-    this.headquarterChanged(0);
-  }
+    /**
+     * when area is changed filter list of customer
+     * @param area_id
+     */
+    areaChanged(area_id) {
+        this.area_id = area_id;
+        this.headquarterChanged(0);
+    }
 
 
-  /**
-   * when headquarter is changed filter list of customer
-   * @param headquarter_id
-   */
-  headquarterChanged(headquarter_id) {
-    this.headquarter_id = headquarter_id;
-  }
+    /**
+     * when headquarter is changed filter list of customer
+     * @param headquarter_id
+     */
+    headquarterChanged(headquarter_id) {
+        this.headquarter_id = headquarter_id;
+    }
 
-  /**
-   * month and year changed
-   *
-   * @param date
-   */
-  monthYearChanged(date) {
-    this.month = date.month;
-    this.year = date.year;
-    this.fetch();
-  }
+    /**
+     * month and year changed
+     *
+     * @param date
+     */
+    monthYearChanged(date) {
+        this.month = date.month;
+        this.year = date.year;
+        this.fetch();
+    }
 }

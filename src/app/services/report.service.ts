@@ -293,7 +293,7 @@ export class ReportService extends BaseService {
      * @param year
      * @returns {Observable<Result>}
      */
-    sales(month: number, year: number){
+    sales(month: number, year: number) {
         return this.get(this.getBaseUrl() + '/dashboard/sales/' + month + "/" + year);
     }
 
@@ -303,7 +303,7 @@ export class ReportService extends BaseService {
      * @param year
      * @returns {Observable<Result>}
      */
-    sales_yearly(year: number){
+    sales_yearly(year: number) {
         return this.get(this.getBaseUrl() + '/dashboard/sales_yearly/' + year);
     }
 
@@ -341,9 +341,15 @@ export class ReportService extends BaseService {
      *
      * @param month
      * @param year
+     * @param headquarter_id
      * @returns {Observable<Result>}
      */
-    brick_coverage(month: number, year: number) {
-        return this.get(this.getBaseUrl() + '/reports/brick_coverage_report/' + month + "/" + year, new RequestOptions({}));
+    brick_coverage(month: number, year: number, headquarter_id: number) {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
+        return this.get(this.getBaseUrl() + '/brick_coverage_report/' + month + "/" + year, new RequestOptions({search: params}));
     }
 }

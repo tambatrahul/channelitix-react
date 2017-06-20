@@ -12,6 +12,7 @@ export class Brick extends Model {
     distance_from_hq: number;
     hq_territory: Territory;
 
+
     // for internal user only
     customer_types: CustomerType[];
     total_customer: number = 0;
