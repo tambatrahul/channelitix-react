@@ -25,6 +25,7 @@ export class Visit extends Model {
     visit_month: number;
     attendance: Attendance = new Attendance({});
     hq_headquarter_id: number;
+    hq_brick_id: number;
     hq_area_id: number;
     hq_region_id: number;
     grade_id: number;

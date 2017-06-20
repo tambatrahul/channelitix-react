@@ -33,6 +33,7 @@ export class Order extends Model {
     attendance: Attendance = new Attendance({});
     total_target: number = 0;
     hq_headquarter_id: number = 0;
+    hq_brick_id: number = 0;
     product_id: number = 0;
     order_count: number = 0;
     customer_type_id: number = 0;

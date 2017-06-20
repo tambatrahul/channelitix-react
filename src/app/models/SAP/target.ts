@@ -12,6 +12,7 @@ export class Target extends Model {
     total_net_amount: number = 0;
     month: number;
     hq_headquarter_id: number;
+    hq_brick_id: number;
     hq_headquarter: Headquarter;
 
     constructor(info: any) {

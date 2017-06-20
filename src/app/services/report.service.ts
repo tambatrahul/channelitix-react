@@ -335,4 +335,15 @@ export class ReportService extends BaseService {
     people(month: number, year: number) {
         return this.get(this.getBaseUrl() + '/dashboard/people/' + month + "/" + year, new RequestOptions({}));
     }
+
+    /**
+     * Customer Brick Coverage
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    brick_coverage(month: number, year: number) {
+        return this.get(this.getBaseUrl() + '/reports/brick_coverage_report/' + month + "/" + year, new RequestOptions({}));
+    }
 }
