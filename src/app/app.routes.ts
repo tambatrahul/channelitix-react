@@ -55,6 +55,7 @@ import {MoradabadHQComponent} from "./components/pages/standard_tour_program_pag
 import {PadraunaHQComponent} from "./components/pages/standard_tour_program_pages/padraunahq/index.component";
 import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
 import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
+import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -74,6 +75,10 @@ export const routes: Routes = [
                     {
                         path: 'report',
                         component: DashBoardReportComponent
+                    },
+                    {
+                        path: 'brick_coverage',
+                        component: CustomerBrickCoverageComponent
                     }
                 ]
             },

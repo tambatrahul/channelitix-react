@@ -156,6 +156,7 @@ import {SalesComponent} from "./components/pages/dashboard/report/report_compone
 import {VacancyDataComponent} from "./components/pages/dashboard/report/report_component/vacancy/vacancy.component";
 import {FFEffortMetricsComponent} from "./components/pages/dashboard/report/report_component/ff_effort_metrics/ff_effort_metrics.component";
 import {ManagerActivitiesComponent} from "./components/pages/dashboard/report/report_component/manager_activities/manager_activities.component";
+import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
 
 
 enableProdMode();
@@ -235,6 +236,9 @@ enableProdMode();
         SalesComponent,
         FFEffortMetricsComponent,
         ManagerActivitiesComponent,
+
+        // customer brick component
+        CustomerBrickCoverageComponent,
 
         // directives
         AttendanceStatusDirective,

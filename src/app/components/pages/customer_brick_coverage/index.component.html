@@ -1,0 +1,72 @@
+<div class="container-fluid bricks" #loading_box>
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">
+              Report
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+  </div>
+  <!-- ./Filters for report-->
+
+  <!-- Report Table -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4><strong>Dashboard</strong></h4>
+        </div>
+        <div>
+          <div class="widget-container report-table">
+            <div class="widget-block">
+              <div class="table-responsive">
+                <table class="table table-bordered visit_table">
+                  <thead>
+                  <tr>
+                    <th colspan="2">Region name</th>
+                    <th>GEO</th>
+                    <th>Lucknow</th>
+                    <th>Delhi</th>
+                    <th>Kolkata</th>
+                  </tr>
+                  </thead>
+
+                  <tfoot>
+                  <tr>
+                    <th colspan="2">Region name</th>
+                    <th>GEO</th>
+                    <th>Lucknow</th>
+                    <th>Delhi</th>
+                    <th>Kolkata</th>
+                  </tr>
+                  </tfoot>
+
+                  <tbody>
+
+                  <tr></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Report Table -->
+</div>
