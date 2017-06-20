@@ -3,35 +3,43 @@
     <th rowspan="9" class="middle">FF Effort Metrics</th>
 </tr>
 <tr>
-    <td>POB as % to Primary sales (Norm 30%)</td>
+    <th>POB as % to Primary sales (Norm 30%)</th>
     <td>{{ total_pob_to_30_target.toFixed(2) }}</td>
     <td *ngFor="let r of _regions">
         {{ r.targetTo30.toFixed(2) }}
     </td>
 </tr>
 <tr>
-    <td>No. of HQ >=POB Target</td>
+    <th>No. of HQ >=POB Target</th>
     <td>{{ hq_on_target_count }} / {{ total_hq }}</td>
     <td *ngFor="let r of _regions">
         {{ r.hqAboveTarget }} / {{ r.headquarters_count }}
     </td>
 </tr>
 <tr>
-    <td>% Coverage of A/B Stockists ( Norms >= 85 )</td>
-    <td>{{ (total_hq_ab_coverage/total_hq).toFixed(2) }}</td>
+    <th>% Coverage of A/B Stockists ( Norms >= 85 )</th>
+    <td>
+        <div class="cell"
+             [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq > 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
+        </div>
+        {{ (total_hq_ab_coverage/total_hq).toFixed(2) }}
+    </td>
     <td *ngFor="let r of _regions">
+        <div class="cell"
+             [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq > 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
+        </div>
         {{ (r.totalHqCoverage/r.headquarters_count).toFixed(2) }}
     </td>
 </tr>
 <tr>
-    <td>% of HQ >=85% Coverage</td>
+    <th>% of HQ >=85% Coverage</th>
     <td>{{ total_hq_att_as_per_norm_85 }} / {{ total_hq }}</td>
     <td *ngFor="let r of _regions">
         {{ r.totalHqCoverageAsPerNorm85 }} / {{ r.headquarters_count }}
     </td>
 </tr>
 <tr>
-    <td>Call Avg as per norms 25</td>
+    <th>Call Avg as per norms 25</th>
     <td>{{ total_att > 0 ? ((total_visits / total_att) ).toFixed(2) : 0}}</td>
     <td *ngFor="let r of _regions">
         {{ (r.call_average).toFixed(2) }}
@@ -39,21 +47,29 @@
 
 </tr>
 <tr>
-    <td>No. of HQ >= Call Avg</td>
+    <th>No. of HQ >= Call Avg</th>
     <td>{{ total_hq_above_call_average }} / {{ total_hq }}</td>
     <td *ngFor="let r of _regions">
         {{ r.hqAboveCallAverage }} / {{ r.headquarters_count }}
     </td>
 </tr>
 <tr>
-    <td>FWD Days as per norms 23</td>
-    <td>{{ (total_hq_att / total_hq).toFixed(2) }}</td>
+    <th>FWD Days as per norms 23</th>
+    <td>
+        <div class="cell"
+             [ngClass]="{'green': total_hq_att / total_hq >= 23, 'orange': total_hq_att / total_hq < 23}">
+        </div>
+        {{ (total_hq_att / total_hq).toFixed(2) }}
+    </td>
     <td *ngFor="let r of _regions">
+        <div class="cell"
+             [ngClass]="{'green': total_hq_att / total_hq >= 23, 'orange': total_hq_att / total_hq < 23}">
+        </div>
         {{ (r.total_att/r.headquarters_count).toFixed(2) }}
     </td>
 </tr>
 <tr>
-    <td>No. of HQ >=23 FWD Days</td>
+    <th>No. of HQ >=23 FWD Days</th>
     <td>{{ total_hq_att_as_per_norm_23 }} / {{ total_hq }}</td>
     <td *ngFor="let r of _regions">
         {{ r.totalHqAttAsPerNorm23 }} / {{ r.headquarters_count }}
