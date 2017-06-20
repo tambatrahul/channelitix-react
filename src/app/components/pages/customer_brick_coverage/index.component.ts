@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Region} from "../../../models/territory/region";
 import {ListComponent} from "../../base/list.component";
 import {AuthService} from "../../../services/AuthService";
 import * as moment from "moment";
@@ -19,12 +18,13 @@ export class CustomerBrickCoverageComponent extends ListComponent {
   public month: number;
   public year: number;
 
+
   /**
-   * regions
-   *
-   * @type {{}}
+   * region, territory, area, headquarter & brick id
    */
-  public regions: Region[] = [];
+  public region_id: number = 0;
+  public area_id: number = 0;
+  public headquarter_id: number = 0;
 
   /**
    * User Component Constructor
@@ -40,6 +40,9 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     super.ngOnInit();
     this.month = moment().month();
     this.year = moment().year();
+    this.region_id = 2;
+    this.area_id = 3;
+    this.headquarter_id=4;
   }
 
   /**
@@ -47,6 +50,33 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    */
   fetch() {
 
+  }
+
+  /**
+   * when region is changed filter list of customer
+   * @param region_id
+   */
+  regionChanged(region_id) {
+    this.region_id = region_id;
+    this.areaChanged(0);
+  }
+
+  /**
+   * when area is changed filter list of customer
+   * @param area_id
+   */
+  areaChanged(area_id) {
+    this.area_id = area_id;
+    this.headquarterChanged(0);
+  }
+
+
+  /**
+   * when headquarter is changed filter list of customer
+   * @param headquarter_id
+   */
+  headquarterChanged(headquarter_id) {
+    this.headquarter_id = headquarter_id;
   }
 
   /**
@@ -58,14 +88,5 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     this.month = date.month;
     this.year = date.year;
     this.fetch();
-  }
-
-  /**
-   * set regions
-   *
-   * @param regions
-   */
-  setRegions(regions: Region[]) {
-    this.regions = regions;
   }
 }
