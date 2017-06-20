@@ -19,8 +19,8 @@ export class Region extends Model {
     primary: number = 0;
     total_pob: number = 0;
     total_visit: number = 0;
-    all_total_visit: number = 0;
     total_visit_ab: number = 0;
+    all_total_visit: number = 0;
     total_att: number = 0;
     fw_days: number = 0;
     total_order: number = 0;
@@ -211,7 +211,10 @@ export class Region extends Model {
      * @returns {boolean}
      */
     get targetTo30() {
-        return (this.total_pob / (this.target * 0.3)) * 100;
+        if (this.target > 0)
+            return (this.total_pob / (this.target * 0.3)) * 100;
+
+        return 0;
     }
 
     /**

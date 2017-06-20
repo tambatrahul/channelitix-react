@@ -31,6 +31,7 @@ export class FFEffortMetricsComponent extends ListComponent {
     @Input()
     set month(month: number) {
         this._month = month;
+        this.fetch();
     }
 
     /**
@@ -40,13 +41,14 @@ export class FFEffortMetricsComponent extends ListComponent {
     @Input()
     set year(year: number) {
         this._year = year;
+        this.fetch();
     }
 
     /**
      * get total pob to 30 percent of target
      * @type {number}
      */
-    public total_hq = 0;
+    total_hq = 0;
     total_pob_to_30_target: number = 0;
     hq_on_target_count: number = 0;
     total_visits: number = 0;
@@ -105,18 +107,32 @@ export class FFEffortMetricsComponent extends ListComponent {
      */
     prepareData(orders: Order[], visits: Visit[], attendances: Attendance[], customers: Customer[], ab_customers: Customer[],
                 ab_visits: Visit[]) {
+        this.total_hq = 0;
         this.total_pob_to_30_target = 0;
         this.hq_on_target_count = 0;
-        this.total_hq = 0;
+        this.total_visits = 0;
         this.total_att = 0;
-        this.total_hq_att = 0;
+        this.total_hq_above_call_average = 0;
+        this.total_hq_att_as_per_norm_23 = 0;
         this.total_hq_att_as_per_norm_85 = 0;
+        this.total_hq_att = 0;
         this.total_hq_ab_coverage = 0;
         this._regions.map(region => {
             region.total_pob = 0;
+            region.total_visit = 0;
+            region.total_visit_ab = 0;
+            region.total_att = 0;
+            region.total_customers = 0;
+            region.total_customers_ab = 0;
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
                     headquarter.total_pob = 0;
+                    headquarter.total_visit = 0;
+                    headquarter.total_visit_ab = 0;
+                    headquarter.total_att = 0;
+                    headquarter.total_customers = 0;
+                    headquarter.total_customers_ab = 0;
+
 
                     // add orders to total pobs
                     orders.map(ord => {

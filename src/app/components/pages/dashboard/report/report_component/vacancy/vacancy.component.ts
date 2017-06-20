@@ -30,6 +30,7 @@ export class VacancyDataComponent extends ListComponent {
   @Input()
   set month(month: number) {
     this._month = month;
+    this.fetch();
   }
 
   /**
@@ -39,6 +40,7 @@ export class VacancyDataComponent extends ListComponent {
   @Input()
   set year(year: number) {
     this._year = year;
+    this.fetch();
   }
 
   total_active: number = 0;
