@@ -29,6 +29,9 @@ export class Territory extends Model {
 
         if (info.bricks_count)
             this.bricks_count = info.bricks_count.aggregate;
+
+        if (info.hq_bricks)
+            this.hq_bricks = info.hq_bricks.map(hq_brick => new Brick(hq_brick));
     }
 
     /**
