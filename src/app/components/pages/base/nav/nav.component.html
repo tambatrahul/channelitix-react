@@ -54,8 +54,8 @@
             <span class="nav-label">Dashboard</span>
           </a>
         </li>
-        <li *roleCheck="ROLE_ZSM">
-          <a class="waves-effect"
+        <li *roleCheck="ROLE_ZSM" >
+          <a class="waves-effect" *ngIf="environment.envName != 'sk_group'"
              [routerLink]="'/dashboard/report'">
             <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>
             <span class="nav-label">Dashboard Report</span>
