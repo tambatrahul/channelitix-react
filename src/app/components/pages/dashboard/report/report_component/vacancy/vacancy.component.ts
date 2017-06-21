@@ -5,7 +5,9 @@ import {AuthService} from "../../../../../../services/AuthService";
 import {ReportService} from "../../../../../../services/report.service";
 import {Region} from "../../../../../../models/territory/region";
 import {User} from "../../../../../../models/user/user";
+import * as moment from "moment";
 declare let jQuery: any;
+
 
 @Component({
   selector: '[vacancy-data-report]',
@@ -14,6 +16,7 @@ declare let jQuery: any;
 })
 export class VacancyDataComponent extends ListComponent {
 
+  public _month_str: string = '';
   public _regions: Region[];
   @Input()
   set regions(regions) {
@@ -30,6 +33,7 @@ export class VacancyDataComponent extends ListComponent {
   @Input()
   set month(month: number) {
     this._month = month;
+    this._month_str = moment().month(this._month).format('MMM');
     this.fetch();
   }
 
@@ -69,6 +73,9 @@ export class VacancyDataComponent extends ListComponent {
       this.loading = true;
       this.reportService.people(this._month + 1, this._year).subscribe(
         response => {
+          this.total_active = 0;
+          this.total_attritions = 0;
+          this.total_attritions_yearly = 0;
 
           // get active users
           let users = response.users.map(user => new User(user));
@@ -79,6 +86,9 @@ export class VacancyDataComponent extends ListComponent {
 
           // map customer count with regions
           this._regions.map(region => {
+            region.active_users_count = 0;
+            region.attritions_month_count = 0;
+            region.attritions_year_count = 0;
             // adding active users
             users.map(user => {
               if (region.id == user.hq_region_id) {
@@ -90,7 +100,6 @@ export class VacancyDataComponent extends ListComponent {
             attritions_month.map(user => {
               if (region.id == user.hq_region_id) {
                 region.attritions_month_count += user.user_count;
-                this.total_attritions += user.user_count;
               }
             });
 
@@ -100,7 +109,7 @@ export class VacancyDataComponent extends ListComponent {
                 region.attritions_year_count += user.user_count;
             });
 
-            this.total_active += (region.headquarters_count - region.active_users_count);
+            this.total_active += (region.totalHq - region.active_users_count);
             this.total_attritions += region.attritions_month_count;
             this.total_attritions_yearly += region.attritions_year_count;
           });

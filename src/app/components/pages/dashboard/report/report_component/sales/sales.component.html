@@ -22,7 +22,7 @@
          [ngClass]="{'green': r.primary >= r.target, 'orange': r.primary >= (r.target * 0.9), 'red': r.primary < (r.target * 0.9)}">
 
     </div>
-    {{ ((r.primary / total_primary_sale)* 100).toFixed(2) }} %
+    {{ total_primary_sale > 0 ? ((r.primary / total_primary_sale)* 100).toFixed(2) : 0 }} %
   </td>
 </tr>
 <tr>

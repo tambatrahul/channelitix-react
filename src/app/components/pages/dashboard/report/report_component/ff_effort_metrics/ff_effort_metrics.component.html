@@ -20,13 +20,13 @@
     <th>% Coverage of A/B Stockists ( Norms >= 85 )</th>
     <td>
         <div class="cell"
-             [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq > 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
+             [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq >= 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
         </div>
         {{ (total_hq_ab_coverage/total_hq).toFixed(2) }}
     </td>
     <td *ngFor="let r of _regions">
         <div class="cell"
-             [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq > 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
+             [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq >= 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
         </div>
         {{ (r.totalHqCoverage/r.headquarters_count).toFixed(2) }}
     </td>

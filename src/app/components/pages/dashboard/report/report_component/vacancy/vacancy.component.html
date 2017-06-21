@@ -3,21 +3,21 @@
 </tr>
 <tr>
   <th>Vacant HQ</th>
-  <th>{{ total_active }}</th>
+  <td>{{ total_active }}</td>
   <td *ngFor="let r of _regions">
-    {{ r.headquarters_count - r.active_users_count }}
+    {{ r.totalHq - r.active_users_count }}
   </td>
 </tr>
 <tr>
-  <th>Attrition (From April)</th>
-  <th>{{ total_attritions }}</th>
+  <th>Attrition (From {{ _month_str }})</th>
+  <td>{{ total_attritions }}</td>
   <td *ngFor="let r of _regions">
     {{ r.attritions_month_count }}
   </td>
 </tr>
 <tr>
   <th>% Attrition</th>
-  <th>{{ total_attritions_yearly }}</th>
+  <td>{{ total_attritions_yearly }}</td>
   <td *ngFor="let r of _regions">
     {{ r.attritions_year_count }}
   </td>

@@ -48,7 +48,7 @@ export class FFEffortMetricsComponent extends ListComponent {
      * get total pob to 30 percent of target
      * @type {number}
      */
-    total_hq = 0;
+    total_hq:number = 0;
     total_pob_to_30_target: number = 0;
     hq_on_target_count: number = 0;
     total_visits: number = 0;
