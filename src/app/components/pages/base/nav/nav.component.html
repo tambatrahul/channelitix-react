@@ -54,6 +54,13 @@
             <span class="nav-label">Dashboard</span>
           </a>
         </li>
+        <li *roleCheck="ROLE_ZSM">
+          <a class="waves-effect"
+             [routerLink]="'/dashboard/report'">
+            <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>
+            <span class="nav-label">Dashboard Report</span>
+          </a>
+        </li>
         <li *ngIf="_auth_service.user?.isAdmin">
           <a class="waves-effect"
              [routerLink]="'/territories/regions'">

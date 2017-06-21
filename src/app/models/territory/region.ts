@@ -141,12 +141,14 @@ export class Region extends Model {
         this.areas.map(area => {
             area.headquarters.map(hq => {
                 let count = 0;
-                hq.customer_types.map(ct => {
+                if (hq.customer_types) {
+                  hq.customer_types.map(ct => {
                     if (ct.visit_count > 0 && ct.id != 1)
-                        count += 1;
-                });
-                if (count == 4) {
+                      count += 1;
+                  });
+                  if (count == 4) {
                     total_count += 1;
+                  }
                 }
             });
         });
