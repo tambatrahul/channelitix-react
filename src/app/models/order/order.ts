@@ -95,6 +95,8 @@ export class Order extends Model {
 
         if (info.order_count)
             this.order_count = parseInt(info.order_count);
+
+        this.hq_brick_id = info.hq_brick_id;
     }
 
     /**

@@ -59,8 +59,7 @@
                                         <th>Potential</th>
                                         <th>Distance From HQ</th>
                                         <th>Visits</th>
-                                        <th>POB</th>
-                                        <th>Target</th>
+                                        <th>Business</th>
                                     </tr>
                                     </thead>
 
@@ -70,14 +69,29 @@
                                         <th>Potential</th>
                                         <th>Distance From HQ</th>
                                         <th>Visits</th>
-                                        <th>POB</th>
-                                        <th>Target</th>
+                                        <th>Business</th>
                                     </tr>
                                     </tfoot>
 
                                     <tbody>
-                                    <tr>
-
+                                    <tr *ngFor="let brick of bricks">
+                                        <td colspan="2">
+                                            {{brick.name}}
+                                        </td>
+                                        <td [ngClass]="{ 'dark_green': returnPotential(brick) == 1,
+                                        'light_green': returnPotential(brick) == 2,
+                                        'orange': returnPotential(brick) == 3,
+                                        'light_red': returnPotential(brick) == 4,
+                                        'dark_red': returnPotential(brick) == 5}">
+                                        </td>
+                                        <td>{{brick.distance_from_hq}}</td>
+                                        <td>{{brick.visit_no_of_days}}</td>
+                                        <td [ngClass]="{
+                                        'dark_green': returnBusiness(brick) == 1,
+                                        'orange': returnBusiness(brick) == 2,
+                                        'light_red': returnBusiness(brick) == 3
+                                        }">{{((brick.order_total_count/ brick.target) * 100)}}
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

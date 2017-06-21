@@ -13,6 +13,7 @@ export class Visit extends Model {
     longitude: string;
     customer_id: number;
     created_by: number;
+    no_of_days: number;
     creator: User;
     inputs: VisitInput[];
     input_answers: InputAnswer[];
@@ -93,6 +94,9 @@ export class Visit extends Model {
 
         if (info.customer_type_id)
             this.customer_type_id = parseInt(info.customer_type_id);
+
+        this.hq_brick_id = info.hq_brick_id;
+        this.no_of_days = info.no_of_days;
     }
 
     /**

@@ -138,18 +138,24 @@ export class Region extends Model {
      */
     get total_hq_with_norms() {
         let total_count = 0;
-        this.areas.map(area => {
-            area.headquarters.map(hq => {
-                let count = 0;
-                hq.customer_types.map(ct => {
-                    if (ct.visit_count > 0 && ct.id != 1)
-                        count += 1;
-                });
-                if (count == 4) {
-                    total_count += 1;
+        if (this.areas != null) {
+            this.areas.map(area => {
+                if (area.headquarters != null) {
+                    area.headquarters.map(hq => {
+                        if (hq.customer_types != null) {
+                            let count = 0;
+                            hq.customer_types.map(ct => {
+                                if (ct.visit_count > 0 && ct.id != 1)
+                                    count += 1;
+                            });
+                            if (count == 4) {
+                                total_count += 1;
+                            }
+                        }
+                    });
                 }
             });
-        });
+        }
         return total_count;
     }
 
@@ -211,7 +217,9 @@ export class Region extends Model {
      * @returns {boolean}
      */
     get targetTo30() {
-        if (this.target > 0)
+        console.log("target " + this.target);
+        console.log("pob " + this.total_pob);
+        if (this.target > 0 && this.total_pob > 0)
             return (this.total_pob / (this.target * 0.3)) * 100;
 
         return 0;

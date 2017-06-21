@@ -166,14 +166,6 @@ export class FFEffortMetricsComponent extends ListComponent {
                         }
                     });
 
-                    // add customers  to individual hq
-                    customers.map(cus => {
-                        if (cus.hq_headquarter_id == headquarter.id) {
-                            headquarter.total_customers += cus.visit_count;
-                            region.total_customers += cus.visit_count;
-                        }
-                    });
-
                     // add ab customers  to individual hq
                     ab_customers.map(cus => {
                         if (cus.hq_headquarter_id == headquarter.id) {
