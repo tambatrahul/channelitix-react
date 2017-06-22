@@ -39,28 +39,40 @@
                                     <thead>
                                     <tr>
                                         <th class="grey">Customer</th>
+                                        <th class="grey">Headquarter</th>
+                                        <th class="grey">Brick</th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Primary Target</th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">Primary Sales</th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">POB Target</th>
+                                        <th class="grey">POB</th>
+                                        <th class="grey">Visits</th>
+                                    </tr>
+                                    <tr>
                                         <th class="grey">Total</th>
-                                        <th *ngFor="let pro of products">
-                                            {{ pro.name }}
-                                        </th>
+                                        <th class="grey"></th>
+                                        <th class="grey"></th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                        <th class="grey">{{ all_total.toFixed(2)}}</th>
+                                        <th class="grey"></th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <tr>
-                                        <th class="grey">Total</th>
-                                        <th class="grey">{{ all_total.toFixed(2) }}</th>
-                                        <th *ngFor="let pro of products">
-                                            {{ pro.amount.toFixed(2) }}
-                                        </th>
-                                    </tr>
-                                    <tr *ngFor="let cus of customers">
-                                        <th class="grey">{{ cus.firm_name }}</th>
-                                        <th class="grey">{{ cus.total_pob.toFixed(2) }}</th>
-                                        <td *ngFor="let pro of cus.products">
-                                            {{ pro.amount.toFixed(2) }}
-                                        </td>
-                                    </tr>
+                                    <template ngFor let-cus [ngForOf]="customers">
+                                        <tr *ngIf="cus.synergy == 1 || cus.total_pob > 0">
+                                            <th class="grey">{{ cus.firm_name }}</th>
+                                            <th class="grey">{{ cus.hq_headquarter.name }}</th>
+                                            <th class="grey">{{ cus.hq_brick.name }}</th>
+                                            <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                            <th class="grey" *ngIf="environment.envName != 'sk_group'">{{ cus.total_primary_sale.toFixed(0) }}</th>
+                                            <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                            <th class="grey">{{ cus.total_pob.toFixed(0) }}</th>
+                                            <th class="grey">{{ cus.days }}</th>
+
+                                        </tr>
+                                    </template>
                                     <template *ngIf="customers.length == 0">
                                         <tr>
                                             <th [colSpan]="products.length + 2">No Entries</th>

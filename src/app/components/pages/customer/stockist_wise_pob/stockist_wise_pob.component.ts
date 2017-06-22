@@ -11,6 +11,8 @@ import {Product} from "../../../../models/order/product";
 import {Customer} from "../../../../models/customer/customer";
 import {Observable} from "rxjs/Rx";
 import {Visit} from "../../../../models/visit/visit";
+import {Role} from "../../../../models/role";
+import {RoleCheckDirective} from "../../../../directives/role.directive";
 declare let jQuery: any;
 
 @Component({
@@ -69,7 +71,11 @@ export class StockistWisePobComponent extends ListComponent {
         this.year = moment().year();
         this.regionChanged(this._service.user.hq_region_id);
         this.areaChanged(this._service.user.hq_area_id);
-        this.region_id =2;
+        if (this.environment.envName == 'geo')
+            this.region_id = 2;
+
+        if(this._service.user.role_str == 'REGION_MNG' && this.environment.envName == 'sk_group')
+            this.area_id = 1;
     }
 
     /**
@@ -152,29 +158,13 @@ export class StockistWisePobComponent extends ListComponent {
      * @param orders
      */
     addSynergyData(customers, orders: Order[]) {
+
         // prepare list of customers
         orders.map(order => {
-            if (!customers.hasOwnProperty(order.delivered_by_synergy)) {
-                customers[order.delivered_by_synergy] = order.delivered_by_synergy_user;
-                customers[order.delivered_by_synergy].products = this.products.map(pro => {
-                    let prod = new Product(pro);
-                    prod.amount = 0;
-                    return prod;
-                });
-            }
-            customers[order.delivered_by_synergy].products.map(pro => {
-                if (pro.id == order.product_id) {
-                    pro.amount = order.order_total_count;
-                    customers[order.delivered_by_synergy].total_pob += order.order_total_count;
-                }
-            });
-            this.products.map(prod => {
-                if (prod.id == order.product_id) {
-                    prod.amount += order.order_total_count;
-                    this.all_total += order.order_total_count;
-                }
-            });
+            customers[order.delivered_by_synergy].total_pob += order.order_total_count;
+            this.all_total += order.order_total_count;
         });
+
 
         this.customers = [];
         for (let i in customers) {

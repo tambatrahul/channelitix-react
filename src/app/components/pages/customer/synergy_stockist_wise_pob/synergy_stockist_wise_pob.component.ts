@@ -8,6 +8,7 @@ import * as moment from "moment";
 import {Order} from "../../../../models/order/order";
 import {Product} from "../../../../models/order/product";
 import {Customer} from "../../../../models/customer/customer";
+import {Visit} from "../../../../models/visit/visit";
 declare let jQuery: any;
 
 @Component({
@@ -81,14 +82,17 @@ export class SynergyStockistWisePobComponent extends ListComponent {
                 response => {
                     this.loading = false;
 
+                    // customers
+                    let all_customers = response.customers.map(cus => new Customer(cus));
+
+                    // visit list
+                    let visits = response.visits.map(visit => new Visit(visit));
+
                     // prepare visits and orders
                     let orders = response.orders.map(order => new Order(order));
 
-                    // product list
-                    let products = response.products.map(pro => new Product(pro)).filter(pro => pro.synergy == 1);
-
                     // prepare data
-                    this.prepareData(orders, products);
+                    this.prepareData(orders, visits, all_customers);
                 },
                 err => {
                     this.loading = false;
@@ -101,35 +105,28 @@ export class SynergyStockistWisePobComponent extends ListComponent {
      * prepare data
      *
      * @param orders
-     * @param products
+     * @param visits
+     * @param all_customers
      */
-    prepareData(orders: Order[], products: Product[]) {
+    prepareData(orders: Order[], visits: Visit[], all_customers: Customer[]) {
         // prepare customers
         let customers = {};
         this.all_total = 0;
 
-        // prepare list of customers
+        // add all customers
+        all_customers.map(cus => {
+            customers[cus.id] = cus;
+        });
+
+        // prepare list of customers with POB
         orders.map(order => {
-            if (!customers.hasOwnProperty(order.delivered_by_synergy)) {
-                customers[order.delivered_by_synergy] = order.delivered_by_synergy_user;
-                customers[order.delivered_by_synergy].products = products.map(pro => {
-                    let prod = new Product(pro);
-                    prod.amount = 0;
-                    return prod;
-                });
-            }
-            customers[order.delivered_by_synergy].products.map(pro => {
-                if (pro.id == order.product_id) {
-                    pro.amount = order.order_total_count;
-                    customers[order.delivered_by_synergy].total_pob += order.order_total_count;
-                }
-            });
-            products.map(prod => {
-                if (prod.id == order.product_id) {
-                    prod.amount += order.order_total_count;
-                    this.all_total += order.order_total_count;
-                }
-            })
+            customers[order.delivered_by_synergy].total_pob += order.order_total_count;
+            this.all_total += order.order_total_count;
+        });
+
+        // prepare list of visits for customers
+        visits.map(visit => {
+            customers[visit.customer_id].days = visit.days;
         });
 
         this.customers = [];
@@ -137,7 +134,6 @@ export class SynergyStockistWisePobComponent extends ListComponent {
             let customer = customers[i];
             this.customers.push(customer);
         }
-        this.products = products;
 
         setTimeout(() => {
             if (this.upload_excel)

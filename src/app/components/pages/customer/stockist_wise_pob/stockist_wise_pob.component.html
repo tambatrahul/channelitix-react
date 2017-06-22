@@ -66,6 +66,16 @@
                                         <th class="grey">POB</th>
                                         <th class="grey">Visits</th>
                                     </tr>
+                                    <tr>
+                                        <th class="grey">Total</th>
+                                        <th class="grey"></th>
+                                        <th class="grey"></th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                        <th class="grey">{{ all_total.toFixed(2)}}</th>
+                                        <th class="grey"></th>
+                                    </tr>
                                     </thead>
 
                                     <tbody>
