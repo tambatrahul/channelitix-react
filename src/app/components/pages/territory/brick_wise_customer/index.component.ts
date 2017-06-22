@@ -43,7 +43,7 @@ export class BrickWiseCustomerComponent extends ListComponent {
 
         this.reportService.brick_wise_customers().subscribe(
             response => {
-                this.loading = false;
+                this.loading = true;
 
                 // get regions
                 this.regions = response.regions.map(region => new Region(region));
@@ -63,10 +63,12 @@ export class BrickWiseCustomerComponent extends ListComponent {
 
                 // prepare data for table
                 this.prepareData(headquarters, customers, customer_types, hq_wise_customers);
+                this.loading = false;
             },
             err => {
                 this.loading = false;
             }
+
         );
     }
 
