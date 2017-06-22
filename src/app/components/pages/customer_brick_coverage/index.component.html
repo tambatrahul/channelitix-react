@@ -1,106 +1,109 @@
 <div class="container-fluid bricks" #loading_box>
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">
-                            Report
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Filters for report-->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-xs-12 col-md-3">
-            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+      <div class="col-md-4">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">
+              Report
+            </h2>
+          </div>
         </div>
-        <div class="col-xs-12 col-md-3">
-            <region-select [value]="region_id" [title]="'Select Region'"
-                           (onValueChanged)="regionChanged($event)"></region-select>
-        </div>
-        <div class="col-xs-12 col-md-3">
-            <div *ngIf="region_id > 0">
-                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
-                             (onValueChanged)="areaChanged($event)"></area-select>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-3">
-            <div *ngIf="area_id > 0">
-                <headquarter-select [value]="headquarter_id" [area_id]="area_id"
-                                    [title]="'Select Head Quarter'"
-                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
-            </div>
-        </div>
+      </div>
     </div>
-    <!-- ./Filters for report-->
+  </div>
+  <!-- Page Breadcrumb -->
 
-    <!-- Report Table -->
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4><strong>Dashboard</strong></h4>
-                </div>
-                <div>
-                    <div class="widget-container report-table">
-                        <div class="widget-block">
-                            <div class="table-responsive">
-                                <table class="table table-bordered visit_table">
-                                    <thead>
-                                    <tr>
-                                        <th colspan="2">Name Of Brick</th>
-                                        <th>Potential</th>
-                                        <th>Distance From HQ</th>
-                                        <th>Visits</th>
-                                        <th>Business</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tfoot>
-                                    <tr>
-                                        <th colspan="2">Name Of Brick</th>
-                                        <th>Potential</th>
-                                        <th>Distance From HQ</th>
-                                        <th>Visits</th>
-                                        <th>Business</th>
-                                    </tr>
-                                    </tfoot>
-
-                                    <tbody>
-                                    <tr *ngFor="let brick of bricks">
-                                        <td colspan="2">
-                                            {{brick.name}}
-                                        </td>
-                                        <td [ngClass]="{ 'dark_green': returnPotential(brick) == 1,
-                                        'light_green': returnPotential(brick) == 2,
-                                        'orange': returnPotential(brick) == 3,
-                                        'light_red': returnPotential(brick) == 4,
-                                        'dark_red': returnPotential(brick) == 5}">
-                                        </td>
-                                        <td>{{brick.distance_from_hq}}</td>
-                                        <td>{{brick.visit_no_of_days}}</td>
-                                        <td [ngClass]="{
-                                        'dark_green': returnBusiness(brick) == 1,
-                                        'orange': returnBusiness(brick) == 2,
-                                        'light_red': returnBusiness(brick) == 3
-                                        }">{{((brick.order_total_count/ brick.target) * 100)}}
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Filters for report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
     </div>
-    <!-- ./Report Table -->
+    <div class="col-xs-12 col-md-3">
+      <region-select [value]="region_id" [title]="'Select Region'"
+                     (onValueChanged)="regionChanged($event)"></region-select>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <div *ngIf="region_id > 0">
+        <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                     (onValueChanged)="areaChanged($event)"></area-select>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <div *ngIf="area_id > 0">
+        <headquarter-select [value]="headquarter_id" [area_id]="area_id"
+                            [title]="'Select Head Quarter'"
+                            (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+      </div>
+    </div>
+  </div>
+  <!-- ./Filters for report-->
+
+  <!-- Report Table -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4><strong>Dashboard</strong></h4>
+        </div>
+        <div>
+          <div class="widget-container report-table">
+            <div class="widget-block">
+              <div class="table-responsive">
+                <table class="table table-bordered visit_table">
+                  <thead>
+                  <tr>
+                    <th colspan="2">Name Of Brick</th>
+                    <th>Potential</th>
+                    <th>Distance From HQ</th>
+                    <th>Visits</th>
+                    <th>Business</th>
+                  </tr>
+                  </thead>
+
+                  <tfoot>
+                  <tr>
+                    <th colspan="2">Name Of Brick</th>
+                    <th>Potential</th>
+                    <th>Distance From HQ</th>
+                    <th>Visits</th>
+                    <th>Business</th>
+                  </tr>
+                  </tfoot>
+
+                  <tbody>
+                  <template ngFor let-ter [ngForOf]="territories">
+                    <tr>
+                      <th colspan="6" class="text-center grey">{{ ter.name }}</th>
+                    </tr>
+                    <tr *ngFor="let brick of ter.hq_bricks">
+                      <th colspan="2">
+                        {{brick.name}}
+                      </th>
+                      <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
+                                        'light_green': brick.customer_count_pattern == 2,
+                                        'orange': brick.customer_count_pattern == 3,
+                                        'light_red': brick.customer_count_pattern == 4,
+                                        'dark_red': brick.customer_count_pattern == 5}">
+                      </td>
+                      <td>{{brick.distance_from_hq}}</td>
+                      <td>{{brick.visit_no_of_days}}</td>
+                      <td style="width: 100px;" [ngClass]="{'dark_green': brick.business == 1, 'orange': brick.business == 2,
+                                        'light_red': brick.business == 3}">
+                        {{ ((brick.order_total_count/ brick.target) * 100).toFixed(2) }}
+                      </td>
+                    </tr>
+                  </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Report Table -->
 </div>

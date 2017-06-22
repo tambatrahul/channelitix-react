@@ -71,18 +71,21 @@ export class ExecutiveSummaryComponent extends ListComponent {
                 let targets = data[0].targets.map(target => new Target(target));
                 this.mapTargets(targets, customer_types);
 
+                // get primary sales
                 let primaries = data[0].primary_sales.map(ps => new PrimarySale(ps));
                 this.mapPrimary(primaries);
 
+                // get orders
                 let orders = data[0].orders.map(ord => new Order(ord));
                 this.mapOrders(orders);
 
+                // get visits and attendances
                 let visits = data[0].visits.map(vis => new Visit(vis));
                 let attendances = data[0].attendances.map(att => new Attendance(att));
 
+                // get all visits and map it to visits and attendances
                 let all_visits = data[1].all_visits.map(vis => new Visit(vis));
                 this.mapAttendances(attendances, visits, all_visits);
-
 
                 // prepare customers
                 let customers = data[1].customers.map(cus => new Customer(cus));
@@ -91,9 +94,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
                 // get v2 and v3 visits
                 let v2_v3_visits = data[1].v2_v3_visits.map(visit => new Visit(visit));
 
+                // preparing data for display
                 this.prepareData(visit_counts, customers, v2_v3_visits);
                 this.loading = false;
 
+                // show excel download
                 setTimeout(() => {
                     if (!this.excel_loaded) {
                         this.excel_loaded = true;
