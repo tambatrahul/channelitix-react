@@ -25,7 +25,7 @@
 
   <!-- Report Table -->
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-9">
       <div class="box-widget widget-module">
         <div class="widget-head clearfix">
           <span class="h-icon"><i class="fa fa-table"></i></span>
@@ -38,7 +38,7 @@
                 <table class="table table-bordered visit_table">
                   <thead>
                   <tr>
-                    <th colspan="2">Region name</th>
+                    <th colspan="2" width>Region name</th>
                     <th>GEO</th>
                     <th>Lucknow</th>
                     <th>Delhi</th>
@@ -46,22 +46,12 @@
                   </tr>
                   </thead>
 
-                  <tfoot>
-                  <tr>
-                    <th colspan="2">Region name</th>
-                    <th>GEO</th>
-                    <th>Lucknow</th>
-                    <th>Delhi</th>
-                    <th>Kolkata</th>
-                  </tr>
-                  </tfoot>
-
                   <tbody>
 
                   <tbody sales [year]="year" [month]="month" (setRegions)="setRegions($event)"></tbody>
 
                   <!-- Customer Data -->
-                  <tbody customer-data-report="" [regions]="regions"></tbody>
+                  <tbody style="background-color: #e7e7e7;" customer-data-report="" [regions]="regions"></tbody>
                   <!-- ./Customer Data -->
 
                   <!-- FF Effort Metric Component -->
@@ -69,7 +59,7 @@
                   <!-- ./FF Effort Metric Component -->
 
                   <!-- Activities -->
-                  <tbody vacancy-data-report [year]="year" [month]="month" [regions]="regions"></tbody>
+                  <tbody style="background-color: #e7e7e7;" vacancy-data-report [year]="year" [month]="month" [regions]="regions"></tbody>
                   <!-- ./Activities -->
                   <tr></tr>
                   </tbody>
