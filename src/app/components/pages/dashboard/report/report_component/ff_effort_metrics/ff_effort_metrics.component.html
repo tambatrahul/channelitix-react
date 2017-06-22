@@ -4,8 +4,16 @@
 </tr>
 <tr>
     <th>POB as % to Primary sales (Norm 30%)</th>
-    <td>{{ total_pob_to_30_target.toFixed(2) }}</td>
+    <td>
+        <div class="cell"
+             [ngClass]="{'green': total_pob_to_30_target >= 30, 'red': total_pob_to_30_target < 30}">
+        </div>
+        {{ total_pob_to_30_target.toFixed(2) }}
+    </td>
     <td *ngFor="let r of _regions">
+        <div class="cell"
+             [ngClass]="{'green': r.targetTo30 >= 30, 'red': r.targetTo30 < 30}">
+        </div>
         {{ r.targetTo30.toFixed(2) }}
     </td>
 </tr>

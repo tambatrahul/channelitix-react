@@ -344,12 +344,12 @@ export class ReportService extends BaseService {
      * @param headquarter_id
      * @returns {Observable<Result>}
      */
-    brick_coverage(month: number, year: number, headquarter_id: number) {
+    brick_coverage(year: number, headquarter_id: number) {
 
         // prepare get params
         let params = new URLSearchParams();
         params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
 
-        return this.get(this.getBaseUrl() + '/brick_coverage_report/' + month + "/" + year, new RequestOptions({search: params}));
+        return this.get(this.getBaseUrl() + '/brick_coverage_report/' + year, new RequestOptions({search: params}));
     }
 }

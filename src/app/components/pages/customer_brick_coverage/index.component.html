@@ -55,9 +55,13 @@
                 <table class="table table-bordered visit_table">
                   <thead>
                   <tr>
-                    <th colspan="2">Name Of Brick</th>
+                    <th></th>
+                    <th></th>
+                    <th>Month</th>
+                  </tr>
+                  <tr>
+                    <th>Name Of Brick</th>
                     <th>Potential</th>
-                    <th>Distance From HQ</th>
                     <th>Visits</th>
                     <th>Business</th>
                   </tr>
@@ -65,9 +69,8 @@
 
                   <tfoot>
                   <tr>
-                    <th colspan="2">Name Of Brick</th>
+                    <th>Name Of Brick</th>
                     <th>Potential</th>
-                    <th>Distance From HQ</th>
                     <th>Visits</th>
                     <th>Business</th>
                   </tr>
@@ -88,7 +91,6 @@
                                         'light_red': brick.customer_count_pattern == 4,
                                         'dark_red': brick.customer_count_pattern == 5}">
                       </td>
-                      <td>{{brick.distance_from_hq}}</td>
                       <td>{{brick.visit_no_of_days}}</td>
                       <td style="width: 100px;" [ngClass]="{'dark_green': brick.business == 1, 'orange': brick.business == 2,
                                         'light_red': brick.business == 3}">

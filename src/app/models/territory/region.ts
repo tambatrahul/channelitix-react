@@ -214,7 +214,7 @@ export class Region extends Model {
      */
     get targetTo30() {
         if (this.target > 0)
-            return (this.total_pob / (this.target * 0.3)) * 100;
+            return (this.total_pob / (this.target)) * 100;
 
         return 0;
     }
