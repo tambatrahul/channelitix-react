@@ -56,12 +56,12 @@
                   <thead>
 
                   <tr>
-                    <th rowspan="3">Name Of Brick</th>
-                    <th rowspan="3">Potential</th>
-                    <th colspan="{{ months_str * 2 }}">Months</th>
+                    <th rowSpan="3">Name Of Brick</th>
+                    <th rowSpan="3">Potential</th>
+                    <th colSpan="{{ months_str.length * 2 }}">Months</th>
                   </tr>
                   <tr>
-                    <th *ngFor="let month of months_str" colspan="2">
+                    <th *ngFor="let month of months_str" colSpan="2">
                       {{ month }}
                     </th>
                   </tr>
@@ -76,7 +76,7 @@
                   <tbody>
                   <template ngFor let-ter [ngForOf]="territories">
                     <tr>
-                      <th colspan="6" class="text-center grey">{{ ter.name }}</th>
+                      <th colSpan="6" class="text-center grey">{{ ter.name }}</th>
                     </tr>
                     <tr *ngFor="let brick of ter.hq_bricks">
                       <th>
