@@ -120,13 +120,7 @@ export class Brick extends Model {
    * get business
    * @returns {number}
    */
-  get business() {
-    let brick_target = this.target * this.visit_no_of_days;
-    if (this.order_total_count >= brick_target)
-      return 1;
-    else if (this.order_total_count >= brick_target * 0.5)
-      return 2;
-    else if (this.order_total_count < brick_target * 0.5)
-      return 3;
+  business(month) {
+
   }
 }
