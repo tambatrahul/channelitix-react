@@ -12,173 +12,176 @@ import {Territory} from "../../../models/territory/territory";
 declare let jQuery: any;
 
 @Component({
-    templateUrl: 'index.component.html',
-    styleUrls: ['index.component.less']
+  templateUrl: 'index.component.html',
+  styleUrls: ['index.component.less']
 })
 export class CustomerBrickCoverageComponent extends ListComponent {
 
-    /**
-     * year and month for calendar
-     * @type {number}
-     */
-    public month: number;
-    public year: number;
-    public territories: Territory[] = [];
+  /**
+   * year and month for calendar
+   * @type {number}
+   */
+  public month: number;
+  public year: number;
+  public territories: Territory[] = [];
 
-    public months: {} = {
-        1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct",
-        11: "Nov", 12: "Dec"
-    };
+  // set months object for visit, pob and target data
+  public months: Object = {
+    1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}, 8: {}, 9: {}, 10: {}, 11: {}, 12: {}
+  };
 
-    /**
-     * region, territory, area, headquarter & brick id
-     */
-    public region_id: number = 0;
-    public area_id: number = 0;
-    public headquarter_id: number = 0;
+  // set months array
+  public months_str = [
+    "Jan", "Feb"
+  ];
 
-    /**
-     * User Component Constructor
-     */
-    constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService) {
-        super(_service);
-    }
+  /**
+   * region, territory, area, headquarter & brick id
+   */
+  public region_id: number = 0;
+  public area_id: number = 0;
+  public headquarter_id: number = 0;
 
-    /**
-     * on load of component load customer types
-     */
-    ngOnInit() {
-        super.ngOnInit();
-        this.month = moment().month();
-        this.year = moment().year();
-        this.region_id = 2;
-        this.area_id = 3;
-        this.headquarter_id = 4;
-        this.fetch();
-    }
+  /**
+   * User Component Constructor
+   */
+  constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService) {
+    super(_service);
+  }
 
-    /**
-     * load users for logged in user
-     */
-    fetch() {
-        if (this.month && this.year) {
-            this.reportService.brick_coverage(this.year, this.headquarter_id).subscribe(
-                response => {
+  /**
+   * on load of component load customer types
+   */
+  ngOnInit() {
+    super.ngOnInit();
+    this.month = moment().month();
+    this.year = moment().year();
+    this.region_id = 2;
+    this.area_id = 3;
+    this.headquarter_id = 4;
+    this.fetch();
+  }
 
-                    // get bricks
-                    let bricks = response.bricks.map(brick => new Brick(brick));
+  /**
+   * load users for logged in user
+   */
+  fetch() {
+    if (this.month && this.year) {
+      this.reportService.brick_coverage(this.year, this.headquarter_id).subscribe(
+        response => {
 
-                    // get territories
-                    let territories = response.territories.map(territory => new Territory(territory));
+          // get bricks
+          let bricks = response.bricks.map(brick => new Brick(brick));
 
-                    // get visits
-                    let visits = response.visits.map(visit => new Visit(visit));
+          // get territories
+          let territories = response.territories.map(territory => new Territory(territory));
 
-                    // get orders
-                    let orders = response.orders.map(order => new Order(order));
+          // get visits
+          let visits = response.visits.map(visit => new Visit(visit));
 
-                    // get targets
-                    let targets = response.targets.map(target => new Target(target));
+          // get orders
+          let orders = response.orders.map(order => new Order(order));
 
-                    // prepare data for display
-                    this.prepareData(bricks, territories, visits, orders, targets);
-                }
-            );
+          // get targets
+          let targets = response.targets.map(target => new Target(target));
+
+          // prepare data for display
+          this.prepareData(bricks, territories, visits, orders, targets);
         }
+      );
     }
+  }
 
-    // Prepare Data For Display
-    prepareData(bricks: Brick[], territories: Territory[], visits: Visit[], orders: Order[], targets: Target[]) {
-        territories.map(ter => {
-            ter.hq_bricks.map(brick => {
-                brick.months = this.months;
-                // set customer counts
-                bricks.map(hq_brick => {
-                    if (brick.id == hq_brick.id) {
-                        if (hq_brick.customer_type_id == 1) {
-                            if (hq_brick.grade_id == 1 || hq_brick.grade_id == 2 || hq_brick.grade_id == 8 ||
-                                hq_brick.grade_id == 9 || hq_brick.grade_id == 10 || hq_brick.grade_id == 11) {
-                                hq_brick.customer_ab = hq_brick.customer_count;
-                            }
-                            else
-                                brick.customer_others = hq_brick.customer_count;
-                        }
-                        if (hq_brick.customer_type_id == 2) {
-                            brick.customer_semi = hq_brick.customer_count;
-                        }
-                        if (hq_brick.customer_type_id == 3) {
-                            brick.customer_retailer = hq_brick.customer_count;
-                        }
-                        if (hq_brick.customer_type_id == 4) {
-                            brick.customer_hub_chemist = hq_brick.customer_count;
-                        }
-                        if (hq_brick.customer_type_id == 5) {
-                            brick.customer_physician = hq_brick.customer_count;
-                        }
-                    }
-                });
+  // Prepare Data For Display
+  prepareData(bricks: Brick[], territories: Territory[], visits: Visit[], orders: Order[], targets: Target[]) {
+    territories.map(ter => {
+      ter.hq_bricks.map(brick => {
+        brick.months = jQuery.extend({}, this.months);
 
-                // set visits
-                visits.map(visit => {
-                    if (visit.hq_brick_id == brick.id)
-                        brick.months[visit.visit_month].visit_no_of_days = visit.no_of_days;
-                });
-
-                // set pobs
-                orders.map(order => {
-                    if (order.hq_brick_id == brick.id)
-                        brick.months[order.order_month].order_total_count = order.order_total_count;
-                });
-
-                // set targets
-                targets.map(target => {
-                    if (target.hq_headquarter_id == this.headquarter_id) {
-                        brick.months[target.month].target = ((target.total_target * 0.3) / 24);
-                    }
-                });
-            });
+        // set customer counts
+        bricks.map(hq_brick => {
+          if (brick.id == hq_brick.id) {
+            if (hq_brick.customer_type_id == 1) {
+              if (hq_brick.grade_id == 1 || hq_brick.grade_id == 2 || hq_brick.grade_id == 8 ||
+                hq_brick.grade_id == 9 || hq_brick.grade_id == 10 || hq_brick.grade_id == 11) {
+                hq_brick.customer_ab = hq_brick.customer_count;
+              } else
+                brick.customer_others = hq_brick.customer_count;
+            }
+            if (hq_brick.customer_type_id == 2) {
+              brick.customer_semi = hq_brick.customer_count;
+            }
+            if (hq_brick.customer_type_id == 3) {
+              brick.customer_retailer = hq_brick.customer_count;
+            }
+            if (hq_brick.customer_type_id == 4) {
+              brick.customer_hub_chemist = hq_brick.customer_count;
+            }
+            if (hq_brick.customer_type_id == 5) {
+              brick.customer_physician = hq_brick.customer_count;
+            }
+          }
         });
 
-        console.log(territories);
+        // set visits
+        visits.map(visit => {
+          if (visit.hq_brick_id == brick.id)
+            brick.months[visit.visit_month].visit_no_of_days = visit.no_of_days;
+        });
 
-        this.territories = territories;
-    }
+        // set pobs
+        orders.map(order => {
+          if (order.hq_brick_id == brick.id)
+            brick.months[order.order_month].order_total_count = order.order_total_count;
+        });
 
-    /**
-     * when region is changed filter list of customer
-     * @param region_id
-     */
-    regionChanged(region_id) {
-        this.region_id = region_id;
-        this.areaChanged(0);
-    }
+        // set targets
+        targets.map(target => {
+          if (target.hq_headquarter_id == this.headquarter_id) {
+            brick.months[target.month].target = ((target.total_target * 0.3) / 24);
+          }
+        });
+      });
+    });
 
-    /**
-     * when area is changed filter list of customer
-     * @param area_id
-     */
-    areaChanged(area_id) {
-        this.area_id = area_id;
-        this.headquarterChanged(0);
-    }
+    this.territories = territories;
+  }
+
+  /**
+   * when region is changed filter list of customer
+   * @param region_id
+   */
+  regionChanged(region_id) {
+    this.region_id = region_id;
+    this.areaChanged(0);
+  }
+
+  /**
+   * when area is changed filter list of customer
+   * @param area_id
+   */
+  areaChanged(area_id) {
+    this.area_id = area_id;
+    this.headquarterChanged(0);
+  }
 
 
-    /**
-     * when headquarter is changed filter list of customer
-     * @param headquarter_id
-     */
-    headquarterChanged(headquarter_id) {
-        this.headquarter_id = headquarter_id;
-    }
+  /**
+   * when headquarter is changed filter list of customer
+   * @param headquarter_id
+   */
+  headquarterChanged(headquarter_id) {
+    this.headquarter_id = headquarter_id;
+  }
 
-    /**
-     * month and year changed
-     *
-     * @param date
-     */
-    monthYearChanged(date) {
-        this.month = date.month;
-        this.year = date.year;
-        this.fetch();
-    }
+  /**
+   * month and year changed
+   *
+   * @param date
+   */
+  monthYearChanged(date) {
+    this.month = date.month;
+    this.year = date.year;
+    this.fetch();
+  }
 }
