@@ -54,11 +54,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered visit_table">
                   <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Month</th>
-                  </tr>
+
                   <tr>
                     <th>Name Of Brick</th>
                     <th>Potential</th>
@@ -82,7 +78,7 @@
                       <th colspan="6" class="text-center grey">{{ ter.name }}</th>
                     </tr>
                     <tr *ngFor="let brick of ter.hq_bricks">
-                      <th colspan="2">
+                      <th>
                         {{brick.name}}
                       </th>
                       <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,

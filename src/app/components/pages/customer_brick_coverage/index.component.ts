@@ -25,6 +25,10 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     public year: number;
     public territories: Territory[] = [];
 
+    public months: {} = {
+        1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct",
+        11: "Nov", 12: "Dec"
+    };
 
     /**
      * region, territory, area, headquarter & brick id
@@ -77,62 +81,67 @@ export class CustomerBrickCoverageComponent extends ListComponent {
                     let targets = response.targets.map(target => new Target(target));
 
                     // prepare data for display
-                    territories.map(ter => {
-                        ter.hq_bricks.map(brick => {
-
-                            // set customer counts
-                            bricks.map(hq_brick => {
-                                if (brick.id == hq_brick.id) {
-                                    if (hq_brick.customer_type_id == 1) {
-                                        if (hq_brick.grade_id == 1 || hq_brick.grade_id == 2 || hq_brick.grade_id == 8 ||
-                                            hq_brick.grade_id == 9 || hq_brick.grade_id == 10 || hq_brick.grade_id == 11) {
-                                            hq_brick.customer_ab = hq_brick.customer_count;
-                                        }
-                                        else
-                                            brick.customer_others = hq_brick.customer_count;
-                                    }
-                                    if (hq_brick.customer_type_id == 2) {
-                                        brick.customer_semi = hq_brick.customer_count;
-                                    }
-                                    if (hq_brick.customer_type_id == 3) {
-                                        brick.customer_retailer = hq_brick.customer_count;
-                                    }
-                                    if (hq_brick.customer_type_id == 4) {
-                                        brick.customer_hub_chemist = hq_brick.customer_count;
-                                    }
-                                    if (hq_brick.customer_type_id == 5) {
-                                        brick.customer_physician = hq_brick.customer_count;
-                                    }
-                                }
-
-                            });
-
-                            // set visits
-                            visits.map(visit => {
-                                if (visit.hq_brick_id == brick.id)
-                                    brick.visit_no_of_days = visit.no_of_days;
-
-                            });
-
-                            // set pobs
-                            orders.map(order => {
-                                if (order.hq_brick_id == brick.id)
-                                    brick.order_total_count = order.order_total_count;
-                            });
-
-                            // set targetss
-                            targets.map(target => {
-                                if (target.hq_headquarter_id == this.headquarter_id) {
-                                    brick.target = ((target.total_target * 0.3) / 24);
-                                }
-                            });
-                        });
-                    });
-
-                    this.territories = territories;
+                    this.prepareData(bricks, territories, visits, orders, targets);
                 }
             );
         }
+    }
+
+    // Prepare Data For Display
+    prepareData(bricks: Brick[], territories: Territory[], visits: Visit[], orders: Order[], targets: Target[]) {
+        territories.map(ter => {
+            ter.hq_bricks.map(brick => {
+                brick.months = this.months;
+                // set customer counts
+                bricks.map(hq_brick => {
+                    if (brick.id == hq_brick.id) {
+                        if (hq_brick.customer_type_id == 1) {
+                            if (hq_brick.grade_id == 1 || hq_brick.grade_id == 2 || hq_brick.grade_id == 8 ||
+                                hq_brick.grade_id == 9 || hq_brick.grade_id == 10 || hq_brick.grade_id == 11) {
+                                hq_brick.customer_ab = hq_brick.customer_count;
+                            }
+                            else
+                                brick.customer_others = hq_brick.customer_count;
+                        }
+                        if (hq_brick.customer_type_id == 2) {
+                            brick.customer_semi = hq_brick.customer_count;
+                        }
+                        if (hq_brick.customer_type_id == 3) {
+                            brick.customer_retailer = hq_brick.customer_count;
+                        }
+                        if (hq_brick.customer_type_id == 4) {
+                            brick.customer_hub_chemist = hq_brick.customer_count;
+                        }
+                        if (hq_brick.customer_type_id == 5) {
+                            brick.customer_physician = hq_brick.customer_count;
+                        }
+                    }
+                });
+
+                // set visits
+                visits.map(visit => {
+                    if (visit.hq_brick_id == brick.id)
+                        brick.months[visit.visit_month].visit_no_of_days = visit.no_of_days;
+                });
+
+                // set pobs
+                orders.map(order => {
+                    if (order.hq_brick_id == brick.id)
+                        brick.months[order.order_month].order_total_count = order.order_total_count;
+                });
+
+                // set targets
+                targets.map(target => {
+                    if (target.hq_headquarter_id == this.headquarter_id) {
+                        brick.months[target.month].target = ((target.total_target * 0.3) / 24);
+                    }
+                });
+            });
+        });
+
+        console.log(territories);
+
+        this.territories = territories;
     }
 
     /**

@@ -11,6 +11,7 @@ export class Target extends Model {
     target: number = 0;
     total_net_amount: number = 0;
     month: number;
+    target_month: number;
     hq_headquarter_id: number;
     hq_headquarter: Headquarter;
 
