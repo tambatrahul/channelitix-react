@@ -33,7 +33,9 @@ export class PrimarySale extends Model {
       this.month = parseInt(info.month);
 
     this.stockist_code = info.stockist_code;
-    this.prd_code = info.prd_code;
+
+    if(info.prd_code)
+      this.prd_code = parseFloat(info.prd_code);
 
     if (info.net_amt)
       this.net_amt = parseFloat(info.net_amt);

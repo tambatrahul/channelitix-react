@@ -1,76 +1,97 @@
 <div class="container-fluid bricks" #loading_box>
-  <!-- Page Breadcrumb -->
-  <div class="page-breadcrumb">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="page-breadcrumb-wrap">
-          <div class="page-breadcrumb-info">
-            <h2 class="breadcrumb-titles">
-              Report
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Page Breadcrumb -->
-
-  <!-- Filters for report-->
-  <div class="row">
-    <div class="col-xs-12 col-md-3">
-      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-    </div>
-  </div>
-  <!-- ./Filters for report-->
-
-  <!-- Report Table -->
-  <div class="row">
-    <div class="col-xs-9">
-      <div class="box-widget widget-module">
-        <div class="widget-head clearfix">
-          <span class="h-icon"><i class="fa fa-table"></i></span>
-          <h4><strong>Dashboard</strong></h4>
-        </div>
-        <div>
-          <div class="widget-container report-table">
-            <div class="widget-block">
-              <div class="table-responsive">
-                <table class="table table-bordered visit_table">
-                  <thead>
-                  <tr>
-                    <th></th>
-                    <th style="width: 250px;">Region name</th>
-                    <th>GEO</th>
-                    <th>Lucknow</th>
-                    <th>Delhi</th>
-                    <th>Kolkata</th>
-                  </tr>
-                  </thead>
-
-                  <tbody>
-
-                  <tbody style="background-color: #ECF0F1;" sales [year]="year" [month]="month" (setRegions)="setRegions($event)"></tbody>
-
-                  <!-- Customer Data -->
-                  <tbody customer-data-report="" [regions]="regions"></tbody>
-                  <!-- ./Customer Data -->
-
-                  <!-- FF Effort Metric Component -->
-                  <tbody style="background-color: #ECF0F1;"  ff-effort-metrics="" [year]="year" [month]="month" [regions]="regions"></tbody>
-                  <!-- ./FF Effort Metric Component -->
-
-                  <!-- Activities -->
-                  <tbody vacancy-data-report [year]="year" [month]="month" [regions]="regions"></tbody>
-                  <!-- ./Activities -->
-                  <tr></tr>
-                  </tbody>
-                </table>
-              </div>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Report
+                        </h2>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- ./Report Table -->
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+    </div>
+    <!-- ./Filters for report-->
+
+    <!-- Report Table -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4><strong>Dashboard</strong></h4>
+                </div>
+                <div>
+                    <div class="widget-container report-table">
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered visit_table">
+                                    <thead>
+                                    <tr style="background-color: #3498db;color: white">
+                                        <th></th>
+                                        <th style="width: 250px;">Region name</th>
+                                        <th>GEO</th>
+                                        <th>Lucknow</th>
+                                        <th>Delhi</th>
+                                        <th>Kolkata</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    <tbody sales [year]="year" [month]="month"
+                                           (setRegions)="setRegions($event)"></tbody>
+
+                                    <tbody style="background-color: #f1c40f">
+                                    <tr>
+                                        <th colSpan="6"></th>
+                                    </tr>
+                                    </tbody>
+
+                                    <!-- Customer Data -->
+                                    <tbody customer-data-report="" [regions]="regions"></tbody>
+                                    <!-- ./Customer Data -->
+
+                                    <tbody style="background-color: #f1c40f">
+                                    <tr>
+                                        <th colSpan="6" style="background-color: #f1c40f"></th>
+                                    </tr>
+                                    </tbody>
+
+                                    <!-- FF Effort Metric Component -->
+                                    <tbody  ff-effort-metrics="" [year]="year"
+                                           [month]="month" [regions]="regions"></tbody>
+                                    <!-- ./FF Effort Metric Component -->
+
+                                    <tbody style="background-color: #f1c40f">
+                                    <tr>
+                                        <th colSpan="6" style="background-color: #f1c40f"></th>
+                                    </tr>
+                                    </tbody>
+
+                                    <!-- Activities -->
+                                    <tbody vacancy-data-report [year]="year" [month]="month"
+                                           [regions]="regions"></tbody>
+                                    <!-- ./Activities -->
+                                    <tr></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Report Table -->
 </div>

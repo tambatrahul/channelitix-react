@@ -125,7 +125,7 @@ export class OrderComponent extends BaseAuthComponent {
      */
     ngOnInit() {
         super.ngOnInit();
-        if(this._service.user.username == 'abbottadmin') {
+        if (this._service.user.username == 'abbottadmin') {
             this.abbott = true;
         }
         this.month = moment().month();
@@ -233,14 +233,24 @@ export class OrderComponent extends BaseAuthComponent {
 
         // add to zone manager
         for (let z of zone_managers) {
+            z.total_target = 0;
             for (let m of managers) {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
+                    m.orders.forEach(function (ord, index) {
+                        if (z.children.length == 1) {
+                            z.orders[index].order_total_count = 0;
+                            z.orders[index].order_total_quantity = 0;
+                        }
+                        z.orders[index].order_total_count += ord.order_total_count;
+                        z.orders[index].order_total_quantity += ord.order_total_quantity;
+                    });
+                    z.total_target += m.total_target;
                 }
             }
         }
 
-        if(this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group'){
+        if (this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group') {
             let abbott_user = new User({full_name: 'Abbott'});
             abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             abbott_user.children = [];
