@@ -44,6 +44,9 @@ export class Product extends Model {
 
         if (info.amount)
             this.amount = parseFloat(info.amount);
+
+        if (info.primary_sale)
+            this.primary_sale = parseFloat(info.primary_sale);
     }
 
     get onTarget() {
