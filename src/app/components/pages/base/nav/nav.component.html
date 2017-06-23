@@ -151,6 +151,12 @@
                 <span class="nav-label">Productivity Analysis</span>
               </a>
             </li>
+            <li *roleCheck="ROLE_ADMIN">
+              <a class="waves-effect" routerLink="/dashboard/brick_coverage">
+                <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                <span class="nav-label">Brick Working Report</span>
+              </a>
+            </li>
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">

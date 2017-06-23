@@ -161,8 +161,6 @@ export class SalesComponent extends ListComponent {
         });
       });
 
-      console.log(this.products);
-
       this.total_primary_sale += region.primary;
       this.total_target += region.target;
     });
