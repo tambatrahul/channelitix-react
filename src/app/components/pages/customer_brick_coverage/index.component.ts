@@ -32,7 +32,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
 
   // set months array
   public months_str = [
-    "Jan", "Feb"
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"
   ];
 
   /**

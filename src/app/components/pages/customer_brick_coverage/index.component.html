@@ -82,18 +82,20 @@
                       <th>
                         {{brick.name}}
                       </th>
-                      <template></template>
+
                       <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,
                                         'light_red': brick.customer_count_pattern == 4,
                                         'dark_red': brick.customer_count_pattern == 5}">
                       </td>
-                      <td>{{brick.visit_no_of_days}}</td>
+                      <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                      <td>{{ brick.months[i+1].visit_no_of_days }}</td>
                       <td style="width: 100px;" [ngClass]="{'dark_green': brick.business == 1, 'orange': brick.business == 2,
                                         'light_red': brick.business == 3}">
-                        {{ ((brick.order_total_count/ brick.target) * 100).toFixed(2) }}
+                        {{ ((brick.months[i+1].order_total_count/ brick.months[i+1].target) * 100).toFixed(2) }}
                       </td>
+                      </template>
                     </tr>
                   </template>
                   </tbody>
