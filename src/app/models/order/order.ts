@@ -59,7 +59,6 @@ export class Order extends Model {
             this.creator = new User(info.creator);
         this.isSunday = info.isSunday;
         this.order_day = info.order_day;
-        this.order_month = info.order_month;
 
         if (info.customer)
             this.customer = new Customer(info.customer);
@@ -92,6 +91,9 @@ export class Order extends Model {
 
         if (info.customer_type_id)
             this.customer_type_id = parseInt(info.customer_type_id);
+
+        if (info.order_month)
+            this.order_month = parseInt(info.order_month);
 
         if (info.order_count)
             this.order_count = parseInt(info.order_count);

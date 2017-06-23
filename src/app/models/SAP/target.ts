@@ -17,12 +17,14 @@ export class Target extends Model {
 
     constructor(info: any) {
         super(info.id);
-        this.month = info.month;
         this.product_id = info.product_id;
         this.hq_headquarter_id = info.hq_headquarter_id;
 
         if (info.total_target)
             this.total_target = parseFloat(info.total_target);
+
+        if (info.month)
+            this.month = parseFloat(info.month);
 
         if (info.total_net_amount)
             this.total_net_amount = parseFloat(info.total_net_amount);
