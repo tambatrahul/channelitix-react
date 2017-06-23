@@ -101,6 +101,40 @@
                       </tfoot>
 
                       <tbody>
+                      <tr class="dark_grey">
+                        <th>Total</th>
+                        <td></td>
+                        <template [ngIf]="environment.envName != 'geo'">
+                          <td *ngIf="_service.user.username != 'abbottadmin'">
+                            {{ z.daily_target }}
+                          </td>
+                          <td *ngIf="_service.user.username != 'abbottadmin'">
+                            {{ z.percent_pob }} %
+                          </td>
+                        </template>
+                        <template [ngIf]="environment.envName == 'geo'">
+                          <template [ngIf]="z.username != 'delhiregion'">
+                            <td>{{ z.daily_target }}</td>
+                            <td>{{ z.percent_pob }} %</td>
+                          </template>
+                          <template [ngIf]="z.username == 'delhiregion'">
+                            <td>{{ z.daily_target_40 }}</td>
+                            <td>{{ z.percent_pob_40 }} %</td>
+                          </template>
+                        </template>
+                        <td></td>
+                        <template ngFor let-order [ngForOf]="z.orders">
+                          <td *ngIf="!view_quantity">
+                            {{ (order.order_total_count / 1000).toFixed(1) }}
+                          </td>
+                          <td *ngIf="view_quantity">
+                            {{ (order.order_total_quantity) }}
+                          </td>
+                        </template>
+                        <td *ngIf="!view_quantity">{{ (z.total_pob_count / 1000).toFixed(1) }}</td>
+                        <td *ngIf="view_quantity">{{ (z.total_pob_quantity_count) }}</td>
+
+                      </tr>
                       <template ngFor let-mg [ngForOf]="z.children">
                         <tr>
                           <th [colSpan]="mg.children[0]?.orders.length + 5"
@@ -246,6 +280,7 @@
                       </tfoot>
 
                       <tbody>
+
                       <tr *ngFor="let user of z.children">
                         <td>{{ user.full_name }}</td>
                         <td>{{ user.hq_headquarter.name }}</td>

@@ -41,6 +41,8 @@ export class User extends Model {
   children: User[] = [];
   cse_count: number = 0;
   total_target: number = 0;
+  order_total_count: number = 0;
+  order_total_quantity: number = 0;
   user_count: number = 0;
 
   constructor(info: any) {
