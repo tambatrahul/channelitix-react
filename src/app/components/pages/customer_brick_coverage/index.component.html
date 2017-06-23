@@ -54,37 +54,35 @@
               <div class="table-responsive">
                 <table class="table table-bordered visit_table">
                   <thead>
+
                   <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Month</th>
+                    <th rowSpan="3">Name Of Brick</th>
+                    <th rowSpan="3">Potential</th>
+                    <th colSpan="{{ months_str.length * 2 }}">Months</th>
                   </tr>
                   <tr>
-                    <th>Name Of Brick</th>
-                    <th>Potential</th>
-                    <th>Visits</th>
-                    <th>Business</th>
+                    <th *ngFor="let month of months_str" colSpan="2">
+                      {{ month }}
+                    </th>
+                  </tr>
+                  <tr>
+                    <template ngFor let-month [ngForOf]="months_str">
+                      <th>Visits</th>
+                      <th>Business</th>
+                    </template>
                   </tr>
                   </thead>
-
-                  <tfoot>
-                  <tr>
-                    <th>Name Of Brick</th>
-                    <th>Potential</th>
-                    <th>Visits</th>
-                    <th>Business</th>
-                  </tr>
-                  </tfoot>
 
                   <tbody>
                   <template ngFor let-ter [ngForOf]="territories">
                     <tr>
-                      <th colspan="6" class="text-center grey">{{ ter.name }}</th>
+                      <th colSpan="6" class="text-center grey">{{ ter.name }}</th>
                     </tr>
                     <tr *ngFor="let brick of ter.hq_bricks">
-                      <th colspan="2">
+                      <th>
                         {{brick.name}}
                       </th>
+                      <template></template>
                       <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,

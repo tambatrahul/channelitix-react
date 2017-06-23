@@ -23,6 +23,7 @@ export class Brick extends Model {
   visit_no_of_days: number = 0;
   order_total_count: number = 0;
   target: number = 0;
+  months: Object = {};
 
   // for internal user only
   customer_types: CustomerType[];
