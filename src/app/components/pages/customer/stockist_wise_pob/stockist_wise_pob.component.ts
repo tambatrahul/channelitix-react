@@ -74,7 +74,7 @@ export class StockistWisePobComponent extends ListComponent {
         if (this.environment.envName == 'geo')
             this.region_id = 2;
 
-        if(this._service.user.role_str == 'REGION_MNG' && this.environment.envName == 'sk_group')
+        if (this._service.user.role_str == 'REGION_MNG' && this.environment.envName == 'sk_group')
             this.area_id = 1;
     }
 
@@ -161,7 +161,9 @@ export class StockistWisePobComponent extends ListComponent {
 
         // prepare list of customers
         orders.map(order => {
-            customers[order.delivered_by_synergy].total_pob += order.order_total_count;
+            if (customers[order.delivered_by_synergy])
+                customers[order.delivered_by_synergy].total_pob += order.order_total_count;
+
             this.all_total += order.order_total_count;
         });
 
