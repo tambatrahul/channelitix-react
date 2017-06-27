@@ -71,7 +71,7 @@ export class StockistWisePobComponent extends ListComponent {
         this.year = moment().year();
         this.regionChanged(this._service.user.hq_region_id);
         this.areaChanged(this._service.user.hq_area_id);
-        if (this.environment.envName == 'geo')
+        if (this.environment.envName == 'geo' && this._service.user.role_str == 'COUNTRY_MNG')
             this.region_id = 2;
 
         if (this._service.user.role_str == 'REGION_MNG' && this.environment.envName == 'sk_group')
