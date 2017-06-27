@@ -158,6 +158,7 @@ import {FFEffortMetricsComponent} from "./components/pages/dashboard/report/repo
 import {ManagerActivitiesComponent} from "./components/pages/dashboard/report/report_component/manager_activities/manager_activities.component";
 import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
 import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist_sales_graph/stockist_sales_graph";
+import {SecondarySaleZSMComponent} from "./components/pages/secondary_sale/zsm_index/index.component";
 
 
 enableProdMode();
@@ -232,6 +233,7 @@ enableProdMode();
         SynergyStockistWisePobComponent,
         ProductivityAnalysisReportComponent,
         VacancyDataComponent,
+        SecondarySaleZSMComponent,
 
         //dashboard report Component
         SalesComponent,
