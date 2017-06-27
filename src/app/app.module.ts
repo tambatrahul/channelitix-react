@@ -157,6 +157,7 @@ import {VacancyDataComponent} from "./components/pages/dashboard/report/report_c
 import {FFEffortMetricsComponent} from "./components/pages/dashboard/report/report_component/ff_effort_metrics/ff_effort_metrics.component";
 import {ManagerActivitiesComponent} from "./components/pages/dashboard/report/report_component/manager_activities/manager_activities.component";
 import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
+import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist_sales_graph/stockist_sales_graph";
 
 
 enableProdMode();
@@ -236,6 +237,9 @@ enableProdMode();
         SalesComponent,
         FFEffortMetricsComponent,
         ManagerActivitiesComponent,
+
+        // dashboard stockist sales graph
+        StockistSalesGraphComponent,
 
         // customer brick component
         CustomerBrickCoverageComponent,

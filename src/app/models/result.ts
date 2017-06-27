@@ -26,6 +26,8 @@ import {YearTillMonth} from "./SAP/year_till_month";
 import {OrderItem} from "./order/order_item";
 import {Target} from "./SAP/target";
 import {BrickCustomerCount} from "./territory/brick_customer_count";
+import {MonthStockistSale} from "./SAP/month_stockist_sale";
+import {YearStockistSale} from "./SAP/year_stockist_sale";
 
 export class Result {
 
@@ -114,6 +116,10 @@ export class Result {
 
   // target till month and sales till month
   year_till_month: YearTillMonth;
+
+  // Sales for month and year
+  monthly_sale: MonthStockistSale;
+  yearly_sale: YearStockistSale;
 
   performance: Performance;
 
