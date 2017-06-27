@@ -23,6 +23,7 @@ export class Headquarter extends Model {
     total_att: number = 0;
     total_order: number = 0;
     total_customers: number = 0;
+    customer_count: number = 0;
     total_customers_ab: number = 0;
 
     territories_count: number = 0;

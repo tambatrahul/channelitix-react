@@ -56,6 +56,7 @@ import {PadraunaHQComponent} from "./components/pages/standard_tour_program_page
 import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages/sitapurhq/index.component";
 import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
 import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
+import {SecondarySaleZSMComponent} from "./components/pages/secondary_sale/zsm_index/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -280,7 +281,11 @@ export const routes: Routes = [
                             {
                                 path: 'create/:month/:year/:id',
                                 component: SecondarySaleCreateComponent
-                            }
+                            },
+                            {
+                                path: 'region',
+                                component: SecondarySaleZSMComponent
+                            },
                         ]
                     },
                 ]

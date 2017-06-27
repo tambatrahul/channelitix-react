@@ -77,4 +77,20 @@ export class SecondarySaleService extends BaseService {
 
         return this.post(url, {secondary_sales: secondary_sales});
     }
+
+    /**
+     * monthly attendance
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    monthly_count(month: number, year: number): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/monthly_count/' + month + "/" + year;
+
+        // make server call
+        return this.get(url, new RequestOptions());
+    }
 }
