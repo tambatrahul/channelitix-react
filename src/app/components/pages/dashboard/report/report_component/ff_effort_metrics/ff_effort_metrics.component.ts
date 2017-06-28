@@ -49,6 +49,8 @@ export class FFEffortMetricsComponent extends ListComponent {
    * @type {number}
    */
   total_hq: number = 0;
+  total_pob: number = 0;
+  total_target: number = 0;
   total_pob_to_30_target: number = 0;
   hq_on_target_count: number = 0;
   total_visits: number = 0;
@@ -108,6 +110,8 @@ export class FFEffortMetricsComponent extends ListComponent {
   prepareData(orders: Order[], visits: Visit[], attendances: Attendance[], customers: Customer[], ab_customers: Customer[],
               ab_visits: Visit[]) {
     this.total_hq = 0;
+    this.total_pob = 0;
+    this.total_target = 0;
     this.total_pob_to_30_target = 0;
     this.hq_on_target_count = 0;
     this.total_visits = 0;
@@ -185,6 +189,8 @@ export class FFEffortMetricsComponent extends ListComponent {
         });
       });
 
+      this.total_pob += region.total_pob;
+      this.total_target += region.target;
       this.total_pob_to_30_target += region.targetTo30;
       this.hq_on_target_count += region.hqAboveTarget;
       this.total_visits += region.total_visit;
