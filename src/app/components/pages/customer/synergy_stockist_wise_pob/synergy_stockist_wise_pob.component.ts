@@ -122,6 +122,11 @@ export class SynergyStockistWisePobComponent extends ListComponent {
         orders.map(order => {
             if (customers[order.delivered_by_synergy])
                 customers[order.delivered_by_synergy].total_pob += order.order_total_count;
+            else{
+                customers[order.delivered_by_synergy] = order.delivered_by_synergy_user;
+                customers[order.delivered_by_synergy].total_pob += order.order_total_count;
+            }
+
             this.all_total += order.order_total_count;
         });
 

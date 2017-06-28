@@ -10,7 +10,7 @@ export class SecondarySale extends Model {
     customer_id: number;
     product_id: number;
     hq_headquarter_id: number;
-    customer_count: number;
+    customer_count: number = 0;
     total_customers: number = 0;
     uom_id: number;
     customer: Customer;
