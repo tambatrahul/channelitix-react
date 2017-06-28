@@ -35,6 +35,11 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
     year: number;
 
     /**
+     * customer Id
+     */
+    public customer_id: number = 0;
+
+    /**
      * dates
      *
      * @type {}
@@ -206,6 +211,16 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
         this.month = current_month.month();
         this.year = current_month.year();
         this.month_str = current_month.format('MMM');
+        this.fetch();
+    }
+
+    /**
+     * customer Filter
+     *
+     * @param customer_id
+     */
+    customerChanged(customer_id) {
+        this.customer_id = customer_id;
         this.fetch();
     }
 }

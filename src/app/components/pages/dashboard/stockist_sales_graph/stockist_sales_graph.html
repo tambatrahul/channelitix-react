@@ -6,7 +6,12 @@
                 <h4>
                     Sales
                 </h4>
-                <div class="col-xs-12 col-md-6 form-group-sm">
+                <div class="col-xs-6 col-md-6 form-group-sm">
+                    <div style="margin: 15px;">
+                        <customer-select [title]="''" (onValueChanged)="customerChanged($event)"></customer-select>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-6 form-group-sm">
                     <div style="margin: 15px;">
                         <month-picker [month]="month" [year]="year"
                                       [title]="''"
