@@ -156,8 +156,8 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
         if (this.month && this.year) {
             this.loading = true;
             Observable.forkJoin(
-                this.reportService.stockist_sales_monthly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year),
-                this.reportService.stockist_sales_yearly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year - 1)
+                this.reportService.stockist_sales_monthly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year, this.customer_id),
+                this.reportService.stockist_sales_yearly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year - 1, this.customer_id)
             ).subscribe(data => {
                     this.prepareData(new MonthStockistSale(data[0].monthly_sale), new YearStockistSale(data[1].yearly_sale));
                     this.loading = false;
@@ -188,10 +188,10 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
             data.addColumn('number', 'Stockist A/B');
             data.addColumn({type: 'number', role: 'annotation'});
             data.addRows([
-                [(this.year - 1) + "", yearly_sale.yearly_stockist_sale, yearly_sale.yearly_stockist_count,
-                    yearly_sale.yearly_stockist_sale_ab, yearly_sale.yearly_stockist_ab_count],
-                [this.month_str, monthly_sale.monthly_stockist_sale, monthly_sale.monthly_stockist_count,
-                    monthly_sale.monthly_stockist_sale_ab, monthly_sale.monthly_stockist_ab_count],
+                [(this.year - 1) + "", yearly_sale.yearly_stockist_sale_ab, yearly_sale.yearly_stockist_ab_count,
+                    yearly_sale.yearly_stockist_sale, yearly_sale.yearly_stockist_count],
+                [this.month_str, monthly_sale.monthly_stockist_sale_ab, monthly_sale.monthly_stockist_ab_count,
+                    monthly_sale.monthly_stockist_sale, monthly_sale.monthly_stockist_count],
             ]);
 
             this.data = data;

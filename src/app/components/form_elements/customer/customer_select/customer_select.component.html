@@ -2,6 +2,6 @@
 <select class="form-control" [ngModel]="value" (ngModelChange)="onValueChange($event)">
     <option selected value="0">{{ first_value }}</option>
     <option *ngFor="let c of models" [value]="c.id">
-        {{c.name}}
+        {{c.firm_name}}
     </option>
 </select>

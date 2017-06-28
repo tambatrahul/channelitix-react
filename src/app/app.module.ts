@@ -159,6 +159,7 @@ import {ManagerActivitiesComponent} from "./components/pages/dashboard/report/re
 import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
 import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist_sales_graph/stockist_sales_graph";
 import {SecondarySaleZSMComponent} from "./components/pages/secondary_sale/zsm_index/index.component";
+import {CustomerSelectDashboardComponent} from "./components/form_elements/customer/customer_select/customer_select.component";
 
 
 enableProdMode();
@@ -262,6 +263,7 @@ enableProdMode();
         MonthlyPrimarySecondaryTargetComponent,
         BrickWiseCustomerComponent,
         CustomerDataComponent,
+        CustomerSelectDashboardComponent,
 
         // reusable components
         MonthPickerComponent,

@@ -358,7 +358,7 @@ export class ReportService extends BaseService {
      * @returns {Observable<Result>}
      */
     stockist_sales_monthly(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                     month?: number, year?: number): Observable<Result> {
+                     month?: number, year?: number, customer_id?: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
@@ -381,6 +381,9 @@ export class ReportService extends BaseService {
             params.append('month', String(month));
         if (year)
             params.append('year', String(year));
+
+        if(customer_id && customer_id > 0)
+            params.append('customer_id', String(customer_id));
 
         // prepare url
         let url = this.getBaseUrl() + '/graph/stockist_sales/monthly';
@@ -394,7 +397,7 @@ export class ReportService extends BaseService {
      * @returns {Observable<Result>}
      */
     stockist_sales_yearly(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                           month?: number, year?: number): Observable<Result> {
+                           month?: number, year?: number, customer_id?: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
@@ -417,6 +420,9 @@ export class ReportService extends BaseService {
             params.append('month', String(month));
         if (year)
             params.append('year', String(year));
+
+        if(customer_id && customer_id > 0)
+            params.append('customer_id', String(customer_id));
 
         // prepare url
         let url = this.getBaseUrl() + '/graph/stockist_sales/yearly';

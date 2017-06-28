@@ -86,7 +86,6 @@ export class SecondarySale extends Model {
         if (info.hq_headquarter_id)
             this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
 
-        console.log(info.customer_count);
         if (info.customer_count)
             this.customer_count = parseInt(info.customer_count);
 

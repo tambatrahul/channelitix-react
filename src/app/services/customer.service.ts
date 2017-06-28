@@ -63,7 +63,7 @@ export class CustomerService extends BaseService {
         // prepare get params
         let params = new URLSearchParams();
         if (customer_type_id && Array.isArray(customer_type_id))
-            customer_type_id.map(function(customer_type) {
+            customer_type_id.map(function (customer_type) {
                 params.append('customer_type_id[]', String(customer_type));
             });
         else {
@@ -84,9 +84,25 @@ export class CustomerService extends BaseService {
 
         // prepare get params
         let params = new URLSearchParams();
-        brick_ids.map(function(brick_id) {
+        brick_ids.map(function (brick_id) {
             params.append('brick_ids[]', String(brick_id));
         });
+
+        // make server call
+        return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
+    }
+
+    /**
+     * get all customer for bricks
+     *
+     * @returns {Observable<Result>}
+     */
+    forDashboardCustomers(headquarter_ids: Array<number>): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+
+        params.append('headquarter_id', String(headquarter_ids));
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));

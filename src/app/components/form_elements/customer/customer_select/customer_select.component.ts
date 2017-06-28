@@ -1,13 +1,13 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
-import {CustomerTypeService} from "../../../../services/customer_type.service";
 import {CustomerService} from "../../../../services/customer.service";
 
 @Component({
-    selector: 'customer_select',
-    templateUrl: 'customer_select.component.html'
+    selector: 'customer_select_dashboard',
+    templateUrl: 'customer_select.component.html',
+    inputs: ['refresh']
 })
-export class CustomerSelectComponent extends BaseSelectComponent {
+export class CustomerSelectDashboardComponent extends BaseSelectComponent {
 
     /**
      * Title of input select field
@@ -20,6 +20,28 @@ export class CustomerSelectComponent extends BaseSelectComponent {
      */
     @Input()
     first_value: string = "All";
+
+    /**
+     * view quantity
+     *
+     * @type {number}
+     * @private
+     */
+    _refresh: boolean;
+    set refresh(refresh) {
+        this._refresh = refresh;
+        this.fetch();
+    }
+
+    /**
+     * headquarter id for filter
+     */
+    _headquarter_ids: Array<number> = [];
+    @Input()
+    set headquarter_ids(headquarter_ids) {
+        this._headquarter_ids = headquarter_ids;
+        this.fetch();
+    };
 
 
     /**
@@ -34,7 +56,7 @@ export class CustomerSelectComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.customerService.all()
+        this.customerService.forDashboardCustomers(this._headquarter_ids)
             .subscribe(
                 response => {
                     this.loading = false;
