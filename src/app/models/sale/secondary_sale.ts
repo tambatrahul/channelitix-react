@@ -10,7 +10,7 @@ export class SecondarySale extends Model {
     customer_id: number;
     product_id: number;
     hq_headquarter_id: number;
-    customer_count: number;
+    customer_count: number = 0;
     total_customers: number = 0;
     uom_id: number;
     customer: Customer;
@@ -86,7 +86,6 @@ export class SecondarySale extends Model {
         if (info.hq_headquarter_id)
             this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
 
-        console.log(info.customer_count);
         if (info.customer_count)
             this.customer_count = parseInt(info.customer_count);
 
