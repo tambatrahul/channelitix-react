@@ -3,22 +3,28 @@
 </tr>
 <tr>
   <th>Vacant HQ</th>
-  <td>{{ total_active }}</td>
+  <td>
+    <a routerLink="/users">{{ total_active }}</a>
+  </td>
   <td *ngFor="let r of _regions">
-    {{ r.totalHq - r.active_users_count }}
+    <a routerLink="/users">{{ r.totalHq - r.active_users_count }} </a>
   </td>
 </tr>
 <tr>
   <th>Attrition (From {{ _month_str }})</th>
-  <td>{{ total_attritions }}</td>
+  <td>
+    <a routerLink="/users">{{ total_attritions }}</a>
+  </td>
   <td *ngFor="let r of _regions">
-    {{ r.attritions_month_count }}
+    <a routerLink="/users">{{ r.attritions_month_count }}</a>
   </td>
 </tr>
 <tr>
   <th>% Attrition</th>
-  <td>{{ total_attritions_yearly }}</td>
+  <td>
+    <a routerLink="/users">{{ total_attritions_yearly }}</a>
+  </td>
   <td *ngFor="let r of _regions">
-    {{ r.attritions_year_count }}
+    <a routerLink="/users">{{ r.attritions_year_count }}</a>
   </td>
 </tr>
