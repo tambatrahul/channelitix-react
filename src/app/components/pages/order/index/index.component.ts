@@ -220,13 +220,18 @@ export class OrderComponent extends BaseAuthComponent {
 
                     u.orders.forEach(function (ord, index) {
                         if (m.children.length == 1) {
+                            m.orders[index].mg_order_total_count = 0;
+                            m.orders[index].mg_order_total_quantity = 0;
                             m.orders[index].order_total_count = 0;
                             m.orders[index].order_total_quantity = 0;
                         }
+                        m.orders[index].mg_order_total_count += ord.order_total_count;
+                        m.orders[index].mg_order_total_quantity += ord.order_total_quantity;
                         m.orders[index].order_total_count += ord.order_total_count;
                         m.orders[index].order_total_quantity += ord.order_total_quantity;
                     });
                     m.total_target += u.total_target;
+                    m.mg_total_target += u.total_target;
                 }
             }
         }

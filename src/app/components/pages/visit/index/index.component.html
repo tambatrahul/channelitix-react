@@ -89,6 +89,19 @@
                                             </tfoot>
 
                                             <tbody>
+                                            <tr>
+                                                <th>{{ z.full_name }}</th>
+                                                <th></th>
+                                                <td>
+                                                    <i status [field]="z.status"></i>
+                                                </td>
+                                                <td></td>
+                                                <td *ngFor="let visit of z.visits; let i = index" visitCount
+                                                    [visit]="visit"
+                                                    class="user_click" (click)="selectUser(z, i + 1)">
+
+                                                </td>
+                                            </tr>
                                             <template ngFor let-mg [ngForOf]="z.children">
                                                 <tr>
                                                     <th [colSpan]="mg.children[0]?.visits.length + 4"
@@ -96,13 +109,26 @@
                                                         <strong>{{ mg.full_name }}</strong>
                                                     </th>
                                                 </tr>
+                                                <tr>
+                                                    <th>{{ mg.full_name }}</th>
+                                                    <th></th>
+                                                    <td>
+                                                        <i status [field]="mg.status"></i>
+                                                    </td>
+                                                    <td></td>
+                                                    <td *ngFor="let visit of mg.visits; let i = index" visitCount
+                                                        [visit]="visit"
+                                                        class="user_click" (click)="selectUser(mg, i + 1)">
+
+                                                    </td>
+                                                </tr>
                                                 <tr class="grey">
                                                     <th>Total</th>
                                                     <td></td>
                                                     <td></td>
                                                     <td>{{ mg.total_visit_count }}</td>
                                                     <td *ngFor="let visit of mg.visits">
-                                                        {{ visit.visit_count }}
+                                                        {{ visit.total_visit_count }}
                                                     </td>
 
                                                 </tr>

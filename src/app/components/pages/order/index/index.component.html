@@ -142,6 +142,50 @@
                             <strong>{{ mg.full_name }}</strong>
                           </th>
                         </tr>
+                        <tr>
+                          <th>{{ mg.full_name }}</th>
+                          <th></th>
+
+                          <template [ngIf]="environment.envName != 'geo'">
+                            <td *ngIf="_service.user.username != 'abbottadmin'">{{ mg.mg_daily_target }}</td>
+                            <td *ngIf="_service.user.username != 'abbottadmin'">{{ mg.mg_percent_pob }} %</td>
+                          </template>
+                          <template [ngIf]="environment.envName == 'geo'">
+                            <template [ngIf]="z.username != 'delhiregion'">
+                              <td>{{ mg.mg_daily_target }}</td>
+                              <td>{{ mg.mg_percent_pob }} %</td>
+                            </template>
+                            <template [ngIf]="z.username == 'delhiregion'">
+                              <td>{{ mg.mg_daily_target_40 }}</td>
+                              <td>{{ mg.mg_percent_pob_40 }} %</td>
+                            </template>
+                          </template>
+                          <td>
+                            <i status [field]="mg.status"></i>
+                          </td>
+                          <template [ngIf]="environment.envName != 'geo'">
+                            <td *ngFor="let order of mg.orders; let i = index" orderCount
+                                [order]="order" [target]="mg.mg_daily_target" class="user_click"
+                                [view_quantity]="view_quantity"
+                                (click)="selectUser(mg, i + 1)"></td>
+                          </template>
+                          <template [ngIf]="environment.envName == 'geo'">
+                            <template [ngIf]="z.username != 'delhiregion'">
+                              <td *ngFor="let order of mg.orders; let i = index" orderCount
+                                  [order]="order" [target]="mg.mg_daily_target" class="user_click"
+                                  [view_quantity]="view_quantity"
+                                  (click)="selectUser(mg, i + 1)"></td>
+                            </template>
+                            <template [ngIf]="z.username == 'delhiregion'">
+                              <td *ngFor="let order of mg.orders; let i = index" orderCount
+                                  [order]="order" [target]="mg.mg_daily_target_40" class="user_click"
+                                  [view_quantity]="view_quantity"
+                                  (click)="selectUser(mg, i + 1)"></td>
+                            </template>
+                          </template>
+                          <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>
+                          <td *ngIf="view_quantity">{{ (mg.total_pob_quantity_count) }}</td>
+                        </tr>
                         <tr class="grey">
                           <th>Total</th>
                           <td></td>
