@@ -16,7 +16,7 @@
                                           (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
                         </div>
                     </div>
-                    <div [ngIf]="_headquarter_ids.length > 0" class="col-xs-6 col-md-4 form-group-sm">
+                    <div *ngIf="_headquarter_ids.length > 0" class="col-xs-6 col-md-4 form-group-sm">
                         <div style="margin-top: -5px; margin-right: 5px">
                             <customer_select_dashboard [title]="''" [refresh]="_refresh"
                                                        [headquarter_ids]="_headquarter_ids"

@@ -183,15 +183,15 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
 
             let data = new google.visualization.DataTable();
             data.addColumn('string', 'YTD');
-            data.addColumn('number', 'Stockist');
+            data.addColumn('number', 'Stockist Sales');
             data.addColumn({type: 'number', role: 'annotation'});
-            data.addColumn('number', 'Stockist A/B');
+            data.addColumn('number', 'Stockist(A/B) Sales');
             data.addColumn({type: 'number', role: 'annotation'});
             data.addRows([
-                [(this.year - 1) + "", yearly_sale.yearly_stockist_sale_ab, yearly_sale.yearly_stockist_ab_count,
-                    yearly_sale.yearly_stockist_sale, yearly_sale.yearly_stockist_count],
-                [this.month_str, monthly_sale.monthly_stockist_sale_ab, monthly_sale.monthly_stockist_ab_count,
-                    monthly_sale.monthly_stockist_sale, monthly_sale.monthly_stockist_count],
+                [(this.year - 1) + "", yearly_sale.yearly_stockist_count, yearly_sale.yearly_stockist_sale,
+                    yearly_sale.yearly_stockist_ab_count, yearly_sale.yearly_stockist_sale_ab],
+                [this.month_str, monthly_sale.monthly_stockist_count, monthly_sale.monthly_stockist_sale,
+                    monthly_sale.monthly_stockist_ab_count, monthly_sale.monthly_stockist_sale_ab],
             ]);
 
             this.data = data;
