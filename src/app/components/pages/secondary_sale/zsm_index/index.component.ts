@@ -94,7 +94,11 @@ export class SecondarySaleZSMComponent extends ListComponent {
    */
   protected formatSecondarySale(customers: Customer[], secondary_sales: SecondarySale[]) {
     this.regions.map(region => {
+      region.total_customers = 0;
+      region.customer_count = 0;
       region.areas.map(area => {
+        area.total_customers = 0;
+        area.customer_count = 0;
         area.headquarters.map(headquarter => {
 
           customers.map(cus => {
@@ -106,10 +110,11 @@ export class SecondarySaleZSMComponent extends ListComponent {
           });
 
           secondary_sales.map(sale => {
-            if (sale.hq_headquarter_id == headquarter.id)
+            if (sale.hq_headquarter_id == headquarter.id) {
               headquarter.customer_count = sale.customer_count;
               area.customer_count += sale.customer_count;
               region.customer_count += sale.customer_count;
+            }
           });
 
         });

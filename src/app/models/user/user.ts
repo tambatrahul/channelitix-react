@@ -4,6 +4,8 @@ import {Tour} from "../tour_program/tour";
 import {Headquarter} from "../territory/headquarter";
 import {Visit} from "../visit/visit";
 import * as moment from "moment";
+import {Area} from "../territory/area";
+import {Region} from "../territory/region";
 
 export class User extends Model {
 
@@ -28,6 +30,8 @@ export class User extends Model {
   hq_territory_id: number;
   hq_brick_id: number;
   hq_headquarter: Headquarter;
+  hq_area: Area;
+  hq_region: Region;
 
 
   // manager
@@ -41,6 +45,8 @@ export class User extends Model {
   children: User[] = [];
   cse_count: number = 0;
   total_target: number = 0;
+  mg_total_target: number = 0;
+  zsm_total_target: number = 0;
   order_total_count: number = 0;
   order_total_quantity: number = 0;
   user_count: number = 0;
@@ -73,11 +79,20 @@ export class User extends Model {
     if (info.hq_headquarter)
       this.hq_headquarter = new Headquarter(info.hq_headquarter);
 
+    if (info.hq_area)
+      this.hq_area = new Area(info.hq_area);
+
+    if (info.hq_region)
+      this.hq_region = new Region(info.hq_region);
+
     if (!info.attendances)
       this.attendances = [];
 
     if (info.total_target)
       this.total_target = parseFloat(info.total_target);
+
+    if (info.mg_total_target)
+      this.mg_total_target = parseFloat(info.mg_total_target);
   }
 
   get daily_target(): number {
@@ -88,6 +103,26 @@ export class User extends Model {
 
   get daily_target_40(): number {
     return this.total_target > 0 ? parseFloat((((this.total_target / 1000) * 0.40) / 24).toFixed(1)) : 0;
+  }
+
+  get mg_daily_target(): number {
+    if (this.environment.envName == 'sk_group')
+      return this.mg_total_target > 0 ? parseFloat(((this.mg_total_target / 1000) / 24).toFixed(1)) : 0;
+    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.30) / 24).toFixed(1)) : 0;
+  }
+
+  get mg_daily_target_40(): number {
+    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.40) / 24).toFixed(1)) : 0;
+  }
+
+  get zsm_daily_target(): number {
+    if (this.environment.envName == 'sk_group')
+      return this.zsm_total_target > 0 ? parseFloat(((this.zsm_total_target / 1000) / 24).toFixed(1)) : 0;
+    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.30) / 24).toFixed(1)) : 0;
+  }
+
+  get zsm_daily_target_40(): number {
+    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.40) / 24).toFixed(1)) : 0;
   }
 
   /**
@@ -223,6 +258,58 @@ export class User extends Model {
   }
 
   /**
+   * manager get total pob count
+   *
+   * @returns {any}
+   */
+  get mg_total_pob_count() {
+    let total: number = 0;
+    this.orders.map(vis => {
+      total += vis.mg_order_total_count;
+    });
+    return total;
+  }
+
+  /**
+   * manager get total pob quantity count
+   *
+   * @returns {any}
+   */
+  get mg_total_pob_quantity_count() {
+    let total: number = 0;
+    this.orders.map(vis => {
+      total += parseFloat(String(vis.mg_order_total_quantity));
+    });
+    return total;
+  }
+
+  /**
+   * manager get total pob count
+   *
+   * @returns {any}
+   */
+  get zsm_total_pob_count() {
+    let total: number = 0;
+    this.orders.map(vis => {
+      total += vis.zsm_order_total_count;
+    });
+    return total;
+  }
+
+  /**
+   * zsm get total pob quantity count
+   *
+   * @returns {any}
+   */
+  get zsm_total_pob_quantity_count() {
+    let total: number = 0;
+    this.orders.map(vis => {
+      total += parseFloat(String(vis.zsm_order_total_quantity));
+    });
+    return total;
+  }
+
+  /**
    * percentage pob
    * @returns {string|number}
    */
@@ -240,5 +327,45 @@ export class User extends Model {
     let day = moment().date();
     day = day - parseInt((day / 7).toFixed(0));
     return this.daily_target_40 > 0 ? (((this.total_pob_count / 1000) / (this.daily_target_40 * day)) * 100).toFixed(0) : 0
+  }
+
+  /**
+   * percentage pob
+   * @returns {string|number}
+   */
+  get mg_percent_pob() {
+    let day = moment().date();
+    day = day - parseInt((day / 7).toFixed(0));
+    return this.mg_daily_target > 0 ? (((this.mg_total_pob_count / 1000) / (this.mg_daily_target * day)) * 100).toFixed(0) : 0
+  }
+
+  /**
+   * percentage pob 40%
+   * @returns {string|number}
+   */
+  get mg_percent_pob_40() {
+    let day = moment().date();
+    day = day - parseInt((day / 7).toFixed(0));
+    return this.mg_daily_target_40 > 0 ? (((this.mg_total_pob_count / 1000) / (this.mg_daily_target_40 * day)) * 100).toFixed(0) : 0
+  }
+
+  /**
+   * percentage pob
+   * @returns {string|number}
+   */
+  get zsm_percent_pob() {
+    let day = moment().date();
+    day = day - parseInt((day / 7).toFixed(0));
+    return this.zsm_daily_target > 0 ? (((this.zsm_total_pob_count / 1000) / (this.zsm_daily_target * day)) * 100).toFixed(0) : 0
+  }
+
+  /**
+   * percentage pob 40%
+   * @returns {string|number}
+   */
+  get zsm_percent_pob_40() {
+    let day = moment().date();
+    day = day - parseInt((day / 7).toFixed(0));
+    return this.zsm_daily_target_40 > 0 ? (((this.zsm_total_pob_count / 1000) / (this.zsm_daily_target_40 * day)) * 100).toFixed(0) : 0
   }
 }

@@ -22,6 +22,7 @@ export class Visit extends Model {
     // for internal use only
     isSunday: boolean = false;
     visit_count: number = 0;
+    total_visit_count: number = 0;
     visit_day: number = 0;
     visit_month: number;
     attendance: Attendance = new Attendance({});

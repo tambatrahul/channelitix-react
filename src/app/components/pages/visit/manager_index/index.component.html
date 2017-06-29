@@ -1,0 +1,168 @@
+<div class="container-fluid visits" #loading_box>
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Visits
+                            <small>Visit Report for all Users</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a href="#">Home</a>
+                            </li>
+
+                            <li class="active-page"> Visits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="hidden-sm hidden-xs">
+                    <!--<visit_count_graph [data]="chart_data"></visit_count_graph>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Visit report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <customer-type-select [value]="customer_type_id" (onValueChanged)="customerTypeChanged($event)"></customer-type-select>
+        </div>
+        <template *ngIf="_service.user.role_str != 'THIRD_PARTY'">
+            <div class="col-xs-12 col-md-3"
+                 *ngIf="environment.envName == 'sk_group' && _service.user.username != 'abbottadmin'">
+                <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="!abbott">
+                    Switch to Abbott
+                </button>
+                <button class="btn bt-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="abbott">
+                    Back to SK
+                </button>
+            </div>
+        </template>
+    </div>
+    <!-- ./Filters for Visit report-->
+
+    <!-- Attendance Table -->
+    <div class="row">
+        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+            <div class="row" *ngFor="let z of managers">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4><strong>{{ z.full_name }}</strong></h4>
+                        </div>
+                        <div>
+                            <div class="widget-container report-table">
+                                <div class="widget-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered visit_table">
+                                            <thead>
+                                            <tr>
+                                                <th style="min-width: 100px;">Users</th>
+                                                <th>Area</th>
+                                                <th></th>
+                                                <th>Total</th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                            <tr>
+                                                <th>Users</th>
+                                                <th>Area</th>
+                                                <th></th>
+                                                <th>Total</th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
+                                            </tfoot>
+
+                                            <tbody>
+                                            <tr>
+                                                <th>{{ z.full_name }}</th>
+                                                <th>{{ z.hq_region?.name }}</th>
+                                                <td>
+                                                    <i status [field]="z.status"></i>
+                                                </td>
+                                                <td></td>
+                                                <td *ngFor="let visit of z.visits; let i = index" mgVisitCount
+                                                    [visit]="visit"
+                                                    class="user_click" (click)="selectUser(z, i + 1)">
+
+                                                </td>
+                                            </tr>
+                                            <tr class="grey">
+                                                <th>Total</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{ z.total_visit_count }}</td>
+                                                <td *ngFor="let visit of z.visits">
+                                                    {{ visit.visit_count }}
+                                                </td>
+
+                                            </tr>
+                                            <template ngFor let-mg [ngForOf]="z.children">
+                                                <tr>
+                                                    <th>{{ mg.full_name }}</th>
+                                                    <th>{{ mg.hq_area?.name }}</th>
+                                                    <td>
+                                                        <i status [field]="mg.status"></i>
+                                                    </td>
+                                                    <td>
+                                                        {{ mg.total_visit_count }}
+                                                    </td>
+                                                    <td *ngFor="let visit of mg.visits; let i = index" mgVisitCount
+                                                        [visit]="visit"
+                                                        class="user_click" (click)="selectUser(mg, i + 1)">
+
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ./Attendance Table -->
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #visit_table>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Visit View -->
+                <div class="row" *ngIf="user">
+                    <!-- Visit Table -->
+                    <div class="col-xs-12">
+                        <div>
+                            <user-visit-list [user]="user" [date]="date" [month]="month"
+                                             [year]="year"></user-visit-list>
+                        </div>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

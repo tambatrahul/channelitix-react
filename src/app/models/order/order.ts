@@ -27,6 +27,10 @@ export class Order extends Model {
     isSunday: boolean = false;
     order_total_count: number = 0;
     order_total_quantity: number = 0;
+    mg_order_total_count: number = 0;
+    mg_order_total_quantity: number = 0;
+    zsm_order_total_count: number = 0;
+    zsm_order_total_quantity: number = 0;
     order_day_total_count: number = 0;
     order_day: number;
     order_month: number;
