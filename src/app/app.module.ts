@@ -159,6 +159,10 @@ import {ManagerActivitiesComponent} from "./components/pages/dashboard/report/re
 import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
 import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist_sales_graph/stockist_sales_graph";
 import {SecondarySaleZSMComponent} from "./components/pages/secondary_sale/zsm_index/index.component";
+import {ManagerOrderComponent} from "./components/pages/order/manager_index/index.component";
+import {ManagerVisitComponent} from "./components/pages/visit/manager_index/index.component";
+import {ManagerOrderCountDirective} from "./directives/mg_order_count.directive";
+import {ManagerVisitCountDirective} from "./directives/mg_visit_count.directive";
 
 
 enableProdMode();
@@ -234,6 +238,8 @@ enableProdMode();
         ProductivityAnalysisReportComponent,
         VacancyDataComponent,
         SecondarySaleZSMComponent,
+        ManagerOrderComponent,
+        ManagerVisitComponent,
 
         //dashboard report Component
         SalesComponent,
@@ -252,7 +258,9 @@ enableProdMode();
         StatusDirective,
         RoleCheckDirective,
         VisitCountDirective,
+        ManagerVisitCountDirective,
         OrderCountDirective,
+        ManagerOrderCountDirective,
         CalendarAttendanceStatusDirective,
         CalendarTourStatusDirective,
         TourCountDirective,

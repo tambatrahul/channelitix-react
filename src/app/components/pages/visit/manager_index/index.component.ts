@@ -2,43 +2,29 @@ import {Component, ViewChild, ElementRef} from "@angular/core";
 import * as moment from "moment";
 import {User} from "../../../../models/user/user";
 import {AppConstants} from "../../../../app.constants";
+import {VisitService} from "../../../../services/visit.service";
+import {Visit} from "../../../../models/visit/visit";
 import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
 import {Holiday} from "../../../../models/holiday";
-import {OrderService} from "../../../../services/order.service";
-import {Order} from "../../../../models/order/order";
-import {Observable} from "rxjs/Rx";
 import {AttendanceService} from "../../../../services/attendance.service";
 import {Attendance} from "../../../../models/attendance/attendance";
-import {Target} from "../../../../models/SAP/target";
+import {Observable} from "rxjs/Rx";
 declare let jQuery: any;
+declare let d3: any;
 
 @Component({
     templateUrl: 'index.component.html',
     styleUrls: ['index.component.less']
 })
-export class OrderComponent extends BaseAuthComponent {
+export class ManagerVisitComponent extends BaseAuthComponent {
 
     excel_loaded: boolean = false;
-    table_list;
-
     /**
-     * user tour program modal loading identifier
+     * loading identifier
      */
-    @ViewChild('user_order_table')
-    user_order_table: ElementRef;
-
-    /**
-     * manager and user Role id
-     * @type {number}
-     */
-    public role_id: number = 0;
-    public manager_role_id: number = 0;
-
-    /**
-     * Product Id
-     */
-    public product_id: number = 0;
+    @ViewChild('visit_table')
+    visit_table: ElementRef;
 
     /**
      * user id
@@ -51,6 +37,13 @@ export class OrderComponent extends BaseAuthComponent {
     date: number;
 
     /**
+     * manager and user Role id
+     * @type {number}
+     */
+    public role_id: number = 0;
+    public manager_role_id: number = 0;
+
+    /**
      * abbott check
      *
      * @type {boolean}
@@ -58,16 +51,12 @@ export class OrderComponent extends BaseAuthComponent {
     public abbott: boolean = false;
 
     /**
-     * view by quantity
-     *
-     * @type {boolean}
-     */
-    public view_quantity: boolean = false;
-
-    /**
      * manager_id
      */
     public manager_id: number = 0;
+
+    public options: {};
+    public chart_data = [];
 
     /**
      * year and month for calendar
@@ -75,6 +64,11 @@ export class OrderComponent extends BaseAuthComponent {
      */
     public month: number;
     public year: number;
+
+    /**
+     * customer type id
+     */
+    private customer_type_id: number = 0;
 
     /**
      * get date range
@@ -105,6 +99,12 @@ export class OrderComponent extends BaseAuthComponent {
     public users: User[] = [];
 
     /**
+     * list of attendances
+     * @type {Array}
+     */
+    public attendances: Attendance[] = [];
+
+    /**
      * users
      *
      * @type {{}}
@@ -115,7 +115,7 @@ export class OrderComponent extends BaseAuthComponent {
      * User Component Constructor
      *
      */
-    constructor(private orderService: OrderService, private attendanceService: AttendanceService,
+    constructor(private visitService: VisitService, private attendanceService: AttendanceService,
                 public _service: AuthService) {
         super(_service);
     }
@@ -125,7 +125,7 @@ export class OrderComponent extends BaseAuthComponent {
      */
     ngOnInit() {
         super.ngOnInit();
-        if (this._service.user.username == 'abbottadmin') {
+        if(this._service.user.username == 'abbottadmin') {
             this.abbott = true;
         }
         this.month = moment().month();
@@ -134,60 +134,51 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     /**
-     * Adding Orders to skeleton
+     * Adding visits to skeleton
      *
      * @param users
-     * @param orders
+     * @param visits
      * @param holidays
      * @param attendances
-     * @param targets
      */
-    addOrderToSkeleton(users: User[], orders: Order[], holidays: Holiday[], attendances: Attendance[], targets: Target[]) {
+    addVisitToSkeleton(users: User[], visits: Visit[], holidays: Holiday[], attendances: Attendance[]) {
         let data_skeleton = {};
         let managers: User[] = [];
         let zone_managers: User[] = [];
 
         // get skeleton
         for (let user of users) {
-            data_skeleton[user.id] = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            data_skeleton[user.id] = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
         }
 
-        // prepare order skeleton
-        for (let order of orders) {
-
+        // prepare visit skeleton
+        for (let visit of visits) {
             // add user if not present
-            if (!data_skeleton.hasOwnProperty(order.created_by)) {
-                data_skeleton[order.created_by] = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
-                users.push(order.creator);
+            if (!data_skeleton.hasOwnProperty(visit.created_by)) {
+                data_skeleton[visit.created_by] = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+                users.push(visit.creator);
             }
 
-            // set order details
-            data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
-
-            data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity;
+            // set visit details
+            data_skeleton[visit.created_by][visit.visit_day - 1].visit_count = visit.visit_count;
         }
 
         // add attendance to visit skeleton
         for (let att of attendances) {
             if (data_skeleton.hasOwnProperty(att.created_by)) {
                 data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
-                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count == 0
+                if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].visit_count == 0
                     && att.status == AppConstants.WORKING)
-                    data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count = att.pob_amount;
+                    data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].visit_count = att.no_of_calls;
             }
         }
 
         // add skeleton to user
         for (let user of users) {
-            targets.map(target => {
-                if (target.hq_headquarter_id == user.hq_headquarter_id)
-                    user.total_target = target.total_target;
-            });
-
             if (data_skeleton.hasOwnProperty(user.id))
-                user.orders = data_skeleton[user.id];
+                user.visits = data_skeleton[user.id];
             else
-                user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+                user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
 
             // separate csm and zsm
             if (user.role_str == this.ROLE_CSM) {
@@ -198,8 +189,8 @@ export class OrderComponent extends BaseAuthComponent {
         }
 
         // if user is zone manager add it to list
-        if (this._service.user.role_str == this.ROLE_ZSM && !this.abbott) {
-            this._service.user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+        if (this._service.user.role_str == this.ROLE_ZSM) {
+            this._service.user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             this._service.user.children = [];
             this._service.user.cse_count = 0;
             zone_managers.push(this._service.user)
@@ -207,77 +198,43 @@ export class OrderComponent extends BaseAuthComponent {
 
         // if user is zone manager add it to list
         if (this._service.user.role_str == this.ROLE_CSM) {
-            this._service.user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            this._service.user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             this._service.user.children = [];
             managers.push(this._service.user)
         }
 
-        // add children to managers
-        for (let u of users) {
-            for (let m of managers) {
-                if (u.manager_id == m.id) {
-                    m.children.push(u);
-
-                    u.orders.forEach(function (ord, index) {
-                        if (m.children.length == 1) {
-                            m.orders[index].order_total_count = 0;
-                            m.orders[index].order_total_quantity = 0;
-                        }
-                        m.orders[index].order_total_count += ord.order_total_count;
-                        m.orders[index].order_total_quantity += ord.order_total_quantity;
-                    });
-                    m.total_target += u.total_target;
-                }
-            }
-        }
-
         // add to zone manager
         for (let z of zone_managers) {
-            z.total_target = 0;
             for (let m of managers) {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
-                    m.orders.forEach(function (ord, index) {
-                        if (z.children.length == 1) {
-                            z.orders[index].order_total_count = 0;
-                            z.orders[index].order_total_quantity = 0;
-                        }
-                        z.orders[index].order_total_count += ord.order_total_count;
-                        z.orders[index].order_total_quantity += ord.order_total_quantity;
+                    m.visits.forEach(function (vis, index) {
+                        z.visits[index].visit_count += vis.visit_count;
                     });
-                    z.total_target += m.total_target;
                 }
             }
         }
 
-        if (this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group') {
+        if(this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group'){
             let abbott_user = new User({full_name: 'Abbott'});
             abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             abbott_user.children = [];
             abbott_user.cse_count = 0;
-            abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
             zone_managers.push(abbott_user);
             for (let m of managers) {
                 zone_managers[0].children.push(m);
                 m.visits.forEach(function (att, index) {
                     zone_managers[0].visits[index].visit_count += att.visit_count;
                 });
-                m.orders.forEach(function (ord, index) {
-                    zone_managers[0].orders[index].order_total_count += ord.order_total_count;
-                    zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
-                });
-                zone_managers[0].total_target += m.total_target;
                 zone_managers[0].cse_count += m.children.length
 
             }
         }
 
-        if (this.environment.envName == 'sk_group' && this.abbott && this._service.user.role_str != this.ROLE_ADMIN
-            && this._service.user.role_str != this.ROLE_CSM) {
+        if (this.environment.envName == 'sk_group' && this.abbott && this._service.user.role_str != this.ROLE_ADMIN) {
             let abbott_user = new User({full_name: 'Abbott'});
-            abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             abbott_user.children = [];
-            abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
             abbott_user.cse_count = 0;
             zone_managers.push(abbott_user);
             for (let m of managers) {
@@ -285,25 +242,24 @@ export class OrderComponent extends BaseAuthComponent {
                 m.visits.forEach(function (att, index) {
                     zone_managers[0].visits[index].visit_count += att.visit_count;
                 });
-                m.orders.forEach(function (ord, index) {
-                    zone_managers[0].orders[index].order_total_count += ord.order_total_count;
-                    zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
-                });
-                zone_managers[0].total_target += m.total_target;
                 zone_managers[0].cse_count += m.children.length
 
             }
         }
 
-        // Third Party User Check
+        // Third Party User check
         if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
             let third_party_user = this._service.user;
-            third_party_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+            third_party_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             third_party_user.children = [];
             third_party_user.cse_count = 0;
             zone_managers.push(third_party_user);
             for (let m of managers) {
                 zone_managers[0].children.push(m);
+                m.visits.forEach(function (att, index) {
+                    zone_managers[0].visits[index].visit_count += att.visit_count;
+                });
+                zone_managers[0].cse_count += m.children.length
             }
         }
 
@@ -322,7 +278,8 @@ export class OrderComponent extends BaseAuthComponent {
                     position: "top"
                 });
             }
-        }, 2000);
+        }, 1000);
+
     }
 
     /**
@@ -330,32 +287,30 @@ export class OrderComponent extends BaseAuthComponent {
      */
     fetchData() {
         this.loading = true;
-
         let synergy;
         if (this.environment.envName == 'sk_group')
             synergy = this.abbott ? 1 : 0;
 
         Observable.forkJoin(
             this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy),
-            this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.product_id)
+            this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.customer_type_id)
         ).subscribe(data => {
 
             this.loading = false;
 
+            // convert to visits
+            let visits: Visit[] = data[1].visits.map(vis => new Visit(vis));
+
+            // convert to holidays
+            let holidays: Holiday[] = data[1].holidays.map(holi => new Holiday(holi));
+
             // convert to models
-            let children = data[1].children.map(function (user, index) {
-                return new User(user);
-            });
+            let children: User[] = data[1].children.map(user => new User(user));
 
-            // format targets
-            let targets = data[1].targets.map(target => new Target(target));
-
-            // format orders
-            let orders = data[1].orders.map(order => new Order(order));
-
+            // convert to attendances
             let attendances = data[0].attendances.map(att => new Attendance(att));
 
-            this.addOrderToSkeleton(children, orders, data[1].holidays, attendances, targets);
+            this.addVisitToSkeleton(children, visits, holidays, attendances);
         }, err => {
             this.loading = false;
         });
@@ -374,40 +329,18 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     /**
-     * when role is changed filter list of orders
-     * @param role_id
+     * customer type changed
+     * @param c_t_id
      */
-    roleChanged(role_id) {
-        this.role_id = role_id;
-        this.manager_role_id = parseInt(role_id) + 1;
-        this.managerChanged(0);
-    }
-
-    /**
-     * when role is changed filter list of users
-     *
-     * @param manager_id
-     */
-    managerChanged(manager_id) {
-        this.manager_id = manager_id;
+    customerTypeChanged(c_t_id) {
+        this.customer_type_id = c_t_id;
         this.fetchData();
     }
-
     /**
      * switch to abbott
      */
     switchToAbbott() {
         this.abbott = !this.abbott;
-        this.productChanged(0);
-        this.excel_loaded = false;
-        this.fetchData();
-    }
-
-    /**
-     * View by Quantity
-     */
-    viewByQuantity() {
-        this.view_quantity = !this.view_quantity;
         this.excel_loaded = false;
         this.fetchData();
     }
@@ -420,16 +353,6 @@ export class OrderComponent extends BaseAuthComponent {
     selectUser(user: User, date: number) {
         this.user = user;
         this.date = date;
-        jQuery(this.user_order_table.nativeElement).modal();
-    }
-
-    /**
-     * product Filter
-     *
-     * @param product_id
-     */
-    productChanged(product_id) {
-        this.product_id = product_id;
-        this.fetchData();
+        jQuery(this.visit_table.nativeElement).modal();
     }
 }

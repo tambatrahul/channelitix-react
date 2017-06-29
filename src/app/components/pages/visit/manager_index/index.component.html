@@ -67,7 +67,7 @@
                                             <thead>
                                             <tr>
                                                 <th style="min-width: 100px;">Users</th>
-                                                <th>Headquarter</th>
+                                                <th>Area</th>
                                                 <th></th>
                                                 <th>Total</th>
                                                 <th *ngFor="let d of dates">
@@ -79,7 +79,7 @@
                                             <tfoot>
                                             <tr>
                                                 <th>Users</th>
-                                                <th>Headquarter</th>
+                                                <th>Area</th>
                                                 <th></th>
                                                 <th>Total</th>
                                                 <th *ngFor="let d of dates">
@@ -89,33 +89,44 @@
                                             </tfoot>
 
                                             <tbody>
+                                            <tr>
+                                                <th>{{ z.full_name }}</th>
+                                                <th>{{ z.hq_region?.name }}</th>
+                                                <td>
+                                                    <i status [field]="z.status"></i>
+                                                </td>
+                                                <td></td>
+                                                <td *ngFor="let visit of z.visits; let i = index" mgVisitCount
+                                                    [visit]="visit"
+                                                    class="user_click" (click)="selectUser(z, i + 1)">
+
+                                                </td>
+                                            </tr>
+                                            <tr class="grey">
+                                                <th>Total</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{ z.total_visit_count }}</td>
+                                                <td *ngFor="let visit of z.visits">
+                                                    {{ visit.visit_count }}
+                                                </td>
+
+                                            </tr>
                                             <template ngFor let-mg [ngForOf]="z.children">
                                                 <tr>
-                                                    <th [colSpan]="mg.children[0]?.visits.length + 4"
-                                                        class="text-center">
-                                                        <strong>{{ mg.full_name }}</strong>
-                                                    </th>
-                                                </tr>
-                                                <tr class="grey">
-                                                    <th>Total</th>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>{{ mg.total_visit_count }}</td>
-                                                    <td *ngFor="let visit of mg.visits">
-                                                        {{ visit.visit_count }}
-                                                    </td>
-
-                                                </tr>
-                                                <tr *ngFor="let user of mg.children">
-                                                    <th>{{ user.full_name }}</th>
-                                                    <th>{{ user.hq_headquarter?.name }}</th>
+                                                    <th>{{ mg.full_name }}</th>
+                                                    <th>{{ mg.hq_area?.name }}</th>
                                                     <td>
-                                                        <i status [field]="user.status"></i>
+                                                        <i status [field]="mg.status"></i>
                                                     </td>
-                                                    <td>{{ user.total_visit_count }}</td>
-                                                    <td *ngFor="let visit of user.visits; let i = index" visitCount
+                                                    <td>
+                                                        {{ mg.total_visit_count }}
+                                                    </td>
+                                                    <td *ngFor="let visit of mg.visits; let i = index" mgVisitCount
                                                         [visit]="visit"
-                                                        class="user_click" (click)="selectUser(user, i + 1)"></td>
+                                                        class="user_click" (click)="selectUser(mg, i + 1)">
+
+                                                    </td>
                                                 </tr>
                                             </template>
                                             </tbody>
@@ -129,71 +140,6 @@
             </div>
         </div>
 
-        <div class="col-xs-12" *ngIf="_service.user.isArea">
-            <div class="row" *ngFor="let z of managers">
-                <div class="col-xs-12">
-                    <div class="box-widget widget-module">
-                        <div class="widget-head clearfix">
-                            <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4><strong>{{ z.full_name }}</strong></h4>
-                        </div>
-                        <div>
-                            <div class="widget-container report-table">
-                                <div class="widget-block">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th style="min-width: 200px;">
-                                                    Users
-                                                </th>
-                                                <th>
-                                                    Headquarter
-                                                </th>
-                                                <th></th>
-                                                <th>Total</th>
-                                                <th *ngFor="let d of dates">
-                                                    {{ d }}
-                                                </th>
-                                            </tr>
-                                            </thead>
-
-                                            <tfoot>
-                                            <tr>
-                                                <th>
-                                                    Users
-                                                </th>
-                                                <th>Headquarter</th>
-                                                <th></th>
-                                                <th>Total</th>
-                                                <th *ngFor="let d of dates">
-                                                    {{ d }}
-                                                </th>
-                                            </tr>
-                                            </tfoot>
-
-                                            <tbody>
-                                            <tr *ngFor="let user of z.children">
-                                                <td>{{ user.full_name }}</td>
-                                                <td>{{ user.hq_headquarter.name }}</td>
-                                                <td>
-                                                    <i status [field]="user.status"></i>
-                                                </td>
-                                                <td>{{ user.total_visit_count }}</td>
-                                                <td *ngFor="let visit of user.visits; let i = index" visitCount
-                                                    [visit]="visit"
-                                                    class="user_click" (click)="selectUser(user, i + 1)"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- ./Attendance Table -->
     </div>
 </div>

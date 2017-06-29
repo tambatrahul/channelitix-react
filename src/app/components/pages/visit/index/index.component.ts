@@ -210,9 +210,9 @@ export class VisitComponent extends BaseAuthComponent {
                     m.children.push(u);
                     u.visits.forEach(function (vis, index) {
                         if (m.children.length == 1) {
-                            m.visits[index].total_visit_count = 0;
+                            m.visits[index].visit_count = 0;
                         }
-                        m.visits[index].total_visit_count += vis.visit_count;
+                        m.visits[index].visit_count += vis.visit_count;
                     });
                 }
             }

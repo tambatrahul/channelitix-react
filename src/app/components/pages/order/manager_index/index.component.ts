@@ -17,7 +17,7 @@ declare let jQuery: any;
     templateUrl: 'index.component.html',
     styleUrls: ['index.component.less']
 })
-export class OrderComponent extends BaseAuthComponent {
+export class ManagerOrderComponent extends BaseAuthComponent {
 
     excel_loaded: boolean = false;
     table_list;
@@ -212,100 +212,25 @@ export class OrderComponent extends BaseAuthComponent {
             managers.push(this._service.user)
         }
 
-        // add children to managers
-        for (let u of users) {
-            for (let m of managers) {
-                if (u.manager_id == m.id) {
-                    m.children.push(u);
-
-                    u.orders.forEach(function (ord, index) {
-                        if (m.children.length == 1) {
-                            m.orders[index].order_total_count = 0;
-                            m.orders[index].order_total_quantity = 0;
-                        }
-                        m.orders[index].order_total_count += ord.order_total_count;
-                        m.orders[index].order_total_quantity += ord.order_total_quantity;
-                    });
-                    m.total_target += u.total_target;
-                }
-            }
-        }
-
         // add to zone manager
         for (let z of zone_managers) {
-            z.total_target = 0;
+            z.zsm_total_target = 0;
             for (let m of managers) {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
                     m.orders.forEach(function (ord, index) {
                         if (z.children.length == 1) {
-                            z.orders[index].order_total_count = 0;
-                            z.orders[index].order_total_quantity = 0;
+                            z.orders[index].zsm_order_total_count = 0;
+                            z.orders[index].zsm_order_total_quantity = 0;
                         }
-                        z.orders[index].order_total_count += ord.order_total_count;
-                        z.orders[index].order_total_quantity += ord.order_total_quantity;
+                        z.orders[index].zsm_order_total_count += ord.order_total_count;
+                        z.orders[index].zsm_order_total_quantity += ord.order_total_quantity;
                     });
-                    z.total_target += m.total_target;
+                    z.zsm_total_target += m.total_target;
                 }
             }
         }
 
-        if (this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group') {
-            let abbott_user = new User({full_name: 'Abbott'});
-            abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
-            abbott_user.children = [];
-            abbott_user.cse_count = 0;
-            abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
-            zone_managers.push(abbott_user);
-            for (let m of managers) {
-                zone_managers[0].children.push(m);
-                m.visits.forEach(function (att, index) {
-                    zone_managers[0].visits[index].visit_count += att.visit_count;
-                });
-                m.orders.forEach(function (ord, index) {
-                    zone_managers[0].orders[index].order_total_count += ord.order_total_count;
-                    zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
-                });
-                zone_managers[0].total_target += m.total_target;
-                zone_managers[0].cse_count += m.children.length
-
-            }
-        }
-
-        if (this.environment.envName == 'sk_group' && this.abbott && this._service.user.role_str != this.ROLE_ADMIN
-            && this._service.user.role_str != this.ROLE_CSM) {
-            let abbott_user = new User({full_name: 'Abbott'});
-            abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
-            abbott_user.children = [];
-            abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
-            abbott_user.cse_count = 0;
-            zone_managers.push(abbott_user);
-            for (let m of managers) {
-                zone_managers[0].children.push(m);
-                m.visits.forEach(function (att, index) {
-                    zone_managers[0].visits[index].visit_count += att.visit_count;
-                });
-                m.orders.forEach(function (ord, index) {
-                    zone_managers[0].orders[index].order_total_count += ord.order_total_count;
-                    zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
-                });
-                zone_managers[0].total_target += m.total_target;
-                zone_managers[0].cse_count += m.children.length
-
-            }
-        }
-
-        // Third Party User Check
-        if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
-            let third_party_user = this._service.user;
-            third_party_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
-            third_party_user.children = [];
-            third_party_user.cse_count = 0;
-            zone_managers.push(third_party_user);
-            for (let m of managers) {
-                zone_managers[0].children.push(m);
-            }
-        }
 
         // depending on list show view
         if (zone_managers.length > 0)

@@ -58,6 +58,8 @@ import {DashBoardReportComponent} from "./components/pages/dashboard/report/inde
 import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
 import {SecondarySaleZSMComponent} from "./components/pages/secondary_sale/zsm_index/index.component";
 import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist_sales_graph/stockist_sales_graph";
+import {ManagerOrderComponent} from "./components/pages/order/manager_index/index.component";
+import {ManagerVisitComponent} from "./components/pages/visit/manager_index/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -103,13 +105,31 @@ export const routes: Routes = [
             // add visit routes
             {
                 path: 'visits',
-                component: VisitComponent
+                children: [
+                    {
+                        path: '',
+                        component: VisitComponent
+                    },
+                    {
+                        path: 'managers',
+                        component: ManagerVisitComponent
+                    }
+                ]
             },
 
             // add order routes
             {
                 path: 'orders',
-                component: OrderComponent
+                children: [
+                    {
+                        path: '',
+                        component: OrderComponent
+                    },
+                    {
+                        path: 'managers',
+                        component: ManagerOrderComponent
+                    }
+                ]
             },
 
             // add user routes
