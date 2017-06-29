@@ -94,6 +94,8 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
     @Input()
     set headquarter_ids(headquarter_ids) {
         this._headquarter_ids = headquarter_ids;
+        if (this._headquarter_ids.length <= 0)
+            this.customer_id = 0;
         this.fetch();
     };
 
@@ -124,7 +126,7 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
         let options = {
             chartArea: {left: 60, top: 40, bottom: 40, right: 40, width: "100%", height: "100%"},
             legend: {position: 'top', alignment: 'start'},
-            title: 'Sales Performance in Lakhs',
+            title: 'Sales Performance in Thousands',
             annotations: {
                 alwaysOutside: true,
                 textStyle: {
@@ -141,7 +143,7 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
                 }
             },
             vAxis: {
-                title: 'Stockist vs Sales'
+                title: 'Stockist Count vs Sales'
             }
         };
 
@@ -175,17 +177,22 @@ export class StockistSalesGraphComponent extends GoogleChartComponent {
         this.getGoogle().charts.setOnLoadCallback(() => {
             let google = this.getGoogle();
 
-            if (yearly_sale.yearly_stockist_sale > 0)
+            if (yearly_sale.yearly_stockist_sale > 0) {
                 yearly_sale.yearly_stockist_sale = yearly_sale.yearly_stockist_sale / 12;
+                yearly_sale.yearly_stockist_sale = parseFloat((yearly_sale.yearly_stockist_sale).toFixed(2));
+            }
 
-            if (yearly_sale.yearly_stockist_sale_ab > 0)
+            if (yearly_sale.yearly_stockist_sale_ab > 0) {
                 yearly_sale.yearly_stockist_sale_ab = yearly_sale.yearly_stockist_sale_ab / 12;
+                yearly_sale.yearly_stockist_sale_ab = parseFloat((yearly_sale.yearly_stockist_sale_ab).toFixed(2));
+
+            }
 
             let data = new google.visualization.DataTable();
             data.addColumn('string', 'YTD');
-            data.addColumn('number', 'Stockist Sales');
+            data.addColumn('number', 'Stockist Count');
             data.addColumn({type: 'number', role: 'annotation'});
-            data.addColumn('number', 'Stockist(A/B) Sales');
+            data.addColumn('number', 'Stockist(A/B) Count');
             data.addColumn({type: 'number', role: 'annotation'});
             data.addRows([
                 [(this.year - 1) + "", yearly_sale.yearly_stockist_count, yearly_sale.yearly_stockist_sale,

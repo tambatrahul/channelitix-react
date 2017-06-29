@@ -56,7 +56,7 @@ export class CustomerSelectDashboardComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.customerService.forDashboardCustomers(this._headquarter_ids)
+        this.customerService.forDashboardCustomers(this._headquarter_ids, 1)
             .subscribe(
                 response => {
                     this.loading = false;

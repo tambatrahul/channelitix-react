@@ -97,12 +97,13 @@ export class CustomerService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    forDashboardCustomers(headquarter_ids: Array<number>): Observable<Result> {
+    forDashboardCustomers(headquarter_ids: Array<number>, customer_type_id: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
 
         params.append('headquarter_id', String(headquarter_ids));
+        params.set('customer_type_id', String(customer_type_id > 0 ? customer_type_id : ''));
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
