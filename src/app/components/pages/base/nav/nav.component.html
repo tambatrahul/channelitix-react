@@ -169,6 +169,12 @@
                 <span class="nav-label">Brick Working Report</span>
               </a>
             </li>
+            <li *roleCheck="ROLE_ZSM">
+              <a class="waves-effect" routerLink="/sales/secondary/region">
+                <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                <span class="nav-label">Secondary Statement Status</span>
+              </a>
+            </li>
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">

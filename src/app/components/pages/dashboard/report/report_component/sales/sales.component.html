@@ -6,7 +6,7 @@
   <th>% Sales Contribution</th>
   <td>100.00</td>
   <td *ngFor="let r of regions">
-    <a routerLink="/primary/invoices">{{ ((r.target / total_target)* 100).toFixed(2) }} %</a>
+    <a routerLink="/reports/executive_summary">{{ ((r.target / total_target)* 100).toFixed(2) }} %</a>
   </td>
 </tr>
 <tr>
@@ -15,14 +15,14 @@
     <div class="cell"
          [ngClass]="{'green': total_primary_sale >= total_target, 'orange': total_primary_sale >= (total_target * 0.9), 'red': total_primary_sale < (total_target * 0.9)}">
     </div>
-    <a routerLink="/primary/invoices">{{ ((total_primary_sale / total_target)* 100).toFixed(2) }}</a>
+    <a routerLink="/reports/executive_summary">{{ ((total_primary_sale / total_target)* 100).toFixed(2) }}</a>
   </td>
   <td *ngFor="let r of regions">
     <div class="cell"
          [ngClass]="{'green': r.primary >= r.target, 'orange': r.primary >= (r.target * 0.9), 'red': r.primary < (r.target * 0.9)}">
 
     </div>
-    <a routerLink="/primary/invoices">{{ r.target > 0 ? ((r.primary / r.target)* 100).toFixed(2) : 0 }} %</a>
+    <a routerLink="/reports/executive_summary">{{ r.target > 0 ? ((r.primary / r.target)* 100).toFixed(2) : 0 }} %</a>
   </td>
 </tr>
 <tr>
@@ -32,42 +32,42 @@
          [ngClass]="{'green': total_yearly_primary_sale >= total_yearly_target, 'orange': total_yearly_primary_sale >= (total_yearly_target * 0.9), 'red': total_yearly_primary_sale < (total_yearly_target * 0.9)}">
 
     </div>
-    <a routerLink="/primary/invoices">{{ ((total_yearly_primary_sale / total_yearly_target)* 100).toFixed(2) }}</a>
+    <a routerLink="/reports/executive_summary">{{ ((total_yearly_primary_sale / total_yearly_target)* 100).toFixed(2) }}</a>
   </td>
   <td *ngFor="let r of regions">
     <div class="cell"
          [ngClass]="{'green': r.yearly_primary >= r.yearly_target, 'orange': r.yearly_primary >= (r.yearly_target * 0.9), 'red': r.yearly_primary < (r.yearly_target * 0.9)}">
 
     </div>
-    <a routerLink="/primary/invoices">{{ ((r.yearly_primary / r.yearly_target)* 100).toFixed(2) }} %</a>
+    <a routerLink="/reports/executive_summary">{{ ((r.yearly_primary / r.yearly_target)* 100).toFixed(2) }} %</a>
   </td>
 </tr>
 <tr>
   <th># Brands on Budget out of {{ products.length }} Brands</th>
-  <td><a routerLink="/primary/invoices">{{ onTargetCount }}</a></td>
+  <td><a routerLink="/reports/executive_summary">{{ onTargetCount }}</a></td>
   <td *ngFor="let r of regions">
-    <a routerLink="/primary/invoices">{{r.onTargetCount}}</a>
+    <a routerLink="/reports/executive_summary">{{r.onTargetCount}}</a>
   </td>
 </tr>
 <tr>
   <th>No. of HQ on Budget</th>
-  <td><a routerLink="/primary/invoices">{{ onBudgetHqTotal }} / {{ onHqTotal }}</a></td>
+  <td><a routerLink="/reports/executive_summary">{{ onBudgetHqTotal }} / {{ onHqTotal }}</a></td>
   <td *ngFor="let r of regions">
-    <a routerLink="/primary/invoices">{{ r.onBudgetHq }} / {{ r.totalHq }}</a>
+    <a routerLink="/reports/executive_summary">{{ r.onBudgetHq }} / {{ r.totalHq }}</a>
   </td>
 </tr>
 <tr>
   <th>No. of HQ >=90 & <100</th>
-  <td><a routerLink="/primary/invoices">{{ onBudgetHq90Total }} / {{ onHqTotal }}</a></td>
+  <td><a routerLink="/reports/executive_summary">{{ onBudgetHq90Total }} / {{ onHqTotal }}</a></td>
   <td *ngFor="let r of regions">
-    <a routerLink="/primary/invoices">{{ r.onBudgetHq90 }} / {{ r.totalHq }}</a>
+    <a routerLink="/reports/executive_summary">{{ r.onBudgetHq90 }} / {{ r.totalHq }}</a>
   </td>
 </tr>
 <tr>
   <th>No. of HQ <90</th>
-  <td><a routerLink="/primary/invoices">{{ onBudgetHqLess90Total }} / {{ onHqTotal }}</a></td>
+  <td><a routerLink="/reports/executive_summary">{{ onBudgetHqLess90Total }} / {{ onHqTotal }}</a></td>
   <td *ngFor="let r of regions">
-    <a routerLink="/primary/invoices">{{ r.onBudgetHqLess90 }} / {{ r.totalHq }}</a>
+    <a routerLink="/reports/executive_summary">{{ r.onBudgetHqLess90 }} / {{ r.totalHq }}</a>
   </td>
 </tr>
 <!-- ./Sales -->
