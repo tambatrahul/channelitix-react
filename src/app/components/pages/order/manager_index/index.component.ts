@@ -352,8 +352,16 @@ export class ManagerOrderComponent extends BaseAuthComponent {
             swal(user.full_name + " on Leave ("+ popup_date +")");
         else if (order.attendance.status == 'holiday')
             swal(user.full_name + " on Holiday ("+ popup_date +")");
-        else
-            jQuery(this.user_order_table.nativeElement).modal();
+        else if (order.attendance.status == 'working') {
+            if (order.attendance.work_type_id == 4)
+                swal(user.full_name + " on Transit ("+ popup_date +")");
+            else if (order.attendance.work_type_id == 1)
+                swal(user.full_name + " on Meeting ("+ popup_date +")");
+            else if (order.attendance.work_type_id == 3)
+                swal(user.full_name + " on Campaign ("+ popup_date +")");
+            else if (order.attendance.work_type_id == 2)
+                jQuery(this.user_order_table.nativeElement).modal();
+        }
     }
 
     /**

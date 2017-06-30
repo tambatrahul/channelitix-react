@@ -376,7 +376,15 @@ export class VisitComponent extends BaseAuthComponent {
             swal(user.full_name + " on Leave ("+ popup_date +")");
         else if (visit.attendance.status == 'holiday')
             swal(user.full_name + " on Holiday ("+ popup_date +")");
-        else
-            jQuery(this.visit_table.nativeElement).modal();
+        else if (visit.attendance.status == 'working') {
+            if (visit.attendance.work_type_id == 4)
+                swal(user.full_name + " on Transit ("+ popup_date +")");
+            else if (visit.attendance.work_type_id == 1)
+                swal(user.full_name + " on Meeting ("+ popup_date +")");
+            else if (visit.attendance.work_type_id == 3)
+                swal(user.full_name + " on Campaign ("+ popup_date +")");
+            else if (visit.attendance.work_type_id == 2)
+                jQuery(this.visit_table.nativeElement).modal();
+        }
     }
 }
