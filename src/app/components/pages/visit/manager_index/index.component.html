@@ -98,7 +98,7 @@
                                                 <td></td>
                                                 <td *ngFor="let visit of z.visits; let i = index" mgVisitCount
                                                     [visit]="visit"
-                                                    class="user_click" (click)="selectUser(z, i + 1)">
+                                                    class="user_click" (click)="selectUser(z, i + 1, visit)">
 
                                                 </td>
                                             </tr>
@@ -124,7 +124,7 @@
                                                     </td>
                                                     <td *ngFor="let visit of mg.visits; let i = index" mgVisitCount
                                                         [visit]="visit"
-                                                        class="user_click" (click)="selectUser(mg, i + 1)">
+                                                        class="user_click" (click)="selectUser(mg, i + 1, visit)">
 
                                                     </td>
                                                 </tr>

@@ -201,20 +201,20 @@
                             <td *ngFor="let order of user.orders; let i = index" orderCount
                                 [order]="order" [target]="user.daily_target" class="user_click"
                                 [view_quantity]="view_quantity"
-                                (click)="selectUser(user, i + 1)"></td>
+                                (click)="selectUser(user, i + 1, order)"></td>
                           </template>
                           <template [ngIf]="environment.envName == 'geo'">
                             <template [ngIf]="z.username != 'delhiregion'">
                               <td *ngFor="let order of user.orders; let i = index" orderCount
                                   [order]="order" [target]="user.daily_target" class="user_click"
                                   [view_quantity]="view_quantity"
-                                  (click)="selectUser(user, i + 1)"></td>
+                                  (click)="selectUser(user, i + 1, order)"></td>
                             </template>
                             <template [ngIf]="z.username == 'delhiregion'">
                               <td *ngFor="let order of user.orders; let i = index" orderCount
                                   [order]="order" [target]="user.daily_target_40" class="user_click"
                                   [view_quantity]="view_quantity"
-                                  (click)="selectUser(user, i + 1)"></td>
+                                  (click)="selectUser(user, i + 1, order)"></td>
                             </template>
                           </template>
                           <td *ngIf="!view_quantity">{{ (user.total_pob_count / 1000).toFixed(1) }}</td>
@@ -341,7 +341,7 @@
                             [order]="order" [target]="user.daily_target"
                             [view_quantity]="view_quantity"
                             class="user_click"
-                            (click)="selectUser(user, i + 1)"></td>
+                            (click)="selectUser(user, i + 1, order)"></td>
                       </tr>
                       </tbody>
                     </table>

@@ -106,21 +106,21 @@
                           <td *ngFor="let order of z.orders; let i = index" mgOrderCount
                               [order]="order" [target]="z.daily_target" class="user_click"
                               [view_quantity]="view_quantity"
-                              (click)="selectUser(z, i + 1)"></td>
+                              (click)="selectUser(z, i + 1, order)"></td>
                         </template>
                         <template [ngIf]="environment.envName == 'geo'">
                           <template [ngIf]="z.username != 'delhiregion'">
                             <td *ngFor="let order of z.orders; let i = index" mgOrderCount
                                 [order]="order" [target]="z.daily_target" class="user_click"
                                 [view_quantity]="view_quantity"
-                                (click)="selectUser(z, i + 1)">
+                                (click)="selectUser(z, i + 1, order)">
                             </td>
                           </template>
                           <template [ngIf]="z.username == 'delhiregion'">
                             <td *ngFor="let order of z.orders; let i = index" mgOrderCount
                                 [order]="order" [target]="z.daily_target_40" class="user_click"
                                 [view_quantity]="view_quantity"
-                                (click)="selectUser(z, i + 1)"></td>
+                                (click)="selectUser(z, i + 1, order)"></td>
                           </template>
                         </template>
                         <td *ngIf="!view_quantity">{{ (z.total_pob_count / 1000).toFixed(1) }}</td>
@@ -153,21 +153,21 @@
                             <td *ngFor="let order of mg.orders; let i = index" mgOrderCount
                                 [order]="order" [target]="mg.daily_target" class="user_click"
                                 [view_quantity]="view_quantity"
-                                (click)="selectUser(mg, i + 1)"></td>
+                                (click)="selectUser(mg, i + 1, order)"></td>
                           </template>
                           <template [ngIf]="environment.envName == 'geo'">
                             <template [ngIf]="z.username != 'delhiregion'">
                               <td *ngFor="let order of mg.orders; let i = index" mgOrderCount
                                   [order]="order" [target]="mg.daily_target" class="user_click"
                                   [view_quantity]="view_quantity"
-                                  (click)="selectUser(mg, i + 1)">
+                                  (click)="selectUser(mg, i + 1, order)">
                               </td>
                             </template>
                             <template [ngIf]="z.username == 'delhiregion'">
                               <td *ngFor="let order of mg.orders; let i = index" mgOrderCount
                                   [order]="order" [target]="mg.daily_target_40" class="user_click"
                                   [view_quantity]="view_quantity"
-                                  (click)="selectUser(mg, i + 1)"></td>
+                                  (click)="selectUser(mg, i + 1, order)"></td>
                             </template>
                           </template>
                           <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1) }}</td>

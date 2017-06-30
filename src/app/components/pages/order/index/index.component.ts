@@ -12,6 +12,7 @@ import {AttendanceService} from "../../../../services/attendance.service";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {Target} from "../../../../models/SAP/target";
 declare let jQuery: any;
+declare let swal: any;
 
 @Component({
     templateUrl: 'index.component.html',
@@ -417,10 +418,17 @@ export class OrderComponent extends BaseAuthComponent {
      * @param user
      * @param date
      */
-    selectUser(user: User, date: number) {
+    selectUser(user: User, date: number, order: Order) {
         this.user = user;
         this.date = date;
-        jQuery(this.user_order_table.nativeElement).modal();
+        let popup_date = this.date +" "+moment().year(this.year).month(this.month).format("MMMM, YYYY");
+
+        if (order.attendance.status == 'leave')
+            swal(user.full_name + " on Leave ("+ popup_date +")");
+        else if (order.attendance.status == 'holiday')
+            swal(user.full_name + " on Holiday ("+ popup_date +")");
+        else
+            jQuery(this.user_order_table.nativeElement).modal();
     }
 
     /**

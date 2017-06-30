@@ -12,6 +12,7 @@ import {Attendance} from "../../../../models/attendance/attendance";
 import {Observable} from "rxjs/Rx";
 declare let jQuery: any;
 declare let d3: any;
+declare let swal: any;
 
 @Component({
     templateUrl: 'index.component.html',
@@ -366,9 +367,16 @@ export class VisitComponent extends BaseAuthComponent {
      * @param user
      * @param date
      */
-    selectUser(user: User, date: number) {
+    selectUser(user: User, date: number, visit: Visit) {
         this.user = user;
         this.date = date;
-        jQuery(this.visit_table.nativeElement).modal();
+        let popup_date = this.date +" "+moment().year(this.year).month(this.month).format("MMMM, YYYY");
+
+        if (visit.attendance.status == 'leave')
+            swal(user.full_name + " on Leave ("+ popup_date +")");
+        else if (visit.attendance.status == 'holiday')
+            swal(user.full_name + " on Holiday ("+ popup_date +")");
+        else
+            jQuery(this.visit_table.nativeElement).modal();
     }
 }
