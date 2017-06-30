@@ -65,7 +65,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered visit_table">
                                             <thead>
-                                            <tr>
+                                            <tr style="background-color: #3498db;color: white">
                                                 <th style="min-width: 100px;">Users</th>
                                                 <th>Area</th>
                                                 <th></th>
@@ -76,7 +76,7 @@
                                             </tr>
                                             </thead>
 
-                                            <tfoot>
+                                            <tfoot style="background-color: #3498db;color: white">
                                             <tr>
                                                 <th>Users</th>
                                                 <th>Area</th>
@@ -98,7 +98,7 @@
                                                 <td></td>
                                                 <td *ngFor="let visit of z.visits; let i = index" mgVisitCount
                                                     [visit]="visit"
-                                                    class="user_click" (click)="selectUser(z, i + 1)">
+                                                    class="user_click" (click)="selectUser(z, i + 1, visit)">
 
                                                 </td>
                                             </tr>
@@ -124,7 +124,7 @@
                                                     </td>
                                                     <td *ngFor="let visit of mg.visits; let i = index" mgVisitCount
                                                         [visit]="visit"
-                                                        class="user_click" (click)="selectUser(mg, i + 1)">
+                                                        class="user_click" (click)="selectUser(mg, i + 1, visit)">
 
                                                     </td>
                                                 </tr>
