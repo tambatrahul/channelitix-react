@@ -62,7 +62,7 @@ export class CustomerDataComponent extends ListComponent {
           let customers = response.customers.map(customer => new Customer(customer))
             .filter(cus => {
               if (this.environment.envName == 'geo') {
-                return (cus.customer_type_id == 2 && cus.visit_count >= 20 && cus.visit_count <= 30)
+                return (cus.customer_type_id == 2 && cus.visit_count >= 20)
                   || (cus.customer_type_id == 3 && cus.visit_count >= 300)
                   || (cus.customer_type_id == 4 && cus.visit_count >= 25)
                   || (cus.customer_type_id == 5 && cus.visit_count >= 70);
