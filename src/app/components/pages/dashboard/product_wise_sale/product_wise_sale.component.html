@@ -20,7 +20,6 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th>code</th>
                                 <th>Product</th>
                                 <th>Target</th>
                                 <th>Actual sale</th>
@@ -31,10 +30,7 @@
                             <template ngFor let-item [ngForOf]="products">
                                 <tr>
                                     <td>
-                                        {{ item.code }}
-                                    </td>
-                                    <td>
-                                        {{ item.name }}
+                                        {{ item.brands.name }}
                                     </td>
                                     <td>{{ item.target.toFixed(0) | number : fractionSize }}</td>
                                     <td>{{ item.performance.toFixed(0) | number : fractionSize }}</td>
@@ -42,7 +38,6 @@
                                 </tr>
                             </template>
                             <tr>
-                                <td></td>
                                 <th>Total</th>
                                 <th>{{ total_target.toFixed(0) }}</th>
                                 <th>{{ total_actual.toFixed(0) }}</th>

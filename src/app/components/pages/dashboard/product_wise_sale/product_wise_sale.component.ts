@@ -105,7 +105,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
         // set target values
         performance.targets.map(function (target) {
             products.map(function (product) {
-                if (product.id == target.product_id) {
+                if (product.brand_id == target.brand_id) {
                     product.target = target.total_target;
                     self.total_target += target.total_target;
                 }
@@ -116,7 +116,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
         // set performance values
         performance.secondary_sales.map(function (ss) {
             products.map(function (product) {
-                if (product.id == ss.product_id) {
+                if (product.brand_id == ss.brand_id) {
                     product.performance = ss.total_amount;
                     self.total_actual += ss.total_amount;
                 }

@@ -24,6 +24,7 @@ export class SecondarySale extends Model {
 
     // for internal user only
     total_amount: number = 0;
+    brand_id: number = 0;
 
 
     get closing_qty(): number {
@@ -88,6 +89,9 @@ export class SecondarySale extends Model {
 
         if (info.customer_count)
             this.customer_count = parseInt(info.customer_count);
+
+        if (info.brand_id)
+            this.brand_id = parseInt(info.brand_id);
 
         if (info.total_amount)
             this.total_amount = parseFloat(info.total_amount);

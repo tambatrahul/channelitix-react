@@ -10,6 +10,7 @@ export class Target extends Model {
     total_target: number = 0;
     target: number = 0;
     total_net_amount: number = 0;
+    brand_id: number = 0;
     month: number;
     target_month: number;
     hq_headquarter_id: number;
@@ -31,5 +32,8 @@ export class Target extends Model {
 
         if (info.target)
             this.target = parseInt(info.target);
+
+        if (info.brand_id)
+            this.brand_id = parseInt(info.brand_id);
     }
 }

@@ -1,6 +1,7 @@
 import {Model} from "../model";
 import {UOM} from "./uom";
 import {InvoiceDetail} from "../SAP/invoice_detail";
+import {Brand} from "./brand";
 
 
 export class Product extends Model {
@@ -18,6 +19,10 @@ export class Product extends Model {
     amount: number = 0;
     primary_sale_amount: number = 0;
     primary_sale: number = 0;
+    brand_id: number = 0;
+
+    brands: Brand;
+
 
     constructor(info: any) {
         super(info.id);
@@ -33,6 +38,9 @@ export class Product extends Model {
             }
         }
 
+        if (info.brands)
+            this.brands = new Brand(info.brands);
+
         if (info.invoice_detail)
             this.invoice_detail = new InvoiceDetail(info.invoice_detail);
 
@@ -47,6 +55,9 @@ export class Product extends Model {
 
         if (info.primary_sale)
             this.primary_sale = parseFloat(info.primary_sale);
+
+        if (info.brand_id)
+            this.brand_id = parseInt(info.brand_id);
     }
 
     get onTarget() {
