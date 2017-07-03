@@ -125,14 +125,14 @@
                                                 <th>{{customer.code}}</th>
                                                 <th>{{customer.firm_name}}</th>
                                                 <th>{{customer.customer_type.name}}</th>
-                                                <th>{{customer.last_year_sale}}</th>
-                                                <th>{{customer.last_year_dexona_sale}}</th>
+                                                <th>{{customer.last_year_sale > 0 ? (customer.last_year_sale/12).toFixed(2) : 0}}</th>
+                                                <th>{{customer.last_year_dexona_sale > 0 ? (customer.last_year_dexona_sale/12).toFixed(2) : 0}}</th>
                                                 <th>{{customer.last_month_sale}}</th>
                                                 <th>{{customer.last_month_dexona_sale}}</th>
-                                                <th>Total</th>
-                                                <th>Dexona</th>
-                                                <th>Total</th>
-                                                <th>Dexona</th>
+                                                <th>{{(customer.last_year_sale > 0 ? (customer.last_year_sale/12).toFixed(2) : 0) - customer.last_month_sale}}</th>
+                                                <th>{{(customer.last_year_dexona_sale > 0 ? (customer.last_year_dexona_sale/12).toFixed(2) : 0) - customer.last_month_dexona_sale}}</th>
+                                                <th>{{(2*(customer.last_year_sale > 0 ? (customer.last_year_sale/12).toFixed(2) : 0)) - customer.last_month_sale}}</th>
+                                                <th>{{(2*(customer.last_year_dexona_sale > 0 ? (customer.last_year_dexona_sale/12).toFixed(2) : 0)) - customer.last_month_dexona_sale}}</th>
                                                 <th>Visit</th>
                                                 <th>Primary Sales</th>
                                             </tr>
