@@ -61,11 +61,11 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th colspan="2"> 2016 Average </th>
-                                                <th colspan="2"> Jun-17</th>
-                                                <th colspan="2"> Shortfall June</th>
+                                                <th class="grey" colspan="2"> 2016 Average </th>
+                                                <th class="grey" colspan="2"> Jun-17</th>
+                                                <th class="grey" colspan="2"> Shortfall June</th>
                                                 <th colspan="2" class="green">July Expected sales</th>
-                                                <th colspan="2" class="green">Tracking</th>
+                                                <th colspan="2" class="order">Tracking</th>
                                             </tr>
                                             <tr>
                                                 <th>Area</th>
@@ -110,9 +110,9 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th colspan="2"> 2016 Average </th>
-                                                <th colspan="2"> Jun-17</th>
-                                                <th colspan="2"> Shortfall June</th>
+                                                <th class="grey" colspan="2"> 2016 Average </th>
+                                                <th class="grey" colspan="2"> Jun-17</th>
+                                                <th class="grey" colspan="2"> Shortfall June</th>
                                                 <th colspan="2" class="green">July Expected sales</th>
                                                 <th colspan="2" class="green">Tracking</th>
                                             </tr>
@@ -120,7 +120,7 @@
 
                                             <tbody>
                                             <template ngFor let-area [ngForOf]="region.areas">
-                                                <tr>
+                                                <tr class="grey">
                                                     <th>{{area.name}}</th>
                                                     <th></th>
                                                     <th></th>
@@ -137,45 +137,58 @@
                                                     <th></th>
                                                     <th></th>
                                                 </tr>
-                                                <tr *ngFor="let hq of area.headquarters">
-                                                    <th></th>
-                                                    <th>{{ hq.name }}</th>
-                                                    <template ngFor let-customer [ngForOf]="hq.customers">
-                                                        <tr>
-
-                                                <th>{{customer.code}}</th>
-                                                <th>{{customer.firm_name}}</th>
-                                                <th>{{customer.grade.name}}</th>
-                                                <th>{{customer.last_year_sale > 0 ?
-                                                    (customer.last_year_sale/12).toFixed(2) : 0}}
-                                                </th>
-                                                <th>{{customer.last_year_dexona_sale > 0 ?
-                                                    (customer.last_year_dexona_sale/12).toFixed(2) : 0}}
-                                                </th>
-                                                <th>{{customer.last_month_sale}}</th>
-                                                <th>{{customer.last_month_dexona_sale}}</th>
-                                                <th>{{((customer.last_year_sale > 0 ?
-                                                    (customer.last_year_sale/12).toFixed(2) : 0) -
-                                                    customer.last_month_sale).toFixed(2)}}
-                                                </th>
-                                                <th>{{(customer.last_year_dexona_sale > 0 ?
-                                                    (customer.last_year_dexona_sale/12).toFixed(2) : 0) -
-                                                    customer.last_month_dexona_sale}}
-                                                </th>
-                                                <th>{{((2*(customer.last_year_sale > 0 ?
-                                                    (customer.last_year_sale/12).toFixed(2) : 0)) -
-                                                    customer.last_month_sale).toFixed(2)}}
-                                                </th>
-                                                <th>{{(2*(customer.last_year_dexona_sale > 0 ?
-                                                    (customer.last_year_dexona_sale/12).toFixed(2) : 0)) -
-                                                    customer.last_month_dexona_sale}}
-                                                </th>
-                                                <th>{{customer.visit_days}}</th>
-                                                <th>{{customer.sap_primary_sale}}</th>
-                                            </tr>
-                                                    </template>
-                                                </tr>
-
+                                                <template ngFor let-hq [ngForOf]="area.headquarters">
+                                                   <tr>
+                                                       <th></th>
+                                                       <th>{{ hq.name }}</th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                       <th></th>
+                                                   </tr>
+                                                    <tr *ngFor="let customer of hq.customers">
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th>{{customer.code}}</th>
+                                                        <th>{{customer.firm_name}}</th>
+                                                        <th>{{customer.grade.name}}</th>
+                                                        <th>{{customer.last_year_sale > 0 ?
+                                                            (customer.last_year_sale/12).toFixed(2) : 0}}
+                                                        </th>
+                                                        <th>{{customer.last_year_dexona_sale > 0 ?
+                                                            (customer.last_year_dexona_sale/12).toFixed(2) : 0}}
+                                                        </th>
+                                                        <th>{{customer.last_month_sale}}</th>
+                                                        <th>{{customer.last_month_dexona_sale}}</th>
+                                                        <th>{{((customer.last_year_sale > 0 ?
+                                                            (customer.last_year_sale/12).toFixed(2) : 0) -
+                                                            customer.last_month_sale).toFixed(2)}}
+                                                        </th>
+                                                        <th>{{(customer.last_year_dexona_sale > 0 ?
+                                                            (customer.last_year_dexona_sale/12).toFixed(2) : 0) -
+                                                            customer.last_month_dexona_sale}}
+                                                        </th>
+                                                        <th>{{((2*(customer.last_year_sale > 0 ?
+                                                            (customer.last_year_sale/12).toFixed(2) : 0)) -
+                                                            customer.last_month_sale).toFixed(2)}}
+                                                        </th>
+                                                        <th>{{(2*(customer.last_year_dexona_sale > 0 ?
+                                                            (customer.last_year_dexona_sale/12).toFixed(2) : 0)) -
+                                                            customer.last_month_dexona_sale}}
+                                                        </th>
+                                                        <th>{{customer.visit_days}}</th>
+                                                        <th>{{customer.sap_primary_sale}}</th>
+                                                    </tr>
+                                                </template>
                                             </template>
 
                                             </tbody>
