@@ -7,6 +7,7 @@ import * as moment from "moment";
 import {Customer} from "../../../../models/customer/customer";
 import {SapStockistSale} from "../../../../models/SAP/sap_stockist_sale";
 import {Observable} from "rxjs";
+import {Visit} from "../../../../models/visit/visit";
 
 declare let jQuery: any;
 
@@ -54,6 +55,9 @@ export class SapStockistWiseComponent extends ListComponent {
     ngOnInit() {
         this.month = moment().month();
         this.year = moment().year();
+        this.region_id = 2;
+        this.area_id = 3;
+        this.headquarter_id = 4;
         super.ngOnInit();
     }
 
@@ -72,11 +76,14 @@ export class SapStockistWiseComponent extends ListComponent {
                     let last_month_dexona_sale = response[0].last_month_dexona_sale.map(lmds => new SapStockistSale(lmds));
                     let yearly_sales = response[1].yearly_sales.map(ys => new SapStockistSale(ys));
                     let yearly_dexona_sales = response[1].yearly_dexona_sales.map(yds => new SapStockistSale(yds));
+                    let visits_this_month = response[0].visits_this_month.map(visit => new Visit(visit));
+                    let current_month_sale = response[0].current_month_sale.map(cms => new SapStockistSale(cms));
 
                     // get customers
                     let customers = response[1].customers.map(cus => new Customer(cus));
 
-                    this.prepareData(customers, yearly_sales, yearly_dexona_sales, last_month_sale, last_month_dexona_sale);
+                    this.prepareData(customers, yearly_sales, yearly_dexona_sales, last_month_sale,
+                        last_month_dexona_sale, visits_this_month, current_month_sale);
 
                     this.loading = false;
 
@@ -107,50 +114,64 @@ export class SapStockistWiseComponent extends ListComponent {
      * @param yearly_dexona_sales
      * @param last_month_sale
      * @param last_month_dexona_sale
+     * @param visits_this_month
+     * @param current_month_sale
      */
     prepareData(customers: Customer[], yearly_sales: SapStockistSale[], yearly_dexona_sales: SapStockistSale[],
-                last_month_sale: SapStockistSale[], last_month_dexona_sale: SapStockistSale[]) {
+                last_month_sale: SapStockistSale[], last_month_dexona_sale: SapStockistSale[], visits_this_month: Visit[],
+                current_month_sale: SapStockistSale[]) {
 
         // add customers  to individual hq
 
         this.regions.map(region => {
             region.areas.map(area => {
-                area.headquarters.map(headquarter => {
-                    customers.map(cus => {
+               area.headquarters.map(headquarter => {
+                   headquarter.customers = [];
+                   customers.map(cus => {
 
-                        yearly_sales.map(ys => {
-                            if (cus.code == ys.stockist_code) {
-                                cus.last_year_sale = ys.total_net_amt;
-                            }
-                        });
+                       yearly_sales.map(ys => {
+                           if (cus.code == ys.stockist_code) {
+                               cus.last_year_sale = ys.total_net_amt;
+                           }
+                       });
 
-                        yearly_dexona_sales.map(yds => {
-                            if (cus.code == yds.stockist_code) {
-                                cus.last_year_dexona_sale = yds.total_net_amt;
-                            }
-                        });
+                       visits_this_month.map(visit => {
+                           if(cus.code == visit.stockist_code){
+                               cus.visit_days = visit.days;
+                           }
 
-                        last_month_sale.map(lms => {
-                            if (cus.code == lms.stockist_code) {
-                                cus.last_month_sale = lms.total_net_amt;
-                            }
-                        });
+                       });
 
-                        last_month_dexona_sale.map(lmds => {
-                            if (cus.code == lmds.stockist_code) {
-                                cus.last_month_dexona_sale = lmds.total_net_amt;
-                            }
-                        });
+                       yearly_dexona_sales.map(yds => {
+                           if (cus.code == yds.stockist_code) {
+                               cus.last_year_dexona_sale = yds.total_net_amt;
+                           }
+                       });
 
-                        if (cus.hq_headquarter_id == headquarter.id) {
-                            headquarter.customers.push(cus);
-                        }
-                    });
+                       last_month_sale.map(lms => {
+                           if (cus.code == lms.stockist_code) {
+                               cus.last_month_sale = lms.total_net_amt;
+                           }
+                       });
 
-                });
+                       current_month_sale.map(cms => {
+                           if (cus.code == cms.stockist_code) {
+                               cus.sap_primary_sale = cms.total_net_amt;
+                           }
+                       });
 
+                       last_month_dexona_sale.map(lmds => {
+                           if (cus.code == lmds.stockist_code) {
+                               cus.last_month_dexona_sale = lmds.total_net_amt;
+                           }
+                       });
+
+                       if(cus.hq_headquarter_id == headquarter.id){
+                           headquarter.customers.push(new Customer(cus));
+                       }
+                   });
+               }) ;
             });
-
         });
 
         console.log(this.regions);

@@ -107,6 +107,8 @@ export class Result {
   last_month_sale: SapStockistSale[] = [];
   yearly_sales: SapStockistSale[] = [];
   yearly_dexona_sales: SapStockistSale[] = [];
+  current_month_sale: SapStockistSale[] = [];
+  visits_this_month: Visit[] = [];
 
   // get total counts for reports
   total_users: number = 0;
