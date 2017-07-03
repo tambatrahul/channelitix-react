@@ -44,10 +44,6 @@
             <div>
                 <div class="col-xs-12">
                     <div class="box-widget widget-module">
-                        <div class="widget-head clearfix">
-                            <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4><strong>{{ customer.hq_region.name }}</strong></h4>
-                        </div>
                         <div>
                             <div class="widget-container report-table">
                                 <div class="widget-block">
@@ -55,7 +51,6 @@
                                         <table class="table table-bordered visit_table">
                                             <thead>
                                             <tr>
-                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
@@ -114,7 +109,6 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th></th>
                                                 <th colspan="2"> 2016 Average </th>
                                                 <th colspan="2"> Jun-17</th>
                                                 <th colspan="2"> Shortfall June</th>
@@ -124,18 +118,24 @@
                                             </tfoot>
 
                                             <tbody>
-                                            <template ngFor let-customer [ngForOf]="customers">
-                                                <tr class="grey">
-                                                    <th>{{ area.name }}</th>
-                                                    <th></th>
-
-                                                </tr>
-                                                <tr *ngFor="let hq of area.headquarters">
-                                                    <th></th>
-                                                    <th>{{ hq.name }}</th>
-
-                                                </tr>
-                                            </template>
+                                            <tr *ngFor="let customer of customers">
+                                                <th>{{customer.hq_region.name}}</th>
+                                                <th>{{customer.hq_area.name}}</th>
+                                                <th>{{customer.hq_headquarter.name}}</th>
+                                                <th>{{customer.code}}</th>
+                                                <th>{{customer.firm_name}}</th>
+                                                <th>{{customer.customer_type.name}}</th>
+                                                <th>{{customer.last_year_sale}}</th>
+                                                <th>{{customer.last_year_dexona_sale}}</th>
+                                                <th>{{customer.last_month_sale}}</th>
+                                                <th>{{customer.last_month_dexona_sale}}</th>
+                                                <th>Total</th>
+                                                <th>Dexona</th>
+                                                <th>Total</th>
+                                                <th>Dexona</th>
+                                                <th>Visit</th>
+                                                <th>Primary Sales</th>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>

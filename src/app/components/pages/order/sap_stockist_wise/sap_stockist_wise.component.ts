@@ -6,6 +6,7 @@ import {Region} from "../../../../models/territory/region";
 import * as moment from "moment";
 import {Customer} from "../../../../models/customer/customer";
 import {SapStockistSale} from "../../../../models/SAP/sap_stockist_sale";
+import {Observable} from "rxjs";
 
 declare let jQuery: any;
 
@@ -37,8 +38,8 @@ export class SapStockistWiseComponent extends ListComponent {
      *
      * @type {Array}
      */
-    regions: Region[] = [];
     customers: Customer[] = [];
+    regions: Region[] = [];
 
     /**
      * User Component Constructor
@@ -60,25 +61,24 @@ export class SapStockistWiseComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        if (this.month && this.year) {
+        if (this.month && this.year && this.region_id > 0) {
             this.loading = true;
-
-            this.reportService.sap_stockist_wise(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id).subscribe(
+            Observable.forkJoin(
+                this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id),
+                this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id)).subscribe(
                 response => {
-
-                    this.regions = response.regions.map(region => new Region(region));
-
+                    this.regions = response[1].regions.map(region => new Region(region));
+                    let last_month_sale = response[0].last_month_sale.map(lms => new SapStockistSale(lms));
+                    let last_month_dexona_sale = response[0].last_month_dexona_sale.map(lmds => new SapStockistSale(lmds));
+                    let yearly_sales = response[1].yearly_sales.map(ys => new SapStockistSale(ys));
+                    let yearly_dexona_sales = response[1].yearly_dexona_sales.map(yds => new SapStockistSale(yds));
                     // get customers
-                    let customers = response.customers.map(cus => new Customer(cus));
-
-                    let last_month_sale = response.last_month_sale.map(lms => new SapStockistSale(lms));
-                    let last_month_dexona_sale = response.last_month_sale.map(lmds => new SapStockistSale(lmds));
-                    let yearly_sales = response.last_month_sale.map(ys => new SapStockistSale(ys));
-                    let yearly_dexona_sales = response.last_month_sale.map(yds => new SapStockistSale(yds));
+                    let customers = response[1].customers.map(cus => new Customer(cus));
 
                     this.prepareData(customers, yearly_sales, yearly_dexona_sales, last_month_sale, last_month_dexona_sale);
 
                     this.loading = false;
+
                 },
                 err => {
                     this.loading = false;
