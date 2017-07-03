@@ -71,6 +71,7 @@ export class SapStockistWiseComponent extends ListComponent {
             this.reportService.sap_stockist_wise(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id).subscribe(
                 response => {
 
+                    this.loading = false;
                 },
                 err => {
                     this.loading = false;
