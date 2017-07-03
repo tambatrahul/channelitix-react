@@ -41,12 +41,12 @@
 
     <div class="row">
         <div class="col-xs-12" *roleCheck="ROLE_ZSM">
-            <div class="row" *ngFor="let region of regions">
+            <div>
                 <div class="col-xs-12">
                     <div class="box-widget widget-module">
                         <div class="widget-head clearfix">
                             <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4><strong>{{ region.name }}</strong></h4>
+                            <h4><strong>{{ customer.hq_region.name }}</strong></h4>
                         </div>
                         <div>
                             <div class="widget-container report-table">
@@ -118,7 +118,7 @@
                                             </tfoot>
 
                                             <tbody>
-                                            <template ngFor let-area [ngForOf]="region.areas">
+                                            <template ngFor let-customer [ngForOf]="customers">
                                                 <tr class="grey">
                                                     <th>{{ area.name }}</th>
                                                     <th></th>

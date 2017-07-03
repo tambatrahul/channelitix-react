@@ -3,15 +3,9 @@ import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
 import {ReportService} from "../../../../services/report.service";
 import {Region} from "../../../../models/territory/region";
-import {Target} from "../../../../models/SAP/target";
-import {PrimarySale} from "../../../../models/sale/primary_sale";
-import {Order} from "../../../../models/order/order";
-import {Attendance} from "../../../../models/attendance/attendance";
-import {CustomerType} from "../../../../models/customer/customer_type";
-import {Visit} from "../../../../models/visit/visit";
 import * as moment from "moment";
-import {Observable} from "rxjs/Rx";
 import {Customer} from "../../../../models/customer/customer";
+import {SapStockistSale} from "../../../../models/SAP/sap_stockist_sale";
 
 declare let jQuery: any;
 
@@ -39,11 +33,12 @@ export class SapStockistWiseComponent extends ListComponent {
 
 
     /**
-     * get regions
+     * get customers
      *
      * @type {Array}
      */
     regions: Region[] = [];
+    customers: Customer[] = [];
 
     /**
      * User Component Constructor
@@ -71,6 +66,18 @@ export class SapStockistWiseComponent extends ListComponent {
             this.reportService.sap_stockist_wise(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id).subscribe(
                 response => {
 
+                    this.regions = response.regions.map(region => new Region(region));
+
+                    // get customers
+                    let customers = response.customers.map(cus => new Customer(cus));
+
+                    let last_month_sale = response.last_month_sale.map(lms => new SapStockistSale(lms));
+                    let last_month_dexona_sale = response.last_month_sale.map(lmds => new SapStockistSale(lmds));
+                    let yearly_sales = response.last_month_sale.map(ys => new SapStockistSale(ys));
+                    let yearly_dexona_sales = response.last_month_sale.map(yds => new SapStockistSale(yds));
+
+                    this.prepareData(customers, yearly_sales, yearly_dexona_sales, last_month_sale, last_month_dexona_sale);
+
                     this.loading = false;
                 },
                 err => {
@@ -90,6 +97,48 @@ export class SapStockistWiseComponent extends ListComponent {
                 }
             }, 1000);
         }
+    }
+
+    /**
+     *
+     * @param customers
+     * @param yearly_sales
+     * @param yearly_dexona_sales
+     * @param last_month_sale
+     * @param last_month_dexona_sale
+     */
+    prepareData(customers: Customer[], yearly_sales: SapStockistSale[], yearly_dexona_sales: SapStockistSale[],
+                last_month_sale :SapStockistSale[], last_month_dexona_sale: SapStockistSale[]) {
+
+        // add customers  to individual hq
+        customers.map(cus => {
+            yearly_sales.map(ys => {
+                if(cus.code == ys.stockist_code){
+                    cus.last_year_sale = ys.total_net_amt;
+                }
+            });
+
+            yearly_dexona_sales.map(yds => {
+                if(cus.code == yds.stockist_code){
+                    cus.last_year_dexona_sale = yds.total_net_amt;
+                }
+            });
+
+            last_month_sale.map(lms => {
+                if(cus.code == lms.stockist_code){
+                    cus.last_month_sale = lms.total_net_amt;
+                }
+            });
+
+            last_month_dexona_sale.map(lmds => {
+                if(cus.code == lmds.stockist_code){
+                    cus.last_month_dexona_sale = lmds.total_net_amt;
+                }
+            });
+        });
+
+        this.customers = customers;
+
     }
 
     /**

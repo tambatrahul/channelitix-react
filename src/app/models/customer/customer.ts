@@ -46,6 +46,13 @@ export class Customer extends Model {
     customer_count: number = 0;
     total_primary_sale: number = 0;
 
+    last_year_sale: number = 0;
+    last_year_dexona_sale: number = 0;
+    last_month_sale:number = 0;
+    last_month_dexona_sale:number = 0;
+    visit_counts:number = 0;
+    sap_primary_sale:number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.firm_name = info.firm_name;
@@ -86,5 +93,23 @@ export class Customer extends Model {
         // visit count
         if (info.visit_count)
             this.visit_count = parseInt(info.visit_count);
+
+        if (info.last_year_sale)
+            this.last_year_sale = parseInt(info.last_year_sale);
+
+        if (info.last_year_dexona_sale)
+            this.last_year_dexona_sale = parseInt(info.last_year_dexona_sale);
+
+        if (info.last_month_sale)
+            this.last_month_sale = parseInt(info.last_month_sale);
+
+        if (info.last_month_dexona_sale)
+            this.last_month_dexona_sale = parseInt(info.last_month_dexona_sale);
+
+        if (info.visit_counts)
+            this.visit_counts = parseInt(info.visit_counts);
+
+        if (info.sap_primary_sale)
+            this.sap_primary_sale = parseInt(info.sap_primary_sale);
     }
 }
