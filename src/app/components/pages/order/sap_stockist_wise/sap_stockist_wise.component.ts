@@ -65,7 +65,7 @@ export class SapStockistWiseComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        if (this.month && this.year && this.region_id > 0) {
+        if (this.month && this.year) {
             this.loading = true;
             Observable.forkJoin(
                 this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id),
@@ -173,24 +173,6 @@ export class SapStockistWiseComponent extends ListComponent {
                }) ;
             });
         });
-
-        this.regions.map(region => {
-            region.areas.map(area => {
-                area.headquarters.map(headquarter => {
-                    if(headquarter.customers.length <= 0){
-                        let index = area.headquarters.indexOf(headquarter);
-                        area.headquarters.splice(index);
-                    }
-                });
-
-                if(area.headquarters.length <= 0){
-                    let index = region.areas.indexOf(area);
-                    region.areas.splice(index);
-                }
-            });
-        });
-
-
     }
 
     /**
