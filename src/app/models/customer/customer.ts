@@ -8,6 +8,7 @@ import {Input} from "@angular/core";
 import {Product} from "../order/product";
 import {Headquarter} from "../territory/headquarter";
 import {Region} from "../territory/region";
+import {Area} from "../territory/area";
 
 export class Customer extends Model {
 
@@ -34,6 +35,7 @@ export class Customer extends Model {
     hq_territory: Territory;
     hq_headquarter: Headquarter;
     hq_region: Region;
+    hq_area: Area;
 
     // for internal user only
     inputs: Input[];
@@ -86,6 +88,14 @@ export class Customer extends Model {
         // add headquarter
         if (info.hq_headquarter)
             this.hq_headquarter = new Headquarter(info.hq_headquarter);
+
+        // add area
+        if (info.hq_area)
+            this.hq_area = new Area(info.hq_area);
+
+        // add region
+        if (info.hq_region)
+            this.hq_region = new Region(info.hq_region);
 
         if (info.brick_counts)
             this.brick_counts = parseInt(info.brick_counts);
