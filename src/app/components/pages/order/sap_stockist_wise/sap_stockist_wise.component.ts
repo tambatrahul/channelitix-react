@@ -174,8 +174,22 @@ export class SapStockistWiseComponent extends ListComponent {
             });
         });
 
-        console.log(this.regions);
-        this.customers = customers;
+        this.regions.map(region => {
+            region.areas.map(area => {
+                area.headquarters.map(headquarter => {
+                    if(headquarter.customers.length <= 0){
+                        let index = area.headquarters.indexOf(headquarter);
+                        area.headquarters.splice(index);
+                    }
+                });
+
+                if(area.headquarters.length <= 0){
+                    let index = region.areas.indexOf(area);
+                    region.areas.splice(index);
+                }
+            });
+        });
+
 
     }
 
