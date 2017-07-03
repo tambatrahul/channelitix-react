@@ -1,6 +1,7 @@
 import {Model} from "../model";
 import {Area} from "./area";
 import {CustomerType} from "../customer/customer_type";
+import {Customer} from "../customer/customer";
 
 export class Headquarter extends Model {
 
@@ -28,6 +29,7 @@ export class Headquarter extends Model {
 
     territories_count: number = 0;
     bricks_count: number = 0;
+    customers : Customer[] = [];
 
     constructor(info: any) {
         super(info.id);
@@ -35,6 +37,9 @@ export class Headquarter extends Model {
         this.total = info.total;
 
         this.customer_types = info.customer_types;
+
+        if(info.customers)
+            this.customers = info.customers.map(customer => new Customer(customer));
 
         if (info.hq_area)
             this.hq_area = new Area(info.hq_area);
