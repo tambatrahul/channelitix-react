@@ -164,6 +164,7 @@ import {ManagerOrderComponent} from "./components/pages/order/manager_index/inde
 import {ManagerVisitComponent} from "./components/pages/visit/manager_index/index.component";
 import {ManagerOrderCountDirective} from "./directives/mg_order_count.directive";
 import {ManagerVisitCountDirective} from "./directives/mg_visit_count.directive";
+import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wise/sap_stockist_wise.component";
 
 
 enableProdMode();
@@ -241,6 +242,7 @@ enableProdMode();
         SecondarySaleZSMComponent,
         ManagerOrderComponent,
         ManagerVisitComponent,
+        SapStockistWiseComponent,
 
         //dashboard report Component
         SalesComponent,
