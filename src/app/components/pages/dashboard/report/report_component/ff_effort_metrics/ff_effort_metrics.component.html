@@ -8,13 +8,13 @@
     <div class="cell"
          [ngClass]="{'green': total_pob / total_target >= 30, 'red': total_pob / total_target < 30}">
     </div>
-    <a routerLink="/orders">{{ ((total_pob / total_target) * 100).toFixed(2) }}</a>
+    <a routerLink="/orders">{{ total_target > 0 ? ((total_pob / total_target) * 100).toFixed(2): 0 }} %</a>
   </td>
   <td *ngFor="let r of _regions">
     <div class="cell"
          [ngClass]="{'green': r.targetTo30 >= 30, 'red': r.targetTo30 < 30}">
     </div>
-    <a routerLink="/orders">{{ r.targetTo30.toFixed(2) }}</a>
+    <a routerLink="/orders">{{ r.targetTo30.toFixed(2) }} %</a>
   </td>
 </tr>
 <tr>
@@ -31,7 +31,7 @@
          [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq >= 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
     </div>
     <a routerLink="/reports/executive_summary">
-      {{ (total_hq_ab_coverage/total_hq).toFixed(2) }}
+      {{ (total_hq_ab_coverage/total_hq).toFixed(2) }} %
     </a>
   </td>
   <td *ngFor="let r of _regions">
@@ -39,7 +39,7 @@
          [ngClass]="{'green': total_hq_ab_coverage/total_hq >= 85, 'orange': total_hq_ab_coverage/total_hq >= 80 && total_hq_ab_coverage/total_hq < 85, 'red': total_hq_ab_coverage/total_hq < 80}">
     </div>
     <a routerLink="/reports/executive_summary">
-      {{ (r.totalHqCoverage/r.headquarters_count).toFixed(2) }}
+      {{ (r.totalHqCoverage/r.headquarters_count).toFixed(2) }} %
     </a>
   </td>
 </tr>
