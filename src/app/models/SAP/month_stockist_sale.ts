@@ -11,13 +11,13 @@ export class MonthStockistSale {
     constructor(info: any) {
 
         if (info.monthly_stockist_sale)
-            this.monthly_stockist_sale = parseFloat((parseFloat(info.monthly_stockist_sale) / 100000).toFixed(0));
+            this.monthly_stockist_sale = parseFloat((parseFloat(info.monthly_stockist_sale) / 1000).toFixed(0));
 
         if (info.monthly_stockist_count)
             this.monthly_stockist_count = parseFloat(info.monthly_stockist_count);
 
         if (info.monthly_stockist_sale_ab)
-            this.monthly_stockist_sale_ab = parseFloat((parseFloat(info.monthly_stockist_sale_ab) / 100000).toFixed(0));
+            this.monthly_stockist_sale_ab = parseFloat((parseFloat(info.monthly_stockist_sale_ab) / 1000).toFixed(0));
 
         if (info.monthly_stockist_ab_count)
             this.monthly_stockist_ab_count = parseFloat(info.monthly_stockist_ab_count);
