@@ -21,7 +21,9 @@
 }
 
 .table-bordered {
+  border: 1px solid black !important;
   thead th {
+    border: 1px solid black !important;
     padding: 2px;
     font-weight: 500;
     font-size: 10px;
@@ -34,12 +36,18 @@
     text-align: center;
   }
   tbody {
+    overflow-y: scroll;
+    height: 400px;            //  <-- Select the height of the body
+    width: 100%;
+    background-color: white;
     th {
+      border: 1px solid black !important;
       padding: 2px;
       font-weight: 500;
       font-size: 10px;
     }
     td {
+      border: 1px solid black !important;
       padding: 2px;
       font-size: 10px;
       text-align: right;
