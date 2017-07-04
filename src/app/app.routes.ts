@@ -60,6 +60,7 @@ import {SecondarySaleZSMComponent} from "./components/pages/secondary_sale/zsm_i
 import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist_sales_graph/stockist_sales_graph";
 import {ManagerOrderComponent} from "./components/pages/order/manager_index/index.component";
 import {ManagerVisitComponent} from "./components/pages/visit/manager_index/index.component";
+import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wise/sap_stockist_wise.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -355,6 +356,9 @@ export const routes: Routes = [
                     }, {
                         path: 'productivity_analysis',
                         component: ProductivityAnalysisReportComponent,
+                    }, {
+                        path: 'sap_stockist_wise',
+                        component: SapStockistWiseComponent,
                     }
                 ]
             },

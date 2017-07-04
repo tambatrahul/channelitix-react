@@ -3,6 +3,7 @@ import {CustomerType} from "../customer/customer_type";
 import {Country} from "./country";
 import {Area} from "./area";
 import {Product} from "../order/product";
+import {Customer} from "../customer/customer";
 
 export class Region extends Model {
 
@@ -10,6 +11,7 @@ export class Region extends Model {
   hq_country: Country;
 
   // for internal user only
+  customers: Customer[];
   customer_types: CustomerType[];
   areas: Area[] = [];
   area_objects = {};
@@ -45,6 +47,7 @@ export class Region extends Model {
     super(info.id);
     this.name = info.name;
     this.customer_types = info.customer_types;
+    this.customers = info.customers;
     this.total = info.total;
     if (info.hq_country) {
       this.hq_country = new Country(info.hq_country);

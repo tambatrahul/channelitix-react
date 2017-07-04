@@ -14,6 +14,7 @@ export class Visit extends Model {
     customer_id: number;
     created_by: number;
     no_of_days: number;
+    stockist_code: number;
     creator: User;
     inputs: VisitInput[];
     input_answers: InputAnswer[];
@@ -54,6 +55,7 @@ export class Visit extends Model {
         this.hq_area_id = info.hq_area_id;
         this.hq_region_id = info.hq_region_id;
         this.grade_id = info.grade_id;
+        this.stockist_code = info.stockist_code;
 
         if (info.days)
             this.days = info.days;

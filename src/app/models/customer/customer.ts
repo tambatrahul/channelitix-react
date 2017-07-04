@@ -8,6 +8,7 @@ import {Input} from "@angular/core";
 import {Product} from "../order/product";
 import {Headquarter} from "../territory/headquarter";
 import {Region} from "../territory/region";
+import {Area} from "../territory/area";
 
 export class Customer extends Model {
 
@@ -30,10 +31,13 @@ export class Customer extends Model {
     address: Address;
     synergy: boolean;
 
+    visit_days: string;
+
     hq_brick: Brick;
     hq_territory: Territory;
     hq_headquarter: Headquarter;
     hq_region: Region;
+    hq_area: Area;
 
     // for internal user only
     inputs: Input[];
@@ -45,6 +49,13 @@ export class Customer extends Model {
     total_pob: number = 0;
     customer_count: number = 0;
     total_primary_sale: number = 0;
+
+    last_year_sale: number = 0;
+    last_year_dexona_sale: number = 0;
+    last_month_sale:number = 0;
+    last_month_dexona_sale:number = 0;
+    visit_counts:number = 0;
+    sap_primary_sale:number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -67,6 +78,7 @@ export class Customer extends Model {
         this.address = info.address;
         this.code = info.code;
         this.synergy = info.synergy;
+        this.visit_days = info.visit_days;
 
         // add brick
         if (info.hq_brick)
@@ -80,11 +92,37 @@ export class Customer extends Model {
         if (info.hq_headquarter)
             this.hq_headquarter = new Headquarter(info.hq_headquarter);
 
+        // add area
+        if (info.hq_area)
+            this.hq_area = new Area(info.hq_area);
+
+        // add region
+        if (info.hq_region)
+            this.hq_region = new Region(info.hq_region);
+
         if (info.brick_counts)
             this.brick_counts = parseInt(info.brick_counts);
 
         // visit count
         if (info.visit_count)
             this.visit_count = parseInt(info.visit_count);
+
+        if (info.last_year_sale)
+            this.last_year_sale = parseInt(info.last_year_sale);
+
+        if (info.last_year_dexona_sale)
+            this.last_year_dexona_sale = parseInt(info.last_year_dexona_sale);
+
+        if (info.last_month_sale)
+            this.last_month_sale = parseInt(info.last_month_sale);
+
+        if (info.last_month_dexona_sale)
+            this.last_month_dexona_sale = parseInt(info.last_month_dexona_sale);
+
+        if (info.visit_counts)
+            this.visit_counts = parseInt(info.visit_counts);
+
+        if (info.sap_primary_sale)
+            this.sap_primary_sale = parseInt(info.sap_primary_sale);
     }
 }

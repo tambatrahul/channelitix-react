@@ -261,6 +261,42 @@ export class ReportService extends BaseService {
     }
 
     /**
+     * Monthly Stockist wise sale report api
+     */
+    sap_stockist_wise_monthly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number) {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        if (month)
+            params.append('month', String(month));
+        if (year)
+            params.append('year', String(year));
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
+        return this.get(this.getBaseUrl() + '/stockist_wise_sap_monthly', new RequestOptions({search: params}));
+    }
+
+    /**
+     * Monthly Stockist wise sale report api
+     */
+    sap_stockist_wise_yearly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number) {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        if (month)
+            params.append('month', String(month));
+        if (year)
+            params.append('year', String(year));
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+        params.set('area_id', String(area_id > 0 ? area_id : ''));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
+        return this.get(this.getBaseUrl() + '/stockist_wise_sap_yearly', new RequestOptions({search: params}));
+    }
+
+    /**
      * get order and visit trends
      *
      * @returns {Observable<Result>}

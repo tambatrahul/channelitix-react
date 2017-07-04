@@ -28,6 +28,7 @@ import {Target} from "./SAP/target";
 import {BrickCustomerCount} from "./territory/brick_customer_count";
 import {MonthStockistSale} from "./SAP/month_stockist_sale";
 import {YearStockistSale} from "./SAP/year_stockist_sale";
+import {SapStockistSale} from "./SAP/sap_stockist_sale";
 
 export class Result {
 
@@ -101,6 +102,13 @@ export class Result {
 
   // products
   products: Product[] = [];
+
+  last_month_dexona_sale: SapStockistSale[] = [];
+  last_month_sale: SapStockistSale[] = [];
+  yearly_sales: SapStockistSale[] = [];
+  yearly_dexona_sales: SapStockistSale[] = [];
+  current_month_sale: SapStockistSale[] = [];
+  visits_this_month: Visit[] = [];
 
   // get total counts for reports
   total_users: number = 0;
