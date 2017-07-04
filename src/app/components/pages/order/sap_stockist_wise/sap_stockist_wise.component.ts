@@ -71,7 +71,7 @@ export class SapStockistWiseComponent extends ListComponent {
                 this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id),
                 this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id)).subscribe(
                 response => {
-                    this.regions = response[1].regions.map(region => new Region(region));
+                    this.regions = response[1].regions.map(region => new Region(region)).filter(region => region.id == this.region_id);
                     let last_month_sale = response[0].last_month_sale.map(lms => new SapStockistSale(lms));
                     let last_month_dexona_sale = response[0].last_month_dexona_sale.map(lmds => new SapStockistSale(lmds));
                     let yearly_sales = response[1].yearly_sales.map(ys => new SapStockistSale(ys));
