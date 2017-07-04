@@ -6,7 +6,9 @@
   <th>% Sales Contribution</th>
   <td>100.00</td>
   <td *ngFor="let r of regions">
-    <a routerLink="/reports/executive_summary">{{ ((r.target / total_target)* 100).toFixed(2) }} %</a>
+    <a routerLink="/reports/executive_summary">
+      {{ (r.target > 0) ? ((r.target / total_target)* 100).toFixed(2) : 0 }} %
+    </a>
   </td>
 </tr>
 <tr>
@@ -15,14 +17,17 @@
     <div class="cell"
          [ngClass]="{'green': total_primary_sale >= total_target, 'orange': total_primary_sale >= (total_target * 0.9), 'red': total_primary_sale < (total_target * 0.9)}">
     </div>
-    <a routerLink="/reports/executive_summary">{{ ((total_primary_sale / total_target)* 100).toFixed(2) }}</a>
+    <a routerLink="/reports/executive_summary">
+      {{ (total_target > 0) ? ((total_primary_sale / total_target)* 100).toFixed(2) : 0 }}
+    </a>
   </td>
   <td *ngFor="let r of regions">
     <div class="cell"
          [ngClass]="{'green': r.primary >= r.target, 'orange': r.primary >= (r.target * 0.9), 'red': r.primary < (r.target * 0.9)}">
 
     </div>
-    <a routerLink="/reports/executive_summary">{{ r.target > 0 ? ((r.primary / r.target)* 100).toFixed(2) : 0 }} %</a>
+    <a routerLink="/reports/executive_summary">
+      {{ r.target > 0 ? ((r.primary / r.target)* 100).toFixed(2) : 0 }} %</a>
   </td>
 </tr>
 <tr>
