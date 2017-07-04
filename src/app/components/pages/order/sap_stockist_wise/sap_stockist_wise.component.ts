@@ -24,7 +24,10 @@ export class SapStockistWiseComponent extends ListComponent {
      * @type {number}
      */
     public month: number;
+    public prev_month: number;
     public year: number;
+    month_str: string;
+    prev_month_str: string;
 
     /**
      * region, area & headquarter
@@ -56,8 +59,9 @@ export class SapStockistWiseComponent extends ListComponent {
         this.month = moment().month();
         this.year = moment().year();
         this.region_id = 2;
-        this.area_id = 3;
-        this.headquarter_id = 4;
+
+        this.month_str = moment().month(this.month).format('MMM');
+        this.prev_month_str = moment().month(this.month).subtract(1).format('MMM');
         super.ngOnInit();
     }
 
@@ -71,7 +75,7 @@ export class SapStockistWiseComponent extends ListComponent {
                 this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id),
                 this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id)).subscribe(
                 response => {
-                    this.regions = response[1].regions.map(region => new Region(region)).filter(region => region.id == this.region_id);
+                    let regions = response[1].regions.map(region => new Region(region)).filter(region => region.id == this.region_id);
                     let last_month_sale = response[0].last_month_sale.map(lms => new SapStockistSale(lms));
                     let last_month_dexona_sale = response[0].last_month_dexona_sale.map(lmds => new SapStockistSale(lmds));
                     let yearly_sales = response[1].yearly_sales.map(ys => new SapStockistSale(ys));
@@ -82,7 +86,7 @@ export class SapStockistWiseComponent extends ListComponent {
                     // get customers
                     let customers = response[1].customers.map(cus => new Customer(cus));
 
-                    this.prepareData(customers, yearly_sales, yearly_dexona_sales, last_month_sale,
+                    this.prepareData(regions, customers, yearly_sales, yearly_dexona_sales, last_month_sale,
                         last_month_dexona_sale, visits_this_month, current_month_sale);
 
                     this.loading = false;
@@ -109,6 +113,7 @@ export class SapStockistWiseComponent extends ListComponent {
 
     /**
      *
+     * @param regions
      * @param customers
      * @param yearly_sales
      * @param yearly_dexona_sales
@@ -117,13 +122,13 @@ export class SapStockistWiseComponent extends ListComponent {
      * @param visits_this_month
      * @param current_month_sale
      */
-    prepareData(customers: Customer[], yearly_sales: SapStockistSale[], yearly_dexona_sales: SapStockistSale[],
+    prepareData(regions :Region[], customers: Customer[], yearly_sales: SapStockistSale[], yearly_dexona_sales: SapStockistSale[],
                 last_month_sale: SapStockistSale[], last_month_dexona_sale: SapStockistSale[], visits_this_month: Visit[],
                 current_month_sale: SapStockistSale[]) {
 
         // add customers  to individual hq
 
-        this.regions.map(region => {
+        regions.map(region => {
             region.areas.map(area => {
                area.headquarters.map(headquarter => {
                    headquarter.customers = [];
@@ -173,6 +178,8 @@ export class SapStockistWiseComponent extends ListComponent {
                }) ;
             });
         });
+
+        this.regions = regions;
     }
 
     /**
@@ -183,6 +190,10 @@ export class SapStockistWiseComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+        this.month_str = moment().month(this.month).format('MMM');
+        this.prev_month_str = moment().month(this.month).subtract(1, 'months').format('MMM');
+        console.log(this.month_str);
+        console.log(this.prev_month_str);
         this.fetch();
     }
 
