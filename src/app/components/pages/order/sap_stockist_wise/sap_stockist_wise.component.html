@@ -103,21 +103,21 @@
                             </td>
                             <td>{{customer.last_month_sale}}</td>
                             <td>{{customer.last_month_dexona_sale}}</td>
-                            <td class="grey">{{((customer.last_year_sale > 0 ?
+                            <td class="grey">{{(customer.last_year_sale > 0 ? ((customer.last_year_sale > 0 ?
                               (customer.last_year_sale/12).toFixed(2) : 0) -
-                              customer.last_month_sale).toFixed(2)}}
+                              customer.last_month_sale).toFixed(2): 0)}}
                             </td>
-                            <td class="grey">{{(customer.last_year_dexona_sale > 0 ?
+                            <td class="grey">{{(customer.last_year_dexona_sale > 0 ? (customer.last_year_dexona_sale > 0 ?
                               (customer.last_year_dexona_sale/12).toFixed(2) : 0) -
-                              customer.last_month_dexona_sale}}
+                              customer.last_month_dexona_sale : 0)}}
                             </td>
-                            <td>{{((2*(customer.last_year_sale > 0 ?
+                            <td>{{(customer.last_year_sale > 0 ? ((2*(customer.last_year_sale > 0 ?
                               (customer.last_year_sale/12).toFixed(2) : 0)) -
-                              customer.last_month_sale).toFixed(2)}}
+                              customer.last_month_sale).toFixed(2) : 0)}}
                             </td>
-                            <td>{{(2*(customer.last_year_dexona_sale > 0 ?
+                            <td>{{(customer.last_year_dexona_sale > 0 ? ((2*(customer.last_year_dexona_sale > 0 ?
                               (customer.last_year_dexona_sale/12).toFixed(2) : 0)) -
-                              customer.last_month_dexona_sale}}
+                              customer.last_month_dexona_sale) : 0)}}
                             </td>
                             <td class="grey">{{customer.visits_this_month_manager}}</td>
                             <td class="grey">{{customer.visits_this_month_rep}}</td>
