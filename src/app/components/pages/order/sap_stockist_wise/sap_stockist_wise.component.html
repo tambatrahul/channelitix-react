@@ -55,26 +55,30 @@
                     <table class="table table-bordered visit_table">
                       <thead>
                       <tr style="background-color: #3498db;color: white">
-                        <th rowspan="2">Stockist Code</th>
-                        <th rowspan="2">Name of the Stickst</th>
-                        <th rowspan="2">Segment</th>
+                        <th rowspan="3">Stockist Code</th>
+                        <th rowspan="3">Name of the Stockist</th>
+                        <th rowspan="3">Segment</th>
                         <th colspan="2"> {{year - 1}} Average</th>
                         <th colspan="2"> {{prev_month_str}}-{{year}}</th>
                         <th colspan="2"> Shortfall {{prev_month_str}}</th>
                         <th colspan="2">{{month_str}} Expected sales</th>
-                        <th colspan="2">Tracking</th>
+                        <th colspan="3">Tracking</th>
                       </tr>
                       <tr style="background-color: #3498db;color: white">
-                        <th>Total</th>
-                        <th>Dexona</th>
-                        <th>Total</th>
-                        <th>Dexona</th>
-                        <th>Total</th>
-                        <th>Dexona</th>
-                        <th>Total</th>
-                        <th>Dexona</th>
-                        <th>Visit</th>
-                        <th>Primary Sales</th>
+                        <th rowspan="2">Total</th>
+                        <th rowspan="2">Dexona</th>
+                        <th rowspan="2">Total</th>
+                        <th rowspan="2">Dexona</th>
+                        <th rowspan="2">Total</th>
+                        <th rowspan="2">Dexona</th>
+                        <th rowspan="2">Total</th>
+                        <th rowspan="2">Dexona</th>
+                        <th colspan="2">Visit</th>
+                        <th rowspan="2">Primary Sales</th>
+                      </tr>
+                      <tr style="background-color: #3498db;color: white">
+                        <th>Manager</th>
+                        <th>Rep</th>
                       </tr>
                       </thead>
 
@@ -115,7 +119,8 @@
                               (customer.last_year_dexona_sale/12).toFixed(2) : 0)) -
                               customer.last_month_dexona_sale}}
                             </td>
-                            <td class="grey">{{customer.visit_days}}</td>
+                            <td class="grey">{{customer.visits_this_month_manager}}</td>
+                            <td class="grey">{{customer.visits_this_month_rep}}</td>
                             <td class="grey">{{customer.sap_primary_sale}}</td>
                           </tr>
                         </template>

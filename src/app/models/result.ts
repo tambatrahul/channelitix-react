@@ -108,7 +108,8 @@ export class Result {
   yearly_sales: SapStockistSale[] = [];
   yearly_dexona_sales: SapStockistSale[] = [];
   current_month_sale: SapStockistSale[] = [];
-  visits_this_month: Visit[] = [];
+  visits_this_month_manager: Visit[] = [];
+  visits_this_month_rep: Visit[] = [];
 
   // get total counts for reports
   total_users: number = 0;

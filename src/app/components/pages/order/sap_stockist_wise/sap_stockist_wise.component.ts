@@ -82,14 +82,15 @@ export class SapStockistWiseComponent extends ListComponent {
           let last_month_dexona_sale = response[0].last_month_dexona_sale.map(lmds => new SapStockistSale(lmds));
           let yearly_sales = response[1].yearly_sales.map(ys => new SapStockistSale(ys));
           let yearly_dexona_sales = response[1].yearly_dexona_sales.map(yds => new SapStockistSale(yds));
-          let visits_this_month = response[0].visits_this_month.map(visit => new Visit(visit));
+          let visits_this_month_manager = response[0].visits_this_month_manager.map(visit => new Visit(visit));
+          let visits_this_month_rep = response[0].visits_this_month_rep.map(visit => new Visit(visit));
           let current_month_sale = response[0].current_month_sale.map(cms => new SapStockistSale(cms));
 
           // get customers
           let customers = response[1].customers.map(cus => new Customer(cus));
 
           this.prepareData(regions, customers, yearly_sales, yearly_dexona_sales, last_month_sale,
-            last_month_dexona_sale, visits_this_month, current_month_sale);
+            last_month_dexona_sale, visits_this_month_manager, visits_this_month_rep, current_month_sale);
 
           this.loading = false;
 
@@ -125,8 +126,8 @@ export class SapStockistWiseComponent extends ListComponent {
    * @param current_month_sale
    */
   prepareData(regions: Region[], customers: Customer[], yearly_sales: SapStockistSale[], yearly_dexona_sales: SapStockistSale[],
-              last_month_sale: SapStockistSale[], last_month_dexona_sale: SapStockistSale[], visits_this_month: Visit[],
-              current_month_sale: SapStockistSale[]) {
+              last_month_sale: SapStockistSale[], last_month_dexona_sale: SapStockistSale[], visits_this_month_manger: Visit[],
+              visits_this_month_rep: Visit[], current_month_sale: SapStockistSale[]) {
 
     // add customers  to individual hq
 
@@ -142,9 +143,15 @@ export class SapStockistWiseComponent extends ListComponent {
               }
             });
 
-            visits_this_month.map(visit => {
+            visits_this_month_manger.map(visit => {
               if (cus.code == visit.stockist_code) {
-                cus.visit_days = visit.days;
+                cus.visits_this_month_manager = visit.days;
+              }
+            });
+
+            visits_this_month_rep.map(visit => {
+              if (cus.code == visit.stockist_code) {
+                cus.visits_this_month_rep = visit.days;
               }
 
             });
