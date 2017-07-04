@@ -51,6 +51,9 @@ export class CustomerDataComponent extends ListComponent {
       this.loading = true;
       this.reportService.customer_data().subscribe(
         response => {
+          this.total_hq = 0;
+          this.total_brick_hq = 0;
+          this.total_hq_with_norms = 0;
 
           // get customer type Data
           let customer_types = response.customer_types.map(customer_type => new CustomerType(customer_type));
