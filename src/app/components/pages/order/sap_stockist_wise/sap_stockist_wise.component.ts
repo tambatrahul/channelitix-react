@@ -76,8 +76,11 @@ export class SapStockistWiseComponent extends ListComponent {
         this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id)).subscribe(
         response => {
           let regions = response[1].regions.map(region => new Region(region));
+
+          // filter for region
           if (this.region_id)
             regions = regions.filter(region => region.id == this.region_id);
+
           let last_month_sale = response[0].last_month_sale.map(lms => new SapStockistSale(lms));
           let last_month_dexona_sale = response[0].last_month_dexona_sale.map(lmds => new SapStockistSale(lmds));
           let yearly_sales = response[1].yearly_sales.map(ys => new SapStockistSale(ys));
@@ -180,6 +183,23 @@ export class SapStockistWiseComponent extends ListComponent {
         });
       });
     });
+
+    if (this.region_id && this.region_id > 0)
+      regions = regions.filter(region => region.id == this.region_id);
+
+    if (this.area_id && this.area_id > 0) {
+      regions.map(region =>  {
+        region.areas = region.areas.filter(a => a.id == this.area_id);
+      });
+    }
+
+    if (this.headquarter_id && this.headquarter_id > 0) {
+      regions.map(region =>  {
+        region.areas.map(area => {
+          area.headquarters = area.headquarters.filter(h => h.id == this.headquarter_id);
+        });
+      });
+    }
 
     this.regions = regions;
   }
