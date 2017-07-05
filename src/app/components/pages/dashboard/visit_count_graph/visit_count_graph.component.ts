@@ -22,6 +22,8 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
      */
     public total_visits: number = 0;
     public total_pob: number = 0;
+    public total_pob_sk: number = 0;
+    public total_pob_synergy: number = 0;
     public total_orders: number = 0;
 
     /**
@@ -148,6 +150,10 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
                     this.orders = response.orders.map(function (order) {
                         return new Order(order);
                     });
+
+                    this.total_pob_sk = response.orders_sk;
+                    this.total_pob_synergy = response.orders_synergy;
+
                     this.attendances = response.attendances.map(function (att) {
                         return new Attendance(att);
                     });
@@ -214,7 +220,9 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
         this.totalVisitOrders.emit({
             'visits': this.total_visits,
             'orders': this.total_pob,
-            'total_orders': this.total_orders
+            'total_orders': this.total_orders,
+            'orders_sk': this.total_pob_sk,
+            'orders_synergy': this.total_pob_synergy
         });
 
         // set chart data callback
