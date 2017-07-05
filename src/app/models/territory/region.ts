@@ -43,6 +43,11 @@ export class Region extends Model {
   attritions_year_count: number = 0;
   total_customers_ab: number = 0;
 
+  rg_last_year_total: number = 0;
+  rg_last_year_dexona_total: number = 0;
+  rg_last_month_total: number = 0;
+  rg_last_month_dexona_total: number = 0;
+
   constructor(info: any) {
     super(info.id);
     this.name = info.name;
@@ -82,6 +87,18 @@ export class Region extends Model {
 
     if (info.total_customers)
       this.total_customers = parseInt(info.total_customers);
+
+    if (info.rg_last_year_total)
+      this.rg_last_year_total = parseInt(info.rg_last_year_total);
+
+    if (info.rg_last_year_dexona_total)
+      this.rg_last_year_dexona_total = parseInt(info.rg_last_year_dexona_total);
+
+    if (info.rg_last_month_total)
+      this.rg_last_month_total = parseInt(info.rg_last_month_total);
+
+    if (info.rg_last_month_dexona_total)
+      this.rg_last_month_dexona_total = parseInt(info.rg_last_month_dexona_total);
   }
 
   /**

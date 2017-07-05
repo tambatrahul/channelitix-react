@@ -28,6 +28,11 @@ export class Area extends Model {
   bricks_count: number = 0;
   total_order: number = 0;
 
+  ar_last_year_total: number = 0;
+  ar_last_year_dexona_total: number = 0;
+  ar_last_month_total: number = 0;
+  ar_last_month_dexona_total: number = 0;
+
 
   constructor(info: any) {
     super(info.id);
@@ -57,6 +62,18 @@ export class Area extends Model {
 
     if (info.total_customers)
       this.total_customers = parseInt(info.total_customers);
+
+    if (info.ar_last_year_total)
+      this.ar_last_year_total = parseInt(info.ar_last_year_total);
+
+    if (info.ar_last_year_dexona_total)
+      this.ar_last_year_dexona_total = parseInt(info.ar_last_year_dexona_total);
+
+    if (info.ar_last_month_total)
+      this.ar_last_month_total = parseInt(info.ar_last_month_total);
+
+    if (info.ar_last_month_dexona_total)
+      this.ar_last_month_dexona_total = parseInt(info.ar_last_month_dexona_total);
   }
 
   /**

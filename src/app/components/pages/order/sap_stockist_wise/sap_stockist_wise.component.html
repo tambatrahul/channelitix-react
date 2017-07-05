@@ -84,12 +84,84 @@
 
                       <tbody>
                       <template ngFor let-area [ngForOf]="region.areas">
+                        <tr *ngIf="area_id == 0">
+                          <th>Total</th>
+                          <th></th>
+                          <th></th>
+                          <th>{{ region.rg_last_year_total > 0 ? (region.rg_last_year_total/12).toFixed(2) : 0}}</th>
+                          <th>{{ region.rg_last_year_dexona_total > 0 ? (region.rg_last_year_dexona_total).toFixed(2) : 0 }}</th>
+                          <th>{{ region.rg_last_month_total > 0 ? (region.rg_last_month_total).toFixed(2) : 0}}</th>
+                          <th>{{ region.rg_last_month_dexona_total > 0 ? (region.rg_last_month_dexona_total).toFixed(2) : 0}}</th>
+                          <th>{{ region.rg_last_year_total > 0 ? ((region.rg_last_year_total > 0 ?
+                              (region.rg_last_year_total/12).toFixed(2) : 0) -
+                              region.rg_last_month_total).toFixed(2): 0 }}</th>
+                          <th>{{(region.rg_last_year_dexona_total > 0 ? (region.rg_last_year_dexona_total > 0 ?
+                              (region.rg_last_year_dexona_total/12).toFixed(2) : 0) -
+                              region.rg_last_month_dexona_total : 0)}}</th>
+                          <th>{{ region.rg_last_year_total > 0 ? ((2*(region.rg_last_year_total > 0 ?
+                              (region.rg_last_year_total/12).toFixed(2) : 0)) -
+                              region.rg_last_month_total).toFixed(2): 0 }}</th>
+                          <th>{{(region.rg_last_year_dexona_total > 0 ? (2*(region.rg_last_year_dexona_total > 0 ?
+                              (region.rg_last_year_dexona_total/12).toFixed(2) : 0)) -
+                              region.rg_last_month_dexona_total : 0)}}</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
                         <tr class="grey">
                           <th colspan="15" class="text-center">{{area.name}}</th>
                         </tr>
                         <template ngFor let-hq [ngForOf]="area.headquarters">
+                          <tr class="grey" *ngIf="headquarter_id == 0">
+                            <th>Total</th>
+                            <th></th>
+                            <th></th>
+                            <th>{{ area.ar_last_year_total > 0 ? (area.ar_last_year_total/12).toFixed(2) : 0}}</th>
+                            <th>{{ area.ar_last_year_dexona_total > 0 ? (area.ar_last_year_dexona_total).toFixed(2) : 0}}</th>
+                            <th>{{area.ar_last_month_total > 0 ? (area.ar_last_month_total/12).toFixed(2) : 0}}</th>
+                            <th>{{area.ar_last_month_dexona_total > 0 ? (area.ar_last_month_dexona_total).toFixed(2) : 0}}</th>
+                            <th>{{ area.ar_last_year_total > 0 ? ((area.ar_last_year_total > 0 ?
+                                (area.ar_last_year_total/12).toFixed(2) : 0) -
+                                area.ar_last_month_total).toFixed(2): 0 }}</th>
+                            <th>{{(area.ar_last_year_dexona_total > 0 ? (area.ar_last_year_dexona_total > 0 ?
+                                (area.ar_last_year_dexona_total/12).toFixed(2) : 0) -
+                                area.ar_last_month_dexona_total : 0)}}</th>
+                            <th>{{ area.ar_last_year_total > 0 ? ((2*(area.ar_last_year_total > 0 ?
+                                (area.ar_last_year_total/12).toFixed(2) : 0)) -
+                                area.ar_last_month_total).toFixed(2): 0 }}</th>
+                            <th>{{(area.ar_last_year_dexona_total > 0 ? (2*(area.ar_last_year_dexona_total > 0 ?
+                                (area.ar_last_year_dexona_total/12).toFixed(2) : 0)) -
+                                area.ar_last_month_dexona_total : 0)}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
                           <tr class="dark_grey">
                             <th class="text-center" colspan="15">{{ hq.name }}</th>
+                          </tr>
+                          <tr class="dark_grey">
+                            <th>Total</th>
+                            <th></th>
+                            <th></th>
+                            <th>{{hq.hq_last_year_total > 0 ? (hq.hq_last_year_total/12).toFixed(2) : 0}}</th>
+                            <th>{{hq.hq_last_year_dexona_total > 0 ? (hq.hq_last_year_dexona_total).toFixed(2) : 0}}</th>
+                            <th>{{hq.hq_last_month_total > 0 ? (hq.hq_last_month_total/12).toFixed(2) : 0}}</th>
+                            <th>{{hq.hq_last_month_dexona_total > 0 ? (hq.hq_last_month_dexona_total).toFixed(2) : 0}}</th>
+                            <th>{{ hq.hq_last_year_total > 0 ? ((hq.ar_last_year_total > 0 ?
+                                (hq.hq_last_year_total/12).toFixed(2) : 0) -
+                                hq.hq_last_month_total).toFixed(2): 0 }}</th>
+                            <th>{{(hq.hq_last_year_dexona_total > 0 ? (hq.hq_last_year_dexona_total > 0 ?
+                                (hq.hq_last_year_dexona_total/12).toFixed(2) : 0) -
+                                hq.hq_last_month_dexona_total : 0)}}</th>
+                            <th>{{ hq.hq_last_year_total > 0 ? ((2*(hq.hq_last_year_total > 0 ?
+                                (hq.hq_last_year_total/12).toFixed(2) : 0)) -
+                                hq.hq_last_month_total).toFixed(2): 0 }}</th>
+                            <th>{{(hq.hq_last_year_dexona_total > 0 ? (2*(hq.hq_last_year_dexona_total > 0 ?
+                                (hq.hq_last_year_dexona_total/12).toFixed(2) : 0)) -
+                                hq.hq_last_month_dexona_total : 0)}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                           </tr>
                           <tr *ngFor="let customer of hq.customers">
                             <th>{{customer.code}}</th>
