@@ -37,6 +37,7 @@ export class SapStockistWiseComponent extends ListComponent {
   public headquarter_id: number = 0;
 
 
+
   /**
    * get customers
    *
@@ -183,9 +184,31 @@ export class SapStockistWiseComponent extends ListComponent {
               }
             });
 
+            // Headquarter Wise Total
             if (cus.hq_headquarter_id == headquarter.id) {
               headquarter.customers.push(new Customer(cus));
+
+              headquarter.hq_last_year_total += cus.last_year_sale;
+              headquarter.hq_last_year_dexona_total += cus.last_year_dexona_sale;
+              headquarter.hq_last_month_total += cus.last_month_sale;
+              headquarter.hq_last_month_dexona_total += cus.last_month_dexona_sale;
             }
+
+            // Area Wise Total
+            if (cus.hq_area_id == area.id) {
+              area.ar_last_year_total += cus.last_year_sale;
+              area.ar_last_year_dexona_total += cus.last_year_dexona_sale;
+              area.ar_last_month_total += cus.last_month_sale;
+              area.ar_last_month_dexona_total += cus.last_month_dexona_sale;
+            }
+
+            // Region Wise Total
+            if (cus.hq_region_id == region.id) {
+              region.rg_last_year_total += cus.last_year_sale;
+              region.rg_last_year_dexona_total += cus.last_year_dexona_sale;
+              region.rg_last_month_total += cus.last_month_sale;
+              region.rg_last_month_dexona_total += cus.last_month_dexona_sale;
+              }
           });
         });
       });

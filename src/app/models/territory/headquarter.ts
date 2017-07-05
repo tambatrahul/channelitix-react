@@ -31,6 +31,11 @@ export class Headquarter extends Model {
     bricks_count: number = 0;
     customers : Customer[] = [];
 
+    hq_last_year_total: number = 0;
+    hq_last_year_dexona_total: number = 0;
+    hq_last_month_total: number = 0;
+    hq_last_month_dexona_total: number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
@@ -55,6 +60,18 @@ export class Headquarter extends Model {
 
         if (info.total_order)
             this.total_order = parseInt(info.total_order);
+
+        if (info.hq_last_year_total)
+            this.hq_last_year_total = parseInt(info.hq_last_year_total);
+
+        if (info.hq_last_year_dexona_total)
+            this.hq_last_year_dexona_total = parseInt(info.hq_last_year_dexona_total);
+
+        if (info.hq_last_month_total)
+            this.hq_last_month_total = parseInt(info.hq_last_month_total);
+
+        if (info.hq_last_month_dexona_total)
+            this.hq_last_month_dexona_total = parseInt(info.hq_last_month_dexona_total);
     }
 
     /**
