@@ -103,21 +103,13 @@
                             </td>
                             <td>{{customer.last_month_sale}}</td>
                             <td>{{customer.last_month_dexona_sale}}</td>
-                            <td class="grey">{{(customer.last_year_sale > 0 ? ((customer.last_year_sale > 0 ?
-                              (customer.last_year_sale/12).toFixed(2) : 0) -
-                              customer.last_month_sale).toFixed(2): 0)}}
+                            <td class="grey">{{customer.last_month_shortfall}}
                             </td>
-                            <td class="grey">{{(customer.last_year_dexona_sale > 0 ? (customer.last_year_dexona_sale > 0 ?
-                              (customer.last_year_dexona_sale/12).toFixed(2) : 0) -
-                              customer.last_month_dexona_sale : 0)}}
+                            <td class="grey">{{customer.last_month_dexona_shortfall}}
                             </td>
-                            <td>{{(customer.last_year_sale > 0 ? ((2*(customer.last_year_sale > 0 ?
-                              (customer.last_year_sale/12).toFixed(2) : 0)) -
-                              customer.last_month_sale).toFixed(2) : 0)}}
+                            <td>{{customer.current_month_expected}}
                             </td>
-                            <td>{{(customer.last_year_dexona_sale > 0 ? ((2*(customer.last_year_dexona_sale > 0 ?
-                              (customer.last_year_dexona_sale/12).toFixed(2) : 0)) -
-                              customer.last_month_dexona_sale) : 0)}}
+                            <td>{{customer.current_month_expected_dexona}}
                             </td>
                             <td class="grey">{{customer.visits_this_month_manager}}</td>
                             <td class="grey">{{customer.visits_this_month_rep}}</td>
