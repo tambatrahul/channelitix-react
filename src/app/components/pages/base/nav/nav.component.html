@@ -54,7 +54,7 @@
             <span class="nav-label">Dashboard</span>
           </a>
         </li>
-        <li *roleCheck="ROLE_ADMIN" >
+        <li *roleCheck="ROLE_ADMIN">
           <a class="waves-effect" *ngIf="environment.envName != 'sk_group'"
              [routerLink]="'/dashboard/report'">
             <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>
@@ -89,7 +89,7 @@
             <span class="nav-label">Daily Work Reporting</span>
           </a>
         </li>
-        <li >
+        <li>
           <a>
                     <span class="nav-icon">
                         <i class="fa fa-pie-chart"></i>
@@ -175,12 +175,6 @@
                 <span class="nav-label">Secondary Statement Status</span>
               </a>
             </li>
-            <!--<li>-->
-              <!--<a class="waves-effect" routerLink="/reports/sap_stockist_wise">-->
-                <!--<span class="nav-icon"><i class="fa fa-table"></i></span>-->
-                <!--<span class="nav-label">Stockist Wise</span>-->
-              <!--</a>-->
-            <!--</li>-->
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">
@@ -238,6 +232,12 @@
           <a class="waves-effect" [routerLink]="['/sales/secondary/region']">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
             <span class="nav-label">Secondary Sales Report</span>
+          </a>
+        </li>
+        <li *roleCheck="ROLE_ADMIN">
+          <a class="waves-effect" routerLink="/reports/sap_stockist_wise">
+            <span class="nav-icon"><i class="fa fa-table"></i></span>
+            <span class="nav-label">Monthly Sales Tracking</span>
           </a>
         </li>
         <li *ngIf="environment.envName == 'geo'">
