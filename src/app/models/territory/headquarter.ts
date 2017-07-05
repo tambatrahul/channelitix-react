@@ -29,7 +29,12 @@ export class Headquarter extends Model {
 
     territories_count: number = 0;
     bricks_count: number = 0;
-    customers : Customer[] = [];
+    customers: Customer[] = [];
+
+    hq_last_year_total: number = 0;
+    hq_last_year_dexona_total: number = 0;
+    hq_last_month_total: number = 0;
+    hq_last_month_dexona_total: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -38,7 +43,7 @@ export class Headquarter extends Model {
 
         this.customer_types = info.customer_types;
 
-        if(info.customers)
+        if (info.customers)
             this.customers = info.customers.map(customer => new Customer(customer));
 
         if (info.hq_area)
@@ -55,6 +60,18 @@ export class Headquarter extends Model {
 
         if (info.total_order)
             this.total_order = parseInt(info.total_order);
+
+        if (info.hq_last_year_total)
+            this.hq_last_year_total = parseInt(info.hq_last_year_total);
+
+        if (info.hq_last_year_dexona_total)
+            this.hq_last_year_dexona_total = parseInt(info.hq_last_year_dexona_total);
+
+        if (info.hq_last_month_total)
+            this.hq_last_month_total = parseInt(info.hq_last_month_total);
+
+        if (info.hq_last_month_dexona_total)
+            this.hq_last_month_dexona_total = parseInt(info.hq_last_month_dexona_total);
     }
 
     /**
@@ -188,5 +205,63 @@ export class Headquarter extends Model {
             return ((this.total_visit_ab / this.total_customers_ab) * 100);
         else
             return 0;
+    }
+
+    /**
+     * Total Shortfall
+     *
+     * @returns {number}
+     */
+    get last_month_shortfall() {
+        let value = (this.hq_last_year_total / 12 - this.hq_last_month_total) > 0 ?
+            (this.hq_last_year_total / 12 - this.hq_last_month_total).toFixed(2) : 0;
+        if (value > 0)
+            return value;
+        else
+            return 0;
+    }
+
+
+    /**
+     * Total Shortfall for dexona
+     *
+     * @returns {number}
+     */
+    get last_month_dexona_shortfall() {
+        let value = (this.hq_last_year_dexona_total / 12 - this.hq_last_month_dexona_total) > 0 ?
+            (this.hq_last_year_dexona_total / 12 - this.hq_last_month_dexona_total).toFixed(2) : 0;
+        if (value > 0)
+            return value;
+        else
+            return 0;
+    }
+
+    /**
+     * month Expected Sales
+     *
+     * @returns {number}
+     */
+    get current_month_expected() {
+        let value = (2 * (this.hq_last_year_total) - this.hq_last_month_total) > 0 ?
+            (2 * (this.hq_last_year_total / 12) - this.hq_last_month_total).toFixed(2) : 0;
+        if (value > 0)
+            return value;
+        else
+            return 0;
+    }
+
+
+    /**
+     * month Expected Sales for dexona
+     *
+     * @returns {number}
+     */
+    get current_month_expected_dexona() {
+        let value = (2 * (this.hq_last_year_dexona_total) - this.hq_last_month_dexona_total) > 0 ?
+            (2 * (this.hq_last_year_dexona_total / 12) - this.hq_last_month_dexona_total).toFixed(2) : 0;
+        if(value > 0)
+            return value;
+        else
+            return
     }
 }

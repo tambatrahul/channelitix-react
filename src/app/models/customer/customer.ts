@@ -127,4 +127,46 @@ export class Customer extends Model {
         if (info.sap_primary_sale)
             this.sap_primary_sale = parseInt(info.sap_primary_sale);
     }
+
+    /**
+     * Total Shortfall
+     *
+     * @returns {number}
+     */
+    get last_month_shortfall() {
+        return (this.last_year_sale/12 - this.last_month_sale) > 0 ?
+            (this.last_year_sale/12 - this.last_month_sale).toFixed(2) : 0
+    }
+
+
+    /**
+     * Total Shortfall for dexona
+     *
+     * @returns {number}
+     */
+    get last_month_dexona_shortfall() {
+        return (this.last_year_dexona_sale/12 - this.last_month_dexona_sale) > 0 ?
+            (this.last_year_dexona_sale/12 - this.last_month_dexona_sale).toFixed(2) : 0
+    }
+
+    /**
+     * month Expected Sales
+     *
+     * @returns {number}
+     */
+    get current_month_expected() {
+        return (2*(this.last_year_sale) - this.last_month_sale) > 0 ?
+            (2*(this.last_year_sale / 12) - this.last_month_sale).toFixed(2) : 0;
+    }
+
+
+    /**
+     * month Expected Sales for dexona
+     *
+     * @returns {number}
+     */
+    get current_month_expected_dexona() {
+        return (2*(this.last_year_dexona_sale) - this.last_month_dexona_sale) > 0 ?
+            (2*(this.last_year_dexona_sale / 12) - this.last_month_dexona_sale).toFixed(2) : 0;
+    }
 }

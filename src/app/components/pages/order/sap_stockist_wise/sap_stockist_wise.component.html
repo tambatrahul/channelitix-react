@@ -80,16 +80,65 @@
                         <th>Manager</th>
                         <th>Rep</th>
                       </tr>
+                      <tr *ngIf="area_id == 0">
+                        <th>Total in 000's</th>
+                        <th></th>
+                        <th></th>
+                        <th>{{ region.rg_last_year_total > 0 ? ((region.rg_last_year_total/12)/1000).toFixed(2) : 0}}</th>
+                        <th>{{ region.rg_last_year_dexona_total > 0 ? ((region.rg_last_year_dexona_total/12)/1000).toFixed(2) : 0 }}</th>
+                        <th>{{ region.rg_last_month_total > 0 ? ((region.rg_last_month_total)/1000).toFixed(2) : 0}}</th>
+                        <th>{{ region.rg_last_month_dexona_total > 0 ? ((region.rg_last_month_dexona_total)/1000).toFixed(2) : 0}}</th>
+                        <th>{{region.last_month_shortfall > 0 ? (region.last_month_shortfall/1000).toFixed(2) : 0}}</th>
+                        <th>{{region.last_month_dexona_shortfall > 0 ? (region.last_month_dexona_shortfall/1000).toFixed(2) : 0}}</th>
+                        <th>{{ region.current_month_expected > 0 ? (region.current_month_expected/1000).toFixed(2) : 0 }}</th>
+                        <th>{{region.current_month_expected_dexona > 0 ? (region.current_month_expected_dexona/1000).toFixed(2) : 0}}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
                       </thead>
 
                       <tbody>
                       <template ngFor let-area [ngForOf]="region.areas">
+
                         <tr class="grey">
                           <th colspan="15" class="text-center">{{area.name}}</th>
                         </tr>
                         <template ngFor let-hq [ngForOf]="area.headquarters">
+                          <tr class="grey" *ngIf="headquarter_id == 0">
+                            <th>Total in 000's</th>
+                            <th></th>
+                            <th></th>
+                            <th>{{ area.ar_last_year_total > 0 ? ((area.ar_last_year_total/12)/1000).toFixed(2) : 0}}</th>
+                            <th>{{ area.ar_last_year_dexona_total > 0 ? ((area.ar_last_year_dexona_total/12)/1000).toFixed(2) : 0}}</th>
+                            <th>{{area.ar_last_month_total > 0 ? ((area.ar_last_month_total)/1000).toFixed(2) : 0}}</th>
+                            <th>{{area.ar_last_month_dexona_total > 0 ? ((area.ar_last_month_dexona_total)/1000).toFixed(2) : 0}}</th>
+                            <th>{{area.last_month_shortfall > 0 ? (area.last_month_shortfall/1000).toFixed(2) : 0}}</th>
+                            <th>{{area.last_month_dexona_shortfall > 0 ? (area.last_month_dexona_shortfall/1000).toFixed(2) : 0}}</th>
+                            <th>{{ area.current_month_expected > 0 ? (area.current_month_expected/1000).toFixed(2) : 0 }}</th>
+                            <th>{{area.current_month_expected_dexona > 0 ? (area.current_month_expected_dexona/1000).toFixed(2) : 0}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
                           <tr class="dark_grey">
                             <th class="text-center" colspan="15">{{ hq.name }}</th>
+                          </tr>
+                          <tr class="dark_grey">
+                            <th>Total in 000's</th>
+                            <th></th>
+                            <th></th>
+                            <th>{{hq.hq_last_year_total > 0 ? ((hq.hq_last_year_total/12)/1000).toFixed(2) : 0}}</th>
+                            <th>{{hq.hq_last_year_dexona_total > 0 ? ((hq.hq_last_year_dexona_total/12)/1000).toFixed(2) : 0}}</th>
+                            <th>{{hq.hq_last_month_total > 0 ? ((hq.hq_last_month_total)/1000).toFixed(2) : 0}}</th>
+                            <th>{{hq.hq_last_month_dexona_total > 0 ? ((hq.hq_last_month_dexona_total)/1000).toFixed(2) : 0}}</th>
+                            <th>{{hq.last_month_shortfall > 0 ? (hq.last_month_shortfall/1000).toFixed(2) : 0}}</th>
+                            <th>{{hq.last_month_dexona_shortfall > 0 ? (hq.last_month_dexona_shortfall/1000).toFixed(2) : 0}}</th>
+                            <th>{{ hq.current_month_expected > 0 ? (hq.current_month_expected/1000).toFixed(2) : 0 }}</th>
+                            <th>{{hq.current_month_expected_dexona > 0 ? (hq.current_month_expected_dexona/1000).toFixed(2) : 0}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                           </tr>
                           <tr *ngFor="let customer of hq.customers">
                             <th>{{customer.code}}</th>
@@ -103,21 +152,13 @@
                             </td>
                             <td>{{customer.last_month_sale}}</td>
                             <td>{{customer.last_month_dexona_sale}}</td>
-                            <td class="grey">{{(customer.last_year_sale > 0 ? ((customer.last_year_sale > 0 ?
-                              (customer.last_year_sale/12).toFixed(2) : 0) -
-                              customer.last_month_sale).toFixed(2): 0)}}
+                            <td class="grey">{{customer.last_month_shortfall}}
                             </td>
-                            <td class="grey">{{(customer.last_year_dexona_sale > 0 ? (customer.last_year_dexona_sale > 0 ?
-                              (customer.last_year_dexona_sale/12).toFixed(2) : 0) -
-                              customer.last_month_dexona_sale : 0)}}
+                            <td class="grey">{{customer.last_month_dexona_shortfall}}
                             </td>
-                            <td>{{(customer.last_year_sale > 0 ? ((2*(customer.last_year_sale > 0 ?
-                              (customer.last_year_sale/12).toFixed(2) : 0)) -
-                              customer.last_month_sale).toFixed(2) : 0)}}
+                            <td>{{customer.current_month_expected}}
                             </td>
-                            <td>{{(customer.last_year_dexona_sale > 0 ? ((2*(customer.last_year_dexona_sale > 0 ?
-                              (customer.last_year_dexona_sale/12).toFixed(2) : 0)) -
-                              customer.last_month_dexona_sale) : 0)}}
+                            <td>{{customer.current_month_expected_dexona}}
                             </td>
                             <td class="grey">{{customer.visits_this_month_manager}}</td>
                             <td class="grey">{{customer.visits_this_month_rep}}</td>
