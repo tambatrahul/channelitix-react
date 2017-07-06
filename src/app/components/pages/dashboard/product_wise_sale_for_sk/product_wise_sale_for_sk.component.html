@@ -6,7 +6,7 @@
                 <h4>
                     Product Wise Sale
                 </h4>
-                <div class="col-xs-12 col-md-3 form-group-sm">
+                <div class="col-xs-12 col-md-6 form-group-sm">
                     <div style="margin: 12px;">
                         <month-picker [month]="_month" [year]="_year"
                                       [title]="''"
@@ -32,16 +32,16 @@
                                     <td>
                                         {{ item.name }}
                                     </td>
-                                    <td>{{ item.target.toFixed(0) | number : fractionSize }}</td>
-                                    <td>{{ item.performance.toFixed(0) | number : fractionSize }}</td>
-                                    <td>{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)  }}</td>
+                                    <td style="text-align: right">{{ item.target.toFixed(0) | number : fractionSize }}</td>
+                                    <td style="text-align: right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>
+                                    <td style="text-align: right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2) }} % </td>
                                 </tr>
                             </template>
                             <tr>
                                 <th>Total</th>
-                                <th>{{ total_target.toFixed(0) }}</th>
-                                <th>{{ total_actual.toFixed(0) }}</th>
-                                <th>{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>
+                                <th style="text-align: right">{{ total_target.toFixed(0) }}</th>
+                                <th style="text-align: right">{{ total_actual.toFixed(0) }}</th>
+                                <th style="text-align: right">{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }} %</th>
                             </tr>
                             </tbody>
                         </table>
