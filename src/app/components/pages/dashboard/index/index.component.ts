@@ -28,6 +28,8 @@ export class DashBoardComponent extends BaseComponent {
      */
     public total_visits: number = 0;
     public total_pob: number = 0;
+    public total_pob_sk: number = 0;
+    public total_pob_synergy: number = 0;
     public productive_calls: number = 0;
 
     /**
@@ -87,6 +89,8 @@ export class DashBoardComponent extends BaseComponent {
     totalVisitOrders(data) {
         this.total_visits = data.visits;
         this.total_pob = data.orders;
+        this.total_pob_sk = data.orders_sk;
+        this.total_pob_synergy = data.orders_synergy;
         this.productive_calls = (data.visits > 0) ? parseInt(((data.total_orders / data.visits) * 100).toFixed(2)) : 0
     }
 

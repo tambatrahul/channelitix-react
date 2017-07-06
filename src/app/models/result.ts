@@ -54,6 +54,8 @@ export class Result {
 
   //Orders models
   orders: Order[];
+  orders_sk: number = 0;
+  orders_synergy: number = 0;
   order_counts: Order[];
 
   // holidays models

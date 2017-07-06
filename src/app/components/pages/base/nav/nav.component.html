@@ -175,6 +175,12 @@
                 <span class="nav-label">Secondary Statement Status</span>
               </a>
             </li>
+            <li *ngIf="environment.envName=='geo'">
+              <a class="waves-effect" routerLink="/reports/sap_stockist_wise">
+                <span class="nav-icon"><i class="fa fa-table"></i></span>
+                <span class="nav-label">Stockist Wise</span>
+              </a>
+            </li>
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">

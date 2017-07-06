@@ -88,25 +88,53 @@
                     <div class="row">
                         <a class="col-xs-12 remove-underline" [routerLink]="'/visits'">
                             <div class="mini-stats-widget full-block-mini-chart w_bg_green_500">
-                                <div class="mini-stats-top">
+                                <div class="mini-stats-top" style="padding: 10px;">
                                     <span class="mini-stats-value">{{ total_visits }}</span>
                                     <span class="mini-stats-label">Total Visits</span>
                                 </div>
-                                <div class="mini-stats-bottom w_bg_green_65">
+                                <div class="mini-stats-bottom w_bg_green_65" style="padding: 10px;">
                                     <span>Prod. Calls</span>  <span>{{ productive_calls}} % </span>
                                 </div>
                             </div>
-                        </a>
-                        <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
-                            <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
-                                <div class="mini-stats-top">
+                        </a >
+                        <div *ngIf="environment.envName == 'geo'">
+                            <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
+                                <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
+                                    <div class="mini-stats-top">
                                     <span class="mini-stats-value"><i class="fa fa-rupee"></i>
                                         {{(total_pob/1000).toFixed(0) | number : fractionSize }} K
                                     </span>
-                                    <span class="mini-stats-label">POB</span>
+                                        <span class="mini-stats-label">POB</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
+
+                        <div *ngIf="environment.envName == 'sk_group'">
+                            <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
+                                <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
+                                    <div class="mini-stats-top" style="padding: 10px;">
+                                    <span class="mini-stats-value"><i class="fa fa-rupee"></i>
+                                        {{(total_pob_sk/1000).toFixed(0) | number : fractionSize }} K
+                                    </span>
+                                        <span class="mini-stats-label">POB(SK)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div *ngIf="environment.envName == 'sk_group'">
+                            <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
+                                <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
+                                    <div class="mini-stats-top" style="padding: 10px;">
+                                    <span class="mini-stats-value"><i class="fa fa-rupee"></i>
+                                        {{(total_pob_synergy/1000).toFixed(0) | number : fractionSize }} K
+                                    </span>
+                                        <span class="mini-stats-label">POB(SYNERGY)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

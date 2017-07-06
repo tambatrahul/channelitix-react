@@ -89,6 +89,16 @@
                                             </tfoot>
 
                                             <tbody>
+                                            <tr class="dark_grey">
+                                                <th>Total</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{ z.total_visit_count }}</td>
+                                                <td *ngFor="let visit of z.visits">
+                                                    {{ visit.visit_count }}
+                                                </td>
+
+                                            </tr>
                                             <template ngFor let-mg [ngForOf]="z.children">
                                                 <tr>
                                                     <th [colSpan]="mg.children[0]?.visits.length + 4"
