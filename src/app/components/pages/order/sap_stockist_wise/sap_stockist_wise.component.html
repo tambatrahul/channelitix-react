@@ -104,23 +104,23 @@
                         <tr class="grey">
                           <th colspan="15" class="text-center">{{area.name}}</th>
                         </tr>
+                        <tr class="grey" *ngIf="headquarter_id == 0">
+                          <th>Total in 000's</th>
+                          <th></th>
+                          <th></th>
+                          <th>{{ area.ar_last_year_total > 0 ? ((area.ar_last_year_total/12)/1000).toFixed(2) : 0}}</th>
+                          <th>{{ area.ar_last_year_dexona_total > 0 ? ((area.ar_last_year_dexona_total/12)/1000).toFixed(2) : 0}}</th>
+                          <th>{{area.ar_last_month_total > 0 ? ((area.ar_last_month_total)/1000).toFixed(2) : 0}}</th>
+                          <th>{{area.ar_last_month_dexona_total > 0 ? ((area.ar_last_month_dexona_total)/1000).toFixed(2) : 0}}</th>
+                          <th>{{area.last_month_shortfall > 0 ? (area.last_month_shortfall/1000).toFixed(2) : 0}}</th>
+                          <th>{{area.last_month_dexona_shortfall > 0 ? (area.last_month_dexona_shortfall/1000).toFixed(2) : 0}}</th>
+                          <th>{{ area.current_month_expected > 0 ? (area.current_month_expected/1000).toFixed(2) : 0 }}</th>
+                          <th>{{area.current_month_expected_dexona > 0 ? (area.current_month_expected_dexona/1000).toFixed(2) : 0}}</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
                         <template ngFor let-hq [ngForOf]="area.headquarters">
-                          <tr class="grey" *ngIf="headquarter_id == 0">
-                            <th>Total in 000's</th>
-                            <th></th>
-                            <th></th>
-                            <th>{{ area.ar_last_year_total > 0 ? ((area.ar_last_year_total/12)/1000).toFixed(2) : 0}}</th>
-                            <th>{{ area.ar_last_year_dexona_total > 0 ? ((area.ar_last_year_dexona_total/12)/1000).toFixed(2) : 0}}</th>
-                            <th>{{area.ar_last_month_total > 0 ? ((area.ar_last_month_total)/1000).toFixed(2) : 0}}</th>
-                            <th>{{area.ar_last_month_dexona_total > 0 ? ((area.ar_last_month_dexona_total)/1000).toFixed(2) : 0}}</th>
-                            <th>{{area.last_month_shortfall > 0 ? (area.last_month_shortfall/1000).toFixed(2) : 0}}</th>
-                            <th>{{area.last_month_dexona_shortfall > 0 ? (area.last_month_dexona_shortfall/1000).toFixed(2) : 0}}</th>
-                            <th>{{ area.current_month_expected > 0 ? (area.current_month_expected/1000).toFixed(2) : 0 }}</th>
-                            <th>{{area.current_month_expected_dexona > 0 ? (area.current_month_expected_dexona/1000).toFixed(2) : 0}}</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                          </tr>
                           <tr class="dark_grey">
                             <th class="text-center" colspan="15">{{ hq.name }}</th>
                           </tr>
