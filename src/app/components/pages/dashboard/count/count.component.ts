@@ -30,6 +30,11 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
         performance_per: 0
     };
 
+    _productive_calls: number = 0;
+    @Input()
+    set productive_calls(productive_calls: number) {
+        this._productive_calls = productive_calls;
+    }
     /**
      * dates
      *
