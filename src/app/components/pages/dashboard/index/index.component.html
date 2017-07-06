@@ -143,13 +143,20 @@
             <div class="row" *ngIf="environment.envName == 'sk_group'">
 
                 <!-- Monthly Primary graph -->
-                <div class="col-xs-12">
+                <div class="col-xs-12 col-md-6">
                     <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
                                                       [headquarter_ids]="headquarter_ids">
 
                     </monthly-primary-secondary-target>
                 </div>
                 <!-- ./Monthly Primary graph -->
+
+                <!--Product wise sale-->
+                <div class="col-xs-12 col-md-6">
+                    <product-wise-sale-sk [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                                       [headquarter_ids]="headquarter_ids"></product-wise-sale-sk>
+                </div>
+                <!--/Product wise sale-->
             </div>
         </div>
     </div>
