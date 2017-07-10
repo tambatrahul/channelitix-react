@@ -123,7 +123,7 @@ export class Headquarter extends Model {
     get phy_count(): number {
         let total: number = 0;
         this.customer_types.map(cus => {
-            if (cus.name == "Physician") {
+            if (cus.name == "Healthcare Provider") {
                 total = cus.brick_count
             }
         });
