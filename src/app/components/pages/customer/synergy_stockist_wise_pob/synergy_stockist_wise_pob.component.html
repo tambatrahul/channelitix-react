@@ -45,7 +45,7 @@
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">Primary Sales</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">POB Target</th>
                                         <th class="grey">POB</th>
-                                        <th class="grey">Visits</th>
+                                        <th class="grey" *ngIf="_service.user.synergy != 1">Visits</th>
                                     </tr>
                                     <tr>
                                         <th class="grey">Total</th>
@@ -55,7 +55,7 @@
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                         <th class="grey">{{ all_total.toFixed(2)}}</th>
-                                        <th class="grey"></th>
+                                        <th class="grey" *ngIf="_service.user.synergy != 1"></th>
                                     </tr>
                                     </thead>
 
@@ -69,7 +69,7 @@
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'">{{ cus.total_primary_sale.toFixed(0) }}</th>
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                             <th class="grey">{{ cus.total_pob.toFixed(0) }}</th>
-                                            <th class="grey">{{ cus.days }}</th>
+                                            <th class="grey" *ngIf="_service.user.synergy != 1">{{ cus.days }}</th>
 
                                         </tr>
                                     </template>

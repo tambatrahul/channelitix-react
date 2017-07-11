@@ -19,6 +19,7 @@ export class User extends Model {
   auth_token: string;
   role_id: number;
   role_str: string;
+  synergy: number;
   manager_id: number;
   unread_count: number = 0;
 
@@ -75,6 +76,9 @@ export class User extends Model {
 
     if (info.user_count)
       this.user_count = parseInt(info.user_count);
+
+    if (info.synergy)
+      this.synergy = parseInt(info.synergy);
 
     if (info.hq_headquarter)
       this.hq_headquarter = new Headquarter(info.hq_headquarter);
