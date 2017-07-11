@@ -175,12 +175,6 @@
                 <span class="nav-label">Secondary Statement Status</span>
               </a>
             </li>
-            <li>
-              <a class="waves-effect" routerLink="/reports/sap_stockist_wise">
-                <span class="nav-icon"><i class="fa fa-table"></i></span>
-                <span class="nav-label">Stockist Wise</span>
-              </a>
-            </li>
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">
@@ -240,7 +234,7 @@
             <span class="nav-label">Secondary Sales Report</span>
           </a>
         </li>
-        <li *roleCheck="ROLE_ADMIN">
+        <li>
           <a class="waves-effect" routerLink="/reports/sap_stockist_wise" *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-table"></i></span>
             <span class="nav-label">Monthly Sales Tracking</span>
