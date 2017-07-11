@@ -62,7 +62,7 @@ export class LoginComponent extends FormComponent {
                         this._router.navigate(['/visits']);
                     }
                     else if (response.user.role_str != this.ROLE_CSE)
-                        this._router.navigate(['/visits']);
+                        this._router.navigate(['/dashboard']);
                     else
                         this._router.navigate(['/attendances/monthly']);
                     this.loading = false;
