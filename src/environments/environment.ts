@@ -5,7 +5,7 @@
 
 export const environment = {
     production: false,
-    envName: 'geo',
+    envName: 'sk_group',
     projectName: '',
     server_url: '/api/v1/'
 };

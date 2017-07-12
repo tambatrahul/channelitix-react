@@ -24,8 +24,12 @@ export class Headquarter extends Model {
     total_att: number = 0;
     total_order: number = 0;
     total_customers: number = 0;
+    order_count: number = 0;
     customer_count: number = 0;
+    visit_count: number = 0;
     total_customers_ab: number = 0;
+    total_net_amount: number = 0;
+    hq_area_id: number = 0;
 
     territories_count: number = 0;
     bricks_count: number = 0;
@@ -57,6 +61,24 @@ export class Headquarter extends Model {
 
         if (info.total_bricks)
             this.total_bricks = parseInt(info.total_bricks);
+
+        if (info.order_count)
+            this.order_count = parseInt(info.order_count);
+
+        if (info.visit_count)
+            this.visit_count = parseInt(info.visit_count);
+
+        if (info.total_customers)
+            this.total_customers = parseInt(info.total_customers);
+
+        if (info.customer_count)
+            this.customer_count = parseInt(info.customer_count);
+
+        if (info.total_net_amount)
+            this.total_net_amount = parseInt(info.total_net_amount);
+
+        if (info.hq_area_id)
+            this.hq_area_id = parseInt(info.hq_area_id);
 
         if (info.total_order)
             this.total_order = parseInt(info.total_order);

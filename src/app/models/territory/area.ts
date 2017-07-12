@@ -27,12 +27,18 @@ export class Area extends Model {
   headquarters_count: number = 0;
   bricks_count: number = 0;
   total_order: number = 0;
+  hq_region_id: number = 0;
 
   ar_last_year_total: number = 0;
   ar_last_year_dexona_total: number = 0;
   ar_last_month_total: number = 0;
   ar_last_month_dexona_total: number = 0;
 
+  area_total_visits : number = 0;
+  area_total_orders : number = 0;
+  area_total_orders_amount : number = 0;
+  area_total_customers : number = 0;
+  area_total_customers_ordered : number = 0;
 
   constructor(info: any) {
     super(info.id);
@@ -57,6 +63,9 @@ export class Area extends Model {
     if (info.total_order)
       this.total_order = parseInt(info.total_order);
 
+    if (info.hq_region_id)
+      this.hq_region_id = parseInt(info.hq_region_id);
+
     if (info.total_visit)
       this.total_visit = parseInt(info.total_visit);
 
@@ -74,6 +83,21 @@ export class Area extends Model {
 
     if (info.ar_last_month_dexona_total)
       this.ar_last_month_dexona_total = parseInt(info.ar_last_month_dexona_total);
+
+    if(info.area_total_visits)
+      this.area_total_visits = parseInt(info.area_total_visits);
+
+    if(info.area_total_orders)
+      this.area_total_orders = parseInt(info.area_total_orders);
+
+    if(info.area_total_orders_amount)
+      this.area_total_orders_amount = parseInt(info.area_total_orders_amount);
+
+    if(info.area_total_customers)
+      this.area_total_customers = parseInt(info.area_total_customers);
+
+    if(info.area_total_customers_ordered)
+      this.area_total_customers_ordered = parseInt(info.area_total_customers_ordered);
   }
 
   /**

@@ -61,6 +61,7 @@ import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist
 import {ManagerOrderComponent} from "./components/pages/order/manager_index/index.component";
 import {ManagerVisitComponent} from "./components/pages/visit/manager_index/index.component";
 import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wise/sap_stockist_wise.component";
+import {HeadQuarterWiseReportComponent} from "./components/pages/order/headquarter_wise_report/headquarter_wise_report";
 
 // Route Configuration
 export const routes: Routes = [
@@ -359,6 +360,9 @@ export const routes: Routes = [
                     }, {
                         path: 'sap_stockist_wise',
                         component: SapStockistWiseComponent,
+                    }, {
+                        path: 'headquarter_wise_report',
+                        component: HeadQuarterWiseReportComponent,
                     }
                 ]
             },

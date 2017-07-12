@@ -10,6 +10,7 @@ export class Target extends Model {
     total_target: number = 0;
     target: number = 0;
     total_net_amount: number = 0;
+    order_count: number = 0;
     brand_id: number = 0;
     month: number;
     target_month: number;
@@ -29,6 +30,9 @@ export class Target extends Model {
 
         if (info.total_net_amount)
             this.total_net_amount = parseFloat(info.total_net_amount);
+
+        if (info.order_count)
+            this.order_count = parseFloat(info.order_count);
 
         if (info.target)
             this.target = parseInt(info.target);

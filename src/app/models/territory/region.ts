@@ -48,6 +48,12 @@ export class Region extends Model {
     rg_last_month_total: number = 0;
     rg_last_month_dexona_total: number = 0;
 
+    region_total_visits : number = 0;
+    region_total_orders : number = 0;
+    region_total_orders_amount : number = 0;
+    region_total_customers : number = 0;
+    region_total_customers_ordered : number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
@@ -99,6 +105,21 @@ export class Region extends Model {
 
         if (info.rg_last_month_dexona_total)
             this.rg_last_month_dexona_total = parseInt(info.rg_last_month_dexona_total);
+
+        if(info.region_total_visits)
+            this.region_total_visits = parseInt(info.region_total_visits);
+
+        if(info.region_total_orders)
+            this.region_total_orders = parseInt(info.region_total_orders);
+
+        if(info.region_total_orders_amount)
+            this.region_total_orders_amount = parseInt(info.region_total_orders_amount);
+
+        if(info.region_total_customers)
+            this.region_total_customers = parseInt(info.region_total_customers);
+
+        if(info.region_total_customers_ordered)
+            this.region_total_customers_ordered = parseInt(info.region_total_customers_ordered);
     }
 
     /**
