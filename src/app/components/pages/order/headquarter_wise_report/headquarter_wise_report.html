@@ -54,7 +54,7 @@
                                                 <th>Visits</th>
                                                 <th>Total Orders</th>
                                                 <th>Total Amount in 000's</th>
-                                                <th>Secondary Customers</th>
+                                                <th>No Of Customers with Secondary Updated</th>
                                             </tr>
                                             <tr *ngIf="area_id == 0">
                                                 <th>Total</th>
@@ -75,7 +75,7 @@
                                                 <tr class="grey">
                                                     <th colspan="15" class="text-center">{{area.name}}</th>
                                                 </tr>
-                                                <tr class="grey" *ngIf="headquarter_id == 0">
+                                                <tr class="grey">
                                                     <th>Total</th>
                                                     <th></th>
                                                     <th>{{area.area_total_customers}}</th>
