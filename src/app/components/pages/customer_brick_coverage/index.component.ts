@@ -9,6 +9,7 @@ import {Visit} from "../../../models/visit/visit";
 import {Order} from "../../../models/order/order";
 import {Target} from "../../../models/SAP/target";
 import {Territory} from "../../../models/territory/territory";
+import {environment} from "../../../../environments/environment";
 declare let jQuery: any;
 
 @Component({
@@ -57,9 +58,17 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     super.ngOnInit();
     this.month = moment().month();
     this.year = moment().year();
-    this.region_id = 2;
-    this.area_id = 3;
-    this.headquarter_id = 4;
+
+    if(environment.envName=='geo'){
+      this.region_id = 2;
+      this.area_id = 3;
+      this.headquarter_id = 4;
+    }
+    else {
+      this.region_id = 1;
+      this.area_id = 1;
+      this.headquarter_id = 1;
+    }
     this.fetch();
   }
 
