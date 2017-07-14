@@ -61,7 +61,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        if (this.month && this.year) {
+        if (this.month >= 0 && this.year) {
             this.loading = true;
             this.reportService.region_wise_sales(this.month + 1, this.year, this.region_id, this.area_id).subscribe(
                 response => {
@@ -70,8 +70,9 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
                     let visits = response.visits.map(visit => new Visit(visit));
                     let customers_count = response.targets.map(target => new Target(target));
                     let customers = response.customers.map(cus => new Customer(cus));
+                    let targets = response.sap_targets.map(target => new Target(target));
 
-                    this.prepareData(regions, secondary_sales, customers, visits, customers_count);
+                    this.prepareData(regions, secondary_sales, customers, visits, customers_count, targets);
 
                     this.loading = false;
 
@@ -102,9 +103,10 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
      * @param customers
      * @param visits
      * @param customers_count
+     * @param sap_targets
      */
     prepareData(regions: Region[], secondary_Sales: SecondarySale[], customers: Customer[],
-                visits: Visit[], customers_count: Target[]) {
+                visits: Visit[], customers_count: Target[], sap_targets: Target[]) {
 
         // add customers  to individual hq
 
@@ -133,12 +135,18 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
                         }
                     });
 
+                    sap_targets.map(target => {
+                        if (target.hq_headquarter_id == headquarter.id)
+                            headquarter.target = target.total_target;
+                    });
+
                     if (area.id == headquarter.hq_area_id) {
                         area.area_total_visits += headquarter.visit_count;
                         area.area_total_orders += headquarter.order_count;
                         area.area_total_orders_amount += headquarter.total_net_amount;
                         area.area_total_customers += headquarter.total_customers;
                         area.area_total_customers_ordered += headquarter.customer_count;
+                        area.area_total_target += headquarter.target;
                     }
 
                     if (region.id == area.hq_region_id) {
@@ -147,6 +155,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
                         region.region_total_orders_amount += headquarter.total_net_amount;
                         region.region_total_customers += headquarter.total_customers;
                         region.region_total_customers_ordered += headquarter.customer_count;
+                        region.region_total_target += headquarter.target;
                     }
                 });
             });
@@ -172,6 +181,8 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+        console.log(this.month);
+        console.log(this.year);
         this.fetch();
     }
 

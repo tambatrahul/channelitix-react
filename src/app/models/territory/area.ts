@@ -39,6 +39,7 @@ export class Area extends Model {
   area_total_orders_amount : number = 0;
   area_total_customers : number = 0;
   area_total_customers_ordered : number = 0;
+  area_total_target : number = 0;
 
   constructor(info: any) {
     super(info.id);
@@ -98,6 +99,9 @@ export class Area extends Model {
 
     if(info.area_total_customers_ordered)
       this.area_total_customers_ordered = parseInt(info.area_total_customers_ordered);
+
+    if(info.area_total_target)
+      this.area_total_target = parseInt(info.area_total_target);
   }
 
   /**

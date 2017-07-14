@@ -80,6 +80,9 @@ export class Headquarter extends Model {
         if (info.hq_area_id)
             this.hq_area_id = parseInt(info.hq_area_id);
 
+        if (info.target)
+            this.target = parseInt(info.target);
+
         if (info.total_order)
             this.total_order = parseInt(info.total_order);
 

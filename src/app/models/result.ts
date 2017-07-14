@@ -139,6 +139,7 @@ export class Result {
 
   // targets
   targets: Target[];
+  sap_targets: Target[];
 
   // brick customer counts
   brick_customer_counts: BrickCustomerCount[];

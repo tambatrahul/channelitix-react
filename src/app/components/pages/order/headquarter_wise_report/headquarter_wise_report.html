@@ -53,7 +53,8 @@
                                                 <th>Total Customers</th>
                                                 <th>Visits</th>
                                                 <th>Total Orders</th>
-                                                <th>Total Amount in 000's</th>
+                                                <th>Total Amount</th>
+                                                <th>Target</th>
                                                 <th>No Of Customers with Secondary Updated</th>
                                             </tr>
                                             <tr *ngIf="area_id == 0">
@@ -63,7 +64,10 @@
                                                 <th style="text-align: right">{{region.region_total_visits}}</th>
                                                 <th style="text-align: right">{{region.region_total_orders}}</th>
                                                 <th style="text-align: right">{{region.region_total_orders_amount > 0 ?
-                                                    (region.region_total_orders_amount/1000).toFixed(2) : 0}}
+                                                    (region.region_total_orders_amount).toFixed(0) : 0}}
+                                                </th>
+                                                <th style="text-align: right">{{region.region_total_target > 0 ?
+                                                    (region.region_total_target).toFixed(0) : 0}}
                                                 </th>
                                                 <th style="text-align: right">{{region.region_total_customers_ordered}}</th>
                                             </tr>
@@ -82,7 +86,10 @@
                                                     <th style="text-align: right">{{area.area_total_visits}}</th>
                                                     <th style="text-align: right">{{area.area_total_orders}}</th>
                                                     <th style="text-align: right">{{area.area_total_orders_amount > 0 ?
-                                                        (area.area_total_orders_amount/1000).toFixed(2) : 0}}
+                                                        (area.area_total_orders_amount).toFixed(0) : 0}}
+                                                    </th>
+                                                    <th style="text-align: right">{{area.area_total_target > 0 ?
+                                                        (area.area_total_target).toFixed(0) : 0}}
                                                     </th>
                                                     <th style="text-align: right">{{area.area_total_customers_ordered}}</th>
                                                 </tr>
@@ -94,7 +101,10 @@
                                                         <th style="text-align: right">{{hq.visit_count}}</th>
                                                         <th style="text-align: right">{{hq.order_count}}</th>
                                                         <th style="text-align: right">{{hq.total_net_amount > 0 ?
-                                                            (hq.total_net_amount/1000).toFixed(2) : 0}}
+                                                            (hq.total_net_amount).toFixed(0) : 0}}
+                                                        </th>
+                                                        <th style="text-align: right">{{hq.target > 0 ?
+                                                            (hq.target).toFixed(0) : 0}}
                                                         </th>
                                                         <th style="text-align: right">{{hq.customer_count}}</th>
                                                     </tr>
