@@ -167,6 +167,7 @@ import {ManagerVisitCountDirective} from "./directives/mg_visit_count.directive"
 import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wise/sap_stockist_wise.component";
 import {ProductWiseSaleForSKComponent} from "./components/pages/dashboard/product_wise_sale_for_sk/product_wise_sale_for_sk.component";
 import {HeadQuarterWiseReportComponent} from "./components/pages/order/headquarter_wise_report/headquarter_wise_report";
+import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui/report_icons_ui";
 
 
 enableProdMode();
@@ -278,6 +279,7 @@ enableProdMode();
         CustomerDataComponent,
         CustomerSelectDashboardComponent,
         HeadQuarterWiseReportComponent,
+        ReportIconsComponent,
 
         // reusable components
         MonthPickerComponent,

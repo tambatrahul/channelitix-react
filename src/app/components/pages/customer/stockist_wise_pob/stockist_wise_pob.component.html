@@ -80,7 +80,7 @@
 
                                     <tbody>
                                     <template ngFor let-cus [ngForOf]="customers">
-                                        <tr>
+                                        <tr *ngIf="cus.status == 'active'">
                                             <th class="grey">{{ cus.firm_name }}</th>
                                             <th class="grey">{{ cus.hq_headquarter.name }}</th>
                                             <th class="grey">{{ cus.hq_brick.name }}</th>

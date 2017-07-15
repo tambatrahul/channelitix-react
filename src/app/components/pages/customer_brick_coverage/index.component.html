@@ -16,24 +16,21 @@
   <!-- Page Breadcrumb -->
 
   <!-- Filters for report-->
-  <div class="row">
+  <div class="row" style="padding-bottom: 10px;">
     <div class="col-xs-12 col-md-3">
-      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-    </div>
-    <div class="col-xs-12 col-md-3">
-      <region-select [value]="region_id" [title]="'Select Region'"
+      <region-select [value]="region_id" [title]="'Select Region'" [first_value] ="'Select Region'"
                      (onValueChanged)="regionChanged($event)"></region-select>
     </div>
     <div class="col-xs-12 col-md-3">
       <div *ngIf="region_id > 0">
-        <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+        <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" [first_value]="'Select Area'"
                      (onValueChanged)="areaChanged($event)"></area-select>
       </div>
     </div>
     <div class="col-xs-12 col-md-3">
       <div *ngIf="area_id > 0">
         <headquarter-select [value]="headquarter_id" [area_id]="area_id"
-                            [title]="'Select Head Quarter'"
+                            [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
                             (onValueChanged)="headquarterChanged($event)"></headquarter-select>
       </div>
     </div>

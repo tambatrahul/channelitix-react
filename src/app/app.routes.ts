@@ -62,6 +62,7 @@ import {ManagerOrderComponent} from "./components/pages/order/manager_index/inde
 import {ManagerVisitComponent} from "./components/pages/visit/manager_index/index.component";
 import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wise/sap_stockist_wise.component";
 import {HeadQuarterWiseReportComponent} from "./components/pages/order/headquarter_wise_report/headquarter_wise_report";
+import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui/report_icons_ui";
 
 // Route Configuration
 export const routes: Routes = [
@@ -85,6 +86,10 @@ export const routes: Routes = [
                     {
                         path: 'brick_coverage',
                         component: CustomerBrickCoverageComponent
+                    },
+                    {
+                        path: 'reports_icons',
+                        component: ReportIconsComponent
                     }
                 ]
             },

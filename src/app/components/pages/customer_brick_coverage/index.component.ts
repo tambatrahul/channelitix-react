@@ -9,6 +9,7 @@ import {Visit} from "../../../models/visit/visit";
 import {Order} from "../../../models/order/order";
 import {Target} from "../../../models/SAP/target";
 import {Territory} from "../../../models/territory/territory";
+import {environment} from "../../../../environments/environment";
 declare let jQuery: any;
 
 @Component({
@@ -21,7 +22,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    * year and month for calendar
    * @type {number}
    */
-  public month: number;
   public year: number;
   public territories: Territory[] = [];
 
@@ -55,11 +55,18 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    */
   ngOnInit() {
     super.ngOnInit();
-    this.month = moment().month();
     this.year = moment().year();
-    this.region_id = 2;
-    this.area_id = 3;
-    this.headquarter_id = 4;
+
+    if(environment.envName=='geo'){
+      this.region_id = 2;
+      this.area_id = 3;
+      this.headquarter_id = 4;
+    }
+    else {
+      this.region_id = 1;
+      this.area_id = 1;
+      this.headquarter_id = 1;
+    }
     this.fetch();
   }
 
@@ -67,7 +74,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    * load users for logged in user
    */
   fetch() {
-    if (this.month && this.year) {
+    if (this.year) {
       this.months = {
         5: {order_total: 0}, 6: {order_total: 0}, 7: {order_total: 0}, 8: {order_total: 0},
         9: {order_total: 0}, 10: {order_total: 0}, 11: {order_total: 0}, 12: {order_total: 0}
@@ -188,17 +195,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    */
   headquarterChanged(headquarter_id) {
     this.headquarter_id = headquarter_id;
-    this.fetch();
-  }
-
-  /**
-   * month and year changed
-   *
-   * @param date
-   */
-  monthYearChanged(date) {
-    this.month = date.month;
-    this.year = date.year;
     this.fetch();
   }
 }

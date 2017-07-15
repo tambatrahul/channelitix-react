@@ -53,6 +53,7 @@ export class Region extends Model {
     region_total_orders_amount : number = 0;
     region_total_customers : number = 0;
     region_total_customers_ordered : number = 0;
+    region_total_target : number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -120,6 +121,9 @@ export class Region extends Model {
 
         if(info.region_total_customers_ordered)
             this.region_total_customers_ordered = parseInt(info.region_total_customers_ordered);
+
+        if(info.region_total_target)
+            this.region_total_target = parseInt(info.region_total_target);
     }
 
     /**
