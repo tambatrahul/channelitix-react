@@ -83,7 +83,7 @@
           </a>
         </li>
 
-        <li *ngIf="!_auth_service.user?.isAdmin && !_auth_service.user?.isRegion">
+        <li *ngIf="!_auth_service.user?.isAdmin">
           <a class="waves-effect" routerLink="/attendances/monthly">
             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
             <span class="nav-label">Daily Work Reporting</span>
