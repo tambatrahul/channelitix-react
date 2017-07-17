@@ -210,7 +210,7 @@ export class ManagerVisitComponent extends BaseAuthComponent {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
                     m.visits.forEach(function (vis, index) {
-                        z.visits[index].visit_count += vis.visit_count;
+                        z.visits[index].visit_total_count += vis.visit_count;
                     });
                 }
             }
