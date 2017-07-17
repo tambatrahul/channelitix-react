@@ -10,205 +10,216 @@ import {VisitService} from "../../../../services/visit.service";
 declare let jQuery: any;
 
 @Component({
-    selector: 'customer-selection',
-    templateUrl: 'customer_selection.component.html',
-    styleUrls: ['customer_selection.component.less']
+  selector: 'customer-selection',
+  templateUrl: 'customer_selection.component.html',
+  styleUrls: ['customer_selection.component.less']
 })
 export class CustomerSelectionComponent extends ListComponent {
 
-    /**
-     * loading identifier
-     */
-    @ViewChild('brick_selection')
-    brick_selection: ElementRef;
+  public hq_headquarter_id: number = 0;
 
-    /**
-     * selected Customers
-     *
-     * @type {Array}
-     */
-    public selectedCustomer_ids: Array<number> = [];
+  /**
+   * loading identifier
+   */
+  @ViewChild('brick_selection')
+  brick_selection: ElementRef;
 
-    /**
-     * selected Bricks
-     *
-     * @type {Array}
-     */
-    public selectedBricks: Array<number> = [];
+  /**
+   * selected Customers
+   *
+   * @type {Array}
+   */
+  public selectedCustomer_ids: Array<number> = [];
 
-    /**
-     * customer list
-     *
-     * @type {Array}
-     */
-    public customers = [];
+  /**
+   * selected Bricks
+   *
+   * @type {Array}
+   */
+  public selectedBricks: Array<number> = [];
 
-    /**
-     * territories
-     */
-    territories: Territory[] = [];
+  /**
+   * customer list
+   *
+   * @type {Array}
+   */
+  public customers = [];
 
-    /**
-     * tour creation selection
-     *
-     * @type {EventEmitter}
-     */
-    @Output()
-    customers_selected = new EventEmitter();
+  /**
+   * territories
+   */
+  territories: Territory[] = [];
 
-    /**
-     * date of attendance
-     */
-    _attendance_date: string;
-    @Input()
-    set attendance_date(attendance_date: string) {
-        this._attendance_date = attendance_date;
-        // brick selection
-        jQuery(this.brick_selection.nativeElement).select2({
-            placeholder: "Select bricks you worked in.",
-            allowClear: true
+  /**
+   * tour creation selection
+   *
+   * @type {EventEmitter}
+   */
+  @Output()
+  customers_selected = new EventEmitter();
+
+  /**
+   * date of attendance
+   */
+  _attendance_date: string;
+  @Input()
+  set attendance_date(attendance_date: string) {
+    this._attendance_date = attendance_date;
+    // brick selection
+    jQuery(this.brick_selection.nativeElement).select2({
+      placeholder: "Select bricks you worked in.",
+      allowClear: true
+    });
+
+    this.fetchCustomers();
+    this.fetchAlreadySelectedCustomers();
+  }
+
+  get attendance_date() {
+    return this._attendance_date;
+  }
+
+  /**
+   * customer selection constructor
+   *
+   * @param visitService
+   * @param customerService
+   * @param territoryService
+   * @param _authService
+   */
+  constructor(private visitService: VisitService, private customerService: CustomerService,
+              private territoryService: TerritoryService, private _authService: AuthService) {
+    super(_authService);
+  }
+
+  /**
+   * load customerTypes
+   */
+  fetch() {
+    let self = this;
+    this.loading = true;
+    this.territoryService.brick(0, this.hq_headquarter_id).subscribe(
+      response => {
+        this.loading = false;
+        this.formatBricks(response.bricks.map(function (brick) {
+          return new Brick(brick);
+        }));
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
+
+  /**
+   * Formatting bricks
+   *
+   * @param bricks
+   */
+  formatBricks(bricks: Brick[]) {
+    let self = this;
+
+    // prepare territories
+    let territories: Territory[] = [];
+    let territory_ids: Array<number> = [];
+    for (let brick of bricks) {
+      if (territory_ids.indexOf(brick.hq_territory_id) < 0) {
+        territory_ids.push(brick.hq_territory_id);
+        territories.push(brick.hq_territory);
+      }
+      territories[territory_ids.indexOf(brick.hq_territory_id)].hq_bricks.push(brick);
+    }
+    this.territories = territories;
+
+    // brick selection
+    jQuery(this.brick_selection.nativeElement).select2({
+      placeholder: "Select bricks you worked in.",
+      allowClear: true
+    });
+    jQuery(this.brick_selection.nativeElement).on("select2:select", function (e) {
+      let select_val = jQuery(e.currentTarget).val();
+      self.selectedBricks = select_val;
+      self.fetchCustomers();
+    });
+  }
+
+  /**
+   * fetch customers for brick
+   */
+  fetchCustomers() {
+    let self = this;
+    this.loading = true;
+    this.customerService.forBricks(this.selectedBricks).subscribe(
+      response => {
+        this.loading = false;
+        this.customers = response.customers.map(function (customer) {
+          return new Customer(customer);
         });
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
 
-        this.fetchCustomers();
-        this.fetchAlreadySelectedCustomers();
-    }
+  /**
+   * fetch all visit for date
+   */
+  fetchAlreadySelectedCustomers() {
+    this.loading = true;
+    this.visitService.for_date(this._attendance_date).subscribe(
+      response => {
+        this.loading = false;
+        this.selectedCustomer_ids = [];
+        response.visits.map(visit => {
+          this.selectedCustomer_ids.push(visit.customer_id);
+        })
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
 
-    get attendance_date() {
-        return this._attendance_date;
-    }
+  /**
+   * select customer
+   * @param customer_id
+   */
+  addCustomer(customer_id: number) {
+    this.selectedCustomer_ids.push(customer_id);
+  }
 
-    /**
-     * customer selection constructor
-     *
-     * @param visitService
-     * @param customerService
-     * @param territoryService
-     * @param _authService
-     */
-    constructor(private visitService: VisitService, private customerService: CustomerService,
-                private territoryService: TerritoryService, private _authService: AuthService) {
-        super(_authService);
-    }
+  /**
+   * remove customer
+   *
+   * @param customer_id
+   */
+  removeCustomer(customer_id: number) {
+    this.selectedCustomer_ids.splice(this.selectedCustomer_ids.indexOf(customer_id), 1);
+  }
 
-    /**
-     * load customerTypes
-     */
-    fetch() {
-        let self = this;
-        this.loading = true;
-        this.territoryService.brick().subscribe(
-            response => {
-                this.loading = false;
-                this.formatBricks(response.bricks.map(function (brick) {
-                    return new Brick(brick);
-                }));
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
+  /**
+   * save selected customers
+   */
+  save() {
+    this.loading = true;
+    this.visitService.customer_select(this.selectedCustomer_ids, this.attendance_date).subscribe(
+      response => {
+        this.loading = false;
+        this.customers_selected.emit();
+      },
+      err => {
+        this.loading = false;
+      }
+    )
+  }
 
-    /**
-     * Formatting bricks
-     *
-     * @param bricks
-     */
-    formatBricks(bricks: Brick[]) {
-        let self = this;
-
-        // prepare territories
-        let territories: Territory[] = [];
-        let territory_ids: Array<number> = [];
-        for (let brick of bricks) {
-            if (territory_ids.indexOf(brick.hq_territory_id) < 0) {
-                territory_ids.push(brick.hq_territory_id);
-                territories.push(brick.hq_territory);
-            }
-            territories[territory_ids.indexOf(brick.hq_territory_id)].hq_bricks.push(brick);
-        }
-        this.territories = territories;
-
-        // brick selection
-        jQuery(this.brick_selection.nativeElement).select2({
-            placeholder: "Select bricks you worked in.",
-            allowClear: true
-        });
-        jQuery(this.brick_selection.nativeElement).on("select2:select", function (e) {
-            let select_val = jQuery(e.currentTarget).val();
-            self.selectedBricks = select_val;
-            self.fetchCustomers();
-        });
-    }
-
-    /**
-     * fetch customers for brick
-     */
-    fetchCustomers() {
-        let self = this;
-        this.loading = true;
-        this.customerService.forBricks(this.selectedBricks).subscribe(
-            response => {
-                this.loading = false;
-                this.customers = response.customers.map(function (customer) {
-                    return new Customer(customer);
-                });
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
-
-    /**
-     * fetch all visit for date
-     */
-    fetchAlreadySelectedCustomers() {
-        this.loading = true;
-        this.visitService.for_date(this._attendance_date).subscribe(
-            response => {
-                this.loading = false;
-                this.selectedCustomer_ids = [];
-                response.visits.map(visit => {
-                    this.selectedCustomer_ids.push(visit.customer_id);
-                })
-            },
-            err => {
-                this.loading = false;
-            }
-        );
-    }
-
-    /**
-     * select customer
-     * @param customer_id
-     */
-    addCustomer(customer_id: number) {
-        this.selectedCustomer_ids.push(customer_id);
-    }
-
-    /**
-     * remove customer
-     *
-     * @param customer_id
-     */
-    removeCustomer(customer_id: number) {
-        this.selectedCustomer_ids.splice(this.selectedCustomer_ids.indexOf(customer_id), 1);
-    }
-
-    /**
-     * save selected customers
-     */
-    save() {
-        this.loading = true;
-        this.visitService.customer_select(this.selectedCustomer_ids, this.attendance_date).subscribe(
-            response => {
-                this.loading = false;
-                this.customers_selected.emit();
-            },
-            err => {
-                this.loading = false;
-            }
-        )
-    }
+  /**
+   * when headquarter is changed filter list of customer
+   * @param headquarter_id
+   */
+  headquarterChanged(headquarter_id) {
+    this.hq_headquarter_id = headquarter_id;
+    this.fetch();
+  }
 }

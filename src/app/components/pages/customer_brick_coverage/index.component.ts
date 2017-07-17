@@ -165,8 +165,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
       });
     });
 
-    console.log(this.months);
-
     this.territories = territories;
   }
 
