@@ -16,6 +16,13 @@ declare let jQuery: any;
 })
 export class CustomerSelectionComponent extends ListComponent {
 
+  /**
+   * region, area, headquarter
+   *
+   * @type {number}
+   */
+  public hq_region_id: number = 0;
+  public hq_area_id: number = 0;
   public hq_headquarter_id: number = 0;
 
   /**
@@ -90,6 +97,9 @@ export class CustomerSelectionComponent extends ListComponent {
   constructor(private visitService: VisitService, private customerService: CustomerService,
               private territoryService: TerritoryService, private _authService: AuthService) {
     super(_authService);
+    if (this._authService.user.role_str == this.ROLE_ZSM) {
+      this.hq_region_id = this._authService.user.hq_region_id;
+    }
   }
 
   /**
@@ -212,6 +222,15 @@ export class CustomerSelectionComponent extends ListComponent {
         this.loading = false;
       }
     )
+  }
+
+  /**
+   * when area is changed filter list of customer
+   * @param area_id
+   */
+  areaChanged(area_id) {
+    this.hq_area_id = area_id;
+    this.fetch();
   }
 
   /**
