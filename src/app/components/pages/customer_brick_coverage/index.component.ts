@@ -108,7 +108,8 @@ export class CustomerBrickCoverageComponent extends ListComponent {
   prepareData(bricks: Brick[], territories: Territory[], visits: Visit[], orders: Order[], targets: Target[]) {
     territories.map(ter => {
       ter.hq_bricks.map(brick => {
-        brick.months = jQuery.extend({}, {5: {}, 6: {}, 7: {}, 8: {}, 9: {}, 10: {}, 11: {}, 12: {}});
+        brick.months = jQuery.extend({}, {5: {order_total_count: 0}, 6: {order_total_count: 0}, 7: {order_total_count: 0}, 8: {order_total_count: 0},
+            9: {order_total_count: 0}, 10: {order_total_count: 0}, 11: {order_total_count: 0}, 12: {order_total_count: 0}});
 
         // set customer counts
         bricks.map(hq_brick => {
@@ -148,9 +149,10 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         orders.map(order => {
           if (order.hq_brick_id == brick.id) {
             if (brick.months.hasOwnProperty(order.order_month)) {
-              brick.months[order.order_month].order_total_count = order.order_total_count;
-              if (order.order_total_count)
-                this.months[order.order_month].order_total += order.order_total_count;
+              if (order.order_total_count){
+                  brick.months[order.order_month].order_total_count += order.order_total_count;
+                  this.months[order.order_month].order_total += order.order_total_count;
+              }
             }
           }
         });
