@@ -98,17 +98,6 @@ export class ExecutiveSummaryComponent extends ListComponent {
                 this.prepareData(visit_counts, customers, v2_v3_visits);
                 this.loading = false;
 
-                // show excel download
-                setTimeout(() => {
-                    if (!this.excel_loaded) {
-                        this.excel_loaded = true;
-                        jQuery("table").tableExport({
-                            formats: ['xlsx'],
-                            bootstrap: true,
-                            position: "top"
-                        });
-                    }
-                }, 1000);
             });
 
             this.reportService.executive_summary(this.month + 1, this.year).subscribe(
@@ -319,5 +308,27 @@ export class ExecutiveSummaryComponent extends ListComponent {
         this.month = date.month;
         this.year = date.year;
         this.fetch();
+    }
+
+    /**
+     * Download Excel For Executive Summary
+     */
+    download() {
+
+        this.reportService.executive_summary_download(this.month + 1, this.year).subscribe(
+            response => {
+                let blob: Blob = response.blob();
+
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Executive_Summary.xls";
+                link.click();
+
+            },
+            err => {
+
+            }
+        );
     }
 }

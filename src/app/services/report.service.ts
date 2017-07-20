@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, ResponseContentType, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -287,6 +287,23 @@ export class ReportService extends BaseService {
      */
     executive_summary(month: number, year: number) {
         return this.get(this.getBaseUrl() + '/executive_summary/' + month + "/" + year, new RequestOptions({}));
+    }
+
+    /**
+     * brick wise customers
+     */
+    executive_summary_download(month: number, year: number):  Observable< Response> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        return this.http.get(this.getBaseUrl() + '/executive_summary/' + month + "/" + year + "/download", content);
     }
 
     /**
