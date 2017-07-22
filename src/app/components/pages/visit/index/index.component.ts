@@ -387,4 +387,27 @@ export class VisitComponent extends BaseAuthComponent {
                 jQuery(this.visit_table.nativeElement).modal();
         }
     }
+
+    /**
+     * Download Excel For Stockist POB
+     */
+    download() {
+
+        this.visitService.visit_excel_download(this.month + 1, this.year).subscribe(
+            response => {
+                let blob: Blob = response.blob();
+
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Visits_report.xls";
+                link.click();
+
+            },
+            err => {
+
+            }
+        );
+    }
+
 }

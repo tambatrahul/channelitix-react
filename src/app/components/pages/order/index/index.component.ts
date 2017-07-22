@@ -448,4 +448,24 @@ export class OrderComponent extends BaseAuthComponent {
         this.product_id = product_id;
         this.fetchData();
     }
+
+    /**
+     * Download Excel For Orders Report
+     */
+    download() {
+        this.orderService.orders_excel_download(this.month + 1, this.year).subscribe(
+            response => {
+                let blob: Blob = response.blob();
+
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Orders_report.xls";
+                link.click();
+            },
+            err => {
+
+            }
+        );
+    }
 }

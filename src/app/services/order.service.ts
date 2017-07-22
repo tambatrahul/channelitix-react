@@ -84,6 +84,25 @@ export class OrderService extends BaseService {
     }
 
     /**
+     * get all orders
+     */
+    orders_excel_download(month: number, year: number): Observable<Response> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        // make server call
+        return this.http.get(this.getBaseUrl() + '/report/' + month + "/" + year + "/" + "excel/download", content);
+
+    }
+
+    /**
      * get all bricks user
      */
     excel_download(user_id: number, month: number, year: number, day?: number): Observable<Response> {

@@ -18,10 +18,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
-                <div class="hidden-sm hidden-xs">
-                    <!--<visit_count_graph [data]="chart_data"></visit_count_graph>-->
-                </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+                <a class="btn btn-primary btn-block btn-margin"  style="margin-top: 25px;" *ngIf="!btn_loading"
+                   (click)="download()">
+                    Export to xlsx
+                </a>
             </div>
         </div>
     </div>

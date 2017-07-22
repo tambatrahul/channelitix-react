@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, Response, ResponseContentType} from "@angular/http";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
@@ -64,6 +64,25 @@ export class VisitService extends BaseService {
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * get all orders
+     */
+    visit_excel_download(month: number, year: number): Observable<Response> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        // make server call
+        return this.http.get(this.getBaseUrl() + '/report/' + month + "/" + year + "/" + "excel/download", content);
+
     }
 
     /**
