@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {Validators, FormBuilder} from "@angular/forms";
-import {CookieService} from "angular2-cookie/services/cookies.service";
 import {LoginService} from "../../../../services/login.service";
 import {FormComponent} from "../../../base/form.component";
 import {AuthService} from "../../../../services/AuthService";
@@ -40,7 +39,7 @@ export class LoginComponent extends FormComponent {
      * @param _cookieService
      */
     constructor(public loginService: LoginService, public _router: Router,
-                public _fb: FormBuilder, public _service: AuthService, private _cookieService: CookieService) {
+                public _fb: FormBuilder, public _service: AuthService) {
         super(_service);
     }
 
@@ -56,7 +55,6 @@ export class LoginComponent extends FormComponent {
                 response => {
                     localStorage.setItem("user", JSON.stringify(response.user));
                     this._service.user = new User(response.user);
-                    this._cookieService.put('auth_token', this._service.user.auth_token);
 
                     if (response.user.username == 'abbottadmin') {
                         this._router.navigate(['/visits']);

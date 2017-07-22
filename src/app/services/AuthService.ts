@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
-import {CookieService} from "angular2-cookie/services/cookies.service";
 import {User} from "../models/user/user";
 
 @Injectable()
@@ -18,7 +17,7 @@ export class AuthService {
      * @param _router
      * @param _cookieService
      */
-    constructor(public http: Http, public _router: Router, private _cookieService: CookieService) {
+    constructor(public http: Http, public _router: Router) {
         if (localStorage.getItem("user") != "undefined" && localStorage.getItem("user") !== null && localStorage.getItem("user") !== "null") {
             this.user = new User(JSON.parse(localStorage.getItem("user")));
         }
@@ -39,7 +38,7 @@ export class AuthService {
      */
     logout() {
         localStorage.setItem("user", null);
-        this._cookieService.put('auth_token', '');
+        // this._cookieService.put('auth_token', '');
         this._router.navigate(['/login']);
     }
 }
