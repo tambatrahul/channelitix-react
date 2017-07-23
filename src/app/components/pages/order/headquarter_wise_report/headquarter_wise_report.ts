@@ -181,8 +181,6 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
-        console.log(this.month);
-        console.log(this.year);
         this.fetch();
     }
 

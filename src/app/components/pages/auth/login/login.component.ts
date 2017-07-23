@@ -36,7 +36,6 @@ export class LoginComponent extends FormComponent {
      * @param _router
      * @param _fb
      * @param _service
-     * @param _cookieService
      */
     constructor(public loginService: LoginService, public _router: Router,
                 public _fb: FormBuilder, public _service: AuthService) {
