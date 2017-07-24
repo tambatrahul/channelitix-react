@@ -167,6 +167,8 @@ import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wi
 import {ProductWiseSaleForSKComponent} from "./components/pages/dashboard/product_wise_sale_for_sk/product_wise_sale_for_sk.component";
 import {HeadQuarterWiseReportComponent} from "./components/pages/order/headquarter_wise_report/headquarter_wise_report";
 import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui/report_icons_ui";
+import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
+import {SalesPlanningService} from "./services/sales_planning.service";
 
 
 enableProdMode();
@@ -317,6 +319,7 @@ enableProdMode();
     CustomerSelectionComponent,
     CustomerSelectComponent,
     ProductSelectComponent,
+    SalesPlanningComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,
@@ -355,6 +358,7 @@ enableProdMode();
     ReportService,
     StpService,
     SecondarySaleService,
+    SalesPlanningService,
     PrimarySaleService,
     ProductService,
     CustomerTypeService

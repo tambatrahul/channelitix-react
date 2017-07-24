@@ -9,6 +9,7 @@ import {Product} from "../order/product";
 import {Headquarter} from "../territory/headquarter";
 import {Region} from "../territory/region";
 import {Area} from "../territory/area";
+import {Plan} from "../plan";
 
 export class Customer extends Model {
 
@@ -30,6 +31,15 @@ export class Customer extends Model {
     hq_region_id: number;
     address: Address;
     synergy: boolean;
+
+    plans: Object = {
+        5: Plan,
+        2: Plan,
+        7: Plan,
+        0: Plan,
+    };
+
+    total_plan : Plan;
 
     visits_this_month_rep: string;
     visits_this_month_manager: string;
@@ -53,10 +63,10 @@ export class Customer extends Model {
 
     last_year_sale: number = 0;
     last_year_dexona_sale: number = 0;
-    last_month_sale:number = 0;
-    last_month_dexona_sale:number = 0;
-    visit_counts:number = 0;
-    sap_primary_sale:number = 0;
+    last_month_sale: number = 0;
+    last_month_dexona_sale: number = 0;
+    visit_counts: number = 0;
+    sap_primary_sale: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -134,8 +144,8 @@ export class Customer extends Model {
      * @returns {number}
      */
     get last_month_shortfall() {
-        return (this.last_year_sale/12 - this.last_month_sale) > 0 ?
-            (this.last_year_sale/12 - this.last_month_sale).toFixed(2) : 0
+        return (this.last_year_sale / 12 - this.last_month_sale) > 0 ?
+            (this.last_year_sale / 12 - this.last_month_sale).toFixed(2) : 0
     }
 
 
@@ -145,8 +155,8 @@ export class Customer extends Model {
      * @returns {number}
      */
     get last_month_dexona_shortfall() {
-        return (this.last_year_dexona_sale/12 - this.last_month_dexona_sale) > 0 ?
-            (this.last_year_dexona_sale/12 - this.last_month_dexona_sale).toFixed(2) : 0
+        return (this.last_year_dexona_sale / 12 - this.last_month_dexona_sale) > 0 ?
+            (this.last_year_dexona_sale / 12 - this.last_month_dexona_sale).toFixed(2) : 0
     }
 
     /**
@@ -155,8 +165,8 @@ export class Customer extends Model {
      * @returns {number}
      */
     get current_month_expected() {
-        return (2*(this.last_year_sale) - this.last_month_sale) > 0 ?
-            (2*(this.last_year_sale / 12) - this.last_month_sale).toFixed(2) : 0;
+        return (2 * (this.last_year_sale) - this.last_month_sale) > 0 ?
+            (2 * (this.last_year_sale / 12) - this.last_month_sale).toFixed(2) : 0;
     }
 
 
@@ -166,7 +176,7 @@ export class Customer extends Model {
      * @returns {number}
      */
     get current_month_expected_dexona() {
-        return (2*(this.last_year_dexona_sale) - this.last_month_dexona_sale) > 0 ?
-            (2*(this.last_year_dexona_sale / 12) - this.last_month_dexona_sale).toFixed(2) : 0;
+        return (2 * (this.last_year_dexona_sale) - this.last_month_dexona_sale) > 0 ?
+            (2 * (this.last_year_dexona_sale / 12) - this.last_month_dexona_sale).toFixed(2) : 0;
     }
 }

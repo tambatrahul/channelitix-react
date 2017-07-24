@@ -63,6 +63,7 @@ import {ManagerVisitComponent} from "./components/pages/visit/manager_index/inde
 import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wise/sap_stockist_wise.component";
 import {HeadQuarterWiseReportComponent} from "./components/pages/order/headquarter_wise_report/headquarter_wise_report";
 import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui/report_icons_ui";
+import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -90,6 +91,10 @@ export const routes: Routes = [
                     {
                         path: 'reports_icons',
                         component: ReportIconsComponent
+                    },
+                    {
+                        path: 'sales_planning',
+                        component: SalesPlanningComponent
                     }
                 ]
             },

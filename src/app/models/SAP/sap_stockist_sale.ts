@@ -2,6 +2,7 @@ export class SapStockistSale {
 
     total_net_amt: number = 0;
     stockist_code: number;
+    brand_id: number;
 
     constructor(info: any) {
         if (info.total_net_amt)
@@ -9,5 +10,8 @@ export class SapStockistSale {
 
         if (info.stockist_code)
             this.stockist_code = info.stockist_code;
+
+        if (info.brand_id)
+            this.brand_id = info.brand_id;
     }
 }
