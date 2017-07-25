@@ -205,15 +205,15 @@ export class SalesPlanningComponent extends ListComponent {
       total_cus.plans[7].opening_stock += cus.plans[7].opening_stock;
       total_cus.plans[0].opening_stock += cus.plans[0].opening_stock;
 
-      total_cus.plans[5].primary_plan += cus.plans[5].primary_sale;
-      total_cus.plans[2].primary_plan += cus.plans[2].primary_sale;
-      total_cus.plans[7].primary_plan += cus.plans[7].primary_sale;
-      total_cus.plans[0].primary_plan += cus.plans[0].primary_sale;
+      total_cus.plans[5].primary_sale += cus.plans[5].primary_sale;
+      total_cus.plans[2].primary_sale += cus.plans[2].primary_sale;
+      total_cus.plans[7].primary_sale += cus.plans[7].primary_sale;
+      total_cus.plans[0].primary_sale += cus.plans[0].primary_sale;
 
-      total_cus.plans[5].secondary_plan += cus.plans[5].secondary_sale;
-      total_cus.plans[2].secondary_plan += cus.plans[2].secondary_sale;
-      total_cus.plans[7].secondary_plan += cus.plans[7].secondary_sale;
-      total_cus.plans[0].secondary_plan += cus.plans[0].secondary_sale;
+      total_cus.plans[5].secondary_sale += cus.plans[5].secondary_sale;
+      total_cus.plans[2].secondary_sale += cus.plans[2].secondary_sale;
+      total_cus.plans[7].secondary_sale += cus.plans[7].secondary_sale;
+      total_cus.plans[0].secondary_sale += cus.plans[0].secondary_sale;
     });
     this.total_customer = total_cus;
   }
