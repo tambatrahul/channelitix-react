@@ -107,17 +107,17 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
-      <div class="topics-list" #loading_box>
+    <div class="col-xs-10 col-xs-offset-1" #loading_box>
+      <div class="topics-list">
         <div class="topic-container new-ticket">
-          <div class="box-widget widget-module" style="margin-bottom: 0; width: 80%;">
+          <div class="box-widget widget-module">
             <div class="widget-head clearfix">
               <span class="h-icon"><i class="fa fa-table"></i></span>
               <h4>
                 Summary Planning
               </h4>
             </div>
-            <div class="widget-container details-table" #loading_box>
+            <div class="widget-container details-table">
               <div class="widget-block">
                 <div class="table-responsive">
                   <product-sale-plan [customer]="total_customer" [targets]="targets" [brands]="brands"></product-sale-plan>
@@ -127,7 +127,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
