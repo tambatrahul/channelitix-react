@@ -65,8 +65,10 @@ export class SalesPlanningComponent extends ListComponent {
      */
     protected fetch() {
         if (this.month && this.year) {
+            this.loading = true;
             this.salesPlanningService.monthly(this.month + 1, this.year).subscribe(
                 response => {
+                    this.loading = false;
                     // set customers
                     this.customers = response.customers.map(cus => new Customer(cus));
 
@@ -81,6 +83,9 @@ export class SalesPlanningComponent extends ListComponent {
 
                     // format data
                     this.formatData(yearly_sales, secondary_sales, sale_planning_details);
+                },
+                err => {
+                    this.loading = false;
                 });
         }
     }

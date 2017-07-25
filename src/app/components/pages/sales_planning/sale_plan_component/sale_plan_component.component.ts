@@ -96,7 +96,7 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_primary_plan() {
-    return this._customer.plans[5].primary_plan
+    return this._customer.plans[5].primary_sale
       + this._customer.plans[2].primary_sale
       + this._customer.plans[7].primary_sale
       + this._customer.plans[0].primary_sale;
