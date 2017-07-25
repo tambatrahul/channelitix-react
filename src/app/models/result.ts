@@ -30,6 +30,7 @@ import {MonthStockistSale} from "./SAP/month_stockist_sale";
 import {YearStockistSale} from "./SAP/year_stockist_sale";
 import {SapStockistSale} from "./SAP/sap_stockist_sale";
 import {OpeningStock} from "./openning_stock";
+import {SalesPlanningDetail} from "./plan";
 
 export class Result {
 
@@ -115,6 +116,9 @@ export class Result {
   visits_this_month_manager: Visit[] = [];
   visits_this_month_rep: Visit[] = [];
   opening_stocks: OpeningStock[] = [];
+
+  // sales planning variables
+  sale_planning_details: SalesPlanningDetail[] = [];
 
   // get total counts for reports
   total_users: number = 0;

@@ -1,74 +1,102 @@
-<div class="topics-list">
-    <div class="topic-container new-ticket">
-        <div class="box-widget widget-module" style="margin-bottom: 0;">
-            <div class="widget-head clearfix">
-                <span class="h-icon"><i class="fa fa-table"></i></span>
-                <h4>
-                    Sales Planning
-                </h4>
-                <div class="col-xs-12 col-md-3 form-group-sm">
-                    <div style="margin: 12px;">
-                        <month-picker [month]="_month" [year]="_year"
-                                      [title]="''"
-                                      (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-                    </div>
-                </div>
-            </div>
-            <div class="widget-container details-table" #loading_box>
-                <div class="widget-block">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th style="text-align: center">All Stockist Name</th>
-                                <th style="text-align: center" colspan="5">Dexona</th>
-                                <th style="text-align: center" colspan="5">Ciprobid</th>
-                                <th style="text-align: center" colspan="5">Mifegist</th>
-                                <th style="text-align: center" colspan="5">Others</th>
-                                <th style="text-align: center" colspan="6">Total</th>
-                            </tr>
-                            <tr>
-                                <th>Stockist</th>
+<div class="container-fluid sales">
 
-                                <th> Avg Primary(2016)</th>
-                                <th>Previous month sec</th>
-                                <th>Opening Stock</th>
-                                <th>Primary Plan</th>
-                                <th>Secondary Plan</th>
-
-                                <th> Avg Primary(2016)</th>
-                                <th>Previous month sec</th>
-                                <th>Opening Stock</th>
-                                <th>Primary Plan</th>
-                                <th>Secondary Plan</th>
-
-                                <th> Avg Primary(2016)</th>
-                                <th>Previous month sec</th>
-                                <th>Opening Stock</th>
-                                <th>Primary Plan</th>
-                                <th>Secondary Plan</th>
-
-                                <th> Avg Primary(2016)</th>
-                                <th>Previous month sec</th>
-                                <th>Opening Stock</th>
-                                <th>Primary Plan</th>
-                                <th>Secondary Plan</th>
-
-                                <th> Avg Primary(2016)</th>
-                                <th>Previous month sec</th>
-                                <th>Opening Stock</th>
-                                <th>Primary Plan</th>
-                                <th>Secondary Plan</th>
-                                <th>Next Month Opening Sec</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Sales Planning</h2>
+          </div>
         </div>
+      </div>
+      <div class="col-md-5">
+      </div>
     </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for Order report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+    <div class="col-xs-12 col-md-3 col-md-offset-6">
+      <button class="btn btn-block btn-primary" (click)="toggleEditing()">EDIT</button>
+    </div>
+  </div>
+  <!-- ./Filters for Order report-->
+
+  <div class="topics-list">
+    <div class="topic-container new-ticket">
+      <div class="box-widget widget-module" style="margin-bottom: 0;">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4>
+            Sales Planning
+          </h4>
+        </div>
+        <div class="widget-container details-table" #loading_box>
+          <div class="widget-block">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th style="text-align: center; min-width: 150px;">All Stockist Name</th>
+                  <th style="text-align: center" colspan="5">Dexona</th>
+                  <th style="text-align: center" colspan="5">Ciprobid</th>
+                  <th style="text-align: center" colspan="5">Mifegist</th>
+                  <th style="text-align: center" colspan="5">Others</th>
+                  <th style="text-align: center" colspan="6">Total</th>
+                </tr>
+                <tr>
+                  <th>Stockist</th>
+
+                  <th> Avg Primary (2016)</th>
+                  <th>Previous month sec</th>
+                  <th>Opening Stock</th>
+                  <th>Primary Plan</th>
+                  <th>Secondary Plan</th>
+
+                  <th> Avg Primary (2016)</th>
+                  <th>Previous month sec</th>
+                  <th>Opening Stock</th>
+                  <th>Primary Plan</th>
+                  <th>Secondary Plan</th>
+
+                  <th> Avg Primary (2016)</th>
+                  <th>Previous month sec</th>
+                  <th>Opening Stock</th>
+                  <th>Primary Plan</th>
+                  <th>Secondary Plan</th>
+
+                  <th> Avg Primary (2016)</th>
+                  <th>Previous month sec</th>
+                  <th>Opening Stock</th>
+                  <th>Primary Plan</th>
+                  <th>Secondary Plan</th>
+
+                  <th> Avg Primary (2016)</th>
+                  <th>Previous month sec</th>
+                  <th>Opening Stock</th>
+                  <th>Primary Plan</th>
+                  <th>Secondary Plan</th>
+                  <th>Next Month Opening Inventory</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr sale-plan="" *ngFor="let customer of customers" [customer]="customer" [editing]="editing"
+                    (customerUpdated)="total_updated($event)">
+                </tr>
+                <tr sale-plan="" [customer]="total_customer"
+                    style="background-color: grey !important; color: white !important;">
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

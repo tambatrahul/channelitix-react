@@ -11,38 +11,36 @@ import {SecondarySale} from "../models/sale/secondary_sale";
 @Injectable()
 export class SalesPlanningService extends BaseService {
 
-    /**
-     * model url
-     *
-     * @type {string}
-     */
-    protected modelUrl: string = 'sales/planning';
+  /**
+   * model url
+   *
+   * @type {string}
+   */
+  protected modelUrl: string = 'sales/planning';
 
-    /**
-     * Attendance Service constructor
-     *
-     * @param http
-     * @param _router
-     * @param _authService
-     */
-    constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
-        super(http, _router, _authService);
-    }
+  /**
+   * Attendance Service constructor
+   *
+   * @param http
+   * @param _router
+   * @param _authService
+   */
+  constructor(protected http: Http, protected _router: Router, protected _authService: AuthService) {
+    super(http, _router, _authService);
+  }
 
-    /**
-     * monthly attendance
-     *
-     * @param month
-     * @param year
-     * @param headquarter_id
-     * @returns {Observable<Result>}
-     */
-    monthly(month: number, year: number, headquarter_id?: number): Observable<Result> {
+  /**
+   * monthly attendance
+   *
+   * @param month
+   * @param year
+   * @returns {Observable<Result>}
+   */
+  monthly(month: number, year: number): Observable<Result> {
 
-        // prepare get params
-        let params = new URLSearchParams();
-        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    // prepare get params
+    let params = new URLSearchParams();
 
-        return this.get(this.getBaseUrl() + '/monthly/' + month + "/" + year, new RequestOptions({search: params}));
-    }
+    return this.get(this.getBaseUrl() + '/monthly/' + month + "/" + year, new RequestOptions({search: params}));
+  }
 }

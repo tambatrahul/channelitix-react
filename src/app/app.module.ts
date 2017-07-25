@@ -169,6 +169,7 @@ import {HeadQuarterWiseReportComponent} from "./components/pages/order/headquart
 import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui/report_icons_ui";
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SalesPlanningService} from "./services/sales_planning.service";
+import {SalePlanComponent} from "./components/pages/sales_planning/sale_plan_component/sale_plan_component.component";
 
 
 enableProdMode();
@@ -320,6 +321,7 @@ enableProdMode();
     CustomerSelectComponent,
     ProductSelectComponent,
     SalesPlanningComponent,
+    SalePlanComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,
