@@ -31,6 +31,7 @@ import {YearStockistSale} from "./SAP/year_stockist_sale";
 import {SapStockistSale} from "./SAP/sap_stockist_sale";
 import {OpeningStock} from "./openning_stock";
 import {SalesPlanningDetail} from "./plan";
+import {Brand} from "./order/brand";
 
 export class Result {
 
@@ -106,6 +107,9 @@ export class Result {
 
   // products
   products: Product[] = [];
+
+  // brands
+  brands: Brand[] = [];
 
   last_month_dexona_sale: SapStockistSale[] = [];
   last_month_sale: SapStockistSale[] = [];

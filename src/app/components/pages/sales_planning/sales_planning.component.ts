@@ -7,6 +7,8 @@ import {Customer} from "../../../models/customer/customer";
 import {SapStockistSale} from "../../../models/SAP/sap_stockist_sale";
 import {SecondarySale} from "../../../models/sale/secondary_sale";
 import {SalesPlanningDetail} from "../../../models/plan";
+import {Brand} from "../../../models/order/brand";
+import {Target} from "../../../models/SAP/target";
 
 @Component({
   styleUrls: ['sales_planning.component.less'],
@@ -30,9 +32,21 @@ export class SalesPlanningComponent extends ListComponent {
   editing: boolean = false;
 
   /**
+   * brands
+   *
+   * @type {Array}
+   */
+  brands: Brand[] = [];
+
+  /**
    * Customer
    */
   customers: Customer[];
+
+  /**
+   * targets
+   */
+  targets: Target[];
 
   /**
    * get total customer
@@ -78,6 +92,18 @@ export class SalesPlanningComponent extends ListComponent {
 
           // get planning details
           let sale_planning_details = response.sale_planning_details.map(ss => new SalesPlanningDetail(ss));
+
+          // get brands
+          let brands = response.brands.map(brand => new Brand(brand)).filter(brand => {
+            return [5,7,2].indexOf(brand.id) > -1;
+          });
+
+          // adding others brand
+          brands.push(new Brand({id: 0, name: "Others"}));
+          this.brands = brands;
+
+          // set targets
+          this.targets = response.targets.map(target => new Target(target));
 
           // format data
           this.formatData(yearly_sales, secondary_sales, sale_planning_details);
@@ -157,37 +183,33 @@ export class SalesPlanningComponent extends ListComponent {
    * @returns {any}
    */
   total_updated() {
-    this.total_customer.plans = {
-      5: new SalesPlanningDetail({}),
-      2: new SalesPlanningDetail({}),
-      7: new SalesPlanningDetail({}),
-      0: new SalesPlanningDetail({}),
-    };
+    let total_cus = new Customer({firm_name: "Total"});
     this.customers.map(cus => {
-      this.total_customer.plans[5].avg_primary_previous_year += cus.plans[5].avg_primary_previous_year;
-      this.total_customer.plans[2].avg_primary_previous_year += cus.plans[2].avg_primary_previous_year;
-      this.total_customer.plans[7].avg_primary_previous_year += cus.plans[7].avg_primary_previous_year;
-      this.total_customer.plans[0].avg_primary_previous_year += cus.plans[0].avg_primary_previous_year;
+      total_cus.plans[5].avg_primary_previous_year += cus.plans[5].avg_primary_previous_year;
+      total_cus.plans[2].avg_primary_previous_year += cus.plans[2].avg_primary_previous_year;
+      total_cus.plans[7].avg_primary_previous_year += cus.plans[7].avg_primary_previous_year;
+      total_cus.plans[0].avg_primary_previous_year += cus.plans[0].avg_primary_previous_year;
 
-      this.total_customer.plans[5].previous_month_secondary += cus.plans[5].previous_month_secondary;
-      this.total_customer.plans[2].previous_month_secondary += cus.plans[2].previous_month_secondary;
-      this.total_customer.plans[7].previous_month_secondary += cus.plans[7].previous_month_secondary;
-      this.total_customer.plans[0].previous_month_secondary += cus.plans[0].previous_month_secondary;
+      total_cus.plans[5].previous_month_secondary += cus.plans[5].previous_month_secondary;
+      total_cus.plans[2].previous_month_secondary += cus.plans[2].previous_month_secondary;
+      total_cus.plans[7].previous_month_secondary += cus.plans[7].previous_month_secondary;
+      total_cus.plans[0].previous_month_secondary += cus.plans[0].previous_month_secondary;
 
-      this.total_customer.plans[5].opening_stock += cus.plans[5].opening_stock;
-      this.total_customer.plans[2].opening_stock += cus.plans[2].opening_stock;
-      this.total_customer.plans[7].opening_stock += cus.plans[7].opening_stock;
-      this.total_customer.plans[0].opening_stock += cus.plans[0].opening_stock;
+      total_cus.plans[5].opening_stock += cus.plans[5].opening_stock;
+      total_cus.plans[2].opening_stock += cus.plans[2].opening_stock;
+      total_cus.plans[7].opening_stock += cus.plans[7].opening_stock;
+      total_cus.plans[0].opening_stock += cus.plans[0].opening_stock;
 
-      this.total_customer.plans[5].primary_plan += cus.plans[5].primary_plan;
-      this.total_customer.plans[2].primary_plan += cus.plans[2].primary_plan;
-      this.total_customer.plans[7].primary_plan += cus.plans[7].primary_plan;
-      this.total_customer.plans[0].primary_plan += cus.plans[0].primary_plan;
+      total_cus.plans[5].primary_plan += cus.plans[5].primary_plan;
+      total_cus.plans[2].primary_plan += cus.plans[2].primary_plan;
+      total_cus.plans[7].primary_plan += cus.plans[7].primary_plan;
+      total_cus.plans[0].primary_plan += cus.plans[0].primary_plan;
 
-      this.total_customer.plans[5].secondary_plan += cus.plans[5].secondary_plan;
-      this.total_customer.plans[2].secondary_plan += cus.plans[2].secondary_plan;
-      this.total_customer.plans[7].secondary_plan += cus.plans[7].secondary_plan;
-      this.total_customer.plans[0].secondary_plan += cus.plans[0].secondary_plan;
+      total_cus.plans[5].secondary_plan += cus.plans[5].secondary_plan;
+      total_cus.plans[2].secondary_plan += cus.plans[2].secondary_plan;
+      total_cus.plans[7].secondary_plan += cus.plans[7].secondary_plan;
+      total_cus.plans[0].secondary_plan += cus.plans[0].secondary_plan;
     });
+    this.total_customer = total_cus;
   }
 }

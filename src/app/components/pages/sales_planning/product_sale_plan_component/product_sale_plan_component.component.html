@@ -1,0 +1,26 @@
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Products</th>
+    <th>Month %Ach</th>
+    <th>Month Target</th>
+    <th>Primary Plan</th>
+    <th>Secondary Plan</th>
+    <th>System Pri Plan</th>
+    <th>Variance to Target</th>
+    <th> POB Target</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let brand of brands">
+    <th>{{ brand.name }}</th>
+    <td>{{ ((brand.primary_plan/brand.month_target)*100).toFixed(0) }}</td>
+    <td>{{ brand.month_target.toFixed(0) }}</td>
+    <td>{{ brand.primary_plan.toFixed(0) }}</td>
+    <td>{{ brand.secondary_plan.toFixed(0) }}</td>
+    <td>{{ brand.system_primary_plan.toFixed(0) }}</td>
+    <td>{{ brand.variance_to_target.toFixed(0) }}</td>
+    <td>{{ (brand.month_target * 0.3).toFixed(0) }}</td>
+  </tr>
+  </tbody>
+</table>

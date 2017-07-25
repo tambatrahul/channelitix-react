@@ -2,10 +2,34 @@ import {Model} from "../model";
 
 export class Brand extends Model {
 
-    name: string;
+  name: string;
 
-    constructor(info: any) {
-        super(info.id);
-        this.name = info.name;
-    }
+  // for internal use only
+  primary_plan: number = 0;
+  secondary_plan: number = 0;
+  month_target: number = 0;
+  opening: number = 0;
+
+  constructor(info: any) {
+    super(info.id);
+    this.name = info.name;
+  }
+
+  /**
+   * get system primary plan
+   *
+   * @returns {number}
+   */
+  get system_primary_plan() {
+    return this.secondary_plan * 1.5 - (this.opening - this.secondary_plan)
+  }
+
+  /**
+   * get variance to target
+   *
+   * @returns {number}
+   */
+  get variance_to_target() {
+    return this.month_target - this.primary_plan
+  }
 }

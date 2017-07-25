@@ -170,6 +170,7 @@ import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SalesPlanningService} from "./services/sales_planning.service";
 import {SalePlanComponent} from "./components/pages/sales_planning/sale_plan_component/sale_plan_component.component";
+import {ProductSalePlanComponent} from "./components/pages/sales_planning/product_sale_plan_component/product_sale_plan_component.component";
 
 
 enableProdMode();
@@ -322,6 +323,7 @@ enableProdMode();
     ProductSelectComponent,
     SalesPlanningComponent,
     SalePlanComponent,
+    ProductSalePlanComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,
