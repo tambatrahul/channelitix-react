@@ -21,8 +21,11 @@
     <div class="col-xs-12 col-md-3">
       <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
     </div>
-    <div class="col-xs-12 col-md-3 col-md-offset-6">
+    <div class="col-xs-12 col-md-3 col-md-offset-6" *ngIf="!editing">
       <button class="btn btn-block btn-primary" (click)="toggleEditing()">EDIT</button>
+    </div>
+    <div class="col-xs-12 col-md-3 col-md-offset-6" *ngIf="editing">
+      <button class="btn btn-block btn-primary" (click)="save()">Save</button>
     </div>
   </div>
   <!-- ./Filters for Order report-->

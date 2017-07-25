@@ -5,8 +5,8 @@ export class SalesPlanningDetail extends Model {
   avg_primary_previous_year: number = 0;
   previous_month_secondary: number = 0;
   opening_stock: number = 0;
-  primary_plan: number = 0;
-  secondary_plan: number = 0;
+  primary_sale: number = 0;
+  secondary_sale: number = 0;
   customer_id: number = 0;
   brand_id: number = 0;
 
@@ -22,11 +22,11 @@ export class SalesPlanningDetail extends Model {
     if (info.opening_stock)
       this.opening_stock = parseInt(info.opening_stock);
 
-    if (info.primary_plan)
-      this.primary_plan = parseInt(info.primary_plan);
+    if (info.primary_sale)
+      this.primary_sale = parseInt(info.primary_sale);
 
-    if (info.secondary_plan)
-      this.secondary_plan = parseInt(info.secondary_plan);
+    if (info.secondary_sale)
+      this.secondary_sale = parseInt(info.secondary_sale);
 
     this.customer_id = info.customer_id;
     this.brand_id = info.brand_id;
