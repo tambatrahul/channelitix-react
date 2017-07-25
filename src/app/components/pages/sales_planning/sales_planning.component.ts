@@ -151,11 +151,11 @@ export class SalesPlanningComponent extends ListComponent {
       sale_planning_details.map(ss => {
         if (ss.customer_id == cus.id) {
           if (cus.plans.hasOwnProperty(ss.brand_id)) {
-            cus.plans[ss.brand_id].primary_plan = ss.primary_plan;
-            cus.plans[ss.brand_id].secondary_plan = ss.secondary_plan;
+            cus.plans[ss.brand_id].primary_plan = ss.primary_sale;
+            cus.plans[ss.brand_id].secondary_plan = ss.secondary_sale;
           } else {
-            cus.plans[0].primary_plan = ss.primary_plan;
-            cus.plans[0].secondary_plan = ss.secondary_plan;
+            cus.plans[0].primary_plan = ss.primary_sale;
+            cus.plans[0].secondary_plan = ss.secondary_sale;
           }
         }
       });
@@ -205,15 +205,15 @@ export class SalesPlanningComponent extends ListComponent {
       total_cus.plans[7].opening_stock += cus.plans[7].opening_stock;
       total_cus.plans[0].opening_stock += cus.plans[0].opening_stock;
 
-      total_cus.plans[5].primary_plan += cus.plans[5].primary_plan;
-      total_cus.plans[2].primary_plan += cus.plans[2].primary_plan;
-      total_cus.plans[7].primary_plan += cus.plans[7].primary_plan;
-      total_cus.plans[0].primary_plan += cus.plans[0].primary_plan;
+      total_cus.plans[5].primary_plan += cus.plans[5].primary_sale;
+      total_cus.plans[2].primary_plan += cus.plans[2].primary_sale;
+      total_cus.plans[7].primary_plan += cus.plans[7].primary_sale;
+      total_cus.plans[0].primary_plan += cus.plans[0].primary_sale;
 
-      total_cus.plans[5].secondary_plan += cus.plans[5].secondary_plan;
-      total_cus.plans[2].secondary_plan += cus.plans[2].secondary_plan;
-      total_cus.plans[7].secondary_plan += cus.plans[7].secondary_plan;
-      total_cus.plans[0].secondary_plan += cus.plans[0].secondary_plan;
+      total_cus.plans[5].secondary_plan += cus.plans[5].secondary_sale;
+      total_cus.plans[2].secondary_plan += cus.plans[2].secondary_sale;
+      total_cus.plans[7].secondary_plan += cus.plans[7].secondary_sale;
+      total_cus.plans[0].secondary_plan += cus.plans[0].secondary_sale;
     });
     this.total_customer = total_cus;
   }

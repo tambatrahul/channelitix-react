@@ -63,8 +63,8 @@ export class ProductSalePlanComponent extends ListComponent {
    */
   protected format_data() {
     this.brands.map(brand => {
-      brand.primary_plan = this._customer.plans[brand.id].primary_plan;
-      brand.secondary_plan = this._customer.plans[brand.id].secondary_plan;
+      brand.primary_sale = this._customer.plans[brand.id].primary_sale;
+      brand.secondary_sale = this._customer.plans[brand.id].secondary_sale;
       brand.opening = this._customer.plans[brand.id].opening_stock;
 
       this.targets.map(target => {

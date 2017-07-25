@@ -14,10 +14,10 @@
   <tbody>
   <tr *ngFor="let brand of brands">
     <th>{{ brand.name }}</th>
-    <td>{{ ((brand.primary_plan/brand.month_target)*100).toFixed(0) }}</td>
+    <td>{{ ((brand.primary_sale/brand.month_target)*100).toFixed(0) }}</td>
     <td>{{ brand.month_target.toFixed(0) }}</td>
-    <td>{{ brand.primary_plan.toFixed(0) }}</td>
-    <td>{{ brand.secondary_plan.toFixed(0) }}</td>
+    <td>{{ brand.primary_sale.toFixed(0) }}</td>
+    <td>{{ brand.secondary_sale.toFixed(0) }}</td>
     <td>{{ brand.system_primary_plan.toFixed(0) }}</td>
     <td>{{ brand.variance_to_target.toFixed(0) }}</td>
     <td>{{ (brand.month_target * 0.3).toFixed(0) }}</td>
