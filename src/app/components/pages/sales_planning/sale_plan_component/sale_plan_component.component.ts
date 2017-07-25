@@ -96,10 +96,10 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_primary_plan() {
-    return this._customer.plans[5].primary_plan
-      + this._customer.plans[2].primary_plan
-      + this._customer.plans[7].primary_plan
-      + this._customer.plans[0].primary_plan;
+    return this._customer.plans[5].primary_sale
+      + this._customer.plans[2].primary_sale
+      + this._customer.plans[7].primary_sale
+      + this._customer.plans[0].primary_sale;
   }
 
   /**
@@ -108,10 +108,10 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_secondary_plan() {
-    return this._customer.plans[5].secondary_plan
-      + this._customer.plans[2].secondary_plan
-      + this._customer.plans[7].secondary_plan
-      + this._customer.plans[0].secondary_plan;
+    return this._customer.plans[5].secondary_sale
+      + this._customer.plans[2].secondary_sale
+      + this._customer.plans[7].secondary_sale
+      + this._customer.plans[0].secondary_sale;
   }
 
   /**

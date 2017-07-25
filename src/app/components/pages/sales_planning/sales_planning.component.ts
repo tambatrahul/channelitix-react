@@ -11,25 +11,25 @@ import {Brand} from "../../../models/order/brand";
 import {Target} from "../../../models/SAP/target";
 
 @Component({
-  styleUrls: ['sales_planning.component.less'],
-  templateUrl: 'sales_planning.component.html'
+    styleUrls: ['sales_planning.component.less'],
+    templateUrl: 'sales_planning.component.html'
 })
 export class SalesPlanningComponent extends ListComponent {
 
-  /**
-   * month of sales planning
-   */
-  public month: number;
+    /**
+     * month of sales planning
+     */
+    public month: number;
 
-  /**
-   * year of sales planning
-   */
-  public year: number;
+    /**
+     * year of sales planning
+     */
+    public year: number;
 
-  /**
-   * editing false
-   */
-  editing: boolean = false;
+    /**
+     * editing false
+     */
+    editing: boolean = false;
 
   /**
    * brands
@@ -37,11 +37,10 @@ export class SalesPlanningComponent extends ListComponent {
    * @type {Array}
    */
   brands: Brand[] = [];
-
-  /**
-   * Customer
-   */
-  customers: Customer[];
+    /**
+     * Customer
+     */
+    customers: Customer[];
 
   /**
    * targets
@@ -79,8 +78,11 @@ export class SalesPlanningComponent extends ListComponent {
    */
   protected fetch() {
     if (this.month && this.year) {
+      this.loading = true;
       this.salesPlanningService.monthly(this.month + 1, this.year).subscribe(
         response => {
+          this.loading = false;
+
           // set customers
           this.customers = response.customers.map(cus => new Customer(cus));
 
@@ -107,6 +109,9 @@ export class SalesPlanningComponent extends ListComponent {
 
           // format data
           this.formatData(yearly_sales, secondary_sales, sale_planning_details);
+        },
+        err => {
+          this.loading = false;
         });
     }
   }

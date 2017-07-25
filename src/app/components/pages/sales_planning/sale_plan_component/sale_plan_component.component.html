@@ -2,85 +2,85 @@
 <td>{{ _customer.plans[5].avg_primary_previous_year.toFixed(0) || 0 }}</td>
 <td>{{ _customer.plans[5].previous_month_secondary.toFixed(0) }}</td>
 <td>{{ _customer.plans[5].opening_stock.toFixed(0) }}</td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[5].primary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[5].primary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[5].primary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[5].primary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[5].primary_plan.toFixed(0) }}
+      {{ _customer.plans[5].primary_sale.toFixed(0) }}
   </span>
 </td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[5].secondary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[5].secondary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[5].secondary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[5].secondary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[5].secondary_plan.toFixed(0) }}
+      {{ _customer.plans[5].secondary_sale.toFixed(0) }}
   </span>
 </td>
 <td>{{ _customer.plans[2].avg_primary_previous_year.toFixed(0) }}</td>
 <td>{{ _customer.plans[2].previous_month_secondary.toFixed(0) }}</td>
 <td>{{ _customer.plans[2].opening_stock.toFixed(0) }}</td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[2].primary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[2].primary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[2].primary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[2].primary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[2].primary_plan.toFixed(0) }}
+      {{ _customer.plans[2].primary_sale.toFixed(0) }}
   </span>
 </td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[2].secondary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[2].secondary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[2].secondary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[2].secondary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[2].secondary_plan.toFixed(0) }}
+      {{ _customer.plans[2].secondary_sale.toFixed(0) }}
   </span>
 </td>
 <td>{{ _customer.plans[7].avg_primary_previous_year.toFixed(0) }}</td>
 <td>{{ _customer.plans[7].previous_month_secondary.toFixed(0) }}</td>
 <td>{{ _customer.plans[7].opening_stock.toFixed(0) }}</td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[7].primary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[7].primary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[7].primary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[7].primary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[7].primary_plan.toFixed(0) }}
+      {{ _customer.plans[7].primary_sale.toFixed(0) }}
   </span>
 </td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[7].secondary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[7].secondary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[7].secondary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[7].secondary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[5].secondary_plan.toFixed(0) }}
+      {{ _customer.plans[5].secondary_sale.toFixed(0) }}
   </span>
 </td>
 <td>{{ _customer.plans[0].avg_primary_previous_year.toFixed(0) }}</td>
 <td>{{ _customer.plans[0].previous_month_secondary.toFixed(0) }}</td>
 <td>{{ _customer.plans[0].opening_stock.toFixed(0) }}</td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[0].primary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[0].primary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[0].primary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[0].primary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[0].primary_plan.toFixed(0) }}
+      {{ _customer.plans[0].primary_sale.toFixed(0) }}
   </span>
 </td>
-<td [ngClass]="{'editing': editing, 'empty': _customer.plans[0].secondary_plan <= 0}">
+<td [ngClass]="{'editing': editing, 'empty': _customer.plans[0].secondary_sale <= 0}">
   <span *ngIf="editing">
-      <input class="form-control" [(ngModel)]="_customer.plans[0].secondary_plan" type="number"
+      <input class="form-control" [(ngModel)]="_customer.plans[0].secondary_sale" type="number"
              value="0" (change)="resetSave()"/>
   </span>
   <span *ngIf="!editing">
-      {{ _customer.plans[0].secondary_plan.toFixed(0) }}
+      {{ _customer.plans[0].secondary_sale.toFixed(0) }}
   </span>
 </td>
 <td>{{ total_avg_primary_previous_year.toFixed(0) }}</td>

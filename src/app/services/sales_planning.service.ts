@@ -6,6 +6,7 @@ import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
 import {Result} from "../models/result";
 import {SecondarySale} from "../models/sale/secondary_sale";
+import {Customer} from "../models/customer/customer";
 
 
 @Injectable()
@@ -42,5 +43,12 @@ export class SalesPlanningService extends BaseService {
     let params = new URLSearchParams();
 
     return this.get(this.getBaseUrl() + '/monthly/' + month + "/" + year, new RequestOptions({search: params}));
+  }
+
+  save(customers : Customer[], month: number, year: number){
+    // prepare url
+    let url = this.getBaseUrl() + '/monthly/' + month + "/" + year;
+
+    return this.post(url, {customers: customers});
   }
 }
