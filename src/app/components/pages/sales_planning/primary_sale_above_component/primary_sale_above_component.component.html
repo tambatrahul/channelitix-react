@@ -9,11 +9,17 @@
   </tr>
   </thead>
   <tbody>
+  <tr *ngFor="let cus of above_customers">
+    <th>{{cus.firm_name}}</th>
+    <th>{{(cus.total_avg_previous_year).toFixed(0)}}</th>
+    <th>{{(cus.total_avg_previous_year/ calculateTotalPrimary).toFixed(3)}}</th>
+    <th>{{((cus.total_avg_previous_year/ calculateTotalPrimary) * pob_total).toFixed(3)}}</th>
+  </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+      <th>Total</th>
+      <th>{{calculateTotalPrimary.toFixed(0)}}</th>
+      <th></th>
+      <th></th>
   </tr>
   </tbody>
 </table>
