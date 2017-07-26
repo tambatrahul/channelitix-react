@@ -40,6 +40,8 @@ export class Customer extends Model {
     0: new SalesPlanningDetail({}),
   };
 
+  total_avg_previous_year : number = 0;
+
   // total sales planning
   total_plan: SalesPlanningDetail = new SalesPlanningDetail({});
 
@@ -97,6 +99,9 @@ export class Customer extends Model {
     // add brick
     if (info.hq_brick)
       this.hq_brick = new Brick(info.hq_brick);
+
+    if (info.total_avg_previous_year)
+      this.total_avg_previous_year = parseInt(info.total_avg_previous_year);
 
     // add territory
     if (info.hq_territory)
