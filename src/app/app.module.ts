@@ -171,6 +171,7 @@ import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_pl
 import {SalesPlanningService} from "./services/sales_planning.service";
 import {SalePlanComponent} from "./components/pages/sales_planning/sale_plan_component/sale_plan_component.component";
 import {ProductSalePlanComponent} from "./components/pages/sales_planning/product_sale_plan_component/product_sale_plan_component.component";
+import {PrimarySaleAboveComponent} from "./components/pages/sales_planning/primary_sale_above_component/primary_sale_above_component.component";
 
 
 enableProdMode();
@@ -324,6 +325,7 @@ enableProdMode();
     SalesPlanningComponent,
     SalePlanComponent,
     ProductSalePlanComponent,
+    PrimarySaleAboveComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,

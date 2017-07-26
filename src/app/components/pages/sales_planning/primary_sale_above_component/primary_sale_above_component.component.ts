@@ -2,13 +2,11 @@ import {Component, Input} from "@angular/core";
 import {ListComponent} from "../../../base/list.component";
 import {AuthService} from "../../../../services/AuthService";
 import {Customer} from "../../../../models/customer/customer";
-import {Brand} from "../../../../models/order/brand";
-import {Target} from "../../../../models/SAP/target";
 
 @Component({
   selector: 'primary-sale-above',
   styleUrls: ['primary_sale_above_component.component.less'],
-  templateUrl: 'product_sale_plan_component.component.html',
+  templateUrl: 'primary_sale_above_component.component.html',
   inputs: ['refresh']
 })
 export class PrimarySaleAboveComponent extends ListComponent {
@@ -16,22 +14,16 @@ export class PrimarySaleAboveComponent extends ListComponent {
   /**
    * customer with planning details
    */
-  _customer: Customer;
+  _customers: Customer[];
 
   /**
-   * targets
-   */
-  @Input()
-  targets: Target[];
-
-  /**
-   * customer input details
+   * customers input details
    *
-   * @param customer
+   * @param customers
    */
   @Input()
-  set customer(customer: Customer) {
-    this._customer = customer;
+  set customer(customers: Customer[]) {
+    this._customers = customers;
     this.format_data();
   }
 
@@ -54,6 +46,6 @@ export class PrimarySaleAboveComponent extends ListComponent {
    * format data for display
    */
   protected format_data() {
-
+    this._customers.map(cus => {});
   }
 }
