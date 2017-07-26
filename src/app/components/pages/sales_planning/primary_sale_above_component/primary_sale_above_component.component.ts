@@ -32,6 +32,7 @@ export class PrimarySaleAboveComponent extends ListComponent {
      * Total POB
      */
     pob_total: number = 0;
+    calculate_total_primary: number = 0;
 
     /**
      * customers input details
@@ -114,6 +115,14 @@ export class PrimarySaleAboveComponent extends ListComponent {
 
             // Get above 80% customers list
             this.above_customers = customers.slice(0, key);
+
+            //Calculate Total of Primary Sale above 80%
+            this.calculate_total_primary = 0;
+            if (this.above_customers) {
+                this.above_customers.map(cus => {
+                    this.calculate_total_primary += cus.total_avg_previous_year;
+                });
+            }
         }
     }
 
@@ -152,19 +161,27 @@ export class PrimarySaleAboveComponent extends ListComponent {
         return index;
     }
 
-    /**
-     * Calculate Total of Primary Sale above 80%
-     * @returns {number}
-     */
-    get calculateTotalPrimary() {
+    get calculateTotal() {
         let total: number = 0;
 
         if (this.above_customers) {
             this.above_customers.map(cus => {
-                total += cus.total_avg_previous_year;
+                let avg = (cus.total_avg_previous_year/ this.calculate_total_primary);
+                total += avg;
             });
         }
+        return total;
+    }
 
+    get calculateTotal2() {
+        let total: number = 0;
+
+        if (this.above_customers) {
+            this.above_customers.map(cus => {
+                let avg = ((cus.total_avg_previous_year/ this.calculate_total_primary) * this.pob_total);
+                total += avg;
+            });
+        }
         return total;
     }
 
