@@ -89,7 +89,7 @@
             <span class="nav-label">Daily Work Reporting</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="!_auth_service.user?.isHeadquarter">
           <a>
             <span class="nav-icon">
                 <i class="fa fa-pie-chart"></i>
