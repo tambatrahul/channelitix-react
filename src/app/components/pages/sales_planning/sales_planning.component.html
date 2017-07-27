@@ -23,7 +23,7 @@
     </div>
     <div class="col-xs-12 col-md-3 col-md-offset-6" *ngIf="!editing">
       <button class="btn btn-primary pull-right" (click)="toggleEditing()">EDIT</button>
-      <button class="btn btn-primary pull-right" (click) = "showSummary()">Summary</button>
+      <button class="btn btn-primary pull-right" (click)="showSummary()">Summary</button>
     </div>
     <div class="col-xs-12 col-md-3 col-md-offset-6" *ngIf="editing">
       <button class="btn btn-primary pull-right" (click)="save('active')">Save</button>
@@ -114,7 +114,6 @@
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-body" style="padding: 0px;">
-        <!-- Create Tour View -->
         <div class="row">
           <div class="col-xs-12" #loading_box>
             <div class="topics-list" style="padding: 0px;">
@@ -129,7 +128,8 @@
                   <div class="widget-container details-table">
                     <div class="widget-block">
                       <div class="table-responsive">
-                        <product-sale-plan [customer]="total_customer" [targets]="targets" [brands]="brands"></product-sale-plan>
+                        <product-sale-plan [customer]="total_customer" [targets]="targets"
+                                           [brands]="brands"></product-sale-plan>
                       </div>
                     </div>
                   </div>
@@ -138,7 +138,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-xs-12" #loading_box>
             <div class="topics-list" style="padding: 0px;">
@@ -153,7 +152,8 @@
                   <div class="widget-container details-table">
                     <div class="widget-block">
                       <div class="table-responsive">
-                        <primary-sale-above [customers]="customers" [total_customer]="total_customer" [targets]="targets" [brands]="brands"></primary-sale-above>
+                        <primary-sale-above [customers]="customers" [total_customer]="total_customer" [year]="year"
+                                            [targets]="targets" [brands]="brands"></primary-sale-above>
                       </div>
                     </div>
                   </div>

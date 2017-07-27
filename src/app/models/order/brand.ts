@@ -39,9 +39,10 @@ export class Brand extends Model {
    * @returns {number}
    */
   get pob_target() {
-    if (this.month_target * 0.3 > this.variance_to_target)
+    let variance_target = this.variance_to_target;
+    if (this.month_target * 0.3 > variance_target)
       return this.month_target * 0.3;
 
-    return this.variance_to_target;
+    return variance_target;
   }
 }
