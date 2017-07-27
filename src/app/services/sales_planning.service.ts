@@ -51,11 +51,12 @@ export class SalesPlanningService extends BaseService {
      * @param customers
      * @param month
      * @param year
+     * @param status
      * @returns {Observable<Result>}
      */
-    save(customers: Customer[], month: number, year: number) {
+    save(customers: Customer[], month: number, year: number, status : string) {
         // prepare url
-        let url = this.getBaseUrl() + '/monthly/' + month + "/" + year;
+        let url = this.getBaseUrl() + '/monthly/' + month + "/" + year + "/" + status;
 
         return this.post(url, {customers: customers});
     }

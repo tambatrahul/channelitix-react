@@ -229,10 +229,9 @@ export class SalesPlanningComponent extends ListComponent {
     /**
      * Save Data
      */
-    protected save() {
-
+    protected save(status: string) {
         this.loading = true;
-        this.salesPlanningService.save(this.customers, this.month + 1, this.year).subscribe(
+        this.salesPlanningService.save(this.customers, this.month + 1, this.year, status).subscribe(
             response => {
                 this.loading = false;
                 this.editing = false;
