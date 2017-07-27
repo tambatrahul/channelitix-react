@@ -2,9 +2,9 @@
   <thead>
   <tr>
     <th class="text-center">Stockist</th>
-    <th class="text-center">Sales ({{ year }})</th>
+    <th class="text-center">Sales ({{ year }}) (<i class="fa fa-rupee"></i>)</th>
     <th class="text-center">% Contribution</th>
-    <th class="text-center">POB</th>
+    <th class="text-center">POB (<i class="fa fa-rupee"></i>)</th>
   </tr>
   </thead>
   <tbody>
@@ -16,7 +16,7 @@
   </tr>
   <tr>
       <th>Total</th>
-      <td>{{calculate_total_primary.toFixed(0)}}</td>
+      <td>{{calculate_total_primary.toFixed(0)}} %</td>
       <td>{{calculateTotal.toFixed(0)}}</td>
       <td>{{calculateTotal2.toFixed(0)}}</td>
   </tr>
