@@ -21,6 +21,7 @@ declare let swal: any;
 export class OrderComponent extends BaseAuthComponent {
 
     excel_loaded: boolean = false;
+    btn_loading: boolean = false;
     table_list;
 
     /**
@@ -421,19 +422,19 @@ export class OrderComponent extends BaseAuthComponent {
     selectUser(user: User, date: number, order: Order) {
         this.user = user;
         this.date = date;
-        let popup_date = this.date +" "+moment().year(this.year).month(this.month).format("MMMM, YYYY");
+        let popup_date = this.date + " " + moment().year(this.year).month(this.month).format("MMMM, YYYY");
 
         if (order.attendance.status == 'leave')
-            swal(user.full_name + " on Leave ("+ popup_date +")");
+            swal(user.full_name + " on Leave (" + popup_date + ")");
         else if (order.attendance.status == 'holiday')
-            swal(user.full_name + " on Holiday ("+ popup_date +")");
-        else if (order.attendance.status == 'working'){
+            swal(user.full_name + " on Holiday (" + popup_date + ")");
+        else if (order.attendance.status == 'working') {
             if (order.attendance.work_type_id == 4)
-                swal(user.full_name + " on Transit ("+ popup_date +")");
+                swal(user.full_name + " on Transit (" + popup_date + ")");
             else if (order.attendance.work_type_id == 1)
-                swal(user.full_name + " on Meeting ("+ popup_date +")");
+                swal(user.full_name + " on Meeting (" + popup_date + ")");
             else if (order.attendance.work_type_id == 3)
-                swal(user.full_name + " on Campaign ("+ popup_date +")");
+                swal(user.full_name + " on Campaign (" + popup_date + ")");
             else if (order.attendance.work_type_id == 2)
                 jQuery(this.user_order_table.nativeElement).modal();
         }
@@ -453,18 +454,24 @@ export class OrderComponent extends BaseAuthComponent {
      * Download Excel For Orders Report
      */
     download() {
-        this.orderService.orders_excel_download(this.month + 1, this.year).subscribe(
+        this.btn_loading = true;
+        let synergy;
+        if (this.environment.envName == 'sk_group')
+            synergy = this.abbott ? 1 : 0;
+
+        this.orderService.orders_excel_download(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.product_id).subscribe(
             response => {
                 let blob: Blob = response.blob();
 
                 // Doing it this way allows you to name the file
                 let link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "Orders_report.xls";
+                link.download = "daily_pob_report.xls";
                 link.click();
+                this.btn_loading = false;
             },
             err => {
-
+                this.btn_loading = false;
             }
         );
     }

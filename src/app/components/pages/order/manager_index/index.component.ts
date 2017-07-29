@@ -22,6 +22,7 @@ export class ManagerOrderComponent extends BaseAuthComponent {
 
     excel_loaded: boolean = false;
     table_list;
+    btn_loading: boolean = false;
 
     /**
      * user tour program modal loading identifier

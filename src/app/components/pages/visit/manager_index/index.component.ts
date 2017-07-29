@@ -21,6 +21,7 @@ declare let swal: any;
 export class ManagerVisitComponent extends BaseAuthComponent {
 
     excel_loaded: boolean = false;
+    btn_loading: boolean = false;
     /**
      * loading identifier
      */
