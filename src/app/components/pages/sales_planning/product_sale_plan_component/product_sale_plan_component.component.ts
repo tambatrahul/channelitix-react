@@ -93,7 +93,6 @@ export class ProductSalePlanComponent extends ListComponent {
         }
       });
 
-      this.month_ach += ((brand.primary_sale / brand.month_target) * 100);
       this.month_target += brand.month_target;
       this.primary_plan += brand.primary_sale;
       this.secondary_plan += brand.secondary_sale;
@@ -101,6 +100,8 @@ export class ProductSalePlanComponent extends ListComponent {
       this.variance_target += brand.variance_to_target;
       this.pob_target += brand.pob_target;
     });
+
+    this.month_ach += ((this.primary_plan / this.month_target) * 100);
   }
 
 }

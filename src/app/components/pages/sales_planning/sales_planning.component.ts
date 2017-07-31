@@ -168,6 +168,17 @@ export class SalesPlanningComponent extends ListComponent {
                 }
             });
         });
+
+        // Total of single customer
+        this.customers.map(cus => {
+            cus.total_avg_previous_year = this.total_avg_primary_previous_year(cus);
+        });
+
+        // Sort customers list in descending order
+        this.customers.sort((a, b) =>
+            b.total_avg_previous_year -
+            a.total_avg_previous_year
+        );
         this.total_updated();
     }
 
@@ -248,5 +259,21 @@ export class SalesPlanningComponent extends ListComponent {
      */
     protected showSummary(){
         jQuery(this.summary_component.nativeElement).modal();
+    }
+
+    /**
+     * get total average primary for previous year
+     *
+     * @returns {any}
+     */
+    total_avg_primary_previous_year(customer: Customer) {
+        if (customer) {
+            return customer.plans[5].avg_primary_previous_year
+                + customer.plans[2].avg_primary_previous_year
+                + customer.plans[7].avg_primary_previous_year
+                + customer.plans[0].avg_primary_previous_year;
+        }
+        else
+            return 0;
     }
 }
