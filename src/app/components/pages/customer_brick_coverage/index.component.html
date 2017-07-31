@@ -1,119 +1,123 @@
-<div class="container-fluid bricks" #loading_box>
-  <!-- Page Breadcrumb -->
-  <div class="page-breadcrumb">
+<div class="container-fluid bricks">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Brick Working Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for report-->
+    <div class="row" style="padding-bottom: 10px;">
+        <div class="col-xs-12 col-md-3">
+            <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
+                           (onValueChanged)="regionChanged($event)"></region-select>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div *ngIf="region_id > 0">
+                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                             [first_value]="'Select Area'"
+                             (onValueChanged)="areaChanged($event)"></area-select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div *ngIf="area_id > 0">
+                <headquarter-select [value]="headquarter_id" [area_id]="area_id"
+                                    [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
+                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+            </div>
+        </div>
+    </div>
+    <!-- ./Filters for report-->
+
+    <!-- Report Table -->
     <div class="row">
-      <div class="col-md-4">
-        <div class="page-breadcrumb-wrap">
-          <div class="page-breadcrumb-info">
-            <h2 class="breadcrumb-titles">
-              Brick Working Report
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Page Breadcrumb -->
+        <div class="col-xs-12">
+            <div class="box-widget widget-module">
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4><strong>Dashboard</strong></h4>
+                </div>
+                <div>
+                    <div class="widget-container report-table" #loading_box>
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered visit_table">
+                                    <thead>
 
-  <!-- Filters for report-->
-  <div class="row" style="padding-bottom: 10px;">
-    <div class="col-xs-12 col-md-3">
-      <region-select [value]="region_id" [title]="'Select Region'" [first_value] ="'Select Region'"
-                     (onValueChanged)="regionChanged($event)"></region-select>
-    </div>
-    <div class="col-xs-12 col-md-3">
-      <div *ngIf="region_id > 0">
-        <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" [first_value]="'Select Area'"
-                     (onValueChanged)="areaChanged($event)"></area-select>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-3">
-      <div *ngIf="area_id > 0">
-        <headquarter-select [value]="headquarter_id" [area_id]="area_id"
-                            [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
-                            (onValueChanged)="headquarterChanged($event)"></headquarter-select>
-      </div>
-    </div>
-  </div>
-  <!-- ./Filters for report-->
+                                    <tr>
+                                        <th rowSpan="3">Name Of Brick</th>
+                                        <th rowSpan="3">Potential</th>
+                                        <th colSpan="{{ months_str.length * 2 }}">Months</th>
+                                    </tr>
+                                    <tr>
+                                        <th *ngFor="let month of months_str" colSpan="2">
+                                            {{ month }}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                            <th [ngClass]="{'grey': i%2 == 0}">Visits</th>
+                                            <th [ngClass]="{'grey': i%2 == 0}">POB</th>
+                                        </template>
+                                    </tr>
+                                    </thead>
 
-  <!-- Report Table -->
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box-widget widget-module">
-        <div class="widget-head clearfix">
-          <span class="h-icon"><i class="fa fa-table"></i></span>
-          <h4><strong>Dashboard</strong></h4>
-        </div>
-        <div>
-          <div class="widget-container report-table">
-            <div class="widget-block">
-              <div class="table-responsive">
-                <table class="table table-bordered visit_table">
-                  <thead>
+                                    <tbody>
+                                    <tr class="dark_grey">
+                                        <th colSpan="2" class="text-center">Total</th>
+                                        <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                            <th></th>
+                                            <th>
+                                                {{ months[i + 1].order_total ? months[i + 1].order_total.toFixed(0): 0
+                                                }}
+                                            </th>
+                                        </template>
+                                    </tr>
+                                    <template ngFor let-ter [ngForOf]="territories">
+                                        <tr>
+                                            <th colSpan="36" class="text-center grey">{{ ter.name }}</th>
+                                        </tr>
+                                        <tr *ngFor="let brick of ter.hq_bricks">
+                                            <th>
+                                                {{brick.name}}
+                                            </th>
 
-                  <tr>
-                    <th rowSpan="3">Name Of Brick</th>
-                    <th rowSpan="3">Potential</th>
-                    <th colSpan="{{ months_str.length * 2 }}">Months</th>
-                  </tr>
-                  <tr>
-                    <th *ngFor="let month of months_str" colSpan="2">
-                      {{ month }}
-                    </th>
-                  </tr>
-                  <tr>
-                    <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                      <th [ngClass]="{'grey': i%2 == 0}">Visits</th>
-                      <th [ngClass]="{'grey': i%2 == 0}">POB</th>
-                    </template>
-                  </tr>
-                  </thead>
-
-                  <tbody>
-                  <tr class="dark_grey">
-                    <th colSpan="2" class="text-center">Total</th>
-                    <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                      <th></th>
-                      <th>
-                        {{ months[i + 5].order_total ? months[i + 5].order_total.toFixed(0): 0 }}
-                      </th>
-                    </template>
-                  </tr>
-                  <template ngFor let-ter [ngForOf]="territories">
-                    <tr>
-                      <th colSpan="36" class="text-center grey">{{ ter.name }}</th>
-                    </tr>
-                    <tr *ngFor="let brick of ter.hq_bricks">
-                      <th>
-                        {{brick.name}}
-                      </th>
-
-                      <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
+                                            <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,
                                         'light_red': brick.customer_count_pattern == 4,
                                         'dark_red': brick.customer_count_pattern == 5}">
-                      </td>
-                      <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                        <td [ngClass]="{'grey': i%2 == 0}">
-                          {{ brick.months[i+5].visit_no_of_days ? brick.months[i+5].visit_no_of_days : 0}}
-                        </td>
-                        <td style="width: 100px;" [ngClass]="{'grey': i%2 == 0, 'dark_green': brick.business(i+5) == 1, 'orange': brick.business(i+5) == 2,
-                                        'light_red': brick.business(i+5) == 3}">
-                          {{ brick.months[i+5].order_total_count ? brick.months[i+5].order_total_count.toFixed(0): 0 }}
-                        </td>
-                      </template>
-                    </tr>
-                  </template>
-                  </tbody>
-                </table>
-              </div>
+                                            </td>
+                                            <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                                <td [ngClass]="{'grey': i%2 == 0}">
+                                                    {{ brick.months[i+1].visit_no_of_days ?
+                                                    brick.months[i+1].visit_no_of_days : 0}}
+                                                </td>
+                                                <td style="width: 100px;" [ngClass]="{'grey': i%2 == 0, 'dark_green': brick.business(i+1) == 1, 'orange': brick.business(i+1) == 2,
+                                        'light_red': brick.business(i+1) == 3}">
+                                                    {{ brick.months[i+1].order_total_count ?
+                                                    brick.months[i+1].order_total_count.toFixed(0): 0 }}
+                                                </td>
+                                            </template>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- ./Report Table -->
+    <!-- ./Report Table -->
 </div>
