@@ -3,7 +3,6 @@
   <tr>
     <th class="text-center">Stockist</th>
     <th class="text-center">Sales ({{ year }})</th>
-    <th class="text-center">% Contribution</th>
     <th class="text-center">POB</th>
   </tr>
   </thead>
@@ -11,13 +10,11 @@
   <tr *ngFor="let cus of above_customers">
     <th>{{cus.firm_name}}</th>
     <td>{{(cus.total_avg_previous_year).toFixed(0)}}</td>
-    <td>{{(cus.total_avg_previous_year/ calculate_total_primary).toFixed(2)}} %</td>
     <td>{{((cus.total_avg_previous_year/ calculate_total_primary) * pob_total).toFixed(0)}}</td>
   </tr>
   <tr>
       <th>Total</th>
       <td>{{calculate_total_primary.toFixed(0)}}</td>
-      <td>{{calculateTotal.toFixed(0)}}</td>
       <td>{{calculateTotal2.toFixed(0)}}</td>
   </tr>
   </tbody>
