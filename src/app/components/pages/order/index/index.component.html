@@ -19,9 +19,12 @@
         </div>
       </div>
       <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
-        <a class="btn btn-primary btn-block btn-margin"  style="margin-top: 25px;"
+        <a class="btn btn-primary btn-block btn-margin"  style="margin-top: 25px;" *ngIf="!btn_loading"
            (click)="download()">
           Export to xlsx
+        </a>
+        <a class="btn btn-primary btn-block btn-margin"  style="margin-top: 25px;" *ngIf="btn_loading">
+          <i class="fa fa-spinner fa-spin"></i>Export to xlsx
         </a>
       </div>
     </div>

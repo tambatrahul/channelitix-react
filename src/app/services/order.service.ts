@@ -86,10 +86,15 @@ export class OrderService extends BaseService {
     /**
      * get all orders
      */
-    orders_excel_download(month: number, year: number): Observable<Response> {
+    orders_excel_download(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, product_id?: number): Observable<Response> {
 
         // prepare get params
         let params = new URLSearchParams();
+        params.set('role_id', String(role_id > 0 ? role_id : ''));
+        params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+        params.set('product_id', String(product_id > 0 ? product_id : ''));
+        if (synergy || synergy == 0)
+            params.set('synergy', String(synergy));
 
         // get request with headers
         let content = this.addCredentials(new RequestOptions({

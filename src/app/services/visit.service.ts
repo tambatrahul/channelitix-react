@@ -69,10 +69,14 @@ export class VisitService extends BaseService {
     /**
      * get all orders
      */
-    visit_excel_download(month: number, year: number): Observable<Response> {
+    visit_excel_download(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, customer_type_id?: number): Observable<Response> {
 
         // prepare get params
         let params = new URLSearchParams();
+        params.set('role_id', String(role_id > 0 ? role_id : ''));
+        params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+        params.set('synergy', String(synergy ? synergy : ''));
+        params.set('customer_type_id', String(customer_type_id > 0? customer_type_id : ''));
 
         // get request with headers
         let content = this.addCredentials(new RequestOptions({
