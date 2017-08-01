@@ -222,6 +222,13 @@
             <span class="nav-label">Tour Program</span>
           </a>
         </li>
+
+        <li *ngIf="_auth_service.user?.isHeadquarter && environment.envName != 'sk_group'">
+          <a class="waves-effect" routerLink="/business_plan">
+            <span class="nav-icon"><i class="fa fa-table"></i></span>
+            <span class="nav-label">Sales Planning</span>
+          </a>
+        </li>
         <li *ngIf="_auth_service.user?.isHeadquarter || _auth_service.user?.isArea">
           <a class="waves-effect" [routerLink]="['/sales/secondary']">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
