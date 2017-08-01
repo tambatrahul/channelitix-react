@@ -235,6 +235,12 @@
             <span class="nav-label">Secondary Sales Report</span>
           </a>
         </li>
+        <li>
+          <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']">
+            <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+            <span class="nav-label">HQ Secondary Statement Report</span>
+          </a>
+        </li>
         <li *ngIf="_auth_service.user?.isRegion">
           <a class="waves-effect" [routerLink]="['/sales/secondary/region']">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>

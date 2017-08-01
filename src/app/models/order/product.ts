@@ -23,6 +23,12 @@ export class Product extends Model {
 
     brands: Brand;
 
+    unit_price: number = 0;
+    opening: number = 0;
+    adjustment: number = 0;
+    secondary_sale: number = 0;
+    closing: number = 0;
+
 
     constructor(info: any) {
         super(info.id);
@@ -58,6 +64,21 @@ export class Product extends Model {
 
         if (info.brand_id)
             this.brand_id = parseInt(info.brand_id);
+
+        if (info.unit_price)
+            this.unit_price = parseFloat(info.unit_price);
+
+        if (info.opening)
+            this.opening = parseFloat(info.opening);
+
+        if (info.adjustment)
+            this.adjustment = parseFloat(info.adjustment);
+
+        if (info.secondary_sale)
+            this.secondary_sale = parseFloat(info.secondary_sale);
+
+        if (info.closing)
+            this.closing = parseFloat(info.closing);
     }
 
     get onTarget() {
@@ -65,5 +86,13 @@ export class Product extends Model {
             return this.primary_sale >= this.target;
         else
             return false;
+    }
+
+    get closing_qty(): number {
+        return this.adjustment + this.opening - this.secondary_sale;
+    }
+
+    get closing_amount(): number {
+        return this.closing_qty * this.unit_price;
     }
 }

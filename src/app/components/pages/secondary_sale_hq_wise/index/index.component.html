@@ -1,0 +1,118 @@
+<div class="container-fluid sales">
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Secondary Statement Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Order report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+    </div>
+    <!-- ./Filters for Order report-->
+
+    <!-- Order Table -->
+    <div class="row">
+        <div class="row" *ngFor="let region of regions">
+            <div class="col-xs-12">
+                <div class="box-widget widget-module">
+                    <div class="widget-head clearfix">
+                        <span class="h-icon"><i class="fa fa-table"></i></span>
+                        <h4><strong>{{ region.name }}</strong></h4>
+                    </div>
+                    <div>
+                        <div class="widget-container report-table">
+                            <div class="widget-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered visit_table">
+                                        <thead>
+                                        <tr>
+                                            <th>Headquarter</th>
+                                            <th>Opening</th>
+                                            <th>Inventory Adjustment</th>
+                                            <th>Secondary Sale</th>
+                                            <th>Closing</th>
+                                            <th>Secondary Value</th>
+                                            <th>Closing Value</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+
+                                        <tfoot>
+                                        <tr>
+                                            <th>Headquarter</th>
+                                            <th>Opening</th>
+                                            <th>Inventory Adjustment</th>
+                                            <th>Secondary Sale</th>
+                                            <th>Closing</th>
+                                            <th>Secondary Value</th>
+                                            <th>Closing Value</th>
+                                            <th></th>
+                                        </tr>
+                                        </tfoot>
+
+                                        <tbody>
+                                        <tr class="dark_grey">
+                                            <th>Total</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <template ngFor let-area [ngForOf]="region.areas">
+                                            <tr class="grey">
+                                                <th colSpan="9">{{ area.name }}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Total</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            <tr *ngFor="let hq of area.headquarters">
+                                                <td>{{ hq.name }}</td>
+                                                <td>{{hq.opening}}</td>
+                                                <td>{{hq.adjustment}}</td>
+                                                <td>{{hq.secondary_sale}}</td>
+                                                <td>{{hq.closing_qty}}</td>
+                                                <td>{{ hq.secondary_sale * hq.unit_price }}</td>
+                                                <td>{{hq.closing_amount}}</td>
+                                                <td>
+                                                    <a [routerLink]="['/sales/secondary/product_wise', month+1, year, hq.id]"
+                                                       class="btn btn-xs btn-primary">VIEW</a>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Order Table -->
+</div>

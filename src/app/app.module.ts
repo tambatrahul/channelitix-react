@@ -172,6 +172,8 @@ import {SalesPlanningService} from "./services/sales_planning.service";
 import {SalePlanComponent} from "./components/pages/sales_planning/sale_plan_component/sale_plan_component.component";
 import {ProductSalePlanComponent} from "./components/pages/sales_planning/product_sale_plan_component/product_sale_plan_component.component";
 import {PrimarySaleAboveComponent} from "./components/pages/sales_planning/primary_sale_above_component/primary_sale_above_component.component";
+import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
+import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
 
 
 enableProdMode();
@@ -326,6 +328,8 @@ enableProdMode();
     SalePlanComponent,
     ProductSalePlanComponent,
     PrimarySaleAboveComponent,
+    SecondarySaleHqWiseComponent,
+    ProductWiseHqComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,
