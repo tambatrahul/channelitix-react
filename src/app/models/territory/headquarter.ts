@@ -44,6 +44,7 @@ export class Headquarter extends Model {
     opening: number = 0;
     adjustment: number = 0;
     secondary_sale: number = 0;
+    secondary_amount: number = 0;
     closing: number = 0;
 
     constructor(info: any) {
@@ -118,6 +119,9 @@ export class Headquarter extends Model {
 
         if (info.closing)
             this.closing = parseFloat(info.closing);
+
+        if (info.secondary_amount)
+            this.secondary_amount = parseFloat(info.secondary_amount);
     }
 
     /**
@@ -305,7 +309,7 @@ export class Headquarter extends Model {
     get current_month_expected_dexona() {
         let value = (2 * (this.hq_last_year_dexona_total) - this.hq_last_month_dexona_total) > 0 ?
             (2 * (this.hq_last_year_dexona_total / 12) - this.hq_last_month_dexona_total).toFixed(2) : 0;
-        if(value > 0)
+        if (value > 0)
             return value;
         else
             return

@@ -72,12 +72,12 @@
                                 <tr *ngFor="let pro of products;">
                                     <td>{{ pro?.name }}</td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ (pro.opening).toFixed(2) }}</td>
+                                    <td>{{ (pro.adjustment).toFixed(2) }}</td>
+                                    <td>{{ (pro.secondary_sale).toFixed(2) }}</td>
+                                    <td>{{ (pro.closing_qty).toFixed(2) }}</td>
+                                    <td>{{ (pro.secondary_sale * pro.unit_price).toFixed(2) }}</td>
+                                    <td>{{ (pro.closing_amount).toFixed(2) }}</td>
                                 </tr>
                                 </tbody>
                             </table>

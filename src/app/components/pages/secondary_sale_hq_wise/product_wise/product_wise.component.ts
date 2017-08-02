@@ -34,18 +34,12 @@ export class ProductWiseHqComponent extends ListComponent {
     public year: number;
 
     /**
-     * current month & current year
-     */
-    public current_month: number;
-    public current_year: number;
-
-    /**
      * title of page
      *
      * @returns {string}
      */
     public get title() {
-        return moment().month(this._month).format('MMMM') + ", " + this.year;
+        return moment().month(this._month - 1).format('MMMM') + ", " + this.year;
     }
 
     /**
@@ -61,10 +55,6 @@ export class ProductWiseHqComponent extends ListComponent {
      */
     public products: Product[] = [];
 
-    /**
-     * editing false
-     */
-    editing: boolean = false;
 
     /**
      * User Component Constructor
@@ -79,8 +69,6 @@ export class ProductWiseHqComponent extends ListComponent {
      */
     ngOnInit() {
         super.ngOnInit();
-        this.current_month = moment().month();
-        this.current_year = moment().year();
     }
 
     /**
@@ -100,9 +88,8 @@ export class ProductWiseHqComponent extends ListComponent {
      */
     fetchSales() {
 
-        this.saleService.product_wise(this._month + 1, this.year, this._hq_id).subscribe(
+        this.saleService.product_wise(this._month, this.year, this._hq_id).subscribe(
             response => {
-
 
                 // convert to models
                 let secondary_sales = response.secondary_sales.map(function (ss, index) {
@@ -113,7 +100,6 @@ export class ProductWiseHqComponent extends ListComponent {
                 this.products = response.products.map(function (product, index) {
                     return new Product(product);
                 });
-
 
                 // format data for display
                 this.formatSecondarySale(secondary_sales);
@@ -127,7 +113,6 @@ export class ProductWiseHqComponent extends ListComponent {
     /**
      * format secondary sales
      *
-     * @param products
      * @param secondary_sales
      */
     protected formatSecondarySale(secondary_sales: SecondarySale[]) {

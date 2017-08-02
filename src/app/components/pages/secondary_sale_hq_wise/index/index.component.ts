@@ -87,7 +87,6 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
 
     /**
      * format secondary sales
-     * @param headquarters
      * @param secondary_sales
      */
     protected formatSecondarySale(secondary_sales: SecondarySale[]) {
@@ -95,16 +94,32 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
         this.regions.map(region => {
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
-                    for (let sale of secondary_sales) {
-
+                    secondary_sales.map(sale => {
                         if (headquarter.id == sale.hq_headquarter_id) {
                             headquarter.unit_price = sale.unit_price;
                             headquarter.opening = sale.opening;
                             headquarter.adjustment = sale.adjustment;
                             headquarter.secondary_sale = sale.secondary_sale;
+                            headquarter.secondary_amount = sale.secondary_amount;
                             headquarter.closing = sale.closing;
-
                         }
+                    });
+
+                    if (area.id == headquarter.hq_area_id) {
+                        area.opening += headquarter.opening;
+                        area.adjustment += headquarter.adjustment;
+                        area.secondary_sale += headquarter.secondary_sale;
+                        area.secondary_amount += headquarter.secondary_amount;
+                        area.closing += headquarter.closing;
+
+                    }
+
+                    if (region.id == area.hq_region_id) {
+                        region.opening += headquarter.opening;
+                        region.adjustment += headquarter.adjustment;
+                        region.secondary_sale += headquarter.secondary_sale;
+                        region.secondary_amount += headquarter.secondary_amount;
+                        region.closing += headquarter.closing;
                     }
                 });
             });

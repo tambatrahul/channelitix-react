@@ -68,12 +68,12 @@
                                         <tbody>
                                         <tr class="dark_grey">
                                             <th>Total</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>{{ (region.opening).toFixed(2) }}</th>
+                                            <th>{{ (region.adjustment).toFixed(2) }}</th>
+                                            <th>{{ (region.secondary_sale).toFixed(2) }}</th>
+                                            <th>{{ (region.closing_qty).toFixed(2) }}</th>
+                                            <th>{{ (region.secondary_amount).toFixed(2) }}</th>
+                                            <th>{{ (region.closing_amount).toFixed(2) }}</th>
                                             <th></th>
                                         </tr>
                                         <template ngFor let-area [ngForOf]="region.areas">
@@ -82,22 +82,22 @@
                                             </tr>
                                             <tr>
                                                 <th>Total</th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
+                                                <th>{{ (area.opening).toFixed(2) }}</th>
+                                                <th>{{ (area.adjustment).toFixed(2) }}</th>
+                                                <th>{{ (area.secondary_sale).toFixed(2) }}</th>
+                                                <th>{{ (area.closing_qty).toFixed(2) }}</th>
+                                                <th>{{ (area.secondary_amount).toFixed(2) }}</th>
+                                                <th>{{ (area.closing_amount).toFixed(2) }}</th>
                                                 <th></th>
                                             </tr>
                                             <tr *ngFor="let hq of area.headquarters">
                                                 <td>{{ hq.name }}</td>
-                                                <td>{{hq.opening}}</td>
-                                                <td>{{hq.adjustment}}</td>
-                                                <td>{{hq.secondary_sale}}</td>
-                                                <td>{{hq.closing_qty}}</td>
-                                                <td>{{ hq.secondary_sale * hq.unit_price }}</td>
-                                                <td>{{hq.closing_amount}}</td>
+                                                <td>{{ (hq.opening).toFixed(2) }}</td>
+                                                <td>{{ (hq.adjustment).toFixed(2) }}</td>
+                                                <td>{{ (hq.secondary_sale).toFixed(2) }}</td>
+                                                <td>{{ (hq.closing_qty).toFixed(2) }}</td>
+                                                <td>{{ (hq.secondary_amount).toFixed(2) }}</td>
+                                                <td>{{ (hq.closing_amount).toFixed(2) }}</td>
                                                 <td>
                                                     <a [routerLink]="['/sales/secondary/product_wise', month+1, year, hq.id]"
                                                        class="btn btn-xs btn-primary">VIEW</a>
