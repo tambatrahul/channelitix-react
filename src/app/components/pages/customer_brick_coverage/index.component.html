@@ -17,20 +17,20 @@
 
     <!-- Filters for report-->
     <div class="row" style="padding-bottom: 10px;">
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
             <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
                            (onValueChanged)="regionChanged($event)"></region-select>
         </div>
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
             <div *ngIf="region_id > 0">
                 <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
-                             [first_value]="'Select Area'"
+                             [first_value]="'Select Area'" (_areas)="areas($event)"
                              (onValueChanged)="areaChanged($event)"></area-select>
             </div>
         </div>
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
             <div *ngIf="area_id > 0">
-                <headquarter-select [value]="headquarter_id" [area_id]="area_id"
+                <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)"
                                     [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
             </div>

@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
 import {TerritoryService} from "../../../../services/territory.service";
 
@@ -19,6 +19,12 @@ export class HeadquarterSelectComponent extends BaseSelectComponent {
      */
     @Input()
     first_value: string = "All";
+
+    /**
+     *Emit headquarters
+     */
+    @Output()
+    headquarters = new EventEmitter();
 
     /**
      * Area id for filter
@@ -53,6 +59,9 @@ export class HeadquarterSelectComponent extends BaseSelectComponent {
             response => {
                 this.loading = false;
                 this.models = response.headquarters;
+                this.headquarters.emit({
+                    'headquarters' : this.models
+                })
             },
             err => {
                 this.loading = false;

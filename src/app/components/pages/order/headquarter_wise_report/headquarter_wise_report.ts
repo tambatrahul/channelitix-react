@@ -8,6 +8,7 @@ import {Customer} from "../../../../models/customer/customer";
 import {Visit} from "../../../../models/visit/visit";
 import {SecondarySale} from "../../../../models/sale/secondary_sale";
 import {Target} from "../../../../models/SAP/target";
+import {environment} from "../../../../../environments/environment";
 
 declare let jQuery: any;
 
@@ -53,6 +54,35 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
     ngOnInit() {
         this.month = moment().month();
         this.year = moment().year();
+
+        if (environment.envName == 'geo') {
+            if (this._service.user.role_id == 4) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+            }
+            else if (this._service.user.role_id == 5) {
+                this.region_id = this._service.user.hq_region_id;
+            }
+            else {
+                if (this._service.user.role_id == 6) {
+                    this.region_id = 2;
+                }
+            }
+        }
+        else {
+            if (this._service.user.role_id == 4) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+            }
+            else if (this._service.user.role_id == 5) {
+                this.region_id = this._service.user.hq_region_id;
+            }
+            else {
+                if (this._service.user.role_id == 6) {
+                    this.region_id = 1;
+                }
+            }
+        }
 
         super.ngOnInit();
     }
