@@ -1,36 +1,36 @@
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th class="text-center">Products</th>
-    <th class="text-center">Mth %Ach</th>
-    <th class="text-center">Mth Target (<i class="fa fa-rupee"></i>)</th>
-    <th class="text-center">Primary Plan (<i class="fa fa-rupee"></i>)</th>
-    <th class="text-center">Secondary Plan (<i class="fa fa-rupee"></i>)</th>
-    <th class="text-center">System Primary Plan (<i class="fa fa-rupee"></i>)</th>
-    <th class="text-center">Variance to Tgt (<i class="fa fa-rupee"></i>)</th>
-    <th class="text-center"> POB Tgt (<i class="fa fa-rupee"></i>)</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let brand of brands">
-    <th>{{ brand.name }}</th>
-    <td>{{ ((brand.primary_sale/brand.month_target)*100).toFixed(0) }}</td>
-    <td>{{ brand.month_target.toFixed(0) }}</td>
-    <td>{{ brand.primary_sale.toFixed(0) }}</td>
-    <td>{{ brand.secondary_sale.toFixed(0) }}</td>
-    <td>{{ brand.system_primary_plan.toFixed(0) }}</td>
-    <td>{{ brand.variance_to_target.toFixed(0) }}</td>
-    <td>{{ brand.pob_target.toFixed(0) }}</td>
-  </tr>
-  <tr>
-    <th>Total</th>
-    <th class="text-right">{{month_ach.toFixed(0)}}</th>
-    <th class="text-right">{{month_target.toFixed(0)}}</th>
-    <th class="text-right">{{primary_plan.toFixed(0)}}</th>
-    <th class="text-right">{{secondary_plan.toFixed(0)}}</th>
-    <th class="text-right">{{system_pri_plan.toFixed(0)}}</th>
-    <th class="text-right">{{variance_target.toFixed(0)}}</th>
-    <th class="text-right">{{pob_target.toFixed(0)}}</th>
-  </tr>
-  </tbody>
+<table class="table table-bordered" id="summary-planning">
+    <thead>
+    <tr>
+        <th class="text-center">Products</th>
+        <th class="text-center">Mth %Ach</th>
+        <th class="text-center">Mth Target (<i class="fa fa-rupee"></i>)</th>
+        <th class="text-center">Primary Plan (<i class="fa fa-rupee"></i>)</th>
+        <th class="text-center">Secondary Plan (<i class="fa fa-rupee"></i>)</th>
+        <th class="text-center">System Primary Plan (<i class="fa fa-rupee"></i>)</th>
+        <th class="text-center">Variance to Tgt (<i class="fa fa-rupee"></i>)</th>
+        <th class="text-center"> POB Tgt (<i class="fa fa-rupee"></i>)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let brand of brands">
+        <th>{{ brand.name }}</th>
+        <td>{{ ((brand.primary_sale/brand.month_target)*100).toFixed(0) }}</td>
+        <td>{{ brand.month_target.toFixed(0) }}</td>
+        <td>{{ brand.primary_sale.toFixed(0) }}</td>
+        <td>{{ brand.secondary_sale.toFixed(0) }}</td>
+        <td>{{ brand.system_primary_plan.toFixed(0) }}</td>
+        <td>{{ brand.variance_to_target.toFixed(0) }}</td>
+        <td>{{ brand.pob_target.toFixed(0) }}</td>
+    </tr>
+    <tr>
+        <th>Total</th>
+        <th class="text-right">{{month_ach.toFixed(0)}}</th>
+        <th class="text-right">{{month_target.toFixed(0)}}</th>
+        <th class="text-right">{{primary_plan.toFixed(0)}}</th>
+        <th class="text-right">{{secondary_plan.toFixed(0)}}</th>
+        <th class="text-right">{{system_pri_plan.toFixed(0)}}</th>
+        <th class="text-right">{{variance_target.toFixed(0)}}</th>
+        <th class="text-right">{{pob_target.toFixed(0)}}</th>
+    </tr>
+    </tbody>
 </table>

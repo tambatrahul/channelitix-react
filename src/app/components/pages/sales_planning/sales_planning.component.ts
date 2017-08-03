@@ -31,6 +31,7 @@ export class SalesPlanningComponent extends ListComponent {
      * editing false
      */
     editing: boolean = false;
+    excel_loaded: boolean = false;
 
     /**
      * brands
@@ -180,6 +181,23 @@ export class SalesPlanningComponent extends ListComponent {
             a.total_avg_previous_year
         );
         this.total_updated();
+
+        setTimeout(() => {
+            if (!this.excel_loaded) {
+                this.excel_loaded = true;
+                jQuery('#summary-planning').tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+
+                jQuery('#stockist-level-POB-target').tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+            }
+        }, 1000);
     }
 
     /**
@@ -257,7 +275,7 @@ export class SalesPlanningComponent extends ListComponent {
     /**
      * Show summary component
      */
-    protected showSummary(){
+    protected showSummary() {
         jQuery(this.summary_component.nativeElement).modal();
     }
 
