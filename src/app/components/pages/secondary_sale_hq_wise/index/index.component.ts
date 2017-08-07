@@ -8,126 +8,124 @@ import {Region} from "../../../../models/territory/region";
 declare let jQuery: any;
 
 @Component({
-  templateUrl: 'index.component.html',
-  styleUrls: ['index.component.less']
+    templateUrl: 'index.component.html',
+    styleUrls: ['index.component.less']
 })
 export class SecondarySaleHqWiseComponent extends ListComponent {
 
-  /**
-   * year and month for calendar
-   * @type {number}
-   */
-  public month: number;
-  public year: number;
+    /**
+     * year and month for calendar
+     * @type {number}
+     */
+    public month: number;
+    public year: number;
 
-  /**
-   * get title of table
-   * @returns {string}
-   */
-  get title(): string {
-    return moment().year(this.year).month(this.month).format("MMMM, YYYY");
-  }
-
-  /**
-   * get regions
-   *
-   * @type {Array}
-   */
-  regions: Region[] = [];
-
-  /**
-   * secondary sales
-   *
-   * @type {Array}
-   */
-  public secondary_sales: SecondarySale[] = [];
-
-  /**
-   * User Component Constructor
-   *
-   */
-  constructor(private saleService: SecondarySaleService, public _service: AuthService) {
-    super(_service);
-  }
-
-  /**
-   * on load of component load customer types
-   */
-  ngOnInit() {
-    this.month = moment().month() - 1;
-    this.year = moment().year();
-    if (this.month < 0) {
-      this.year = this.year - 1;
-      this.month = 11
+    /**
+     * get title of table
+     * @returns {string}
+     */
+    get title(): string {
+        return moment().year(this.year).month(this.month).format("MMMM, YYYY");
     }
-    super.ngOnInit();
-  }
 
-  /**
-   * fetch customer secondary sales from server
-   */
-  fetch() {
+    /**
+     * get regions
+     *
+     * @type {Array}
+     */
+    regions: Region[] = [];
 
-    this.saleService.hq_wise(this.month + 1, this.year).subscribe(
-      response => {
+    /**
+     * secondary sales
+     *
+     * @type {Array}
+     */
+    public secondary_sales: SecondarySale[] = [];
 
-        // convert to models
-        let secondary_sales = response.secondary_sales.map(function (sale, index) {
-          return new SecondarySale(sale);
-        });
+    /**
+     * User Component Constructor
+     *
+     */
+    constructor(private saleService: SecondarySaleService, public _service: AuthService) {
+        super(_service);
+    }
 
-        // convert to models
-        this.regions = response.regions.map(function (region, index) {
-          return new Region(region);
-        });
+    /**
+     * on load of component load customer types
+     */
+    ngOnInit() {
+        this.month = moment().month() - 1;
+        this.year = moment().year();
+        if (this.month < 0) {
+            this.year = this.year - 1;
+            this.month = 11
+        }
+        super.ngOnInit();
+    }
 
-        // format data for display
-        this.formatSecondarySale(secondary_sales);
-      }
-    );
-  }
+    /**
+     * fetch customer secondary sales from server
+     */
+    fetch() {
+        this.saleService.hq_wise(this.month + 1, this.year).subscribe(
+            response => {
+                // convert to models
+                let secondary_sales = response.secondary_sales.map(function (sale, index) {
+                    return new SecondarySale(sale);
+                });
 
-  /**
-   * format secondary sales
-   * @param secondary_sales
-   */
-  protected formatSecondarySale(secondary_sales: SecondarySale[]) {
+                // convert to models
+                this.regions = response.regions.map(function (region, index) {
+                    return new Region(region);
+                });
 
-    this.regions.map(region => {
-      region.areas.map(area => {
-        area.headquarters.map(headquarter => {
-          secondary_sales.map(sale => {
-            if (headquarter.id == sale.hq_headquarter_id) {
-              headquarter.opening = sale.opening;
-              headquarter.adjustment = sale.adjustment;
-              headquarter.secondary_sale = sale.secondary_sale;
-              headquarter.closing = sale.closing;
+                // format data for display
+                this.formatSecondarySale(secondary_sales);
             }
-          });
+        );
+    }
 
-          area.opening += headquarter.opening;
-          area.adjustment += headquarter.adjustment;
-          area.secondary_sale += headquarter.secondary_sale;
-          area.closing += headquarter.closing;
+    /**
+     * format secondary sales
+     * @param secondary_sales
+     */
+    protected formatSecondarySale(secondary_sales: SecondarySale[]) {
 
+        this.regions.map(region => {
+            region.areas.map(area => {
+                area.headquarters.map(headquarter => {
+                    secondary_sales.map(sale => {
+                        if (headquarter.id == sale.hq_headquarter_id) {
+                            headquarter.opening = sale.opening;
+                            headquarter.adjustment = sale.adjustment;
+                            headquarter.secondary_sale = sale.secondary_sale;
+                            headquarter.closing = sale.closing;
+                        }
+                    });
+
+                    area.opening += headquarter.opening;
+                    area.adjustment += headquarter.adjustment;
+                    area.secondary_sale += headquarter.secondary_sale;
+                    area.closing += headquarter.closing;
+
+                });
+
+                region.opening += area.opening;
+                region.adjustment += area.adjustment;
+                region.secondary_sale += area.secondary_sale;
+                region.closing += area.closing;
+            });
         });
+    }
 
-        region.opening += area.opening;
-        region.adjustment += area.adjustment;
-        region.secondary_sale += area.secondary_sale;
-        region.closing += area.closing;
-      });
-    });
-  }
-
-  /**
-   * month and year changed
-   *
-   * @param date
-   */
-  monthYearChanged(date) {
-    this.month = date.month;
-    this.year = date.year;
-    this.fetch();
-  }
+    /**
+     * month and year changed
+     *
+     * @param date
+     */
+    monthYearChanged(date) {
+        this.month = date.month;
+        this.year = date.year;
+        this.fetch();
+    }
 }

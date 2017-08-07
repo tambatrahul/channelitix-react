@@ -1,7 +1,8 @@
+.widget-block {
+  padding: 0;
+}
+
 .sales .sales-table {
-  .widget-block {
-    padding: 0;
-  }
 
   .table {
     th {
@@ -12,10 +13,6 @@
   .editing {
     width: 50px;
     padding: 0;
-  }
-
-  .empty {
-    background-color: #d5d5d5;
   }
 
   strong {
@@ -29,5 +26,47 @@
 
   .red {
     color: #e74c3c;
+  }
+}
+
+.table-bordered {
+  thead th {
+    padding: 2px;
+    font-weight: 500;
+    font-size: 10px;
+    text-align: center;
+
+    &.value {
+      text-align: right !important;
+    }
+  }
+  tbody {
+    th {
+      padding: 2px;
+      font-weight: 500;
+      font-size: 10px;
+
+      &.value {
+        text-align: right !important;
+      }
+    }
+    td {
+      padding: 2px;
+      font-size: 10px;
+      text-align: right;
+    }
+
+  }
+}
+
+.grey {
+  background-color: #ecf0f1;
+}
+.dark_grey {
+  background-color: #7f8c8d;
+  color: #fff;
+
+  td {
+    background-color: #7f8c8d;
   }
 }

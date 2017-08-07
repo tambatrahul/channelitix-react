@@ -236,7 +236,7 @@
           </a>
         </li>
         <li>
-          <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']">
+          <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']" *roleCheck="ROLE_CSM">
             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
             <span class="nav-label">HQ Secondary Statement Report</span>
           </a>

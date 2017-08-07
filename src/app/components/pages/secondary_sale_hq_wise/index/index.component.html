@@ -26,7 +26,7 @@
   <!-- ./Filters for Order report-->
 
   <!-- Order Table -->
-  <div class="row">
+  <div class="row" #loading_box>
     <div class="row" *ngFor="let region of regions">
       <div class="col-xs-12">
         <div class="box-widget widget-module">
@@ -42,10 +42,10 @@
                     <thead>
                     <tr>
                       <th>Headquarter</th>
-                      <th>Opening</th>
-                      <th>Inventory Adjustment</th>
-                      <th>Secondary Sale</th>
-                      <th>Closing</th>
+                      <th>Opening (<i class="fa fa-rupee"></i>)</th>
+                      <th>Inventory Adjustment (<i class="fa fa-rupee"></i>)</th>
+                      <th>Secondary Sale (<i class="fa fa-rupee"></i>)</th>
+                      <th>Closing (<i class="fa fa-rupee"></i>)</th>
                       <th></th>
                     </tr>
                     </thead>

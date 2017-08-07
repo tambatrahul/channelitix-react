@@ -38,41 +38,41 @@
             <div class="table-responsive">
               <table class="table table-bordered">
                 <thead>
-                <tr>
+                <tr class="grey">
                   <template *ngIf="environment.envName != 'sk_group'">
                     <th style="width: 80px;">Product Code</th>
                   </template>
                   <th style="width: 200px;">Product</th>
                   <th style="width: 80px;">UOM</th>
-                  <th style="width: 80px;">Opening</th>
-                  <th style="width: 80px;">Inventory Adjustment</th>
-                  <th style="width: 80px;">Secondary Sale</th>
-                  <th style="width: 80px;">Closing</th>
-                  <th style="width: 80px;">Secondary Value</th>
-                  <th style="width: 80px;">Closing Value</th>
+                  <th style="width: 80px;">Opening(QTY)</th>
+                  <th style="width: 80px;">Inventory Adjustment(QTY)</th>
+                  <th style="width: 80px;">Secondary Sale(QTY)</th>
+                  <th style="width: 80px;">Closing(QTY)</th>
+                  <th style="width: 80px;">Secondary Value (<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Closing Value (<i class="fa fa-rupee"></i>)</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr *ngFor="let pro of products;">
                   <td>{{ pro?.name }}</td>
-                  <td>{{ pro.uom.name }}</td>
-                  <td>{{ (pro.opening).toFixed(2) }}</td>
-                  <td>{{ (pro.adjustment).toFixed(2) }}</td>
-                  <td>{{ (pro.secondary_sale).toFixed(2) }}</td>
-                  <td>{{ (pro.closing).toFixed(2) }}</td>
+                  <td>{{ pro.uom?.name }}</td>
+                  <td>{{ pro.opening.toFixed(2) }}</td>
+                  <td>{{ pro.adjustment.toFixed(2) }}</td>
+                  <td>{{ pro.secondary_sale.toFixed(2) }}</td>
+                  <td>{{ pro.closing.toFixed(2) }}</td>
                   <td>{{ (pro.secondary_sale * pro.unit_price).toFixed(2) }}</td>
                   <td>{{ (pro.closing_qty * pro.unit_price).toFixed(2) }}</td>
                 </tr>
-                <tr>
+                <tr class="grey">
                   <th>Total</th>
                   <th></th>
                   <th>{{ opening }}</th>
                   <th>{{ adjustment }}</th>
                   <th>{{ secondary_sale }}</th>
                   <th>{{ closing }}</th>
-                  <th>{{ secondary_value }}</th>
-                  <th>{{ closing_value }}</th>
+                  <th>{{ (secondary_value).toFixed(2) }}</th>
+                  <th>{{ (closing_value).toFixed(2) }}</th>
                 </tr>
                 </tbody>
               </table>
