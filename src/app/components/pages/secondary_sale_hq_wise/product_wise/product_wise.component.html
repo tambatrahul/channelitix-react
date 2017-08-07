@@ -42,25 +42,25 @@
                   <template *ngIf="environment.envName != 'sk_group'">
                     <th style="width: 80px;">Product Code</th>
                   </template>
-                  <th style="width: 200px;">Product</th>
-                  <th style="width: 80px;">UOM</th>
-                  <th style="width: 80px;">Opening(QTY)</th>
-                  <th style="width: 80px;">Inventory Adjustment(QTY)</th>
-                  <th style="width: 80px;">Secondary Sale(QTY)</th>
-                  <th style="width: 80px;">Closing(QTY)</th>
-                  <th style="width: 80px;">Secondary Value (<i class="fa fa-rupee"></i>)</th>
-                  <th style="width: 80px;">Closing Value (<i class="fa fa-rupee"></i>)</th>
+                  <th>Product</th>
+                  <th>UOM</th>
+                  <th>Opening</th>
+                  <th>Inventory Adjustment</th>
+                  <th>Secondary Sale</th>
+                  <th>Closing</th>
+                  <th>Secondary Value</th>
+                  <th>Closing Value</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr *ngFor="let pro of products;">
-                  <td>{{ pro?.name }}</td>
-                  <td>{{ pro.uom?.name }}</td>
-                  <td>{{ pro.opening.toFixed(2) }}</td>
-                  <td>{{ pro.adjustment.toFixed(2) }}</td>
-                  <td>{{ pro.secondary_sale.toFixed(2) }}</td>
-                  <td>{{ pro.closing.toFixed(2) }}</td>
+                  <th>{{ pro?.name }}</th>
+                  <td>{{ pro.uom.name }}</td>
+                  <td>{{ (pro.opening).toFixed(2) }}</td>
+                  <td>{{ (pro.adjustment).toFixed(2) }}</td>
+                  <td>{{ (pro.secondary_sale).toFixed(2) }}</td>
+                  <td>{{ (pro.closing).toFixed(2) }}</td>
                   <td>{{ (pro.secondary_sale * pro.unit_price).toFixed(2) }}</td>
                   <td>{{ (pro.closing_qty * pro.unit_price).toFixed(2) }}</td>
                 </tr>
