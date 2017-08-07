@@ -64,6 +64,8 @@ import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wi
 import {HeadQuarterWiseReportComponent} from "./components/pages/order/headquarter_wise_report/headquarter_wise_report";
 import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui/report_icons_ui";
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
+import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
+import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -324,6 +326,14 @@ export const routes: Routes = [
               {
                 path: 'region',
                 component: SecondarySaleZSMComponent
+              },
+              {
+                path: 'hq_wise',
+                component: SecondarySaleHqWiseComponent
+              },
+              {
+                path: 'product_wise/:month/:year/:id',
+                component: ProductWiseHqComponent
               },
             ]
           },

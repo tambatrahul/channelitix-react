@@ -55,6 +55,13 @@ export class Region extends Model {
     region_total_customers_ordered : number = 0;
     region_total_target : number = 0;
 
+    unit_price: number = 0;
+    opening: number = 0;
+    adjustment: number = 0;
+    secondary_sale: number = 0;
+    secondary_amount: number = 0;
+    closing: number = 0;
+
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
@@ -124,6 +131,24 @@ export class Region extends Model {
 
         if(info.region_total_target)
             this.region_total_target = parseInt(info.region_total_target);
+
+        if (info.unit_price)
+            this.unit_price = parseFloat(info.unit_price);
+
+        if (info.opening)
+            this.opening = parseFloat(info.opening);
+
+        if (info.adjustment)
+            this.adjustment = parseFloat(info.adjustment);
+
+        if (info.secondary_sale)
+            this.secondary_sale = parseFloat(info.secondary_sale);
+
+        if (info.closing)
+            this.closing = parseFloat(info.closing);
+
+        if (info.secondary_amount)
+            this.secondary_amount = parseFloat(info.secondary_amount);
     }
 
     /**
@@ -389,5 +414,14 @@ export class Region extends Model {
     get current_month_expected_dexona() {
         return (2 * (this.rg_last_year_dexona_total) - this.rg_last_month_dexona_total) > 0 ?
             (2 * (this.rg_last_year_dexona_total / 12) - this.rg_last_month_total).toFixed(2) : 0;
+    }
+
+
+    get closing_qty(): number {
+        return this.adjustment + this.opening - this.secondary_sale;
+    }
+
+    get closing_amount(): number {
+        return this.closing_qty * this.unit_price;
     }
 }

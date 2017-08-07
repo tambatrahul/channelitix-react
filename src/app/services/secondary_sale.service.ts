@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, RequestOptions} from "@angular/http";
+import {Http, RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -46,6 +46,22 @@ export class SecondarySaleService extends BaseService {
     }
 
     /**
+     * monthly attendance
+     *
+     * @param month
+     * @param year
+     * @returns {Observable<Result>}
+     */
+    hq_wise(month: number, year: number): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/headquarter_wise/' + month + "/" + year;
+
+        // make server call
+        return this.get(url, new RequestOptions());
+    }
+
+    /**
      * for customer monthly attendance
      *
      * @param month
@@ -60,6 +76,27 @@ export class SecondarySaleService extends BaseService {
 
         // make server call
         return this.get(url, new RequestOptions());
+    }
+
+    /**
+     * for hq monthly secondary sale
+     *
+     * @param month
+     * @param year
+     * @param customer_id
+     * @returns {Observable<Result>}
+     */
+    product_wise(month: number, year: number, hq_id: number): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('headquarter_id', String(hq_id ? hq_id : ''));
+
+        // prepare url
+        let url = this.getBaseUrl() + '/product_wise/' + month + "/" + year;
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
     }
 
     /**
