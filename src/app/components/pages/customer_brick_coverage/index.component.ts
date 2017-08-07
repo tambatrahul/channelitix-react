@@ -10,6 +10,8 @@ import {Order} from "../../../models/order/order";
 import {Target} from "../../../models/SAP/target";
 import {Territory} from "../../../models/territory/territory";
 import {environment} from "../../../../environments/environment";
+import {Headquarter} from "../../../models/territory/headquarter";
+import {Area} from "../../../models/territory/area";
 declare let jQuery: any;
 
 @Component({
@@ -43,9 +45,11 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     public region_id: number = 0;
     public area_id: number = 0;
     public headquarter_id: number = 0;
+    public _headquarters: Headquarter[] = [];
+    public _areas: Area[] = [];
 
     /**
-     * User Component Constructor
+     * User Component Cons3tructor
      */
     constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService) {
         super(_service);
@@ -59,14 +63,32 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         this.year = moment().year();
 
         if (environment.envName == 'geo') {
-            this.region_id = 2;
-            this.area_id = 3;
-            this.headquarter_id = 4;
+            if (this._service.user.role_id == 4) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+            }
+            else if (this._service.user.role_id == 5) {
+                this.region_id = this._service.user.hq_region_id;
+            }
+            else {
+                if (this._service.user.role_id == 6) {
+                    this.region_id = 2;
+                }
+            }
         }
         else {
-            this.region_id = 1;
-            this.area_id = 1;
-            this.headquarter_id = 1;
+            if (this._service.user.role_id == 4) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+            }
+            else if (this._service.user.role_id == 5) {
+                this.region_id = this._service.user.hq_region_id;
+            }
+            else {
+                if (this._service.user.role_id == 6) {
+                    this.region_id = 1;
+                }
+            }
         }
         this.fetch();
     }
@@ -184,6 +206,25 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         });
 
         this.territories = territories;
+    }
+
+    /**
+     * get areas
+     */
+    areas(data){
+        this._areas = data.areas;
+        this.area_id = this._areas[0].id;
+        console.log(this._areas);
+        this.fetch();
+    }
+
+    /**
+     * get headquarters
+     */
+    headquarters(data){
+        this._headquarters = data.headquarters;
+        this.headquarter_id = this._headquarters[0].id;
+        this.fetch();
     }
 
     /**

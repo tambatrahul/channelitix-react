@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {TerritoryService} from "../../../../services/territory.service";
 import {Area} from "../../../../models/territory/area";
 import {BaseSelectComponent} from "../../base-select.component";
@@ -20,6 +20,12 @@ export class AreaSelectComponent extends BaseSelectComponent {
      */
     @Input()
     first_value: string = "All";
+
+    /**
+     *Emit headquarters
+     */
+    @Output()
+    _areas = new EventEmitter();
 
     /**
      * Region id for filter
@@ -61,6 +67,9 @@ export class AreaSelectComponent extends BaseSelectComponent {
             response => {
                 this.loading = false;
                 this.areas = response.areas;
+                this._areas.emit({
+                    'areas' : this.areas
+                })
             },
             err => {
                 this.loading = false;
