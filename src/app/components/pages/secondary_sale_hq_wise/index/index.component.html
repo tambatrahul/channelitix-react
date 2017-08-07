@@ -1,97 +1,97 @@
 <div class="container-fluid sales">
 
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Secondary Statement Report
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Filters for Order report-->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-xs-12 col-md-3">
-            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Secondary Statement Report
+            </h2>
+          </div>
         </div>
+      </div>
+      <div class="col-md-5">
+      </div>
     </div>
-    <!-- ./Filters for Order report-->
+  </div>
+  <!-- Page Breadcrumb -->
 
-    <!-- Order Table -->
-    <div class="row">
-        <div class="row" *ngFor="let region of regions">
-            <div class="col-xs-12">
-                <div class="box-widget widget-module">
-                    <div class="widget-head clearfix">
-                        <span class="h-icon"><i class="fa fa-table"></i></span>
-                        <h4><strong>{{ region.name }}</strong></h4>
-                    </div>
-                    <div>
-                        <div class="widget-container report-table">
-                            <div class="widget-block">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered visit_table">
-                                        <thead>
-                                        <tr>
-                                            <th>Headquarter</th>
-                                            <th>Opening</th>
-                                            <th>Inventory Adjustment</th>
-                                            <th>Secondary Sale</th>
-                                            <th>Closing</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
+  <!-- Filters for Order report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+  </div>
+  <!-- ./Filters for Order report-->
 
-                                        <tbody>
-                                        <tr class="dark_grey">
-                                            <th>Total</th>
-                                            <th class="value">{{ region.opening.toFixed(2) }}</th>
-                                            <th class="value">{{ region.adjustment.toFixed(2) }}</th>
-                                            <th class="value">{{ region.secondary_sale.toFixed(2) }}</th>
-                                            <th class="value">{{ region.closing.toFixed(2) }}</th>
-                                            <th></th>
-                                        </tr>
-                                        <template ngFor let-area [ngForOf]="region.areas">
-                                            <tr class="grey">
-                                                <th colSpan="9" class="text-center">{{ area.name }}</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Total</th>
-                                                <th class="value">{{ area.opening.toFixed(2) }}</th>
-                                                <th class="value">{{ area.adjustment.toFixed(2) }}</th>
-                                                <th class="value">{{ area.secondary_sale.toFixed(2) }}</th>
-                                                <th class="value">{{ area.closing.toFixed(2) }}</th>
-                                                <th></th>
-                                            </tr>
-                                            <tr *ngFor="let hq of area.headquarters">
-                                                <th class="text-left">{{ hq.name }}</th>
-                                                <td>{{ hq.opening.toFixed(2) }}</td>
-                                                <td>{{ hq.adjustment.toFixed(2) }}</td>
-                                                <td>{{ hq.secondary_sale.toFixed(2) }}</td>
-                                                <td>{{ hq.closing.toFixed(2) }}</td>
-                                                <td class="text-center">
-                                                    <a [routerLink]="['/sales/secondary/product_wise', month+1, year, hq.id]"
-                                                       class="btn btn-xs btn-primary">VIEW</a>
-                                                </td>
-                                            </tr>
-                                        </template>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <!-- Order Table -->
+  <div class="row">
+    <div class="row" *ngFor="let region of regions">
+      <div class="col-xs-12">
+        <div class="box-widget widget-module">
+          <div class="widget-head clearfix">
+            <span class="h-icon"><i class="fa fa-table"></i></span>
+            <h4><strong>{{ region.name }}</strong></h4>
+          </div>
+          <div>
+            <div class="widget-container report-table">
+              <div class="widget-block">
+                <div class="table-responsive">
+                  <table class="table table-bordered visit_table">
+                    <thead>
+                    <tr>
+                      <th>Headquarter</th>
+                      <th>Opening</th>
+                      <th>Inventory Adjustment</th>
+                      <th>Secondary Sale</th>
+                      <th>Closing</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="dark_grey">
+                      <th>Total</th>
+                      <th class="value">{{ region.opening.toFixed(2) }}</th>
+                      <th class="value">{{ region.adjustment.toFixed(2) }}</th>
+                      <th class="value">{{ region.secondary_sale.toFixed(2) }}</th>
+                      <th class="value">{{ region.closing.toFixed(2) }}</th>
+                      <th></th>
+                    </tr>
+                    <template ngFor let-area [ngForOf]="region.areas">
+                      <tr class="grey">
+                        <th colSpan="9" class="text-center">{{ area.name }}</th>
+                      </tr>
+                      <tr>
+                        <th>Total</th>
+                        <th class="value">{{ area.opening.toFixed(2) }}</th>
+                        <th class="value">{{ area.adjustment.toFixed(2) }}</th>
+                        <th class="value">{{ area.secondary_sale.toFixed(2) }}</th>
+                        <th class="value">{{ area.closing.toFixed(2) }}</th>
+                        <th></th>
+                      </tr>
+                      <tr *ngFor="let hq of area.headquarters">
+                        <th class="text-left">{{ hq.name }}</th>
+                        <td>{{ hq.opening.toFixed(2) }}</td>
+                        <td>{{ hq.adjustment.toFixed(2) }}</td>
+                        <td>{{ hq.secondary_sale.toFixed(2) }}</td>
+                        <td>{{ hq.closing.toFixed(2) }}</td>
+                        <td class="text-center">
+                          <a [routerLink]="['/sales/secondary/product_wise', month, year, hq.id]"
+                             class="btn btn-xs btn-primary">VIEW</a>
+                        </td>
+                      </tr>
+                    </template>
+                    </tbody>
+                  </table>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- ./Order Table -->
+  </div>
+  <!-- ./Order Table -->
 </div>

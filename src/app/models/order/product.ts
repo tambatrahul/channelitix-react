@@ -29,6 +29,8 @@ export class Product extends Model {
     secondary_sale: number = 0;
     closing: number = 0;
 
+    uom: UOM;
+
 
     constructor(info: any) {
         super(info.id);

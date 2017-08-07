@@ -118,7 +118,6 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
         region.closing += area.closing;
       });
     });
-
   }
 
   /**
