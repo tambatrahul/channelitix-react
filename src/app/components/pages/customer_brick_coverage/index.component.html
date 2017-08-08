@@ -35,88 +35,104 @@
                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
             </div>
         </div>
+        <div class="col-xs-12 col-md-3">
+            <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;width: 25%;"
+               *ngIf="headquarter_id > 0"
+               (click)="fetch()">
+                Go
+            </a>
+            <a class="btn btn-primary btn-block btn-margin disabled" style="margin-top: 25px;width: 25%;"
+               *ngIf="headquarter_id == ''  ||  headquarter_id==0">
+                Go
+            </a>
+        </div>
     </div>
     <!-- ./Filters for report-->
 
     <!-- Report Table -->
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4><strong>Dashboard</strong></h4>
-                </div>
-                <div>
-                    <div class="widget-container report-table" #loading_box>
-                        <div class="widget-block">
-                            <div class="table-responsive">
-                                <table class="table table-bordered visit_table">
-                                    <thead>
+        <div class="col-xs-12" #loading_box>
+            <div *ngIf="headquarter_id > 0">
+                <div class="box-widget widget-module" *ngIf="territories.length > 0">
+                    <div class="widget-head clearfix">
+                        <span class="h-icon"><i class="fa fa-table"></i></span>
+                        <h4><strong>Brick Working Report</strong></h4>
+                    </div>
+                    <div>
+                        <div class="widget-container report-table">
+                            <div class="widget-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered visit_table">
+                                        <thead>
 
-                                    <tr>
-                                        <th rowSpan="3">Name Of Brick</th>
-                                        <th rowSpan="3">Potential</th>
-                                        <th colSpan="{{ months_str.length * 2 }}">Months</th>
-                                    </tr>
-                                    <tr>
-                                        <th *ngFor="let month of months_str" colSpan="2">
-                                            {{ month }}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                                            <th [ngClass]="{'grey': i%2 == 0}">Visits</th>
-                                            <th [ngClass]="{'grey': i%2 == 0}">POB</th>
-                                        </template>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <tr class="dark_grey">
-                                        <th colSpan="2" class="text-center">Total</th>
-                                        <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                                            <th></th>
-                                            <th>
-                                                {{ months[i + 1].order_total ? months[i + 1].order_total.toFixed(0): 0
-                                                }}
-                                            </th>
-                                        </template>
-                                    </tr>
-                                    <template ngFor let-ter [ngForOf]="territories">
                                         <tr>
-                                            <th colSpan="36" class="text-center grey">{{ ter.name }}</th>
+                                            <th rowSpan="3">Name Of Brick</th>
+                                            <th rowSpan="3">Potential</th>
+                                            <th colSpan="{{ months_str.length * 2 }}">Months</th>
                                         </tr>
-                                        <tr *ngFor="let brick of ter.hq_bricks">
-                                            <th>
-                                                {{brick.name}}
+                                        <tr>
+                                            <th *ngFor="let month of months_str" colSpan="2">
+                                                {{ month }}
                                             </th>
+                                        </tr>
+                                        <tr>
+                                            <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                                <th [ngClass]="{'grey': i%2 == 0}">Visits</th>
+                                                <th [ngClass]="{'grey': i%2 == 0}">POB</th>
+                                            </template>
+                                        </tr>
+                                        </thead>
 
-                                            <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
+                                        <tbody>
+                                        <tr class="dark_grey">
+                                            <th colSpan="2" class="text-center">Total</th>
+                                            <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                                <th></th>
+                                                <th>
+                                                    {{ months[i + 1].order_total ? months[i + 1].order_total.toFixed(0):
+                                                    0
+                                                    }}
+                                                </th>
+                                            </template>
+                                        </tr>
+                                        <template ngFor let-ter [ngForOf]="territories">
+                                            <tr>
+                                                <th colSpan="36" class="text-center grey">{{ ter.name }}</th>
+                                            </tr>
+                                            <tr *ngFor="let brick of ter.hq_bricks">
+                                                <th>
+                                                    {{brick.name}}
+                                                </th>
+
+                                                <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,
                                         'light_red': brick.customer_count_pattern == 4,
                                         'dark_red': brick.customer_count_pattern == 5}">
-                                            </td>
-                                            <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                                                <td [ngClass]="{'grey': i%2 == 0}">
-                                                    {{ brick.months[i+1].visit_no_of_days ?
-                                                    brick.months[i+1].visit_no_of_days : 0}}
                                                 </td>
-                                                <td style="width: 100px;" [ngClass]="{'grey': i%2 == 0, 'dark_green': brick.business(i+1) == 1, 'orange': brick.business(i+1) == 2,
+                                                <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                                    <td [ngClass]="{'grey': i%2 == 0}">
+                                                        {{ brick.months[i+1].visit_no_of_days ?
+                                                        brick.months[i+1].visit_no_of_days : 0}}
+                                                    </td>
+                                                    <td style="width: 100px;" [ngClass]="{'grey': i%2 == 0, 'dark_green': brick.business(i+1) == 1, 'orange': brick.business(i+1) == 2,
                                         'light_red': brick.business(i+1) == 3}">
-                                                    {{ brick.months[i+1].order_total_count ?
-                                                    brick.months[i+1].order_total_count.toFixed(0): 0 }}
-                                                </td>
-                                            </template>
-                                        </tr>
-                                    </template>
-                                    </tbody>
-                                </table>
+                                                        {{ brick.months[i+1].order_total_count ?
+                                                        brick.months[i+1].order_total_count.toFixed(0): 0 }}
+                                                    </td>
+                                                </template>
+                                            </tr>
+                                        </template>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div *ngIf="territories.length ==0" style="height: 350px"></div>
             </div>
+            <div *ngIf="headquarter_id == ''  ||  headquarter_id==0" style="height: 350px"></div>
         </div>
     </div>
     <!-- ./Report Table -->

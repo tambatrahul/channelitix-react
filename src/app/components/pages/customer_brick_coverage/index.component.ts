@@ -25,6 +25,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
      * @type {number}
      */
     public year: number;
+    public headquarter_name: string = '';
     public territories: Territory[] = [];
 
     // set months object for visit, pob and target data
@@ -47,6 +48,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     public headquarter_id: number = 0;
     public _headquarters: Headquarter[] = [];
     public _areas: Area[] = [];
+    btn_loading: boolean = false;
 
     /**
      * User Component Cons3tructor
@@ -90,7 +92,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
                 }
             }
         }
-        this.fetch();
     }
 
     /**
@@ -98,6 +99,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
      */
     fetch() {
         this.loading = true;
+
         if (this.year) {
             this.months = {
                 1: {order_total: 0}, 2: {order_total: 0}, 3: {order_total: 0}, 4: {order_total: 0},
@@ -213,8 +215,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
      */
     areas(data){
         this._areas = data.areas;
-        this.area_id = this._areas[0].id;
-        console.log(this._areas);
         this.fetch();
     }
 
@@ -223,7 +223,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
      */
     headquarters(data){
         this._headquarters = data.headquarters;
-        this.headquarter_id = this._headquarters[0].id;
         this.fetch();
     }
 
@@ -252,6 +251,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
      */
     headquarterChanged(headquarter_id) {
         this.headquarter_id = headquarter_id;
-        this.fetch();
+        this.territories = [];
     }
 }
