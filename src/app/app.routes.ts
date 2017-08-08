@@ -66,6 +66,7 @@ import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
+import {V1UserComponent} from "./v1/components/pages/users/index/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -171,6 +172,10 @@ export const routes: Routes = [
           {
             path: 'summary',
             component: SummaryComponent
+          },
+          {
+            path: 'v1',
+            component: V1UserComponent
           },
         ]
       },
