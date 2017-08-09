@@ -2,7 +2,7 @@
   <!-- Logo image -->
   <div class="aside-branding">
     <a href="index.html" class="large-logo">
-      <img src="/assets/images/channelitix.png" alt="Matmix Logo">
+      <img src="/assets/images/channelitix.png" alt="Matmix Logo" style="height: 70%; margin: 7px auto;">
     </a>
     <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
     <span class="aside-close waves-effect"><i class="fa fa-times"></i></span>
@@ -175,6 +175,12 @@
                 <span class="nav-label">Secondary Statement Status</span>
               </a>
             </li>
+            <!--<li *roleCheck="ROLE_CSM">-->
+              <!--<a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']" *roleCheck="ROLE_CSM">-->
+                <!--<span class="nav-icon"><i class="fa fa-calendar"></i></span>-->
+                <!--<span class="nav-label">Secondary Statement Report</span>-->
+              <!--</a>-->
+            <!--</li>-->
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">
@@ -233,12 +239,6 @@
           <a class="waves-effect" [routerLink]="['/sales/secondary']">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
             <span class="nav-label">Secondary Sales Report</span>
-          </a>
-        </li>
-        <li>
-          <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']" *roleCheck="ROLE_CSM">
-            <span class="nav-icon"><i class="fa fa-calendar"></i></span>
-            <span class="nav-label">HQ Secondary Statement Report</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isRegion">
