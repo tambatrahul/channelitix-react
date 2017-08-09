@@ -332,7 +332,7 @@ export const routes: Routes = [
                 component: SecondarySaleHqWiseComponent
               },
               {
-                path: 'product_wise/:month/:year/:id',
+                path: 'product_wise/:month/:year/:region_id/:area_id/:hq_id',
                 component: ProductWiseHqComponent
               },
             ]

@@ -60,8 +60,11 @@
                       <th class="value">{{ region.opening.toFixed(0) | number : fractionSize}}</th>
                       <th class="value">{{ region.adjustment.toFixed(0)| number : fractionSize }}</th>
                       <th class="value">{{ region.secondary_sale.toFixed(0)| number : fractionSize }}</th>
-                      <th class="value">{{ region.closing_amount.toFixed(0)| number : fractionSize }}</th>
-                      <th></th>
+                      <th class="value">{{ region.closing_amount  .toFixed(0)| number : fractionSize }}</th>
+                      <th style="text-align: center!important;">
+                        <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, '', '']"
+                           class="btn btn-xs btn-primary">VIEW</a>
+                      </th>
                     </tr>
                     <template ngFor let-area [ngForOf]="region.areas">
                       <tr class="grey">
@@ -72,7 +75,10 @@
                         <th class="value">{{ area.adjustment.toFixed(0)| number : fractionSize }}</th>
                         <th class="value">{{ area.secondary_sale.toFixed(0)| number : fractionSize }}</th>
                         <th class="value">{{ area.closing_amount.toFixed(0)| number : fractionSize }}</th>
-                        <th></th>
+                        <th style="text-align: center!important;">
+                          <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, area.id, '']"
+                             class="btn btn-xs btn-primary">VIEW</a>
+                        </th>
                       </tr>
                       <tr *ngFor="let hq of area.headquarters">
                         <th></th>
@@ -83,7 +89,7 @@
                         <td>{{ hq.secondary_sale.toFixed(0)| number : fractionSize }}</td>
                         <td>{{ hq.closing_amount.toFixed(0)| number : fractionSize }}</td>
                         <td style="text-align: center!important;">
-                          <a [routerLink]="['/sales/secondary/product_wise', month, year, hq.id]"
+                          <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, area.id, hq.id]"
                              class="btn btn-xs btn-primary">VIEW</a>
                         </td>
                       </tr>
