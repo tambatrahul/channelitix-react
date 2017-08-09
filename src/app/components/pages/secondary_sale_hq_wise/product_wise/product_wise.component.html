@@ -42,14 +42,14 @@
                   <template *ngIf="environment.envName != 'sk_group'">
                     <th style="width: 80px;">Product Code</th>
                   </template>
-                  <th>Product</th>
-                  <th>UOM</th>
-                  <th>Opening</th>
-                  <th>Inventory Adjustment</th>
-                  <th>Secondary Sale</th>
-                  <th>Closing</th>
-                  <th>Secondary Value</th>
-                  <th>Closing Value</th>
+                  <th>Product(Qty)</th>
+                  <th>UOM(Qty)</th>
+                  <th>Opening(Qty)</th>
+                  <th>Inventory Adjustment(Qty)</th>
+                  <th>Secondary Sale(Qty)</th>
+                  <th>Closing(Qty)</th>
+                  <th>Secondary Value(<i class="fa fa-rupee"></i>)</th>
+                  <th>Closing Value(<i class="fa fa-rupee"></i>)</th>
                 </tr>
                 </thead>
 
@@ -57,12 +57,12 @@
                 <tr *ngFor="let pro of products;">
                   <th>{{ pro?.name }}</th>
                   <td>{{ pro.uom.name }}</td>
-                  <td>{{ (pro.opening).toFixed(2) }}</td>
-                  <td>{{ (pro.adjustment).toFixed(2) }}</td>
-                  <td>{{ (pro.secondary_sale).toFixed(2) }}</td>
-                  <td>{{ (pro.closing).toFixed(2) }}</td>
-                  <td>{{ (pro.secondary_sale * pro.unit_price).toFixed(2) }}</td>
-                  <td>{{ (pro.closing * pro.unit_price).toFixed(2) }}</td>
+                  <td>{{ (pro.opening).toFixed(0) }}</td>
+                  <td>{{ (pro.adjustment).toFixed(0) }}</td>
+                  <td>{{ (pro.secondary_sale).toFixed(0) }}</td>
+                  <td>{{ (pro.closing).toFixed(0) }}</td>
+                  <td>{{ (pro.secondary_sale * pro.unit_price).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.closing * pro.unit_price).toFixed(0)| number : fractionSize }}</td>
                 </tr>
                 <tr class="grey">
                   <th>Total</th>
@@ -71,8 +71,8 @@
                   <th>{{ adjustment }}</th>
                   <th>{{ secondary_sale }}</th>
                   <th>{{ closing }}</th>
-                  <th>{{ (secondary_value).toFixed(2) }}</th>
-                  <th>{{ (closing_value).toFixed(2) }}</th>
+                  <th>{{ (secondary_value).toFixed(0)| number : fractionSize }}</th>
+                  <th>{{ (closing_value).toFixed(0)| number : fractionSize }}</th>
                 </tr>
                 </tbody>
               </table>
