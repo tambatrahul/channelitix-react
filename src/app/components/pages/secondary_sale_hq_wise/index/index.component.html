@@ -43,6 +43,7 @@
                     <tr>
                       <th>Area</th>
                       <th>Headquarter</th>
+                      <th>Primary Sales (<i class="fa fa-rupee"></i>)</th>
                       <th>Opening (<i class="fa fa-rupee"></i>)</th>
                       <th>Inventory Adjustment (<i class="fa fa-rupee"></i>)</th>
                       <th>Secondary Sale (<i class="fa fa-rupee"></i>)</th>
@@ -55,29 +56,32 @@
                     <tr class="dark_grey">
                       <th>Total</th>
                       <th></th>
-                      <th class="value">{{ region.opening.toFixed(2) }}</th>
-                      <th class="value">{{ region.adjustment.toFixed(2) }}</th>
-                      <th class="value">{{ region.secondary_sale.toFixed(2) }}</th>
-                      <th class="value">{{ region.closing.toFixed(2) }}</th>
+                      <th class="value">{{ region.total_net_amount.toFixed(0) | number : fractionSize }}</th>
+                      <th class="value">{{ region.opening.toFixed(0) | number : fractionSize}}</th>
+                      <th class="value">{{ region.adjustment.toFixed(0)| number : fractionSize }}</th>
+                      <th class="value">{{ region.secondary_sale.toFixed(0)| number : fractionSize }}</th>
+                      <th class="value">{{ region.closing_amount.toFixed(0)| number : fractionSize }}</th>
                       <th></th>
                     </tr>
                     <template ngFor let-area [ngForOf]="region.areas">
                       <tr class="grey">
                         <th>{{ area.name }}</th>
                         <th></th>
-                        <th class="value">{{ area.opening.toFixed(2) }}</th>
-                        <th class="value">{{ area.adjustment.toFixed(2) }}</th>
-                        <th class="value">{{ area.secondary_sale.toFixed(2) }}</th>
-                        <th class="value">{{ area.closing.toFixed(2) }}</th>
+                        <th class="value">{{ area.total_net_amount.toFixed(0)| number : fractionSize }}</th>
+                        <th class="value">{{ area.opening.toFixed(0)| number : fractionSize }}</th>
+                        <th class="value">{{ area.adjustment.toFixed(0)| number : fractionSize }}</th>
+                        <th class="value">{{ area.secondary_sale.toFixed(0)| number : fractionSize }}</th>
+                        <th class="value">{{ area.closing_amount.toFixed(0)| number : fractionSize }}</th>
                         <th></th>
                       </tr>
                       <tr *ngFor="let hq of area.headquarters">
                         <th></th>
                         <th class="text-left">{{ hq.name }}</th>
-                        <td>{{ hq.opening.toFixed(2) }}</td>
-                        <td>{{ hq.adjustment.toFixed(2) }}</td>
-                        <td>{{ hq.secondary_sale.toFixed(2) }}</td>
-                        <td>{{ hq.closing.toFixed(2) }}</td>
+                        <td>{{ hq.total_net_amount.toFixed(0)| number : fractionSize }}</td>
+                        <td>{{ hq.opening.toFixed(0)| number : fractionSize }}</td>
+                        <td>{{ hq.adjustment.toFixed(0)| number : fractionSize }}</td>
+                        <td>{{ hq.secondary_sale.toFixed(0)| number : fractionSize }}</td>
+                        <td>{{ hq.closing_amount.toFixed(0)| number : fractionSize }}</td>
                         <td style="text-align: center!important;">
                           <a [routerLink]="['/sales/secondary/product_wise', month, year, hq.id]"
                              class="btn btn-xs btn-primary">VIEW</a>

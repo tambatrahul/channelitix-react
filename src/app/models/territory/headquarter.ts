@@ -320,6 +320,6 @@ export class Headquarter extends Model {
     }
 
     get closing_amount(): number {
-        return this.closing_qty * this.unit_price;
+        return (this.opening + this.total_net_amount + this.adjustment) - this.secondary_sale;
     }
 }

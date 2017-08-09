@@ -61,6 +61,7 @@ export class Region extends Model {
     secondary_sale: number = 0;
     secondary_amount: number = 0;
     closing: number = 0;
+    total_net_amount: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -101,6 +102,9 @@ export class Region extends Model {
 
         if (info.total_customers)
             this.total_customers = parseInt(info.total_customers);
+
+        if (info.total_net_amount)
+            this.total_net_amount = parseFloat(info.total_net_amount);
 
         if (info.rg_last_year_total)
             this.rg_last_year_total = parseInt(info.rg_last_year_total);
@@ -422,6 +426,6 @@ export class Region extends Model {
     }
 
     get closing_amount(): number {
-        return this.closing_qty * this.unit_price;
+        return (this.opening + this.total_net_amount + this.adjustment) - this.secondary_sale;
     }
 }

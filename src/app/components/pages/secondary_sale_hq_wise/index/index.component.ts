@@ -5,6 +5,7 @@ import {ListComponent} from "../../../base/list.component";
 import {SecondarySale} from "../../../../models/sale/secondary_sale";
 import {SecondarySaleService} from "../../../../services/secondary_sale.service";
 import {Region} from "../../../../models/territory/region";
+import {PrimarySale} from "../../../../models/sale/primary_sale";
 declare let jQuery: any;
 
 @Component({
@@ -74,13 +75,18 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
                     return new SecondarySale(sale);
                 });
 
+                // get primary sales
+                let primaries = response.primary_sales.map(function (ps, index) {
+                    return new PrimarySale(ps)
+                });
+
                 // convert to models
                 this.regions = response.regions.map(function (region, index) {
                     return new Region(region);
                 });
 
                 // format data for display
-                this.formatSecondarySale(secondary_sales);
+                this.formatSecondarySale(secondary_sales, primaries);
             }
         );
     }
@@ -88,8 +94,9 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
     /**
      * format secondary sales
      * @param secondary_sales
+     * @param primaries
      */
-    protected formatSecondarySale(secondary_sales: SecondarySale[]) {
+    protected formatSecondarySale(secondary_sales: SecondarySale[], primaries: PrimarySale[]) {
 
         this.regions.map(region => {
             region.areas.map(area => {
@@ -103,10 +110,17 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
                         }
                     });
 
+                    primaries.map(ps =>{
+                        if (headquarter.id == ps.hq_headquarter_id) {
+                            headquarter.total_net_amount = ps.total_net_amount;
+                        }
+                    });
+
                     area.opening += headquarter.opening;
                     area.adjustment += headquarter.adjustment;
                     area.secondary_sale += headquarter.secondary_sale;
                     area.closing += headquarter.closing;
+                    area.total_net_amount += headquarter.total_net_amount;
 
                 });
 
@@ -114,6 +128,7 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
                 region.adjustment += area.adjustment;
                 region.secondary_sale += area.secondary_sale;
                 region.closing += area.closing;
+                region.total_net_amount += area.total_net_amount;
             });
         });
     }
