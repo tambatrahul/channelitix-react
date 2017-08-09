@@ -2,8 +2,8 @@ import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {ListComponent} from "../../../../../components/base/list.component";
 import {User} from "../../../../../models/user/user";
-import {UserService} from "../../../../../services/user.service";
 import {AuthService} from "../../../../../services/AuthService";
+import {V2UserService} from "../../../../../services/v2/user.service";
 declare let jQuery: any;
 
 
@@ -11,15 +11,26 @@ declare let jQuery: any;
     templateUrl: 'index.component.html',
     styleUrls: ['index.component.less']
 })
-export class V1UserComponent extends ListComponent {
+export class V2UserComponent extends ListComponent {
 
     /**
-     * manager and user Role id
+     * pages number for customer and total customers
      *
      * @type {number}
      */
-    public role_id: number = 0;
-    public manager_role_id: number = 0;
+    public page: number = 1;
+    public total: number = 10;
+
+    /**
+     * User Role id And Status
+     *
+     * @type {number}
+     */
+    public role_id: number = 3;
+    public status: boolean = true;
+    public region_id: number = 0;
+    public area_id: number = 0;
+
 
     /**
      * deactivating user
@@ -31,10 +42,6 @@ export class V1UserComponent extends ListComponent {
      */
     public reset_password: User = new User({});
 
-    /**
-     * manager_id
-     */
-    public manager_id: number = 0;
 
     /**
      * users
@@ -46,22 +53,27 @@ export class V1UserComponent extends ListComponent {
     /**
      * User Component Constructor
      */
-    constructor(private userService: UserService, public _router: Router, public _service: AuthService) {
+    constructor(private userService: V2UserService, public _router: Router, public _service: AuthService) {
         super(_service);
+    }
+
+    /**
+     * initialize component
+     */
+    ngOnInit() {
+        super.ngOnInit();
     }
 
     /**
      * load users for logged in user
      */
     fetch() {
-        this.loading = true;
-        this.userService.children(this.role_id, this.manager_id).subscribe(
+
+        this.userService.all(this.role_id, this.status, this.region_id, this.area_id).subscribe(
             response => {
-                this.loading = false;
                 this.users = response.users;
             },
             err => {
-                this.loading = false;
             }
         );
     }
@@ -73,20 +85,9 @@ export class V1UserComponent extends ListComponent {
      */
     roleChanged(role_id) {
         this.role_id = role_id;
-        this.manager_role_id = role_id != 0 ? parseInt(role_id) + 1 : 0;
-        this.managerChanged(0);
         this.fetch();
     }
 
-    /**
-     * when role is changed filter list of users
-     *
-     * @param manager_id
-     */
-    managerChanged(manager_id) {
-        this.manager_id = manager_id;
-        this.fetch();
-    }
 
     /**
      * Update User
@@ -126,6 +127,34 @@ export class V1UserComponent extends ListComponent {
      */
     onPasswordReset(data) {
         this.reset_password = new User({});
+        this.fetch();
+    }
+
+    /**
+     * Page changed
+     *
+     * @param page
+     */
+    pageChanged(page) {
+        this.page = page;
+        this.fetch();
+    }
+
+    /**
+     * when region is changed filter list of customer
+     * @param region_id
+     */
+    regionChanged(region_id) {
+        this.region_id = region_id;
+        this.areaChanged(0);
+    }
+
+    /**
+     * when area is changed filter list of customer
+     * @param area_id
+     */
+    areaChanged(area_id) {
+        this.area_id = area_id;
         this.fetch();
     }
 }

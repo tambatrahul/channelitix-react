@@ -66,410 +66,422 @@ import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
-import {V1UserComponent} from "./v1/components/pages/users/index/index.component";
+import {V2UserComponent} from "./v2/components/pages/users/index/index.component";
 
 // Route Configuration
 export const routes: Routes = [
-  {
-    path: '',
-    component: BaseComponent,
-    children: [
-
-      {
-        path: 'business_plan',
+    {
+        path: '',
+        component: BaseComponent,
         children: [
-          {
-            path: '',
-            component: SalesPlanningComponent
-          }
-        ]
-      },
 
-      // add attendance routes
-      {
-        path: 'dashboard',
-        children: [
-          {
-            path: '',
-            component: DashBoardComponent
-          },
-          {
-            path: 'report',
-            component: DashBoardReportComponent
-          },
-          {
-            path: 'brick_coverage',
-            component: CustomerBrickCoverageComponent
-          },
-          {
-            path: 'reports_icons',
-            component: ReportIconsComponent
-          }
-        ]
-      },
-
-      // add attendance routes
-      {
-        path: 'attendances',
-        children: [
-          {
-            path: '',
-            component: AttendanceTableComponent
-          },
-          {
-            path: 'monthly',
-            component: MonthlyAttendanceComponent
-          }
-        ]
-      },
-
-      // add visit routes
-      {
-        path: 'visits',
-        children: [
-          {
-            path: '',
-            component: VisitComponent
-          },
-          {
-            path: 'managers',
-            component: ManagerVisitComponent
-          }
-        ]
-      },
-
-      // add order routes
-      {
-        path: 'orders',
-        children: [
-          {
-            path: '',
-            component: OrderComponent
-          },
-          {
-            path: 'managers',
-            component: ManagerOrderComponent
-          }
-        ]
-      },
-
-      // add user routes
-      {
-        path: 'users',
-        children: [
-          {
-            path: '',
-            component: UserComponent,
-          },
-          {
-            path: 'create',
-            component: CreateUserComponent
-          },
-          {
-            path: 'update/:id',
-            component: UpdateUserComponent
-          },
-          {
-            path: 'summary',
-            component: SummaryComponent
-          },
-          {
-            path: 'v1',
-            component: V1UserComponent
-          },
-        ]
-      },
-
-      // add tour routes
-      {
-        path: 'tours',
-        children: [
-          {
-            path: '',
-            component: TourComponent
-          },
-          {
-            path: 'monthly',
-            component: MonthlyTourProgramComponent
-          }
-        ]
-      },
-
-      // add customer routes
-      {
-        path: 'customers',
-        children: [
-          {
-            path: '',
-            component: CustomerComponent
-          },
-          {
-            path: 'stp',
-            component: StpComponent
-          },
-          {
-            path: 'create',
-            component: CreateCustomerComponent
-          },
-          {
-            path: 'update/:id',
-            component: UpdateCustomerComponent
-          },
-
-        ]
-      },
-
-      // add territories routes
-      {
-        path: 'territories',
-        children: [
-          {
-            path: 'regions',
-            children: [
-              {
-                path: '',
-                component: RegionComponent,
-              },
-              {
-                path: ':region_id/areas',
+            {
+                path: 'business_plan',
                 children: [
-                  {
-                    path: '',
-                    component: AreaComponent,
-                  },
-                  {
-                    path: ':area_id/headquarters',
-                    children: [
-                      {
+                    {
                         path: '',
-                        component: HeadquarterComponent,
-                      },
-                      {
-                        path: ':headquarter_id/territories',
-                        children: [
-                          {
-                            path: '',
-                            component: TerritoryComponent,
-                          },
-                          {
-                            path: ':territory_id/bricks',
-                            children: [
-                              {
-                                path: '',
-                                component: BrickComponent
-                              },
-                              {
-                                path: 'create',
-                                component: CreateBrickComponent
-                              },
-                              {
-                                path: 'update/:id',
-                                component: UpdateBrickComponent
-                              },
-                            ]
-                          },
-                        ]
-                      },
-                    ]
-                  },
+                        component: SalesPlanningComponent
+                    }
                 ]
-              },
-            ]
-          },
-        ]
-      },
+            },
 
-      // add stp routes
-      {
-        path: 'stps',
-        children: [
-          {
-            path: ':country_id',
-            component: RegionStpComponent,
-          },
-          {
-            path: ':country_id/regions/:region_id',
-            component: AreaStpComponent,
-          },
-          {
-            path: ':country_id/regions/:region_id/areas/:area_id',
-            component: HeadquarterStpComponent,
-          },
-          {
-            path: ':country_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id',
-            component: TerritoryStpComponent,
-          },
-          {
-            path: ':country_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id/territories/:territory_id',
-            component: BrickStpComponent,
-          }
-        ]
-      },
-      {
-        path: 'messages',
-        children: [
-          {
-            path: '',
-            component: MessageListComponent,
-          },
-        ]
-      },
-      {
-        path: 'sales',
-        children: [
-          {
-            path: 'secondary',
-            children: [
-              {
-                path: '',
-                component: SecondarySaleComponent
-              },
-              {
-                path: 'create/:month/:year/:id',
-                component: SecondarySaleCreateComponent
-              },
-              {
-                path: 'region',
-                component: SecondarySaleZSMComponent
-              },
-              {
-                path: 'hq_wise',
-                component: SecondarySaleHqWiseComponent
-              },
-              {
-                path: 'product_wise/:month/:year/:id',
-                component: ProductWiseHqComponent
-              },
-            ]
-          },
-        ]
-      },
-      {
-        path: 'primary',
-        children: [
-          {
-            path: 'invoices',
-            children: [
-              {
-                path: '',
-                component: PrimarySaleComponent
-              }
-            ]
-          },
-        ]
-      },
-      {
-        path: 'products',
-        children: [
-          {
-            path: '',
-            component: ProductComponent,
-          },
-        ]
-      },
-      {
-        path: 'reports',
-        children: [
-          {
-            path: 'brick_wise_customers',
-            component: BrickWiseCustomerComponent,
-          }, {
-            path: 'hq_wise_visits',
-            component: HQWiseVisitComponent,
-          }, {
-            path: 'stockist_wise_pob',
-            component: StockistWisePobComponent,
-          }, {
-            path: 'synergy_stockist_wise_pob',
-            component: SynergyStockistWisePobComponent,
-          }, {
-            path: 'executive_summary',
-            component: ExecutiveSummaryComponent,
-          }, {
-            path: 'productivity_analysis',
-            component: ProductivityAnalysisReportComponent,
-          }, {
-            path: 'sap_stockist_wise',
-            component: SapStockistWiseComponent,
-          }, {
-            path: 'headquarter_wise_report',
-            component: HeadQuarterWiseReportComponent,
-          }
-        ]
-      },
+            // add attendance routes
+            {
+                path: 'dashboard',
+                children: [
+                    {
+                        path: '',
+                        component: DashBoardComponent
+                    },
+                    {
+                        path: 'report',
+                        component: DashBoardReportComponent
+                    },
+                    {
+                        path: 'brick_coverage',
+                        component: CustomerBrickCoverageComponent
+                    },
+                    {
+                        path: 'reports_icons',
+                        component: ReportIconsComponent
+                    }
+                ]
+            },
 
-      {
-        path: 'videos',
-        component: VideoComponent
-      },
+            // add attendance routes
+            {
+                path: 'attendances',
+                children: [
+                    {
+                        path: '',
+                        component: AttendanceTableComponent
+                    },
+                    {
+                        path: 'monthly',
+                        component: MonthlyAttendanceComponent
+                    }
+                ]
+            },
 
-      // Abbott STP
-      {
-        path: 'abbott',
-        children: [
-          {
-            path: 'stps',
-            children: [
-              {
-                path: '',
-                component: AbbottStpComponent
-              },
-              {
-                path: 'agra',
-                component: AgraHQComponent
-              },
-              {
-                path: 'ballia',
-                component: BalliaHQComponent
-              },
-              {
-                path: 'bareilly',
-                component: BareillyHQComponent
-              },
-              {
-                path: 'dehradun',
-                component: DehradunHQComponent
-              },
-              {
-                path: 'ghaziabad',
-                component: GhaziabadHQComponent
-              },
-              {
-                path: 'kanpur',
-                component: KanpurHQComponent
-              },
-              {
-                path: 'lucknow',
-                component: LucknowHQComponent
-              },
-              {
-                path: 'meerut',
-                component: MeerutHQComponent
-              },
-              {
-                path: 'moradabad',
-                component: MoradabadHQComponent
-              },
-              {
-                path: 'padrauna',
-                component: PadraunaHQComponent
-              },
-              {
-                path: 'sitapur',
-                component: SitapurHQComponent
-              },
-            ]
-          },
+            // add visit routes
+            {
+                path: 'visits',
+                children: [
+                    {
+                        path: '',
+                        component: VisitComponent
+                    },
+                    {
+                        path: 'managers',
+                        component: ManagerVisitComponent
+                    }
+                ]
+            },
+
+            // add order routes
+            {
+                path: 'orders',
+                children: [
+                    {
+                        path: '',
+                        component: OrderComponent
+                    },
+                    {
+                        path: 'managers',
+                        component: ManagerOrderComponent
+                    }
+                ]
+            },
+
+            // add user routes
+            {
+                path: 'users',
+                children: [
+                    {
+                        path: '',
+                        component: UserComponent,
+                    },
+                    {
+                        path: 'create',
+                        component: CreateUserComponent
+                    },
+                    {
+                        path: 'update/:id',
+                        component: UpdateUserComponent
+                    },
+                    {
+                        path: 'summary',
+                        component: SummaryComponent
+                    }
+                ]
+            },
+
+            // add tour routes
+            {
+                path: 'tours',
+                children: [
+                    {
+                        path: '',
+                        component: TourComponent
+                    },
+                    {
+                        path: 'monthly',
+                        component: MonthlyTourProgramComponent
+                    }
+                ]
+            },
+
+            // add customer routes
+            {
+                path: 'customers',
+                children: [
+                    {
+                        path: '',
+                        component: CustomerComponent
+                    },
+                    {
+                        path: 'stp',
+                        component: StpComponent
+                    },
+                    {
+                        path: 'create',
+                        component: CreateCustomerComponent
+                    },
+                    {
+                        path: 'update/:id',
+                        component: UpdateCustomerComponent
+                    },
+
+                ]
+            },
+
+            // add territories routes
+            {
+                path: 'territories',
+                children: [
+                    {
+                        path: 'regions',
+                        children: [
+                            {
+                                path: '',
+                                component: RegionComponent,
+                            },
+                            {
+                                path: ':region_id/areas',
+                                children: [
+                                    {
+                                        path: '',
+                                        component: AreaComponent,
+                                    },
+                                    {
+                                        path: ':area_id/headquarters',
+                                        children: [
+                                            {
+                                                path: '',
+                                                component: HeadquarterComponent,
+                                            },
+                                            {
+                                                path: ':headquarter_id/territories',
+                                                children: [
+                                                    {
+                                                        path: '',
+                                                        component: TerritoryComponent,
+                                                    },
+                                                    {
+                                                        path: ':territory_id/bricks',
+                                                        children: [
+                                                            {
+                                                                path: '',
+                                                                component: BrickComponent
+                                                            },
+                                                            {
+                                                                path: 'create',
+                                                                component: CreateBrickComponent
+                                                            },
+                                                            {
+                                                                path: 'update/:id',
+                                                                component: UpdateBrickComponent
+                                                            },
+                                                        ]
+                                                    },
+                                                ]
+                                            },
+                                        ]
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+                ]
+            },
+
+            // add stp routes
+            {
+                path: 'stps',
+                children: [
+                    {
+                        path: ':country_id',
+                        component: RegionStpComponent,
+                    },
+                    {
+                        path: ':country_id/regions/:region_id',
+                        component: AreaStpComponent,
+                    },
+                    {
+                        path: ':country_id/regions/:region_id/areas/:area_id',
+                        component: HeadquarterStpComponent,
+                    },
+                    {
+                        path: ':country_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id',
+                        component: TerritoryStpComponent,
+                    },
+                    {
+                        path: ':country_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id/territories/:territory_id',
+                        component: BrickStpComponent,
+                    }
+                ]
+            },
+            {
+                path: 'messages',
+                children: [
+                    {
+                        path: '',
+                        component: MessageListComponent,
+                    },
+                ]
+            },
+            {
+                path: 'sales',
+                children: [
+                    {
+                        path: 'secondary',
+                        children: [
+                            {
+                                path: '',
+                                component: SecondarySaleComponent
+                            },
+                            {
+                                path: 'create/:month/:year/:id',
+                                component: SecondarySaleCreateComponent
+                            },
+                            {
+                                path: 'region',
+                                component: SecondarySaleZSMComponent
+                            },
+                            {
+                                path: 'hq_wise',
+                                component: SecondarySaleHqWiseComponent
+                            },
+                            {
+                                path: 'product_wise/:month/:year/:id',
+                                component: ProductWiseHqComponent
+                            },
+                        ]
+                    },
+                ]
+            },
+            {
+                path: 'primary',
+                children: [
+                    {
+                        path: 'invoices',
+                        children: [
+                            {
+                                path: '',
+                                component: PrimarySaleComponent
+                            }
+                        ]
+                    },
+                ]
+            },
+            {
+                path: 'products',
+                children: [
+                    {
+                        path: '',
+                        component: ProductComponent,
+                    },
+                ]
+            },
+            {
+                path: 'reports',
+                children: [
+                    {
+                        path: 'brick_wise_customers',
+                        component: BrickWiseCustomerComponent,
+                    }, {
+                        path: 'hq_wise_visits',
+                        component: HQWiseVisitComponent,
+                    }, {
+                        path: 'stockist_wise_pob',
+                        component: StockistWisePobComponent,
+                    }, {
+                        path: 'synergy_stockist_wise_pob',
+                        component: SynergyStockistWisePobComponent,
+                    }, {
+                        path: 'executive_summary',
+                        component: ExecutiveSummaryComponent,
+                    }, {
+                        path: 'productivity_analysis',
+                        component: ProductivityAnalysisReportComponent,
+                    }, {
+                        path: 'sap_stockist_wise',
+                        component: SapStockistWiseComponent,
+                    }, {
+                        path: 'headquarter_wise_report',
+                        component: HeadQuarterWiseReportComponent,
+                    }
+                ]
+            },
+
+            {
+                path: 'videos',
+                component: VideoComponent
+            },
+
+            // Abbott STP
+            {
+                path: 'abbott',
+                children: [
+                    {
+                        path: 'stps',
+                        children: [
+                            {
+                                path: '',
+                                component: AbbottStpComponent
+                            },
+                            {
+                                path: 'agra',
+                                component: AgraHQComponent
+                            },
+                            {
+                                path: 'ballia',
+                                component: BalliaHQComponent
+                            },
+                            {
+                                path: 'bareilly',
+                                component: BareillyHQComponent
+                            },
+                            {
+                                path: 'dehradun',
+                                component: DehradunHQComponent
+                            },
+                            {
+                                path: 'ghaziabad',
+                                component: GhaziabadHQComponent
+                            },
+                            {
+                                path: 'kanpur',
+                                component: KanpurHQComponent
+                            },
+                            {
+                                path: 'lucknow',
+                                component: LucknowHQComponent
+                            },
+                            {
+                                path: 'meerut',
+                                component: MeerutHQComponent
+                            },
+                            {
+                                path: 'moradabad',
+                                component: MoradabadHQComponent
+                            },
+                            {
+                                path: 'padrauna',
+                                component: PadraunaHQComponent
+                            },
+                            {
+                                path: 'sitapur',
+                                component: SitapurHQComponent
+                            },
+                        ]
+                    },
+                ]
+            }
         ]
-      }
-    ]
-  },
+    },
+    {
+        path: 'v2',
+        component: BaseComponent,
+        children: [
 
-  // Add login route
-  {
-    path: 'login',
-    component: LoginComponent
-  }
+            {
+                path: 'users',
+                children: [
+                    {
+                        path: '',
+                        component: V2UserComponent
+                    }
+                ]
+            }
+        ]
+    },
+
+    // Add login route
+    {
+        path: 'login',
+        component: LoginComponent
+    }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
