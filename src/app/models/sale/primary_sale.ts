@@ -9,6 +9,7 @@ export class PrimarySale extends Model {
   doc_date: string;
   customer_id: number;
   uom_id: number;
+  product_id: number;
   customer: Customer;
   uom: UOM;
   net_amt: number;
@@ -54,6 +55,9 @@ export class PrimarySale extends Model {
 
     if (info.hq_headquarter_id)
       this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
+
+    if (info.product_id)
+      this.product_id = parseInt(info.product_id);
 
     if (info.product)
       this.product = new Product(info.product);

@@ -7,6 +7,7 @@ import {Product} from "../../../../models/order/product";
 import {ActivatedRoute} from "@angular/router";
 import * as moment from "moment";
 import {Headquarter} from "../../../../models/territory/headquarter";
+import {PrimarySale} from "../../../../models/sale/primary_sale";
 declare let jQuery: any;
 
 @Component({
@@ -36,6 +37,7 @@ export class ProductWiseHqComponent extends ListComponent {
     secondary_sale: number = 0;
     secondary_value: number = 0;
     closing_value: number = 0;
+    primary_sale: number = 0;
 
     /**
      * title of page
@@ -105,13 +107,18 @@ export class ProductWiseHqComponent extends ListComponent {
                     return new SecondarySale(ss);
                 });
 
+                // get primary sales
+                let primaries = response.primary_sales.map(function (ps, index) {
+                    return new PrimarySale(ps)
+                });
+
                 // convert to models
                 this.products = response.products.map(function (product, index) {
                     return new Product(product);
                 });
 
                 // format data for display
-                this.formatSecondarySale(secondary_sales);
+                this.formatSecondarySale(secondary_sales, primaries);
             },
             err => {
                 this.loading = false;
@@ -123,8 +130,9 @@ export class ProductWiseHqComponent extends ListComponent {
      * format secondary sales
      *
      * @param secondary_sales
+     * @param primaries
      */
-    protected formatSecondarySale(secondary_sales: SecondarySale[]) {
+    protected formatSecondarySale(secondary_sales: SecondarySale[], primaries: PrimarySale[]) {
         // initialize totals
         this.opening = 0;
         this.closing = 0;
@@ -132,6 +140,7 @@ export class ProductWiseHqComponent extends ListComponent {
         this.secondary_sale = 0;
         this.secondary_value = 0;
         this.closing_value = 0;
+        this.primary_sale = 0;
 
         for (let pro of this.products) {
             for (let sale of secondary_sales) {
@@ -144,12 +153,20 @@ export class ProductWiseHqComponent extends ListComponent {
                     pro.uom = sale.uom;
                 }
             }
+
+            for(let ps of primaries){
+                if (pro.code == ps.prd_code) {
+                    pro.primary_sale = ps.total_net_amount;
+                }
+            }
+
             this.opening += pro.opening;
             this.closing += pro.closing;
+            this.primary_sale += pro.primary_sale;
             this.adjustment += pro.adjustment;
             this.secondary_sale += pro.secondary_sale;
             this.secondary_value += (pro.secondary_sale * pro.unit_price);
-            this.closing_value += (pro.closing * pro.unit_price);
+            this.closing_value += (pro.amount_closing);
         }
     }
 

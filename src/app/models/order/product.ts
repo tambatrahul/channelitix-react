@@ -97,4 +97,9 @@ export class Product extends Model {
     get closing_amount(): number {
         return this.closing_qty * this.unit_price;
     }
+
+    get amount_closing() : number {
+        return (this.opening * this.unit_price) + this.primary_sale + (this.adjustment * this.unit_price) -
+            (this.secondary_sale * this.unit_price);
+    }
 }

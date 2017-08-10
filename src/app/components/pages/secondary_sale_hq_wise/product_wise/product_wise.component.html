@@ -44,6 +44,7 @@
                   </template>
                   <th>Product(Qty)</th>
                   <th>UOM(Qty)</th>
+                  <th>Primary Sale(<i class="fa fa-rupee"></i>)</th>
                   <th>Opening(Qty)</th>
                   <th>Inventory Adjustment(Qty)</th>
                   <th>Secondary Sale(Qty)</th>
@@ -57,20 +58,22 @@
                 <tr *ngFor="let pro of products;">
                   <th>{{ pro?.name }}</th>
                   <td>{{ pro.uom.name }}</td>
+                  <td>{{ pro.primary_sale.toFixed(0)| number : fractionSize }}</td>
                   <td>{{ (pro.opening).toFixed(0) }}</td>
                   <td>{{ (pro.adjustment).toFixed(0) }}</td>
                   <td>{{ (pro.secondary_sale).toFixed(0) }}</td>
                   <td>{{ (pro.closing).toFixed(0) }}</td>
                   <td>{{ (pro.secondary_sale * pro.unit_price).toFixed(0)| number : fractionSize }}</td>
-                  <td>{{ (pro.closing * pro.unit_price).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.amount_closing).toFixed(0)| number : fractionSize }}</td>
                 </tr>
                 <tr class="grey">
                   <th>Total</th>
                   <th></th>
-                  <th>{{ opening }}</th>
-                  <th>{{ adjustment }}</th>
-                  <th>{{ secondary_sale }}</th>
-                  <th>{{ closing }}</th>
+                  <th>{{ primary_sale.toFixed(0)| number : fractionSize }}</th>
+                  <th>{{ opening.toFixed(0) }}</th>
+                  <th>{{ adjustment.toFixed(0) }}</th>
+                  <th>{{ secondary_sale.toFixed(0) }}</th>
+                  <th>{{ closing.toFixed(0) }}</th>
                   <th>{{ (secondary_value).toFixed(0)| number : fractionSize }}</th>
                   <th>{{ (closing_value).toFixed(0)| number : fractionSize }}</th>
                 </tr>
