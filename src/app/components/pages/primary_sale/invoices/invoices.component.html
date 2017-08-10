@@ -33,7 +33,7 @@
                     <template ngFor let-ps [ngForOf]="primary_sales" let-i="index">
                         <tr *ngIf="ps.customer">
                             <td>{{ i+1 }}</td>
-                            <td>{{ ps.stockist_code }}</td>
+                            <th class="text-center">{{ ps.stockist_code }}</th>
                             <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
                             <td>{{ ps.customer.hq_brick.name}}</td>
                             <td>{{ ps.customer.hq_territory.name}}</td>

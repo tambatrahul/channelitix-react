@@ -1,48 +1,50 @@
 <div class="box-widget widget-module user_tour">
-    <div class="widget-container" #loading_box>
-        <div class="widget-block">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="product_wise_sale">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Total Amount</th>
-                    </tr>
-                    </thead>
+  <div class="widget-container" #loading_box>
+    <div class="widget-block">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="product_wise_sale">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Total Amount</th>
+          </tr>
+          </thead>
 
-                    <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Total Amount</th>
-                    </tr>
-                    </tfoot>
+          <tfoot>
+          <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Total Amount</th>
+          </tr>
+          </tfoot>
 
-                    <tbody>
-                    <tr class="grey">
-                        <th></th>
-                        <th>Total Amount</th>
-                        <th colspan="2" class="align-right"><i class="fa fa-rupee"></i> {{ total_amount.toFixed(2) | number : fractionSize }}</th>
-                    </tr>
-                    <template ngFor let-item [ngForOf]="products" let-i="index">
-                        <tr>
-                            <td>{{ i+1 }}</td>
-                            <th>
-                                {{ item.name }}
-                            </th>
-                            <td>{{ item.invoice_detail? item.invoice_detail.total_qty: 0 }}</td>
-                            <td><i class="fa fa-rupee"></i> {{ (item.invoice_detail?
-                                item.invoice_detail.total_net_amount: 0) | number}}
-                            </td>
-                        </tr>
-                    </template>
+          <tbody>
+          <tr class="grey">
+            <th></th>
+            <th>Total Amount</th>
+            <th colspan="2" class="align-right"><i class="fa fa-rupee"></i> {{ total_amount.toFixed(2) | number :
+              fractionSize }}
+            </th>
+          </tr>
+          <template ngFor let-item [ngForOf]="products" let-i="index">
+            <tr>
+              <td>{{ i+1 }}</td>
+              <th>
+                {{ item.name }}
+              </th>
+              <td>{{ item.invoice_detail? item.invoice_detail.total_qty: 0 | number }}</td>
+              <td><i class="fa fa-rupee"></i>
+                {{ (item.invoice_detail? item.invoice_detail.total_net_amount: 0) | number }}
+              </td>
+            </tr>
+          </template>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>
