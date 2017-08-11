@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {ListComponent} from "../../base/list.component";
-import {AuthService} from "../../../services/AuthService";
 import * as moment from "moment";
-import {Territory} from "../../../models/territory/territory";
-import {Headquarter} from "../../../models/territory/headquarter";
-import {Area} from "../../../models/territory/area";
-import {Customer} from "../../../models/customer/customer";
-import {CustomerService} from "../../../services/customer.service";
+import {ListComponent} from "../../../base/list.component";
+import {Territory} from "../../../../models/territory/territory";
+import {Headquarter} from "../../../../models/territory/headquarter";
+import {AuthService} from "../../../../services/AuthService";
+import {CustomerService} from "../../../../services/customer.service";
+import {Customer} from "../../../../models/customer/customer";
+import {environment} from "../../../../../environments/environment";
 declare let jQuery: any;
 
 @Component({
@@ -31,7 +31,6 @@ export class CustomerMissingComponent extends ListComponent {
     public area_id: number = 0;
     public headquarter_id: number = 0;
     public _headquarters: Headquarter[] = [];
-    public _areas: Area[] = [];
     btn_loading: boolean = false;
 
     /**
@@ -48,6 +47,25 @@ export class CustomerMissingComponent extends ListComponent {
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
+
+        if (environment.envName == 'geo') {
+            if (this._service.user.role_id == 4) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+            }
+            else if (this._service.user.role_id == 5) {
+                this.region_id = this._service.user.hq_region_id;
+            }
+        }
+        else {
+            if (this._service.user.role_id == 4) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+            }
+            else if (this._service.user.role_id == 5) {
+                this.region_id = this._service.user.hq_region_id;
+            }
+        }
     }
 
     /**
@@ -55,9 +73,6 @@ export class CustomerMissingComponent extends ListComponent {
      */
     fetch() {
         this.loading = true;
-
-        console.log(this.headquarter_id);
-
         this.customerService.customer_missing(this.region_id, this.area_id, this.headquarter_id, this.month + 1, this.year).subscribe(
             response => {
                 // get territories
@@ -113,14 +128,6 @@ export class CustomerMissingComponent extends ListComponent {
     }
 
     /**
-     * get areas
-     */
-    areas(data) {
-        this._areas = data.areas;
-        this.fetch();
-    }
-
-    /**
      * get headquarters
      */
     headquarters(data) {
@@ -165,5 +172,24 @@ export class CustomerMissingComponent extends ListComponent {
         this.month = date.month;
         this.year = date.year;
         this.fetch();
+    }
+
+    /**
+     * Download Excel For Executive Summary
+     */
+    download() {
+
+        this.customerService.customer_missing_download(this.region_id, this.area_id, this.headquarter_id, this.month + 1, this.year).subscribe(
+            response => {
+                let blob: Blob = response.blob();
+
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "customer_missing_report.xls";
+                link.click();
+            },
+            err => {}
+        );
     }
 }

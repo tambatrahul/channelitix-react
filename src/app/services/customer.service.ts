@@ -236,4 +236,31 @@ export class CustomerService extends BaseService {
         // make server call
         return this.get(url, new RequestOptions({search: params}));
     }
+
+    /**
+     * Missing Customer Download
+     *
+     * @param region_id
+     * @param area_id
+     * @param headquarter_id
+     * @param month
+     * @param year
+     * @returns {Observable<Response>}
+     */
+    customer_missing_download(region_id?: number, area_id?: number, headquarter_id?: number,
+                              month?: number, year?: number):  Observable< Response> {
+        // prepare get params
+        let params = new URLSearchParams();
+        params.append('region_id', String(region_id));
+        params.append('area_id', String(area_id));
+        params.append('headquarter_id', String(headquarter_id));
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        return this.http.get(this.getBaseUrl() + '/missing/brick_wise/' + month + "/" + year + "/download", content);
+    }
 }

@@ -66,7 +66,7 @@ import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
-import {CustomerMissingComponent} from "./components/pages/customer_missing/index.component";
+import {CustomerMissingComponent} from "./components/pages/customer/customer_missing/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -212,7 +212,7 @@ export const routes: Routes = [
             component: UpdateCustomerComponent
           },
           {
-            path: 'customer_missing',
+            path: 'missing',
             component: CustomerMissingComponent
           },
 

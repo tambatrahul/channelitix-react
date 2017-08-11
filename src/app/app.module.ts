@@ -174,8 +174,7 @@ import {ProductSalePlanComponent} from "./components/pages/sales_planning/produc
 import {PrimarySaleAboveComponent} from "./components/pages/sales_planning/primary_sale_above_component/primary_sale_above_component.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
-import {CustomerMissingComponent} from "./components/pages/customer_missing/index.component";
-
+import {CustomerMissingComponent} from "./components/pages/customer/customer_missing/index.component";
 
 enableProdMode();
 @NgModule({

@@ -11,23 +11,29 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xs-12 col-md-3"  *ngIf="headquarter_id > 0">
+                <a class="btn btn-primary btn-block btn-margin"  style="margin-top: 25px;"
+                   (click)="download()">
+                    Export to xlsx
+                </a>
+            </div>
         </div>
     </div>
     <!-- Page Breadcrumb -->
 
     <!-- Filters for report-->
     <div class="row" style="padding-bottom: 10px;">
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-2">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
-        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
             <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
                            (onValueChanged)="regionChanged($event)"></region-select>
         </div>
-        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
             <div *ngIf="region_id > 0">
                 <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
-                             [first_value]="'Select Area'" (_areas)="areas($event)"
+                             [first_value]="'Select Area'"
                              (onValueChanged)="areaChanged($event)"></area-select>
             </div>
         </div>
@@ -107,8 +113,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+            <div *ngIf="headquarter_id == ''  ||  headquarter_id==0" style="height: 350px"></div>
         </div>
     </div>
     <!-- ./Report Table -->
