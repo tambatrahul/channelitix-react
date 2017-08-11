@@ -215,4 +215,25 @@ export class CustomerService extends BaseService {
         return this.http.get(this.getBaseUrl() + '/excel/download', content);
 
     }
+
+    /**
+     * get details till month
+     * @returns {Observable<Result>}
+     */
+    customer_missing(region_id?: number, area_id?: number, headquarter_id?: number,
+                     month?: number, year?: number): Observable<Result> {
+
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.append('region_id', String(region_id));
+        params.append('area_id', String(area_id));
+        params.append('headquarter_id', String(headquarter_id));
+
+        // prepare url
+        let url = this.getBaseUrl() + '/missing/brick_wise/' + month + '/' + year;
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
 }

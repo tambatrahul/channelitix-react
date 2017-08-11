@@ -32,6 +32,8 @@ export class Customer extends Model {
   address: Address;
   synergy: boolean;
 
+  total_count: number = 0;
+
   // sales planning object
   plans: Object = {
     5: new SalesPlanningDetail({}),
@@ -143,6 +145,9 @@ export class Customer extends Model {
 
     if (info.sap_primary_sale)
       this.sap_primary_sale = parseInt(info.sap_primary_sale);
+
+    if (info.total_count)
+      this.total_count = parseInt(info.total_count);
   }
 
   /**
