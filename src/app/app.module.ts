@@ -175,6 +175,7 @@ import {PrimarySaleAboveComponent} from "./components/pages/sales_planning/prima
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
 import {CustomerMissingComponent} from "./components/pages/customer/customer_missing/index.component";
+import {ResetPasswordComponent} from "./components/pages/user/reset_password/reset_password.component";
 
 enableProdMode();
 @NgModule({
@@ -300,6 +301,7 @@ enableProdMode();
     DatePickerComponent,
     DeactivateUserComponent,
     PasswordResetComponent,
+    ResetPasswordComponent,
     VisitCountGraphComponent,
     SummaryVisitOrderGraphComponent,
     DatesSelectComponent,

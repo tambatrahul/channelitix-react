@@ -15,7 +15,7 @@
   <th>MTD % ACH</th>
   <td>
     <div class="cell"
-         [ngClass]="{'green': total_primary_sale >= total_target, 'orange': total_primary_sale >= (total_target * 0.9), 'red': total_primary_sale < (total_target * 0.9)}">
+         [ngClass]="{'green': ((total_primary_sale / total_target)* 100).toFixed(2) > 100, 'orange': ((total_primary_sale / total_target)* 100).toFixed(2) > 90 && ((total_primary_sale / total_target)* 100).toFixed(2) < 100, 'red': ((total_primary_sale / total_target)* 100).toFixed(2) < 90}">
     </div>
     <a routerLink="/reports/executive_summary">
       {{ (total_target > 0) ? ((total_primary_sale / total_target)* 100).toFixed(2) : 0 }} %
@@ -23,7 +23,7 @@
   </td>
   <td *ngFor="let r of regions">
     <div class="cell"
-         [ngClass]="{'green': r.primary >= r.target, 'orange': r.primary >= (r.target * 0.9), 'red': r.primary < (r.target * 0.9)}">
+         [ngClass]="{'green': ((r.primary / r.target)* 100).toFixed(2) > 100, 'orange': ((r.primary / r.target)* 100).toFixed(2) > 90 && ((r.primary / r.target)* 100).toFixed(2) < 100, 'red': ((r.primary / r.target)* 100).toFixed(2) < 90}">
 
     </div>
     <a routerLink="/reports/executive_summary">
