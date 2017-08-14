@@ -204,7 +204,12 @@ export class SalesComponent extends ListComponent {
      * @returns {number}
      */
     get onTargetCount() {
-        return this.products.filter(prd => prd.onTarget).length;
+        let value = 0;
+        this.regions.map(region => {
+            value += region.products.filter(prd => prd.onTarget).length;
+        });
+
+        return value;
     }
 
     /**
