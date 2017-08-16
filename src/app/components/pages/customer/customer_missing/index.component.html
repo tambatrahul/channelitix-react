@@ -14,7 +14,7 @@
             <div class="col-xs-12 col-md-3"  *ngIf="headquarter_id > 0">
                 <a class="btn btn-primary btn-block btn-margin"  style="margin-top: 25px;"
                    (click)="download()">
-                    Export to xlsx
+                    Download Missed Customers(xlsx)
                 </a>
             </div>
         </div>
@@ -44,9 +44,9 @@
                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
             </div>
         </div>
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-3" *ngIf="_service.user.role_id != 3">
             <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;width: 25%;"
-               *ngIf="headquarter_id > 0"
+               *ngIf="headquarter_id >0"
                (click)="fetch()">
                 Go
             </a>
@@ -76,21 +76,21 @@
                                         <tr>
                                             <th colspan="7">Territory</th>
                                         </tr>
-                                        <tr>
-                                            <th>Brick</th>
-                                            <th>Total Customer</th>
-                                            <th>Stockist</th>
-                                            <th>Semi</th>
-                                            <th>Retailer</th>
-                                            <th>Hub Chemist</th>
-                                            <th>Healthcare Provider</th>
+                                        <tr style="background-color: #3498db;color: white">
+                                            <th style="font-weight: bold">Brick</th>
+                                            <th style="font-weight: bold">Total Missed Customer</th>
+                                            <th style="font-weight: bold">Stockist</th>
+                                            <th style="font-weight: bold">Semi</th>
+                                            <th style="font-weight: bold">Retailer</th>
+                                            <th style="font-weight: bold">Hub Chemist</th>
+                                            <th style="font-weight: bold">Healthcare Provider</th>
                                         </tr>
                                         </thead>
 
                                         <tbody>
                                         <template ngFor let-ter [ngForOf]="territories">
-                                            <tr class="grey">
-                                                <th colspan="7" style="text-align: center">{{ter.name}}</th>
+                                            <tr class="dark_grey">
+                                                <th colspan="7" style="text-align: center ;font-weight: bold">{{ter.name}}</th>
                                             </tr>
                                             <tr *ngFor="let brick of ter.hq_bricks">
                                                 <td style="text-align: left">
@@ -98,12 +98,16 @@
                                                 </td>
                                                 <td>{{brick.customer_others + brick.customer_semi +
                                                     brick.customer_retailer + brick.customer_hub_chemist +
-                                                    brick.customer_physician }}</td>
-                                                <td>{{brick.customer_others}}</td>
-                                                <td>{{brick.customer_semi}}</td>
-                                                <td>{{brick.customer_retailer}}</td>
-                                                <td>{{brick.customer_hub_chemist}}</td>
-                                                <td>{{brick.customer_physician}}</td>
+                                                    brick.customer_physician}} /
+                                                    {{brick.total_customer_others + brick.total_customer_semi +
+                                                    brick.total_customer_retailer + brick.total_customer_hub_chemist +
+                                                    brick.total_customer_physician }}
+                                                </td>
+                                                <td>{{brick.customer_others}} / {{brick.total_customer_others}}</td>
+                                                <td>{{brick.customer_semi}} / {{brick.total_customer_semi}}</td>
+                                                <td>{{brick.customer_retailer}} / {{brick.total_customer_retailer}}</td>
+                                                <td>{{brick.customer_hub_chemist}} / {{brick.total_customer_hub_chemist}}</td>
+                                                <td>{{brick.customer_physician}} / {{brick.total_customer_physician}}</td>
                                             </tr>
                                         </template>
                                         </tbody>

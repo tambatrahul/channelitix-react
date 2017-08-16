@@ -85,6 +85,7 @@ export class Result {
   // customer models
   customer: Customer;
   customers: Customer[];
+  cus_total_customers: Customer[];
   hq_wise_customers: Customer[];
   customer_types: CustomerType[];
   customer_grades: Grade[];

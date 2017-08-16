@@ -56,6 +56,11 @@ export class CustomerMissingComponent extends ListComponent {
             else if (this._service.user.role_id == 5) {
                 this.region_id = this._service.user.hq_region_id;
             }
+            else if (this._service.user.role_id == 3) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+                this.headquarter_id = this._service.user.hq_headquarter_id;
+            }
         }
         else {
             if (this._service.user.role_id == 4) {
@@ -64,6 +69,11 @@ export class CustomerMissingComponent extends ListComponent {
             }
             else if (this._service.user.role_id == 5) {
                 this.region_id = this._service.user.hq_region_id;
+            }
+            else if (this._service.user.role_id == 3) {
+                this.region_id = this._service.user.hq_region_id;
+                this.area_id = this._service.user.hq_area_id;
+                this.headquarter_id = this._service.user.hq_headquarter_id;
             }
         }
     }
@@ -76,13 +86,16 @@ export class CustomerMissingComponent extends ListComponent {
         this.customerService.customer_missing(this.region_id, this.area_id, this.headquarter_id, this.month + 1, this.year).subscribe(
             response => {
                 // get territories
-                let territories = response.territories.map(territory => new Territory(territory))
+                let territories = response.territories.map(territory => new Territory(territory));
 
                 // get customers
                 let customers = response.customers.map(customer => new Customer(customer));
 
+                // get total customers
+                let total_customers = response.cus_total_customers.map(customer => new Customer(customer));
+
                 // prepare data for display
-                this.prepareData(territories, customers);
+                this.prepareData(territories, customers, total_customers);
 
                 this.loading = false;
             }
@@ -92,33 +105,59 @@ export class CustomerMissingComponent extends ListComponent {
     }
 
     // Prepare Data For Display
-    prepareData(territories: Territory[], customers: Customer[]) {
+    prepareData(territories: Territory[], customers: Customer[], total_customers: Customer[]) {
         territories.map(ter => {
             ter.hq_bricks.map(brick => {
                 customers.map(cus => {
-                    if(brick.id == cus.hq_brick_id){
+                    if (brick.id == cus.hq_brick_id) {
 
-                        if(cus.customer_type_id == 1){
+                        if (cus.customer_type_id == 1) {
                             brick.customer_others = cus.total_count;
                         }
 
-                        if(cus.customer_type_id == 2){
+                        if (cus.customer_type_id == 2) {
                             brick.customer_semi = cus.total_count;
                         }
 
-                        if(cus.customer_type_id == 3){
+                        if (cus.customer_type_id == 3) {
                             brick.customer_retailer = cus.total_count;
                         }
 
-                        if(cus.customer_type_id == 4){
+                        if (cus.customer_type_id == 4) {
                             brick.customer_hub_chemist = cus.total_count;
                         }
 
-                        if(cus.customer_type_id == 5){
+                        if (cus.customer_type_id == 5) {
                             brick.customer_physician = cus.total_count;
                         }
 
                     }
+                });
+
+                total_customers.map(total_cus => {
+                    if (brick.id == total_cus.hq_brick_id) {
+
+                        if (total_cus.customer_type_id == 1) {
+                            brick.total_customer_others = total_cus.total_customers;
+                        }
+
+                        if (total_cus.customer_type_id == 2) {
+                            brick.total_customer_semi = total_cus.total_customers;
+                        }
+
+                        if (total_cus.customer_type_id == 3) {
+                            brick.total_customer_retailer = total_cus.total_customers;
+                        }
+
+                        if (total_cus.customer_type_id == 4) {
+                            brick.total_customer_hub_chemist = total_cus.total_customers;
+                        }
+
+                        if (total_cus.customer_type_id == 5) {
+                            brick.total_customer_physician = total_cus.total_customers;
+                        }
+                    }
+
                 });
             })
         });
@@ -189,7 +228,8 @@ export class CustomerMissingComponent extends ListComponent {
                 link.download = "customer_missing_report.xls";
                 link.click();
             },
-            err => {}
+            err => {
+            }
         );
     }
 }

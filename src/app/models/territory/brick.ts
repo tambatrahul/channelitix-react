@@ -17,6 +17,13 @@ export class Brick extends Model {
   customer_hub_chemist: number = 0;
   customer_physician: number = 0;
   customer_semi: number = 0;
+
+  total_customer_others: number = 0;
+  total_customer_retailer: number = 0;
+  total_customer_hub_chemist: number = 0;
+  total_customer_physician: number = 0;
+  total_customer_semi: number = 0;
+
   customer_type_id: number;
   grade_id: number;
   customer_count: number = 0;
@@ -60,6 +67,21 @@ export class Brick extends Model {
 
     if (info.customer_physician)
       this.customer_physician = parseInt(info.customer_physician);
+
+    if (info.total_customer_others)
+      this.total_customer_others = parseInt(info.total_customer_others);
+
+    if (info.total_customer_hub_chemist)
+      this.total_customer_hub_chemist = parseInt(info.total_customer_hub_chemist);
+
+    if (info.total_customer_semi)
+      this.total_customer_semi = parseInt(info.total_customer_semi);
+
+    if (info.total_customer_retailer)
+      this.total_customer_retailer = parseInt(info.total_customer_retailer);
+
+    if (info.total_customer_physician)
+      this.total_customer_physician = parseInt(info.total_customer_physician);
 
     if (info.customer_count)
       this.customer_count = parseInt(info.customer_count);
