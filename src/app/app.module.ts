@@ -180,6 +180,7 @@ import {RoleButtonComponent} from "./v2/components/form_elements/user/role_butto
 import {V2DeactivateUserComponent} from "./v2/components/pages/users/deactivate_user/deactivate_user.component";
 import {V2PasswordResetComponent} from "./v2/components/pages/users/password_reset/password_reset.component";
 import {V2CreateUserComponent} from "./v2/components/pages/users/create/create.component";
+import {V2UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
 
 
 enableProdMode();
@@ -357,6 +358,7 @@ enableProdMode();
         V2DeactivateUserComponent,
         V2PasswordResetComponent,
         V2CreateUserComponent,
+        V2UpdateUserComponent,
     ],
     imports: [
         BrowserModule,
