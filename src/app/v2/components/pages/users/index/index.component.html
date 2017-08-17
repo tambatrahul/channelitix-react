@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-2">
                 <div style="padding-top: 30px;">
-                    <a class="btn btn-primary" routerLink="/users/create">New User</a>
+                    <a class="btn btn-primary" routerLink="/v2/users/create">New User</a>
                 </div>
             </div>
         </div>
@@ -34,61 +34,94 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <role_button [role_id]="role_id" [status]="status" [region_id]="region_id"
+                         [area_id]="area_id" (roleChanged)="onRoleChanged($event)"></role_button>
+        </div>
     </div>
 
     <!-- User List Table -->
     <div class="row">
         <div class="col-xs-12">
             <div class="box-widget widget-module">
-                <div>
-                    <div class="widget-container report-table">
-                        <div class="widget-block">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Full Name</th>
-                                        <th>Username</th>
-                                        <th>Mobile</th>
-                                        <th>Region</th>
-                                        <th>Area</th>
-                                        <th>Headquarter</th>
-                                        <th>Joining Date</th>
-                                        <th>Leaving Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
+                <div class="widget-head clearfix">
+                    <span class="h-icon"><i class="fa fa-table"></i></span>
+                    <h4>Users Table</h4>
 
-                                    <tfoot>
-                                    <tr>
-                                        <th>Full Name</th>
-                                        <th>Username</th>
-                                        <th>Mobile</th>
-                                        <th>Region</th>
-                                        <th>Area</th>
-                                        <th>Headquarter</th>
-                                        <th>Joining Date</th>
-                                        <th>Leaving Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </tfoot>
+                    <div style="text-align: right; padding: 20px;">
+                        Show
+                        <button class="btn btn-primary btn-xs" (click)="statusChanged('active')">
+                            Activate
+                        </button>
+                        <button class="btn btn-danger btn-xs" (click)="statusChanged('in_active')">
+                            Deactivate
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-container user-table">
+                    <div class="widget-block" style="padding: 0px;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Full Name</th>
+                                    <th>Username</th>
+                                    <th>Mobile</th>
+                                    <th>Region</th>
+                                    <th>Area</th>
+                                    <th>Headquarter</th>
+                                    <th>Joining Date</th>
+                                    <th>Leaving Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
 
-                                    <tbody>
-                                    <tr *ngFor="let user of users">
-                                        <td>{{ user.full_name }}</td>
-                                        <td>{{ user.username }}</td>
-                                        <td>{{ user.mobile }}</td>
-                                        <td>{{ user.hq_region?.name }}</td>
-                                        <td>{{ user.hq_area?.name}}</td>
-                                        <td>{{ user.hq_headquarter?.name}}</td>
-                                        <td>{{ user?.joining_date }}</td>
-                                        <td>{{ user?.leaving_date }}</td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Full Name</th>
+                                    <th>Username</th>
+                                    <th>Mobile</th>
+                                    <th>Region</th>
+                                    <th>Area</th>
+                                    <th>Headquarter</th>
+                                    <th>Joining Date</th>
+                                    <th>Leaving Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </tfoot>
+
+                                <tbody>
+                                <tr *ngFor="let user of users">
+                                    <td>
+                                        <div class="task-thumb">
+                                            <img alt="user" class="image-circle"
+                                                 src="assets/images/avatar/manager1.png">
+                                        </div>
+                                    </td>
+                                    <td>{{ user.full_name }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.mobile }}</td>
+                                    <td>{{ user.hq_region?.name }}</td>
+                                    <td>{{ user.hq_area?.name}}</td>
+                                    <td>{{ user.hq_headquarter?.name}}</td>
+                                    <td>{{ user?.joining_date }}</td>
+                                    <td>{{ user?.leaving_date }}</td>
+                                    <td>
+                                        <a class="btn btn-default btn-xs" *ngIf="user.status == 'active'"
+                                           style="cursor: pointer;" title="Update" (click)="updateUser(user.id)">Edit</a>
+                                        <button class="btn btn-danger btn-xs" (click)="deactivateUser(user)"
+                                                *ngIf="user.status == 'active'">
+                                            Deactivate
+                                        </button>
+                                        <button *ngIf="user.status == 'active'" class="btn btn-primary btn-xs" (click)="passwordReset('in_active')">
+                                            Reset Password
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -96,4 +129,17 @@
         </div>
     </div>
     <!-- ./User List Table -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <deactivate-user-v2 [user]="deactivating_user"
+                             (userDeactivated)="onUserDeactivation($event)"></deactivate-user-v2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <password-reset-v2 [user]="reset_password" (passwordReset)="onPasswordReset($event)"></password-reset-v2>
+        </div>
+    </div>
 </div>

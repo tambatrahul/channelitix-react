@@ -66,6 +66,8 @@ import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_pl
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
 import {V2UserComponent} from "./v2/components/pages/users/index/index.component";
+import {V2CreateUserComponent} from "./v2/components/pages/users/create/create.component";
+import {V2UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -469,7 +471,15 @@ export const routes: Routes = [
           {
             path: '',
             component: V2UserComponent
-          }
+          },
+          {
+            path: 'create',
+            component: V2CreateUserComponent
+          },
+          {
+            path: 'update/:id',
+            component: V2UpdateUserComponent
+          },
         ]
       }
     ]

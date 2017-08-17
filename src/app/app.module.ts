@@ -176,6 +176,10 @@ import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
 import {V2UserComponent} from "./v2/components/pages/users/index/index.component";
 import {V2UserService} from "./services/v2/user.service";
+import {RoleButtonComponent} from "./v2/components/form_elements/user/role_button/role_button.component";
+import {V2DeactivateUserComponent} from "./v2/components/pages/users/deactivate_user/deactivate_user.component";
+import {V2PasswordResetComponent} from "./v2/components/pages/users/password_reset/password_reset.component";
+import {V2CreateUserComponent} from "./v2/components/pages/users/create/create.component";
 
 
 enableProdMode();
@@ -348,7 +352,11 @@ enableProdMode();
         SitapurHQComponent,
 
         // Version 2 Models
-        V2UserComponent
+        V2UserComponent,
+        RoleButtonComponent,
+        V2DeactivateUserComponent,
+        V2PasswordResetComponent,
+        V2CreateUserComponent,
     ],
     imports: [
         BrowserModule,

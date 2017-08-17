@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../AuthService";
 import {Result} from "../../models/result";
 import {V2BaseService} from "./base.service";
+import {User} from "../../models/user/user";
 @Injectable()
 export class V2UserService extends V2BaseService {
 
@@ -28,7 +29,7 @@ export class V2UserService extends V2BaseService {
     /**
      * get children for user
      */
-    all(role_id?: number, status?: boolean, region_id?: number, area_id?: number): Observable<Result> {
+    all(role_id?: number, status?: string, region_id?: number, area_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/';
@@ -42,5 +43,40 @@ export class V2UserService extends V2BaseService {
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * Get User
+     */
+    read(id: number): Observable<Result> {
+        return this.get(this.getBaseUrl() + '/' + id);
+    }
+
+    /**
+     * Create new User
+     */
+    create(user: User): Observable<Result> {
+        return this.post(this.getBaseUrl(), user)
+    }
+
+    /**
+     * Update User
+     */
+    update(user: User, id: number): Observable<Result> {
+        return this.put(this.getBaseUrl() + '/' + id, user)
+    }
+
+    /**
+     * Deactivate user
+     */
+    deactivate(data, user_id): Observable<Result> {
+        return this.put(this.getBaseUrl() + '/' + user_id + '/deactivate', data)
+    }
+
+    /**
+     * Reset Password
+     */
+    reset_password(data, id): Observable<Result> {
+        return this.put(this.getBaseUrl() + '/' + id + '/change_password', data)
     }
 }

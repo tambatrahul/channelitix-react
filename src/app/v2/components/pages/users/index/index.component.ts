@@ -6,7 +6,6 @@ import {AuthService} from "../../../../../services/AuthService";
 import {V2UserService} from "../../../../../services/v2/user.service";
 declare let jQuery: any;
 
-
 @Component({
     templateUrl: 'index.component.html',
     styleUrls: ['index.component.less']
@@ -27,7 +26,7 @@ export class V2UserComponent extends ListComponent {
      * @type {number}
      */
     public role_id: number = 3;
-    public status: boolean = true;
+    public status: string = "active";
     public region_id: number = 0;
     public area_id: number = 0;
 
@@ -68,7 +67,6 @@ export class V2UserComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-
         this.userService.all(this.role_id, this.status, this.region_id, this.area_id).subscribe(
             response => {
                 this.users = response.users;
@@ -93,7 +91,7 @@ export class V2UserComponent extends ListComponent {
      * Update User
      */
     updateUser(id: number) {
-        this._router.navigate(['/users/update/', id]);
+        this._router.navigate(['/v2/users/update/', id]);
     }
 
     /**
@@ -155,6 +153,24 @@ export class V2UserComponent extends ListComponent {
      */
     areaChanged(area_id) {
         this.area_id = area_id;
+        this.fetch();
+    }
+
+    /**
+     * on user reset password
+     *
+     * @param data
+     */
+    onRoleChanged(data) {
+        this.users = data.users;
+    }
+
+    /**
+     * when starus is changed filter list of customer
+     * @param starus
+     */
+    statusChanged(starus){
+        this.status = starus;
         this.fetch();
     }
 }
