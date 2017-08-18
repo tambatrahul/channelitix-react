@@ -32,6 +32,9 @@ export class Attendance extends Model {
     hq_headquarter_id: number = 0;
     attendance_count: number = 0;
 
+    casual_leave_count: number = 0;
+    sick_leave_count: number = 0;
+    privilege_leave_count: number = 0;
 
     constructor(info: any) {
         super(info.id);
@@ -77,5 +80,14 @@ export class Attendance extends Model {
 
         if (info.attendance_count)
             this.attendance_count = parseInt(info.attendance_count);
+
+        if (info.casual_leave_count)
+            this.casual_leave_count = parseInt(info.casual_leave_count);
+
+        if (info.sick_leave_count)
+            this.sick_leave_count = parseInt(info.sick_leave_count);
+
+        if (info.privilege_leave_count)
+            this.privilege_leave_count = parseInt(info.privilege_leave_count);
     }
 }

@@ -131,4 +131,25 @@ export class AttendanceService extends BaseService {
     report_submit(date: string) {
         return this.post(this.getBaseUrl() + '/' + date + '/submit_report');
     }
+
+    /**
+     * Leave Report
+     *
+     * @param month
+     * @param year
+     * @param region_id
+     * @returns {Observable<Result>}
+     */
+    leave_report(month: number, year: number, region_id?: number) : Observable<Result>{
+
+        // prepare url
+        let url = this.getBaseUrl() + '/leave_report/' + month + "/" + year;
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('region_id', String(region_id > 0 ? region_id : ''));
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
 }

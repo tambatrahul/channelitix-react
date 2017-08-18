@@ -68,6 +68,7 @@ import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
 import {CustomerMissingComponent} from "./components/pages/customer/customer_missing/index.component";
 import {ResetPasswordComponent} from "./components/pages/user/reset_password/reset_password.component";
+import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_report.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -131,6 +132,10 @@ export const routes: Routes = [
           {
             path: '',
             component: VisitComponent
+          },
+          {
+            path: 'leave_report',
+            component: LeaveReportComponent
           },
           {
             path: 'managers',

@@ -52,6 +52,10 @@ export class User extends Model {
   order_total_quantity: number = 0;
   user_count: number = 0;
 
+  casual_leave: number = 0;
+  sick_leave: number = 0;
+  privilege_leave: number = 0;
+
   constructor(info: any) {
     super(info.id);
     this.full_name = info.full_name;
@@ -97,6 +101,15 @@ export class User extends Model {
 
     if (info.mg_total_target)
       this.mg_total_target = parseFloat(info.mg_total_target);
+
+    if (info.casual_leave)
+      this.casual_leave = parseInt(info.casual_leave);
+
+    if (info.sick_leave)
+      this.sick_leave = parseInt(info.sick_leave);
+
+    if (info.privilege_leave)
+      this.privilege_leave = parseInt(info.privilege_leave);
   }
 
   get daily_target(): number {
