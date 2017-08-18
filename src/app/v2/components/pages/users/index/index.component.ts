@@ -25,7 +25,7 @@ export class V2UserComponent extends ListComponent {
      *
      * @type {number}
      */
-    public role_id: number = 3;
+    public role_id: number = 0;
     public status: string = "active";
     public region_id: number = 0;
     public area_id: number = 0;
@@ -154,15 +154,6 @@ export class V2UserComponent extends ListComponent {
     areaChanged(area_id) {
         this.area_id = area_id;
         this.fetch();
-    }
-
-    /**
-     * on user reset password
-     *
-     * @param data
-     */
-    onRoleChanged(data) {
-        this.users = data.users;
     }
 
     /**

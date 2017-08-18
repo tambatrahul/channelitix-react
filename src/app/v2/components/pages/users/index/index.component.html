@@ -35,8 +35,8 @@
             </div>
         </div>
         <div class="col-md-6">
-            <role_button [role_id]="role_id" [status]="status" [region_id]="region_id"
-                         [area_id]="area_id" (roleChanged)="onRoleChanged($event)"></role_button>
+            <role-button [role_id]="role_id"
+                         (onRoleChanged)="roleChanged($event)"></role-button>
         </div>
     </div>
 
@@ -108,16 +108,18 @@
                                     <td>{{ user.hq_headquarter?.name}}</td>
                                     <td>{{ user?.joining_date }}</td>
                                     <td>{{ user?.leaving_date }}</td>
-                                    <td>
+                                    <td style="width: 100px;;">
                                         <a class="btn btn-default btn-xs" *ngIf="user.status == 'active'"
-                                           style="cursor: pointer;" title="Update" (click)="updateUser(user.id)">Edit</a>
-                                        <button class="btn btn-danger btn-xs" (click)="deactivateUser(user)"
+                                           style="cursor: pointer;" title="Update" (click)="updateUser(user.id)">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-xs" (click)="deactivateUser(user)"
                                                 *ngIf="user.status == 'active'">
-                                            Deactivate
-                                        </button>
-                                        <button *ngIf="user.status == 'active'" class="btn btn-primary btn-xs" (click)="passwordReset('in_active')">
-                                            Reset Password
-                                        </button>
+                                           <i class="fa fa-minus-square-o"></i>
+                                        </a>
+                                        <a *ngIf="user.status == 'active'" class="btn btn-primary btn-xs" (click)="passwordReset('in_active')">
+                                            <i class="fa fa-lock"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>
