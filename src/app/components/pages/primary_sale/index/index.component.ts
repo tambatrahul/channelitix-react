@@ -55,6 +55,15 @@ export class PrimarySaleComponent extends ListComponent {
     ngOnInit() {
         this.month = moment().month();
         this.year = moment().year();
+
+        if (this._service.user.role_id == 4) {
+            this.region_id = this._service.user.hq_region_id;
+            this.area_id = this._service.user.hq_area_id;
+        }
+        else if (this._service.user.role_id == 5) {
+            this.region_id = this._service.user.hq_region_id;
+        }
+
         super.ngOnInit();
     }
 
