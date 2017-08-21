@@ -179,6 +179,7 @@ import {PasswordResetComponent} from "./v2/components/users/password_reset/passw
 import {CreateUserComponent} from "./v2/pages/users/create/create.component";
 import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
 
+import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_report.component";
 
 enableProdMode();
 @NgModule({
@@ -258,6 +259,7 @@ enableProdMode();
     SapStockistWiseComponent,
     ProductWiseSaleForSKComponent,
     CustomerMissingComponent,
+    LeaveReportComponent,
 
     //dashboard report Component
     SalesComponent,
