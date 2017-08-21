@@ -67,9 +67,10 @@ export class V2UserComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        this.userService.all(this.role_id, this.status, this.region_id, this.area_id).subscribe(
+        this.userService.all(this.role_id, this.status, this.region_id, this.area_id, this.page).subscribe(
             response => {
                 this.users = response.users;
+                this.total = response.total;
             },
             err => {
             }

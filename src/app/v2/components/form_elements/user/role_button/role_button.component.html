@@ -1,9 +1,12 @@
-<button class="btn btn-primary btn-xs" (click) = setRole(5)>
+<button class="btn btn-default btn-xs" (click) = setRole(5)
+        [ngClass]="{'btn-primary':_role_id == 5}">
     ZSM
 </button>
-<button class="btn btn-primary btn-xs" (click) = setRole(4)>
+<button class="btn btn-default btn-xs" (click) = setRole(4)
+        [ngClass]="{'btn-primary':_role_id == 4}">
     CSM
 </button>
-<button class="btn btn-primary btn-xs" (click) = setRole(3)>
+<button class="btn btn-default btn-xs" (click) = setRole(3)
+        [ngClass]="{'btn-primary':_role_id == 3}">
     CSE
 </button>
