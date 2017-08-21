@@ -169,13 +169,13 @@ import {ProductSalePlanComponent} from "./components/pages/sales_planning/produc
 import {PrimarySaleAboveComponent} from "./components/pages/sales_planning/primary_sale_above_component/primary_sale_above_component.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
-import {UserComponent} from "./v2/components/pages/users/index/index.component";
+import {UserComponent} from "./v2/pages/users/index/index.component";
 import {V2UserService} from "./services/v2/user.service";
 import {RoleButtonComponent} from "./v2/components/form_elements/user/role_button/role_button.component";
-import {DeactivateUserComponent} from "./v2/components/pages/users/deactivate_user/deactivate_user.component";
-import {PasswordResetComponent} from "./v2/components/pages/users/password_reset/password_reset.component";
-import {CreateUserComponent} from "./v2/components/pages/users/create/create.component";
-import {UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
+import {DeactivateUserComponent} from "./v2/components/users/deactivate_user/deactivate_user.component";
+import {PasswordResetComponent} from "./v2/components/users/password_reset/password_reset.component";
+import {CreateUserComponent} from "./v2/pages/users/create/create.component";
+import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
 
 
 enableProdMode();

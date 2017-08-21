@@ -1,19 +1,18 @@
-import * as moment from "moment";
 import {Component, Input, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
-import {FormComponent} from "../../../../../components/base/form.component";
-import {User} from "../../../../../models/user/user";
-import {AuthService} from "../../../../../services/AuthService";
-import {V2UserService} from "../../../../../services/v2/user.service";
+import {V2UserService} from "../../../../services/v2/user.service";
+import {AuthService} from "../../../../services/AuthService";
+import {FormComponent} from "../../../../components/base/form.component";
+import {User} from "../../../../models/user/user";
 declare let jQuery: any;
 declare let swal: any;
 
 @Component({
-  selector: 'deactivate-user',
-  templateUrl: 'deactivate_user.component.html'
+  selector: 'password-reset',
+  templateUrl: 'password_reset.component.html'
 })
-export class DeactivateUserComponent extends FormComponent {
+export class PasswordResetComponent extends FormComponent {
 
   /**
    * selected user
@@ -21,15 +20,10 @@ export class DeactivateUserComponent extends FormComponent {
   private _user: User;
 
   /**
-   * leaving date of user
-   */
-  public leaving_date: string;
-
-  /**
    * loading identifier
    */
-  @ViewChild('deactivating_modal')
-  deactivating_modal: ElementRef;
+  @ViewChild('password_reset_model')
+  password_reset_model: ElementRef;
 
   /**
    * user to deactivate
@@ -40,7 +34,7 @@ export class DeactivateUserComponent extends FormComponent {
   set user(user: User) {
     this._user = user;
     if (user.id) {
-      jQuery(this.deactivating_modal.nativeElement).modal();
+      jQuery(this.password_reset_model.nativeElement).modal();
     }
   }
 
@@ -59,7 +53,7 @@ export class DeactivateUserComponent extends FormComponent {
    * @type {EventEmitter}
    */
   @Output()
-  userDeactivated = new EventEmitter();
+  passwordReset = new EventEmitter();
 
   /**
    * user form
@@ -67,11 +61,12 @@ export class DeactivateUserComponent extends FormComponent {
    * @type {void|FormGroup}
    */
   public form = this._fb.group({
-    leaving_date: [""]
+    new_password: [""],
+    confirm_new_password: [""],
   });
 
   /**
-   * Deactivate user Constructor
+   * Password Reset user Constructor
    *
    * @param userService
    * @param _router
@@ -83,9 +78,11 @@ export class DeactivateUserComponent extends FormComponent {
     super(_service);
   }
 
-  ngOnInit() {
-    super.ngOnInit();
-    this.dateChanged(moment().format('DD MMMM YYYY'));
+  reset() {
+    this.form.patchValue({
+      new_password: [""],
+      confirm_new_password: [""]
+    });
   }
 
   /**
@@ -97,35 +94,24 @@ export class DeactivateUserComponent extends FormComponent {
     if (this.form.valid) {
       let data = this.form.value;
 
-      // format Deactivate date
-      if (data.leaving_date)
-        data.leaving_date = moment(data.leaving_date, "DD MMMM YYYY").format('YYYY-MM-DD');
-
       // make server call
-      this.userService.deactivate(data, this._user.id).subscribe(
+      this.userService.reset_password(data, this._user.id).subscribe(
         response => {
           swal({
-            title: "User Deactivated Successfully",
+            title: "Password Reset Successfully",
             text: "I will close in 2 sec.",
             type: "success",
             timer: 1500,
             showConfirmButton: false
           });
-          jQuery(self.deactivating_modal.nativeElement).modal('hide');
-          self.userDeactivated.emit(this._user);
+          this.reset();
+          jQuery(self.password_reset_model.nativeElement).modal('hide');
+          self.passwordReset.emit(this._user);
         },
         err => {
           this.errors = err.errors;
         }
       );
     }
-  }
-
-  /**
-   * on leaving date changed
-   */
-  dateChanged(date) {
-    this.leaving_date = date;
-    this.form.patchValue({leaving_date: date});
   }
 }

@@ -1,10 +1,10 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
-import {ListComponent} from "../../../../../components/base/list.component";
-import {User} from "../../../../../models/user/user";
-import {AuthService} from "../../../../../services/AuthService";
-import {V2UserService} from "../../../../../services/v2/user.service";
-import {AppConstants} from "../../../../../app.constants";
+import {ListComponent} from "../../../../components/base/list.component";
+import {User} from "../../../../models/user/user";
+import {AuthService} from "../../../../services/AuthService";
+import {V2UserService} from "../../../../services/v2/user.service";
+import {AppConstants} from "../../../../app.constants";
 declare let jQuery: any;
 
 @Component({

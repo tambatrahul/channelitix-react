@@ -62,9 +62,9 @@ import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
-import {UserComponent} from "./v2/components/pages/users/index/index.component";
-import {CreateUserComponent} from "./v2/components/pages/users/create/create.component";
-import {UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
+import {UserComponent} from "./v2/pages/users/index/index.component";
+import {CreateUserComponent} from "./v2/pages/users/create/create.component";
+import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
 
 // Route Configuration
 export const routes: Routes = [

@@ -1,47 +1,33 @@
 import * as moment from "moment";
 import {Component} from "@angular/core";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
-import {FormComponent} from "../../../../../components/base/form.component";
-import {V2UserService} from "../../../../../services/v2/user.service";
-import {AuthService} from "../../../../../services/AuthService";
-import {AppConstants} from "../../../../../app.constants";
-
+import {FormComponent} from "../../../../components/base/form.component";
+import {V2UserService} from "../../../../services/v2/user.service";
+import {AuthService} from "../../../../services/AuthService";
+import {AppConstants} from "../../../../app.constants";
 declare let jQuery: any;
 declare let swal: any;
 
 @Component({
-  templateUrl: 'create.component.html',
+  templateUrl: 'update.component.html',
   styleUrls: ['../index/index.component.less']
 })
-export class CreateUserComponent extends FormComponent {
+export class UpdateUserComponent extends FormComponent {
+
+  private id: number;
 
   /**
    * User relations
    */
   public role_id: number = 0;
   public role_str: string;
-
-  /**
-   * location identifiers
-   * @type {number}
-   */
   public hq_headquarter_id: number = 0;
   public hq_area_id: number = 0;
   public hq_region_id: number = 0;
   public hq_country_id: number = 0;
-
-  /**
-   * manager identifier and manager role identifier
-   *
-   * @type {number}
-   */
   public manager_id: number = 0;
   public manager_role_id: number = 0;
-
-  /**
-   * user joining date
-   */
   public joining_date: string;
 
   /**
@@ -53,8 +39,6 @@ export class CreateUserComponent extends FormComponent {
     full_name: [""],
     username: [""],
     mobile: [""],
-    password: [""],
-    confirm_password: [""],
     joining_date: [""],
     role: [""],
     hq_brick_id: [""],
@@ -62,47 +46,68 @@ export class CreateUserComponent extends FormComponent {
     hq_area_id: [""],
     hq_region_id: [""],
     hq_country_id: [""],
-    manager_id: [""],
+    manager_id: [""]
   });
 
   /**
-   * Create user Constructor
+   * Update user Constructor
    *
    * @param userService
    * @param _router
+   * @param route
    * @param _fb
    * @param _service
    */
-  constructor(public userService: V2UserService, public _router: Router, public _fb: FormBuilder,
+  constructor(public userService: V2UserService, public _router: Router, public route: ActivatedRoute, public _fb: FormBuilder,
               public _service: AuthService) {
     super(_service);
   }
 
   /**
-   * initialize details
+   * on load of component
    */
   ngOnInit() {
-    super.ngOnInit();
-    this.dateChanged(moment().format('DD MMMM YYYY'));
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.loading = true;
+      this.userService.read(this.id).subscribe(response => {
+        this.form.patchValue({
+          full_name: response.user.full_name,
+          username: response.user.username,
+          mobile: response.user.mobile
+        });
+
+        this.roleChanged(response.user.role_id);
+        this.dateChanged(moment(response.user.joining_date, "YYYY-MM-DD").format("DD MMMM YYYY"));
+        this.headquarterChanged(response.user.hq_headquarter_id);
+        this.regionChanged(response.user.hq_region_id);
+        this.areaChanged(response.user.hq_area_id);
+        this.managerChanged(response.user.manager_id);
+        this.loading = false;
+      }, err => {
+        this.loading = false;
+      });
+    });
   }
 
   /**
-   * create user
+   * update user
    */
   save() {
     this.submitted = true;
     if (this.form.valid) {
       this.loading = true;
-      let data = Object.assign({}, this.form.value);
+      let data = this.form.value;
+
 
       // format joining date
       if (this.joining_date)
         data.joining_date = moment(data.joining_date, "DD MMMM YYYY").format('YYYY-MM-DD');
 
-      this.userService.create(data).subscribe(
+      this.userService.update(data, this.id).subscribe(
         response => {
           swal({
-            title: "User Created Successfully",
+            title: "User Updated Successfully",
             text: "I will close in 2 sec.",
             type: "success",
             timer: 1500,
@@ -113,6 +118,7 @@ export class CreateUserComponent extends FormComponent {
         },
         err => {
           this.loading = false;
+          console.log(err);
           this.errors = err.errors;
         }
       );
