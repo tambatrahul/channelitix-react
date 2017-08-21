@@ -98,7 +98,7 @@ export class AppConstants {
      */
     static getRole(role_id) {
         let role = AppConstants.roles.filter(role => role.id == role_id)[0];
-        return role ? role : {name: ""}
+        return role ? role : {name: "", title: ""}
     }
 
     /**
