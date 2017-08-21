@@ -1,147 +1,148 @@
 <div class="container-fluid users">
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Users</h2>
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">User Management</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 col-md-offset-6 left-section">
+        <div class="left-btn">
+          <a class="btn btn-primary" routerLink="/v2/users/create">New User</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end Page Breadcrumb -->
+
+  <!-- filters -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+        <region-select [value]="region_id" [title]="'Select Region'"
+                       (onValueChanged)="regionChanged($event)"></region-select>
+      </div>
+      <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
+        <div *ngIf="region_id > 0">
+          <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                       (onValueChanged)="areaChanged($event)"></area-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <role-button [role_id]="role_id"
+                   (onRoleChanged)="roleChanged($event)"></role-button>
+    </div>
+  </div>
+  <!-- end filters -->
+
+  <!-- User List Table -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4>Users Table</h4>
+
+          <div style="text-align: right; padding: 20px;">
+            Show
+            <button class="btn btn-primary btn-xs" (click)="statusChanged('active')">
+              Activate
+            </button>
+            <button class="btn btn-danger btn-xs" (click)="statusChanged('in_active')">
+              Deactivate
+            </button>
+          </div>
+        </div>
+        <div class="widget-container user-table">
+          <div class="widget-block" style="padding: 0px;">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>Full Name</th>
+                  <th>Username</th>
+                  <th>Mobile</th>
+                  <th>Region</th>
+                  <th>Area</th>
+                  <th>Headquarter</th>
+                  <th>Joining Date</th>
+                  <th>Leaving Date</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tfoot>
+                <tr>
+                  <th></th>
+                  <th>Full Name</th>
+                  <th>Username</th>
+                  <th>Mobile</th>
+                  <th>Region</th>
+                  <th>Area</th>
+                  <th>Headquarter</th>
+                  <th>Joining Date</th>
+                  <th>Leaving Date</th>
+                  <th>Actions</th>
+                </tr>
+                </tfoot>
+
+                <tbody>
+                <tr *ngFor="let user of users">
+                  <td>
+                    <div class="task-thumb">
+                      <img alt="user" class="image-circle"
+                           src="assets/images/avatar/manager1.png">
                     </div>
-                </div>
+                  </td>
+                  <td>{{ user.full_name }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.mobile }}</td>
+                  <td>{{ user.hq_region?.name }}</td>
+                  <td>{{ user.hq_area?.name}}</td>
+                  <td>{{ user.hq_headquarter?.name}}</td>
+                  <td>{{ user?.joining_date }}</td>
+                  <td>{{ user?.leaving_date }}</td>
+                  <td style="width: 100px;;">
+                    <a class="btn btn-default btn-xs" *ngIf="user.status == 'active'"
+                       style="cursor: pointer;" title="Update" (click)="updateUser(user.id)">
+                      <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                    <a class="btn btn-danger btn-xs" (click)="deactivateUser(user)"
+                       *ngIf="user.status == 'active'">
+                      <i class="fa fa-minus-square-o"></i>
+                    </a>
+                    <a *ngIf="user.status == 'active'" class="btn btn-primary btn-xs"
+                       (click)="passwordReset('in_active')">
+                      <i class="fa fa-lock"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-2">
-                <div style="padding-top: 30px;">
-                    <a class="btn btn-primary" routerLink="/v2/users/create">New User</a>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- Page Breadcrumb -->
+  </div>
+  <!-- ./User List Table -->
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
-                <region-select [value]="region_id" [title]="'Select Region'"
-                               (onValueChanged)="regionChanged($event)"></region-select>
-            </div>
-            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
-                <div *ngIf="region_id > 0">
-                    <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
-                                 (onValueChanged)="areaChanged($event)"></area-select>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <role-button [role_id]="role_id"
-                         (onRoleChanged)="roleChanged($event)"></role-button>
-        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <deactivate-user-v2 [user]="deactivating_user"
+                          (userDeactivated)="onUserDeactivation($event)"></deactivate-user-v2>
     </div>
+  </div>
 
-    <!-- User List Table -->
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Users Table</h4>
-
-                    <div style="text-align: right; padding: 20px;">
-                        Show
-                        <button class="btn btn-primary btn-xs" (click)="statusChanged('active')">
-                            Activate
-                        </button>
-                        <button class="btn btn-danger btn-xs" (click)="statusChanged('in_active')">
-                            Deactivate
-                        </button>
-                    </div>
-                </div>
-                <div class="widget-container user-table">
-                    <div class="widget-block" style="padding: 0px;">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Full Name</th>
-                                    <th>Username</th>
-                                    <th>Mobile</th>
-                                    <th>Region</th>
-                                    <th>Area</th>
-                                    <th>Headquarter</th>
-                                    <th>Joining Date</th>
-                                    <th>Leaving Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-
-                                <tfoot>
-                                <tr>
-                                    <th></th>
-                                    <th>Full Name</th>
-                                    <th>Username</th>
-                                    <th>Mobile</th>
-                                    <th>Region</th>
-                                    <th>Area</th>
-                                    <th>Headquarter</th>
-                                    <th>Joining Date</th>
-                                    <th>Leaving Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </tfoot>
-
-                                <tbody>
-                                <tr *ngFor="let user of users">
-                                    <td>
-                                        <div class="task-thumb">
-                                            <img alt="user" class="image-circle"
-                                                 src="assets/images/avatar/manager1.png">
-                                        </div>
-                                    </td>
-                                    <td>{{ user.full_name }}</td>
-                                    <td>{{ user.username }}</td>
-                                    <td>{{ user.mobile }}</td>
-                                    <td>{{ user.hq_region?.name }}</td>
-                                    <td>{{ user.hq_area?.name}}</td>
-                                    <td>{{ user.hq_headquarter?.name}}</td>
-                                    <td>{{ user?.joining_date }}</td>
-                                    <td>{{ user?.leaving_date }}</td>
-                                    <td style="width: 100px;;">
-                                        <a class="btn btn-default btn-xs" *ngIf="user.status == 'active'"
-                                           style="cursor: pointer;" title="Update" (click)="updateUser(user.id)">
-                                            <i class="fa fa-pencil-square-o"></i>
-                                        </a>
-                                        <a class="btn btn-danger btn-xs" (click)="deactivateUser(user)"
-                                                *ngIf="user.status == 'active'">
-                                           <i class="fa fa-minus-square-o"></i>
-                                        </a>
-                                        <a *ngIf="user.status == 'active'" class="btn btn-primary btn-xs" (click)="passwordReset('in_active')">
-                                            <i class="fa fa-lock"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <password-reset-v2 [user]="reset_password" (passwordReset)="onPasswordReset($event)"></password-reset-v2>
     </div>
-    <!-- ./User List Table -->
-
-    <div class="row">
-        <div class="col-xs-12">
-            <deactivate-user-v2 [user]="deactivating_user"
-                             (userDeactivated)="onUserDeactivation($event)"></deactivate-user-v2>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <password-reset-v2 [user]="reset_password" (passwordReset)="onPasswordReset($event)"></password-reset-v2>
-        </div>
-    </div>
+  </div>
 </div>
