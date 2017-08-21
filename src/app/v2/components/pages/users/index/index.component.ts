@@ -11,7 +11,7 @@ declare let jQuery: any;
   templateUrl: 'index.component.html',
   styleUrls: ['index.component.less']
 })
-export class V2UserComponent extends ListComponent {
+export class UserComponent extends ListComponent {
 
   /**
    * pages number for users and total users
@@ -105,7 +105,7 @@ export class V2UserComponent extends ListComponent {
    * Update User
    */
   updateUser(id: number) {
-    this._router.navigate(['/users/update/', id]);
+    this._router.navigate(['/v2/users/update/', id]);
   }
 
   /**

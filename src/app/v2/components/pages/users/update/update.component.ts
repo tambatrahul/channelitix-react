@@ -13,7 +13,7 @@ declare let swal: any;
     templateUrl: 'update.component.html',
     styleUrls: ['../index/index.component.less']
 })
-export class V2UpdateUserComponent extends FormComponent {
+export class UpdateUserComponent extends FormComponent {
 
     private id: number;
 

@@ -11,7 +11,6 @@ import {HeaderComponent} from "./components/pages/base/header/header.component";
 import {routing} from "./app.routes";
 // pages
 import {LoginComponent} from "./components/pages/auth/login/login.component";
-import {UserComponent} from "./components/pages/user/index/index.component";
 import {CustomerCountComponent} from "./components/pages/customer/customer_count/customer_count.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
 import {AuthService} from "./services/AuthService";
@@ -32,8 +31,6 @@ import {HeadquarterSelectComponent} from "./components/form_elements/territory/h
 import {TerritorySelectComponent} from "./components/form_elements/territory/territory_select/territory-select.component";
 import {RegionSelectComponent} from "./components/form_elements/territory/region_select/region-select.component";
 import {DatePickerComponent} from "./components/form_elements/calendar/date_picker/date_picker.component";
-import {CreateUserComponent} from "./components/pages/user/create/create.component";
-import {UpdateUserComponent} from "./components/pages/user/update/update.component";
 import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/pages/visit/index/index.component";
@@ -172,13 +169,13 @@ import {ProductSalePlanComponent} from "./components/pages/sales_planning/produc
 import {PrimarySaleAboveComponent} from "./components/pages/sales_planning/primary_sale_above_component/primary_sale_above_component.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
-import {V2UserComponent} from "./v2/components/pages/users/index/index.component";
+import {UserComponent} from "./v2/components/pages/users/index/index.component";
 import {V2UserService} from "./services/v2/user.service";
 import {RoleButtonComponent} from "./v2/components/form_elements/user/role_button/role_button.component";
 import {DeactivateUserComponent} from "./v2/components/pages/users/deactivate_user/deactivate_user.component";
 import {PasswordResetComponent} from "./v2/components/pages/users/password_reset/password_reset.component";
-import {V2CreateUserComponent} from "./v2/components/pages/users/create/create.component";
-import {V2UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
+import {CreateUserComponent} from "./v2/components/pages/users/create/create.component";
+import {UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
 
 
 enableProdMode();
@@ -350,11 +347,8 @@ enableProdMode();
     SitapurHQComponent,
 
     // Version 2 Models
-    V2UserComponent,
     RoleButtonComponent,
     DeactivateUserComponent,
-    V2CreateUserComponent,
-    V2UpdateUserComponent,
   ],
   imports: [
     BrowserModule,

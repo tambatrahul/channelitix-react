@@ -3,11 +3,8 @@ import {Routes, RouterModule} from "@angular/router";
 import {BaseComponent} from "./components/pages/base/base/base.component";
 // pages
 import {LoginComponent} from "./components/pages/auth/login/login.component";
-import {UserComponent} from "./components/pages/user/index/index.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
-import {CreateUserComponent} from "./components/pages/user/create/create.component";
 import {VisitComponent} from "./components/pages/visit/index/index.component";
-import {UpdateUserComponent} from "./components/pages/user/update/update.component";
 import {OrderComponent} from "./components/pages/order/index/index.component";
 import {DashBoardComponent} from "./components/pages/dashboard/index/index.component";
 import {MonthlyAttendanceComponent} from "./components/pages/attendance/monthly/monthly.component";
@@ -65,9 +62,9 @@ import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
-import {V2UserComponent} from "./v2/components/pages/users/index/index.component";
-import {V2CreateUserComponent} from "./v2/components/pages/users/create/create.component";
-import {V2UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
+import {UserComponent} from "./v2/components/pages/users/index/index.component";
+import {CreateUserComponent} from "./v2/components/pages/users/create/create.component";
+import {UpdateUserComponent} from "./v2/components/pages/users/update/update.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -157,18 +154,6 @@ export const routes: Routes = [
       {
         path: 'users',
         children: [
-          {
-            path: '',
-            component: UserComponent,
-          },
-          {
-            path: 'create',
-            component: CreateUserComponent
-          },
-          {
-            path: 'update/:id',
-            component: UpdateUserComponent
-          },
           {
             path: 'summary',
             component: SummaryComponent
@@ -470,15 +455,15 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: V2UserComponent
+            component: UserComponent
           },
           {
             path: 'create',
-            component: V2CreateUserComponent
+            component: CreateUserComponent
           },
           {
             path: 'update/:id',
-            component: V2UpdateUserComponent
+            component: UpdateUserComponent
           },
         ]
       }
