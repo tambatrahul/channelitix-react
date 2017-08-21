@@ -11,7 +11,6 @@ import {HeaderComponent} from "./components/pages/base/header/header.component";
 import {routing} from "./app.routes";
 // pages
 import {LoginComponent} from "./components/pages/auth/login/login.component";
-import {UserComponent} from "./components/pages/user/index/index.component";
 import {CustomerCountComponent} from "./components/pages/customer/customer_count/customer_count.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
 import {AuthService} from "./services/AuthService";
@@ -32,18 +31,14 @@ import {HeadquarterSelectComponent} from "./components/form_elements/territory/h
 import {TerritorySelectComponent} from "./components/form_elements/territory/territory_select/territory-select.component";
 import {RegionSelectComponent} from "./components/form_elements/territory/region_select/region-select.component";
 import {DatePickerComponent} from "./components/form_elements/calendar/date_picker/date_picker.component";
-import {CreateUserComponent} from "./components/pages/user/create/create.component";
-import {UpdateUserComponent} from "./components/pages/user/update/update.component";
 import {RoleCheckDirective} from "./directives/role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/pages/visit/index/index.component";
 import {VisitCountDirective} from "./directives/visit_count.directive";
-import {DeactivateUserComponent} from "./components/pages/user/deactivate_user/deactivate_user.component";
 import {VisitCountGraphComponent} from "./components/pages/dashboard/visit_count_graph/visit_count_graph.component";
 import {OrderService} from "./services/order.service";
 import {OrderComponent} from "./components/pages/order/index/index.component";
 import {OrderCountDirective} from "./directives/order_count.directive";
-import {PasswordResetComponent} from "./components/pages/user/password_reset/password_reset.component";
 import {DashBoardComponent} from "./components/pages/dashboard/index/index.component";
 import {DatesSelectComponent} from "./components/form_elements/calendar/dates_select/dates-select.component";
 import {MultipleUserSelectComponent} from "./components/form_elements/user/multi_user_select/multiple-user-select.component";
@@ -176,6 +171,14 @@ import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
 import {CustomerMissingComponent} from "./components/pages/customer/customer_missing/index.component";
 import {ResetPasswordComponent} from "./components/pages/user/reset_password/reset_password.component";
+import {UserComponent} from "./v2/pages/users/index/index.component";
+import {V2UserService} from "./services/v2/user.service";
+import {RoleButtonComponent} from "./v2/components/form_elements/user/role_button/role_button.component";
+import {DeactivateUserComponent} from "./v2/components/users/deactivate_user/deactivate_user.component";
+import {PasswordResetComponent} from "./v2/components/users/password_reset/password_reset.component";
+import {CreateUserComponent} from "./v2/pages/users/create/create.component";
+import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
+
 
 enableProdMode();
 @NgModule({
@@ -299,7 +302,6 @@ enableProdMode();
     TerritorySelectComponent,
     HeadquarterSelectComponent,
     DatePickerComponent,
-    DeactivateUserComponent,
     PasswordResetComponent,
     ResetPasswordComponent,
     VisitCountGraphComponent,
@@ -346,7 +348,11 @@ enableProdMode();
     MeerutHQComponent,
     MoradabadHQComponent,
     PadraunaHQComponent,
-    SitapurHQComponent
+    SitapurHQComponent,
+
+    // Version 2 Models
+    RoleButtonComponent,
+    DeactivateUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -374,7 +380,10 @@ enableProdMode();
     SalesPlanningService,
     PrimarySaleService,
     ProductService,
-    CustomerTypeService
+    CustomerTypeService,
+
+    // Version 2 Service
+    V2UserService
   ],
   bootstrap: [AppComponent]
 })

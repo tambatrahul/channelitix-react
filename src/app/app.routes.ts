@@ -3,11 +3,8 @@ import {Routes, RouterModule} from "@angular/router";
 import {BaseComponent} from "./components/pages/base/base/base.component";
 // pages
 import {LoginComponent} from "./components/pages/auth/login/login.component";
-import {UserComponent} from "./components/pages/user/index/index.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
-import {CreateUserComponent} from "./components/pages/user/create/create.component";
 import {VisitComponent} from "./components/pages/visit/index/index.component";
-import {UpdateUserComponent} from "./components/pages/user/update/update.component";
 import {OrderComponent} from "./components/pages/order/index/index.component";
 import {DashBoardComponent} from "./components/pages/dashboard/index/index.component";
 import {MonthlyAttendanceComponent} from "./components/pages/attendance/monthly/monthly.component";
@@ -57,7 +54,6 @@ import {SitapurHQComponent} from "./components/pages/standard_tour_program_pages
 import {DashBoardReportComponent} from "./components/pages/dashboard/report/index.component";
 import {CustomerBrickCoverageComponent} from "./components/pages/customer_brick_coverage/index.component";
 import {SecondarySaleZSMComponent} from "./components/pages/secondary_sale/zsm_index/index.component";
-import {StockistSalesGraphComponent} from "./components/pages/dashboard/stockist_sales_graph/stockist_sales_graph";
 import {ManagerOrderComponent} from "./components/pages/order/manager_index/index.component";
 import {ManagerVisitComponent} from "./components/pages/visit/manager_index/index.component";
 import {SapStockistWiseComponent} from "./components/pages/order/sap_stockist_wise/sap_stockist_wise.component";
@@ -66,6 +62,9 @@ import {ReportIconsComponent} from "./components/pages/dashboard/report_icons_ui
 import {SalesPlanningComponent} from "./components/pages/sales_planning/sales_planning.component";
 import {SecondarySaleHqWiseComponent} from "./components/pages/secondary_sale_hq_wise/index/index.component";
 import {ProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/product_wise/product_wise.component";
+import {UserComponent} from "./v2/pages/users/index/index.component";
+import {CreateUserComponent} from "./v2/pages/users/create/create.component";
+import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
 import {CustomerMissingComponent} from "./components/pages/customer/customer_missing/index.component";
 import {ResetPasswordComponent} from "./components/pages/user/reset_password/reset_password.component";
 
@@ -75,7 +74,6 @@ export const routes: Routes = [
     path: '',
     component: BaseComponent,
     children: [
-
       {
         path: 'business_plan',
         children: [
@@ -158,18 +156,6 @@ export const routes: Routes = [
       {
         path: 'users',
         children: [
-          {
-            path: '',
-            component: UserComponent,
-          },
-          {
-            path: 'create',
-            component: CreateUserComponent
-          },
-          {
-            path: 'update/:id',
-            component: UpdateUserComponent
-          },
           {
             path: 'summary',
             component: SummaryComponent
@@ -464,6 +450,30 @@ export const routes: Routes = [
                 component: SitapurHQComponent
               },
             ]
+          },
+        ]
+      }
+    ]
+  },
+  {
+    path: 'v2',
+    component: BaseComponent,
+    children: [
+
+      {
+        path: 'users',
+        children: [
+          {
+            path: '',
+            component: UserComponent
+          },
+          {
+            path: 'create',
+            component: CreateUserComponent
+          },
+          {
+            path: 'update/:id',
+            component: UpdateUserComponent
           },
         ]
       }

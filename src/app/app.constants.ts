@@ -9,6 +9,7 @@ import {environment} from "../environments/environment";
 
 export class AppConstants {
     static API_ENDPOINT: string = environment.server_url;
+    static API_ENDPOINT_V2: string = '/api/v2/';
     // static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
     // static API_ENDPOINT: string = 'http://35.189.172.175/api/v1/';
     // static API_ENDPOINT: string = 'http://104.198.41.92/api/v1/';
@@ -97,7 +98,7 @@ export class AppConstants {
      */
     static getRole(role_id) {
         let role = AppConstants.roles.filter(role => role.id == role_id)[0];
-        return role ? role : {name: ""}
+        return role ? role : {name: "", title: ""}
     }
 
     /**

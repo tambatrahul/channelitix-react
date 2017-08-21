@@ -1,0 +1,20 @@
+<div class="row role_buttons css_v2">
+  <div class="col-xs-12 form-group">
+    <button class="btn btn-default btn-xs" (click)=setRole(0) [ngClass]="{'btn-primary':role_id == 0}"
+            *roleCheck="ROLE_ZSM">
+      ALL
+    </button>
+    <button class="btn btn-default btn-xs" (click)=setRole(5) [ngClass]="{'btn-primary':role_id == 5}"
+            *roleCheck="ROLE_ADMIN">
+      ZSM
+    </button>
+    <button class="btn btn-default btn-xs" (click)=setRole(4) [ngClass]="{'btn-primary':role_id == 4}"
+            *roleCheck="ROLE_ZSM">
+      CSM
+    </button>
+    <button class="btn btn-default btn-xs" (click)=setRole(3) [ngClass]="{'btn-primary':role_id == 3}"
+            *roleCheck="ROLE_ZSM">
+      CSE
+    </button>
+  </div>
+</div>

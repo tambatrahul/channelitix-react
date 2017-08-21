@@ -1,12 +1,11 @@
-<div class="container-fluid users">
+<div class="container-fluid users css_v2">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-md-4">
                 <div class="page-breadcrumb-wrap">
                     <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Update User
-                            <small>Update User Form</small>
+                        <h2 class="breadcrumb-titles">Create user
                         </h2>
                     </div>
                 </div>
@@ -21,7 +20,7 @@
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-bars"></i></span>
-                    <h4>Update User Form</h4>
+                    <h4>Create user form</h4>
                 </div>
                 <div class="widget-container" #loading_box>
                     <div class=" widget-block">
@@ -29,7 +28,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
                                     <div class="page-header">
-                                        <h2>User Personal Details</h2>
+                                        <h2>Personal details</h2>
                                     </div>
 
                                     <!-- Full Name -->
@@ -141,7 +140,6 @@
                                             </div>
                                         </template>
                                         <!-- ./Head quarter select -->
-
                                     </div>
                                     <!-- ./Select territory depending on manager -->
 
@@ -149,7 +147,7 @@
 
                                 <div class="col-xs-12 col-md-6">
                                     <div class="page-header">
-                                        <h2>User Login Details</h2>
+                                        <h2>Login details</h2>
                                     </div>
 
                                     <!-- Username -->
@@ -164,13 +162,38 @@
                                     </div>
                                     <!-- Username -->
 
+                                    <!-- Password -->
+                                    <div class="form-group">
+                                        <label class="control-label">Password (required)</label>
+                                        <div class="">
+                                            <input class="form-control" formControlName="password" type="password"
+                                                   name="email">
+                                            <small *ngIf="errors?.password" class="text-danger text-center">
+                                                {{ errors.password}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Password -->
+
+                                    <!-- Confirm Password -->
+                                    <div class="form-group">
+                                        <label class="control-label">Confirm Password (required)</label>
+                                        <div class="">
+                                            <input class="form-control" formControlName="confirm_password"
+                                                   type="password" name="email">
+                                            <small *ngIf="errors?.confirm_password" class="text-danger text-center">
+                                                {{ errors.confirm_password}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- ./Confirm Password -->
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-12 form-group">
                                     <div class="form-actions text-center">
-                                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                                        <button type="submit" class="btn btn-primary">CREATE</button>
                                     </div>
                                 </div>
                             </div>
