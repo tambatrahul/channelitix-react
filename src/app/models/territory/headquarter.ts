@@ -2,6 +2,7 @@ import {Model} from "../model";
 import {Area} from "./area";
 import {CustomerType} from "../customer/customer_type";
 import {Customer} from "../customer/customer";
+import {User} from "../user/user";
 
 export class Headquarter extends Model {
 
@@ -46,6 +47,12 @@ export class Headquarter extends Model {
   secondary_sale: number = 0;
   secondary_amount: number = 0;
   closing: number = 0;
+
+  casual_leave: number = 0;
+  sick_leave: number = 0;
+  privilege_leave: number = 0;
+
+  user: User;
 
   constructor(info: any) {
     super(info.id);
@@ -122,6 +129,15 @@ export class Headquarter extends Model {
 
     if (info.secondary_amount)
       this.secondary_amount = parseFloat(info.secondary_amount);
+
+    if (info.casual_leave)
+      this.casual_leave = parseInt(info.casual_leave);
+
+    if (info.sick_leave)
+      this.sick_leave = parseInt(info.sick_leave);
+
+    if (info.privilege_leave)
+      this.privilege_leave = parseInt(info.privilege_leave);
   }
 
   /**

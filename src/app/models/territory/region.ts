@@ -4,6 +4,7 @@ import {Country} from "./country";
 import {Area} from "./area";
 import {Product} from "../order/product";
 import {Customer} from "../customer/customer";
+import {User} from "../user/user";
 
 export class Region extends Model {
 
@@ -62,6 +63,8 @@ export class Region extends Model {
   secondary_amount: number = 0;
   closing: number = 0;
   total_net_amount: number = 0;
+
+  user: User;
 
   constructor(info: any) {
     super(info.id);

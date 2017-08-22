@@ -2,6 +2,7 @@ import {Model} from "../model";
 import {CustomerType} from "../customer/customer_type";
 import {Region} from "./region";
 import {Headquarter} from "./headquarter";
+import {User} from "../user/user";
 
 export class Area extends Model {
 
@@ -48,6 +49,8 @@ export class Area extends Model {
   secondary_amount: number = 0;
   closing: number = 0;
   total_net_amount: number = 0;
+
+  user: User;
 
   constructor(info: any) {
     super(info.id);
