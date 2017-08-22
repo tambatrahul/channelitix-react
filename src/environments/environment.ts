@@ -4,8 +4,9 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-    production: false,
-    envName: 'geo',
-    projectName: '',
-    server_url: '/api/v1/'
+  production: false,
+  envName: 'geo',
+  projectName: '',
+  server_url: '/api/v1/',
+  server_url_v2: '/api/v2/'
 };

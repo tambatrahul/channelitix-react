@@ -32,7 +32,7 @@ export class V2UserService extends V2BaseService {
   all(role_id?: number, status?: string, region_id?: number, area_id?: number, page?: number, length?: number): Observable<Result> {
 
     // prepare url
-    let url = this.getBaseUrl() + '/';
+    let url = this.getBaseUrl();
 
     // prepare get params
     let params = new URLSearchParams();
