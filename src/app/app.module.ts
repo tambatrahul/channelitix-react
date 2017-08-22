@@ -180,6 +180,7 @@ import {CreateUserComponent} from "./v2/pages/users/create/create.component";
 import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
 
 import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_report.component";
+import {DeviationReportComponent} from "./components/pages/user/summary/deviation_report/deviation_report.component";
 
 enableProdMode();
 @NgModule({
@@ -260,6 +261,7 @@ enableProdMode();
     ProductWiseSaleForSKComponent,
     CustomerMissingComponent,
     LeaveReportComponent,
+    DeviationReportComponent,
 
     //dashboard report Component
     SalesComponent,
