@@ -13,46 +13,52 @@
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Working Date</th>
-                                        <th>Work Type</th>
-                                        <th>Tour Plan</th>
-                                        <th>Visited Brick</th>
-                                        <th>Ttl Stockist met</th>
-                                        <th>Ttl Semi met</th>
-                                        <th>Ttl Retailer met</th>
-                                        <th>Ttl Hub Chemist met</th>
-                                        <th>Ttl Healthcare Providers met</th>
-                                        <th>POB</th>
+                                        <th rowspan="2">Working Date</th>
+                                        <th rowspan="2">Work Type</th>
+                                        <th rowspan="2">Tour Plan</th>
+                                        <th rowspan="2">Visited Brick</th>
+                                        <th colspan="5">Total</th>
+                                        <th rowspan="2">POB</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Stockist met</th>
+                                        <th>Semi met</th>
+                                        <th>Retailer met</th>
+                                        <th>Hub Chemist met</th>
+                                        <th>Healthcare Providers met</th>
                                     </tr>
                                     </thead>
 
                                     <tfoot>
                                     <tr>
-                                        <th>Working Date</th>
-                                        <th>Work Type</th>
-                                        <th>Tour Plan</th>
-                                        <th>Visited Brick</th>
-                                        <th>Ttl Stockist met</th>
-                                        <th>Ttl Semi met</th>
-                                        <th>Ttl Retailer met</th>
-                                        <th>Ttl Hub Chemist met</th>
-                                        <th>Ttl Healthcare Providers met</th>
-                                        <th>POB</th>
+                                        <th rowspan="2">Working Date</th>
+                                        <th rowspan="2">Work Type</th>
+                                        <th rowspan="2">Tour Plan</th>
+                                        <th rowspan="2">Visited Brick</th>
+                                        <th>Stockist met</th>
+                                        <th>Semi met</th>
+                                        <th>Retailer met</th>
+                                        <th>Hub Chemist met</th>
+                                        <th>Healthcare Providers met</th>
+                                        <th rowspan="2">POB</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5">Total</th>
                                     </tr>
                                     </tfoot>
 
                                     <tbody>
-                                    <tr>
-                                        <td>Working Date</td>
-                                        <td>Work Type</td>
-                                        <td>Tour Plan</td>
-                                        <td>Visited Brick</td>
-                                        <td>Ttl Stockist met</td>
-                                        <td>Ttl Semi met</td>
-                                        <td>Ttl Retailer met</td>
-                                        <td>Ttl Hub Chemist met</td>
-                                        <td>Ttl Healthcare Providers met</td>
-                                        <td>POB</td>
+                                    <tr *ngFor="let attendance of attendances">
+                                        <td>{{attendance.date}}</td>
+                                        <td>{{ attendance.work_type?.name }}</td>
+                                        <td>{{ attendance.tour_plan }}</td>
+                                        <td>{{ attendance.visited_brick }}</td>
+                                        <td>{{ attendance.stockist_met }}</td>
+                                        <td>{{ attendance.semi_met }}</td>
+                                        <td>{{ attendance.retailer_met }}</td>
+                                        <td>{{ attendance.hub_chemist_met }}</td>
+                                        <td>{{ attendance.healthcare_providers_met }}</td>
+                                        <td>{{ attendance.pob_amount }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

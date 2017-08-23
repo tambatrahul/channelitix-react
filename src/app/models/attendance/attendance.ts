@@ -34,6 +34,15 @@ export class Attendance extends Model {
 
     leave_count: number = 0;
 
+    // Deviation Report
+    visited_brick: string;
+    stockist_met: number = 0;
+    semi_met: number = 0;
+    retailer_met: number = 0;
+    hub_chemist_met: number = 0;
+    healthcare_providers_met: number = 0;
+    tour_plan: string;
+
     constructor(info: any) {
         super(info.id);
         this.date = info.date;
@@ -81,5 +90,27 @@ export class Attendance extends Model {
 
         if (info.leave_count)
             this.leave_count = parseInt(info.leave_count);
+
+        if (info.visited_brick)
+            this.visited_brick = info.visited_brick;
+
+        if (info.stockist_met)
+            this.stockist_met = parseInt(info.stockist_met);
+
+        if (info.semi_met)
+            this.semi_met = parseInt(info.semi_met);
+
+        if (info.hub_chemist_met)
+            this.hub_chemist_met = parseInt(info.hub_chemist_met);
+
+        if (info.retailer_met)
+            this.retailer_met = parseInt(info.retailer_met);
+
+        if (info.healthcare_providers_met)
+            this.healthcare_providers_met = parseInt(info.healthcare_providers_met);
+
+        if (info.tour_plan)
+            this.tour_plan = info.tour_plan;
+
    }
 }
