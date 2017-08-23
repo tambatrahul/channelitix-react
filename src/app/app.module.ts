@@ -99,7 +99,6 @@ import {SecondarySaleCreateComponent} from "./components/pages/secondary_sale/cr
 import {SecondarySaleService} from "./services/secondary_sale.service";
 import {UserWiseTourProgramComponent} from "./components/pages/tour_program/user_wise/user_wise.component";
 import {SalesTrendComponent} from "./components/pages/graphs/sales_trend_graph/sales_trend_graph.component";
-import {ProductComponent} from "./components/pages/product/index/index.component";
 import {ProductService} from "./services/product.service";
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 import {SummaryDetailComponent} from "./components/pages/user/summary/detail/detail.component";
@@ -180,6 +179,7 @@ import {CreateUserComponent} from "./v2/pages/users/create/create.component";
 import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
 
 import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_report.component";
+import {ProductComponent} from "./v2/pages/products/index/index.component";
 
 enableProdMode();
 @NgModule({

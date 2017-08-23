@@ -29,7 +29,6 @@ import {HeadquarterComponent} from "./components/pages/territory/headquarter/ind
 import {TerritoryComponent} from "./components/pages/territory/territory/index.component";
 import {SecondarySaleComponent} from "./components/pages/secondary_sale/index/index.component";
 import {SecondarySaleCreateComponent} from "./components/pages/secondary_sale/create/create.component";
-import {ProductComponent} from "./components/pages/product/index/index.component";
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
 import {BrickWiseCustomerComponent} from "./components/pages/territory/brick_wise_customer/index.component";
@@ -68,6 +67,7 @@ import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
 import {CustomerMissingComponent} from "./components/pages/customer/customer_missing/index.component";
 import {ResetPasswordComponent} from "./components/pages/user/reset_password/reset_password.component";
 import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_report.component";
+import {ProductComponent} from "./v2/pages/products/index/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -355,15 +355,6 @@ export const routes: Routes = [
         ]
       },
       {
-        path: 'products',
-        children: [
-          {
-            path: '',
-            component: ProductComponent,
-          },
-        ]
-      },
-      {
         path: 'reports',
         children: [
           {
@@ -481,7 +472,16 @@ export const routes: Routes = [
             component: UpdateUserComponent
           },
         ]
-      }
+      },
+      {
+        path: 'products',
+        children: [
+          {
+            path: '',
+            component: ProductComponent,
+          },
+        ]
+      },
     ]
   },
 

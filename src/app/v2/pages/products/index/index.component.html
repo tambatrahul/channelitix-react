@@ -1,0 +1,65 @@
+<div class="container-fluid css_v2" #loading_box>
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Product Catlog</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Product Table -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module table-widget">
+        <div class="widget-container">
+          <div class="widget-block table-block">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped no-border-table">
+                <thead>
+                <tr>
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <th>Code</th>
+                  </template>
+                  <th>Product Name</th>
+                  <th>UOM</th>
+                  <th>Price</th>
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <th>MRP</th>
+                  </template>
+                </tr>
+                </thead>
+
+                <tr *ngFor="let product of products">
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <td>{{ product.code }}</td>
+                  </template>
+                  <td>{{ product.name }}</td>
+                  <template ngFor let-uom [ngForOf]="product.uoms">
+                    <td>
+                      {{ uom.name }}
+                    </td>
+                    <td>
+                      {{ uom.unit_price }}
+                    </td>
+                    <template *ngIf="environment.envName != 'sk_group'">
+                      <td>
+                        {{ uom.mrp }}
+                      </td>
+                    </template>
+                  </template>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Product Table -->
+</div>
