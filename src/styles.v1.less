@@ -1,6 +1,10 @@
 .css_v2 {
   font-family: 'Roboto', sans-serif;
 
+  .btn-xs {
+    border-radius: 0;
+  }
+
   .table {
     &.small {
 
@@ -9,19 +13,23 @@
 
   /* widget css */
   .table-widget {
+
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    border: 0;
+
     .table-block {
       &.widget-block {
         padding: 0;
       }
       thead th {
-        background-color: #3498db;
+        background-color: #236d9e;
         color: #fff;
         font-weight: 500;
         font-size: 12px;
       }
       tbody {
         th {
-          font-weight: 500;
+          font-weight: 700;
           font-size: 12px;
         }
         td {
@@ -31,6 +39,17 @@
             a {
               padding: 5px;
             }
+          }
+        }
+      }
+      .no-border-table {
+        border: 0;
+        thead th {
+          border-width: 0;
+        }
+        tbody {
+          td {
+            border: 0;
           }
         }
       }
@@ -45,6 +64,10 @@
       .right-btn {
         margin-top: 30px;
       }
+    }
+    .btn {
+      border-radius: 3px;
+      padding: 5px;
     }
   }
 
@@ -61,11 +84,11 @@
 
   /* buttons css */
   .role_buttons {
-    padding: 25px 10px 0 10px;
+    padding: 5px 5px 0 0;
   }
 
   .status_buttons {
-    padding: 50px 10px 0 10px;
+    padding: 5px 10px 0 0;
   }
 
   /* end buttons css */

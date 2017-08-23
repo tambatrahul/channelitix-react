@@ -2,16 +2,14 @@
   <!-- Page Breadcrumb -->
   <div class="page-breadcrumb">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-12">
         <div class="page-breadcrumb-wrap">
           <div class="page-breadcrumb-info">
-            <h2 class="breadcrumb-titles">User Management</h2>
+            <h2 class="breadcrumb-titles">User Management
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a class="btn btn-xs btn-danger pull-right" routerLink="/v2/users/create">+ Add New</a>
+            </h2>
           </div>
-        </div>
-      </div>
-      <div class="col-md-2 col-md-offset-6 right-section">
-        <div class="right-btn">
-          <a class="btn btn-primary pull-right" routerLink="/v2/users/create">New User</a>
         </div>
       </div>
     </div>
@@ -20,7 +18,7 @@
 
   <!-- filters -->
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="row">
         <div class="col-xs-12 col-md-3 form-group" *roleCheck="ROLE_ADMIN">
           <region-select [value]="region_id" [title]="'Select Region'"
@@ -33,21 +31,31 @@
           </div>
         </div>
         <div class="col-xs-12 col-md-6">
-          <role-button [role_id]="role_id"
-                       (onRoleChanged)="roleChanged($event)"></role-button>
+          <div class="row">
+            <div class="col-xs-12 col-md-5">
+              <div class="form-group">
+                <label>Select Role</label>
+                <role-button [role_id]="role_id"
+                             (onRoleChanged)="roleChanged($event)"></role-button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="form-group">
+                <label>Select Status</label>
+                <div class="status_buttons">
+                  <button class="btn btn-default btn-xs" (click)="statusChanged('active')"
+                          [ngClass]="{'btn-primary':status == 'active'}">
+                    Active
+                  </button>
+                  <button class="btn btn-default btn-xs" (click)="statusChanged('in_active')"
+                          [ngClass]="{'btn-primary':status == 'in_active'}">
+                    In Active
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="clearfix pull-right status_buttons">
-        <button class="btn btn-default btn-xs" (click)="statusChanged('active')"
-                [ngClass]="{'btn-primary':status == 'active'}">
-          Active
-        </button>
-        <button class="btn btn-default btn-xs" (click)="statusChanged('in_active')"
-                [ngClass]="{'btn-primary':status == 'in_active'}">
-          In Active
-        </button>
       </div>
     </div>
   </div>
@@ -60,7 +68,7 @@
         <div class="widget-container user-table">
           <div class="widget-block table-block">
             <div class="table-responsive">
-              <table class="table table-bordered">
+              <table class="table table-bordered table-striped no-border-table">
                 <thead>
                 <tr>
                   <th></th>
@@ -91,8 +99,8 @@
                   <td>{{ user.hq_region?.name }}</td>
                   <td>{{ user.hq_area?.name}}</td>
                   <td>{{ user.hq_headquarter?.name}}</td>
-                  <td>{{ user.joining_date | date:'d MMM, y' }}</td>
-                  <td>{{ user.status == 'active' ? "NA" : user.leaving_date | date:'d MMM, y' }}</td>
+                  <td>{{ user.joining_date | date:'d, MMM y' }}</td>
+                  <td>{{ user.status == 'active' ? "NA" : user.leaving_date | date:'d, MMM y' }}</td>
                   <td class="actions">
                     <a *ngIf="user.status == 'active'" title="Update" (click)="updateUser(user.id)">
                       <i class="fa fa-pencil-square-o pointer"></i>
@@ -123,7 +131,7 @@
   <div class="row">
     <div class="col-xs-12">
       <deactivate-user [user]="deactivating_user"
-                          (userDeactivated)="onUserDeactivation($event)"></deactivate-user>
+                       (userDeactivated)="onUserDeactivation($event)"></deactivate-user>
     </div>
   </div>
 
