@@ -14,196 +14,168 @@ declare let d3: any;
 declare let swal: any;
 
 @Component({
-  templateUrl: 'leave_report.component.html',
-  styleUrls: ['leave_report.component.less']
+    templateUrl: 'leave_report.component.html',
+    styleUrls: ['leave_report.component.less']
 })
 export class LeaveReportComponent extends ListComponent {
 
-  /**
-   * year and month for calendar
-   *
-   * @type {number}
-   */
-  public month: number;
-  public year: number;
+    /**
+     * year and month for calendar
+     *
+     * @type {number}
+     */
+    public month: number;
+    public year: number;
 
-  /**
-   * region identifier
-   */
-  public region_id: number = 0;
+    /**
+     * region identifier
+     */
+    public region_id: number = 0;
 
-  /**
-   * area identifier
-   */
-  public area_id: number = 0;
+    /**
+     * area identifier
+     */
+    public area_id: number = 0;
 
-  /**
-   * regions
-   *
-   * @type {Array}
-   */
-  regions: Region[] = [];
-
-  /**
-   * Leave Report Component Constructor
-   */
-  constructor(private attendanceService: AttendanceService, public _service: AuthService) {
-    super(_service);
-  }
-
-  /**
-   * on load of component load customer types
-   */
-  ngOnInit() {
-
-    // get current month and year
-    this.month = moment().month();
-    this.year = moment().year();
-
-    if (environment.envName == 'geo') {
-      if (this._service.user.role_id == 4) {
-        this.region_id = this._service.user.hq_region_id;
-        this.area_id = this._service.user.hq_area_id;
-      }
-      else if (this._service.user.role_id == 5) {
-        this.region_id = this._service.user.hq_region_id;
-      }
+    /**
+     * users
+     *
+     * @type {{}}
+     */
+    public managers: User[] = [];
+    /**
+     * Leave Report Component Constructor
+     */
+    constructor(private attendanceService: AttendanceService, public _service: AuthService) {
+        super(_service);
     }
-    else {
-      if (this._service.user.role_id == 4) {
-        this.region_id = this._service.user.hq_region_id;
-        this.area_id = this._service.user.hq_area_id;
-      }
-      else if (this._service.user.role_id == 5) {
-        this.region_id = this._service.user.hq_region_id;
-      }
-      else {
-        if (this._service.user.role_id == 6) {
-          this.region_id = 1;
+
+    /**
+     * on load of component load customer types
+     */
+    ngOnInit() {
+        // get current month and year
+        this.month = moment().month();
+        this.year = moment().year();
+        super.ngOnInit();
+    }
+
+    /**
+     * fetch server data for visits
+     */
+    protected fetch() {
+        if (this.month && this.year) {
+            this.loading = true;
+            this.attendanceService.leave_report(this.month + 1, this.year, this.region_id).subscribe(
+                response => {
+
+                    // get users
+                    let users = response.users.map(user => new User(user));
+
+                    // get attendances
+                    let attendances = response.attendances.map(att => new Attendance(att));
+
+                    // prepare data for display
+                    this.prepareData(users, attendances);
+
+                    this.loading = false;
+                },
+                err => {
+                    this.loading = false;
+                });
         }
-      }
     }
 
-    super.ngOnInit();
-  }
+    /**
+     * Prepare Data
+     * @param users
+     * @param attendances
+     */
+    prepareData(users: User[], attendances: Attendance[]) {
+        let data_skeleton = {};
+        let managers: User[] = [];
+        let zone_managers: User[] = [];
 
-  /**
-   * fetch server data for visits
-   */
-  protected fetch() {
-    if (this.month && this.year) {
-      this.loading = true;
-      this.attendanceService.leave_report(this.month + 1, this.year, this.region_id).subscribe(
-        response => {
-
-          // get regions
-          let regions = response.regions.map(region => new Region(region));
-
-          // get users
-          let users = response.users.map(user => new User(user));
-
-          // get attendances
-          let attendances = response.attendances.map(att => new Attendance(att));
-
-          // prepare data for display
-          this.prepareData(regions, users, attendances);
-
-          this.loading = false;
-        },
-        err => {
-          this.loading = false;
-        });
-    }
-  }
-
-  prepareData(regions: Region[], users: User[], attendances: Attendance[]) {
-    regions.map(region => {
-      region.areas.map(area => {
-        area.headquarters.map(headquarter => {
-
-          attendances.map(attendance => {
-
-            // User id and attendance created by same
-            if (headquarter.id == attendance.creator.hq_headquarter_id) {
-
-              // Casual Leave
-              if (attendance.leave_type_id == 1) {
-                headquarter.casual_leave = attendance.leave_count;
-              }
-
-              // Sick Leave
-              if (attendance.leave_type_id == 2) {
-                headquarter.sick_leave = attendance.leave_count;
-              }
-
-              // Privilege Leave
-              if (attendance.leave_type_id == 3) {
-                headquarter.privilege_leave = attendance.leave_count;
-              }
-            }
-          });
-
-          users.map(user => {
-            if (headquarter.id == user.hq_headquarter_id) {
-              headquarter.user = new User(user);
-            }
-          });
-        });
-        users.map(user => {
-          if (area.id == user.hq_area_id) {
-            if (user.role_id == 4)
-              area.user = new User(user);
-          }
-        });
-      });
-      users.map(user => {
-        if (region.id == user.hq_region_id) {
-          if (user.role_id == 5)
-            region.user = new User(user);
+        // get skeleton
+        for (let user of users) {
+            data_skeleton[user.id] = [];
         }
-      });
-    });
 
-    if (this.region_id && this.region_id > 0)
-      regions = regions.filter(region => region.id == this.region_id);
+        // Prepare Attendances Data
+        for (let att of attendances) {
+            if (data_skeleton.hasOwnProperty(att.created_by)) {
+                if (att.leave_type_id == 1)
+                    data_skeleton[att.created_by]['casual_leave'] = att.leave_count;
 
-    if (this.area_id && this.area_id > 0) {
-      regions.map(region => {
-        region.areas = region.areas.filter(a => a.id == this.area_id);
-      });
+                if (att.leave_type_id == 2)
+                    data_skeleton[att.created_by]['sick_leave'] = att.leave_count;
+
+                if (att.leave_type_id == 3)
+                    data_skeleton[att.created_by]['privilege_leave'] = att.leave_count;
+            }
+        }
+
+        // add skeleton to user
+        for (let user of users) {
+            if (data_skeleton.hasOwnProperty(user.id)) {
+                user.casual_leave = data_skeleton[user.id]['casual_leave'] ? data_skeleton[user.id]['casual_leave'] : 0;
+                user.sick_leave = data_skeleton[user.id]['sick_leave'] ? data_skeleton[user.id]['sick_leave'] : 0;
+                user.privilege_leave = data_skeleton[user.id]['privilege_leave'] ? data_skeleton[user.id]['privilege_leave'] : 0;
+            }
+
+            // separate csm and zsm
+            if (user.role_str == this.ROLE_CSM) {
+                managers.push(user);
+            } else if (user.role_str == this.ROLE_ZSM) {
+                zone_managers.push(user);
+            }
+        }
+
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_ZSM) {
+            this._service.user.children = [];
+            zone_managers.push(this._service.user)
+        }
+
+        // if user is zone manager add it to list
+        if (this._service.user.role_str == this.ROLE_CSM) {
+            this._service.user.children = [];
+            managers.push(this._service.user)
+        }
+
+        // add children to managers
+        for (let u of users) {
+            for (let m of managers) {
+                if (u.manager_id == m.id) {
+                    m.children.push(u);
+                }
+            }
+        }
+
+        // add to zone manager
+        for (let z of zone_managers) {
+            for (let m of managers) {
+                if (m.manager_id == z.id) {
+                    z.children.push(m);
+                }
+            }
+        }
+
+        // depending on list show view
+        if (zone_managers.length > 0)
+            this.managers = zone_managers;
+        else
+            this.managers = managers;
     }
 
-    this.regions = regions;
-  }
-
-  /**
-   * month and year changed
-   *
-   * @param date
-   */
-  monthYearChanged(date) {
-    this.month = date.month;
-    this.year = date.year;
-    this.fetch();
-  }
-
-
-  /**
-   * when region is changed filter list of customer
-   * @param region_id
-   */
-  regionChanged(region_id) {
-    this.region_id = region_id;
-    this.area_id = 0;
-    this.fetch();
-  }
-
-  /**
-   * when area is changed filter list of customer
-   * @param area_id
-   */
-  areaChanged(area_id) {
-    this.area_id = area_id;
-    this.fetch();
-  }
+    /**
+     * month and year changed
+     *
+     * @param date
+     */
+    monthYearChanged(date) {
+        this.month = date.month;
+        this.year = date.year;
+        this.fetch();
+    }
 }
