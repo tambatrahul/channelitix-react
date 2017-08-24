@@ -32,7 +32,8 @@
         "../src/assets/less/sweetalert.less",
         "../src/assets/less/pages.less",
         "../src/assets/less/task.less",
-        "styles.less"
+        "styles.less",
+        "styles.v1.less"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
