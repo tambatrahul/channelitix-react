@@ -144,8 +144,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
       tours.map(tour => {
         if (tour.date == attendance.date) {
           // Tour plan
-          if (tour.hq_brick_id > 0)
-            attendance.tour_plan = tour.hq_brick.name;
+            attendance.tour_plan = tour.tour_plan;
         }
       });
     });

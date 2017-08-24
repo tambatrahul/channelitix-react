@@ -25,6 +25,8 @@ export class Tour extends Model {
     tour_day: number;
     t_count: number = 0;
 
+    tour_plan: string;
+
     constructor(info: any) {
         super(info.id);
         this.date = info.date;
@@ -45,5 +47,8 @@ export class Tour extends Model {
         this.working_with = info.working_with;
         if (info.tours)
             this.tours = info.tours;
+
+        if (info.tour_plan)
+            this.tour_plan = info.tour_plan;
     }
 }
