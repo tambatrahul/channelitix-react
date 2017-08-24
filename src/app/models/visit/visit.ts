@@ -38,6 +38,8 @@ export class Visit extends Model {
     customer_type_id: number = 0;
     days: string;
 
+    visited_brick: string;
+
     constructor(info: any) {
         super(info.id);
         this.visit_date = info.visit_date;
@@ -101,6 +103,9 @@ export class Visit extends Model {
 
         this.hq_brick_id = info.hq_brick_id;
         this.no_of_days = info.no_of_days;
+
+        if (info.visited_brick)
+            this.visited_brick = info.visited_brick;
     }
 
     /**

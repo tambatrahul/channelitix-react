@@ -1,0 +1,72 @@
+<div class="topics-list" #loading_box>
+    <div class="topic-container new-ticket">
+        <div class="row summary">
+            <div class="col-xs-12">
+                <div class="box-widget widget-module">
+                    <div class="widget-head clearfix">
+                        <span class="h-icon"><i class="fa fa-table"></i></span>
+                        <h4>Deviation Report</h4>
+                    </div>
+                    <div class="widget-container details-table" #loading_box>
+                        <div class="widget-block">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th rowspan="2">Working Date</th>
+                                        <th rowspan="2">Work Type</th>
+                                        <th rowspan="2">Tour Plan</th>
+                                        <th rowspan="2">Visited Brick</th>
+                                        <th colspan="5">Total</th>
+                                        <th rowspan="2">POB</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Stockist met</th>
+                                        <th>Semi met</th>
+                                        <th>Retailer met</th>
+                                        <th>Hub Chemist met</th>
+                                        <th>Healthcare Providers met</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tfoot>
+                                    <tr>
+                                        <th rowspan="2">Working Date</th>
+                                        <th rowspan="2">Work Type</th>
+                                        <th rowspan="2">Tour Plan</th>
+                                        <th rowspan="2">Visited Brick</th>
+                                        <th>Stockist met</th>
+                                        <th>Semi met</th>
+                                        <th>Retailer met</th>
+                                        <th>Hub Chemist met</th>
+                                        <th>Healthcare Providers met</th>
+                                        <th rowspan="2">POB</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5">Total</th>
+                                    </tr>
+                                    </tfoot>
+
+                                    <tbody>
+                                    <tr *ngFor="let attendance of attendances">
+                                        <td>{{attendance.date}}</td>
+                                        <td>{{ attendance.work_type?.name }}</td>
+                                        <td>{{ attendance.tour_plan }}</td>
+                                        <td>{{ attendance.visited_brick }}</td>
+                                        <td>{{ attendance.stockist_met }}</td>
+                                        <td>{{ attendance.semi_met }}</td>
+                                        <td>{{ attendance.retailer_met }}</td>
+                                        <td>{{ attendance.hub_chemist_met }}</td>
+                                        <td>{{ attendance.healthcare_providers_met }}</td>
+                                        <td>{{ attendance.pob_amount }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

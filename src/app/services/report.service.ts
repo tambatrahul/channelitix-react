@@ -76,6 +76,19 @@ export class ReportService extends BaseService {
     }
 
     /**
+     * get deviation report for user
+     *
+     * @returns {Observable<Result>}
+     */
+    deviation_report(month: number, year: number, user_id: number): Observable<Result> {
+        // prepare url
+        let url = this.getBaseUrl() + '/deviation_report/' + month + '/' + year + '/' + user_id;
+
+        // make server call
+        return this.get(url);
+    }
+
+    /**
      * get order and visit trends
      *
      * @returns {Observable<Result>}

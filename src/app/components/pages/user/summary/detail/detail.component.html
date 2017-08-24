@@ -1,5 +1,7 @@
-<summary-visit-order-graph
-        [attendances]="_user.attendances"></summary-visit-order-graph>
+<div>
+    <summary-visit-order-graph
+            [attendances]="_user.attendances"></summary-visit-order-graph>
+</div>
 <div class="topics-list" #loading_box>
     <div class="topic-container new-ticket">
         <div class="row summary">
@@ -60,4 +62,7 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    <deviation-report [user_id]="user.id" [month]="_month" [year]="_year"></deviation-report>
 </div>
