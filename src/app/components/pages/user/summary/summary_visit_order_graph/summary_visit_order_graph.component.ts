@@ -68,8 +68,8 @@ export class SummaryVisitOrderGraphComponent extends GoogleChartComponent {
       ]
     };
 
-    this.chart = this.createComboChar(document.getElementById('chart_divEvolution'));
-    this.chart.draw(this.data, this.options);
+    // this.chart = this.createComboChar(document.getElementById('chart_divEvolution'));
+    // this.chart.draw(this.data, this.options);
   }
 
   /**
