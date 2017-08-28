@@ -64,7 +64,7 @@ export class SummaryComponent extends BaseAuthComponent {
      */
     fetch() {
         this.loading = true;
-        this.userService.children(AppConstants.getRoleId(this.ROLE_CSE)).subscribe(
+        this.userService.children(0, 0, 'active').subscribe(
             response => {
                 this.users = response.users.map(function (user) {
                     return new User(user);

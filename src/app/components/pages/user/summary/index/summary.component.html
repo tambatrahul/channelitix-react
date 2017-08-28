@@ -1,77 +1,80 @@
 <div class="task-top-toolbar clearfix">
-    <div class="col-xs-12 col-md-6">
-        <h2>User Summary</h2>
-    </div>
-    <div class="col-xs-12 col-md-3 col-md-offset-1">
-        <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-    </div>
+  <div class="col-xs-12 col-md-6">
+    <h2>User Summary</h2>
+  </div>
+  <div class="col-xs-12 col-md-3 col-md-offset-1">
+    <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+  </div>
 </div>
 <div class="task-container clearfix apps-container">
-    <div class="task-content apps-panel-scroll">
-        <div class="task-list-toolbar list-toolbar clearfix">
-            <form class="task-search-form list-search-form" style="display: block;">
-                <input type="text" class="form-control list-search-input" placeholder="Search" #search (keyup)="onKey(search.value)">
-            </form>
-        </div>
-        <!-- User list -->
-        <div class="task-list apps-panel-scroll" #loading_box>
-            <div>
-                <div class="task-list-item" *ngFor="let u of _users"
-                     [ngClass]="{'task-completed': u.id == user.id}">
-                    <div class="task-list-action">
-                        <div class="task-thumb">
-                            <img alt="user" class="image-circle"
-                                 src="assets/images/avatar/manager1.png">
-                        </div>
-                    </div>
-                    <div class="task-list-details" (click)="onUserSelected(u)">
-                        <div class="task-intro">
-                            <div class="col-md-10">
-                                <h4>{{ u.full_name }}</h4>
-                                <p style="font-size: 10px;">
-                                    {{ u.hq_headquarter?.name }}
-                                </p>
-                            </div>
-                            <div class="col-md-2 circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ./User list -->
-
-        <!-- User Summary section -->
-        <div class="task-body apps-panel-scroll" #loading_box>
-            <div class="task-body-content" *ngIf="user">
-                <div class="task-info" #task_info>
-                    <template ngIf [ngIf]="user">
-                        <summary-detail [user]="user" [month]="month" [year]="year" (showTour)="onShowTour($event)"></summary-detail>
-                    </template>
-                </div>
-            </div>
-        </div>
-        <!-- ./User Summary section -->
+  <div class="task-content apps-panel-scroll">
+    <div class="task-list-toolbar list-toolbar clearfix">
+      <form class="task-search-form list-search-form" style="display: block;">
+        <input type="text" class="form-control list-search-input" placeholder="Search" #search
+               (keyup)="onKey(search.value)">
+      </form>
     </div>
+    <!-- User list -->
+    <div class="task-list apps-panel-scroll" #loading_box>
+      <div>
+        <div class="task-list-item" *ngFor="let u of _users"
+             [ngClass]="{'task-completed': u.id == user.id}">
+          <div class="task-list-action">
+            <div class="task-thumb">
+              <img alt="user" class="image-circle"
+                   src="assets/images/avatar/manager1.png">
+            </div>
+          </div>
+          <div class="task-list-details" (click)="onUserSelected(u)">
+            <div class="task-intro">
+              <div class="col-md-10">
+                <h4>{{ u.full_name }}</h4>
+                <p style="font-size: 10px;">
+                  {{ u.hq_region?.name }} {{ u.hq_area ? ("->" + u.hq_area?.name): "" }} {{ u.hq_headquarter ? ("->" +
+                  u.hq_headquarter?.name): "" }}
+                </p>
+              </div>
+              <div class="col-md-2 circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ./User list -->
+
+    <!-- User Summary section -->
+    <div class="task-body apps-panel-scroll" #loading_box>
+      <div class="task-body-content" *ngIf="user">
+        <div class="task-info" #task_info>
+          <template ngIf [ngIf]="user">
+            <summary-detail [user]="user" [month]="month" [year]="year"
+                            (showTour)="onShowTour($event)"></summary-detail>
+          </template>
+        </div>
+      </div>
+    </div>
+    <!-- ./User Summary section -->
+  </div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" #user_tour_program_modal>
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <!-- Create Tour View -->
-                <div class="row">
-                    <!-- Tour Table -->
-                    <div class="col-xs-12" *ngIf="user">
-                        <div>
-                            <user-wise-tour [month]="month" [year]="year" [user]="user"></user-wise-tour>
-                        </div>
-                    </div>
-                    <!-- ./Tour Table -->
-                </div>
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- Create Tour View -->
+        <div class="row">
+          <!-- Tour Table -->
+          <div class="col-xs-12" *ngIf="user">
+            <div>
+              <user-wise-tour [month]="month" [year]="year" [user]="user"></user-wise-tour>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
+          </div>
+          <!-- ./Tour Table -->
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>

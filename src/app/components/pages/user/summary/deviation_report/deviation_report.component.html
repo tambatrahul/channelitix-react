@@ -39,7 +39,7 @@
                     <td>{{ attendance.healthcare_providers_met }}</td>
                     <td>{{ attendance.pob_amount }}</td>
                   </tr>
-                  <tr *ngIf="attendances.length > 0">
+                  <tr *ngIf="attendances.length <= 0">
                     <td class="text-center" colspan="10">No Reporting Found</td>
                   </tr>
                   </tbody>
