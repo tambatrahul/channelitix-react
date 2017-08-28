@@ -19,6 +19,8 @@ declare let jQuery: any;
 })
 export class DeviationReportComponent extends BaseAuthComponent {
 
+  excel_loaded;
+
   /**
    * Attendance
    *
@@ -144,9 +146,22 @@ export class DeviationReportComponent extends BaseAuthComponent {
       tours.map(tour => {
         if (tour.date == attendance.date) {
           // Tour plan
-            attendance.tour_plan = tour.tour_plan;
+          attendance.tour_plan = tour.tour_plan;
         }
       });
     });
+
+    setTimeout(() => {
+      if (this.excel_loaded) {
+        console.log(this.excel_loaded);
+        this.excel_loaded.reset();
+      } else {
+        this.excel_loaded = jQuery(".deviation-table").tableExport({
+          formats: ['xlsx'],
+          bootstrap: true,
+          position: "top"
+        });
+      }
+    }, 1000);
   }
 }
