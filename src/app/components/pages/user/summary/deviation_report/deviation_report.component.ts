@@ -10,6 +10,7 @@ import * as moment from "moment";
 import {Tour} from "../../../../../models/tour_program/tour";
 import {Visit} from "../../../../../models/visit/visit";
 import {Order} from "../../../../../models/order/order";
+import {isEmpty} from "rxjs/operator/isEmpty";
 declare let jQuery: any;
 
 @Component({
@@ -153,7 +154,6 @@ export class DeviationReportComponent extends BaseAuthComponent {
 
     setTimeout(() => {
       if (this.excel_loaded) {
-        console.log(this.excel_loaded);
         this.excel_loaded.reset();
       } else {
         this.excel_loaded = jQuery(".deviation-table").tableExport({
@@ -163,5 +163,17 @@ export class DeviationReportComponent extends BaseAuthComponent {
         });
       }
     }, 1000);
+  }
+
+  /**
+   * Compare Tour Plan And visited brick
+   *
+   * @returns {number}
+   */
+  public stringCompare(a: string, b: string) {
+    if((a != null) && (b != null)){
+      if(a.localeCompare(b))
+        return 'red';
+    }
   }
 }
