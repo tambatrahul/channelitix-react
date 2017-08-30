@@ -21,6 +21,7 @@ export class PrimarySale extends Model {
 
   // for internal use only
   total_net_amount: number;
+  total_qty: number;
   hq_headquarter_id: number;
   month: number;
 
@@ -61,5 +62,8 @@ export class PrimarySale extends Model {
 
     if (info.product)
       this.product = new Product(info.product);
+
+    if (info.total_qty)
+      this.total_qty = parseFloat(info.total_qty);
   }
 }

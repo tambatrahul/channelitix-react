@@ -1,145 +1,157 @@
 <div class="container-fluid sales">
 
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Secondary Sales for {{ customer?.firm_name }}
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Order Table -->
-    <div class="row" style="margin-bottom: 10px;">
-        <div class="col-xs-12">
-            <a [routerLink]="['/sales/secondary']" class="btn btn-primary">
-                <i class="fa fa-arrow-left"></i> Back
-            </a>
-        </div>
-    </div>
-
-    <!-- Filters for Order report-->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-xs-12 col-md-3">
-            <month-picker [month]="_month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Secondary Sales for {{ customer?.firm_name }}
+            </h2>
+          </div>
         </div>
-        <div class="col-xs-12 col-md-9">
-            <button class="btn btn-primary pull-right" (click)="toggleEditing()" *ngIf="!editing && isEditable">EDIT
-            </button>
-            <button class="btn btn-danger pull-right" (click)="toggleEditing()" *ngIf="editing">CANCEL</button>
-            <button class="btn btn-primary pull-right" (click)="save()" *ngIf="editing">SAVE</button>
-        </div>
+      </div>
+      <div class="col-md-5">
+      </div>
     </div>
-    <!-- ./Filters for Order report-->
+  </div>
+  <!-- Page Breadcrumb -->
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box-widget widget-module">
-                <div class="widget-head clearfix">
-                    <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Secondary Sales Report ({{ title }})</h4>
-                </div>
-                <div class="widget-container sales-table" #loading_box>
-                    <div class="widget-block">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <template *ngIf="environment.envName != 'sk_group'">
-                                        <th style="width: 80px;">Product Code</th>
-                                    </template>
-                                    <th style="width: 200px;">Product</th>
-                                    <th style="width: 80px;">UOM</th>
-                                    <th style="width: 80px;">Opening</th>
-                                    <th style="width: 80px;">Inventory Adjustment</th>
-                                    <th style="width: 80px;">Secondary Sale</th>
-                                    <th style="width: 80px;">Closing</th>
-                                    <th style="width: 80px;">Secondary Value</th>
-                                    <th style="width: 80px;">Closing Value</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <template *ngIf="environment.envName != 'sk_group'">
-                                        <th style="width: 80px;">Product Code</th>
-                                    </template>
-                                    <th style="width: 200px;">Product</th>
-                                    <th style="width: 80px;">UOM</th>
-                                    <th style="width: 80px;">Opening</th>
-                                    <th style="width: 80px;">Inventory Adjustment</th>
-                                    <th style="width: 80px;">Secondary Sale</th>
-                                    <th style="width: 80px;">Closing</th>
-                                    <th style="width: 80px;">Secondary Value</th>
-                                    <th style="width: 80px;">Closing Value</th>
-                                </tr>
-                                </tfoot>
+  <!-- Order Table -->
+  <div class="row" style="margin-bottom: 10px;">
+    <div class="col-xs-12">
+      <a [routerLink]="['/sales/secondary']" class="btn btn-primary">
+        <i class="fa fa-arrow-left"></i> Back
+      </a>
+    </div>
+  </div>
 
-                                <tbody>
-                                <tr *ngFor="let ss of secondary_sales; let index = index">
-                                    <template *ngIf="environment.envName != 'sk_group'">
-                                        <td>{{ ss.product.code}}</td>
-                                    </template>
-                                    <td>{{ ss.product.name }}</td>
-                                    <td>{{ ss.uom.name }}</td>
-                                    <td>
-                                        {{ ss.opening | number : '1.2-2' }}
-                                    </td>
-                                    <td [ngClass]="{'editing': editing, 'empty': ss.adjustment <= 0}">
+  <!-- Filters for Order report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker [month]="_month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <button class="btn btn-primary pull-right" (click)="toggleEditing()" *ngIf="!editing && isEditable">EDIT
+      </button>
+      <button class="btn btn-danger pull-right" (click)="toggleEditing()" *ngIf="editing">CANCEL</button>
+      <button class="btn btn-primary pull-right" (click)="save()" *ngIf="editing">SAVE</button>
+    </div>
+  </div>
+  <!-- ./Filters for Order report-->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4>Secondary Sales Report ({{ title }})</h4>
+        </div>
+        <div class="widget-container sales-table" #loading_box>
+          <div class="widget-block">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <th style="width: 80px;">Product Code</th>
+                  </template>
+                  <th style="width: 200px;">Product</th>
+                  <th style="width: 80px;">UOM</th>
+                  <th style="width: 80px;">Primary (<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Primary Sales (qty)</th>
+                  <th style="width: 80px;">Opening</th>
+                  <th style="width: 80px;">Inventory Adjustment</th>
+                  <th style="width: 80px;">Secondary Sale</th>
+                  <th style="width: 80px;">Closing</th>
+                  <th style="width: 80px;">Secondary Value</th>
+                  <th style="width: 80px;">Closing Value</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <th style="width: 80px;">Product Code</th>
+                  </template>
+                  <th style="width: 200px;">Product</th>
+                  <th style="width: 80px;">UOM</th>
+                  <th style="width: 80px;">Primary (<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Primary Sales (qty)</th>
+                  <th style="width: 80px;">Opening</th>
+                  <th style="width: 80px;">Inventory Adjustment</th>
+                  <th style="width: 80px;">Secondary Sale</th>
+                  <th style="width: 80px;">Closing</th>
+                  <th style="width: 80px;">Secondary Value</th>
+                  <th style="width: 80px;">Closing Value</th>
+                </tr>
+                </tfoot>
+
+                <tbody>
+                <tr *ngFor="let ss of secondary_sales; let index = index">
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <td>{{ ss.product.code}}</td>
+                  </template>
+                  <td>{{ ss.product.name }}</td>
+                  <td>{{ ss.uom.name }}</td>
+                  <td>
+                    {{ ss.primary_sale | number : '1.2-2' }}
+                  </td>
+                  <td>
+                    {{ ss.primary_qty | number : '1.2-2' }}
+                  </td>
+                  <td>
+                    {{ ss.opening | number : '1.2-2' }}
+                  </td>
+                  <td [ngClass]="{'editing': editing, 'empty': ss.adjustment <= 0}">
                                         <span *ngIf="editing">
                                             <input class="form-control" [(ngModel)]="ss.adjustment" type="number"
                                                    value="0"/>
                                         </span>
-                                        <span *ngIf="!editing">
+                    <span *ngIf="!editing">
                                             {{ ss.adjustment | number : '1.2-2' }}
                                         </span>
-                                    </td>
-                                    <td [ngClass]="{'editing': editing, 'empty': ss.secondary_sale <= 0}">
+                  </td>
+                  <td [ngClass]="{'editing': editing, 'empty': ss.secondary_sale <= 0}">
                                         <span *ngIf="editing">
                                             <input class="form-control" [(ngModel)]="ss.secondary_sale" type="number"
                                                    value="0"/>
                                         </span>
-                                        <span *ngIf="!editing">
+                    <span *ngIf="!editing">
                                             {{ ss.secondary_sale | number : '1.2-2' }}
                                         </span>
-                                    </td>
-                                    <td>
-                                        {{ ss.closing_qty | number : '1.2-2' }}
-                                    </td>
-                                    <td>
-                                        {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
-                                    </td>
-                                    <td>
-                                        {{ ss.closing_amount | number : '1.2-2' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <template *ngIf="environment.envName != 'sk_group'">
-                                        <th></th>
-                                    </template>
-                                    <th></th>
-                                    <th>Total</th>
-                                    <th>{{ opening_total | number : '1.2-2' }}</th>
-                                    <th>{{ adjustment_total | number : '1.2-2' }}</th>
-                                    <th>{{ secondary_total | number : '1.2-2' }}</th>
-                                    <th>{{ closing_total | number : '1.2-2' }}</th>
-                                    <th>{{ secondary_value | number : '1.2-2' }}</th>
-                                    <th>{{ closing_value | number : '1.2-2' }}</th>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                  </td>
+                  <td>
+                    {{ ss.closing_qty | number : '1.2-2' }}
+                  </td>
+                  <td>
+                    {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
+                  </td>
+                  <td>
+                    {{ ss.closing_amount | number : '1.2-2' }}
+                  </td>
+                </tr>
+                <tr>
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <th></th>
+                  </template>
+                  <th></th>
+                  <th>Total</th>
+                  <th>{{ primary_total | number : '1.2-2' }}</th>
+                  <th>{{ primary_total_qty | number : '1.2-2' }}</th>
+                  <th>{{ opening_total | number : '1.2-2' }}</th>
+                  <th>{{ adjustment_total | number : '1.2-2' }}</th>
+                  <th>{{ secondary_total | number : '1.2-2' }}</th>
+                  <th>{{ closing_total | number : '1.2-2' }}</th>
+                  <th>{{ secondary_value | number : '1.2-2' }}</th>
+                  <th>{{ closing_value | number : '1.2-2' }}</th>
+                </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- ./Order Table -->
+  </div>
+  <!-- ./Order Table -->
 </div>
