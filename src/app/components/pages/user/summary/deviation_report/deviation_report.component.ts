@@ -1,12 +1,8 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {BaseAuthComponent} from "../../../../base/base_auth.component";
-import {User} from "../../../../../models/user/user";
 import {AuthService} from "../../../../../services/AuthService";
 import {Attendance} from "../../../../../models/attendance/attendance";
 import {ReportService} from "../../../../../services/report.service";
-import {Holiday} from "../../../../../models/holiday";
-import {AppConstants} from "../../../../../app.constants";
-import * as moment from "moment";
 import {Tour} from "../../../../../models/tour_program/tour";
 import {Visit} from "../../../../../models/visit/visit";
 import {Order} from "../../../../../models/order/order";
@@ -153,7 +149,6 @@ export class DeviationReportComponent extends BaseAuthComponent {
 
     setTimeout(() => {
       if (this.excel_loaded) {
-        console.log(this.excel_loaded);
         this.excel_loaded.reset();
       } else {
         this.excel_loaded = jQuery(".deviation-table").tableExport({
@@ -163,5 +158,18 @@ export class DeviationReportComponent extends BaseAuthComponent {
         });
       }
     }, 1000);
+  }
+
+  /**
+   * Compare Tour Plan And visited brick
+   *
+   * @returns {number}
+   */
+  public stringCompare(a: string, b: string) {
+    if((a != null) && (b != null)){
+      if(!a.includes(b))
+        return 'red';
+    }else
+      return 'red';
   }
 }
