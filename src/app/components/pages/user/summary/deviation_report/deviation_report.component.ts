@@ -1,16 +1,11 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {BaseAuthComponent} from "../../../../base/base_auth.component";
-import {User} from "../../../../../models/user/user";
 import {AuthService} from "../../../../../services/AuthService";
 import {Attendance} from "../../../../../models/attendance/attendance";
 import {ReportService} from "../../../../../services/report.service";
-import {Holiday} from "../../../../../models/holiday";
-import {AppConstants} from "../../../../../app.constants";
-import * as moment from "moment";
 import {Tour} from "../../../../../models/tour_program/tour";
 import {Visit} from "../../../../../models/visit/visit";
 import {Order} from "../../../../../models/order/order";
-import {isEmpty} from "rxjs/operator/isEmpty";
 declare let jQuery: any;
 
 @Component({
@@ -172,8 +167,9 @@ export class DeviationReportComponent extends BaseAuthComponent {
    */
   public stringCompare(a: string, b: string) {
     if((a != null) && (b != null)){
-      if(a.localeCompare(b))
+      if(!a.includes(b))
         return 'red';
-    }
+    }else
+      return 'red';
   }
 }
