@@ -1,0 +1,96 @@
+<div class="container-fluid bricks">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Input Utilization Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for report-->
+    <div class="row" style="padding-bottom: 10px;">
+        <div class="col-xs-12 col-md-2">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+            <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
+                           (onValueChanged)="regionChanged($event)"></region-select>
+        </div>
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+            <div *ngIf="region_id > 0">
+                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                             [first_value]="'Select Area'"
+                             (onValueChanged)="areaChanged($event)"></area-select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+            <div *ngIf="area_id > 0">
+                <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)"
+                                    [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
+                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3" *ngIf="_service.user.role_id != 3">
+            <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;width: 25%;"
+               *ngIf="headquarter_id >0"
+               (click)="fetch()">
+                Go
+            </a>
+            <a class="btn btn-primary btn-block btn-margin disabled" style="margin-top: 25px;width: 25%;"
+               *ngIf="headquarter_id == ''  ||  headquarter_id==0">
+                Go
+            </a>
+        </div>
+    </div>
+    <!-- ./Filters for report-->
+
+    <!-- Report Table -->
+    <div class="row">
+        <div class="col-xs-12" #loading_box>
+            <div *ngIf="headquarter_id > 0">
+                <div class="box-widget widget-module">
+                    <div class="widget-head clearfix">
+                        <span class="h-icon"><i class="fa fa-table"></i></span>
+                        <h4><strong>Input Utilization Report</strong></h4>
+                    </div>
+                    <div>
+                        <div class="widget-container report-table">
+                            <div class="widget-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered input_utilization_table">
+                                        <thead>
+                                        <tr style="background-color: #3498db;color: white">
+                                            <th style="font-weight: bold">Input Names</th>
+                                            <th *ngFor="let input of inputs" rowspan="2">
+                                                {{ input.name }}
+                                            </th>
+                                            <th rowSpan="2">Total</th>
+                                        </tr>
+                                        <tr style="background-color: #3498db;color: white">
+                                            <th style="font-weight: bold">Customer Names</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="headquarter_id == ''  ||  headquarter_id==0" style="height: 350px"></div>
+        </div>
+    </div>
+    <!-- ./Report Table -->
+</div>
