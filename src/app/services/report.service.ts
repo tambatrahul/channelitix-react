@@ -89,6 +89,19 @@ export class ReportService extends BaseService {
     }
 
     /**
+     * get All Months POB, Call Average and Coverage
+     *
+     * @param user_id
+     * @returns {Observable<Result>}
+     */
+    month_wise(year: number, user_id: number){
+        // prepare url
+        let url = this.getBaseUrl() + '/months_report/' + year + '/' + user_id;
+
+        // make server call
+        return this.get(url);
+    }
+    /**
      * get order and visit trends
      *
      * @returns {Observable<Result>}
