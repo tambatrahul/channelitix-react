@@ -32,11 +32,12 @@ export class ProductWiseHqComponent extends ListComponent {
      * total values
      */
     opening: number = 0;
+    opening_value: number = 0;
     closing: number = 0;
+    closing_value: number = 0;
     adjustment: number = 0;
     secondary_sale: number = 0;
     secondary_value: number = 0;
-    closing_value: number = 0;
     primary_sale: number = 0;
 
     /**
@@ -135,11 +136,12 @@ export class ProductWiseHqComponent extends ListComponent {
     protected formatSecondarySale(secondary_sales: SecondarySale[], primaries: PrimarySale[]) {
         // initialize totals
         this.opening = 0;
+        this.opening_value = 0;
         this.closing = 0;
+        this.closing_value = 0;
         this.adjustment = 0;
         this.secondary_sale = 0;
         this.secondary_value = 0;
-        this.closing_value = 0;
         this.primary_sale = 0;
 
         for (let pro of this.products) {
@@ -147,9 +149,11 @@ export class ProductWiseHqComponent extends ListComponent {
                 if (pro.id == sale.product_id) {
                     pro.unit_price = sale.unit_price;
                     pro.opening = sale.opening;
+                    pro.opening_value = sale.opening_value;
                     pro.adjustment = sale.adjustment;
                     pro.secondary_sale = sale.secondary_sale;
                     pro.closing = sale.closing;
+                    pro.closing_value = sale.closing_value;
                     pro.uom = sale.uom;
                 }
             }
@@ -161,12 +165,13 @@ export class ProductWiseHqComponent extends ListComponent {
             }
 
             this.opening += pro.opening;
+            this.opening_value += pro.opening_value;
             this.closing += pro.closing;
+            this.closing_value += pro.closing_value;
             this.primary_sale += pro.primary_sale;
             this.adjustment += pro.adjustment;
             this.secondary_sale += pro.secondary_sale;
             this.secondary_value += (pro.secondary_sale * pro.unit_price);
-            this.closing_value += (pro.amount_closing);
         }
     }
 

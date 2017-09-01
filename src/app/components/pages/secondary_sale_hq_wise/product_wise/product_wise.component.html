@@ -46,6 +46,7 @@
                   <th>UOM(Qty)</th>
                   <th class="grey">Primary Sale(<i class="fa fa-rupee"></i>)</th>
                   <th>Opening(Qty)</th>
+                  <th>Opening(<i class="fa fa-rupee"></i>)</th>
                   <th>Inventory Adjustment(Qty)</th>
                   <th>Secondary Sale(Qty)</th>
                   <th>Closing(Qty)</th>
@@ -60,11 +61,12 @@
                   <td>{{ pro.uom.name }}</td>
                   <td class="grey">{{ pro.primary_sale.toFixed(0)| number : fractionSize }}</td>
                   <td>{{ (pro.opening).toFixed(0) }}</td>
+                  <td>{{ (pro.opening_value).toFixed(0) }}</td>
                   <td>{{ (pro.adjustment).toFixed(0) }}</td>
                   <td>{{ (pro.secondary_sale).toFixed(0) }}</td>
                   <td>{{ (pro.closing).toFixed(0) }}</td>
                   <td class="grey">{{ (pro.secondary_sale * pro.unit_price).toFixed(0)| number : fractionSize }}</td>
-                  <td class="grey">{{ (pro.amount_closing).toFixed(0)| number : fractionSize }}</td>
+                  <td class="grey">{{ (pro.closing_value).toFixed(0)| number : fractionSize }}</td>
                 </tr>
                 <tr>
                   <th>Total</th>
