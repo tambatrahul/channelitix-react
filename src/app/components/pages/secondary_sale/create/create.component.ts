@@ -185,9 +185,11 @@ export class SecondarySaleCreateComponent extends ListComponent {
         product_id: ss.product_id,
         uom_id: ss.uom_id,
         opening: ss.opening,
+        opening_value: ss.opening_value,
         secondary_sale: ss.secondary_sale,
         adjustment: ss.adjustment,
         primary_qty: ss.primary_qty,
+        primary_sale: ss.primary_sale
       }));
 
     }
@@ -263,6 +265,16 @@ export class SecondarySaleCreateComponent extends ListComponent {
   }
 
   /**
+   * get total opening value amount
+   * @returns {number}
+   */
+  get opening_value_total() {
+    return this.secondary_sales.reduce((s1, s2) => {
+      return s1 + s2.opening_value
+    }, 0);
+  }
+
+  /**
    * get total adjustment amount
    * @returns {number}
    */
@@ -296,7 +308,7 @@ export class SecondarySaleCreateComponent extends ListComponent {
    */
   get closing_value(): number {
     return this.secondary_sales.reduce((s1, s2) => {
-      return s1 + (s2.closing_qty * s2.unit_price);
+      return s1 + (s2.closing_in_value);
     }, 0);
   }
 

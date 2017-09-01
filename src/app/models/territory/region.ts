@@ -58,10 +58,12 @@ export class Region extends Model {
 
   unit_price: number = 0;
   opening: number = 0;
+  opening_value: number = 0;
   adjustment: number = 0;
   secondary_sale: number = 0;
   secondary_amount: number = 0;
   closing: number = 0;
+  closing_value: number = 0;
   total_net_amount: number = 0;
 
   user: User;
@@ -145,6 +147,9 @@ export class Region extends Model {
     if (info.opening)
       this.opening = parseFloat(info.opening);
 
+    if (info.opening_value)
+      this.opening_value = parseFloat(info.opening_value);
+
     if (info.adjustment)
       this.adjustment = parseFloat(info.adjustment);
 
@@ -153,6 +158,9 @@ export class Region extends Model {
 
     if (info.closing)
       this.closing = parseFloat(info.closing);
+
+    if (info.closing_value)
+      this.closing_value = parseFloat(info.closing_value);
 
     if (info.secondary_amount)
       this.secondary_amount = parseFloat(info.secondary_amount);
