@@ -165,11 +165,15 @@ export class DeviationReportComponent extends BaseAuthComponent {
    *
    * @returns {number}
    */
-  public stringCompare(a: string, b: string) {
-    if((a != null) && (b != null)){
-      if(!b.includes(a))
-        return 'red';
-    }else
-      return 'red';
+  public stringCompare(wotk_type: string, a: string, b: string) {
+    // work plan meeting is not red
+    if(wotk_type != "Meeting"){
+      // compare string visited brick and Tour Plan
+      if((a != null) && (b != null)){
+        if(!b.includes(a))
+          return '#f76e60';
+      }else
+        return '#f76e60';
+    }
   }
 }

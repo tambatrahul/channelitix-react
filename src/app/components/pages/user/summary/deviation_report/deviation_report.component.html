@@ -27,7 +27,7 @@
                   </thead>
 
                   <tbody>
-                  <tr *ngFor="let attendance of attendances" [ngStyle]="{'background-color': (stringCompare(attendance.tour_plan,attendance.visited_brick))}">
+                  <tr *ngFor="let attendance of attendances" [ngStyle]="{'background-color': (stringCompare(attendance.work_type?.name, attendance.tour_plan,attendance.visited_brick))}">
                     <td>{{attendance.date | date:'d, MMM y'}}</td>
                     <td>{{ attendance.work_type?.name }}</td>
                     <td>{{ attendance.tour_plan }}</td>
