@@ -57,10 +57,10 @@
                       <th>Total</th>
                       <th></th>
                       <th class="value">{{ region.total_net_amount.toFixed(0) | number : fractionSize }}</th>
-                      <th class="value">{{ region.opening.toFixed(0) | number : fractionSize}}</th>
+                      <th class="value">{{ region.opening_value.toFixed(0) | number : fractionSize}}</th>
                       <th class="value">{{ region.adjustment.toFixed(0)| number : fractionSize }}</th>
                       <th class="value">{{ region.secondary_sale.toFixed(0)| number : fractionSize }}</th>
-                      <th class="value">{{ region.closing_amount  .toFixed(0)| number : fractionSize }}</th>
+                      <th class="value">{{ region.closing_value.toFixed(0)| number : fractionSize }}</th>
                       <th style="text-align: center!important;">
                         <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, '', '']"
                            class="btn btn-xs btn-primary">VIEW</a>
@@ -71,10 +71,10 @@
                         <th>{{ area.name }}</th>
                         <th></th>
                         <th class="value">{{ area.total_net_amount.toFixed(0)| number : fractionSize }}</th>
-                        <th class="value">{{ area.opening.toFixed(0)| number : fractionSize }}</th>
+                        <th class="value">{{ area.opening_value.toFixed(0)| number : fractionSize }}</th>
                         <th class="value">{{ area.adjustment.toFixed(0)| number : fractionSize }}</th>
                         <th class="value">{{ area.secondary_sale.toFixed(0)| number : fractionSize }}</th>
-                        <th class="value">{{ area.closing_amount.toFixed(0)| number : fractionSize }}</th>
+                        <th class="value">{{ area.closing_value.toFixed(0)| number : fractionSize }}</th>
                         <th style="text-align: center!important;">
                           <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, area.id, '']"
                              class="btn btn-xs btn-primary">VIEW</a>
@@ -84,10 +84,10 @@
                         <th></th>
                         <th class="text-left">{{ hq.name }}</th>
                         <td>{{ hq.total_net_amount.toFixed(0)| number : fractionSize }}</td>
-                        <td>{{ hq.opening.toFixed(0)| number : fractionSize }}</td>
+                        <td>{{ hq.opening_value.toFixed(0)| number : fractionSize }}</td>
                         <td>{{ hq.adjustment.toFixed(0)| number : fractionSize }}</td>
                         <td>{{ hq.secondary_sale.toFixed(0)| number : fractionSize }}</td>
-                        <td>{{ hq.closing_amount.toFixed(0)| number : fractionSize }}</td>
+                        <td>{{ hq.closing_value.toFixed(0)| number : fractionSize }}</td>
                         <td style="text-align: center!important;">
                           <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, area.id, hq.id]"
                              class="btn btn-xs btn-primary">VIEW</a>

@@ -58,14 +58,15 @@
                   </template>
                   <th style="width: 200px;">Product</th>
                   <th style="width: 80px;">UOM</th>
-                  <th style="width: 80px;">Primary (<i class="fa fa-rupee"></i>)</th>
-                  <th style="width: 80px;">Primary Sales (qty)</th>
-                  <th style="width: 80px;">Opening</th>
-                  <th style="width: 80px;">Inventory Adjustment</th>
-                  <th style="width: 80px;">Secondary Sale</th>
-                  <th style="width: 80px;">Closing</th>
-                  <th style="width: 80px;">Secondary Value</th>
-                  <th style="width: 80px;">Closing Value</th>
+                  <th style="width: 80px;">Primary <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Primary Sales <br>(qty)</th>
+                  <th style="width: 80px;">Opening <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Opening <br>(qty)</th>
+                  <th style="width: 80px;">Inventory Adjustment <br>(qty)</th>
+                  <th style="width: 80px;">Secondary Sale <br>(qty)</th>
+                  <th style="width: 80px;">Closing <br>(qty)</th>
+                  <th style="width: 80px;">Secondary <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Closing <br>(<i class="fa fa-rupee"></i>)</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -75,14 +76,15 @@
                   </template>
                   <th style="width: 200px;">Product</th>
                   <th style="width: 80px;">UOM</th>
-                  <th style="width: 80px;">Primary (<i class="fa fa-rupee"></i>)</th>
-                  <th style="width: 80px;">Primary Sales (qty)</th>
-                  <th style="width: 80px;">Opening</th>
-                  <th style="width: 80px;">Inventory Adjustment</th>
-                  <th style="width: 80px;">Secondary Sale</th>
-                  <th style="width: 80px;">Closing</th>
-                  <th style="width: 80px;">Secondary Value</th>
-                  <th style="width: 80px;">Closing Value</th>
+                  <th style="width: 80px;">Primary <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Primary Sales <br>(qty)</th>
+                  <th style="width: 80px;">Opening <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Opening <br>(qty)</th>
+                  <th style="width: 80px;">Inventory Adjustment <br>(qty)</th>
+                  <th style="width: 80px;">Secondary Sale <br>(qty)</th>
+                  <th style="width: 80px;">Closing <br>(qty)</th>
+                  <th style="width: 80px;">Secondary <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th style="width: 80px;">Closing <br>(<i class="fa fa-rupee"></i>)</th>
                 </tr>
                 </tfoot>
 
@@ -98,6 +100,9 @@
                   </td>
                   <td>
                     {{ ss.primary_qty | number : '1.2-2' }}
+                  </td>
+                  <td>
+                    {{ ss.opening_value | number : '1.2-2' }}
                   </td>
                   <td>
                     {{ ss.opening | number : '1.2-2' }}
@@ -121,13 +126,13 @@
                                         </span>
                   </td>
                   <td>
-                    {{ ss.closing_qty | number : '1.2-2' }}
+                    {{ ss.closing | number : '1.2-2' }}
                   </td>
                   <td>
                     {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
                   </td>
                   <td>
-                    {{ ss.closing_amount | number : '1.2-2' }}
+                    {{ ss.closing_value | number : '1.2-2' }}
                   </td>
                 </tr>
                 <tr>
@@ -138,6 +143,7 @@
                   <th>Total</th>
                   <th>{{ primary_total | number : '1.2-2' }}</th>
                   <th>{{ primary_total_qty | number : '1.2-2' }}</th>
+                  <th>{{ opening_value_total | number : '1.2-2' }}</th>
                   <th>{{ opening_total | number : '1.2-2' }}</th>
                   <th>{{ adjustment_total | number : '1.2-2' }}</th>
                   <th>{{ secondary_total | number : '1.2-2' }}</th>

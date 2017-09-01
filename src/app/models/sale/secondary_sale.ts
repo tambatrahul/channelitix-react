@@ -19,24 +19,25 @@ export class SecondarySale extends Model {
   primary_qty: number = 0;
   primary_sale: number = 0;
   opening: number;
+  opening_value: number;
   adjustment: number;
   secondary_sale: number = 0;
   secondary_amount: number = 0;
   closing_amount_hq: number = 0;
   closing: number;
+  closing_value: number;
   unit_price: number;
 
   // for internal user only
   total_amount: number = 0;
   brand_id: number = 0;
 
+  get closing_in_value(): number {
+    return this.primary_sale + (this.adjustment * this.unit_price) + this.opening_value - (this.secondary_sale * this.unit_price);
+  }
 
   get closing_qty(): number {
     return this.primary_qty + this.adjustment + this.opening - this.secondary_sale;
-  }
-
-  get closing_amount(): number {
-    return this.closing_qty * this.unit_price;
   }
 
   // for internal use
@@ -60,6 +61,11 @@ export class SecondarySale extends Model {
       this.opening = parseFloat(info.opening);
     else
       this.opening = 0;
+
+    if (info.opening_value)
+      this.opening_value = parseFloat(info.opening_value);
+    else
+      this.opening_value = 0;
 
     if (info.adjustment)
       this.adjustment = parseFloat(info.adjustment);
@@ -85,6 +91,11 @@ export class SecondarySale extends Model {
       this.closing = parseFloat(info.closing);
     else
       this.closing = 0;
+
+    if (info.closing_value)
+      this.closing_value = parseFloat(info.closing_value);
+    else
+      this.closing_value = 0;
 
     if (info.unit_price)
       this.unit_price = parseFloat(info.unit_price);
