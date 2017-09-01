@@ -73,7 +73,7 @@ export class MonthWiseReportComponent extends BaseAuthComponent {
      * Fetch Messages from server
      */
     fetch() {
-        if (this._user_id) {
+        if (this._user_id && this._year) {
             this.loading = true;
             this.months = {
                 1: {pob_amount: 0, call_average: 0, coverage: 0}, 2: {pob_amount: 0, call_average: 0, coverage: 0},
@@ -97,7 +97,7 @@ export class MonthWiseReportComponent extends BaseAuthComponent {
                     let visits = response.visits.map(vis => new Visit(vis));
 
                     // get customer count
-                    let customer = response.customer;
+                    let customer = response.customer_total;
 
                     // get attendance count
                     let attendances = response.attendances.map(att => new Attendance(att));
@@ -118,15 +118,14 @@ export class MonthWiseReportComponent extends BaseAuthComponent {
      * @param orders
      * @param all_visits
      * @param visits
-     * @param customers
+     * @param customer_total
      * @param attendances
      */
-    prepareData(orders: Order[], all_visits: Visit[], visits: Visit[], customers: Customer, attendances: Attendance[]) {
+    prepareData(orders: Order[], all_visits: Visit[], visits: Visit[], customer_total: number, attendances: Attendance[]) {
 
         // set POB Amount
         orders.map(order => {
             for (let i = 1; i <= 12; i++) {
-                console.log(order.order_month);
                 if (order.order_month == i)
                     this.months[i].pob_amount = order.order_day_total_count;
             }
@@ -148,7 +147,7 @@ export class MonthWiseReportComponent extends BaseAuthComponent {
         visits.map(visit => {
             for (let i = 1; i <= 12; i++) {
                 if (visit.visit_month == i)
-                    this.months[i].coverage = (visit.visit_count / customers.total_customers);
+                    this.months[i].coverage = (visit.visit_count / customer_total);
             }
         });
     }

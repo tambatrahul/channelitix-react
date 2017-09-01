@@ -85,6 +85,7 @@ export class Result {
 
   // customer models
   customer: Customer;
+  customer_total: number = 0;
   customers: Customer[];
   cus_total_customers: Customer[];
   hq_wise_customers: Customer[];

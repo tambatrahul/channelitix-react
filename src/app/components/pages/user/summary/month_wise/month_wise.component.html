@@ -22,7 +22,7 @@
 
                   <tbody>
                   <tr>
-                    <td>POB Amount</td>
+                    <td>POB Amount (<i class="fa fa-rupee"></i>)</td>
                     <template ngFor let-month [ngForOf]="months_str" let-i="index">
                       <td>
                         {{ months[i + 1].pob_amount}}
@@ -38,10 +38,10 @@
                     </template>
                   </tr>
                   <tr>
-                    <td>Coverage</td>
+                    <td>Coverage (%)</td>
                     <template ngFor let-month [ngForOf]="months_str" let-i="index">
                       <td>
-                        {{ months[i + 1].coverage}}
+                        {{ (months[i + 1].coverage * 100).toFixed(2)}}
                       </td>
                     </template>
                   </tr>
