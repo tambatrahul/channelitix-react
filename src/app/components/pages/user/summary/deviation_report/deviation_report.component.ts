@@ -167,7 +167,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
    */
   public stringCompare(a: string, b: string) {
     if((a != null) && (b != null)){
-      if(!a.includes(b))
+      if(!b.includes(a))
         return 'red';
     }else
       return 'red';
