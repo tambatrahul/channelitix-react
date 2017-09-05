@@ -42,16 +42,17 @@
                   <template *ngIf="environment.envName != 'sk_group'">
                     <th style="width: 80px;">Product Code</th>
                   </template>
-                  <th>Product(Qty)</th>
-                  <th>UOM(Qty)</th>
-                  <th class="grey">Primary Sale(<i class="fa fa-rupee"></i>)</th>
-                  <th>Opening(Qty)</th>
-                  <th>Opening(<i class="fa fa-rupee"></i>)</th>
-                  <th>Inventory Adjustment(Qty)</th>
-                  <th>Secondary Sale(Qty)</th>
-                  <th>Closing(Qty)</th>
-                  <th class="grey">Secondary Value(<i class="fa fa-rupee"></i>)</th>
-                  <th class="grey">Closing Value(<i class="fa fa-rupee"></i>)</th>
+                  <th>Product</th>
+                  <th>UOM</th>
+                  <th class="grey">Primary Sale <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th class="grey">Primary Sale <br>(Qty)</th>
+                  <th>Opening <br>(Qty)</th>
+                  <th>Opening <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th>Inventory Adjustment <br>(Qty)</th>
+                  <th>Secondary Sale <br>(Qty)</th>
+                  <th>Closing <br>(Qty)</th>
+                  <th class="grey">Secondary Value <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th class="grey">Closing Value <br>(<i class="fa fa-rupee"></i>)</th>
                 </tr>
                 </thead>
 
@@ -60,25 +61,27 @@
                   <th>{{ pro?.name }}</th>
                   <td>{{ pro.uom.name }}</td>
                   <td class="grey">{{ pro.primary_sale.toFixed(0)| number : fractionSize }}</td>
-                  <td>{{ (pro.opening).toFixed(0) }}</td>
-                  <td>{{ (pro.opening_value).toFixed(0) }}</td>
-                  <td>{{ (pro.adjustment).toFixed(0) }}</td>
-                  <td>{{ (pro.secondary_sale).toFixed(0) }}</td>
-                  <td>{{ (pro.closing).toFixed(0) }}</td>
+                  <td class="grey">{{ pro.primary_qty.toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.opening).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.opening_value).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.adjustment).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.secondary_sale).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.closing).toFixed(0)| number : fractionSize }}</td>
                   <td class="grey">{{ (pro.secondary_sale * pro.unit_price).toFixed(0)| number : fractionSize }}</td>
                   <td class="grey">{{ (pro.closing_value).toFixed(0)| number : fractionSize }}</td>
                 </tr>
                 <tr>
                   <th>Total</th>
                   <th></th>
-                  <th class="grey">{{ primary_sale.toFixed(0)| number : fractionSize }}</th>
-                  <th>{{ opening.toFixed(0) }}</th>
-                  <th>{{ opening_value.toFixed(0) }}</th>
-                  <th>{{ adjustment.toFixed(0) }}</th>
-                  <th>{{ secondary_sale.toFixed(0) }}</th>
-                  <th>{{ closing.toFixed(0) }}</th>
-                  <th class="grey">{{ (secondary_value).toFixed(0)| number : fractionSize }}</th>
-                  <th class="grey">{{ (closing_value).toFixed(0)| number : fractionSize }}</th>
+                  <th class="grey text-right">{{ primary_sale.toFixed(0)| number : fractionSize }}</th>
+                  <th class="grey text-right">{{ primary_qty.toFixed(0)| number : fractionSize }}</th>
+                  <th class="text-right">{{ opening.toFixed(0) | number : fractionSize }}</th>
+                  <th class="text-right">{{ opening_value.toFixed(0) | number : fractionSize }}</th>
+                  <th class="text-right">{{ adjustment.toFixed(0) | number : fractionSize }}</th>
+                  <th class="text-right">{{ secondary_sale.toFixed(0)| number : fractionSize }}</th>
+                  <th class="text-right">{{ closing.toFixed(0) | number : fractionSize }}</th>
+                  <th class="grey text-right">{{ (secondary_value).toFixed(0)| number : fractionSize }}</th>
+                  <th class="grey text-right">{{ (closing_value).toFixed(0)| number : fractionSize }}</th>
                 </tr>
                 </tbody>
               </table>

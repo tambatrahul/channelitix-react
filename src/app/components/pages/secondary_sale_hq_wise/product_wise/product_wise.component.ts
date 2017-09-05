@@ -39,6 +39,7 @@ export class ProductWiseHqComponent extends ListComponent {
     secondary_sale: number = 0;
     secondary_value: number = 0;
     primary_sale: number = 0;
+    primary_qty: number = 0;
 
     /**
      * title of page
@@ -143,6 +144,7 @@ export class ProductWiseHqComponent extends ListComponent {
         this.secondary_sale = 0;
         this.secondary_value = 0;
         this.primary_sale = 0;
+        this.primary_qty = 0;
 
         for (let pro of this.products) {
             for (let sale of secondary_sales) {
@@ -161,6 +163,7 @@ export class ProductWiseHqComponent extends ListComponent {
             for(let ps of primaries){
                 if (pro.code == ps.prd_code) {
                     pro.primary_sale = ps.total_net_amount;
+                    pro.primary_qty = ps.total_qty;
                 }
             }
 
@@ -169,6 +172,7 @@ export class ProductWiseHqComponent extends ListComponent {
             this.closing += pro.closing;
             this.closing_value += pro.closing_value;
             this.primary_sale += pro.primary_sale;
+            this.primary_qty += pro.primary_qty;
             this.adjustment += pro.adjustment;
             this.secondary_sale += pro.secondary_sale;
             this.secondary_value += (pro.secondary_sale * pro.unit_price);
