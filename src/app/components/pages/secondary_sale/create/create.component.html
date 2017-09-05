@@ -125,14 +125,20 @@
                                             {{ ss.secondary_sale | number : '1.2-2' }}
                                         </span>
                   </td>
-                  <td>
+                  <td *ngIf="!editing">
                     {{ ss.closing | number : '1.2-2' }}
+                  </td>
+                  <td *ngIf="editing">
+                    {{ ss.closing_qty | number : '1.2-2' }}
                   </td>
                   <td>
                     {{ ss.secondary_sale * ss.unit_price | number : '1.2-2' }}
                   </td>
-                  <td>
+                  <td *ngIf="!editing">
                     {{ ss.closing_value | number : '1.2-2' }}
+                  </td>
+                  <td *ngIf="editing">
+                    {{ ss.closing_in_value | number : '1.2-2' }}
                   </td>
                 </tr>
                 <tr>
