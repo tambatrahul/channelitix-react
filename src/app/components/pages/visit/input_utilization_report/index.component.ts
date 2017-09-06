@@ -8,6 +8,7 @@ import {environment} from "../../../../../environments/environment";
 import {VisitService} from "../../../../services/visit.service";
 import {Input} from "../../../../models/visit/input";
 import {Visit} from "../../../../models/visit/visit";
+import {Customer} from "../../../../models/customer/customer";
 declare let jQuery: any;
 
 @Component({
@@ -31,6 +32,7 @@ export class InputUtilizationReportComponent extends ListComponent {
     public headquarter_id: number = 0;
     public _headquarters: Headquarter[] = [];
     public inputs: Input[] = [];
+    public dates = [];
 
     /**
      * User Component Cons3tructor
@@ -103,15 +105,33 @@ export class InputUtilizationReportComponent extends ListComponent {
     // Prepare Data For Display
     prepareData(inputs: Input[], visits: Visit[]) {
         let dates = {};
+        let new_dates = [];
 
         // prepare visit skeleton
-        for (let visit of visits) {
-           if(!dates.hasOwnProperty(visit.visit_day)){
-               dates[visit.visit_day] = new Visit(visit);
-           }
-        }
+        visits.forEach(function (visit) {
+            if (!dates.hasOwnProperty(visit.visit_date)) {
+                dates[visit.visit_date] = [];
+            }
 
-        console.log(dates);
+            let customer = {};
+            if (!customer.hasOwnProperty(visit.customer_id)) {
+               customer[visit.customer_id] = [];
+            }else{
+                customer[visit.customer_id].push(visit.customer);
+            }
+
+            dates[visit.visit_date].push(customer);
+        });
+
+        Object.keys(dates).map(function (date) {
+            new_dates.push([
+                date,
+                dates[date]
+            ]);
+        });
+
+        this.dates = new_dates;
+        console.log(new_dates);
     }
 
     /**
