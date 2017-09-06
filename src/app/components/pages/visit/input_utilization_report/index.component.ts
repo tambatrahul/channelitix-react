@@ -113,14 +113,7 @@ export class InputUtilizationReportComponent extends ListComponent {
                 dates[visit.visit_date] = [];
             }
 
-            let customer = {};
-            if (!customer.hasOwnProperty(visit.customer_id)) {
-               customer[visit.customer_id] = [];
-            }else{
-                customer[visit.customer_id].push(visit.customer);
-            }
-
-            dates[visit.visit_date].push(customer);
+            dates[visit.visit_date].push(visit);
         });
 
         Object.keys(dates).map(function (date) {
@@ -131,7 +124,6 @@ export class InputUtilizationReportComponent extends ListComponent {
         });
 
         this.dates = new_dates;
-        console.log(new_dates);
     }
 
     /**
