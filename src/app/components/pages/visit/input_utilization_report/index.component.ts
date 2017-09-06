@@ -89,11 +89,14 @@ export class InputUtilizationReportComponent extends ListComponent {
                 // get inputs
                 this.inputs = response.inputs.map(input => new Input(input));
 
-                // get customers
+                // get visit
                 let visits = response.visits.map(visit => new Visit(visit));
 
+                // get customers
+                let customers = response.customers.map(cus => new Customer(cus));
+
                 // prepare data for display
-                this.prepareData(this.inputs, visits);
+                this.prepareData(this.inputs, visits, customers);
 
                 this.loading = false;
             }
@@ -103,27 +106,30 @@ export class InputUtilizationReportComponent extends ListComponent {
     }
 
     // Prepare Data For Display
-    prepareData(inputs: Input[], visits: Visit[]) {
+    prepareData(inputs: Input[], visits: Visit[], customers: Customer[]) {
         let dates = {};
-        let new_dates = [];
 
-        // prepare visit skeleton
-        visits.forEach(function (visit) {
+        visits.map(function (visit) {
             if (!dates.hasOwnProperty(visit.visit_date)) {
                 dates[visit.visit_date] = [];
             }
 
-            dates[visit.visit_date].push(visit);
-        });
+            if (!dates[visit.visit_date].hasOwnProperty(visit.customer_id)) {
+                dates[visit.visit_date][visit.customer_id] = [];
+                dates[visit.visit_date][visit.customer_id]['customer'] = [];
+            }
 
-        Object.keys(dates).map(function (date) {
-            new_dates.push([
-                date,
-                dates[date]
-            ]);
-        });
+            if(dates[visit.visit_date][visit.customer_id]['customer']){
+                dates[visit.visit_date][visit.customer_id]['customer'] = visit.customer;
+            }
 
-        this.dates = new_dates;
+            if (!dates[visit.visit_date][visit.customer_id].hasOwnProperty(visit.input_id)) {
+                dates[visit.visit_date][visit.customer_id][visit.input_id] = [];
+                dates[visit.visit_date][visit.customer_id][visit.input_id]['input_id'] = visit.input_id;
+                dates[visit.visit_date][visit.customer_id][visit.input_id]['input_value'] = visit.visit_input_count;
+            }
+        });
+        console.log(dates);
     }
 
     /**
@@ -168,6 +174,6 @@ export class InputUtilizationReportComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
-        this.fetch();
+        // this.fetch();
     }
 }
