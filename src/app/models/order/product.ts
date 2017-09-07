@@ -29,6 +29,7 @@ export class Product extends Model {
   opening_value: number = 0;
   adjustment: number = 0;
   secondary_sale: number = 0;
+  secondary_amount: number = 0;
   closing: number = 0;
   closing_value: number = 0;
 

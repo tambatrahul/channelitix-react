@@ -154,6 +154,7 @@ export class ProductWiseHqComponent extends ListComponent {
                     pro.opening_value = sale.opening_value;
                     pro.adjustment = sale.adjustment;
                     pro.secondary_sale = sale.secondary_sale;
+                    pro.secondary_amount = sale.secondary_amount;
                     pro.closing = sale.closing;
                     pro.closing_value = sale.closing_value;
                     pro.uom = sale.uom;
@@ -175,7 +176,7 @@ export class ProductWiseHqComponent extends ListComponent {
             this.primary_qty += pro.primary_qty;
             this.adjustment += pro.adjustment;
             this.secondary_sale += pro.secondary_sale;
-            this.secondary_value += (pro.secondary_sale * pro.unit_price);
+            this.secondary_value += pro.secondary_amount;
         }
     }
 
