@@ -33,6 +33,17 @@ export class InputUtilizationReportComponent extends ListComponent {
     public _headquarters: Headquarter[] = [];
     public inputs: Input[] = [];
     public dates = [];
+    public totals = {
+        '1': 0,
+        '2': 0,
+        '3': 0,
+        '4': 0,
+        '5': 0,
+        '6': 0,
+        '7': 0,
+        '8': 0,
+        '9': 0,
+    };
 
     /**
      * User Component Cons3tructor
@@ -111,25 +122,45 @@ export class InputUtilizationReportComponent extends ListComponent {
 
         visits.map(function (visit) {
             if (!dates.hasOwnProperty(visit.visit_date)) {
-                dates[visit.visit_date] = [];
+                dates[visit.visit_date] = {};
             }
 
             if (!dates[visit.visit_date].hasOwnProperty(visit.customer_id)) {
-                dates[visit.visit_date][visit.customer_id] = [];
-                dates[visit.visit_date][visit.customer_id]['customer'] = [];
+                dates[visit.visit_date][visit.customer_id] = {};
+                dates[visit.visit_date][visit.customer_id]['customer'] = {};
+                dates[visit.visit_date][visit.customer_id]['inputs'] = [];
+                dates[visit.visit_date][visit.customer_id]['total_input'] = 0;
             }
 
-            if(dates[visit.visit_date][visit.customer_id]['customer']){
+            if (dates[visit.visit_date][visit.customer_id]['customer']) {
                 dates[visit.visit_date][visit.customer_id]['customer'] = visit.customer;
             }
 
-            if (!dates[visit.visit_date][visit.customer_id].hasOwnProperty(visit.input_id)) {
-                dates[visit.visit_date][visit.customer_id][visit.input_id] = [];
-                dates[visit.visit_date][visit.customer_id][visit.input_id]['input_id'] = visit.input_id;
-                dates[visit.visit_date][visit.customer_id][visit.input_id]['input_value'] = visit.visit_input_count;
-            }
+            dates[visit.visit_date][visit.customer_id]['total_input'] += +visit.visit_input_count;
+
+            dates[visit.visit_date][visit.customer_id]['inputs'].push({
+                'input_id': visit.input_id,
+                'input_value': visit.visit_input_count
+            });
+
+
+
         });
-        console.log(dates);
+
+        let new_dates = [];
+        Object.keys(dates).map(function (date) {
+            new_dates.push([
+                date,
+                dates[date]
+            ]);
+        });
+        this.dates = new_dates;
+    }
+
+    generateArray(obj) {
+        return Object.keys(obj).map((key) => {
+            return obj[key]
+        });
     }
 
     /**

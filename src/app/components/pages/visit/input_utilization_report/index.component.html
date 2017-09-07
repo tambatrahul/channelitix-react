@@ -84,17 +84,19 @@
                                             <tr>
                                                 <th [colSpan]="9">{{ date[0] }}</th>
                                             </tr>
-                                            <template ngFor let-cus [ngForOf]="date[1]">
+                                            <template ngFor let-cus [ngForOf]="generateArray(date[1])">
                                                 <tr>
                                                     <td>{{ cus.customer.firm_name }}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <template ngFor let-input [ngForOf]="inputs">
+                                                        <td>
+                                                            <template ngFor let-inp [ngForOf]="cus.inputs">
+                                                                <span *ngIf="input.id == inp.input_id">
+                                                                    {{ inp.input_value }}
+                                                                </span>
+                                                            </template>
+                                                        </td>
+                                                    </template>
+                                                    <td>{{ cus.total_input }}</td>
                                                 </tr>
                                             </template>
                                         </template>
