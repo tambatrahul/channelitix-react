@@ -23,6 +23,7 @@ export class InputUtilizationReportComponent extends ListComponent {
      */
     public month: number;
     public year: number;
+    btn_loading: boolean = false;
 
     /**
      * region, territory, area, headquarter & brick id
@@ -33,17 +34,8 @@ export class InputUtilizationReportComponent extends ListComponent {
     public _headquarters: Headquarter[] = [];
     public inputs: Input[] = [];
     public dates = [];
-    public totals = {
-        '1': 0,
-        '2': 0,
-        '3': 0,
-        '4': 0,
-        '5': 0,
-        '6': 0,
-        '7': 0,
-        '8': 0,
-        '9': 0,
-    };
+    public totals = [];
+    public total = 0;
 
     /**
      * User Component Cons3tructor
@@ -95,6 +87,7 @@ export class InputUtilizationReportComponent extends ListComponent {
      */
     fetch() {
         this.loading = true;
+        this.btn_loading = true;
         this.visitService.input_utilizaiton(this.region_id, this.area_id, this.headquarter_id, this.month + 1, this.year).subscribe(
             response => {
                 // get inputs
@@ -110,6 +103,7 @@ export class InputUtilizationReportComponent extends ListComponent {
                 this.prepareData(this.inputs, visits, customers);
 
                 this.loading = false;
+                this.btn_loading = false;
             }
         );
 
@@ -119,33 +113,63 @@ export class InputUtilizationReportComponent extends ListComponent {
     // Prepare Data For Display
     prepareData(inputs: Input[], visits: Visit[], customers: Customer[]) {
         let dates = {};
+        let totals = [];
+        let all_total = 0;
+
+        inputs.map(function (input) {
+            totals.push({
+                'input_id': input.id,
+                'total_value': 0
+            });
+        })
 
         visits.map(function (visit) {
+            // Set Date In Array
             if (!dates.hasOwnProperty(visit.visit_date)) {
                 dates[visit.visit_date] = {};
             }
 
+            // Initialize All Variables
             if (!dates[visit.visit_date].hasOwnProperty(visit.customer_id)) {
                 dates[visit.visit_date][visit.customer_id] = {};
                 dates[visit.visit_date][visit.customer_id]['customer'] = {};
-                dates[visit.visit_date][visit.customer_id]['inputs'] = [];
                 dates[visit.visit_date][visit.customer_id]['total_input'] = 0;
+                dates[visit.visit_date][visit.customer_id]['inputs'] = [];
+
+                inputs.map(function (input) {
+                    dates[visit.visit_date][visit.customer_id]['inputs'].push({
+                        'input_id': input.id,
+                        'input_value': 0
+                    });
+                })
             }
 
+            // Set Customer data
             if (dates[visit.visit_date][visit.customer_id]['customer']) {
                 dates[visit.visit_date][visit.customer_id]['customer'] = visit.customer;
             }
 
+            // Set Input Data
+            for (let inp of dates[visit.visit_date][visit.customer_id]['inputs']) {
+                if (inp.input_id == visit.input_id) {
+                    inp.input_value = visit.visit_input_count;
+                }
+            }
+
+            // Set Total Of All inputs
             dates[visit.visit_date][visit.customer_id]['total_input'] += +visit.visit_input_count;
 
-            dates[visit.visit_date][visit.customer_id]['inputs'].push({
-                'input_id': visit.input_id,
-                'input_value': visit.visit_input_count
+            totals.map(function (total) {
+                if (total.input_id == visit.input_id)
+                    total.total_value += +visit.visit_input_count;
+
             });
 
-
-
+            all_total += +visit.visit_input_count;
         });
+
+        this.total = all_total;
+        this.totals = totals;
 
         let new_dates = [];
         Object.keys(dates).map(function (date) {
@@ -154,9 +178,11 @@ export class InputUtilizationReportComponent extends ListComponent {
                 dates[date]
             ]);
         });
+
         this.dates = new_dates;
     }
 
+    // Generate Object To Array
     generateArray(obj) {
         return Object.keys(obj).map((key) => {
             return obj[key]
@@ -177,6 +203,7 @@ export class InputUtilizationReportComponent extends ListComponent {
     regionChanged(region_id) {
         this.region_id = region_id;
         this.areaChanged(0);
+        this.dates = [];
     }
 
     /**
@@ -186,6 +213,7 @@ export class InputUtilizationReportComponent extends ListComponent {
     areaChanged(area_id) {
         this.area_id = area_id;
         this.headquarterChanged(0);
+        this.dates = [];
     }
 
 
@@ -195,6 +223,7 @@ export class InputUtilizationReportComponent extends ListComponent {
      */
     headquarterChanged(headquarter_id) {
         this.headquarter_id = headquarter_id;
+        this.dates = [];
     }
 
     /**
@@ -205,6 +234,5 @@ export class InputUtilizationReportComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
-        // this.fetch();
     }
 }
