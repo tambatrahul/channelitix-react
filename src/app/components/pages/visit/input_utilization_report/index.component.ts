@@ -8,7 +8,6 @@ import {environment} from "../../../../../environments/environment";
 import {VisitService} from "../../../../services/visit.service";
 import {Input} from "../../../../models/visit/input";
 import {Visit} from "../../../../models/visit/visit";
-import {Customer} from "../../../../models/customer/customer";
 declare let jQuery: any;
 
 @Component({
@@ -96,11 +95,8 @@ export class InputUtilizationReportComponent extends ListComponent {
                 // get visit
                 let visits = response.visits.map(visit => new Visit(visit));
 
-                // get customers
-                let customers = response.customers.map(cus => new Customer(cus));
-
                 // prepare data for display
-                this.prepareData(this.inputs, visits, customers);
+                this.prepareData(this.inputs, visits);
 
                 this.loading = false;
                 this.btn_loading = false;
@@ -111,7 +107,7 @@ export class InputUtilizationReportComponent extends ListComponent {
     }
 
     // Prepare Data For Display
-    prepareData(inputs: Input[], visits: Visit[], customers: Customer[]) {
+    prepareData(inputs: Input[], visits: Visit[]) {
         let dates = {};
         let totals = [];
         let all_total = 0;
@@ -121,7 +117,7 @@ export class InputUtilizationReportComponent extends ListComponent {
                 'input_id': input.id,
                 'total_value': 0
             });
-        })
+        });
 
         visits.map(function (visit) {
             // Set Date In Array
