@@ -187,6 +187,12 @@
                 <span class="nav-label">Secondary Statement Report</span>
               </a>
             </li>
+            <li *roleCheck="ROLE_ADMIN">
+              <a class="waves-effect" [routerLink]="['/visits/input_utilization']" *roleCheck="ROLE_CSM">
+                <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                <span class="nav-label">Input Utilization Report</span>
+              </a>
+            </li>
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">

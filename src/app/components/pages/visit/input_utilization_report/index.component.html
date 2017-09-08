@@ -1,146 +1,151 @@
 <div class="container-fluid bricks">
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">
-                            Input Utilization Report
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Filters for report-->
-    <div class="row" style="padding-bottom: 10px;">
-        <div class="col-xs-12 col-md-2">
-            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-        </div>
-        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
-            <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
-                           (onValueChanged)="regionChanged($event)"></region-select>
-        </div>
-        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
-            <div *ngIf="region_id > 0">
-                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
-                             [first_value]="'Select Area'"
-                             (onValueChanged)="areaChanged($event)"></area-select>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
-            <div *ngIf="area_id > 0">
-                <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)"
-                                    [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
-                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-3" *ngIf="_service.user.role_id != 3">
-            <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;width: 25%;"
-               *ngIf="headquarter_id >0"
-               (click)="fetch()">
-                <span *ngIf="!btn_loading">Go</span>
-                <span *ngIf="btn_loading"><i class="fa fa-spinner fa-spin"></i>Go</span>
-            </a>
-            <a class="btn btn-primary btn-block btn-margin disabled" style="margin-top: 25px;width: 25%;"
-               *ngIf="headquarter_id == ''  ||  headquarter_id==0">
-                Go
-            </a>
-        </div>
-    </div>
-    <!-- ./Filters for report-->
-
-    <!-- Report Table -->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-xs-12" #loading_box>
-            <div *ngIf="dates.length > 0">
-                <div *ngIf="headquarter_id > 0">
-                    <div class="box-widget widget-module">
-                        <div class="widget-container input_utilization-table">
-                            <div class="widget-block" style="padding: 0px">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered input_utilization_table">
-                                        <thead>
-                                        <tr style="background-color: #3498db;color: white">
-                                            <th style="font-weight: bold" rowspan="2">Customer Names
-                                            </th>
-                                            <th style="font-weight: bold" [colSpan]="inputs.length + 1">
-                                                Input Names
-                                            </th>
-                                        </tr>
-                                        <tr style="background-color: #3498db;color: white">
-                                            <th *ngFor="let input of inputs">
-                                                {{ input.name }}
-                                            </th>
-                                            <th>Total</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="dark_grey">
-                                            <th>Total</th>
-                                            <template ngFor let-input [ngForOf]="inputs">
-                                                <td>
-                                                    <template ngFor let-total [ngForOf]="totals">
+      <div class="col-md-4">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">
+              Input Utilization Report
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for report-->
+  <div class="row" style="padding-bottom: 10px;">
+    <div class="col-xs-12 col-md-2">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+      <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
+                     (onValueChanged)="regionChanged($event)"></region-select>
+    </div>
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+      <div *ngIf="region_id > 0">
+        <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                     [first_value]="'Select Area'"
+                     (onValueChanged)="areaChanged($event)"></area-select>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+      <div *ngIf="area_id > 0">
+        <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)"
+                            [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
+                            (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3" *ngIf="_service.user.role_id != 3">
+      <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;width: 25%;"
+         *ngIf="headquarter_id >0"
+         (click)="fetch()">
+        <span *ngIf="!btn_loading">Go</span>
+        <span *ngIf="btn_loading"><i class="fa fa-spinner fa-spin"></i>Go</span>
+      </a>
+      <a class="btn btn-primary btn-block btn-margin disabled" style="margin-top: 25px;width: 25%;"
+         *ngIf="headquarter_id == ''  ||  headquarter_id==0">
+        Go
+      </a>
+    </div>
+  </div>
+  <!-- ./Filters for report-->
+
+  <!-- Report Table -->
+  <div class="row">
+    <div class="col-xs-12" #loading_box>
+      <div *ngIf="dates.length > 0">
+        <div *ngIf="headquarter_id > 0">
+          <div class="box-widget widget-module">
+            <div class="widget-container input_utilization-table">
+              <div class="widget-block" style="padding: 0px">
+                <div class="table-responsive">
+                  <table class="table table-bordered input_utilization_table">
+                    <thead>
+                    <tr style="background-color: #3498db;color: white">
+                      <th style="font-weight: bold" rowspan="2">
+                        Customer Names
+                      </th>
+                      <th style="font-weight: bold" rowspan="2">
+                        Type
+                      </th>
+                      <th style="font-weight: bold" [colSpan]="inputs.length + 1">
+                        Input Names
+                      </th>
+                    </tr>
+                    <tr style="background-color: #3498db;color: white">
+                      <th *ngFor="let input of inputs">
+                        {{ input.name }}
+                      </th>
+                      <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="dark_grey">
+                      <th colspan="2">Total</th>
+                      <template ngFor let-input [ngForOf]="inputs">
+                        <td>
+                          <template ngFor let-total [ngForOf]="totals">
                                                               <span *ngIf="input.id == total.input_id">
                                                                     {{ total.total_value }}
                                                               </span>
-                                                    </template>
-                                                </td>
-                                            </template>
-                                            <td>{{ total }}</td>
-                                        </tr>
-                                        <template ngFor let-date [ngForOf]="dates">
-                                            <tr class="grey">
-                                                <th [colSpan]="9" class="text-center">
-                                                    {{ date[0] | date:'d, MMM y' }}
-                                                </th>
-                                            </tr>
-                                            <template ngFor let-cus [ngForOf]="generateArray(date[1])">
-                                                <tr>
-                                                    <th>{{ cus.customer.firm_name }}</th>
-                                                    <template ngFor let-input [ngForOf]="inputs">
-                                                        <td>
-                                                            <template ngFor let-inp [ngForOf]="cus.inputs">
+                          </template>
+                        </td>
+                      </template>
+                      <td>{{ total }}</td>
+                    </tr>
+                    <template ngFor let-date [ngForOf]="dates">
+                      <tr class="grey">
+                        <th [colSpan]="10" class="text-center">
+                          {{ date[0] | date:'d, MMM y' }}
+                        </th>
+                      </tr>
+                      <template ngFor let-cus [ngForOf]="generateArray(date[1])">
+                        <tr>
+                          <th>{{ cus.customer.firm_name }}</th>
+                          <th>{{ cus.customer.customer_type.name }}</th>
+                          <template ngFor let-input [ngForOf]="inputs">
+                            <td>
+                              <template ngFor let-inp [ngForOf]="cus.inputs">
                                                                 <span *ngIf="input.id == inp.input_id">
                                                                     {{ inp.input_value }}
                                                                 </span>
-                                                            </template>
-                                                        </td>
-                                                    </template>
-                                                    <td>{{ cus.total_input }}</td>
-                                                </tr>
-                                            </template>
-                                        </template>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                              </template>
+                            </td>
+                          </template>
+                          <td>{{ cus.total_input }}</td>
+                        </tr>
+                      </template>
+                    </template>
+                    </tbody>
+                  </table>
                 </div>
-                <div *ngIf="headquarter_id == 0" style="height: 350px">
-                    <div class="box-widget widget-module">
-                        <div class="widget-container input_utilization-table">
-                            <div class="widget-block">
-                                <h5>No Data Found</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-            <div *ngIf="dates.length == 0" style="height: 350px">
-                <div class="box-widget widget-module">
-                    <div class="widget-container input_utilization-table">
-                        <div class="widget-block">
-                            <h5>No Data Found</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div *ngIf="headquarter_id == 0" style="height: 350px">
+          <div class="box-widget widget-module">
+            <div class="widget-container input_utilization-table">
+              <div class="widget-block">
+                <h5>No Data Found</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="dates.length == 0" style="height: 350px">
+        <div class="box-widget widget-module">
+          <div class="widget-container input_utilization-table">
+            <div class="widget-block">
+              <h5>No Data Found</h5>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- ./Report Table -->
+  </div>
+  <!-- ./Report Table -->
 </div>
