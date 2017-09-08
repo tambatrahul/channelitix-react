@@ -232,5 +232,8 @@ export class InputUtilizationReportComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
+
+        if (this.headquarter_id && this.headquarter_id > 0)
+            this.fetch();
     }
 }
