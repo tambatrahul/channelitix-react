@@ -166,7 +166,7 @@ export class VisitService extends BaseService {
      * get details till month
      * @returns {Observable<Result>}
      */
-    input_utilizaiton(region_id?: number, area_id?: number, headquarter_id?: number,
+    input_utilization(region_id?: number, area_id?: number, headquarter_id?: number,
                       month?: number, year?: number): Observable<Result> {
 
 
@@ -181,6 +181,18 @@ export class VisitService extends BaseService {
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * get details till month
+     * @returns {Observable<Result>}
+     */
+    hq_wise_input_utilization(month?: number, year?: number): Observable<Result> {
+        // prepare url
+        let url = this.getBaseUrl() + '/input_utilization/headquarter_wise/' + month + '/' + year;
+
+        // make server call
+        return this.get(url);
     }
 
 }

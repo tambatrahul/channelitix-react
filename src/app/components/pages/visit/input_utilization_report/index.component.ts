@@ -20,17 +20,31 @@ export class InputUtilizationReportComponent extends ListComponent {
      * year and month for calendar
      * @type {number}
      */
-    public month: number;
-    public year: number;
-    btn_loading: boolean = false;
+    month: number;
+
 
     /**
-     * region, territory, area, headquarter & brick id
+     * year
      */
-    public region_id: number = 0;
-    public area_id: number = 0;
-    public headquarter_id: number = 0;
-    public _headquarters: Headquarter[] = [];
+    year: number;
+
+    /**
+     * title of page
+     *
+     * @returns {string}
+     */
+    public get title() {
+        return moment().month(this.month).format('MMMM') + ", " + this.year;
+    }
+
+    /**
+     * headquarter id
+     */
+    public _hq_id: number;
+    public _area_id: number;
+    public _region_id: number;
+    public headquarter: Headquarter;
+
     public inputs: Input[] = [];
     public dates = [];
     public totals = [];
@@ -48,46 +62,28 @@ export class InputUtilizationReportComponent extends ListComponent {
      */
     ngOnInit() {
         super.ngOnInit();
-        this.month = moment().month();
-        this.year = moment().year();
+    }
 
-        if (environment.envName == 'geo') {
-            if (this._service.user.role_id == 4) {
-                this.region_id = this._service.user.hq_region_id;
-                this.area_id = this._service.user.hq_area_id;
-            }
-            else if (this._service.user.role_id == 5) {
-                this.region_id = this._service.user.hq_region_id;
-            }
-            else if (this._service.user.role_id == 3) {
-                this.region_id = this._service.user.hq_region_id;
-                this.area_id = this._service.user.hq_area_id;
-                this.headquarter_id = this._service.user.hq_headquarter_id;
-            }
-        }
-        else {
-            if (this._service.user.role_id == 4) {
-                this.region_id = this._service.user.hq_region_id;
-                this.area_id = this._service.user.hq_area_id;
-            }
-            else if (this._service.user.role_id == 5) {
-                this.region_id = this._service.user.hq_region_id;
-            }
-            else if (this._service.user.role_id == 3) {
-                this.region_id = this._service.user.hq_region_id;
-                this.area_id = this._service.user.hq_area_id;
-                this.headquarter_id = this._service.user.hq_headquarter_id;
-            }
-        }
+    /**
+     * fetch customer secondary sales from server
+     */
+    fetch() {
+        this.route.params.subscribe(params => {
+            this._hq_id = params['hq_id'];
+            this._area_id = params['area_id'];
+            this._region_id = params['region_id'];
+            this.month = parseInt(params['month']);
+            this.year = parseInt(params['year']);
+            this.fetchData();
+        });
     }
 
     /**
      * load users for logged in user
      */
-    fetch() {
+    fetchData() {
         this.loading = true;
-        this.btn_loading = true;
-        this.visitService.input_utilizaiton(this.region_id, this.area_id, this.headquarter_id, this.month + 1, this.year).subscribe(
+        this.visitService.input_utilization(this._region_id, this._area_id, this._hq_id, this.month + 1, this.year).subscribe(
             response => {
                 // get inputs
                 this.inputs = response.inputs.map(input => new Input(input));
@@ -99,7 +95,6 @@ export class InputUtilizationReportComponent extends ListComponent {
                 this.prepareData(this.inputs, visits);
 
                 this.loading = false;
-                this.btn_loading = false;
             }
         );
 
@@ -185,55 +180,5 @@ export class InputUtilizationReportComponent extends ListComponent {
         return Object.keys(obj).map((key) => {
             return obj[key]
         });
-    }
-
-    /**
-     * get headquarters
-     */
-    headquarters(data) {
-        this._headquarters = data.headquarters;
-    }
-
-    /**
-     * when region is changed filter list of customer
-     * @param region_id
-     */
-    regionChanged(region_id) {
-        this.region_id = region_id;
-        this.areaChanged(0);
-        this.dates = [];
-    }
-
-    /**
-     * when area is changed filter list of customer
-     * @param area_id
-     */
-    areaChanged(area_id) {
-        this.area_id = area_id;
-        this.headquarterChanged(0);
-        this.dates = [];
-    }
-
-
-    /**
-     * when headquarter is changed filter list of customer
-     * @param headquarter_id
-     */
-    headquarterChanged(headquarter_id) {
-        this.headquarter_id = headquarter_id;
-        this.dates = [];
-    }
-
-    /**
-     * month and year changed
-     *
-     * @param date
-     */
-    monthYearChanged(date) {
-        this.month = date.month;
-        this.year = date.year;
-
-        if (this.headquarter_id && this.headquarter_id > 0)
-            this.fetch();
     }
 }

@@ -69,6 +69,7 @@ import {ResetPasswordComponent} from "./components/pages/user/reset_password/res
 import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_report.component";
 import {ProductComponent} from "./v2/pages/products/index/index.component";
 import {InputUtilizationReportComponent} from "./components/pages/visit/input_utilization_report/index.component";
+import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq_wise_input_utilization_report/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -142,7 +143,16 @@ export const routes: Routes = [
                     },
                     {
                         path: 'input_utilization',
-                        component: InputUtilizationReportComponent
+                        children: [
+                            {
+                                path: '',
+                                component: HqWiseInputUtilizationReportComponent
+                            },
+                            {
+                                path: 'hq_wise/:month/:year/:region_id/:area_id/:hq_id',
+                                component: InputUtilizationReportComponent
+                            }
+                        ]
                     }
                 ]
             },

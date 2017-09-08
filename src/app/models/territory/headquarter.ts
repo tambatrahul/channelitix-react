@@ -3,6 +3,8 @@ import {Area} from "./area";
 import {CustomerType} from "../customer/customer_type";
 import {Customer} from "../customer/customer";
 import {User} from "../user/user";
+import {Input} from "../visit/input";
+import {InputAnswer} from "../visit/input_answer";
 
 export class Headquarter extends Model {
 
@@ -35,6 +37,7 @@ export class Headquarter extends Model {
   territories_count: number = 0;
   bricks_count: number = 0;
   customers: Customer[] = [];
+  inputs: InputAnswer[] = [];
 
   hq_last_year_total: number = 0;
   hq_last_year_dexona_total: number = 0;
@@ -53,6 +56,7 @@ export class Headquarter extends Model {
   casual_leave: number = 0;
   sick_leave: number = 0;
   privilege_leave: number = 0;
+  total_input_value: number = 0;
 
   user: User;
 
@@ -146,6 +150,9 @@ export class Headquarter extends Model {
 
     if (info.privilege_leave)
       this.privilege_leave = parseInt(info.privilege_leave);
+
+    if (info.total_input_value)
+      this.total_input_value = parseInt(info.total_input_value);
   }
 
   /**

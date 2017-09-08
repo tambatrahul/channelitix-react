@@ -183,6 +183,7 @@ import {DeviationReportComponent} from "./components/pages/user/summary/deviatio
 import {ProductComponent} from "./v2/pages/products/index/index.component";
 import {MonthWiseReportComponent} from "./components/pages/user/summary/month_wise/month_wise.component";
 import {InputUtilizationReportComponent} from "./components/pages/visit/input_utilization_report/index.component";
+import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq_wise_input_utilization_report/index.component";
 
 enableProdMode();
 @NgModule({
@@ -264,6 +265,7 @@ enableProdMode();
     CustomerMissingComponent,
     LeaveReportComponent,
     DeviationReportComponent,
+    HqWiseInputUtilizationReportComponent,
     InputUtilizationReportComponent,
 
     //dashboard report Component

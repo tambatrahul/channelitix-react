@@ -5,6 +5,7 @@ import {Area} from "./area";
 import {Product} from "../order/product";
 import {Customer} from "../customer/customer";
 import {User} from "../user/user";
+import {InputAnswer} from "../visit/input_answer";
 
 export class Region extends Model {
 
@@ -65,7 +66,8 @@ export class Region extends Model {
   closing: number = 0;
   closing_value: number = 0;
   total_net_amount: number = 0;
-
+  inputs: InputAnswer[] = [];
+  total_input_value: number = 0;
   user: User;
 
   constructor(info: any) {
@@ -164,6 +166,9 @@ export class Region extends Model {
 
     if (info.secondary_amount)
       this.secondary_amount = parseFloat(info.secondary_amount);
+
+    if (info.total_input_value)
+      this.total_input_value = parseInt(info.total_input_value);
   }
 
   /**
