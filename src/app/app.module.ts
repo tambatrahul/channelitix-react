@@ -182,6 +182,7 @@ import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_
 import {DeviationReportComponent} from "./components/pages/user/summary/deviation_report/deviation_report.component";
 import {ProductComponent} from "./v2/pages/products/index/index.component";
 import {MonthWiseReportComponent} from "./components/pages/user/summary/month_wise/month_wise.component";
+import {InputUtilizationReportComponent} from "./components/pages/visit/input_utilization_report/index.component";
 
 enableProdMode();
 @NgModule({
@@ -263,6 +264,7 @@ enableProdMode();
     CustomerMissingComponent,
     LeaveReportComponent,
     DeviationReportComponent,
+    InputUtilizationReportComponent,
 
     //dashboard report Component
     SalesComponent,

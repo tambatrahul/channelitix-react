@@ -12,6 +12,8 @@ export class Visit extends Model {
     latitude: string;
     longitude: string;
     customer_id: number;
+    visit_input_count: number;
+    input_id: number;
     created_by: number;
     no_of_days: number;
     stockist_code: number;
@@ -106,6 +108,12 @@ export class Visit extends Model {
 
         if (info.visited_brick)
             this.visited_brick = info.visited_brick;
+
+        if (info.input_id)
+            this.input_id = info.input_id;
+
+        if (info.visit_input_count)
+            this.visit_input_count = info.visit_input_count;
     }
 
     /**
