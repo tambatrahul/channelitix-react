@@ -120,20 +120,23 @@ export class InputUtilizationReportComponent extends ListComponent {
         });
 
         visits.map(function (visit) {
+            let d = new Date(visit.visit_date);
+            let visit_date = moment(d).format('YYYY/MM/DD');
+
             // Set Date In Array
-            if (!dates.hasOwnProperty(visit.visit_date)) {
-                dates[visit.visit_date] = {};
+            if (!dates.hasOwnProperty(visit_date)) {
+                dates[visit_date] = {};
             }
 
             // Initialize All Variables
-            if (!dates[visit.visit_date].hasOwnProperty(visit.customer_id)) {
-                dates[visit.visit_date][visit.customer_id] = {};
-                dates[visit.visit_date][visit.customer_id]['customer'] = {};
-                dates[visit.visit_date][visit.customer_id]['total_input'] = 0;
-                dates[visit.visit_date][visit.customer_id]['inputs'] = [];
+            if (!dates[visit_date].hasOwnProperty(visit.customer_id)) {
+                dates[visit_date][visit.customer_id] = {};
+                dates[visit_date][visit.customer_id]['customer'] = {};
+                dates[visit_date][visit.customer_id]['total_input'] = 0;
+                dates[visit_date][visit.customer_id]['inputs'] = [];
 
                 inputs.map(function (input) {
-                    dates[visit.visit_date][visit.customer_id]['inputs'].push({
+                    dates[visit_date][visit.customer_id]['inputs'].push({
                         'input_id': input.id,
                         'input_value': 0
                     });
@@ -141,19 +144,19 @@ export class InputUtilizationReportComponent extends ListComponent {
             }
 
             // Set Customer data
-            if (dates[visit.visit_date][visit.customer_id]['customer']) {
-                dates[visit.visit_date][visit.customer_id]['customer'] = visit.customer;
+            if (dates[visit_date][visit.customer_id]['customer']) {
+                dates[visit_date][visit.customer_id]['customer'] = visit.customer;
             }
 
             // Set Input Data
-            for (let inp of dates[visit.visit_date][visit.customer_id]['inputs']) {
+            for (let inp of dates[visit_date][visit.customer_id]['inputs']) {
                 if (inp.input_id == visit.input_id) {
                     inp.input_value = visit.visit_input_count;
                 }
             }
 
             // Set Total Of All inputs
-            dates[visit.visit_date][visit.customer_id]['total_input'] += +visit.visit_input_count;
+            dates[visit_date][visit.customer_id]['total_input'] += +visit.visit_input_count;
 
             totals.map(function (total) {
                 if (total.input_id == visit.input_id)
@@ -174,7 +177,6 @@ export class InputUtilizationReportComponent extends ListComponent {
                 dates[date]
             ]);
         });
-
         this.dates = new_dates;
     }
 
