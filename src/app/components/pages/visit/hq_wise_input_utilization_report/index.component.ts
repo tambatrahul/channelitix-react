@@ -24,6 +24,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
    */
   public month: number;
   public year: number;
+  excel_loaded;
 
   /**
    * region, territory, area, headquarter & brick id
@@ -61,7 +62,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
    * load users for logged in user
    */
   fetch() {
-    if (this.month && this.year) {
+    if (this.month && this.year && !this.loading) {
       this.loading = true;
       this.visitService.hq_wise_input_utilization(this.month + 1, this.year).subscribe(
         response => {
@@ -80,6 +81,15 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
           this.prepareData(this.inputs, visits);
 
           this.loading = false;
+
+          setTimeout(() => {
+            console.log('here');
+            this.excel_loaded = jQuery(".deviation-table").tableExport({
+              formats: ['xlsx'],
+              bootstrap: true,
+              position: "top"
+            });
+          }, 1000);
         }, err => {
           this.loading = false;
         }
