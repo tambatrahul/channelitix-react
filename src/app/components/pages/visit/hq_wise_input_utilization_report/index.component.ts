@@ -24,7 +24,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
      */
     public month: number;
     public year: number;
-    btn_loading: boolean = false;
+    excel_loaded;
 
     /**
      * region, territory, area, headquarter & brick id
@@ -43,7 +43,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
     regions: Region[] = [];
 
     /**
-     * User Component Cons3tructor
+     * User Component Constructor
      */
     constructor(public _service: AuthService, public route: ActivatedRoute, public visitService: VisitService) {
         super(_service);
@@ -53,22 +53,19 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
      * on load of component load customer types
      */
     ngOnInit() {
-        super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
-        this.fetch();
+        super.ngOnInit();
     }
 
     /**
      * load users for logged in user
      */
     fetch() {
-        if (this.month) {
+        if (this.month && this.year && !this.loading) {
             this.loading = true;
             this.visitService.hq_wise_input_utilization(this.month + 1, this.year).subscribe(
                 response => {
-                    this.loading = false;
-
                     // get inputs
                     this.inputs = response.inputs.map(input => new Input(input));
 
@@ -82,6 +79,17 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
 
                     // prepare data for display
                     this.prepareData(this.inputs, visits);
+
+                    this.loading = false;
+
+                    setTimeout(() => {
+                        console.log('here');
+                        this.excel_loaded = jQuery(".deviation-table").tableExport({
+                            formats: ['xlsx'],
+                            bootstrap: true,
+                            position: "top"
+                        });
+                    }, 1000);
                 }, err => {
                     this.loading = false;
                 }
