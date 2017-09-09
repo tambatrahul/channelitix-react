@@ -1,4 +1,4 @@
-<div class="container-fluid bricks">
+<div class="container-fluid bricks" #loading_box>
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
         <div class="row">
@@ -24,7 +24,7 @@
     <!-- ./Filters for report-->
 
     <!-- Report Table -->
-    <div class="row" #loading_box>
+    <div class="row">
         <div class="row" *ngFor="let region of regions">
             <div class="col-xs-12">
                 <div class="box-widget widget-module">
@@ -71,7 +71,7 @@
                                             </template>
                                             <th>{{ region.total_input_value }}</th>
                                             <th>
-                                                <a [routerLink]="['/visits/input_utilization/hq_wise', month, year, region.id, '', '']"
+                                                <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, '', '']"
                                                    class="btn btn-xs btn-primary">VIEW</a>
                                             </th>
                                         </tr>
@@ -88,7 +88,7 @@
                                                 </template>
                                                 <th>{{ area.total_input_value }}</th>
                                                 <th>
-                                                    <a [routerLink]="['/visits/input_utilization/hq_wise', month, year, region.id, area.id, '']"
+                                                    <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, area.id, '']"
                                                        class="btn btn-xs btn-primary">VIEW</a>
                                                 </th>
                                             </tr>
@@ -104,7 +104,7 @@
                                                 </template>
                                                 <th>{{ hq.total_input_value }}</th>
                                                 <th>
-                                                    <a [routerLink]="['/visits/input_utilization/hq_wise', month, year, region.id, area.id, hq.id]"
+                                                    <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, area.id, hq.id]"
                                                        class="btn btn-xs btn-primary">VIEW</a>
                                                 </th>
                                             </tr>

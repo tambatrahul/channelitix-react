@@ -34,7 +34,7 @@ export class InputUtilizationReportComponent extends ListComponent {
      * @returns {string}
      */
     public get title() {
-        return moment().month(this.month).format('MMMM') + ", " + this.year;
+        return moment().month(this.month - 1).format('MMMM') + ", " + this.year;
     }
 
     /**
@@ -83,7 +83,7 @@ export class InputUtilizationReportComponent extends ListComponent {
      */
     fetchData() {
         this.loading = true;
-        this.visitService.input_utilization(this._region_id, this._area_id, this._hq_id, this.month + 1, this.year).subscribe(
+        this.visitService.input_utilization(this._region_id, this._area_id, this._hq_id, this.month, this.year).subscribe(
             response => {
                 // get inputs
                 this.inputs = response.inputs.map(input => new Input(input));

@@ -142,7 +142,6 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
             // add inputs
             region.inputs = inputs.map(input => new InputAnswer(input));
         });
-        console.log(this.regions);
     }
 
     /**
