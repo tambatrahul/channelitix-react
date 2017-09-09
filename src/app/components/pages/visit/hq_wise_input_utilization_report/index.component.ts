@@ -63,28 +63,30 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        this.loading = true;
-        this.btn_loading = true;
-        this.visitService.hq_wise_input_utilization(this.month + 1, this.year).subscribe(
-            response => {
-                // get inputs
-                this.inputs = response.inputs.map(input => new Input(input));
+        if (this.month) {
+            this.loading = true;
+            this.btn_loading = true;
+            this.visitService.hq_wise_input_utilization(this.month + 1, this.year).subscribe(
+                response => {
+                    // get inputs
+                    this.inputs = response.inputs.map(input => new Input(input));
 
-                // get visit
-                let visits = response.visits.map(visit => new Visit(visit));
+                    // get visit
+                    let visits = response.visits.map(visit => new Visit(visit));
 
-                // convert to models
-                this.regions = response.regions.map(function (region, index) {
-                    return new Region(region);
-                });
+                    // convert to models
+                    this.regions = response.regions.map(function (region, index) {
+                        return new Region(region);
+                    });
 
-                // prepare data for display
-                this.prepareData(this.inputs, visits);
+                    // prepare data for display
+                    this.prepareData(this.inputs, visits);
 
-                this.loading = false;
-                this.btn_loading = false;
-            }
-        );
+                    this.loading = false;
+                    this.btn_loading = false;
+                }
+            );
+        }
 
         this.loading = false;
     }
