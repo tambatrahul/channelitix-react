@@ -1,123 +1,123 @@
 <div class="container-fluid bricks" #loading_box>
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">
-                            Input Utilization Report
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Filters for report-->
-    <div class="row" style="padding-bottom: 10px;">
-        <div class="col-xs-12 col-md-2">
-            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-        </div>
-    </div>
-    <!-- ./Filters for report-->
-
-    <!-- Report Table -->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="row" *ngFor="let region of regions">
-            <div class="col-xs-12">
-                <div class="box-widget widget-module">
-                    <div class="widget-head clearfix">
-                        <span class="h-icon"><i class="fa fa-table"></i></span>
-                        <h4><strong>{{ region.name }}</strong></h4>
-                    </div>
-                    <div>
-                        <div class="widget-container report-table">
-                            <div class="widget-block" style="padding: 0px;">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered visit_table">
-                                        <thead>
-                                        <tr style="background-color: #3498db;color: white">
-                                            <th style="font-weight: bold" rowspan="2">
-                                                Area
-                                            </th>
-                                            <th style="font-weight: bold" rowspan="2">
-                                                Headquarter
-                                            </th>
-                                            <th style="font-weight: bold" [colSpan]="inputs.length + 2">
-                                                Input Names
-                                            </th>
-                                        </tr>
-                                        <tr style="background-color: #3498db;color: white">
-                                            <th *ngFor="let input of inputs">
-                                                {{ input.name }}
-                                            </th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <tr class="dark_grey">
-                                            <th>Total</th>
-                                            <th></th>
-                                            <template ngFor let-input [ngForOf]="inputs">
-                                                <template ngFor let-region_input [ngForOf]="region.inputs">
-                                                    <th *ngIf="region_input.id == input.id">
-                                                        {{ region_input.value }}
-                                                    </th>
-                                                </template>
-                                            </template>
-                                            <th>{{ region.total_input_value }}</th>
-                                            <th>
-                                                <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, '', '']"
-                                                   class="btn btn-xs btn-primary">VIEW</a>
-                                            </th>
-                                        </tr>
-                                        <template ngFor let-area [ngForOf]="region.areas">
-                                            <tr class="grey">
-                                                <th>{{ area.name }}</th>
-                                                <th></th>
-                                                <template ngFor let-input [ngForOf]="inputs">
-                                                    <template ngFor let-area_input [ngForOf]="area.inputs">
-                                                        <th *ngIf="area_input.id == input.id">
-                                                            {{ area_input.value }}
-                                                        </th>
-                                                    </template>
-                                                </template>
-                                                <th>{{ area.total_input_value }}</th>
-                                                <th>
-                                                    <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, area.id, '']"
-                                                       class="btn btn-xs btn-primary">VIEW</a>
-                                                </th>
-                                            </tr>
-                                            <tr *ngFor="let hq of area.headquarters">
-                                                <th></th>
-                                                <th class="text-left">{{ hq.name }}</th>
-                                                <template ngFor let-input [ngForOf]="inputs">
-                                                    <template ngFor let-hq_input [ngForOf]="hq.inputs">
-                                                        <th *ngIf="hq_input.id == input.id">
-                                                            {{ hq_input.value }}
-                                                        </th>
-                                                    </template>
-                                                </template>
-                                                <th>{{ hq.total_input_value }}</th>
-                                                <th>
-                                                    <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, area.id, hq.id]"
-                                                       class="btn btn-xs btn-primary">VIEW</a>
-                                                </th>
-                                            </tr>
-                                        </template>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="col-md-4">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">
+              Input Utilization Report
+            </h2>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- ./Report Table -->
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for report-->
+  <div class="row" style="padding-bottom: 10px;">
+    <div class="col-xs-12 col-md-2">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+  </div>
+  <!-- ./Filters for report-->
+
+  <!-- Report Table -->
+  <div class="row">
+    <div class="row" *ngFor="let region of regions">
+      <div class="col-xs-12">
+        <div class="box-widget widget-module">
+          <div class="widget-head clearfix">
+            <span class="h-icon"><i class="fa fa-table"></i></span>
+            <h4><strong>{{ region.name }}</strong></h4>
+          </div>
+          <div>
+            <div class="widget-container report-table">
+              <div class="widget-block" style="padding: 0px;">
+                <div class="table-responsive">
+                  <table class="table table-bordered visit_table">
+                    <thead>
+                    <tr style="background-color: #3498db;color: white">
+                      <th style="font-weight: bold" rowspan="2">
+                        Area
+                      </th>
+                      <th style="font-weight: bold" rowspan="2">
+                        Headquarter
+                      </th>
+                      <th style="font-weight: bold" [colSpan]="inputs.length + 2">
+                        Input Names
+                      </th>
+                    </tr>
+                    <tr style="background-color: #3498db;color: white">
+                      <th *ngFor="let input of inputs">
+                        {{ input.name }}
+                      </th>
+                      <th>Total</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="dark_grey">
+                      <th>Total</th>
+                      <th></th>
+                      <template ngFor let-input [ngForOf]="inputs">
+                        <template ngFor let-region_input [ngForOf]="region.inputs">
+                          <th *ngIf="region_input.id == input.id">
+                            {{ region_input.value }}
+                          </th>
+                        </template>
+                      </template>
+                      <th>{{ region.total_input_value }}</th>
+                      <th>
+                        <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, '', '']"
+                           class="btn btn-xs btn-primary">VIEW</a>
+                      </th>
+                    </tr>
+                    <template ngFor let-area [ngForOf]="region.areas">
+                      <tr class="grey">
+                        <th>{{ area.name }}</th>
+                        <th></th>
+                        <template ngFor let-input [ngForOf]="inputs">
+                          <template ngFor let-area_input [ngForOf]="area.inputs">
+                            <th *ngIf="area_input.id == input.id">
+                              {{ area_input.value }}
+                            </th>
+                          </template>
+                        </template>
+                        <th>{{ area.total_input_value }}</th>
+                        <th>
+                          <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, area.id, '']"
+                             class="btn btn-xs btn-primary">VIEW</a>
+                        </th>
+                      </tr>
+                      <tr *ngFor="let hq of area.headquarters">
+                        <th></th>
+                        <th class="text-left">{{ hq.name }}</th>
+                        <template ngFor let-input [ngForOf]="inputs">
+                          <template ngFor let-hq_input [ngForOf]="hq.inputs">
+                            <th *ngIf="hq_input.id == input.id">
+                              {{ hq_input.value }}
+                            </th>
+                          </template>
+                        </template>
+                        <th>{{ hq.total_input_value }}</th>
+                        <th>
+                          <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, area.id, hq.id]"
+                             class="btn btn-xs btn-primary">VIEW</a>
+                        </th>
+                      </tr>
+                    </template>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Report Table -->
 </div>
