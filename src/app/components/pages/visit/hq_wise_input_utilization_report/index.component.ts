@@ -65,9 +65,10 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
     fetch() {
         if (this.month) {
             this.loading = true;
-            this.btn_loading = true;
             this.visitService.hq_wise_input_utilization(this.month + 1, this.year).subscribe(
                 response => {
+                    this.loading = false;
+
                     // get inputs
                     this.inputs = response.inputs.map(input => new Input(input));
 
@@ -81,14 +82,11 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
 
                     // prepare data for display
                     this.prepareData(this.inputs, visits);
-
+                }, err => {
                     this.loading = false;
-                    this.btn_loading = false;
                 }
             );
         }
-
-        this.loading = false;
     }
 
     // Prepare Data For Display

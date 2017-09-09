@@ -85,6 +85,8 @@ export class InputUtilizationReportComponent extends ListComponent {
         this.loading = true;
         this.visitService.input_utilization(this._region_id, this._area_id, this._hq_id, this.month, this.year).subscribe(
             response => {
+                this.loading = false;
+
                 // get inputs
                 this.inputs = response.inputs.map(input => new Input(input));
 
@@ -93,12 +95,10 @@ export class InputUtilizationReportComponent extends ListComponent {
 
                 // prepare data for display
                 this.prepareData(this.inputs, visits);
-
+            }, err => {
                 this.loading = false;
             }
         );
-
-        this.loading = false;
     }
 
     // Prepare Data For Display
