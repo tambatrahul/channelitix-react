@@ -71,8 +71,6 @@
                       </template>
                       <th>{{ region.total_input_value }}</th>
                       <th>
-                        <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, '', '']"
-                           class="btn btn-xs btn-primary">VIEW</a>
                       </th>
                     </tr>
                     <template ngFor let-area [ngForOf]="region.areas">
@@ -88,8 +86,6 @@
                         </template>
                         <th>{{ area.total_input_value }}</th>
                         <th>
-                          <a [routerLink]="['/visits/input_utilization/hq_wise', month + 1, year, region.id, area.id, '']"
-                             class="btn btn-xs btn-primary">VIEW</a>
                         </th>
                       </tr>
                       <tr *ngFor="let hq of area.headquarters">
