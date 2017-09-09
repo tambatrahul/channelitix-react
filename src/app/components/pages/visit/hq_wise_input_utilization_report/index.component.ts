@@ -61,7 +61,6 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
    * load users for logged in user
    */
   fetch() {
-    console.log('here');
     if (this.month && this.year) {
       this.loading = true;
       this.visitService.hq_wise_input_utilization(this.month + 1, this.year).subscribe(
