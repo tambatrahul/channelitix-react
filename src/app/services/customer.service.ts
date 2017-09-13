@@ -58,7 +58,7 @@ export class CustomerService extends BaseService {
      *
      * @returns {Observable<Result>}
      */
-    forTypes(customer_type_id, synergy?: number): Observable<Result> {
+    forTypes(customer_type_id, synergy?: number, headquarter_id?: number): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
@@ -70,6 +70,7 @@ export class CustomerService extends BaseService {
             params.set('customer_type_id', customer_type_id);
         }
         params.set('synergy', String(synergy));
+        params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
