@@ -10,9 +10,7 @@
               <small>Order Report For Manager</small>
             </h2>
             <ul class="list-page-breadcrumb">
-              <li><a href="#">Home</a>
-              </li>
-
+              <li><a href="#">Home</a></li>
               <li class="active-page"> Orders</li>
             </ul>
           </div>
@@ -96,7 +94,7 @@
                       </tfoot>
 
                       <tbody>
-                      <tr>
+                      <tr *ngIf="_service.user.isAdmin">
                         <th>{{ z.full_name }}</th>
                         <th>{{ z.hq_region?.name }}</th>
                         <td>

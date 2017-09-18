@@ -89,7 +89,7 @@
                                             </tfoot>
 
                                             <tbody>
-                                            <tr>
+                                            <tr *ngIf="_service.user.isAdmin">
                                                 <th>{{ z.full_name }}</th>
                                                 <th>{{ z.hq_region?.name }}</th>
                                                 <td>
@@ -99,7 +99,6 @@
                                                 <td *ngFor="let visit of z.visits; let i = index" mgVisitCount
                                                     [visit]="visit"
                                                     class="user_click" (click)="selectUser(z, i + 1, visit)">
-
                                                 </td>
                                             </tr>
                                             <tr class="grey">
