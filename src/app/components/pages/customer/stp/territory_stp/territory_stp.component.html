@@ -33,21 +33,23 @@
                     <span class="h-icon"><i class="fa fa-table"></i></span>
                     <h4>Stp Report for <strong>{{ territories[0]?.hq_headquarter.name}}</strong></h4>
                 </div>
-                <div class="widget-container stp-table" #loading_box>
-                    <div class="widget-block">
+                <div class="widget-container territory-stp-table" #loading_box>
+                    <div class="widget-block" style="padding: 0px">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
+                                <tr style="background-color: #3498db;color: white">
                                     <th rowspan="2">Territory</th>
+                                    <th rowspan="2">Brick</th>
+                                    <th rowspan="2">Distance From HQ/Territory</th>
                                     <template ngFor let-ct [ngForOf]="customer_types">
                                         <th [attr.colspan]="ct.grades.length">{{ ct.name }}</th>
                                     </template>
                                     <th rowspan="2">Total</th>
+                                    <th rowspan="2">No of work days</th>
                                     <th rowspan="2">Expected Business</th>
-                                    <th rowspan="2">Actions</th>
                                 </tr>
-                                <tr>
+                                <tr style="background-color: #3498db;color: white">
                                     <template ngFor let-ct [ngForOf]="customer_types">
                                         <th *ngFor="let grade of ct.grades">{{ grade.name }}</th>
                                     </template>
@@ -55,23 +57,55 @@
                                 </thead>
 
                                 <tbody>
-                                <tr *ngFor="let br of territories">
-                                    <td>{{ br.name }}</td>
-                                    <template ngFor let-ct [ngForOf]="br.customer_types">
+                                <tr class="dark_grey">
+                                    <th>Total</th>
+                                    <td></td>
+                                    <td></td>
+                                    <template ngFor let-ct [ngForOf]="total.customer_types">
                                         <td *ngFor="let grade of ct.grades">
-                                            <span *ngIf="grade.customer_count > 0">
-                                                {{ grade.customer_count }}
-                                            </span>
+                                                    <span *ngIf="grade.customer_count > 0">
+                                                        {{ grade.customer_count }}
+                                                    </span>
                                         </td>
                                     </template>
-                                    <td>{{ br.total_customer }}</td>
+                                    <td>{{ all_total }}</td>
                                     <td></td>
-                                    <td>
-                                        <a class="btn btn-primary btn-xs"
-                                           [routerLink]="['/stps', _country_id, 'regions', _region_id, 'areas', _area_id, 'headquarters', _headquarter_id, 'territories', br.id]">View
-                                            by Bricks</a>
-                                    </td>
+                                    <td></td>
                                 </tr>
+                                <template ngFor let-tr [ngForOf]="generateArray(new_territories)">
+                                    <tr class="grey">
+                                        <th>{{ tr.name }}</th>
+                                        <td></td>
+                                        <td></td>
+                                        <template ngFor let-ct [ngForOf]="tr.customer_types">
+                                            <td *ngFor="let grade of ct.grades">
+                                                    <span *ngIf="grade.customer_count > 0">
+                                                        {{ grade.customer_count }}
+                                                    </span>
+                                            </td>
+                                        </template>
+                                        <td>{{ tr.total }}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <template ngFor let-br [ngForOf]="generateArray(tr.bricks)">
+                                        <tr>
+                                            <td></td>
+                                            <th>{{ br.name }}</th>
+                                            <td>{{ br.distance_from_hq }}</td>
+                                            <template ngFor let-ct [ngForOf]="br.customer_types">
+                                                <td *ngFor="let grade of ct.grades">
+                                                    <span *ngIf="grade.customer_count > 0">
+                                                        {{ grade.customer_count }}
+                                                    </span>
+                                                </td>
+                                            </template>
+                                            <td>{{ br.total }}</td>
+                                            <td>{{ br.no_of_work_days }}</td>
+                                            <td></td>
+                                        </tr>
+                                    </template>
+                                </template>
                                 </tbody>
                             </table>
                         </div>
