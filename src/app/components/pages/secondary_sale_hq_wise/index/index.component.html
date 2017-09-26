@@ -63,7 +63,9 @@
                       <th class="value">{{ region.closing_value.toFixed(0)| number : fractionSize }}</th>
                       <th style="text-align: center!important;">
                         <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, '', '']"
-                           class="btn btn-xs btn-primary">VIEW</a>
+                           class="btn btn-xs btn-primary">Product</a>
+                        <a [routerLink]="['/sales/secondary/stockist_wise', month, year, region.id, '', '']"
+                           class="btn btn-xs btn-primary">Stockist</a>
                       </th>
                     </tr>
                     <template ngFor let-area [ngForOf]="region.areas">
@@ -77,7 +79,9 @@
                         <th class="value">{{ area.closing_value.toFixed(0)| number : fractionSize }}</th>
                         <th style="text-align: center!important;">
                           <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, area.id, '']"
-                             class="btn btn-xs btn-primary">VIEW</a>
+                             class="btn btn-xs btn-primary">Product</a>
+                          <a [routerLink]="['/sales/secondary/stockist_wise', month, year, region.id, area.id, '']"
+                             class="btn btn-xs btn-primary">Stockist</a>
                         </th>
                       </tr>
                       <tr *ngFor="let hq of area.headquarters">
@@ -90,7 +94,9 @@
                         <td>{{ hq.closing_value.toFixed(0)| number : fractionSize }}</td>
                         <td style="text-align: center!important;">
                           <a [routerLink]="['/sales/secondary/product_wise', month, year, region.id, area.id, hq.id]"
-                             class="btn btn-xs btn-primary">VIEW</a>
+                             class="btn btn-xs btn-primary">Product</a>
+                          <a [routerLink]="['/sales/secondary/stockist_wise', month, year, region.id, area.id, hq.id]"
+                             class="btn btn-xs btn-primary">Stockist</a>
                         </td>
                       </tr>
                     </template>
