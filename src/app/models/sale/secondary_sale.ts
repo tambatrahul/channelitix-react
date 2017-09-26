@@ -21,6 +21,7 @@ export class SecondarySale extends Model {
   opening: number;
   opening_value: number;
   adjustment: number;
+  adjustment_amount: number;
   secondary_sale: number = 0;
   secondary_amount: number = 0;
   closing_amount_hq: number = 0;
@@ -126,5 +127,10 @@ export class SecondarySale extends Model {
 
     if (info.primary_sale)
       this.primary_sale = parseFloat(info.primary_sale);
+
+    if (info.adjustment_amount)
+      this.adjustment_amount = parseFloat(info.adjustment_amount);
+    else
+      this.adjustment_amount = 0;
   }
 }
