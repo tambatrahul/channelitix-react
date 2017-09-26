@@ -119,27 +119,27 @@ export class User extends Model {
   }
 
   get daily_target_40(): number {
-    return this.total_target > 0 ? parseFloat((((this.total_target / 1000) * 0.40) / 24).toFixed(1)) : 0;
+    return this.total_target > 0 ? parseFloat((((this.total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
   }
 
   get mg_daily_target(): number {
     if (this.environment.envName == 'sk_group')
       return this.mg_total_target > 0 ? parseFloat(((this.mg_total_target / 1000) / 24).toFixed(1)) : 0;
-    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.30) / 24).toFixed(1)) : 0;
+    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
   }
 
   get mg_daily_target_40(): number {
-    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.40) / 24).toFixed(1)) : 0;
+    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
   }
 
   get zsm_daily_target(): number {
     if (this.environment.envName == 'sk_group')
       return this.zsm_total_target > 0 ? parseFloat(((this.zsm_total_target / 1000) / 24).toFixed(1)) : 0;
-    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.30) / 24).toFixed(1)) : 0;
+    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
   }
 
   get zsm_daily_target_40(): number {
-    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.40) / 24).toFixed(1)) : 0;
+    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
   }
 
   /**
