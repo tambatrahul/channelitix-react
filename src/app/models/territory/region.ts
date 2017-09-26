@@ -318,7 +318,7 @@ export class Region extends Model {
    * @returns {boolean}
    */
   get onTarget() {
-    return this.total_pob >= (this.target * 0.3);
+    return this.total_pob >= (this.target * 0.5);
   }
 
   /**

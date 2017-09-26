@@ -201,7 +201,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
                 targets.map(target => {
                     if (target.hq_headquarter_id == this.headquarter_id) {
                         if (brick.months.hasOwnProperty(target.month))
-                            brick.months[target.month].target = ((target.total_target * 0.3) / 24);
+                            brick.months[target.month].target = ((target.total_target * 0.5) / 24);
                     }
                 });
             });

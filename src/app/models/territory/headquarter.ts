@@ -249,7 +249,7 @@ export class Headquarter extends Model {
    */
   get onTarget() {
     if (this.total_pob > 0) {
-      return this.total_pob >= (this.target * 0.3);
+      return this.total_pob >= (this.target * 0.5);
     }
   }
 

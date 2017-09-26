@@ -165,12 +165,12 @@
                                                         region.target).toFixed(0)) :
                                                         0 }} %
                                                     </td>
-                                                    <td>{{ ((region.target/1000) * 0.3).toFixed(0) | number : fractionSize }}
+                                                    <td>{{ ((region.target/1000) * 0.5).toFixed(0) | number : fractionSize }}
                                                     </td>
                                                     <td>{{ (region.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
                                                     <td>
                                                         {{ region.target > 0 ?((region.total_pob * 100 /(region.target *
-                                                        0.3)).toFixed(0)) : 0 }} %
+                                                        0.5)).toFixed(0)) : 0 }} %
                                                     </td>
                                                 </template>
 
@@ -258,12 +258,12 @@
                                                             area.target).toFixed(0)) :
                                                             0 }} %
                                                         </td>
-                                                        <td>{{ ((area.target/1000) * 0.3).toFixed(0) | number : fractionSize }}
+                                                        <td>{{ ((area.target/1000) * 0.5).toFixed(0) | number : fractionSize }}
                                                         </td>
                                                         <td>{{ (area.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
                                                         <td>
                                                             {{ area.target > 0 ?((area.total_pob * 100 /(area.target *
-                                                            0.3)).toFixed(0)) : 0 }} %
+                                                            0.5)).toFixed(0)) : 0 }} %
                                                         </td>
                                                     </template>
 
@@ -354,12 +354,12 @@
                                                             hq.target).toFixed(0)) :
                                                             0 }} %
                                                         </td>
-                                                        <td>{{ ((hq.target/1000) * 0.3).toFixed(0) | number : fractionSize }}
+                                                        <td>{{ ((hq.target/1000) * 0.5).toFixed(0) | number : fractionSize }}
                                                         </td>
                                                         <td>{{ (hq.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
                                                         <td>
                                                             {{ hq.target > 0 ?((hq.total_pob * 100 /(hq.target *
-                                                            0.3)).toFixed(0)) : 0 }} %
+                                                            0.5)).toFixed(0)) : 0 }} %
                                                         </td>
                                                     </template>
 
