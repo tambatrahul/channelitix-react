@@ -108,7 +108,7 @@
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,
                                         'light_red': brick.customer_count_pattern == 4,
-                                        'dark_red': brick.customer_count_pattern == 5}">
+                                        'dark_red': brick.customer_count_pattern == 5}">{{ brick.total_customers }}
                                                 </td>
                                                 <template ngFor let-month [ngForOf]="months_str" let-i="index">
                                                     <td [ngClass]="{'grey': i%2 == 0}">

@@ -35,6 +35,7 @@ export class Brick extends Model {
   // for internal user only
   customer_types: CustomerType[];
   total_customer: number = 0;
+  total_customers: number = 0;
   total: number = 0;
 
   constructor(info: any) {

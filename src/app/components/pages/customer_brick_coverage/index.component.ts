@@ -173,6 +173,8 @@ export class CustomerBrickCoverageComponent extends ListComponent {
                         if (hq_brick.customer_type_id == 5) {
                             brick.customer_physician = hq_brick.customer_count;
                         }
+
+                        brick.total_customers += hq_brick.customer_count;
                     }
                 });
 
@@ -213,7 +215,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     /**
      * get areas
      */
-    areas(data){
+    areas(data) {
         this._areas = data.areas;
         this.fetch();
     }
@@ -221,7 +223,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     /**
      * get headquarters
      */
-    headquarters(data){
+    headquarters(data) {
         this._headquarters = data.headquarters;
         this.fetch();
     }
