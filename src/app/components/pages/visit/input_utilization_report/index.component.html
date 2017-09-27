@@ -70,7 +70,7 @@
                                     </tr>
                                     <template ngFor let-date [ngForOf]="dates">
                                         <tr class="grey">
-                                            <th [colSpan]="10" class="text-center">
+                                            <th [colSpan]="inputs.length + 3" class="text-center">
                                                 {{ date[0] | date:'d, MMM y' }}
                                             </th>
                                         </tr>
