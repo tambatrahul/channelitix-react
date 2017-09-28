@@ -1,0 +1,38 @@
+<div class="box-widget widget-module daily_tour">
+    <div class="widget-head clearfix">
+        <span class="h-icon"><i class="fa fa-table"></i></span>
+        <h4>Remaining Customer List</h4>
+    </div>
+    <div class="widget-container" #loading_box>
+        <div class="widget-block">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Type</th>
+                        <th>Headquarter Name</th>
+                        <th>Territory Name</th>
+                        <th>Brick Name</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <template ngFor let-cus [ngForOf]="customers">
+                        <tr>
+                            <td>{{ cus.firm_name }}</td>
+                            <td>{{ cus.customer_type.name }}({{ cus.grade.name }})</td>
+                            <td>{{ cus.hq_headquarter.name }}</td>
+                            <td>{{ cus.hq_territory.name }}</td>
+                            <td>{{ cus.hq_brick.name }}</td>
+                        </tr>
+                    </template>
+                    <tr *ngIf="customers.length <= 0">
+                        <td colspan="6">No Customers</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -50,10 +50,10 @@
 
                                         <tbody>
                                         <tr style="background-color: #3498db;color: white">
-                                          <th>Total</th>
-                                          <td>{{ region.total_customers }}</td>
-                                          <td>{{ region.customer_count }}</td>
-                                          <td>{{ region.total_customers - region.customer_count }}</td>
+                                            <th>Total</th>
+                                            <td>{{ region.total_customers }}</td>
+                                            <td>{{ region.customer_count }}</td>
+                                            <td>{{ region.total_customers - region.customer_count }}</td>
                                         </tr>
                                         <template ngFor let-area [ngForOf]="region.areas">
                                             <tr class="th_middle">
@@ -66,7 +66,12 @@
                                                 <th class="middle">{{ hq.name }}</th>
                                                 <td>{{ hq.total_customers }}</td>
                                                 <td>{{ hq.customer_count }}</td>
-                                                <td>{{ hq.total_customers - hq.customer_count }}</td>
+                                                <td>
+                                                    <a class="user_click"
+                                                       (click)="selectHeadquarter(hq.id,area.id,region.id)">
+                                                        {{ hq.total_customers - hq.customer_count }}
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </template>
                                         </tbody>
@@ -80,4 +85,30 @@
         </div>
     </div>
     <!-- ./ZSM Table -->
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #missing_customer_table>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Visit View -->
+                <div class="row" *ngIf="headquarter_id">
+                    <!-- Visit Table -->
+                    <div class="col-xs-12">
+                        <div>
+                            <missing-customer-list [headquarter_id]="headquarter_id"
+                                                   [area_id]="area_id"
+                                                   [region_id]="region_id"
+                                                   [month]="month"
+                                                   [year]="year"></missing-customer-list>
+                        </div>
+                    </div>
+                    <!-- ./Tour Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

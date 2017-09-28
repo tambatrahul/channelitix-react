@@ -134,4 +134,54 @@ export class SecondarySaleService extends BaseService {
         // make server call
         return this.get(url, new RequestOptions());
     }
+
+    /**
+     * Missing Customers
+     *
+     * @param month
+     * @param year
+     * @param hq_id
+     * @param area_id
+     * @param region_id
+     * @returns {Observable<Result>}
+     */
+    missing_customers(month: number, year: number, hq_id: number, area_id: number, region_id: number): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('headquarter_id', String(hq_id ? hq_id : ''));
+        params.set('area_id', String(area_id ? area_id : ''));
+        params.set('region_id', String(region_id ? region_id : ''));
+
+        // prepare url
+        let url = this.getBaseUrl() + '/missing_customer/' + month + "/" + year;
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * for hq monthly secondary sale
+     *
+     * @param month
+     * @param year
+     * @param hq_id
+     * @param area_id
+     * @param region_id
+     * @returns {Observable<Result>}
+     */
+    stockist_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number): Observable<Result> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('headquarter_id', String(hq_id ? hq_id : ''));
+        params.set('area_id', String(area_id ? area_id : ''));
+        params.set('region_id', String(region_id ? region_id : ''));
+
+        // prepare url
+        let url = this.getBaseUrl() + '/stockist_wise/' + month + "/" + year;
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
 }
