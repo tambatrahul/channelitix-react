@@ -38,6 +38,7 @@ export class TourFormComponent extends FormComponent {
      */
     _user: User;
     _manager_id: number;
+    status: string = "active";
     showTerritory: boolean = false;
 
     @Input()

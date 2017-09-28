@@ -32,6 +32,7 @@
                                  [manager_id]="_manager_id"
                                  [first_value]="'Working Alone'"
                                  [role_id]="3"
+                                 [status]="status"
                                  (onValueChanged)="userChanged($event)"></user-select>
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
                         {{ errors.working_with_id}}

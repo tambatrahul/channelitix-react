@@ -25,9 +25,25 @@ export class UserSelectComponent extends BaseSelectComponent {
      */
     private _role_id: number;
     private _manager_id: number;
+    private _status: string;
 
     constructor(private userService: UserService) {
         super();
+    }
+
+    /**
+     * role_id getter and setters
+     *
+     * @param status
+     */
+    @Input()
+    set status(status: string) {
+        this._status = status;
+        this.fetch();
+    }
+
+    get status(): string {
+        return this._status;
     }
 
     /**
@@ -48,7 +64,7 @@ export class UserSelectComponent extends BaseSelectComponent {
     /**
      * manager_id getter and setters
      *
-     * @param role_id
+     * @param manager_id
      */
     @Input()
     set manager_id(manager_id: number) {
@@ -65,7 +81,7 @@ export class UserSelectComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.userService.children(this._role_id, this._manager_id).subscribe(
+        this.userService.children(this._role_id, this._manager_id, this._status).subscribe(
             response => {
                 this.loading = false;
                 this.models = response.users;
