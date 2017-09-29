@@ -15,8 +15,12 @@ export class MissingCustomerListComponent extends BaseAuthComponent {
     /**
      * month for report
      */
+    _month: number;
     @Input()
-    month: number;
+    set month(month: number) {
+        this._month = month;
+        this.fetch();
+    }
 
     /**
      * year for report
@@ -88,9 +92,9 @@ export class MissingCustomerListComponent extends BaseAuthComponent {
      * fetch server data for visits
      */
     fetch() {
-        if (this.month && this.year && this._headquarter_id) {
+        if (this._month && this.year && this._headquarter_id) {
             this.loading = true;
-            this.secondarySaleService.missing_customers(this.month + 1, this.year, this._headquarter_id, this._area_id, this._region_id).subscribe(
+            this.secondarySaleService.missing_customers(this._month + 1, this.year, this._headquarter_id, this._area_id, this._region_id).subscribe(
                 response => {
                     this.customers = response.customers.map(cus => new Customer(cus));
                     this.loading = false;
