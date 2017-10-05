@@ -63,24 +63,25 @@
                         {{ errors.work_type_ids }}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2 && _service.user.isHeadquarter">
-                    <label>Working With</label>
-                    <div style="min-height: 50px;">
+                <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
+                    <div *ngIf="working_withs.length > 0">
+                        <label>Working With</label>
+                        <div style="min-height: 50px;">
                         <span *ngFor="let u of working_withs">
                             {{ u.full_name }},
                         </span>
-                        <span *ngIf="working_with_other">
+                            <span *ngIf="working_with_other">
                             Others
                         </span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2 && !_service.user.isHeadquarter">
-                    <user-select [value]="working_with_id"
-                                 [title]="'Working With'"
-                                 [first_value]="'Working Alone'"
-                                 [role_id]="3"
-                                 (onValueChanged)="managerChanged($event)"></user-select>
+                    <div *ngIf="working_with_id">
+                        <user-select [value]="working_with_id"
+                                     [title]="'Working With'"
+                                     [first_value]="'Working Alone'"
+                                     [role_id]="3"
+                                     (onValueChanged)="managerChanged($event)"></user-select>
+                    </div>
                 </div>
             </div>
         </div>

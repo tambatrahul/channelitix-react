@@ -70,6 +70,7 @@ import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_
 import {ProductComponent} from "./v2/pages/products/index/index.component";
 import {InputUtilizationReportComponent} from "./components/pages/visit/input_utilization_report/index.component";
 import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq_wise_input_utilization_report/index.component";
+import {StockistWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/stockist_wise.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -350,6 +351,10 @@ export const routes: Routes = [
                             {
                                 path: 'product_wise/:month/:year/:region_id/:area_id/:hq_id',
                                 component: ProductWiseHqComponent
+                            },
+                            {
+                                path: 'stockist_wise/:month/:year/:region_id/:area_id/:hq_id',
+                                component: StockistWiseHqComponent
                             },
                         ]
                     },

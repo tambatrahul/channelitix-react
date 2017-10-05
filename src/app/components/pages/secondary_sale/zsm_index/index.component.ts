@@ -152,8 +152,9 @@ export class SecondarySaleZSMComponent extends ListComponent {
      * @param headquarter_id
      * @param area_id
      * @param region_id
+     * @param month
      */
-    selectHeadquarter(headquarter_id: number, area_id: number, region_id: number) {
+    selectHeadquarter(month: number, headquarter_id: number, area_id: number, region_id: number) {
         this.region_id = region_id;
         this.area_id = area_id;
         this.headquarter_id = headquarter_id;

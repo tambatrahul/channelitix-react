@@ -47,7 +47,9 @@ export class CreateAttendanceComponent extends FormComponent {
      * user managers
      */
     managers: User[] = [];
+    reps: User[] = [];
     manager_options: IMultiSelectOption[] = [];
+    rep_options: IMultiSelectOption[] = [];
     working_with_ids: Array<number> = [];
 
     /**
@@ -130,6 +132,7 @@ export class CreateAttendanceComponent extends FormComponent {
     ngOnInit() {
         this.fetchMasters();
         this.fetchManager();
+        this.fetchReps();
         this.form.patchValue({status: AppConstants.WORKING});
     }
 
@@ -231,6 +234,29 @@ export class CreateAttendanceComponent extends FormComponent {
                     };
                 });
                 this.manager_options.push({
+                    id: 0, name: "Others"
+                });
+            },
+            err => {
+
+            }
+        );
+    }
+
+    /**
+     * fetch Reps from server
+     */
+    fetchReps() {
+        this.userService.children(null, null, 'active').subscribe(
+            response => {
+                this.reps = response.users;
+                this.rep_options = this.reps.map(function (rep) {
+                    return {
+                        id: rep.id, name: rep.full_name
+                    };
+
+                });
+                this.rep_options.push({
                     id: 0, name: "Others"
                 });
             },
