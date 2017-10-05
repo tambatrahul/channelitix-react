@@ -184,7 +184,6 @@ import {ProductComponent} from "./v2/pages/products/index/index.component";
 import {MonthWiseReportComponent} from "./components/pages/user/summary/month_wise/month_wise.component";
 import {InputUtilizationReportComponent} from "./components/pages/visit/input_utilization_report/index.component";
 import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq_wise_input_utilization_report/index.component";
-import {StockistWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/stockist_wise.component";
 import {MissingCustomerListComponent} from "./components/pages/secondary_sale/missing_customer_list/missing_customer_list.component";
 
 enableProdMode();
@@ -347,7 +346,6 @@ enableProdMode();
     PrimarySaleAboveComponent,
     SecondarySaleHqWiseComponent,
     ProductWiseHqComponent,
-    StockistWiseHqComponent,
     MonthWiseReportComponent,
 
     // Abbott Stp Component
