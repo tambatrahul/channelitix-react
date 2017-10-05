@@ -99,29 +99,31 @@
                                             <tr>
                                                 <th colSpan="36" class="text-center grey">{{ ter.name }}</th>
                                             </tr>
-                                            <tr *ngFor="let brick of ter.hq_bricks">
-                                                <th>
-                                                    {{brick.name}}
-                                                </th>
 
-                                                <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
+                                            <template ngFor let-brick [ngForOf]="ter.hq_bricks">
+                                                <tr *ngIf="brick.status == 'active'">
+                                                    <th>
+                                                        {{brick.name}}
+                                                    </th>
+                                                    <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,
                                         'light_red': brick.customer_count_pattern == 4,
                                         'dark_red': brick.customer_count_pattern == 5}">{{ brick.total_customers }}
-                                                </td>
-                                                <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                                                    <td [ngClass]="{'grey': i%2 == 0}">
-                                                        {{ brick.months[i+1].visit_no_of_days ?
-                                                        brick.months[i+1].visit_no_of_days : 0}}
                                                     </td>
-                                                    <td style="width: 100px;" [ngClass]="{'grey': i%2 == 0, 'dark_green': brick.business(i+1) == 1, 'orange': brick.business(i+1) == 2,
+                                                    <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                                        <td [ngClass]="{'grey': i%2 == 0}">
+                                                            {{ brick.months[i+1].visit_no_of_days ?
+                                                            brick.months[i+1].visit_no_of_days : 0}}
+                                                        </td>
+                                                        <td style="width: 100px;" [ngClass]="{'grey': i%2 == 0, 'dark_green': brick.business(i+1) == 1, 'orange': brick.business(i+1) == 2,
                                         'light_red': brick.business(i+1) == 3}">
-                                                        {{ brick.months[i+1].order_total_count ?
-                                                        brick.months[i+1].order_total_count.toFixed(0): 0 }}
-                                                    </td>
-                                                </template>
-                                            </tr>
+                                                            {{ brick.months[i+1].order_total_count ?
+                                                            brick.months[i+1].order_total_count.toFixed(0): 0 }}
+                                                        </td>
+                                                    </template>
+                                                </tr>
+                                            </template>
                                         </template>
                                         </tbody>
                                     </table>
