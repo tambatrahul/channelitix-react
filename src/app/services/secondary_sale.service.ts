@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, RequestOptions, URLSearchParams} from "@angular/http";
+import {Http, RequestOptions, ResponseContentType, URLSearchParams, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -183,5 +183,25 @@ export class SecondarySaleService extends BaseService {
 
         // make server call
         return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * brick wise customers
+     */
+    stockist_wise_excel_download(month: number, year: number, hq_id: number, area_id: number, region_id: number):  Observable< Response> {
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('headquarter_id', String(hq_id ? hq_id : ''));
+        params.set('area_id', String(area_id ? area_id : ''));
+        params.set('region_id', String(region_id ? region_id : ''));
+
+        // get request with headers
+        let content = this.addCredentials(new RequestOptions({
+            responseType: ResponseContentType.Blob,
+            search: params
+        }));
+
+        return this.http.get(this.getBaseUrl() + '/stockist_wise/' + month + "/" + year + "/excel_download", content);
     }
 }
