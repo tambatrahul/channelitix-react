@@ -10,26 +10,6 @@
       </div>
       <div class="widget-container" #loading_box>
         <div class=" widget-block">
-          <!-- Head quarter select -->
-          <div class="row" *roleCheck="ROLE_ZSM" style="margin-bottom: 20px;">
-            <div class="col-xs-12 col-md-6">
-              <div>
-                <area-select [value]="hq_area_id" [region_id]="hq_region_id"
-                             [title]="'Select Area'" [first_value]="'Select Area'"
-                             (onValueChanged)="areaChanged($event)"></area-select>
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-6" *ngIf="hq_area_id > 0">
-              <div>
-                <headquarter-select [value]="hq_headquarter_id"
-                                    [area_id]="hq_area_id"
-                                    [title]="'Select Head Quarter'"
-                                    [first_value]="'Select Head Quarter'"
-                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
-              </div>
-            </div>
-          </div>
-          <!-- ./Head quarter select -->
           <div class="row">
             <div class="col-xs-12">
               <select multiple="multiple" #brick_selection class="form-control">

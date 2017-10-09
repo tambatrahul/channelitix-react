@@ -80,7 +80,7 @@
                     <!-- Report section -->
                     <div class="col-xs-12">
                         <div>
-                            <customer-selection [attendance_date]="attendance.date"
+                            <customer-selection [user_ids]="attendance.working_with_ids" [attendance_date]="attendance.date"
                                                 (customers_selected)="onCustomerSelection($event)"></customer-selection>
                         </div>
                     </div>
