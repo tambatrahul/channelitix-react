@@ -10,6 +10,7 @@ import * as moment from "moment";
 import {Tour} from "../../../../../models/tour_program/tour";
 import {Visit} from "../../../../../models/visit/visit";
 import {Order} from "../../../../../models/order/order";
+import {environment} from "../../../../../../environments/environment";
 declare let jQuery: any;
 
 @Component({
@@ -120,7 +121,8 @@ export class SummaryDetailComponent extends BaseAuthComponent {
                         return new Tour(tour);
                     });
 
-                    this._user.total_target = response.targets[0].total_target;
+                    if (environment.envName != 'sk_group')
+                        this._user.total_target = response.targets[0].total_target;
 
                     // prepare skeleton for tours
                     this.addTourToSkeleton(this._user, tours, response.holidays);

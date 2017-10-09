@@ -152,7 +152,7 @@
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/reports/executive_summary">
+              <a class="waves-effect" routerLink="/reports/executive_summary" *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-table"></i></span>
                 <span class="nav-label">Executive Summary</span>
               </a>
@@ -164,7 +164,7 @@
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/dashboard/brick_coverage">
+              <a class="waves-effect" routerLink="/dashboard/brick_coverage" *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Brick Working Report</span>
               </a>
@@ -176,19 +176,19 @@
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/customers/missing">
+              <a class="waves-effect" routerLink="/customers/missing" *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Missing Customer Report</span>
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']" *roleCheck="ROLE_CSM">
+              <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']" *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Secondary Statement Report</span>
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" [routerLink]="['/visits/input_utilization']" *roleCheck="ROLE_CSM">
+              <a class="waves-effect" [routerLink]="['/visits/input_utilization']" *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Input Utilization Report</span>
               </a>
@@ -229,7 +229,7 @@
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isHeadquarter">
-          <a class="waves-effect" routerLink="/customers/missing">
+          <a class="waves-effect" routerLink="/customers/missing" *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
             <span class="nav-label">Missing Customer Report</span>
           </a>
@@ -254,13 +254,13 @@
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isHeadquarter || _auth_service.user?.isArea">
-          <a class="waves-effect" [routerLink]="['/sales/secondary']">
+          <a class="waves-effect" [routerLink]="['/sales/secondary']" *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
             <span class="nav-label">Secondary Sales Report</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isRegion">
-          <a class="waves-effect" [routerLink]="['/sales/secondary/region']">
+          <a class="waves-effect" [routerLink]="['/sales/secondary/region']" *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
             <span class="nav-label">Secondary Sales Report</span>
           </a>

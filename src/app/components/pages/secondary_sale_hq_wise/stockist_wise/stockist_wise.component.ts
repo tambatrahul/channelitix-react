@@ -22,7 +22,6 @@ export class StockistWiseHqComponent extends ListComponent {
      */
     month: number;
 
-
     /**
      * year
      */
@@ -41,6 +40,7 @@ export class StockistWiseHqComponent extends ListComponent {
     secondary_value: number = 0;
     primary_sale: number = 0;
     primary_qty: number = 0;
+    btn_loading: boolean = false;
 
     /**
      * title of page
@@ -220,6 +220,29 @@ export class StockistWiseHqComponent extends ListComponent {
         return Object.keys(obj).map((key) => {
             return obj[key]
         });
+    }
+
+    /**
+     * Download Excel For Executive Summary
+     */
+    download() {
+        this.btn_loading = true;
+        this.saleService.stockist_wise_excel_download(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id).subscribe(
+            response => {
+                this.btn_loading = false;
+                let blob: Blob = response.blob();
+
+                // Doing it this way allows you to name the file
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Stockist_Wise_Secondary_Sale.xls";
+                link.click();
+
+            },
+            err => {
+                this.btn_loading = false;
+            }
+        );
     }
 
     /**
