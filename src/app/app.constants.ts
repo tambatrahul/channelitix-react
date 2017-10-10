@@ -59,8 +59,11 @@ export class AppConstants {
     static FIELD_WORK = 'Field Work';
     static MEETING = 'Meeting';
     static TRANSIT = 'Transit';
+    static OFFICE_WORK = 'Office Work';
     static tour_types: Array<string> = [
-        AppConstants.FIELD_WORK, AppConstants.MEETING, AppConstants.TRANSIT, AppConstants.LEAVE, AppConstants.HOLIDAY
+        AppConstants.FIELD_WORK, AppConstants.MEETING,
+        AppConstants.TRANSIT, AppConstants.LEAVE,
+        AppConstants.HOLIDAY, AppConstants.OFFICE_WORK
     ];
 
     /**
