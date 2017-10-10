@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {AuthService} from "../../../../services/AuthService";
 import {BaseComponent} from "../../../base/base.component";
+import * as moment from "moment";
 declare let jQuery: any;
 
 @Component({
@@ -9,6 +10,9 @@ declare let jQuery: any;
     styleUrls: ['nav.component.less']
 })
 export class NavComponent extends BaseComponent {
+
+    public month: number;
+    public year: number;
 
     /**
      * Nav Component Constructor
@@ -36,5 +40,7 @@ export class NavComponent extends BaseComponent {
                 classExpand: 'dcjq-current-parent'
             });
         });
+        this.month = moment().month() - 1;
+        this.year = moment().year();
     }
 }
