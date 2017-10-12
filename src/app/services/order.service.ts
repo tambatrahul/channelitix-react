@@ -127,6 +127,52 @@ export class OrderService extends BaseService {
 
         // make server call
         return this.http.get(url + '/excel/download', content);
-
     }
+
+    /**
+     * Get Order For Manager And CSE Sync
+     *
+     * @param month
+     * @param year
+     * @param role_id
+     * @param manager_id
+     * @returns {Observable<Result>}
+     */
+    area_manager_sync_orders(month: number, year: number, role_id?: number, manager_id?: number,): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + "/area_manager/" + month + "/" + year;
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('role_id', String(role_id > 0 ? role_id : ''));
+        params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
+
+    /**
+     * Get Order For Manager And CSE Sync
+     *
+     * @param month
+     * @param year
+     * @param role_id
+     * @param manager_id
+     * @returns {Observable<Result>}
+     */
+    region_manager_sync_orders(month: number, year: number, role_id?: number, manager_id?: number,): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + "/region_manager/" + month + "/" + year;
+
+        // prepare get params
+        let params = new URLSearchParams();
+        params.set('role_id', String(role_id > 0 ? role_id : ''));
+        params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+
+        // make server call
+        return this.get(url, new RequestOptions({search: params}));
+    }
+
 }

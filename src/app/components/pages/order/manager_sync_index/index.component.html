@@ -1,0 +1,118 @@
+<div class="container-fluid orders" #loading_box>
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">Orders
+                            <small>Order Report For Manager</small>
+                        </h2>
+                        <ul class="list-page-breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li class="active-page"> Orders</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for Order report-->
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+    </div>
+    <!-- ./Filters for Order report-->
+
+    <div class="row">
+        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+            <div class="row" *ngFor="let z of managers">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4><strong>{{ z.full_name }}</strong></h4>
+                        </div>
+                        <div>
+                            <div class="widget-container report-table">
+                                <div class="widget-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered visit_table">
+                                            <thead>
+                                            <tr style="background-color: #3498db;color: white">
+                                                <th style="min-width: 120px;">Users</th>
+                                                <th>Headquarter</th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                                <th *ngIf="!view_quantity">Total POB</th>
+                                                <th *ngIf="view_quantity">Total Quantity</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                            <tr style="background-color: #3498db;color: white">
+                                                <th>Users</th>
+                                                <th>Headquarter</th>
+                                                <th></th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                                <th *ngIf="!view_quantity">Total POB</th>
+                                                <th *ngIf="view_quantity">Total Quantity</th>
+                                            </tr>
+                                            </tfoot>
+
+                                            <tbody>
+                                            <tr class="dark_grey">
+                                                <th>{{ z.full_name }}</th>
+                                                <td></td>
+                                                <td>
+                                                    <i status [field]="z.status"></i>
+                                                </td>
+                                                <template ngFor let-order [ngForOf]="z.orders">
+                                                    <td *ngIf="+order.order_day_total_count > 0">
+                                                        {{ (order.order_day_total_count / 1000).toFixed(1) }}
+                                                    </td>
+                                                    <td *ngIf="+order.order_day_total_count == 0"></td>
+                                                </template>
+                                                <td>{{ (z.order_total_count / 1000).toFixed(1) }}</td>
+
+                                            </tr>
+                                            <template ngFor let-mg [ngForOf]="z.children">
+                                                <tr>
+                                                    <th>{{ mg.full_name }}</th>
+                                                    <td></td>
+                                                    <td>
+                                                        <i status [field]="mg.status"></i>
+                                                    </td>
+                                                    <template ngFor let-order [ngForOf]="mg.orders">
+                                                        <td *ngIf="+order.order_day_total_count > 0">
+                                                            {{ (order.order_day_total_count / 1000).toFixed(1) }}
+                                                        </td>
+                                                        <td *ngIf="+order.order_day_total_count == 0"></td>
+                                                    </template>
+                                                    <td>
+                                                        {{ (mg.order_total_count / 1000).toFixed(1) }}
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

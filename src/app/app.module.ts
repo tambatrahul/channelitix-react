@@ -186,6 +186,7 @@ import {InputUtilizationReportComponent} from "./components/pages/visit/input_ut
 import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq_wise_input_utilization_report/index.component";
 import {StockistWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/stockist_wise.component";
 import {MissingCustomerListComponent} from "./components/pages/secondary_sale/missing_customer_list/missing_customer_list.component";
+import {ManagerSyncOrderComponent} from "./components/pages/order/manager_sync_index/index.component";
 
 enableProdMode();
 @NgModule({
@@ -349,6 +350,7 @@ enableProdMode();
         ProductWiseHqComponent,
         StockistWiseHqComponent,
         MonthWiseReportComponent,
+        ManagerSyncOrderComponent,
 
         // Abbott Stp Component
         AbbottStpComponent,

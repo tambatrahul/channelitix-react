@@ -71,6 +71,7 @@ import {ProductComponent} from "./v2/pages/products/index/index.component";
 import {InputUtilizationReportComponent} from "./components/pages/visit/input_utilization_report/index.component";
 import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq_wise_input_utilization_report/index.component";
 import {StockistWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/stockist_wise.component";
+import {ManagerSyncOrderComponent} from "./components/pages/order/manager_sync_index/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -169,6 +170,10 @@ export const routes: Routes = [
                     {
                         path: 'managers',
                         component: ManagerOrderComponent
+                    },
+                    {
+                        path: 'managers/sync',
+                        component: ManagerSyncOrderComponent
                     }
                 ]
             },

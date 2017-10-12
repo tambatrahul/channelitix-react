@@ -38,6 +38,8 @@ export class Order extends Model {
     total_target: number = 0;
     hq_headquarter_id: number = 0;
     hq_brick_id: number = 0;
+    hq_area_id: number = 0;
+    hq_region_id: number = 0;
     product_id: number = 0;
     order_count: number = 0;
     customer_type_id: number = 0;
@@ -92,6 +94,12 @@ export class Order extends Model {
 
         if (info.hq_headquarter_id)
             this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
+
+        if (info.hq_area_id)
+            this.hq_area_id = parseInt(info.hq_area_id);
+
+        if (info.hq_region_id)
+            this.hq_region_id = parseInt(info.hq_region_id);
 
         if (info.customer_type_id)
             this.customer_type_id = parseInt(info.customer_type_id);

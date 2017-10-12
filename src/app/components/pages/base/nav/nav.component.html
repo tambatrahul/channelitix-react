@@ -116,7 +116,7 @@
                             </a>
                         </li>
                         <li *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='geo'">
-                            <a class="waves-effect" routerLink="/orders/managers">
+                            <a class="waves-effect" routerLink="/orders/managers/sync">
                                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                                 <span class="nav-label">Manager POB Report</span>
                             </a>
