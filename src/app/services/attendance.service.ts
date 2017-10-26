@@ -124,6 +124,16 @@ export class AttendanceService extends BaseService {
     /**
      * reporting for date
      *
+     * @param data
+     * @returns {Observable<Result>}
+     */
+    report_update_mobile(data) {
+        return this.post(this.getBaseUrl() + '/report_update_mobile', data);
+    }
+
+    /**
+     * reporting for date
+     *
      * @param date
      * @param data
      * @returns {Observable<Result>}
@@ -140,7 +150,7 @@ export class AttendanceService extends BaseService {
      * @param region_id
      * @returns {Observable<Result>}
      */
-    leave_report(month: number, year: number, region_id?: number) : Observable<Result>{
+    leave_report(month: number, year: number, region_id?: number): Observable<Result> {
 
         // prepare url
         let url = this.getBaseUrl() + '/leave_report/' + month + "/" + year;

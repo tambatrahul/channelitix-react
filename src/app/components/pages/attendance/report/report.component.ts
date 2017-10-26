@@ -240,7 +240,7 @@ export class ReportComponent extends BaseAuthComponent {
 
         // format data
         let formatted_data = this.data.filter(function (d) {
-            return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0;
+            return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0 || d.customer.mobile > 0;
         }).map(function (d) {
             if (d.customer.customer_type_id > 1
                 && ((d.order.isNonSynergy && !d.order.delivered_by)
@@ -255,10 +255,15 @@ export class ReportComponent extends BaseAuthComponent {
 
             return {
                 customer_id: d.customer.id,
+                mobile: d.customer.mobile,
                 visit: d.visit.total_inputs > 0 ? d.visit : null,
                 order: d.order.total_amount > 0 ? d.order : null
             };
         });
+
+        this.attendanceService.report_update_mobile({customers: formatted_data}).subscribe(
+            response => {}
+        );
 
         if (!error) {
             this.attendanceService.report(this.date, {customers: formatted_data}).subscribe(

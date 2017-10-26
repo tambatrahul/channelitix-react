@@ -24,6 +24,7 @@ export class Attendance extends Model {
     // for internal use only
     isSunday: boolean = false;
     isHoliday: boolean = false;
+    isPreviousClosed: boolean = false;
     isDisabled: boolean = false;
     day: number;
     att_day: number;

@@ -49,6 +49,22 @@
                 <div class="col-xs-12 col-md-8" *ngIf="selected_customer" style="padding-left: 0;">
                     <div class="row">
                         <div class="col-xs-12 col-md-6" style="padding-right: 0; padding-left: 0;">
+                            <div class="row" style="padding-left: 20px;">
+                                <div class="col-xs-4">
+                                    <h4>Mobile No.</h4>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div *ngIf="editable == 'closed'">
+                                        <input class="form-control" placeholder="Mobile Number" style="width: 100%"
+                                               [(ngModel)]="selected_customer.customer.mobile" readonly/>
+                                    </div>
+                                    <div *ngIf="editable == 'open'">
+                                        <input class="form-control" placeholder="Mobile Number" style="width: 100%"
+                                               [(ngModel)]="selected_customer.customer.mobile"/>
+                                    </div>
+
+                                </div>
+                            </div>
                             <div class="box-widget widget-module inputs">
                                 <div class="widget-head clearfix">
                                     <h4>

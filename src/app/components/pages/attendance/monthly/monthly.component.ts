@@ -39,6 +39,7 @@ export class MonthlyAttendanceComponent extends ListComponent {
     year: number;
 
     today: boolean = false;
+    previousClosed: boolean = false;
 
     /**
      * Attendances
@@ -91,7 +92,7 @@ export class MonthlyAttendanceComponent extends ListComponent {
         this.attendanceService.monthly(this.month + 1, this.year).subscribe(
             response => {
                 this.loading = false;
-                this.attendances = response.attendances.map(function(att) {
+                this.attendances = response.attendances.map(function (att) {
                     return new Attendance(att);
                 });
                 this.holidays = response.holidays;
@@ -121,6 +122,7 @@ export class MonthlyAttendanceComponent extends ListComponent {
     onAttendanceSelected(att: Attendance) {
         this.today = moment(att.date, "YYYY-MM-DD") > moment();
         this.attendance = att;
+        this.previousClosed = att.isPreviousClosed;
         if (this.attendance.reporting_status == 'open') {
             this.loading = true;
             this.visitService.for_date(att.date).subscribe(

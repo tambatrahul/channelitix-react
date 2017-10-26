@@ -111,6 +111,44 @@ export class CalendarAttendanceComponent extends ListComponent {
             skeleton.push(null);
         }
 
+        // Check If Current Month
+        if (this.month == moment().month()) {
+            // Get Last date Reporting
+            let last_reported_date = [];
+            for (let at of skeleton) {
+                // Get Current Date
+                let current_date = moment().month(this.month).year(this.year).date();
+
+                // Check for attendance is present
+                if (at) {
+                    // Set All attendance previous date reporting true
+                    at.isPreviousClosed = true;
+
+                    // Check For reporting
+                    if (at && !at.isSunday && current_date >= at.day && !at.reporting_status
+                        || at.reporting_status && at.reporting_status != 'closed')
+                        last_reported_date.push(at.day);
+                }
+            }
+
+            // Set Previous Date Attendance To true
+            skeleton[last_reported_date[0] - 1].isPreviousClosed = true;
+
+            // All Till Date Attendance to false
+            for (let last of last_reported_date.slice(1)) {
+                skeleton[last - 1].isPreviousClosed = false;
+            }
+        } else {
+            for (let at of skeleton) {
+                // Check for attendance is present
+                if (at) {
+                    // Set All attendance previous date reporting true
+                    at.isPreviousClosed = true;
+                }
+            }
+
+        }
+
         // assign to formatted array for display
         this.formatted_array = skeleton;
     }

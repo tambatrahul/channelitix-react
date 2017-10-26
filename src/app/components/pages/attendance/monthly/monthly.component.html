@@ -37,7 +37,7 @@
         <!-- Calendar view -->
 
         <!-- Create Attendance View -->
-        <div class="col-xs-12 col-md-6" *ngIf="attendance && !today">
+        <div class="col-xs-12 col-md-6" *ngIf="attendance && !today && previousClosed">
             <div *ngIf="attendance.id">
                 <update-attendance [attendance]="attendance" (viewReportEvent)="viewReport($event)"
                                    (attendanceCreated)="attendanceCreated($event)"></update-attendance>
@@ -58,6 +58,16 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 col-md-6" *ngIf="attendance && !today && !previousClosed">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="alert alert-danger">
+                        Complete Previous Date Report
+                    </span>
+                </div>
+            </div>
+        </div>
+
         <div class="col-xs-12 col-md-6" *ngIf="!attendance">
             <div class="row">
                 <div class="col-xs-12">
@@ -80,7 +90,8 @@
                     <!-- Report section -->
                     <div class="col-xs-12">
                         <div>
-                            <customer-selection [user_ids]="attendance.working_with_ids" [attendance_date]="attendance.date"
+                            <customer-selection [user_ids]="attendance.working_with_ids"
+                                                [attendance_date]="attendance.date"
                                                 (customers_selected)="onCustomerSelection($event)"></customer-selection>
                         </div>
                     </div>
