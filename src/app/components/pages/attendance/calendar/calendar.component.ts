@@ -132,11 +132,13 @@ export class CalendarAttendanceComponent extends ListComponent {
             }
 
             // Set Previous Date Attendance To true
-            skeleton[last_reported_date[0] - 1].isPreviousClosed = true;
+            if (last_reported_date.length > 0) {
+                skeleton[last_reported_date[0] - 1].isPreviousClosed = true;
 
-            // All Till Date Attendance to false
-            for (let last of last_reported_date.slice(1)) {
-                skeleton[last - 1].isPreviousClosed = false;
+                // All Till Date Attendance to false
+                for (let last of last_reported_date.slice(1)) {
+                    skeleton[last - 1].isPreviousClosed = false;
+                }
             }
         } else {
             for (let at of skeleton) {
