@@ -29,6 +29,7 @@ export class UserComponent extends ListComponent {
   public role_id: number = 0;
   public status: string = "active";
 
+  public search: string = "";
 
   /**
    * region and area identifiers
@@ -78,7 +79,7 @@ export class UserComponent extends ListComponent {
    */
   fetch() {
     this.loading = true;
-    this.userService.all(this.role_id, this.status, this.region_id, this.area_id, this.page, 10).subscribe(
+    this.userService.all(this.role_id, this.status, this.region_id, this.area_id, this.page, 10,this.search).subscribe(
       response => {
         this.users = response.users;
         this.total = response.total;
@@ -176,6 +177,15 @@ export class UserComponent extends ListComponent {
    */
   statusChanged(starus) {
     this.status = starus;
+    this.fetch();
+  }
+
+  /**
+   * when search value is changed filter list of customer
+   * @param event
+   */
+  onKey(event: any) {
+    this.search = event.target.value;
     this.fetch();
   }
 

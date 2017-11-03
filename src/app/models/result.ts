@@ -96,6 +96,9 @@ export class Result {
   // total number
   total: number;
 
+  // search number
+  search: string;
+
   // stps
   stps: Stp[];
 

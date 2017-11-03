@@ -134,8 +134,9 @@ export class CalendarAttendanceComponent extends ListComponent {
             // Set Previous Date Attendance To true
             if (last_reported_date.length > 0) {
                 for (let at of skeleton) {
-                    if (at)
-                        at.isPreviousClosed = at.day == last_reported_date[0];
+                    if (at) {
+                        at.isPreviousClosed = at.day == last_reported_date[0] || at.reporting_status == 'closed';
+                    }
                 }
             }
         } else {
