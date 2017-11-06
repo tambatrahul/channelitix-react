@@ -37,6 +37,8 @@ export class ReportComponent extends BaseAuthComponent {
      */
     saved: boolean = false;
 
+    reporting_status: string = '';
+
     /**
      * form fields
      */
@@ -90,6 +92,7 @@ export class ReportComponent extends BaseAuthComponent {
     @Input()
     set attendance(attendance: Attendance) {
         this.date = attendance.date;
+        this.reporting_status = attendance.reporting_status;
         this._report_date = moment(attendance.date, "YYYY-MM-DD").format("DD MMMM YYYY");
         this.fetchVisits();
     }
