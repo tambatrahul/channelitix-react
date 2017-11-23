@@ -9,10 +9,10 @@ export abstract class BaseComponent {
      */
     environment = environment;
 
-    public ROLE_THIRD_PARTY = 'THIRD_PARTY';
     public ROLE_CSE = 'HQ_MNG';
     public ROLE_CSM = 'AREA_MNG';
     public ROLE_ZSM = 'REGION_MNG';
+    public ROLE_THIRD_PARTY = 'THIRD_PARTY';
     public ROLE_ADMIN = 'COUNTRY_MNG';
 
     /**

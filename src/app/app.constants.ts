@@ -21,7 +21,9 @@ export class AppConstants {
     static ROLE_CSM = 'AREA_MNG';
     static ROLE_ZSM = 'REGION_MNG';
     static ROLE_ADMIN = 'COUNTRY_MNG';
+    static ROLE_THIRD_PARTY = 'THIRD_PARTY';
     static roles: Array<Role> = [
+        new Role({id: 7, name: AppConstants.ROLE_THIRD_PARTY, title: 'THIRD PARTY'}),
         new Role({id: 6, name: AppConstants.ROLE_ADMIN, title: 'ADMIN'}),
         new Role({id: 5, name: AppConstants.ROLE_ZSM, title: 'ZSM'}),
         new Role({id: 4, name: AppConstants.ROLE_CSM, title: 'CSM'}),
