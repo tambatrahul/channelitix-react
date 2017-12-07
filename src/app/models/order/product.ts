@@ -28,6 +28,7 @@ export class Product extends Model {
   opening: number = 0;
   opening_value: number = 0;
   adjustment: number = 0;
+  adjustment_amount: number = 0;
   secondary_sale: number = 0;
   secondary_amount: number = 0;
   closing: number = 0;
@@ -85,6 +86,9 @@ export class Product extends Model {
 
     if (info.adjustment)
       this.adjustment = parseFloat(info.adjustment);
+
+    if (info.adjustment_amount)
+      this.adjustment_amount = parseFloat(info.adjustment_amount);
 
     if (info.secondary_sale)
       this.secondary_sale = parseFloat(info.secondary_sale);

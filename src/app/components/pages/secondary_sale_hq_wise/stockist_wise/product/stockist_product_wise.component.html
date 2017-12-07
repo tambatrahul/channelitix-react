@@ -1,0 +1,97 @@
+<div class="container-fluid sales">
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Secondary Sales for {{ customer?.firm_name }}
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Order Table -->
+  <div class="row" style="margin-bottom: 10px;">
+    <div class="col-xs-12" *ngIf="!_service.user.isHeadquarter">
+      <a [routerLink]="['/sales/secondary/stockist_wise', month, year, _region_id,
+                      _area_id,_hq_id]"
+         class="btn btn-xs btn-primary"> <i class="fa fa-arrow-left"></i> Back</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4>Secondary Sales Report ({{ title }})</h4>
+        </div>
+        <div class="widget-container sales-table" #loading_box>
+          <div class="widget-block">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <template *ngIf="environment.envName != 'sk_group'">
+                    <th style="width: 80px;">Product Code</th>
+                  </template>
+                  <th>Product</th>
+                  <th>UOM</th>
+                  <th class="grey">Primary Sale <br>(Qty)</th>
+                  <th class="grey">Primary Sale <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th>Opening <br>(Qty)</th>
+                  <th>Opening <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th class="grey">Inventory Adjustment <br>(Qty)</th>
+                  <th class="grey">Inventory Adjustment <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th>Secondary Sale <br>(Qty)</th>
+                  <th>Closing <br>(Qty)</th>
+                  <th class="grey">Secondary Value <br>(<i class="fa fa-rupee"></i>)</th>
+                  <th class="grey">Closing Value <br>(<i class="fa fa-rupee"></i>)</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let pro of products;">
+                  <th>{{ pro?.name }}</th>
+                  <td>{{ pro.uom.name }}</td>
+                  <td class="grey">{{ pro.primary_qty.toFixed(0)| number : fractionSize }}</td>
+                  <td class="grey">{{ pro.primary_sale.toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.opening).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.opening_value).toFixed(0)| number : fractionSize }}</td>
+                  <td class="grey">{{ (pro.adjustment).toFixed(0)| number : fractionSize }}</td>
+                  <td class="grey">{{ (pro.adjustment_amount).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.secondary_sale).toFixed(0)| number : fractionSize }}</td>
+                  <td>{{ (pro.closing).toFixed(0)| number : fractionSize }}</td>
+                  <td class="grey">{{ (pro.secondary_sale * pro.unit_price).toFixed(0)| number : fractionSize }}</td>
+                  <td class="grey">{{ (pro.closing_value).toFixed(0)| number : fractionSize }}</td>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <th></th>
+                  <th class="grey">{{ primary_qty.toFixed(0)| number : fractionSize }}</th>
+                  <th class="grey">{{ primary_sale.toFixed(0)| number : fractionSize }}</th>
+                  <th>{{ opening.toFixed(0) | number : fractionSize }}</th>
+                  <th>{{ opening_value.toFixed(0) | number : fractionSize }}</th>
+                  <th class="grey">{{ adjustment.toFixed(0) | number : fractionSize }}</th>
+                  <th class="grey">{{ adjustment_amount.toFixed(0) | number : fractionSize }}</th>
+                  <th>{{ secondary_sale.toFixed(0)| number : fractionSize }}</th>
+                  <th>{{ closing.toFixed(0) | number : fractionSize }}</th>
+                  <th class="grey">{{ (secondary_value).toFixed(0)| number : fractionSize }}</th>
+                  <th class="grey">{{ (closing_value).toFixed(0)| number : fractionSize }}</th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Order Table -->
+</div>
