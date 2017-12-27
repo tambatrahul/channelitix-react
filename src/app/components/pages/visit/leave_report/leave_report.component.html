@@ -20,7 +20,7 @@
       </div>
       <div class="col-md-3" style="margin-top: 25px;">
         <div class="col-xs-12" *ngIf="environment.envName != 'sk_group'">
-          <div class="col-xs-4 col-xs-offset-2" *roleCheck="ROLE_ADMIN" style="text-align: right;width: 164px;">
+          <div class="col-xs-4 col-xs-offset-2" *roleCheck="ROLE_ZSM" style="text-align: right;width: 164px;">
             <a class="btn btn-primary btn-block btn-margin" *ngIf="!btn_loading"
                (click)="download()">
               Export to xlsx
