@@ -40,7 +40,7 @@ export class NavComponent extends BaseComponent {
                 classExpand: 'dcjq-current-parent'
             });
         });
-        this.month = moment().month() - 1;
+        this.month = moment().month();
         this.year = moment().year();
     }
 }
