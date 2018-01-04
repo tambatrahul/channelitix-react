@@ -93,7 +93,7 @@ export class ProductWiseComponent extends ListComponent {
             }
         }
 
-        if (this._month && this._year && !this.loading) {
+        if ((this._month || this._month == 0) && this._year && !this.loading) {
             this.loading = true;
             this.saleService.monthly_product(this._month + 1, this._year,
                 this._region_id, this._area_id, this._headquarter_id).subscribe(

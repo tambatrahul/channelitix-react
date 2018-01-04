@@ -82,7 +82,7 @@ export class StockistWiseComponent extends ListComponent {
      */
     fetch() {
         let self = this;
-        if (this._month && this._year && !this.loading) {
+        if ((this._month || this._month == 0) && this._year && !this.loading) {
             if (this.upload_excel) {
                 this.upload_excel.remove();
             }

@@ -82,7 +82,7 @@ export class InputUtilizationReportComponent extends ListComponent {
    * load users for logged in user
    */
   fetchData() {
-    if (this._region_id && this._area_id && this._hq_id && this.month && this.year && !this.loading) {
+    if (this._region_id && this._area_id && this._hq_id && (this.month || this.month == 0) && this.year && !this.loading) {
       this.loading = true;
       this.visitService.input_utilization(this._region_id, this._area_id, this._hq_id, this.month, this.year).subscribe(
         response => {

@@ -105,7 +105,7 @@ export class InvoicesComponent extends ListComponent {
      * fetch customer secondary sales from server
      */
     fetch() {
-        if (this._month && this._year) {
+        if ((this._month || this._month == 0) && this._year) {
             let self = this;
             if (this.upload_excel)
                 this.upload_excel.remove();

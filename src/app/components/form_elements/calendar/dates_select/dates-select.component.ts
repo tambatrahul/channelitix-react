@@ -71,7 +71,7 @@ export class DatesSelectComponent {
             this.onDateChanged.emit({
                 from_date: moment(this.from_date, "DD MMM YY").format("YYYY-MM-DD"),
                 to_date: moment(this.to_date, "DD MMM YY").format("YYYY-MM-DD"),
-                year: 2017
+                year: 2018
             });
     }
 
@@ -84,7 +84,7 @@ export class DatesSelectComponent {
             this.onDateChanged.emit({
                 from_date: moment(this.from_date, "DD MMM YY").format("YYYY-MM-DD"),
                 to_date: moment(this.to_date, "DD MMM YY").format("YYYY-MM-DD"),
-                year: 2017
+                year: 2018
             });
     }
 }

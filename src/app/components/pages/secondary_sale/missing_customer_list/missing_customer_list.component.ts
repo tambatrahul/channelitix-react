@@ -92,7 +92,7 @@ export class MissingCustomerListComponent extends BaseAuthComponent {
      * fetch server data for visits
      */
     fetch() {
-        if (this._month && this.year && this._headquarter_id) {
+        if ((this._month || this._month == 0) && this.year && this._headquarter_id) {
             this.loading = true;
             this.secondarySaleService.missing_customers(this._month + 1, this.year, this._headquarter_id, this._area_id, this._region_id).subscribe(
                 response => {

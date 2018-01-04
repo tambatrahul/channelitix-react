@@ -81,7 +81,7 @@ export class SalesComponent extends ListComponent {
      * Chart data
      */
     fetch() {
-        if (!this.loading && this._month && this._year) {
+        if (!this.loading && (this._month || this._month == 0) && this._year) {
             this.loading = true;
             Observable.forkJoin(
                 this.reportService.sales(this._month + 1, this._year),
