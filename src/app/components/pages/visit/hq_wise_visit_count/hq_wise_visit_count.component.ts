@@ -59,7 +59,7 @@ export class HQWiseVisitComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        if (this.month && this.year) {
+        if ((this.month || this.month == 0) && this.year) {
             this.loading = true;
             this.reportService.hq_wise_visit_counts(this.month + 1, this.year).subscribe(
                 response => {

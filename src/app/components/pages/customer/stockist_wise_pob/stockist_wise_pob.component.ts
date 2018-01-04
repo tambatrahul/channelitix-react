@@ -82,7 +82,7 @@ export class StockistWisePobComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        if (this.region_id && this.month && this.year) {
+        if (this.region_id && (this.month || this.month == 0) && this.year) {
             this.loading = true;
             if (this.environment.envName == 'sk_group') {
                 Observable.forkJoin(

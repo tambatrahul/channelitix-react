@@ -57,7 +57,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
      * load users for logged in user
      */
     fetch() {
-        if (this.month && this.year) {
+        if ((this.month || this.month == 0) && this.year) {
             this.loading = true;
             Observable.forkJoin(
                 this.reportService.executive_summary(this.month + 1, this.year),

@@ -83,7 +83,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
      * fetch server data for visits
      */
     fetch() {
-        if (this.month && this.year && this._user && this._date) {
+        if ((this.month || this.month == 0) && this.year && this._user && this._date) {
             this.loading = true;
             this.orderService.forUser(this._user.id, this.month + 1, this.year, this._date).subscribe(
                 response => {
