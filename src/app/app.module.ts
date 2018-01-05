@@ -188,6 +188,8 @@ import {StockistWiseHqComponent} from "./components/pages/secondary_sale_hq_wise
 import {MissingCustomerListComponent} from "./components/pages/secondary_sale/missing_customer_list/missing_customer_list.component";
 import {ManagerSyncOrderComponent} from "./components/pages/order/manager_sync_index/index.component";
 import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/product/stockist_product_wise.component";
+import {BrickBusinessTracerComponent} from "./components/pages/brick/business_tracer/index.component";
+import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
 
 enableProdMode();
 
@@ -274,6 +276,8 @@ enableProdMode();
     HqWiseInputUtilizationReportComponent,
     InputUtilizationReportComponent,
     MissingCustomerListComponent,
+    BrickBusinessTracerComponent,
+    DailyVisitPlanComponent,
 
     //dashboard report Component
     SalesComponent,

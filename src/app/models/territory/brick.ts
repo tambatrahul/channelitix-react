@@ -1,6 +1,8 @@
 import {Model} from "../model";
 import {CustomerType} from "../customer/customer_type";
 import {Territory} from "./territory";
+import {isNumber} from "util";
+import {Customer} from "../customer/customer";
 
 export class Brick extends Model {
 
@@ -19,6 +21,27 @@ export class Brick extends Model {
   customer_physician: number = 0;
   customer_semi: number = 0;
 
+  v1_visit_count_retailer: number = 0;
+  v1_visit_count_semi: number = 0;
+  v1_visit_count_hub: number = 0;
+  v1_visit_count_physician: number = 0;
+  v1_pob: number = 0;
+  v2_visit_count_retailer: number = 0;
+  v2_visit_count_semi: number = 0;
+  v2_visit_count_hub: number = 0;
+  v2_visit_count_physician: number = 0;
+  v2_vis_date: boolean = false;
+  v2_ord_date: boolean = false;
+  v2_pob: number = 0;
+  cumulative_visit_count_retailer: number = 0;
+  cumulative_visit_count_semi: number = 0;
+  cumulative_visit_count_hub: number = 0;
+  cumulative_visit_count_physician: number = 0;
+  cumulative_pob: number = 0;
+  vis_date: string;
+  ord_date: string;
+
+  customers: Customer [] = [];
   total_customer_others: number = 0;
   total_customer_retailer: number = 0;
   total_customer_hub_chemist: number = 0;
@@ -104,6 +127,9 @@ export class Brick extends Model {
 
     if (info.hq_territory)
       this.hq_territory = new Territory(info.hq_territory);
+
+    if (info.vis_date)
+      this.hq_territory = info.vis_date;
   }
 
   /**
