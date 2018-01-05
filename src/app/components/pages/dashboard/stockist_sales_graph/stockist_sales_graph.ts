@@ -12,222 +12,222 @@ declare let d3: any;
 
 
 @Component({
-    selector: 'stockist_sales_graph',
-    styleUrls: ['stockist_sales_graph.less'],
-    templateUrl: 'stockist_sales_graph.html',
-    inputs: ['refresh']
+  selector: 'stockist_sales_graph',
+  styleUrls: ['stockist_sales_graph.less'],
+  templateUrl: 'stockist_sales_graph.html',
+  inputs: ['refresh']
 })
 export class StockistSalesGraphComponent extends GoogleChartComponent {
 
-    /**
-     * data for chart
-     */
-    public chart_data = [];
+  /**
+   * data for chart
+   */
+  public chart_data = [];
 
-    /**
-     * chart and data
-     */
-    private data;
-    private chart;
+  /**
+   * chart and data
+   */
+  private data;
+  private chart;
 
-    month_str: string;
-    month: number;
-    year: number;
+  month_str: string;
+  month: number;
+  year: number;
 
-    /**
-     * customer Id
-     */
-    public customer_id: number = 0;
+  /**
+   * customer Id
+   */
+  public customer_id: number = 0;
 
-    /**
-     * dates
-     *
-     * @type {}
-     */
-    _dates: {
-        from_date: '',
-        to_date: '',
-        year: ''
-    };
-    @Input()
-    set dates(dates) {
-        this._dates = dates;
-        this.fetch();
-    }
+  /**
+   * dates
+   *
+   * @type {}
+   */
+  _dates: {
+    from_date: '',
+    to_date: '',
+    year: ''
+  };
+  @Input()
+  set dates(dates) {
+    this._dates = dates;
+    this.fetch();
+  }
 
-    /**
-     * view quantity
-     *
-     * @type {number}
-     * @private
-     */
-    _refresh: boolean;
-    set refresh(refresh) {
-        this._refresh = refresh;
-        this.fetch();
-    }
+  /**
+   * view quantity
+   *
+   * @type {number}
+   * @private
+   */
+  _refresh: boolean;
+  set refresh(refresh) {
+    this._refresh = refresh;
+    this.fetch();
+  }
 
-    /**
-     * region id for filter
-     */
-    _region_ids: Array<number> = [];
-    @Input()
-    set region_ids(region_ids) {
-        this._region_ids = region_ids;
-        this.fetch();
-    };
+  /**
+   * region id for filter
+   */
+  _region_ids: Array<number> = [];
+  @Input()
+  set region_ids(region_ids) {
+    this._region_ids = region_ids;
+    this.fetch();
+  };
 
-    /**
-     * area id for filter
-     */
-    _area_ids: Array<number> = [];
-    @Input()
-    set area_ids(area_ids) {
-        this._area_ids = area_ids;
-        this.fetch();
-    };
+  /**
+   * area id for filter
+   */
+  _area_ids: Array<number> = [];
+  @Input()
+  set area_ids(area_ids) {
+    this._area_ids = area_ids;
+    this.fetch();
+  };
 
-    /**
-     * headquarter id for filter
-     */
-    _headquarter_ids: Array<number> = [];
-    @Input()
-    set headquarter_ids(headquarter_ids) {
-        this._headquarter_ids = headquarter_ids;
-        if (this._headquarter_ids.length <= 0)
-            this.customer_id = 0;
-        this.fetch();
-    };
+  /**
+   * headquarter id for filter
+   */
+  _headquarter_ids: Array<number> = [];
+  @Input()
+  set headquarter_ids(headquarter_ids) {
+    this._headquarter_ids = headquarter_ids;
+    if (this._headquarter_ids.length <= 0)
+      this.customer_id = 0;
+    this.fetch();
+  };
 
-    /**
-     * TillMonthChartComponent constructor
-     */
-    constructor(private reportService: ReportService, public _service: AuthService) {
-        super(_service);
-    }
+  /**
+   * TillMonthChartComponent constructor
+   */
+  constructor(private reportService: ReportService, public _service: AuthService) {
+    super(_service);
+  }
 
-    /**
-     * initialize data
-     */
-    ngOnInit() {
-        super.ngOnInit();
-        this.fetch();
-        let current_month = moment();
-        this.month = current_month.month();
-        this.year = current_month.year();
-        this.month_str = current_month.format('MMM');
-    }
+  /**
+   * initialize data
+   */
+  ngOnInit() {
+    super.ngOnInit();
+    this.fetch();
+    let current_month = moment();
+    this.month = current_month.month();
+    this.year = current_month.year();
+    this.month_str = current_month.format('MMM');
+  }
 
-    /**
-     * draw graph
-     */
-    drawGraph() {
+  /**
+   * draw graph
+   */
+  drawGraph() {
 
-        let options = {
-            chartArea: {left: 60, top: 40, bottom: 40, right: 40, width: "100%", height: "100%"},
-            legend: {position: 'top', alignment: 'start'},
-            title: 'Sales Performance in Thousands',
-            annotations: {
-                alwaysOutside: true,
-                textStyle: {
-                    fontSize: 10,
-                    color: '#000',
-                    auraColor: 'none'
-                }
-            },
-            hAxis: {
-                title: '',
-                viewWindow: {
-                    min: [0, 30, 0],
-                    max: [17, 30, 0]
-                }
-            },
-            vAxis: {
-                title: 'Stockist Count vs Sales'
-            }
-        };
-
-        this.chart = this.createColumnChart(document.getElementById('stockist_sales'));
-        this.chart.draw(this.data, options);
-    }
-
-    /**
-     * Chart data
-     */
-    fetch() {
-        if (this.month && this.year) {
-            this.loading = true;
-            Observable.forkJoin(
-                this.reportService.stockist_sales_monthly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year, this.customer_id),
-                this.reportService.stockist_sales_yearly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year - 1, this.customer_id)
-            ).subscribe(data => {
-                    this.prepareData(new MonthStockistSale(data[0].monthly_sale), new YearStockistSale(data[1].yearly_sale));
-                    this.loading = false;
-                },
-                err => {
-                    this.loading = false;
-                });
+    let options = {
+      chartArea: {left: 60, top: 40, bottom: 40, right: 40, width: "100%", height: "100%"},
+      legend: {position: 'top', alignment: 'start'},
+      title: 'Sales Performance in Thousands',
+      annotations: {
+        alwaysOutside: true,
+        textStyle: {
+          fontSize: 10,
+          color: '#000',
+          auraColor: 'none'
         }
-    }
+      },
+      hAxis: {
+        title: '',
+        viewWindow: {
+          min: [0, 30, 0],
+          max: [17, 30, 0]
+        }
+      },
+      vAxis: {
+        title: 'Stockist Count vs Sales'
+      }
+    };
 
-    /**
-     * prepare data for graph
-     */
-    prepareData(monthly_sale: MonthStockistSale, yearly_sale: YearStockistSale) {
-        this.getGoogle().charts.setOnLoadCallback(() => {
-            let google = this.getGoogle();
+    this.chart = this.createColumnChart(document.getElementById('stockist_sales'));
+    this.chart.draw(this.data, options);
+  }
 
-            if (yearly_sale.yearly_stockist_sale > 0) {
-                yearly_sale.yearly_stockist_sale = yearly_sale.yearly_stockist_sale / 12;
-                yearly_sale.yearly_stockist_sale = parseFloat((yearly_sale.yearly_stockist_sale).toFixed(2));
-            }
-
-            if (yearly_sale.yearly_stockist_sale_ab > 0) {
-                yearly_sale.yearly_stockist_sale_ab = yearly_sale.yearly_stockist_sale_ab / 12;
-                yearly_sale.yearly_stockist_sale_ab = parseFloat((yearly_sale.yearly_stockist_sale_ab).toFixed(2));
-
-            }
-
-            let data = new google.visualization.DataTable();
-            data.addColumn('string', 'YTD');
-            data.addColumn('number', 'Stockist Count');
-            data.addColumn({type: 'number', role: 'annotation'});
-            data.addColumn('number', 'Stockist(A/B) Count');
-            data.addColumn({type: 'number', role: 'annotation'});
-            data.addRows([
-                [(this.year - 1) + "", yearly_sale.yearly_stockist_count, yearly_sale.yearly_stockist_sale,
-                    yearly_sale.yearly_stockist_ab_count, yearly_sale.yearly_stockist_sale_ab],
-                [this.month_str, monthly_sale.monthly_stockist_count, monthly_sale.monthly_stockist_sale,
-                    monthly_sale.monthly_stockist_ab_count, monthly_sale.monthly_stockist_sale_ab],
-            ]);
-
-            this.data = data;
-
-            // set chart data callback
-            this.drawGraph();
+  /**
+   * Chart data
+   */
+  fetch() {
+    if ((this.month || this.month == 0) && this.year) {
+      this.loading = true;
+      Observable.forkJoin(
+        this.reportService.stockist_sales_monthly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year, this.customer_id),
+        this.reportService.stockist_sales_yearly(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year - 1, this.customer_id)
+      ).subscribe(data => {
+          this.prepareData(new MonthStockistSale(data[0].monthly_sale), new YearStockistSale(data[1].yearly_sale));
+          this.loading = false;
+        },
+        err => {
+          this.loading = false;
         });
     }
+  }
 
-    /**
-     * month and year changed
-     *
-     * @param date
-     */
-    monthYearChanged(date) {
-        let current_month = moment().month(date.month).year(date.year);
-        this.month = current_month.month();
-        this.year = current_month.year();
-        this.month_str = current_month.format('MMM');
-        this.fetch();
-    }
+  /**
+   * prepare data for graph
+   */
+  prepareData(monthly_sale: MonthStockistSale, yearly_sale: YearStockistSale) {
+    this.getGoogle().charts.setOnLoadCallback(() => {
+      let google = this.getGoogle();
 
-    /**
-     * customer Filter
-     *
-     * @param customer_id
-     */
-    customerChanged(customer_id) {
-        this.customer_id = customer_id;
-        this.fetch();
-    }
+      if (yearly_sale.yearly_stockist_sale > 0) {
+        yearly_sale.yearly_stockist_sale = yearly_sale.yearly_stockist_sale / 12;
+        yearly_sale.yearly_stockist_sale = parseFloat((yearly_sale.yearly_stockist_sale).toFixed(2));
+      }
+
+      if (yearly_sale.yearly_stockist_sale_ab > 0) {
+        yearly_sale.yearly_stockist_sale_ab = yearly_sale.yearly_stockist_sale_ab / 12;
+        yearly_sale.yearly_stockist_sale_ab = parseFloat((yearly_sale.yearly_stockist_sale_ab).toFixed(2));
+
+      }
+
+      let data = new google.visualization.DataTable();
+      data.addColumn('string', 'YTD');
+      data.addColumn('number', 'Stockist Count');
+      data.addColumn({type: 'number', role: 'annotation'});
+      data.addColumn('number', 'Stockist(A/B) Count');
+      data.addColumn({type: 'number', role: 'annotation'});
+      data.addRows([
+        [(this.year - 1) + "", yearly_sale.yearly_stockist_count, yearly_sale.yearly_stockist_sale,
+          yearly_sale.yearly_stockist_ab_count, yearly_sale.yearly_stockist_sale_ab],
+        [this.month_str, monthly_sale.monthly_stockist_count, monthly_sale.monthly_stockist_sale,
+          monthly_sale.monthly_stockist_ab_count, monthly_sale.monthly_stockist_sale_ab],
+      ]);
+
+      this.data = data;
+
+      // set chart data callback
+      this.drawGraph();
+    });
+  }
+
+  /**
+   * month and year changed
+   *
+   * @param date
+   */
+  monthYearChanged(date) {
+    let current_month = moment().month(date.month).year(date.year);
+    this.month = current_month.month();
+    this.year = current_month.year();
+    this.month_str = current_month.format('MMM');
+    this.fetch();
+  }
+
+  /**
+   * customer Filter
+   *
+   * @param customer_id
+   */
+  customerChanged(customer_id) {
+    this.customer_id = customer_id;
+    this.fetch();
+  }
 }
