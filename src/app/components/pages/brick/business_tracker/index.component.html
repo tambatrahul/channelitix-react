@@ -6,7 +6,7 @@
         <div class="page-breadcrumb-wrap">
           <div class="page-breadcrumb-info">
             <h2 class="breadcrumb-titles">
-              Brick Business Tracer Report
+              Brick Business Tracker Report
             </h2>
           </div>
         </div>
@@ -42,8 +42,8 @@
   <!-- ./Filters for report-->
 
   <!-- Report Table -->
-  <div class="row">
-    <div class="col-xs-12" #loading_box>
+  <div class="row" #loading_box>
+    <div class="col-xs-12">
       <div *ngIf="headquarter_id > 0">
         <div class="box-widget widget-module" *ngIf="territories.length > 0">
           <div class="widget-head clearfix">

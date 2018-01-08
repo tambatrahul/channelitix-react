@@ -73,8 +73,8 @@ import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq
 import {StockistWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/stockist_wise.component";
 import {ManagerSyncOrderComponent} from "./components/pages/order/manager_sync_index/index.component";
 import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/product/stockist_product_wise.component";
-import {BrickBusinessTracerComponent} from "./components/pages/brick/business_tracer/index.component";
 import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
+import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -414,8 +414,8 @@ export const routes: Routes = [
             path: 'headquarter_wise_report',
             component: HeadQuarterWiseReportComponent,
           }, {
-            path: 'brick_business_tracer_report',
-            component: BrickBusinessTracerComponent,
+            path: 'brick_business_tracker_report',
+            component: BrickBusinessTrackerComponent,
           }, {
             path: 'daily_visit_plan',
             component: DailyVisitPlanComponent,

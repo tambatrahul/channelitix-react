@@ -10,8 +10,6 @@ import {Observable} from "rxjs/Observable";
 import {Order} from "../../../../models/order/order";
 import {Visit} from "../../../../models/visit/visit";
 import {Territory} from "../../../../models/territory/territory";
-import {Brick} from "../../../../models/territory/brick";
-import {by} from "protractor";
 
 declare let jQuery: any;
 
@@ -19,7 +17,7 @@ declare let jQuery: any;
   templateUrl: 'index.component.html',
   styleUrls: ['index.component.less']
 })
-export class BrickBusinessTracerComponent extends ListComponent {
+export class BrickBusinessTrackerComponent extends ListComponent {
 
   /**
    * year and month for calendar
@@ -88,7 +86,6 @@ export class BrickBusinessTracerComponent extends ListComponent {
 
       });
     }
-    this.loading = false;
   }
 
   /**
@@ -235,5 +232,6 @@ export class BrickBusinessTracerComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
+    this.fetch();
   }
 }
