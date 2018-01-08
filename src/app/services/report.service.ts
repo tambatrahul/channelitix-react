@@ -564,7 +564,7 @@ export class ReportService extends BaseService {
    * @param region_id
    * @returns {Observable<Result>}
    */
-  brick_business_tracer_by_date(month: number, year: number, headquarter_id: number, area_id: number, region_id: number) {
+  brick_business_tracker_by_date(month: number, year: number, headquarter_id: number, area_id: number, region_id: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -572,7 +572,7 @@ export class ReportService extends BaseService {
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
 
-    return this.get(this.getBaseUrl() + '/brick_wise_business_tracer_by_date/' + month + "/" + year,
+    return this.get(this.getBaseUrl() + '/brick_wise_business_tracker_by_date/' + month + "/" + year,
       new RequestOptions({search: params}));
   }
 
@@ -585,7 +585,7 @@ export class ReportService extends BaseService {
    * @param region_id
    * @returns {Observable<Result>}
    */
-  brick_business_tracer_by_year(year: number, headquarter_id: number, area_id: number, region_id: number) {
+  brick_business_tracker_by_year(year: number, headquarter_id: number, area_id: number, region_id: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -593,22 +593,22 @@ export class ReportService extends BaseService {
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
 
-    return this.get(this.getBaseUrl() + '/brick_wise_business_tracer_by_year/' + year,
+    return this.get(this.getBaseUrl() + '/brick_wise_business_tracker_by_year/' + year,
       new RequestOptions({search: params}));
   }
 
   /**
    * Daily Visit Plan
    *
-   * @param {string} date
+   * @param {string} day
    * @param {number} headquarter_id
    * @returns {Observable<Result>}
    */
-  daily_visit_plan(date, headquarter_id: number) {
+  daily_visit_plan(day, headquarter_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('date', String(date ? date : ''));
+    params.set('day', String(day ? day : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
 
     return this.get(this.getBaseUrl() + '/daily_visit_plan',

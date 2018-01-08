@@ -18,9 +18,6 @@
   <!-- Filters for report-->
   <div class="row" style="padding-bottom: 10px;">
     <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
-      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-    </div>
-    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
       <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
                      (onValueChanged)="regionChanged($event)"></region-select>
     </div>
@@ -46,18 +43,16 @@
     <div class="col-xs-12">
       <div *ngIf="headquarter_id > 0">
         <div class="col-md-1">
-          <div class="div-scroll">
-            <div *ngFor="let day of dates" class="border">
+            <div *ngFor="let day of dates; let i = index" class="border">
               <a class="bg-color"
-                 (click)="dayChanged(day)">Day {{ day }}</a>
-            </div>
+                 (click)="dayChanged(day.id)">{{ day.name }}</a>
           </div>
         </div>
         <div class="col-md-11">
           <div class="box-widget widget-module">
             <div class="widget-head clearfix">
               <span class="h-icon"><i class="fa fa-table"></i></span>
-              <h4><strong>Daily Visit Plan Report for {{ title }}</strong></h4>
+              <h4><strong class="capital">Daily Visit Plan Report for {{ title }}</strong></h4>
             </div>
             <div>
               <div class="widget-container report-table">
@@ -85,9 +80,9 @@
                             <td>{{ customer.firm_name }}</td>
                             <td>{{ customer.customer_type.name }}</td>
                             <td>
-                              <span *ngIf="customer.total_pob > 0 && this.month >0">
-                              {{ (customer.total_pob/(this.month + 1)).toFixed(1) }}
-                                </span>
+                              <span *ngIf="customer.total_pob > 0">
+                                {{(customer.total_pob).toFixed(1) }}
+                              </span>
                             </td>
                           </tr>
                         </template>

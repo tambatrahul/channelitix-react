@@ -28,7 +28,7 @@ export class DailyVisitPlanComponent extends ListComponent {
   /**
    * user joining date
    */
-  public day: number;
+  public day: string;
   /**
    * region, territory, area, headquarter & brick id
    */
@@ -42,7 +42,11 @@ export class DailyVisitPlanComponent extends ListComponent {
   btn_loading: boolean = false;
   tours: Tour[] = [];
   public bricks = [];
-  public dates = [];
+  public dates = [{'id': 'day_1', 'name': 'Day 1'}, {'id': 'day_2', 'name': 'Day 2'}, {'id': 'day_3', 'name': 'Day 3'},
+    {'id': 'day_4', 'name': 'Day 4'}, {'id': 'day_5', 'name': 'Day 5'}, {'id': 'day_6', 'name': 'Day 6'},
+    {'id': 'day_7', 'name': 'Day 7'}, {'id': 'day_8', 'name': 'Day 8'}, {'id': 'day_9', 'name': 'Day 9'},
+    {'id': 'day_10', 'name': 'Day 10'}, {'id': 'day_11', 'name': 'Day 11'}, {'id': 'day_12', 'name': 'Day 12'}]
+  ;
 
   /**
    * User Component Constructor
@@ -57,7 +61,7 @@ export class DailyVisitPlanComponent extends ListComponent {
    * @returns {string}
    */
   get title(): string {
-    return this.day + " " + moment().year(this.year).month(this.month).format("MMMM, YYYY");
+    return this.day.replace(/_/g, ' ');
   }
 
   /**
@@ -66,36 +70,20 @@ export class DailyVisitPlanComponent extends ListComponent {
   ngOnInit() {
     this.month = moment().month();
     this.year = moment().year();
-    this.setDates();
-    this.day = this.start_day;
+    this.day = 'day_1';
     this.fetch();
     super.ngOnInit();
-  }
-
-  /**
-   * Set Dates
-   */
-  setDates() {
-    // get date
-    let date = moment().year(this.year).month(this.month);
-
-    // get start date and end date of month
-    this.start_day = date.startOf('month').date();
-    this.end_day = date.endOf('month').date();
-    for (let date: number = this.start_day; date <= this.end_day; date++) {
-      this.dates.push(date);
-    }
   }
 
   /**
    * load users for logged in user
    */
   fetch() {
-    let date = moment([this.year, this.month, this.day]).format('YYYY-MM-DD');
     if (this.headquarter_id > 0) {
       this.loading = true;
-      this.reportService.daily_visit_plan(date, this.headquarter_id).subscribe(
+      this.reportService.daily_visit_plan(this.day, this.headquarter_id).subscribe(
         response => {
+          this.loading = false;
           // Set Tour
           this.tours = response.tours.map(tour => new Tour(tour));
 
@@ -103,7 +91,6 @@ export class DailyVisitPlanComponent extends ListComponent {
           let customers = response.customers.map(customer => new Customer(customer));
 
           this.prepareData(orders, customers);
-          this.loading = false;
         });
     }
   }
@@ -133,7 +120,7 @@ export class DailyVisitPlanComponent extends ListComponent {
     orders.map(order => {
       for (let cus of bricks[order.hq_brick_id].customers) {
         if (cus.id == order.customer_id)
-          cus.total_pob = order.order_total_count;
+          cus.total_pob = order.months > 0 ? order.order_total_count / order.months : order.order_total_count;
       }
     });
 
@@ -141,7 +128,7 @@ export class DailyVisitPlanComponent extends ListComponent {
     console.log(this.bricks);
   }
 
-  // Generate Object To Array
+// Generate Object To Array
   generateArray(obj) {
     return Object.keys(obj).map((key) => {
       return obj[key];
@@ -199,8 +186,6 @@ export class DailyVisitPlanComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
-    this.dates = [];
-    this.setDates();
     this.fetch();
   }
 }

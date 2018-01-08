@@ -61,8 +61,8 @@ export class BrickBusinessTrackerComponent extends ListComponent {
     if (month && this.year) {
       this.loading = true;
       Observable.forkJoin(
-        this.reportService.brick_business_tracer_by_date(month, this.year, this.headquarter_id, this.area_id, this.region_id),
-        this.reportService.brick_business_tracer_by_year(this.year, this.headquarter_id, this.area_id, this.region_id)
+        this.reportService.brick_business_tracker_by_date(month, this.year, this.headquarter_id, this.area_id, this.region_id),
+        this.reportService.brick_business_tracker_by_year(this.year, this.headquarter_id, this.area_id, this.region_id)
       ).subscribe(data => {
 
         this.territories = data[0].territories.map(ter => new Territory(ter));
