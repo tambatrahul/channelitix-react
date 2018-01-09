@@ -125,7 +125,6 @@ export class DailyVisitPlanComponent extends ListComponent {
     });
 
     this.bricks = this.generateArray(bricks);
-    console.log(this.bricks);
   }
 
 // Generate Object To Array

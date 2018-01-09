@@ -165,24 +165,24 @@ export class BrickBusinessTrackerComponent extends ListComponent {
 
         // set yearly visit
         by_year_visits.map(vis => {
-          if(brick.id == vis.hq_brick_id){
-            if(vis.customer_type_id == 2)
+          if (brick.id == vis.hq_brick_id) {
+            if (vis.customer_type_id == 2)
               brick.cumulative_visit_count_semi = vis.visit_count;
 
-            if(vis.customer_type_id == 3)
+            if (vis.customer_type_id == 3)
               brick.cumulative_visit_count_retailer = vis.visit_count;
 
-            if(vis.customer_type_id == 4)
+            if (vis.customer_type_id == 4)
               brick.cumulative_visit_count_hub = vis.visit_count;
 
-            if(vis.customer_type_id == 5)
+            if (vis.customer_type_id == 5)
               brick.cumulative_visit_count_physician = vis.visit_count;
           }
         });
 
         // set yearly orser
         by_year_orders.map(order => {
-          if(brick.id == order.hq_brick_id)
+          if (brick.id == order.hq_brick_id)
             brick.cumulative_pob = order.order_total_count;
         });
       });
@@ -232,6 +232,8 @@ export class BrickBusinessTrackerComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
-    this.fetch();
+
+    if (this.headquarter_id)
+      this.fetch();
   }
 }
