@@ -1,0 +1,103 @@
+<div class="container-fluid daily_visit_plan_table">
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">
+              Daily Visit Plan Report
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for report-->
+  <div class="row" style="padding-bottom: 10px;">
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+      <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
+                     (onValueChanged)="regionChanged($event)"></region-select>
+    </div>
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+      <div *ngIf="region_id > 0">
+        <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                     [first_value]="'Select Area'" (_areas)="areas($event)"
+                     (onValueChanged)="areaChanged($event)"></area-select>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+      <div *ngIf="area_id > 0">
+        <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)"
+                            [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
+                            (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+      </div>
+    </div>
+  </div>
+  <!-- ./Filters for report-->
+
+  <!-- Report Table -->
+  <div class="row" #loading_box>
+    <div class="col-xs-12">
+      <div *ngIf="headquarter_id > 0">
+        <div class="col-md-1">
+            <div *ngFor="let day of dates; let i = index" class="border">
+              <a class="bg-color"
+                 (click)="dayChanged(day.id)">{{ day.name }}</a>
+          </div>
+        </div>
+        <div class="col-md-11">
+          <div class="box-widget widget-module">
+            <div class="widget-head clearfix">
+              <span class="h-icon"><i class="fa fa-table"></i></span>
+              <h4><strong class="capital">Daily Visit Plan Report for {{ title }}</strong></h4>
+            </div>
+            <div>
+              <div class="widget-container report-table">
+                <div class="widget-block">
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                      <tr style="background-color: #3498db;color: white">
+                        <th>Name Of Brick</th>
+                        <th>Customer Name</th>
+                        <th>Customer Type</th>
+                        <th>AVG Business</th>
+                      </tr>
+                      </thead>
+
+                      <tbody>
+                      <template ngFor let-brick [ngForOf]="bricks">
+                        <tr>
+                          <td [rowSpan]="brick.customers.length + 1">
+                            {{ brick.name }}
+                          </td>
+                        </tr>
+                        <template ngFor let-customer [ngForOf]="brick.customers">
+                          <tr>
+                            <td>{{ customer.firm_name }}</td>
+                            <td>{{ customer.customer_type.name }}</td>
+                            <td>
+                              <span *ngIf="customer.total_pob > 0">
+                                {{(customer.total_pob).toFixed(1) }}
+                              </span>
+                            </td>
+                          </tr>
+                        </template>
+                      </template>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="headquarter_id == ''  ||  headquarter_id==0" style="height: 350px"></div>
+    </div>
+  </div>
+  <!-- ./Report Table -->
+</div>

@@ -1,5 +1,5 @@
 import {ModuleWithProviders} from "@angular/core";
-import {Routes, RouterModule} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 import {BaseComponent} from "./components/pages/base/base/base.component";
 // pages
 import {LoginComponent} from "./components/pages/auth/login/login.component";
@@ -73,6 +73,8 @@ import {HqWiseInputUtilizationReportComponent} from "./components/pages/visit/hq
 import {StockistWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/stockist_wise.component";
 import {ManagerSyncOrderComponent} from "./components/pages/order/manager_sync_index/index.component";
 import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/product/stockist_product_wise.component";
+import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
+import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -411,6 +413,12 @@ export const routes: Routes = [
           }, {
             path: 'headquarter_wise_report',
             component: HeadQuarterWiseReportComponent,
+          }, {
+            path: 'brick_business_tracker_report',
+            component: BrickBusinessTrackerComponent,
+          }, {
+            path: 'daily_visit_plan',
+            component: DailyVisitPlanComponent,
           }
         ]
       },

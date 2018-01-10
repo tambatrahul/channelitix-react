@@ -1,4 +1,4 @@
-<div class="container-fluid bricks">
+<div class="container-fluid bricks" #loading_box>
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumb">
         <div class="row">
@@ -17,11 +17,19 @@
 
     <!-- Filters for report-->
     <div class="row" style="padding-bottom: 10px;">
-        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+      <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+        <label> Year </label>
+        <select class="form-control" (change)="onYearChanged($event.target.value)" [(ngModel)]="year">
+          <option *ngFor="let y of years" [value]="y">
+            {{ y }}
+          </option>
+        </select>
+      </div>
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
             <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
                            (onValueChanged)="regionChanged($event)"></region-select>
         </div>
-        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
             <div *ngIf="region_id > 0">
                 <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
                              [first_value]="'Select Area'" (_areas)="areas($event)"
@@ -51,7 +59,7 @@
 
     <!-- Report Table -->
     <div class="row">
-        <div class="col-xs-12" #loading_box>
+        <div class="col-xs-12">
             <div *ngIf="headquarter_id > 0">
                 <div class="box-widget widget-module" *ngIf="territories.length > 0">
                     <div class="widget-head clearfix">
