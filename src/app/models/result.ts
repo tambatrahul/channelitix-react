@@ -141,6 +141,7 @@ export class Result {
   total_headquarters: number = 0;
   total_orders: number = 0;
   performance_per: number = 0;
+  skinlite_performance_per: number = 0;
 
   // target till month and sales till month
   year_till_month: YearTillMonth;

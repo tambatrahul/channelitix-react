@@ -1,175 +1,183 @@
 <div class="container-fluid dashboard">
 
-    <!-- Page breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="page-breadcrumb-wrap">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ./Page breadcrumb -->
-
-    <!-- pages layout -->
+  <!-- Page breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-md-2 col-md-push-10">
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-primary btn-block btn-xs" (click)="pageRefresh()">
-                        <i class="fa fa-refresh"></i> Refresh
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <dates-select (onDateChanged)="onDateChanged($event)"></dates-select>
-                </div>
-            </div>
-            <div class="row" *roleCheck="ROLE_ADMIN">
-                <div class="col-xs-12">
-                    <div class="row">
-                        <multiple-region-select [region_ids]="region_ids"
-                                                (selectedRegion)="regionSelected($event)"></multiple-region-select>
-                    </div>
-                </div>
-            </div>
-            <div class="row" *ngIf="region_ids.length > 0">
-                <div class="col-xs-12" *roleCheck="ROLE_ZSM">
-                    <div class="row">
-                        <multiple-area-select [region_ids]="region_ids" [area_ids]="area_ids"
-                                              (selectedArea)="areaSelected($event)"></multiple-area-select>
-                    </div>
-                </div>
-            </div>
-            <div class="row" *ngIf="area_ids.length > 0">
-                <div class="col-xs-12">
-                    <div class="row">
-                        <multiple-headquarter-select [area_ids]="area_ids" [headquarter_ids]="headquarter_ids"
-                                                     (selectedHeadquarter)="headquarterSelected($event)">
-
-                        </multiple-headquarter-select>
-                    </div>
-                </div>
-            </div>
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
         </div>
-        <div class="col-md-10 col-md-pull-2">
-            <dashboard-count [dates]="dates" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                             [headquarter_ids]="headquarter_ids" [productive_calls]="productive_calls"></dashboard-count>
+      </div>
+    </div>
+  </div>
+  <!-- ./Page breadcrumb -->
 
-            <div class="row" *ngIf="environment.envName != 'sk_group'">
+  <!-- pages layout -->
+  <div class="row">
+    <div class="col-md-2 col-md-push-10">
+      <div class="row">
+        <div class="col-xs-12">
+          <button class="btn btn-primary btn-block btn-xs" (click)="pageRefresh()">
+            <i class="fa fa-refresh"></i> Refresh
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <dates-select (onDateChanged)="onDateChanged($event)"></dates-select>
+        </div>
+      </div>
+      <div class="row" *roleCheck="ROLE_ADMIN">
+        <div class="col-xs-12">
+          <div class="row">
+            <multiple-region-select [region_ids]="region_ids"
+                                    (selectedRegion)="regionSelected($event)"></multiple-region-select>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="region_ids.length > 0">
+        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+          <div class="row">
+            <multiple-area-select [region_ids]="region_ids" [area_ids]="area_ids"
+                                  (selectedArea)="areaSelected($event)"></multiple-area-select>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="area_ids.length > 0">
+        <div class="col-xs-12">
+          <div class="row">
+            <multiple-headquarter-select [area_ids]="area_ids" [headquarter_ids]="headquarter_ids"
+                                         (selectedHeadquarter)="headquarterSelected($event)">
 
-                <!-- Highest Call graph -->
-                <div class="col-xs-12 col-md-6">
-                    <till-month-chart [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                      [headquarter_ids]="headquarter_ids"></till-month-chart>
+            </multiple-headquarter-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 col-md-pull-2">
+      <dashboard-count [dates]="dates" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                       [headquarter_ids]="headquarter_ids" [productive_calls]="productive_calls"></dashboard-count>
+
+      <div class="row" *ngIf="environment.envName != 'sk_group'">
+
+        <!-- Highest Call graph -->
+        <div class="col-xs-12 col-md-6">
+          <till-month-chart [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                            [headquarter_ids]="headquarter_ids"></till-month-chart>
+        </div>
+        <!-- ./Highest Call graph -->
+        <div class="col-xs-12 col-md-6">
+          <milestone-sales-tracking-graph [dates]="dates"
+                                          [refresh]="refresh"
+                                          [region_ids]="region_ids" [area_ids]="area_ids"
+                                          [headquarter_ids]="headquarter_ids"></milestone-sales-tracking-graph>
+        </div>
+
+      </div>
+
+      <!-- Visit Order Trend -->
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+          <visit-count-graph [dates]="dates"
+                             (totalVisitOrders)="totalVisitOrders($event)" [refresh]="refresh"
+                             [region_ids]="region_ids" [area_ids]="area_ids"
+                             [headquarter_ids]="headquarter_ids"></visit-count-graph>
+        </div>
+        <div class="col-xs-12 col-md-3">
+          <div class="row">
+            <a class="col-xs-12 remove-underline" [routerLink]="'/visits'">
+              <div class="mini-stats-widget full-block-mini-chart w_bg_green_500">
+                <div class="mini-stats-top" style="padding: 10px;">
+                  <span class="mini-stats-value">{{ total_visits }}</span>
+                  <span class="mini-stats-label">Total Visits</span>
                 </div>
-                <!-- ./Highest Call graph -->
-
-                <!-- Highest Call graph -->
-                <div class="col-xs-12 col-md-6">
-                  <stockist_sales_graph [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                                    [headquarter_ids]="headquarter_ids">
-
-                  </stockist_sales_graph>
-                </div>
-                <!-- ./Highest Call graph -->
-            </div>
-
-            <!-- Visit Order Trend -->
-            <div class="row">
-                <div class="col-xs-12 col-md-9">
-                    <visit-count-graph [dates]="dates"
-                                       (totalVisitOrders)="totalVisitOrders($event)" [refresh]="refresh"
-                                       [region_ids]="region_ids" [area_ids]="area_ids"
-                                       [headquarter_ids]="headquarter_ids"></visit-count-graph>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="row">
-                        <a class="col-xs-12 remove-underline" [routerLink]="'/visits'">
-                            <div class="mini-stats-widget full-block-mini-chart w_bg_green_500">
-                                <div class="mini-stats-top" style="padding: 10px;">
-                                    <span class="mini-stats-value">{{ total_visits }}</span>
-                                    <span class="mini-stats-label">Total Visits</span>
-                                </div>
-                            </div>
-                        </a >
-                        <div *ngIf="environment.envName == 'geo'">
-                            <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
-                                <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
-                                    <div class="mini-stats-top">
+              </div>
+            </a>
+            <div *ngIf="environment.envName == 'geo'">
+              <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
+                <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
+                  <div class="mini-stats-top">
                                     <span class="mini-stats-value"><i class="fa fa-rupee"></i>
                                         {{(total_pob/1000).toFixed(0) | number : fractionSize }} K
                                     </span>
-                                        <span class="mini-stats-label">POB</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                    <span class="mini-stats-label">POB</span>
+                  </div>
+                </div>
+              </a>
+            </div>
 
-                        <div *ngIf="environment.envName == 'sk_group'">
-                            <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
-                                <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_500">
-                                    <div class="mini-stats-top" style="padding: 10px;">
+            <div *ngIf="environment.envName == 'sk_group'">
+              <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
+                <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_500">
+                  <div class="mini-stats-top" style="padding: 10px;">
                                     <span class="mini-stats-value"><i class="fa fa-rupee"></i>
                                         {{(total_pob_sk/1000).toFixed(0) | number : fractionSize }} K
                                     </span>
-                                        <span class="mini-stats-label">POB(SK)</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                    <span class="mini-stats-label">POB(SK)</span>
+                  </div>
+                </div>
+              </a>
+            </div>
 
-                        <div *ngIf="environment.envName == 'sk_group'">
-                            <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
-                                <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_75">
-                                    <div class="mini-stats-top" style="padding: 10px;">
+            <div *ngIf="environment.envName == 'sk_group'">
+              <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
+                <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_75">
+                  <div class="mini-stats-top" style="padding: 10px;">
                                     <span class="mini-stats-value"><i class="fa fa-rupee"></i>
                                         {{(total_pob_synergy/1000).toFixed(0) | number : fractionSize }} K
                                     </span>
-                                        <span class="mini-stats-label">POB(SYNERGY)</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    <span class="mini-stats-label">POB(SYNERGY)</span>
+                  </div>
                 </div>
+              </a>
             </div>
-            <!-- ./Visit Order Trend -->
-
-            <div class="row" *ngIf="environment.envName == 'sk_group'">
-
-                <!-- Monthly Primary graph -->
-                <div class="col-xs-12 col-md-6">
-                    <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                                      [headquarter_ids]="headquarter_ids">
-
-                    </monthly-primary-secondary-target>
-                </div>
-                <!-- ./Monthly Primary graph -->
-
-                <!--Product wise sale-->
-                <div class="col-xs-12 col-md-6">
-                    <product-wise-sale-sk [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                       [headquarter_ids]="headquarter_ids"></product-wise-sale-sk>
-                </div>
-                <!--/Product wise sale-->
-            </div>
+          </div>
         </div>
-    </div>
-    <!-- ./pages layout -->
+      </div>
+      <!-- ./Visit Order Trend -->
 
-    <div class="row" *ngIf="environment.envName != 'sk_group'">
+      <div class="row" *ngIf="environment.envName == 'sk_group'">
+
+        <!-- Monthly Primary graph -->
         <div class="col-xs-12 col-md-6">
-            <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                               [headquarter_ids]="headquarter_ids"></product-wise-sale>
-        </div>
-        <!-- Highest Call graph -->
-        <div class="col-xs-12 col-md-6">
-            <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                              [headquarter_ids]="headquarter_ids">
+          <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                                            [headquarter_ids]="headquarter_ids">
 
-            </monthly-primary-secondary-target>
+          </monthly-primary-secondary-target>
         </div>
+        <!-- ./Monthly Primary graph -->
+
+        <!--Product wise sale-->
+        <div class="col-xs-12 col-md-6">
+          <product-wise-sale-sk [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
+                                [refresh]="refresh"
+                                [headquarter_ids]="headquarter_ids"></product-wise-sale-sk>
+        </div>
+        <!--/Product wise sale-->
+      </div>
     </div>
+  </div>
+  <!-- ./pages layout -->
+
+  <div class="row" *ngIf="environment.envName != 'sk_group'">
+    <div class="col-xs-12 col-md-6">
+      <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
+                         [refresh]="refresh"
+                         [headquarter_ids]="headquarter_ids"></product-wise-sale>
+    </div>
+    <!-- Highest Call graph -->
+    <div class="col-xs-12 col-md-6">
+      <div>
+        <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                                          [headquarter_ids]="headquarter_ids">
+
+        </monthly-primary-secondary-target>
+      </div>
+      <div>
+        <stockist_sales_graph [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                              [headquarter_ids]="headquarter_ids">
+
+        </stockist_sales_graph>
+      </div>
+    </div>
+  </div>
 </div>

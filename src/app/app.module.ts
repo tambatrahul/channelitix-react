@@ -190,6 +190,7 @@ import {ManagerSyncOrderComponent} from "./components/pages/order/manager_sync_i
 import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/product/stockist_product_wise.component";
 import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
 import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
+import {MilestoneSaleTrackingGraphComponent} from "./components/pages/dashboard/milestone_sales_tracking/milestone_sales_tracking_graph.component";
 
 enableProdMode();
 
@@ -325,6 +326,7 @@ enableProdMode();
     PasswordResetComponent,
     ResetPasswordComponent,
     VisitCountGraphComponent,
+    MilestoneSaleTrackingGraphComponent,
     SummaryVisitOrderGraphComponent,
     DatesSelectComponent,
     MultipleUserSelectComponent,

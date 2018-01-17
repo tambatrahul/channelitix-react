@@ -1,43 +1,46 @@
 <div class="row" #loading_box>
-    <div class="col-md-3 col-xs-6">
-        <div class="mini-stats-widget full-block-mini-chart w_bg_teal_500">
-            <div class="mini-stats-top">
-                <span class="mini-stats-value">{{ counts.total_users }}</span>
-                <span class="mini-stats-label">Total CSEs </span>
-            </div>
-            <div class="mini-stats-bottom w_bg_cyan_75">
-                <span>Out Of </span> {{ counts.total_headquarters}} <span></span>
-            </div>
-        </div>
+  <div class="col-md-3 col-xs-6">
+    <div class="mini-stats-widget full-block-mini-chart w_bg_teal_500">
+      <div class="mini-stats-top">
+        <span class="mini-stats-value">{{ counts.total_users }}</span>
+        <span class="mini-stats-label">Total CSEs </span>
+      </div>
+      <div class="mini-stats-bottom w_bg_cyan_75">
+        <span>Out Of </span> {{ counts.total_headquarters}} <span></span>
+      </div>
     </div>
-    <a class="col-md-3 col-xs-6 remove-underline" [routerLink]="'/customers'">
-        <div class="mini-stats-widget full-block-mini-chart w_bg_cyan_500">
-            <div class="mini-stats-top">
-                <span class="mini-stats-value">{{ counts.total_customers }}</span>
-                <span class="mini-stats-label">Total Customers</span>
-            </div>
-            <div class="mini-stats-bottom w_bg_cyan_65">
-                <span>{{ counts.total_bricks}} </span> Bricks <span></span>
-            </div>
-        </div>
-    </a>
-    <div class="col-md-3 col-xs-6">
-        <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_500">
-            <div class="mini-stats-top">
-                <span class="mini-stats-value">{{ counts.call_average }}</span>
-                <span class="mini-stats-label">Call Average</span>
-            </div>
-            <div class="mini-stats-bottom w_bg_indigo_75">
-                <span>Prod. Calls</span>  <span>{{ _productive_calls}} % </span>
-            </div>
-        </div>
+  </div>
+  <a class="col-md-3 col-xs-6 remove-underline" [routerLink]="'/customers'">
+    <div class="mini-stats-widget full-block-mini-chart w_bg_cyan_500">
+      <div class="mini-stats-top">
+        <span class="mini-stats-value">{{ counts.total_customers }}</span>
+        <span class="mini-stats-label">Total Customers</span>
+      </div>
+      <div class="mini-stats-bottom w_bg_cyan_65">
+        <span>{{ counts.total_bricks}} </span> Bricks <span></span>
+      </div>
     </div>
-    <div class="col-md-3 col-xs-6" *ngIf="environment.envName != 'sk_group'">
-        <div class="mini-stats-widget full-block-mini-chart">
-            <div class="mini-stats-top">
-                <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
-                <span class="mini-stats-label">Performance</span>
-            </div>
-        </div>
+  </a>
+  <div class="col-md-3 col-xs-6">
+    <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_500">
+      <div class="mini-stats-top">
+        <span class="mini-stats-value">{{ counts.call_average }}</span>
+        <span class="mini-stats-label">Call Average</span>
+      </div>
+      <div class="mini-stats-bottom w_bg_indigo_75">
+        <span>Prod. Calls</span> <span>{{ _productive_calls}} % </span>
+      </div>
     </div>
+  </div>
+  <div class="col-md-3 col-xs-6" *ngIf="environment.envName != 'sk_group'">
+    <div class="mini-stats-widget full-block-mini-chart">
+      <div class="mini-stats-top">
+        <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
+        <span class="mini-stats-label">Performance</span>
+      </div>
+      <div class="mini-stats-bottom w_bg">
+        <span>Skinlite Perf.</span> <span>{{ counts.skinlite_performance_per.toFixed(2)}} % </span>
+      </div>
+    </div>
+  </div>
 </div>

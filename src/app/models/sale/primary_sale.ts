@@ -23,7 +23,13 @@ export class PrimarySale extends Model {
   total_net_amount: number;
   total_qty: number;
   hq_headquarter_id: number;
+  hq_area_id: number;
+  hq_region_id: number;
   month: number;
+  upto_9th_sale: number;
+  upto_18th_sale: number;
+  upto_24th_sale: number;
+  upto_28th_sale: number;
 
   constructor(info: any) {
     super(info.id);
@@ -57,6 +63,12 @@ export class PrimarySale extends Model {
     if (info.hq_headquarter_id)
       this.hq_headquarter_id = parseInt(info.hq_headquarter_id);
 
+    if (info.hq_area_id)
+      this.hq_area_id = parseInt(info.hq_area_id);
+
+    if (info.hq_region_id)
+      this.hq_region_id = parseInt(info.hq_region_id);
+
     if (info.product_id)
       this.product_id = parseInt(info.product_id);
 
@@ -65,5 +77,17 @@ export class PrimarySale extends Model {
 
     if (info.total_qty)
       this.total_qty = parseFloat(info.total_qty);
+
+    if (info.upto_9th_sale)
+      this.upto_9th_sale = parseFloat(info.upto_9th_sale);
+
+    if (info.upto_18th_sale)
+      this.upto_18th_sale = parseFloat(info.upto_18th_sale);
+
+    if (info.upto_24th_sale)
+      this.upto_24th_sale = parseFloat(info.upto_24th_sale);
+
+    if (info.upto_28th_sale)
+      this.upto_28th_sale = parseFloat(info.upto_28th_sale);
   }
 }
