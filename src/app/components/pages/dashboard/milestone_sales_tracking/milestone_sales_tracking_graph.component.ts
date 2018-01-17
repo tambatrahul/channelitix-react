@@ -162,21 +162,21 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
 
           // target
           if (target.total_target > 0) {
-            let sale_20_per = ((primary_sale.upto_9th_sale / target.total_target) * 100).toFixed(1);
-            let sale_40_per = ((primary_sale.upto_18th_sale / target.total_target) * 100).toFixed(1);
-            let sale_60_per = ((primary_sale.upto_24th_sale / target.total_target) * 100).toFixed(1);
-            let sale_100_per = ((primary_sale.upto_28th_sale / target.total_target) * 100).toFixed(1);
+            let sale_20_per = ((primary_sale.upto_9th_sale / target.total_target) * 100).toFixed(0);
+            let sale_40_per = ((primary_sale.upto_18th_sale / target.total_target) * 100).toFixed(0);
+            let sale_60_per = ((primary_sale.upto_24th_sale / target.total_target) * 100).toFixed(0);
+            let sale_100_per = ((primary_sale.upto_28th_sale / target.total_target) * 100).toFixed(0);
 
-            if (parseInt(sale_20_per) > 20)
+            if (parseInt(sale_20_per) >= 20)
               this.upto_9th_rep_count += 1;
 
-            if (parseInt(sale_40_per) > 40)
+            if (parseInt(sale_40_per) >= 40)
               this.upto_18th_rep_count += 1;
 
-            if (parseInt(sale_60_per) > 60)
+            if (parseInt(sale_60_per) >= 60)
               this.upto_24th_rep_count += 1;
 
-            if (parseInt(sale_100_per) > 100)
+            if (parseInt(sale_100_per) >= 100)
               this.upto_28th_rep_count += 1;
           }
         }
