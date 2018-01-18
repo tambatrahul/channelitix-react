@@ -646,4 +646,42 @@ export class ReportService extends BaseService {
     // make server call
     return this.get(url, new RequestOptions({search: params}));
   }
+
+  /**
+   * get all bricks user
+   */
+  milestone_sales_tracking_excel_download(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+                                          month?: number, year?: number): Observable<Response> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+      });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+      });
+    }
+
+    // get request with headers
+    let content = this.addCredentials(new RequestOptions({
+      responseType: ResponseContentType.Blob,
+      search: params
+    }));
+
+    // prepare url
+    let url = this.getBaseUrl() + '/milestone_sales_tracking/' + month + "/" + year + "/excel_download";
+
+    // make server call
+    return this.http.get(url, content);
+
+  }
 }

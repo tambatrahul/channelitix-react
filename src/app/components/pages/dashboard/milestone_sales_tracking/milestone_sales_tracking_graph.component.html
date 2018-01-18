@@ -2,16 +2,27 @@
   <div class="topic-container new-ticket">
     <div class="box-widget widget-module" style="margin-bottom: 0;">
       <div class="widget-head clearfix">
-        <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right: 0px;">
+        <div class="col-xs-12 col-md-6 padding_0">
           <span class="h-icon"><i class="fa fa-table"></i></span>
           <h4 style="font-size: 10px;font-weight: 600;">
             Milestone Sale Tracking
           </h4>
         </div>
-        <div class="col-xs-12 col-md-6 form-group-sm">
-          <div style="margin: 15px;">
+        <div class="col-xs-12 col-md-5 form-group-sm padding_0">
+          <div style="margin: 13px;">
             <month-picker [month]="month" [year]="year" [title]="''"
                           (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-1 form-group-sm padding_0">
+          <div style="margin-top: 13px;margin-right: 5px;color: #ffffff;">
+            <a class="btn btn-primary btn-block btn-sm" *ngIf="!btn_loading"
+               (click)="excel_download()">
+              <i class="fa fa-file"></i>
+            </a>
+            <div class="btn btn-primary btn-block btn-sm" *ngIf="btn_loading">
+              <i class="fa fa-spinner fa-spin"></i><i class="fa fa-file"></i>
+            </div>
           </div>
         </div>
       </div>

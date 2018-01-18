@@ -44,6 +44,8 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
    */
   public chart_data = [];
 
+  public btn_loading: boolean = false;
+
   /**
    * chart and data
    */
@@ -156,30 +158,32 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
 
       // map primary sales
       primary_sales.map(primary_sale => {
-
+        let sale_20_per = 0;
+        let sale_40_per = 0;
+        let sale_60_per = 0;
+        let sale_100_per = 0;
         // target amd primary sale headquarter
         if (target.hq_headquarter_id == primary_sale.hq_headquarter_id) {
 
           // target
           if (target.total_target > 0) {
-            let sale_20_per = ((primary_sale.upto_9th_sale / target.total_target) * 100).toFixed(0);
-            let sale_40_per = ((primary_sale.upto_18th_sale / target.total_target) * 100).toFixed(0);
-            let sale_60_per = ((primary_sale.upto_24th_sale / target.total_target) * 100).toFixed(0);
-            let sale_100_per = ((primary_sale.upto_28th_sale / target.total_target) * 100).toFixed(0);
-
-            if (parseInt(sale_20_per) >= 20)
-              this.upto_9th_rep_count += 1;
-
-            if (parseInt(sale_40_per) >= 40)
-              this.upto_18th_rep_count += 1;
-
-            if (parseInt(sale_60_per) >= 60)
-              this.upto_24th_rep_count += 1;
-
-            if (parseInt(sale_100_per) >= 100)
-              this.upto_28th_rep_count += 1;
+            sale_20_per = parseInt(((primary_sale.upto_9th_sale / target.total_target) * 100).toFixed(0));
+            sale_40_per = parseInt(((primary_sale.upto_18th_sale / target.total_target) * 100).toFixed(0));
+            sale_60_per = parseInt(((primary_sale.upto_24th_sale / target.total_target) * 100).toFixed(0));
+            sale_100_per = parseInt(((primary_sale.upto_28th_sale / target.total_target) * 100).toFixed(0));
           }
         }
+        if (sale_20_per >= 20)
+          this.upto_9th_rep_count += 1;
+
+        if (sale_40_per >= 40)
+          this.upto_18th_rep_count += 1;
+
+        if (sale_60_per >= 60)
+          this.upto_24th_rep_count += 1;
+
+        if (sale_100_per >= 100)
+          this.upto_28th_rep_count += 1;
       });
     });
 
@@ -205,5 +209,27 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     this.month = current_month.month();
     this.year = current_month.year();
     this.fetch();
+  }
+
+  /**
+   * Excel Download
+   */
+  excel_download() {
+    this.btn_loading = true;
+    this.reportService.milestone_sales_tracking_excel_download(this._region_ids, this._area_ids, this._headquarter_ids,
+      this.month + 1, this.year).subscribe(
+      response => {
+        let blob: Blob = response.blob();
+
+        // Doing it this way allows you to name the file
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "MilestoneSalesTracking.xls";
+        link.click();
+        this.btn_loading = false;
+      },
+      err => {
+        this.btn_loading = false;
+      });
   }
 }
