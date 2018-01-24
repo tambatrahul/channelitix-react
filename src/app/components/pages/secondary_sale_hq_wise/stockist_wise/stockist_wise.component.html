@@ -48,6 +48,7 @@
                 <tr>
                   <th>Customer Name</th>
                   <th>Type</th>
+                  <th>POB <br>(<i class="fa fa-rupee"></i> )</th>
                   <th>Primary Sale <br>(Qty)</th>
                   <th class="grey">Primary Sale <br>(<i class="fa fa-rupee"></i>)</th>
                   <th>Opening <br>(Qty)</th>
@@ -64,25 +65,26 @@
 
                 <tbody>
                 <template ngFor let-sale [ngForOf]="customers">
-                  <tr>
+                  <tr [ngClass]="{'dark_red': PToSRatio(sale.primary_sale,sale.secondary_amount)}">
                     <th>{{ sale?.customer?.firm_name }}</th>
                     <td>{{ sale.customer?.customer_type?.name }}({{ sale.customer?.grade?.name }})
                     </td>
+                    <td>{{ sale.pob.toFixed(0)| number : fractionSize }}</td>
                     <td>{{ sale.primary_qty.toFixed(0)| number : fractionSize }}</td>
-                    <td class="grey">{{ sale.primary_sale.toFixed(0)| number : fractionSize }}</td>
+                    <td>{{ sale.primary_sale.toFixed(0)| number : fractionSize }}</td>
                     <td>{{ (sale.opening).toFixed(0)| number : fractionSize }}</td>
-                    <td class="grey">{{ (sale.opening_value).toFixed(0)| number : fractionSize }}
+                    <td>{{ (sale.opening_value).toFixed(0)| number : fractionSize }}
                     </td>
                     <td>{{ (sale.adjustment).toFixed(0)| number : fractionSize }}</td>
-                    <td class="grey">{{ (sale.adjustment_amount).toFixed(0)| number : fractionSize
+                    <td>{{ (sale.adjustment_amount).toFixed(0)| number : fractionSize
                       }}
                     </td>
                     <td>{{ (sale.secondary_sale).toFixed(0)| number : fractionSize }}</td>
                     <td>{{ (sale.closing).toFixed(0)| number : fractionSize }}</td>
-                    <td class="grey">{{ (sale.secondary_amount).toFixed(0)| number :
+                    <td>{{ (sale.secondary_amount).toFixed(0)| number :
                       fractionSize }}
                     </td>
-                    <td class="grey">{{ (sale.closing_value).toFixed(0)| number : fractionSize }}
+                    <td>{{ (sale.closing_value).toFixed(0)| number : fractionSize }}
                     </td>
 
                     <td>
@@ -95,6 +97,7 @@
                 <tr>
                   <th>Total</th>
                   <th></th>
+                  <td class="text-right">{{ pob.toFixed(0)| number : fractionSize }}</td>
                   <td class="text-right">{{ primary_qty.toFixed(0)| number : fractionSize }}</td>
                   <td class="grey text-right">{{ primary_sale.toFixed(0)| number : fractionSize }}
                   </td>
