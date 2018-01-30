@@ -226,10 +226,10 @@ export class StockistWiseHqComponent extends ListComponent {
 
     // set pob amount
     for (let ord of orders) {
-      if (customers.hasOwnProperty(ord.customer_id)) {
-        customers[ord.customer_id].pob = ord.order_total_count;
+      if (customers.hasOwnProperty(ord.delivered_by)) {
+        customers[ord.delivered_by].pob = ord.order_total_count;
+        this.pob += ord.order_total_count;
       }
-      this.pob += ord.order_total_count;
     }
 
     this.customers = this.generateArray(customers);
