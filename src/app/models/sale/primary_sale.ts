@@ -10,6 +10,7 @@ export class PrimarySale extends Model {
   customer_id: number;
   uom_id: number;
   product_id: number;
+  brand_id: number;
   customer: Customer;
   uom: UOM;
   net_amt: number;
@@ -42,7 +43,7 @@ export class PrimarySale extends Model {
 
     this.stockist_code = info.stockist_code;
 
-    if(info.prd_code)
+    if (info.prd_code)
       this.prd_code = parseFloat(info.prd_code);
 
     if (info.net_amt)
@@ -71,6 +72,9 @@ export class PrimarySale extends Model {
 
     if (info.product_id)
       this.product_id = parseInt(info.product_id);
+
+    if (info.brand_id)
+      this.brand_id = parseInt(info.brand_id);
 
     if (info.product)
       this.product = new Product(info.product);

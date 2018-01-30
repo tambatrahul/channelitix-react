@@ -48,10 +48,10 @@
   </td>
 </tr>
 <tr>
-  <th># Brands on Budget out of {{ products.length }} Brands</th>
-  <td><a routerLink="/reports/executive_summary">{{ onTargetCount }}</a></td>
+  <th># Brands on Budget out of {{ brands.length }} Brands</th>
+  <td><a routerLink="/reports/executive_summary">{{ onBrandTargetCount }}</a></td>
   <td *ngFor="let r of regions">
-    <a routerLink="/reports/executive_summary">{{r.onTargetCount}}</a>
+    <a routerLink="/reports/executive_summary">{{r.onBrandTargetCount }}</a>
   </td>
 </tr>
 <tr>

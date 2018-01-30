@@ -9,6 +9,7 @@ export class Brand extends Model {
   secondary_sale: number = 0;
   month_target: number = 0;
   opening: number = 0;
+  target: number = 0;
 
   constructor(info: any) {
     super(info.id);
@@ -44,5 +45,17 @@ export class Brand extends Model {
       return this.month_target * 0.5;
 
     return variance_target;
+  }
+
+  /**
+   * On brand target
+   *
+   * @returns {boolean}
+   */
+  get onTarget() {
+    if (this.target > 0)
+      return this.primary_sale >= this.target;
+    else
+      return false;
   }
 }

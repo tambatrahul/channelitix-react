@@ -6,6 +6,7 @@ import {Product} from "../order/product";
 import {Customer} from "../customer/customer";
 import {User} from "../user/user";
 import {InputAnswer} from "../visit/input_answer";
+import {Brand} from "../order/brand";
 
 export class Region extends Model {
 
@@ -31,6 +32,7 @@ export class Region extends Model {
   yearly_target: number = 0;
   yearly_primary: number = 0;
   products: Product[] = [];
+  brands: Brand[] = [];
   total_customers: number = 0;
 
   areas_count: number = 0;
@@ -253,6 +255,13 @@ export class Region extends Model {
     return this.products.filter(prd => prd.onTarget).length;
   }
 
+  /**
+   * region brands on target
+   * @returns {number}
+   */
+  get onBrandTargetCount() {
+    return this.brands.filter(br => br.onTarget).length;
+  }
 
   /**
    * get count of hq on budget
