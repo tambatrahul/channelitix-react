@@ -144,9 +144,7 @@ export class PrimarySaleAboveComponent extends ListComponent {
    */
   static total_avg_primary_previous_year(customer: Customer) {
     if (customer) {
-      return customer.plans[5].avg_primary_previous_year
-        + customer.plans[2].avg_primary_previous_year
-        + customer.plans[7].avg_primary_previous_year
+      return customer.plans[10].avg_primary_previous_year
         + customer.plans[0].avg_primary_previous_year;
     }
     else

@@ -89,7 +89,7 @@ export class ProductSalePlanComponent extends ListComponent {
                 if (target.brand_id == brand.id) {
                     brand.month_target = target.total_target;
                 }
-                if ([5, 7, 2].indexOf(target.brand_id) < 0 && brand.id == 0) {
+                if ([10].indexOf(target.brand_id) < 0 && brand.id == 0) {
                     brand.month_target += target.total_target;
                 }
             });

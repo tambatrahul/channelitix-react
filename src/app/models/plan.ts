@@ -9,6 +9,7 @@ export class SalesPlanningDetail extends Model {
   secondary_sale: number = 0;
   customer_id: number = 0;
   brand_id: number = 0;
+  pob: number = 0;
 
   constructor(info: any) {
     super(info.id);

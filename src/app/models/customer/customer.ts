@@ -36,9 +36,7 @@ export class Customer extends Model {
 
   // sales planning object
   plans: Object = {
-    5: new SalesPlanningDetail({}),
-    2: new SalesPlanningDetail({}),
-    7: new SalesPlanningDetail({}),
+    10: new SalesPlanningDetail({}),
     0: new SalesPlanningDetail({}),
   };
 

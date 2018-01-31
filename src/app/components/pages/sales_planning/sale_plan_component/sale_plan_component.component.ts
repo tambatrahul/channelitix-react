@@ -60,9 +60,7 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_avg_primary_previous_year() {
-    return this._customer.plans[5].avg_primary_previous_year
-      + this._customer.plans[2].avg_primary_previous_year
-      + this._customer.plans[7].avg_primary_previous_year
+    return this._customer.plans[10].avg_primary_previous_year
       + this._customer.plans[0].avg_primary_previous_year;
   }
 
@@ -72,9 +70,7 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_previous_month_secondary() {
-    return this._customer.plans[5].previous_month_secondary
-      + this._customer.plans[2].previous_month_secondary
-      + this._customer.plans[7].previous_month_secondary
+    return this._customer.plans[10].previous_month_secondary
       + this._customer.plans[0].previous_month_secondary;
   }
 
@@ -84,9 +80,7 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_opening_stock() {
-    return this._customer.plans[5].opening_stock
-      + this._customer.plans[2].opening_stock
-      + this._customer.plans[7].opening_stock
+    return this._customer.plans[10].opening_stock
       + this._customer.plans[0].opening_stock;
   }
 
@@ -96,9 +90,7 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_primary_plan() {
-    return this._customer.plans[5].primary_sale
-      + this._customer.plans[2].primary_sale
-      + this._customer.plans[7].primary_sale
+    return this._customer.plans[10].primary_sale
       + this._customer.plans[0].primary_sale;
   }
 
@@ -108,10 +100,19 @@ export class SalePlanComponent extends ListComponent {
    * @returns {any}
    */
   get total_secondary_plan() {
-    return this._customer.plans[5].secondary_sale
-      + this._customer.plans[2].secondary_sale
-      + this._customer.plans[7].secondary_sale
+    return this._customer.plans[10].secondary_sale
       + this._customer.plans[0].secondary_sale;
+  }
+
+  /**
+   * get total pob
+   *
+   * @returns {any}
+   */
+  get total_pob_amount() {
+    let pob = 0;
+    pob += this._customer.plans[10].pob + this._customer.plans[0].pob;
+    return pob;
   }
 
   /**

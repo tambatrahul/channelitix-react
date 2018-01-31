@@ -44,6 +44,7 @@ export class Order extends Model {
   product_id: number = 0;
   order_count: number = 0;
   customer_type_id: number = 0;
+  brand_id: number = 0;
 
   constructor(info: any) {
     super(info.id);
@@ -113,6 +114,9 @@ export class Order extends Model {
 
     if (info.months)
       this.months = parseInt(info.months);
+
+    if (info.brand_id)
+      this.brand_id = parseInt(info.brand_id);
 
     this.hq_brick_id = info.hq_brick_id;
   }
