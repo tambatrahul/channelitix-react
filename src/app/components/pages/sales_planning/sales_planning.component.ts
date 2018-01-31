@@ -88,15 +88,9 @@ export class SalesPlanningComponent extends ListComponent {
    * fetch counts from server
    */
   protected fetch() {
-    let month = this.month;
-    let year = this.year;
-    if ((month || month == 0) && year) {
-      if(month == 0){
-        month = 11;
-        year = year - 1;
-      }
+    if ((this.month || this.month == 0) && this.year) {
       this.loading = true;
-      this.salesPlanningService.monthly(month + 1, year).subscribe(
+      this.salesPlanningService.monthly(this.month + 1, this.year).subscribe(
         response => {
           this.loading = false;
 
@@ -111,6 +105,7 @@ export class SalesPlanningComponent extends ListComponent {
 
           // get planning details
           let sale_planning_details = response.sale_planning_details.map(ss => new SalesPlanningDetail(ss));
+
           let orders = response.orders.map(ord => new Order(ord));
 
           // get brands
@@ -160,7 +155,7 @@ export class SalesPlanningComponent extends ListComponent {
             cus.plans[ss.brand_id].opening_stock = ss.closing * ss.unit_price;
           } else {
             cus.plans[0].previous_month_secondary += ss.secondary_sale * ss.unit_price;
-            cus.plans[0].opening_stock += ss.closing_qty * ss.unit_price;
+            cus.plans[0].opening_stock += ss.closing * ss.unit_price;
           }
         }
       });
