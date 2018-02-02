@@ -59,7 +59,7 @@
                 <tbody>
                 <tr *ngFor="let pro of products;">
                   <th>{{ pro?.name }}</th>
-                  <td>{{ pro.uom.name }}</td>
+                  <td>{{ pro.uom?.name }}</td>
                   <td class="grey">{{ pro.primary_sale.toFixed(0)| number : fractionSize }}</td>
                   <td class="grey">{{ pro.primary_qty.toFixed(0)| number : fractionSize }}</td>
                   <td>{{ (pro.opening).toFixed(0)| number : fractionSize }}</td>
