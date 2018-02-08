@@ -177,7 +177,6 @@ import {DeactivateUserComponent} from "./v2/components/users/deactivate_user/dea
 import {PasswordResetComponent} from "./v2/components/users/password_reset/password_reset.component";
 import {CreateUserComponent} from "./v2/pages/users/create/create.component";
 import {UpdateUserComponent} from "./v2/pages/users/update/update.component";
-
 import {LeaveReportComponent} from "./components/pages/visit/leave_report/leave_report.component";
 import {DeviationReportComponent} from "./components/pages/user/summary/deviation_report/deviation_report.component";
 import {ProductComponent} from "./v2/pages/products/index/index.component";
@@ -192,6 +191,8 @@ import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan
 import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
 import {MilestoneSaleTrackingGraphComponent} from "./components/pages/dashboard/milestone_sales_tracking/milestone_sales_tracking_graph.component";
 import {SkinliteSaleAnalysisGraphComponent} from "./components/pages/dashboard/skinlite_sales_analysis_graph/skinlite_sales_analysis_graph.component";
+import {BrandService} from "./services/brand.service";
+import {BrandSelectComponent} from "./components/form_elements/order/brand_select/brand-select.component";
 
 enableProdMode();
 
@@ -353,6 +354,7 @@ enableProdMode();
     CustomerSelectionComponent,
     CustomerSelectComponent,
     ProductSelectComponent,
+    BrandSelectComponent,
     SalesPlanningComponent,
     SalePlanComponent,
     ProductSalePlanComponent,
@@ -408,6 +410,7 @@ enableProdMode();
     SalesPlanningService,
     PrimarySaleService,
     ProductService,
+    BrandService,
     CustomerTypeService,
 
     // Version 2 Service
