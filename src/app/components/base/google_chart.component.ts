@@ -107,4 +107,13 @@ export abstract class GoogleChartComponent extends BaseDashboardComponent implem
   get loading() {
     return this._loading;
   }
+
+  /**
+   * get visualization table
+   *
+   * @returns {google.visualization.DataTable}
+   */
+  getDataTable() {
+    return new google.visualization.DataTable();
+  }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions, ResponseContentType, Response} from "@angular/http";
+import {Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
@@ -683,5 +683,79 @@ export class ReportService extends BaseService {
     // make server call
     return this.http.get(url, content);
 
+  }
+
+  /**
+   * Skinlite Sales Analysis
+   *
+   * @param {Array<number>} region_ids
+   * @param {Array<number>} area_ids
+   * @param {Array<number>} headquarter_ids
+   * @param {number} month
+   * @param {number} year
+   * @returns {Observable<Result>}
+   */
+  skinlite_sales_analysis_graph(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>, year?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+      });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+      });
+    }
+
+    // prepare url
+    let url = this.getBaseUrl() + '/skinlite_sales_analysis/' + year;
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
+  }
+
+  /**
+   * Skinlite Sales Analysis
+   *
+   * @param {Array<number>} region_ids
+   * @param {Array<number>} area_ids
+   * @param {Array<number>} headquarter_ids
+   * @param {number} year
+   * @returns {Observable<Result>}
+   */
+  skinlite_avg_sales_analysis_graph(region_ids?: Array<number>, area_ids?: Array<number>,
+                                    headquarter_ids?: Array<number>, year?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+      });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+      });
+    }
+
+    // prepare url
+    let url = this.getBaseUrl() + '/skinlite_avg_sales_analysis/' + year;
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
   }
 }

@@ -108,6 +108,14 @@ export class Result {
   // primary sales
   primary_sales: PrimarySale[];
 
+  // primary sales
+  geo_stockist_primary_sales: PrimarySale[];
+  last_year_geo_stockist_primary_sales: PrimarySale[];
+  liva_stockist_primary_sales: PrimarySale[];
+  last_year_liva_stockist_primary_sales: PrimarySale[];
+  common_stockist_primary_sales: PrimarySale[];
+  last_year_common_stockist_primary_sales: PrimarySale[];
+
   // invoice detail
   invoice_details: InvoiceDetail[];
 

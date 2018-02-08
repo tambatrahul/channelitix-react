@@ -11,14 +11,18 @@ export class PrimarySale extends Model {
   uom_id: number;
   product_id: number;
   brand_id: number;
+  brand_category: string;
   customer: Customer;
   uom: UOM;
   net_amt: number;
   stockist_code: number;
   prd_code: number;
+  customer_count: number;
   product: Product;
 
   invoice_details: PrimarySaleItem[] = [];
+
+  old_date_value: string;
 
   // for internal use only
   total_net_amount: number;
@@ -27,6 +31,7 @@ export class PrimarySale extends Model {
   hq_area_id: number;
   hq_region_id: number;
   month: number;
+  year: number;
   upto_9th_sale: number;
   upto_18th_sale: number;
   upto_24th_sale: number;
@@ -40,6 +45,12 @@ export class PrimarySale extends Model {
 
     if (info.month)
       this.month = parseInt(info.month);
+
+    if (info.year)
+      this.year = parseInt(info.year);
+
+    if (info.brand_category)
+      this.brand_category = info.brand_category;
 
     this.stockist_code = info.stockist_code;
 
@@ -93,5 +104,11 @@ export class PrimarySale extends Model {
 
     if (info.upto_28th_sale)
       this.upto_28th_sale = parseFloat(info.upto_28th_sale);
+
+    if (info.customer_count)
+      this.customer_count = parseInt(info.customer_count);
+
+    if (info.old_date_value)
+      this.old_date_value = info.old_date_value;
   }
 }

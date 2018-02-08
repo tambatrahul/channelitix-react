@@ -32,6 +32,8 @@ export class Customer extends Model {
   address: Address;
   synergy: boolean;
 
+  brand_category: string;
+
   total_count: number = 0;
 
   // sales planning object
@@ -40,7 +42,7 @@ export class Customer extends Model {
     0: new SalesPlanningDetail({}),
   };
 
-  total_avg_previous_year : number = 0;
+  total_avg_previous_year: number = 0;
 
   // total sales planning
   total_plan: SalesPlanningDetail = new SalesPlanningDetail({});
@@ -146,6 +148,9 @@ export class Customer extends Model {
 
     if (info.total_count)
       this.total_count = parseInt(info.total_count);
+
+    if (info.brand_category)
+      this.brand_category = info.brand_category;
   }
 
   /**

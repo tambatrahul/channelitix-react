@@ -191,6 +191,7 @@ import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_
 import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
 import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
 import {MilestoneSaleTrackingGraphComponent} from "./components/pages/dashboard/milestone_sales_tracking/milestone_sales_tracking_graph.component";
+import {SkinliteSaleAnalysisGraphComponent} from "./components/pages/dashboard/skinlite_sales_analysis_graph/skinlite_sales_analysis_graph.component";
 
 enableProdMode();
 
@@ -327,6 +328,7 @@ enableProdMode();
     ResetPasswordComponent,
     VisitCountGraphComponent,
     MilestoneSaleTrackingGraphComponent,
+    SkinliteSaleAnalysisGraphComponent,
     SummaryVisitOrderGraphComponent,
     DatesSelectComponent,
     MultipleUserSelectComponent,

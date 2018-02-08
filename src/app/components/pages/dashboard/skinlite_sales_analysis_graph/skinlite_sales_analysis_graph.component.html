@@ -1,0 +1,29 @@
+<div class="topics-list">
+  <div class="topic-container new-ticket">
+    <div class="box-widget widget-module" style="margin-bottom: 0;">
+      <div class="widget-head clearfix">
+        <div class="col-xs-12 col-md-6 padding_0">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4 style="font-size: 10px;font-weight: 600;">
+            Skinlite Sales Analysis
+          </h4>
+        </div>
+        <div class="col-xs-12 col-md-5 form-group-sm padding_0">
+          <div style="margin: 13px;">
+            <month-picker [month]="month" [year]="year" [title]="''"
+                          (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+          </div>
+        </div>
+      </div>
+      <div class="widget-container details-table" #loading_box>
+        <div class="widget-block" style="padding: 0">
+          <div class="line-chart-container">
+            <div id="skinliteSaleAnalysis" style="width: 100%;height: 200px;">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
