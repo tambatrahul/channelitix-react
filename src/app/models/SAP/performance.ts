@@ -12,17 +12,17 @@ export class Performance {
   primary_sales: PrimarySale[];
   secondary_sales: SecondarySale[];
   orders: Order[];
+  till_month_targets: Target[];
+  till_month_sales: PrimarySale[];
 
   products: Product[];
 
   constructor(info: any) {
-    if (info.targets) {
+    if (info.targets)
       this.targets = info.targets.map(tar => new Target(tar));
-    }
 
-    if (info.primary_sales) {
+    if (info.primary_sales)
       this.primary_sales = info.primary_sales.map(tar => new PrimarySale(tar));
-    }
 
     if (info.secondary_sales) {
       this.secondary_sales = info.secondary_sales.map(tar => new SecondarySale(tar));
@@ -33,5 +33,12 @@ export class Performance {
 
     if (info.orders)
       this.orders = info.orders.map(ord => new Order(ord));
+
+    if (info.till_month_sales)
+      this.till_month_sales = info.till_month_sales.map(sale => new PrimarySale(sale));
+
+
+    if (info.till_month_targets)
+      this.till_month_targets = info.till_month_targets.map(tr => new Target(tr));
   }
 }

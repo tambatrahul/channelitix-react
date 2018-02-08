@@ -19,8 +19,10 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
    *
    * @type {number}
    */
+  till_month_total_target: number = 0;
   total_target: number = 0;
   total_actual: number = 0;
+  till_month_total_sale: number = 0;
   total_pob: number = 0;
 
   /**
@@ -135,6 +137,29 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
       })
     });
 
+    self.till_month_total_target = 0;
+    // set performance values
+    performance.till_month_targets.map(function (target) {
+      products.map(function (product) {
+        if (product.brand_id == target.brand_id) {
+          product.total_target = target.total_target;
+          self.till_month_total_target += target.total_target;
+        }
+      })
+    });
+
+    self.till_month_total_sale = 0;
+    // set performance values
+    performance.till_month_sales.map(function (sale) {
+      products.map(function (product) {
+        if (product.brand_id == sale.brand_id) {
+          product.total_primary_sale = sale.total_net_amt;
+          self.till_month_total_sale += sale.total_net_amt;
+        }
+      })
+    });
+
+    console.log(products);
     this.products = products;
   }
 

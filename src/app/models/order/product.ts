@@ -35,6 +35,8 @@ export class Product extends Model {
   closing_value: number = 0;
 
   total_pob: number = 0;
+  total_target: number = 0;
+  total_primary_sale: number = 0;
 
   uom: UOM;
 

@@ -157,34 +157,36 @@
     </div>
   </div>
   <!-- ./pages layout -->
-
   <div class="row" *ngIf="environment.envName != 'sk_group'">
     <div class="col-xs-12 col-md-6">
-      <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
-                         [refresh]="refresh"
-                         [headquarter_ids]="headquarter_ids"></product-wise-sale>
-    </div>
-    <!-- Highest Call graph -->
-    <div class="col-xs-12 col-md-6">
-      <div>
-        <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                          [headquarter_ids]="headquarter_ids">
+      <monthly-primary-secondary-target [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                                        [headquarter_ids]="headquarter_ids">
 
-        </monthly-primary-secondary-target>
-      </div>
-      <div>
-        <stockist_sales_graph [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                              [headquarter_ids]="headquarter_ids">
-
-        </stockist_sales_graph>
-      </div>
+      </monthly-primary-secondary-target>
     </div>
-  </div>
-  <div class="row" *ngIf="environment.envName != 'sk_group'">
     <div class="col-xs-12 col-md-6">
       <skinlite-sales-analysis-graph [dates]="dates"
-                                      [refresh]="refresh"
-                                      [region_ids]="region_ids" [area_ids]="area_ids"
-                                      [headquarter_ids]="headquarter_ids"></skinlite-sales-analysis-graph>
+                                     [refresh]="refresh"
+                                     [region_ids]="region_ids" [area_ids]="area_ids"
+                                     [headquarter_ids]="headquarter_ids"></skinlite-sales-analysis-graph>
     </div>
+    <div class="row" *ngIf="environment.envName != 'sk_group'">
+      <div class="col-xs-12 col-md-12">
+        <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
+                           [refresh]="refresh"
+                           [headquarter_ids]="headquarter_ids"></product-wise-sale>
+      </div>
+    </div>
+    <!--<div class="row" *ngIf="environment.envName != 'sk_group'">
+      &lt;!&ndash; Highest Call graph &ndash;&gt;
+      <div class="col-xs-12 col-md-6">
+        <div>
+          <stockist_sales_graph [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+                                [headquarter_ids]="headquarter_ids">
+
+          </stockist_sales_graph>
+        </div>
+      </div>
+    </div>-->
+  </div>
 </div>
