@@ -34,6 +34,8 @@ export class Product extends Model {
   closing: number = 0;
   closing_value: number = 0;
 
+  total_pob: number = 0;
+
   uom: UOM;
 
 

@@ -21,6 +21,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
    */
   total_target: number = 0;
   total_actual: number = 0;
+  total_pob: number = 0;
 
   /**
    * month of invoice
@@ -119,6 +120,17 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
         if (product.brand_id == ss.brand_id) {
           product.performance = ss.total_amount;
           self.total_actual += ss.total_amount;
+        }
+      })
+    });
+
+    self.total_pob = 0;
+    // set performance values
+    performance.orders.map(function (order) {
+      products.map(function (product) {
+        if (product.brand_id == order.brand_id) {
+          product.total_pob = order.order_total_count;
+          self.total_pob += order.order_total_count;
         }
       })
     });
