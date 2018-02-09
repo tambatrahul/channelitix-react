@@ -27,6 +27,7 @@
                 <th>% Performance</th>
                 <th>Target(YTD) (<i class="fa fa-rupee"></i>)</th>
                 <th>Actual Sale(YTD)(<i class="fa fa-rupee"></i> )</th>
+                <th>% Performance (YTD)</th>
               </tr>
               </thead>
               <tbody>
@@ -43,6 +44,9 @@
                   </td>
                   <td class="text-right">{{ item.total_target.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ item.total_primary_sale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ (item.total_target > 0 ? (item.total_primary_sale / item.total_target) * 100 : 0).toFixed(2)
+                    }}
+                  </td>
                 </tr>
               </template>
               <tr>
@@ -54,6 +58,8 @@
                 </th>
                 <th class="text-right">{{ till_month_total_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ till_month_total_sale?.toFixed(0) | number }}</th>
+                <th class="text-right">{{ (till_month_total_target > 0 ? (till_month_total_sale / till_month_total_target) * 100 : 0).toFixed(2) }}
+                </th>
               </tr>
               </tbody>
             </table>

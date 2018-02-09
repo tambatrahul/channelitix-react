@@ -159,7 +159,6 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
       })
     });
 
-    console.log(products);
     this.products = products;
   }
 

@@ -148,9 +148,8 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
           let last_year_liva_primary_sales = data[1].last_year_liva_stockist_primary_sales.map(pr => new PrimarySale(pr));
           let last_year_common_primary_sales = data[1].last_year_common_stockist_primary_sales.map(pr => new PrimarySale(pr));
 
-          this.prepareDataForAvgYear(last_year_geo_primary_sales, last_year_liva_primary_sales, last_year_common_primary_sales);
-
           this.getGoogle().charts.setOnLoadCallback(() => {
+            this.prepareDataForAvgYear(last_year_geo_primary_sales, last_year_liva_primary_sales, last_year_common_primary_sales);
             this.getData(geo_primary_sales, liva_primary_sales, common_primary_sales);
           });
 
@@ -168,6 +167,9 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
    */
   getData(geo_primary_sales: PrimarySale[], liva_primary_sales: PrimarySale[],
           common_primary_sales: PrimarySale[]) {
+    // initialize graph data
+    let data = this.getDataTable();
+
     let sales = {};
 
     for (let mon in this.months) {
@@ -196,19 +198,21 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
       sales[common_primary_sale.month - 1].common_customer_count = common_primary_sale.customer_count;
     });
 
-    // initialize graph data
-    let data = this.getDataTable();
-
     // set graph column
     data.addColumn('string', 'Months');
-    data.addColumn('number', 'Geo Stockist');
+    data.addColumn('number', 'Geo Sale');
     data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-    data.addColumn('number', 'Common Stockist');
+    data.addColumn('number', 'Common Sale');
     data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-    data.addColumn('number', 'Liva Stockist');
+    data.addColumn('number', 'Liva Sale');
     data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
 
-    data.addRow(['Avg' + (this.year - 1),
+    // calculate total Avg sale
+    let total_avg_sale = ((this.geo_avg_sale + this.common_avg_sale + this.liva_avg_sale) / 1000).toFixed(0);
+
+    // add avg column
+    data.addRow([
+      'Avg ' + (this.year - 1) + " (" + total_avg_sale + ")",
       this.geo_avg_sale,
       this.avgToolTip('Geo', 'AVG', this.geo_stockist_count, this.geo_avg_sale),
       this.common_avg_sale,
@@ -217,9 +221,10 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
       this.avgToolTip('Liva', 'AVG', this.liva_stockist_count, this.liva_avg_sale)
     ]);
 
+    // set month wise data
     for (let mon in this.months) {
       if (parseInt(mon) <= this.month) {
-        data.addRow([this.months[mon],
+        data.addRow([this.months[mon] + " (" + ((sales[mon].geo_primary_sale + sales[mon].common_primary_sale + sales[mon].liva_primary_sale) / 1000).toFixed(0) + ")",
           sales[mon].geo_primary_sale,
           this.toolTip('Geo', this.months[mon], sales[mon].geo_customer_count, sales[mon].geo_primary_sale),
           sales[mon].common_primary_sale,
@@ -292,32 +297,11 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
    * @param {PrimarySale[]} last_year_common_sales
    */
   prepareDataForAvgYear(last_year_geo_sales: PrimarySale[], last_year_liva_sales: PrimarySale[], last_year_common_sales: PrimarySale[]) {
-    let geo_total_month = last_year_geo_sales[0].old_date_value ? this.getTotalMonthCount(last_year_geo_sales[0].old_date_value) : 0;
-
-    this.geo_stockist_count = last_year_geo_sales[0].customer_count;
-    this.geo_avg_sale = last_year_geo_sales[0].total_net_amount / geo_total_month;
+    this.geo_stockist_count = 0;
+    this.geo_avg_sale = 0;
     this.liva_avg_sale = 22099538;
     this.liva_stockist_count = 173;
     this.common_avg_sale = 21053908;
     this.common_stockist_count = 165;
-  }
-
-  // get total month count
-  getTotalMonthCount(old_date) {
-    // set current And ol date
-    let current_month = moment().month() + 1;
-    let current_year = moment().year();
-    let old_month = moment(old_date).month() + 1;
-    let old_year = moment(old_date).year();
-
-    // get count
-    let count = 0;
-    // check for old year is less than current year
-    if (old_year < current_year) {
-      for (let i = old_month; i <= 12; i++) {
-        count += 1;
-      }
-    }
-    return count;
   }
 }
