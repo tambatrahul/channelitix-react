@@ -209,22 +209,22 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
 
     data.addRow(['Avg' + (this.year - 1),
-      this.geo_stockist_count,
+      this.geo_avg_sale,
       this.avgToolTip('Geo', 'AVG', this.geo_stockist_count, this.geo_avg_sale),
-      this.common_stockist_count,
+      this.common_avg_sale,
       this.avgToolTip('Common', 'AVG', this.common_stockist_count, this.common_avg_sale),
-      this.liva_stockist_count,
-      this.avgToolTip('Liva', 'AVG', this.liva_stockist_count, this.liva_avg_sale),
+      this.liva_avg_sale,
+      this.avgToolTip('Liva', 'AVG', this.liva_stockist_count, this.liva_avg_sale)
     ]);
 
     for (let mon in this.months) {
       if (parseInt(mon) <= this.month) {
         data.addRow([this.months[mon],
-          sales[mon].geo_customer_count,
+          sales[mon].geo_primary_sale,
           this.toolTip('Geo', this.months[mon], sales[mon].geo_customer_count, sales[mon].geo_primary_sale),
-          sales[mon].common_customer_count,
+          sales[mon].common_primary_sale,
           this.toolTip('Common', this.months[mon], sales[mon].common_customer_count, sales[mon].common_primary_sale),
-          sales[mon].liva_customer_count,
+          sales[mon].liva_primary_sale,
           this.toolTip('Liva', this.months[mon], sales[mon].liva_customer_count, sales[mon].liva_primary_sale),
         ]);
       }
