@@ -38,7 +38,7 @@
         <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
         <span class="mini-stats-label">Performance</span>
       </div>
-      <div class="mini-stats-bottom w_bg">
+      <div class="mini-stats-bottom w_bg" *ngIf="environment.envName == 'geo'">
         <span>Skinlite Perf.</span> <span>{{ counts.skinlite_performance_per.toFixed(2)}} % </span>
       </div>
     </div>
