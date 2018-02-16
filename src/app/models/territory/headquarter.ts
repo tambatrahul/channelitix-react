@@ -16,10 +16,13 @@ export class Headquarter extends Model {
   customer_types: CustomerType[];
   total_bricks: number = 0;
   target: number = 0;
+  skinlite_target: number = 0;
   yearly_target: number = 0;
   primary: number = 0;
+  skinlite_primary: number = 0;
   yearly_primary: number = 0;
   total_pob: number = 0;
+  skinlite_total_pob: number = 0;
   fw_days: number = 0;
   total_visit: number = 0;
   total_visit_ab: number = 0;

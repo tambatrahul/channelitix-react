@@ -58,6 +58,7 @@ export class Result {
 
   //Orders models
   orders: Order[];
+  skinlite_orders: Order[];
   orders_sk: number = 0;
   orders_synergy: number = 0;
   order_counts: Order[];
@@ -107,6 +108,7 @@ export class Result {
 
   // primary sales
   primary_sales: PrimarySale[];
+  skinlite_primary_sales: PrimarySale[];
 
   // primary sales
   geo_stockist_primary_sales: PrimarySale[];
@@ -165,6 +167,7 @@ export class Result {
 
   // targets
   targets: Target[];
+  skinlite_targets: Target[];
   sap_targets: Target[];
 
   // brick customer counts

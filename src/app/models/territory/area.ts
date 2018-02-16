@@ -16,8 +16,11 @@ export class Area extends Model {
   total: number = 0;
   total_bricks: number = 0;
   target: number = 0;
+  skinlite_target: number = 0;
   primary: number = 0;
+  skinlite_primary: number = 0;
   total_pob: number = 0;
+  skinlite_total_pob: number = 0;
   total_visit: number = 0;
   all_total_visit: number = 0;
   total_att: number = 0;
