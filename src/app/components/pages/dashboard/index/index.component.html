@@ -60,28 +60,28 @@
       <div class="row" *ngIf="environment.envName == 'geo'">
 
         <!-- Highest Call graph -->
-        <!--<div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-6">
           <till-month-chart [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
                             [headquarter_ids]="headquarter_ids"></till-month-chart>
-        </div>-->
+        </div>
         <!-- ./Highest Call graph -->
-        <!--<div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-6">
           <milestone-sales-tracking-graph [dates]="dates"
                                           [refresh]="refresh"
                                           [region_ids]="region_ids" [area_ids]="area_ids"
                                           [headquarter_ids]="headquarter_ids"></milestone-sales-tracking-graph>
-        </div>-->
+        </div>
 
       </div>
 
       <!-- Visit Order Trend -->
       <div class="row">
         <div class="col-xs-12 col-md-9">
-          <!--<visit-count-graph [dates]="dates"
+          <visit-count-graph [dates]="dates"
                              (totalVisitOrders)="totalVisitOrders($event)" [refresh]="refresh"
                              [region_ids]="region_ids" [area_ids]="area_ids"
                              [headquarter_ids]="headquarter_ids"></visit-count-graph>
-      -->  </div>
+        </div>
         <div class="col-xs-12 col-md-3">
           <div class="row">
             <a class="col-xs-12 remove-underline" [routerLink]="'/visits'">
@@ -165,17 +165,17 @@
       </monthly-primary-secondary-target>
     </div>
     <div class="col-xs-12 col-md-6" *ngIf="environment.envName == 'geo'">
-      <!--<skinlite-sales-analysis-graph [dates]="dates"
+      <skinlite-sales-analysis-graph [dates]="dates"
                                      [refresh]="refresh"
                                      [region_ids]="region_ids" [area_ids]="area_ids"
                                      [headquarter_ids]="headquarter_ids"></skinlite-sales-analysis-graph>
-  -->  </div>
+    </div>
     <div class="row" *ngIf="environment.envName != 'sk_group'">
       <div class="col-xs-12 col-md-12">
-      <!--  <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
+        <product-wise-sale [year]="year" [month]="month" [region_ids]="region_ids" [area_ids]="area_ids"
                            [refresh]="refresh"
                            [headquarter_ids]="headquarter_ids"></product-wise-sale>
-    -->  </div>
+      </div>
     </div>
     <!--<div class="row" *ngIf="environment.envName != 'sk_group'">
       &lt;!&ndash; Highest Call graph &ndash;&gt;
