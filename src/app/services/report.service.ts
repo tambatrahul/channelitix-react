@@ -182,7 +182,7 @@ export class ReportService extends BaseService {
    * get performance for year
    * @returns {Observable<Result>}
    */
-  performance(year: number, region_ids?: Array<number>,
+  performance(region_ids?: Array<number>,
               area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
@@ -204,7 +204,7 @@ export class ReportService extends BaseService {
     }
 
     // prepare url
-    let url = this.getBaseUrl() + '/performance/' + year;
+    let url = this.getBaseUrl() + '/performance';
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
