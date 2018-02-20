@@ -297,11 +297,32 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
    * @param {PrimarySale[]} last_year_common_sales
    */
   prepareDataForAvgYear(last_year_geo_sales: PrimarySale[], last_year_liva_sales: PrimarySale[], last_year_common_sales: PrimarySale[]) {
+    this.reset();
+    if (last_year_geo_sales[0]) {
+      this.geo_stockist_count = last_year_geo_sales[0].total_net_amount > 0 ? last_year_geo_sales[0].total_net_amount : 0;
+      this.geo_avg_sale = last_year_geo_sales[0].customer_count > 0 ? last_year_geo_sales[0].customer_count : 0;
+    }
+
+    if (last_year_liva_sales[0]) {
+      this.liva_avg_sale = last_year_liva_sales[0].total_net_amount;
+      this.liva_stockist_count = last_year_liva_sales[0].customer_count;
+    }
+
+    if (last_year_common_sales[0]) {
+      this.common_avg_sale = last_year_common_sales[0].total_net_amount;
+      this.common_stockist_count = last_year_common_sales[0].customer_count;
+    }
+  }
+
+  /**
+   * reset data
+   */
+  reset() {
     this.geo_stockist_count = 0;
     this.geo_avg_sale = 0;
-    this.liva_avg_sale = 22099538;
-    this.liva_stockist_count = 173;
-    this.common_avg_sale = 21053908;
-    this.common_stockist_count = 165;
+    this.liva_avg_sale = 0;
+    this.liva_stockist_count = 0;
+    this.common_avg_sale = 0;
+    this.common_stockist_count = 0;
   }
 }

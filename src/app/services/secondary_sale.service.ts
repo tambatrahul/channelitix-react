@@ -168,15 +168,17 @@ export class SecondarySaleService extends BaseService {
    * @param hq_id
    * @param area_id
    * @param region_id
+   * @param product_id
    * @returns {Observable<Result>}
    */
-  stockist_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number): Observable<Result> {
+  stockist_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number,product_id: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('headquarter_id', String(hq_id ? hq_id : ''));
     params.set('area_id', String(area_id ? area_id : ''));
     params.set('region_id', String(region_id ? region_id : ''));
+    params.set('product_id', String(product_id > 0 ? product_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/stockist_wise/' + month + "/" + year;

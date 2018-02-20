@@ -45,6 +45,8 @@ export class StockistWiseHqComponent extends ListComponent {
   primary_qty: number = 0;
   btn_loading: boolean = false;
 
+  product_id: number;
+
   /**
    * title of page
    *
@@ -105,7 +107,8 @@ export class StockistWiseHqComponent extends ListComponent {
    */
   fetchSales() {
     this.loading = true;
-    this.saleService.stockist_wise(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id).subscribe(
+    this.saleService.stockist_wise(this.month + 1, this.year, this._hq_id,
+      this._area_id, this._region_id, this.product_id).subscribe(
       response => {
 
         this.loading = false;
@@ -273,6 +276,15 @@ export class StockistWiseHqComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
+    this.fetchSales();
+  }
+
+  /**
+   * Product Changed
+   * @param product_id
+   */
+  onProductChanged(product_id) {
+    this.product_id = product_id;
     this.fetchSales();
   }
 

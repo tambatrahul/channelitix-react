@@ -3,7 +3,7 @@
   <!-- Page Breadcrumb -->
   <div class="page-breadcrumb">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-4">
         <div class="page-breadcrumb-wrap">
           <div class="page-breadcrumb-info">
             <h2 class="breadcrumb-titles">Secondary Sales
@@ -11,7 +11,11 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-md-3">
+      <div class="col-md-4">
+        <product-select [value]="product_id" [title]="'Select Product'" [abbott]="abbott"
+                        (onValueChanged)="onProductChanged($event)"></product-select>
+      </div>
+      <div class="col-xs-12 col-md-4">
         <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;" *ngIf="!btn_loading"
            (click)="download()">
           Export to xlsx
@@ -88,9 +92,11 @@
                     </td>
 
                     <td>
+                      <span *ngIf="!product_id || product_id == 0">
                       <a [routerLink]="['/sales/secondary/stockist_product_wise', month, year, sale.customer.hq_region_id,
                       sale.customer.hq_area_id,sale.customer.hq_headquarter_id,sale.customer.id]"
                          class="btn btn-xs btn-primary">Product</a>
+                        </span>
                     </td>
                   </tr>
                 </template>
