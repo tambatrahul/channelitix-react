@@ -102,15 +102,6 @@ export class ExecutiveSummaryComponent extends ListComponent {
         this.loading = false;
 
       });
-
-      this.reportService.executive_summary(this.month + 1, this.year).subscribe(
-        response => {
-
-        },
-        err => {
-          this.loading = false;
-        }
-      );
     }
   }
 

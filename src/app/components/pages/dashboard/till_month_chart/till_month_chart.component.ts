@@ -174,9 +174,9 @@ export class TillMonthChartComponent extends GoogleChartComponent {
       data.addColumn('number', 'Performance');
       data.addColumn({type: 'number', role: 'annotation'});
       data.addRows([
-        [this.month_str, year_till_month.month_target, year_till_month.month_target,
+        [this.month_str + '(Geo)', year_till_month.month_target, year_till_month.month_target,
           year_till_month.month_sale, year_till_month.month_sale],
-        ['YTD(' + this.month_str + ')', (year_till_month.till_month_target + year_till_month.month_target),
+        ['YTD(' + this.month_str + ')(Geo)', (year_till_month.till_month_target + year_till_month.month_target),
           (year_till_month.till_month_target + year_till_month.month_target),
           (year_till_month.till_month_sale + year_till_month.month_sale),
           (year_till_month.till_month_sale + year_till_month.month_sale)],

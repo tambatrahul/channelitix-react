@@ -9,6 +9,7 @@ import {InputAnswer} from "../visit/input_answer";
 export class Headquarter extends Model {
 
   name: string;
+  status: string;
   total: number = 0;
   hq_area: Area;
 
@@ -75,6 +76,9 @@ export class Headquarter extends Model {
 
     if (info.hq_area)
       this.hq_area = new Area(info.hq_area);
+
+    if (info.status)
+      this.status = info.status;
 
     if (info.territories_count)
       this.territories_count = info.territories_count.aggregate;

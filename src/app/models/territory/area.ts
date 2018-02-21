@@ -8,6 +8,7 @@ import {InputAnswer} from "../visit/input_answer";
 export class Area extends Model {
 
   name: string;
+  status: string;
   hq_region: Region;
 
   // for internal user only
@@ -62,6 +63,7 @@ export class Area extends Model {
   constructor(info: any) {
     super(info.id);
     this.name = info.name;
+    this.status = info.status;
     this.customer_types = info.customer_types;
     this.total = info.total;
     if (info.hq_region)

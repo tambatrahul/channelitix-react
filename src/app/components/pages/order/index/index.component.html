@@ -1,377 +1,381 @@
 <div class="container-fluid orders" #loading_box>
 
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Orders
-                            <small>Order Report</small>
-                        </h2>
-                        <ul class="list-page-breadcrumb">
-                            <li><a href="#">Home</a>
-                            </li>
-
-                            <li class="active-page"> Orders</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
-                <div *ngIf="environment.envName != 'sk_group'">
-                    <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;" *ngIf="!btn_loading"
-                       (click)="download()">
-                        Export to xlsx
-                    </a>
-                    <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;" *ngIf="btn_loading">
-                        <i class="fa fa-spinner fa-spin"></i>Export to xlsx
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Filters for Order report-->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-xs-12 col-md-3">
-            <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Orders
+              <small>Order Report</small>
+            </h2>
+            <ul class="list-page-breadcrumb">
+              <li><a href="#">Home</a>
+              </li>
+
+              <li class="active-page"> Orders</li>
+            </ul>
+          </div>
         </div>
-        <div class="col-xs-12 col-md-2"
-             *ngIf="environment.envName == 'sk_group' && _service.user.username != 'abbottadmin'">
-            <button class="btn btn-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="!abbott">
-                Switch to Abbott
-            </button>
-            <button class="btn btn-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="abbott">
-                Back to SK
-            </button>
+      </div>
+      <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+        <div *ngIf="environment.envName != 'sk_group'">
+          <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;" *ngIf="!btn_loading"
+             (click)="download()">
+            Export to xlsx
+          </a>
+          <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;" *ngIf="btn_loading">
+            <i class="fa fa-spinner fa-spin"></i>Export to xlsx
+          </a>
         </div>
-        <div class="col-xs-12 col-md-2">
-            <button class="btn btn-primary" (click)="viewByQuantity()" style="margin-top: 25px;" *ngIf="!view_quantity">
-                View By Quantity
-            </button>
-            <button class="btn btn-primary" (click)="viewByQuantity()" style="margin-top: 25px;" *ngIf="view_quantity">
-                View By Rs
-            </button>
-        </div>
-        <div class="col-xs-12 col-md-3">
-            <product-select [value]="product_id" [title]="'Select Product'" [abbott]="abbott"
-                            (onValueChanged)="productChanged($event)"></product-select>
-        </div>
+      </div>
     </div>
-    <!-- ./Filters for Order report-->
+  </div>
+  <!-- Page Breadcrumb -->
 
-    <!-- Order Table -->
-    <!-- Attendance Table -->
-    <div class="row">
-        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
-            <div class="row" *ngFor="let z of managers">
-                <div class="col-xs-12">
-                    <div class="box-widget widget-module">
-                        <div class="widget-head clearfix">
-                            <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4><strong>{{ z.full_name }}</strong></h4>
-                        </div>
-                        <div>
-                            <div class="widget-container report-table">
-                                <div class="widget-block">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered visit_table">
-                                            <thead>
-                                            <tr style="background-color: #3498db;color: white">
-                                                <th style="min-width: 120px;">Users</th>
-                                                <th>Headquarter</th>
-                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target
-                                                </th>
-                                                <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
-                                                <th></th>
-                                                <th *ngFor="let d of dates">
-                                                    {{ d }}
-                                                </th>
-                                                <th *ngIf="!view_quantity">Total POB</th>
-                                                <th *ngIf="view_quantity">Total Quantity</th>
-                                            </tr>
-                                            </thead>
-
-                                            <tfoot>
-                                            <tr style="background-color: #3498db;color: white">
-                                                <th>Users</th>
-                                                <th>Headquarter</th>
-                                                <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target
-                                                </th>
-                                                <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
-                                                <th></th>
-                                                <th *ngFor="let d of dates">
-                                                    {{ d }}
-                                                </th>
-                                                <th *ngIf="!view_quantity">Total POB</th>
-                                                <th *ngIf="view_quantity">Total Quantity</th>
-                                            </tr>
-                                            </tfoot>
-
-                                            <tbody>
-                                            <tr class="dark_grey">
-                                                <th>Total</th>
-                                                <td></td>
-                                                <template [ngIf]="environment.envName != 'geo'">
-                                                    <td *ngIf="_service.user.username != 'abbottadmin'">
-                                                        {{ z.daily_target }}
-                                                    </td>
-                                                    <td *ngIf="_service.user.username != 'abbottadmin'">
-                                                        {{ z.percent_pob }} %
-                                                    </td>
-                                                </template>
-                                                <template [ngIf]="environment.envName == 'geo'">
-                                                    <td>{{ z.daily_target }}</td>
-                                                    <td>{{ z.percent_pob }} %</td>
-                                                </template>
-                                                <td></td>
-                                                <template ngFor let-order [ngForOf]="z.orders">
-                                                    <td *ngIf="!view_quantity">
-                                                        {{ (order.order_total_count / 1000).toFixed(1) }}
-                                                    </td>
-                                                    <td *ngIf="view_quantity">
-                                                        {{ (order.order_total_quantity) }}
-                                                    </td>
-                                                </template>
-                                                <td *ngIf="!view_quantity">{{ (z.total_pob_count / 1000).toFixed(1) }}
-                                                </td>
-                                                <td *ngIf="view_quantity">{{ (z.total_pob_quantity_count) }}</td>
-
-                                            </tr>
-                                            <template ngFor let-mg [ngForOf]="z.children">
-                                                <tr>
-                                                    <th [colSpan]="mg.children[0]?.orders.length + 5"
-                                                        class="text-center">
-                                                        <strong>{{ mg.full_name }}</strong>
-                                                    </th>
-                                                </tr>
-                                                <tr class="grey">
-                                                    <th>Total</th>
-                                                    <td></td>
-                                                    <template [ngIf]="environment.envName != 'geo'">
-                                                        <td *ngIf="_service.user.username != 'abbottadmin'">
-                                                            {{ mg.daily_target }}
-                                                        </td>
-                                                        <td *ngIf="_service.user.username != 'abbottadmin'">
-                                                            {{ mg.percent_pob }} %
-                                                        </td>
-                                                    </template>
-                                                    <template [ngIf]="environment.envName == 'geo'">
-                                                        <td>{{ mg.daily_target }}</td>
-                                                        <td>{{ mg.percent_pob }} %</td>
-                                                    </template>
-                                                    <td></td>
-                                                    <template ngFor let-order [ngForOf]="mg.orders">
-                                                        <td *ngIf="!view_quantity">
-                                                            {{ (order.order_total_count / 1000).toFixed(1) }}
-                                                        </td>
-                                                        <td *ngIf="view_quantity">
-                                                            {{ (order.order_total_quantity) }}
-                                                        </td>
-                                                    </template>
-                                                    <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1)
-                                                        }}
-                                                    </td>
-                                                    <td *ngIf="view_quantity">{{ (mg.total_pob_quantity_count) }}</td>
-
-                                                </tr>
-                                                <tr *ngFor="let user of mg.children">
-                                                    <th>{{ user.full_name }}</th>
-                                                    <th>{{ user.hq_headquarter?.name }}</th>
-
-                                                    <template [ngIf]="environment.envName != 'geo'">
-                                                        <td *ngIf="_service.user.username != 'abbottadmin'">{{
-                                                            user.daily_target }}
-                                                        </td>
-                                                        <td *ngIf="_service.user.username != 'abbottadmin'">{{
-                                                            user.percent_pob }} %
-                                                        </td>
-                                                    </template>
-                                                    <template [ngIf]="environment.envName == 'geo'">
-                                                        <td>{{ user.daily_target }}</td>
-                                                        <td>{{ user.percent_pob }} %</td>
-                                                    </template>
-                                                    <td>
-                                                        <i status [field]="user.status"></i>
-                                                    </td>
-                                                    <template [ngIf]="environment.envName != 'geo'">
-                                                        <td *ngFor="let order of user.orders; let i = index" orderCount
-                                                            [order]="order" [target]="user.daily_target"
-                                                            class="user_click"
-                                                            [view_quantity]="view_quantity"
-                                                            (click)="selectUser(user, i + 1, order)"></td>
-                                                    </template>
-                                                    <template [ngIf]="environment.envName == 'geo'">
-                                                        <template [ngIf]="z.username != 'delhiregion'">
-                                                            <td *ngFor="let order of user.orders; let i = index"
-                                                                orderCount
-                                                                [order]="order" [target]="user.daily_target"
-                                                                class="user_click"
-                                                                [view_quantity]="view_quantity"
-                                                                (click)="selectUser(user, i + 1, order)"></td>
-                                                        </template>
-                                                        <template [ngIf]="z.username == 'delhiregion'">
-                                                            <td *ngFor="let order of user.orders; let i = index"
-                                                                orderCount
-                                                                [order]="order" [target]="user.daily_target_40"
-                                                                class="user_click"
-                                                                [view_quantity]="view_quantity"
-                                                                (click)="selectUser(user, i + 1, order)"></td>
-                                                        </template>
-                                                    </template>
-                                                    <td *ngIf="!view_quantity">{{ (user.total_pob_count /
-                                                        1000).toFixed(1) }}
-                                                    </td>
-                                                    <td *ngIf="view_quantity">{{ (user.total_pob_quantity_count) }}</td>
-                                                </tr>
-                                            </template>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-12" *ngIf="_service.user.isArea">
-            <div class="row" *ngFor="let z of managers">
-                <div class="col-xs-12">
-                    <div class="box-widget widget-module">
-                        <div class="widget-head clearfix">
-                            <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4><strong>{{ z.full_name }}</strong></h4>
-                        </div>
-                        <div>
-                            <div class="widget-container report-table">
-                                <div class="widget-block">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th style="min-width: 200px;">
-                                                    Users
-                                                </th>
-                                                <th>
-                                                    Headquarter
-                                                </th>
-                                                <th>Daily Target</th>
-                                                <th>Total</th>
-                                                <th></th>
-                                                <th *ngFor="let d of dates">
-                                                    {{ d }}
-                                                </th>
-                                            </tr>
-                                            </thead>
-
-                                            <tfoot>
-                                            <tr>
-                                                <th>
-                                                    Users
-                                                </th>
-                                                <th>
-                                                    Headquarter
-                                                </th>
-                                                <th>Daily Target</th>
-                                                <th>Total</th>
-                                                <th></th>
-                                                <th *ngFor="let d of dates">
-                                                    {{ d }}
-                                                </th>
-                                            </tr>
-                                            </tfoot>
-
-                                            <tbody>
-                                            <tr class="dark_grey">
-                                                <th>Total</th>
-                                                <td></td>
-                                                <template [ngIf]="environment.envName != 'geo'">
-                                                    <td>
-                                                        {{ z.daily_target }}
-                                                    </td>
-                                                </template>
-                                                <template [ngIf]="environment.envName == 'geo'">
-                                                    {{ z.daily_target }}
-                                                </template>
-                                                <td *ngIf="!view_quantity">
-                                                    {{ (z.total_pob_count / 1000).toFixed(1) }}
-                                                </td>
-                                                <td *ngIf="view_quantity">
-                                                    {{ (z.total_pob_quantity_count) }}
-                                                </td>
-                                                <td></td>
-                                                <template ngFor let-order [ngForOf]="z.orders">
-                                                    <td *ngIf="!view_quantity">
-                                                        {{ (order.order_total_count / 1000).toFixed(1) }}
-                                                    </td>
-                                                    <td *ngIf="view_quantity">
-                                                        {{ (order.order_total_quantity) }}
-                                                    </td>
-                                                </template>
-                                            </tr>
-                                            <tr *ngFor="let user of z.children">
-                                                <td>{{ user.full_name }}</td>
-                                                <td>{{ user.hq_headquarter.name }}</td>
-                                                <template [ngIf]="environment.envName != 'geo'">
-                                                    <td>
-                                                        {{ user.daily_target }}
-                                                    </td>
-                                                </template>
-                                                <template [ngIf]="environment.envName == 'geo'">
-                                                    {{ user.daily_target }}
-                                                </template>
-                                                <td *ngIf="!view_quantity">
-                                                    {{ (user.total_pob_count / 1000).toFixed(1) }}
-                                                </td>
-                                                <td *ngIf="view_quantity">
-                                                    {{ (user.total_pob_quantity_count) }}
-                                                </td>
-                                                <td>
-                                                    <i status [field]="user.status"></i>
-                                                </td>
-                                                <td *ngFor="let order of user.orders; let i = index" orderCount
-                                                    [order]="order" [target]="user.daily_target"
-                                                    [view_quantity]="view_quantity"
-                                                    class="user_click"
-                                                    (click)="selectUser(user, i + 1, order)"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Filters for Order report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
     </div>
-    <!-- ./Order Table -->
+    <div class="col-xs-12 col-md-2"
+         *ngIf="environment.envName == 'sk_group' && _service.user.username != 'abbottadmin'">
+      <button class="btn btn-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="!abbott">
+        Switch to Abbott
+      </button>
+      <button class="btn btn-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="abbott">
+        Back to SK
+      </button>
+    </div>
+    <div class="col-xs-12 col-md-2">
+      <button class="btn btn-primary" (click)="viewByQuantity()" style="margin-top: 25px;" *ngIf="!view_quantity">
+        View By Quantity
+      </button>
+      <button class="btn btn-primary" (click)="viewByQuantity()" style="margin-top: 25px;" *ngIf="view_quantity">
+        View By Rs
+      </button>
+    </div>
+    <div class="col-xs-12 col-md-3" *ngIf="environment.envName == 'geo' || environment.envName == 'vikrant'">
+      <brand-select [value]="brand_id" [title]="''" [first_value]="'Select Brand'"
+                    (onValueChanged)="brandChanged($event)"></brand-select>
+    </div>
+    <div class="col-xs-12 col-md-3" *ngIf="environment.envName == 'sk_group'">
+      <product-select [value]="product_id" [title]="'Select Product'" [abbott]="abbott"
+                      (onValueChanged)="productChanged($event)"></product-select>
+    </div>
+  </div>
+  <!-- ./Filters for Order report-->
+
+  <!-- Order Table -->
+  <!-- Attendance Table -->
+  <div class="row">
+    <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+      <div class="row" *ngFor="let z of managers">
+        <div class="col-xs-12">
+          <div class="box-widget widget-module">
+            <div class="widget-head clearfix">
+              <span class="h-icon"><i class="fa fa-table"></i></span>
+              <h4><strong>{{ z.full_name }}</strong></h4>
+            </div>
+            <div>
+              <div class="widget-container report-table">
+                <div class="widget-block">
+                  <div class="table-responsive">
+                    <table class="table table-bordered visit_table">
+                      <thead>
+                      <tr style="background-color: #3498db;color: white">
+                        <th style="min-width: 120px;">Users</th>
+                        <th>Headquarter</th>
+                        <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target
+                        </th>
+                        <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
+                        <th></th>
+                        <th *ngFor="let d of dates">
+                          {{ d }}
+                        </th>
+                        <th *ngIf="!view_quantity">Total POB</th>
+                        <th *ngIf="view_quantity">Total Quantity</th>
+                      </tr>
+                      </thead>
+
+                      <tfoot>
+                      <tr style="background-color: #3498db;color: white">
+                        <th>Users</th>
+                        <th>Headquarter</th>
+                        <th *ngIf="_service.user.username != 'abbottadmin'">Daily POB Target
+                        </th>
+                        <th *ngIf="_service.user.username != 'abbottadmin'">% to POB Target</th>
+                        <th></th>
+                        <th *ngFor="let d of dates">
+                          {{ d }}
+                        </th>
+                        <th *ngIf="!view_quantity">Total POB</th>
+                        <th *ngIf="view_quantity">Total Quantity</th>
+                      </tr>
+                      </tfoot>
+
+                      <tbody>
+                      <tr class="dark_grey">
+                        <th>Total</th>
+                        <td></td>
+                        <template [ngIf]="environment.envName != 'geo'">
+                          <td *ngIf="_service.user.username != 'abbottadmin'">
+                            {{ z.daily_target }}
+                          </td>
+                          <td *ngIf="_service.user.username != 'abbottadmin'">
+                            {{ z.percent_pob }} %
+                          </td>
+                        </template>
+                        <template [ngIf]="environment.envName == 'geo'">
+                          <td>{{ z.daily_target }}</td>
+                          <td>{{ z.percent_pob }} %</td>
+                        </template>
+                        <td></td>
+                        <template ngFor let-order [ngForOf]="z.orders">
+                          <td *ngIf="!view_quantity">
+                            {{ (order.order_total_count / 1000).toFixed(1) }}
+                          </td>
+                          <td *ngIf="view_quantity">
+                            {{ (order.order_total_quantity) }}
+                          </td>
+                        </template>
+                        <td *ngIf="!view_quantity">{{ (z.total_pob_count / 1000).toFixed(1) }}
+                        </td>
+                        <td *ngIf="view_quantity">{{ (z.total_pob_quantity_count) }}</td>
+
+                      </tr>
+                      <template ngFor let-mg [ngForOf]="z.children">
+                        <tr>
+                          <th [colSpan]="mg.children[0]?.orders.length + 5"
+                              class="text-center">
+                            <strong>{{ mg.full_name }}</strong>
+                          </th>
+                        </tr>
+                        <tr class="grey">
+                          <th>Total</th>
+                          <td></td>
+                          <template [ngIf]="environment.envName != 'geo'">
+                            <td *ngIf="_service.user.username != 'abbottadmin'">
+                              {{ mg.daily_target }}
+                            </td>
+                            <td *ngIf="_service.user.username != 'abbottadmin'">
+                              {{ mg.percent_pob }} %
+                            </td>
+                          </template>
+                          <template [ngIf]="environment.envName == 'geo'">
+                            <td>{{ mg.daily_target }}</td>
+                            <td>{{ mg.percent_pob }} %</td>
+                          </template>
+                          <td></td>
+                          <template ngFor let-order [ngForOf]="mg.orders">
+                            <td *ngIf="!view_quantity">
+                              {{ (order.order_total_count / 1000).toFixed(1) }}
+                            </td>
+                            <td *ngIf="view_quantity">
+                              {{ (order.order_total_quantity) }}
+                            </td>
+                          </template>
+                          <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1)
+                            }}
+                          </td>
+                          <td *ngIf="view_quantity">{{ (mg.total_pob_quantity_count) }}</td>
+
+                        </tr>
+                        <tr *ngFor="let user of mg.children">
+                          <th>{{ user.full_name }}</th>
+                          <th>{{ user.hq_headquarter?.name }}</th>
+
+                          <template [ngIf]="environment.envName != 'geo'">
+                            <td *ngIf="_service.user.username != 'abbottadmin'">{{
+                              user.daily_target }}
+                            </td>
+                            <td *ngIf="_service.user.username != 'abbottadmin'">{{
+                              user.percent_pob }} %
+                            </td>
+                          </template>
+                          <template [ngIf]="environment.envName == 'geo'">
+                            <td>{{ user.daily_target }}</td>
+                            <td>{{ user.percent_pob }} %</td>
+                          </template>
+                          <td>
+                            <i status [field]="user.status"></i>
+                          </td>
+                          <template [ngIf]="environment.envName != 'geo'">
+                            <td *ngFor="let order of user.orders; let i = index" orderCount
+                                [order]="order" [target]="user.daily_target"
+                                class="user_click"
+                                [view_quantity]="view_quantity"
+                                (click)="selectUser(user, i + 1, order)"></td>
+                          </template>
+                          <template [ngIf]="environment.envName == 'geo'">
+                            <template [ngIf]="z.username != 'delhiregion'">
+                              <td *ngFor="let order of user.orders; let i = index"
+                                  orderCount
+                                  [order]="order" [target]="user.daily_target"
+                                  class="user_click"
+                                  [view_quantity]="view_quantity"
+                                  (click)="selectUser(user, i + 1, order)"></td>
+                            </template>
+                            <template [ngIf]="z.username == 'delhiregion'">
+                              <td *ngFor="let order of user.orders; let i = index"
+                                  orderCount
+                                  [order]="order" [target]="user.daily_target_40"
+                                  class="user_click"
+                                  [view_quantity]="view_quantity"
+                                  (click)="selectUser(user, i + 1, order)"></td>
+                            </template>
+                          </template>
+                          <td *ngIf="!view_quantity">{{ (user.total_pob_count /
+                            1000).toFixed(1) }}
+                          </td>
+                          <td *ngIf="view_quantity">{{ (user.total_pob_quantity_count) }}</td>
+                        </tr>
+                      </template>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12" *ngIf="_service.user.isArea">
+      <div class="row" *ngFor="let z of managers">
+        <div class="col-xs-12">
+          <div class="box-widget widget-module">
+            <div class="widget-head clearfix">
+              <span class="h-icon"><i class="fa fa-table"></i></span>
+              <h4><strong>{{ z.full_name }}</strong></h4>
+            </div>
+            <div>
+              <div class="widget-container report-table">
+                <div class="widget-block">
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                      <tr>
+                        <th style="min-width: 200px;">
+                          Users
+                        </th>
+                        <th>
+                          Headquarter
+                        </th>
+                        <th>Daily Target</th>
+                        <th>Total</th>
+                        <th></th>
+                        <th *ngFor="let d of dates">
+                          {{ d }}
+                        </th>
+                      </tr>
+                      </thead>
+
+                      <tfoot>
+                      <tr>
+                        <th>
+                          Users
+                        </th>
+                        <th>
+                          Headquarter
+                        </th>
+                        <th>Daily Target</th>
+                        <th>Total</th>
+                        <th></th>
+                        <th *ngFor="let d of dates">
+                          {{ d }}
+                        </th>
+                      </tr>
+                      </tfoot>
+
+                      <tbody>
+                      <tr class="dark_grey">
+                        <th>Total</th>
+                        <td></td>
+                        <template [ngIf]="environment.envName != 'geo'">
+                          <td>
+                            {{ z.daily_target }}
+                          </td>
+                        </template>
+                        <template [ngIf]="environment.envName == 'geo'">
+                          {{ z.daily_target }}
+                        </template>
+                        <td *ngIf="!view_quantity">
+                          {{ (z.total_pob_count / 1000).toFixed(1) }}
+                        </td>
+                        <td *ngIf="view_quantity">
+                          {{ (z.total_pob_quantity_count) }}
+                        </td>
+                        <td></td>
+                        <template ngFor let-order [ngForOf]="z.orders">
+                          <td *ngIf="!view_quantity">
+                            {{ (order.order_total_count / 1000).toFixed(1) }}
+                          </td>
+                          <td *ngIf="view_quantity">
+                            {{ (order.order_total_quantity) }}
+                          </td>
+                        </template>
+                      </tr>
+                      <tr *ngFor="let user of z.children">
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.hq_headquarter.name }}</td>
+                        <template [ngIf]="environment.envName != 'geo'">
+                          <td>
+                            {{ user.daily_target }}
+                          </td>
+                        </template>
+                        <template [ngIf]="environment.envName == 'geo'">
+                          {{ user.daily_target }}
+                        </template>
+                        <td *ngIf="!view_quantity">
+                          {{ (user.total_pob_count / 1000).toFixed(1) }}
+                        </td>
+                        <td *ngIf="view_quantity">
+                          {{ (user.total_pob_quantity_count) }}
+                        </td>
+                        <td>
+                          <i status [field]="user.status"></i>
+                        </td>
+                        <td *ngFor="let order of user.orders; let i = index" orderCount
+                            [order]="order" [target]="user.daily_target"
+                            [view_quantity]="view_quantity"
+                            class="user_click"
+                            (click)="selectUser(user, i + 1, order)"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Order Table -->
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" #user_order_table>
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <!-- Create Tour View -->
-                <div class="row" *ngIf="user">
-                    <!-- Tour Table -->
-                    <div class="col-xs-12">
-                        <div>
-                            <user-order-list [user]="user" [date]="date" [month]="month"
-                                             [year]="year"></user-order-list>
-                        </div>
-                    </div>
-                    <!-- ./Tour Table -->
-                </div>
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- Create Tour View -->
+        <div class="row" *ngIf="user">
+          <!-- Tour Table -->
+          <div class="col-xs-12">
+            <div>
+              <user-order-list [user]="user" [date]="date" [month]="month"
+                               [year]="year"></user-order-list>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
+          </div>
+          <!-- ./Tour Table -->
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
