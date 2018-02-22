@@ -338,6 +338,12 @@
             <span class="nav-label">Video Guide</span>
           </a>
         </li>
+        <li *ngIf="environment.envName == 'vikrant'">
+          <a class="waves-effect" routerLink="/users/reset_password">
+            <span class="nav-icon"><i class="fa fa-address-book"></i></span>
+            <span class="nav-label">Password Reset</span>
+          </a>
+        </li>
         <!--<li *ngIf="_auth_service.user?.isAdmin">
             <a class="waves-effect"
                [routerLink]="'/summary'">

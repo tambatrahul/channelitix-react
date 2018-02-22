@@ -212,7 +212,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
 
     // add avg column
     data.addRow([
-      'Avg ' + (this.year - 1) + " (" + total_avg_sale + ")",
+      'Jul-Dec ' + (this.year - 1) + " (" + total_avg_sale + ")",
       this.geo_avg_sale,
       this.avgToolTip('Geo', 'AVG', this.geo_stockist_count, this.geo_avg_sale),
       this.common_avg_sale,
@@ -301,7 +301,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     if (last_year_geo_sales[0]) {
       let geo_avg_sale = 0;
       if (last_year_geo_sales[0].total_net_amount > 0)
-        geo_avg_sale = parseInt((last_year_geo_sales[0].total_net_amount / 12).toFixed(0));
+        geo_avg_sale = parseInt((last_year_geo_sales[0].total_net_amount / 6).toFixed(0));
       this.geo_avg_sale = geo_avg_sale;
       this.geo_stockist_count = last_year_geo_sales[0].customer_count;
     }
@@ -309,7 +309,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     if (last_year_liva_sales[0]) {
       let liva_avg_sale = 0;
       if (last_year_liva_sales[0].total_net_amount > 0)
-        liva_avg_sale = parseInt((last_year_liva_sales[0].total_net_amount / 12).toFixed(0));
+        liva_avg_sale = parseInt((last_year_liva_sales[0].total_net_amount / 6).toFixed(0));
       this.liva_avg_sale = liva_avg_sale;
       this.liva_stockist_count = last_year_liva_sales[0].customer_count;
     }
@@ -317,7 +317,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     if (last_year_common_sales[0]) {
       let common_avg_sale = 0;
       if (last_year_common_sales[0].total_net_amount > 0)
-        common_avg_sale = parseInt((last_year_common_sales[0].total_net_amount / 12).toFixed(0));
+        common_avg_sale = parseInt((last_year_common_sales[0].total_net_amount / 6).toFixed(0));
       this.common_avg_sale = common_avg_sale;
       this.common_stockist_count = last_year_common_sales[0].customer_count;
     }
