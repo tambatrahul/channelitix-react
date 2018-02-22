@@ -472,7 +472,8 @@ export class OrderComponent extends BaseAuthComponent {
     if (this.environment.envName == 'sk_group')
       synergy = this.abbott ? 1 : 0;
 
-    this.orderService.orders_excel_download(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.product_id).subscribe(
+    this.orderService.orders_excel_download(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
+      this.product_id, this.brand_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 
