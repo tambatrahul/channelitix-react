@@ -67,7 +67,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     shadow: false,
     tooltip: {
       isHtml: true, ignoreBounds: true,
-      textStyle: {fontSize: 12}
+      textStyle: {fontSize: 11}
     },
     bar: {groupWidth: '75%'},
     isStacked: true
@@ -241,9 +241,6 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     // crete chart
     this.chart = this.createColumnChart(document.getElementById('skinliteSaleAnalysis'));
     this.chart.draw(this.data, this.options);
-
-    // set chart data callback
-    this.getGoogle().charts.setOnLoadCallback(() => this.drawGraph())
   }
 
   /**
@@ -268,7 +265,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
    * @returns {string}
    */
   toolTip(brand_category, month, stockist_count, sale) {
-    return '<div style="white-space: nowrap; padding:5px;"><b>' + month + '</b>' +
+    return '<div style="padding:5px;margin: -100px;position: relative;background-color: white"><b>' + month + '</b>' +
       '<br><b>' + brand_category + ' Customer :' + stockist_count + '</b>' +
       '<br><b>' + brand_category + ' Customer Sale in (000) :' + (sale / 1000).toFixed(0) + '</b>' +
       '</div>';
@@ -283,7 +280,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
    * @returns {string}
    */
   avgToolTip(brand_category, month, stockist_count, sale) {
-    return '<div style="white-space: nowrap; padding:5px;"><b>' + month + '</b>' +
+    return '<div style="white-space: nowrap;padding:5px;margin: -100px;position: absolute;background-color: white"><b>' + month + '</b>' +
       '<br><b>' + brand_category + ' Customer :' + stockist_count + '</b>' +
       '<br><b>' + brand_category + ' Customer Avg Sale in (000) :' + (sale / 1000).toFixed(0) + '</b>' +
       '</div>';
