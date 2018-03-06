@@ -50,6 +50,18 @@
                 </tr>
               </template>
               <tr>
+                <th>Geo Total</th>
+                <th class="text-right">{{ total_geo_target.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total_geo_actual.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total_geo_pob.toFixed(0) | number }}</th>
+                <th class="text-right">{{ (total_geo_target > 0 ? (total_geo_actual / total_geo_target) * 100 : 0).toFixed(2) }}
+                </th>
+                <th class="text-right">{{ till_month_geo_total_target.toFixed(0) | number }}</th>
+                <th class="text-right">{{ till_month_total_sale_geo?.toFixed(0) | number }}</th>
+                <th class="text-right">{{ (till_month_geo_total_target > 0 ? (till_month_total_sale_geo / till_month_geo_total_target) * 100 : 0).toFixed(2) }}
+                </th>
+              </tr>
+              <tr>
                 <th>Total</th>
                 <th class="text-right">{{ total_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_actual.toFixed(0) | number }}</th>

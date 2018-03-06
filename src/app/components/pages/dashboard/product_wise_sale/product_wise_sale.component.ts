@@ -26,6 +26,17 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   total_pob: number = 0;
 
   /**
+   * total target and actual
+   *
+   * @type {number}
+   */
+  till_month_geo_total_target: number = 0;
+  total_geo_target: number = 0;
+  total_geo_actual: number = 0;
+  till_month_total_sale_geo: number = 0;
+  total_geo_pob: number = 0;
+
+  /**
    * month of invoice
    */
   public _month: number;
@@ -105,56 +116,76 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     let products: Product[] = performance.products;
 
     self.total_target = 0;
+    self.total_geo_target = 0;
     // set target values
     performance.targets.map(function (target) {
       products.map(function (product) {
         if (product.brand_id == target.brand_id) {
           product.target = target.total_target;
           self.total_target += target.total_target;
+
+          if (target.brand_id != 10)
+            self.total_geo_target += target.total_target;
         }
       });
     });
 
     self.total_actual = 0;
+    self.total_geo_actual = 0;
     // set performance values
     performance.secondary_sales.map(function (ss) {
       products.map(function (product) {
         if (product.brand_id == ss.brand_id) {
           product.performance = ss.total_amount;
           self.total_actual += ss.total_amount;
+
+          if (ss.brand_id != 10)
+            self.total_geo_actual += ss.total_amount;
         }
       })
     });
 
     self.total_pob = 0;
+    self.total_geo_pob = 0;
     // set performance values
     performance.orders.map(function (order) {
       products.map(function (product) {
         if (product.brand_id == order.brand_id) {
           product.total_pob = order.order_total_count;
           self.total_pob += order.order_total_count;
+
+          if (order.brand_id != 10)
+            self.total_geo_pob += order.order_total_count;
         }
       })
     });
 
     self.till_month_total_target = 0;
+    self.till_month_geo_total_target = 0;
     // set performance values
     performance.till_month_targets.map(function (target) {
       products.map(function (product) {
         if (product.brand_id == target.brand_id) {
           product.total_target = target.total_target;
           self.till_month_total_target += target.total_target;
+
+          if(+target.brand_id != 10)
+            self.till_month_geo_total_target += target.total_target;
         }
       })
     });
 
     self.till_month_total_sale = 0;
+    self.till_month_total_sale_geo = 0;
     // set performance values
     performance.till_month_sales.map(function (sale) {
       products.map(function (product) {
         if (product.brand_id == sale.brand_id) {
           product.total_primary_sale = sale.total_net_amt;
           self.till_month_total_sale += sale.total_net_amt;
+
+          if(sale.brand_id != 10)
+            self.till_month_total_sale_geo += sale.total_net_amt;
         }
       })
     });
