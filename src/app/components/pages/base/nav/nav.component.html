@@ -122,7 +122,7 @@
               </a>
             </li>
             <li
-              *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='sk_group'">
+                *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='sk_group'">
               <a class="waves-effect" routerLink="/orders/managers">
                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                 <span class="nav-label">Manager POB Report</span>
@@ -264,6 +264,14 @@
           <a class="waves-effect" routerLink="/v2/users" *roleCheck="ROLE_CSM">
             <span class="nav-icon"><i class="fa fa-address-book"></i></span>
             <span class="nav-label">User Management</span>
+          </a>
+        </li>
+        <li *ngIf="environment.envName == 'sk_group'">
+          <a class="waves-effect" href="http://35.186.150.132/customers"
+             target="_blank"
+             *ngIf="_auth_service.user?.isAdmin">
+            <span class="nav-icon"><i class="fa fa-link"></i></span>
+            <span class="nav-label">Loyalty</span>
           </a>
         </li>
         <li *ngIf="environment.envName == 'vikrant'">
