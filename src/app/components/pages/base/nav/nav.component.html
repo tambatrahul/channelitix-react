@@ -369,10 +369,11 @@
     </template>
     <template [ngIf]="_auth_service.user.role_str == 'THIRD_PARTY'">
       <ul class="list-accordion">
-        <li>
-          <a class="waves-effect" routerLink="/visits">
-            <span class="nav-icon"><i class="fa fa-calendar"></i></span>
-            <span class="nav-label">Daily Visit Report</span>
+        <li *roleCheck="ROLE_CSM">
+          <a class="waves-effect"
+             [routerLink]="'/dashboard'">
+            <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>
+            <span class="nav-label">Dashboard</span>
           </a>
         </li>
         <li *roleCheck="ROLE_CSM">
@@ -384,12 +385,78 @@
           </a>
           <ul>
             <li>
+              <a class="waves-effect" routerLink="/visits">
+                <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                <span class="nav-label">Daily Visit Report</span>
+              </a>
+            </li>
+            <li>
+              <a class="waves-effect" routerLink="/orders">
+                <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+                <span class="nav-label">Daily POB Report</span>
+              </a>
+            </li>
+            <li>
+              <a class="waves-effect" routerLink="/visits/managers">
+                <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                <span class="nav-label">Manager Visit Report</span>
+              </a>
+            </li>
+            <li>
+              <a class="waves-effect" routerLink="/orders/managers">
+                <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+                <span class="nav-label">Manager POB Report</span>
+              </a>
+            </li>
+            <li>
               <a class="waves-effect" routerLink="/tours">
                 <span class="nav-icon"><i class="fa fa-map-marker"></i></span>
                 <span class="nav-label">Tour Program Report</span>
               </a>
             </li>
+            <li>
+              <a class="waves-effect" routerLink="/users/summary">
+                <span class="nav-icon"><i class="fa fa-bar-chart-o"></i></span>
+                <span class="nav-label">User Reporting Summary</span>
+              </a>
+            </li>
+            <li *roleCheck="ROLE_CSM">
+              <a class="waves-effect" routerLink="/reports/brick_wise_customers">
+                <span class="nav-icon"><i class="fa fa-table"></i></span>
+                <span class="nav-label">Customer Distribution Report</span>
+              </a>
+            </li>
+            <li *roleCheck="ROLE_CSM">
+              <a class="waves-effect" routerLink="/reports/hq_wise_visits">
+                <span class="nav-icon"><i class="fa fa-table"></i></span>
+                <span class="nav-label">Coverage Report</span>
+              </a>
+            </li>
+            <li *roleCheck="ROLE_CSM">
+              <a class="waves-effect" routerLink="/reports/stockist_wise_pob">
+                <span class="nav-icon"><i class="fa fa-table"></i></span>
+                <span class="nav-label">Stockist POB Report</span>
+              </a>
+            </li>
+            <li *roleCheck="ROLE_CSM">
+              <a class="waves-effect" routerLink="/reports/productivity_analysis">
+                <span class="nav-icon"><i class="fa fa-table"></i></span>
+                <span class="nav-label">Productivity Analysis</span>
+              </a>
+            </li>
+            <li *roleCheck="ROLE_CSM">
+              <a class="waves-effect" routerLink="/dashboard/brick_coverage">
+                <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+                <span class="nav-label">Brick Working Report</span>
+              </a>
+            </li>
           </ul>
+        </li>
+        <li>
+          <a class="waves-effect" routerLink="/customers">
+            <span class="nav-icon"><i class="fa fa-database"></i></span>
+            <span class="nav-label">Customer Database</span>
+          </a>
         </li>
         <li>
           <a class="waves-effect" routerLink="/v2/users">

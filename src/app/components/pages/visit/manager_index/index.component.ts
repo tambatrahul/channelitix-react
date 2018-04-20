@@ -255,7 +255,6 @@ export class ManagerVisitComponent extends BaseAuthComponent {
             third_party_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             third_party_user.children = [];
             third_party_user.cse_count = 0;
-            zone_managers.push(third_party_user);
             for (let m of managers) {
                 zone_managers[0].children.push(m);
                 m.visits.forEach(function (att, index) {
