@@ -72,7 +72,7 @@ export class AttendanceTableComponent extends BaseAuthComponent {
      * Attendance Component Constructor
      *
      */
-    constructor(private attendanceService: AttendanceService, private _authService: AuthService) {
+    constructor(public attendanceService: AttendanceService, public _authService: AuthService) {
         super(_authService);
     }
 

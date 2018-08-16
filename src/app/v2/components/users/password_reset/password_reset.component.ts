@@ -17,7 +17,7 @@ export class PasswordResetComponent extends FormComponent {
   /**
    * selected user
    */
-  private _user: User;
+  _user: User;
 
   /**
    * loading identifier

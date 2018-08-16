@@ -26,7 +26,7 @@ export abstract class MultipleBaseSelectComponent {
      * loading for server call
      * @type {boolean}
      */
-    protected loading: boolean = false;
+    loading: boolean = false;
 
     /**
      * model list

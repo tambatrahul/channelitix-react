@@ -71,7 +71,7 @@ export class CustomerCountComponent {
      *
      * @type {number}
      */
-    private customer_type_id: number = 0;
+    customer_type_id: number = 0;
 
     /**
      * customer list

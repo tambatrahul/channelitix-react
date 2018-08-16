@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="exampleModalLabel">Deactivate User {{ _user.full_name }}</h4>
             </div>
             <div class="modal-body" #loading_box>
-                <form [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+                <form [formGroup]="form" (ngSubmit)="save()" novalidate>
                     <div class="row">
                         <div class="form-group col-xs-12">
                             <small style="color: red;text-align: center">
@@ -18,7 +18,7 @@
                         <div class="form-group col-xs-12">
                             <date-picker [date]="leaving_date" [title]="'Leaving Date'"
                                          (onDateChanged)="dateChanged($event)"></date-picker>
-                            <small *ngIf="errors?.leaving_date" class="text-danger text-center">
+                            <small *ngIf="errors['leaving_date']" class="text-danger text-center">
                                 {{ errors.leaving_date}}
                             </small>
                         </div>

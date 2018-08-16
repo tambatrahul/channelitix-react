@@ -25,7 +25,7 @@
                 </div>
                 <div class="widget-container" #loading_box>
                     <div class=" widget-block">
-                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save()" novalidate>
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
                                     <div class="page-header">
@@ -40,7 +40,7 @@
                                                 <label class="control-label">Brick Name (required)</label>
                                                 <div class="">
                                                     <input formControlName="name" class="form-control" type="text">
-                                                    <small *ngIf="errors?.name" class="text-danger text-center">
+                                                    <small *ngIf="errors['name']" class="text-danger text-center">
                                                         {{ errors.name}}
                                                     </small>
                                                 </div>
@@ -53,7 +53,7 @@
                                             <div class="form-group">
                                                 <station-select [value]="station"
                                                                 (onValueChanged)="stationChanged($event)"></station-select>
-                                                <small *ngIf="errors?.station" class="text-danger text-center">
+                                                <small *ngIf="errors['station']" class="text-danger text-center">
                                                     {{ errors.station}}
                                                 </small>
                                             </div>
@@ -68,7 +68,7 @@
                                                                     [first_value]="'Select Head Quarter'"
                                                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                                                <small *ngIf="errors?.hq_headquarter_id"
+                                                <small *ngIf="errors['hq_headquarter_id']"
                                                        class="text-danger text-center">
                                                     {{ errors.hq_headquarter_id}}
                                                 </small>
@@ -84,7 +84,7 @@
                                                                   [title]="'Select Territory'"
                                                                   [first_value]="'Select Territory'"
                                                                   (onValueChanged)="territoryChanged($event)"></territory-select>
-                                                <small *ngIf="errors?.hq_territory_id"
+                                                <small *ngIf="errors['hq_territory_id']"
                                                        class="text-danger text-center">
                                                     {{ errors.hq_territory_id}}
                                                 </small>
@@ -97,12 +97,12 @@
                                     <!-- No Of Work Days -->
                                     <div class="col-xs-12">
                                         <div class="form-group">
-                                            <label class="control-label" for="nowdname">No Of Work Days
+                                            <label class="control-label">No Of Work Days
                                                 (required)</label>
                                             <div class="">
                                                 <input formControlName="no_of_work_days" class="form-control"
                                                        type="text">
-                                                <small *ngIf="errors?.no_of_work_days"
+                                                <small *ngIf="errors['no_of_work_days']"
                                                        class="text-danger text-center">
                                                     {{ errors.no_of_work_days}}
                                                 </small>
@@ -114,12 +114,12 @@
                                     <!-- Expected Business -->
                                     <div class="col-xs-12">
                                         <div class="form-group">
-                                            <label class="control-label" for="ebname">Expected Business
+                                            <label class="control-label">Expected Business
                                                 (required)</label>
                                             <div class="">
                                                 <input formControlName="expected_business" class="form-control"
                                                        type="text">
-                                                <small *ngIf="errors?.expected_business"
+                                                <small *ngIf="errors['expected_business']"
                                                        class="text-danger text-center">
                                                     {{ errors.expected_business}}
                                                 </small>
@@ -131,12 +131,12 @@
                                     <!-- Distance From HQ -->
                                     <div class="col-xs-12">
                                         <div class="form-group">
-                                            <label class="control-label" for="dfhname">Distance From HQ
+                                            <label class="control-label">Distance From HQ
                                                 (required)</label>
                                             <div class="">
                                                 <input formControlName="distance_from_hq" class="form-control"
                                                        type="text">
-                                                <small *ngIf="errors?.distance_from_hq"
+                                                <small *ngIf="errors['distance_from_hq']"
                                                        class="text-danger text-center">
                                                     {{ errors.distance_from_hq}}
                                                 </small>

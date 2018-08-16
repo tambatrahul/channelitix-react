@@ -8,8 +8,7 @@ import {Brand} from "../../../../models/order/brand";
 @Component({
   selector: 'primary-sale-above',
   styleUrls: ['primary_sale_above_component.component.less'],
-  templateUrl: 'primary_sale_above_component.component.html',
-  inputs: ['refresh']
+  templateUrl: 'primary_sale_above_component.component.html'
 })
 export class PrimarySaleAboveComponent extends ListComponent {
 

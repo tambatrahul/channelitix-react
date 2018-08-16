@@ -28,11 +28,11 @@ export class BrickStpComponent extends ListComponent {
     /**
      * region id for filter
      */
-    private _territory_id: number;
-    private _headquarter_id: number;
-    private _area_id: number;
-    private _region_id: number;
-    private _country_id: number;
+    _territory_id: number;
+    _headquarter_id: number;
+    _area_id: number;
+    _region_id: number;
+    _country_id: number;
 
     /**
      * Customer Component constructor

@@ -9,8 +9,7 @@ declare let jQuery: any;
 @Component({
     selector: 'product-sale-plan',
     styleUrls: ['product_sale_plan_component.component.less'],
-    templateUrl: 'product_sale_plan_component.component.html',
-    inputs: ['refresh']
+    templateUrl: 'product_sale_plan_component.component.html'
 })
 export class ProductSalePlanComponent extends ListComponent {
 

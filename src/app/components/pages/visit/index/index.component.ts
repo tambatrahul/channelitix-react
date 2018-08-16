@@ -70,7 +70,7 @@ export class VisitComponent extends BaseAuthComponent {
     /**
      * customer type id
      */
-    private customer_type_id: number = 0;
+    customer_type_id: number = 0;
 
     /**
      * get date range
@@ -117,7 +117,7 @@ export class VisitComponent extends BaseAuthComponent {
      * User Component Constructor
      *
      */
-    constructor(private visitService: VisitService, private attendanceService: AttendanceService,
+    constructor(public visitService: VisitService, public attendanceService: AttendanceService,
                 public _service: AuthService) {
         super(_service);
     }

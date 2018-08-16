@@ -191,7 +191,7 @@
         </div>
         <div *ngIf="territories.length ==0" style="height: 350px"></div>
       </div>
-      <div *ngIf="headquarter_id == ''  ||  headquarter_id==0" style="height: 350px"></div>
+      <div *ngIf="!headquarter_id ||  headquarter_id==0" style="height: 350px"></div>
     </div>
   </div>
   <!-- ./Report Table -->

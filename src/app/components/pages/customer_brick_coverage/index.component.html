@@ -50,7 +50,7 @@
                 Go
             </a>
             <a class="btn btn-primary btn-block btn-margin disabled" style="margin-top: 25px;width: 25%;"
-               *ngIf="headquarter_id == ''  ||  headquarter_id==0">
+               *ngIf="!headquarter_id ||  headquarter_id==0">
                 Go
             </a>
         </div>
@@ -142,7 +142,7 @@
                 </div>
                 <div *ngIf="territories.length ==0" style="height: 350px"></div>
             </div>
-            <div *ngIf="headquarter_id == ''  ||  headquarter_id==0" style="height: 350px"></div>
+            <div *ngIf="!headquarter_id  ||  headquarter_id==0" style="height: 350px"></div>
         </div>
     </div>
     <!-- ./Report Table -->

@@ -24,14 +24,14 @@ export class RegionSelectComponent extends BaseSelectComponent {
     /**
      * Country id for filter
      */
-    private _country_id: number;
+    _country_id: number;
 
     /**
      * regions list
      *
      * @type {Array}
      */
-    private regions: Region[] = [];
+    regions: Region[] = [];
 
     constructor(private territoryService: TerritoryService) {
         super();

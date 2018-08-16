@@ -18,6 +18,7 @@ declare let jQuery: any;
 })
 export class StockistWiseHqComponent extends ListComponent {
 
+  fractionSize: string = '1.0-2';
   /**
    * year and month for calendar
    * @type {number}

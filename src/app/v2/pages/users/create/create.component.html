@@ -24,7 +24,7 @@
                 </div>
                 <div class="widget-container" #loading_box>
                     <div class=" widget-block">
-                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save()" novalidate>
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
                                     <div class="page-header">
@@ -36,7 +36,7 @@
                                         <label class="control-label">Full Name (required)</label>
                                         <div class="">
                                             <input formControlName="full_name" class="form-control" type="text">
-                                            <small *ngIf="errors?.full_name" class="text-danger text-center">
+                                            <small *ngIf="errors['full_name']" class="text-danger text-center">
                                                 {{ errors.full_name}}
                                             </small>
                                         </div>
@@ -49,7 +49,7 @@
                                         <div class="">
                                             <input class="form-control" formControlName="mobile" type="text"
                                                    name="email">
-                                            <small *ngIf="errors?.mobile" class="text-danger text-center">
+                                            <small *ngIf="errors['mobile']" class="text-danger text-center">
                                                 {{ errors.mobile}}
                                             </small>
                                         </div>
@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <date-picker [date]="joining_date" [title]="'Joining Date'"
                                                      (onDateChanged)="dateChanged($event)"></date-picker>
-                                        <small *ngIf="errors?.joining_date" class="text-danger text-center">
+                                        <small *ngIf="errors['joining_date']" class="text-danger text-center">
                                             {{ errors.joining_date}}
                                         </small>
                                     </div>
@@ -71,7 +71,7 @@
                                             <role-select [value]="role_id" [title]="'Select Role'"
                                                          [first_value]="'Select Role'"
                                                          (onValueChanged)="roleChanged($event)"></role-select>
-                                            <small *ngIf="errors?.role_id" class="text-danger text-center">
+                                            <small *ngIf="errors['role_id']" class="text-danger text-center">
                                                 {{ errors.role_id}}
                                             </small>
                                         </div>
@@ -81,7 +81,7 @@
                                                          [first_value]="'Select Manager'" [title]="'Select Manager'"
                                                          (onValueChanged)="managerChanged($event)"
                                                          (onModelChanged)="managerSelected($event)"></user-select>
-                                            <small *ngIf="errors?.manager_id" class="text-danger text-center">
+                                            <small *ngIf="errors['manager_id']" class="text-danger text-center">
                                                 {{ errors.manager_id}}
                                             </small>
                                         </div>
@@ -99,7 +99,7 @@
                                                                    [title]="'Select Region'"
                                                                    [first_value]="'Select Region'"
                                                                    (onValueChanged)="regionChanged($event)"></region-select>
-                                                    <small *ngIf="errors?.hq_region_id" class="text-danger text-center">
+                                                    <small *ngIf="errors['hq_region_id']" class="text-danger text-center">
                                                         {{ errors.hq_region_id}}
                                                     </small>
                                                 </div>
@@ -114,7 +114,7 @@
                                                     <area-select [value]="hq_area_id" [region_id]="hq_region_id"
                                                                  [title]="'Select Area'" [first_value]="'Select Area'"
                                                                  (onValueChanged)="areaChanged($event)"></area-select>
-                                                    <small *ngIf="errors?.hq_area_id" class="text-danger text-center">
+                                                    <small *ngIf="errors['hq_area_id']" class="text-danger text-center">
                                                         {{ errors.hq_area_id}}
                                                     </small>
                                                 </div>
@@ -132,7 +132,7 @@
                                                                         [first_value]="'Select Head Quarter'"
                                                                         (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                                                    <small *ngIf="errors?.hq_headquarter_id"
+                                                    <small *ngIf="errors['hq_headquarter_id']"
                                                            class="text-danger text-center">
                                                         {{ errors.hq_headquarter_id}}
                                                     </small>
@@ -155,7 +155,7 @@
                                         <label class="control-label">Username (required)</label>
                                         <div class="">
                                             <input formControlName="username" class="form-control" type="text">
-                                            <small *ngIf="errors?.username" class="text-danger text-center">
+                                            <small *ngIf="errors['username']" class="text-danger text-center">
                                                 {{ errors.username}}
                                             </small>
                                         </div>
@@ -168,7 +168,7 @@
                                         <div class="">
                                             <input class="form-control" formControlName="password" type="password"
                                                    name="email">
-                                            <small *ngIf="errors?.password" class="text-danger text-center">
+                                            <small *ngIf="errors['password']" class="text-danger text-center">
                                                 {{ errors.password}}
                                             </small>
                                         </div>
@@ -181,7 +181,7 @@
                                         <div class="">
                                             <input class="form-control" formControlName="confirm_password"
                                                    type="password" name="email">
-                                            <small *ngIf="errors?.confirm_password" class="text-danger text-center">
+                                            <small *ngIf="errors['confirm_password']" class="text-danger text-center">
                                                 {{ errors.confirm_password}}
                                             </small>
                                         </div>

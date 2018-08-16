@@ -5,7 +5,7 @@
         </div>
         <div class="login-container" #loading_box>
 
-            <form class="form-signin" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
+            <form class="form-signin" [formGroup]="form" (ngSubmit)="save()" novalidate>
 
                 <div class="text-center">
                     <small *ngIf="(!form.valid && submitted) || error.length > 0" class="text-danger text-center">

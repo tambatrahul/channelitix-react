@@ -13,6 +13,7 @@ declare let jQuery: any;
 })
 export class ProductWiseComponent extends ListComponent {
 
+  fractionSize: string = '1.0-2';
     /**
      * title for form
      *

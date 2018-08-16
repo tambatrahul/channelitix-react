@@ -29,7 +29,7 @@ export class SummaryDetailComponent extends BaseAuthComponent {
     /**
      * User
      */
-    private _user: User;
+    _user: User;
 
     /**
      * Attendance

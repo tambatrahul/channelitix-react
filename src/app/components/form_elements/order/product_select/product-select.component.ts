@@ -24,7 +24,7 @@ export class ProductSelectComponent extends BaseSelectComponent {
     /**
      * Area id for filter
      */
-    private _abbott: boolean;
+    private _abbott: boolean = false;
 
     /**
      * Synergy Filter

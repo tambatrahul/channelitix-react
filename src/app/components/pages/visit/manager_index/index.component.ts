@@ -70,7 +70,7 @@ export class ManagerVisitComponent extends BaseAuthComponent {
     /**
      * customer type id
      */
-    private customer_type_id: number = 0;
+    customer_type_id: number = 0;
 
     /**
      * get date range

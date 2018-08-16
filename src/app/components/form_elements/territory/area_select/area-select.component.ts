@@ -30,14 +30,14 @@ export class AreaSelectComponent extends BaseSelectComponent {
     /**
      * Region id for filter
      */
-    private _region_id: number;
+    _region_id: number;
 
     /**
      * areas list
      *
      * @type {Array}
      */
-    private areas: Area[] = [];
+    areas: Area[] = [];
 
     constructor(private territoryService: TerritoryService) {
         super();

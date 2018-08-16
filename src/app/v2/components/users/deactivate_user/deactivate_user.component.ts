@@ -18,7 +18,7 @@ export class DeactivateUserComponent extends FormComponent {
   /**
    * selected user
    */
-  private _user: User;
+  _user: User;
 
   /**
    * leaving date of user

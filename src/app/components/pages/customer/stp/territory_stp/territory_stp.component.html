@@ -61,7 +61,7 @@
                                     <th>Total</th>
                                     <td></td>
                                     <td></td>
-                                    <template ngFor let-ct [ngForOf]="total.customer_types">
+                                    <template ngFor let-ct [ngForOf]="total['customer_types']">
                                         <td *ngFor="let grade of ct.grades">
                                                     <span *ngIf="grade.customer_count > 0">
                                                         {{ grade.customer_count }}
