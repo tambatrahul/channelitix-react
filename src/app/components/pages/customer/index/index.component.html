@@ -1,123 +1,130 @@
 <div class="forum-container">
-    <div class="forum-list-container">
-        <div class="container-fluid customers">
-            <div class="forum-header">
-                <customer-count (onCustomerTypeChanged)="customerTypeChanged($event)"
-                                [region_id]="region_id" [area_id]="area_id"
-                                [headquarter_id]="headquarter_id" [territory_id]="territory_id"
-                                [brick_id]="brick_id"></customer-count>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="forum-title">Customer Database</h2>
-                        <p class="forum-sub-title">
-                            List of all the Customers
-                        </p>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
-                            <region-select [value]="region_id" [title]="'Select Region'"
-                                           (onValueChanged)="regionChanged($event)"></region-select>
-                        </div>
-                        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
-                            <div *ngIf="region_id > 0">
-                                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
-                                             (onValueChanged)="areaChanged($event)"></area-select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
-                            <div *ngIf="area_id > 0">
-                                <headquarter-select [value]="headquarter_id" [area_id]="area_id"
-                                                    [title]="'Select Head Quarter'"
-                                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-                            <div *ngIf="headquarter_id > 0">
-                                <territory-select [value]="territory_id" [headquarter_id]="headquarter_id"
-                                                  [title]="'Select Territory'"
-                                                  (onValueChanged)="territoryChanged($event)"></territory-select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-                            <div *ngIf="territory_id > 0">
-                                <brick-select [value]="brick_id" [territory_id]="territory_id"
-                                              [title]="'Select Brick'"
-                                              (onValueChanged)="brickChanged($event)"></brick-select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-                            <div style="padding-top: 20px;">
-                                <a class="btn btn-primary btn-block" routerLink="/customers/create">Create Customer</a>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-                            <div style="padding-top: 20px;" *ngIf="area_id > 0">
-                                <a class="btn btn-primary btn-block" *ngIf="!btn_loading"
-                                   (click)="excel_download()">
-                                    Export to xlsx
-                                </a>
-                                <div class="btn btn-primary btn-block" *ngIf="btn_loading">
-                                    <i class="fa fa-spinner fa-spin"></i> Export to xlsx
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="forum-list-container">
+    <div class="container-fluid customers">
+      <div class="forum-header">
+        <customer-count (onCustomerTypeChanged)="customerTypeChanged($event)"
+                        [region_id]="region_id" [area_id]="area_id"
+                        [headquarter_id]="headquarter_id" [territory_id]="territory_id"
+                        [brick_id]="brick_id"></customer-count>
+        <div class="row">
+          <div class="col-md-4">
+            <h2 class="forum-title">Customer Database</h2>
+            <p class="forum-sub-title">
+              List of all the Customers
+            </p>
+          </div>
+          <div class="col-md-8">
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+              <region-select [value]="region_id" [title]="'Select Region'"
+                             (onValueChanged)="regionChanged($event)"></region-select>
             </div>
-
-            <!-- Customer Table -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box-widget widget-module">
-                        <div class="widget-head clearfix">
-                            <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4>Customer database (Count: {{ total}})</h4>
-                        </div>
-                        <div class="widget-container customer-table" #loading_box>
-                            <div class="widget-block">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Brick</th>
-                                            <th>Headquarter</th>
-                                            <th>Type (Grade)</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tfoot>
-                                        <tr *ngFor="let customer of customers">
-                                            <td>{{ customer.firm_name}}</td>
-                                            <td>{{ customer.hq_brick.name}}</td>
-                                            <td>{{ customer.hq_headquarter?.name}}</td>
-                                            <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
-                                            <td class="text-center"><i status [field]="customer.status"></i></td>
-                                            <td>
-                                                <a class="btn btn-default btn-xs" style="cursor: pointer;"
-                                                   title="Update" (click)="updateCustomer(customer.id)">Edit</a> &nbsp;
-
-                                                <button
-                                                    *ngIf="customer.customer_type_id != 1" class="btn btn-xs btn-danger" (click)="deactivate(customer.id)">Deactivate</button>
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <pagination [page]="page" [total]="total"
-                                            (onPageChanged)="pageChanged($event)"></pagination>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ZSM">
+              <div *ngIf="region_id > 0">
+                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                             (onValueChanged)="areaChanged($event)"></area-select>
+              </div>
             </div>
-            <!-- ./Customer Table -->
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+              <div *ngIf="area_id > 0">
+                <headquarter-select [value]="headquarter_id" [area_id]="area_id"
+                                    [title]="'Select Head Quarter'"
+                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
+              <div *ngIf="headquarter_id > 0">
+                <territory-select [value]="territory_id" [headquarter_id]="headquarter_id"
+                                  [title]="'Select Territory'"
+                                  (onValueChanged)="territoryChanged($event)"></territory-select>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
+              <div *ngIf="territory_id > 0">
+                <brick-select [value]="brick_id" [territory_id]="territory_id"
+                              [title]="'Select Brick'"
+                              (onValueChanged)="brickChanged($event)"></brick-select>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
+              <div style="padding-top: 20px;">
+                <a class="btn btn-primary btn-block" routerLink="/customers/create">Create Customer</a>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
+              <div style="padding-top: 20px;" *ngIf="area_id > 0">
+                <a class="btn btn-primary btn-block" *ngIf="!btn_loading"
+                   (click)="excel_download()">
+                  Export to xlsx
+                </a>
+                <div class="btn btn-primary btn-block" *ngIf="btn_loading">
+                  <i class="fa fa-spinner fa-spin"></i> Export to xlsx
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- Customer Table -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box-widget widget-module">
+            <div class="widget-head clearfix">
+              <span class="h-icon"><i class="fa fa-table"></i></span>
+              <h4>Customer database (Count: {{ total}})</h4>
+            </div>
+            <div class="widget-container customer-table" #loading_box>
+              <div class="widget-block">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Brick</th>
+                      <th>Headquarter</th>
+                      <th>Type (Grade)</th>
+                      <th>Classification</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr *ngFor="let customer of customers">
+                      <td>{{ customer.firm_name}}</td>
+                      <td>{{ customer.hq_brick.name}}</td>
+                      <td>{{ customer.hq_headquarter?.name}}</td>
+                      <td>{{ customer.customer_type.name }} ({{ customer.grade.name }})</td>
+                      <td>
+                        <span *ngIf="customer.classification =='core'">Core</span>
+                        <span *ngIf="customer.classification =='super_core'">Super Core</span>
+                      </td>
+                      <td class="text-center"><i status [field]="customer.status"></i></td>
+                      <td>
+                        <a class="btn btn-default btn-xs" style="cursor: pointer;"
+                           title="Update" (click)="updateCustomer(customer.id)">Edit</a> &nbsp;
+
+                        <button
+                          *ngIf="customer.customer_type_id != 1" class="btn btn-xs btn-danger"
+                          (click)="deactivate(customer.id)">Deactivate
+                        </button>
+                      </td>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+                <pagination [page]="page" [total]="total"
+                            (onPageChanged)="pageChanged($event)"></pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ./Customer Table -->
     </div>
+  </div>
 </div>

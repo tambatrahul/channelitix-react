@@ -29,7 +29,7 @@
                 </div>
                 <div class="widget-container" #loading_box>
                     <div class=" widget-block">
-                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save()" novalidate>
+                        <form class="cmxform" [formGroup]="form" (ngSubmit)="save($event)" novalidate>
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
                                     <div class="page-header">
@@ -41,7 +41,7 @@
                                         <label class="control-label">Firm Name</label>
                                         <div class="">
                                             <input formControlName="firm_name" class="form-control" type="text">
-                                            <small *ngIf="errors['firm_name']" class="text-danger text-center">
+                                            <small *ngIf="errors?.firm_name" class="text-danger text-center">
                                                 {{ errors.firm_name}}
                                             </small>
                                         </div>
@@ -54,25 +54,46 @@
                                         <div class="">
                                             <input class="form-control" formControlName="email" type="text"
                                                    name="email">
-                                            <small *ngIf="errors['email']" class="text-danger text-center">
+                                            <small *ngIf="errors?.email" class="text-danger text-center">
                                                 {{ errors.email}}
                                             </small>
                                         </div>
                                     </div>
                                     <!-- ./Email -->
 
-                                    <!-- Mobile -->
-                                    <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-xs-12 col-md-6 form-group">
+                                      <!-- Mobile -->
+                                      <div class="form-group">
                                         <label class="control-label">Mobile</label>
                                         <div class="">
-                                            <input class="form-control" formControlName="mobile" type="text"
-                                                   name="mobile">
-                                            <small *ngIf="errors['mobile']" class="text-danger text-center">
-                                                {{ errors.mobile}}
-                                            </small>
+                                          <input class="form-control" formControlName="mobile" type="text"
+                                                 name="mobile">
+                                          <small *ngIf="errors?.mobile" class="text-danger text-center">
+                                            {{ errors.mobile}}
+                                          </small>
                                         </div>
+                                      </div>
                                     </div>
-                                    <!-- ./Mobile -->
+                                    <div class="col-xs-12 col-md-6 form-group">
+                                      <!-- Mobile -->
+                                      <div class="form-group">
+                                        <label class="control-label">Classification</label>
+                                        <div class="">
+                                          <select class="form-control"
+                                                  (change)="classificationChanged($event.target.value)">
+                                            <option selected value="0">Select Classification</option>
+                                            <option value="core">Core</option>
+                                            <option value="super_core">Super Core</option>
+                                          </select>
+                                          <small *ngIf="errors?.classification" class="text-danger text-center">
+                                            {{ errors.classification}}
+                                          </small>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- ./Mobile -->
 
                                     <!-- Select Type and Select Grade-->
                                     <div class="row">
@@ -81,7 +102,7 @@
                                                                   [first_value]="'Select Type'"
                                                                   [models]="customer_types"
                                                                   (onValueChanged)="typeChanged($event)"></customer-type-select>
-                                            <small *ngIf="errors['customer_type_id']" class="text-danger text-center">
+                                            <small *ngIf="errors?.customer_type_id" class="text-danger text-center">
                                                 {{ errors.customer_type_id}}
                                             </small>
                                         </div>
@@ -90,7 +111,7 @@
                                                           [first_value]="'Select Grade'"
                                                           [models]="grades"
                                                           (onValueChanged)="gradeChanged($event)"></grade-select>
-                                            <small *ngIf="errors['grade_id']" class="text-danger text-center">
+                                            <small *ngIf="errors?.grade_id" class="text-danger text-center">
                                                 {{ errors.grade_id}}
                                             </small>
                                         </div>
@@ -106,7 +127,7 @@
                                                                [first_value]="'Select Region'"
                                                                (onValueChanged)="regionChanged($event)"></region-select>
 
-                                                <small *ngIf="errors['hq_brick_id']"
+                                                <small *ngIf="errors?.hq_brick_id"
                                                        class="text-danger text-center">
                                                     <span *ngIf="hq_region_id > 0"></span>
                                                     <span *ngIf="hq_region_id == 0 || hq_region_id == null">
@@ -125,7 +146,7 @@
                                                              [first_value]="'Select Area'"
                                                              (onValueChanged)="areaChanged($event)"></area-select>
 
-                                                <small *ngIf="errors['hq_brick_id']" class="text-danger text-center">
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
                                                     <span *ngIf="hq_area_id > 0"></span>
                                                     <span *ngIf="hq_area_id == 0 || hq_area_id == null">
                                                         {{ errors.hq_brick_id}}
@@ -143,7 +164,7 @@
                                                                     [first_value]="'Select Head Quarter'"
                                                                     (onValueChanged)="headquarterChanged($event)"></headquarter-select>
 
-                                                <small *ngIf="errors['hq_brick_id']" class="text-danger text-center">
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
                                                     <span *ngIf="hq_headquarter_id > 0"></span>
                                                     <span *ngIf="hq_headquarter_id == 0 || hq_headquarter_id == null">
                                                         {{ errors.hq_brick_id}}
@@ -161,7 +182,7 @@
                                                                   [title]="'Select Territory'"
                                                                   [first_value]="'Select Territory'"
                                                                   (onValueChanged)="territoryChanged($event)"></territory-select>
-                                                <small *ngIf="errors['hq_brick_id']" class="text-danger text-center">
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
                                                     <span *ngIf="hq_territory_id > 0"></span>
                                                     <span *ngIf="hq_territory_id == 0 || hq_territory_id == null">
                                                         {{ errors.hq_brick_id}}
@@ -179,7 +200,7 @@
                                                               [title]="'Select Brick'"
                                                               [first_value]="'Select Brick'"
                                                               (onValueChanged)="brickChanged($event)"></brick-select>
-                                                <small *ngIf="errors['hq_brick_id']" class="text-danger text-center">
+                                                <small *ngIf="errors?.hq_brick_id" class="text-danger text-center">
                                                     {{ errors.hq_brick_id}}
                                                 </small>
                                             </div>
@@ -199,7 +220,7 @@
                                         <label class="control-label">Line</label>
                                         <div class="">
                                             <input formControlName="line" class="form-control" type="text">
-                                            <small *ngIf="errors['address'] && errors['address']['line']" class="text-danger text-center">
+                                            <small *ngIf="errors?.address?.line" class="text-danger text-center">
                                                 {{ errors?.address?.line}}
                                             </small>
                                         </div>
@@ -211,7 +232,7 @@
                                         <label class="control-label">Landmark</label>
                                         <div class="">
                                             <input formControlName="landmark" class="form-control" type="text">
-                                            <small *ngIf="errors['address'] && errors['address']['landmark']" class="text-danger text-center">
+                                            <small *ngIf="errors?.address?.landmark" class="text-danger text-center">
                                                 {{ errors?.address?.landmark}}
                                             </small>
                                         </div>
@@ -224,7 +245,7 @@
                                             <label class="control-label">Area</label>
                                             <div class="">
                                                 <input formControlName="area_str" class="form-control" type="text">
-                                                <small *ngIf="errors['address'] && errors['address']['area_str']"
+                                                <small *ngIf="errors?.address?.area_str"
                                                        class="text-danger text-center">
                                                     {{ errors?.address?.area_str}}
                                                 </small>
@@ -274,7 +295,7 @@
                                             <label class="control-label">State</label>
                                             <div class="">
                                                 <input formControlName="state_str" class="form-control" type="text">
-                                                <small *ngIf="errors['address'] && errors['address']['state_str']"
+                                                <small *ngIf="errors?.address?.state_str"
                                                        class="text-danger text-center">
                                                     {{ errors?.address?.state_str}}
                                                 </small>
@@ -284,7 +305,7 @@
                                             <label class="control-label">Country</label>
                                             <div class="">
                                                 <input formControlName="country_str" class="form-control" type="text">
-                                                <small *ngIf="errors['address'] && errors['address']['country_str']"
+                                                <small *ngIf="errors?.address?.country_str"
                                                        class="text-danger text-center">
                                                     {{ errors?.address?.country_str}}
                                                 </small>
