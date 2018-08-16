@@ -18,6 +18,7 @@ export class Customer extends Model {
   code: number;
   email: string;
   mobile: string;
+  classification: string;
   customer_type_id: number;
   customer_type: CustomerType;
   grade_id: number;
@@ -80,6 +81,7 @@ export class Customer extends Model {
     this.owner_name = info.owner_name;
     this.mobile = info.mobile;
     this.email = info.email;
+    this.classification = info.classification;
     this.customer_type = info.customer_type;
     this.customer_type_id = info.customer_type_id;
     this.grade_id = info.grade_id;
