@@ -12,11 +12,13 @@ export class Report extends Model {
     order: Order;
     customer_id: number;
     mobile: number;
+    classification: string;
 
     constructor(info: any) {
         super(info.id);
         this.customer_id = info.customer_id;
         this.mobile = info.mobile;
+        this.classification = info.classification;
         if (info.visit)
             this.visit = new Visit(info.visit);
 
