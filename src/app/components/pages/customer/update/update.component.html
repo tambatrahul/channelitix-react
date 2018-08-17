@@ -79,10 +79,10 @@
                                       <!-- Mobile -->
                                       <label class="control-label">Classification</label>
                                       <div class="">
-                                        <select class="form-control"
-                                                (change)="classificationChanged($event.target.value)">
-                                          <option value="core">Core</option>
-                                          <option value="super_core">Super Core</option>
+                                        <select class="form-control" formControlName="classification">
+                                          <option *ngFor="let classification of classifications" [ngValue]="classification.key">
+                                            {{ classification.value }}
+                                          </option>
                                         </select>
                                         <small *ngIf="errors?.classification" class="text-danger text-center">
                                           {{ errors.classification}}

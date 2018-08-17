@@ -33,6 +33,8 @@ export class UpdateCustomerComponent extends FormComponent {
   public hq_brick_id: number = 0;
   public classification: string;
 
+  classifications = [{'key': 'core', 'value': 'Core'}, {'key': 'super_core', 'value': 'Super Core'}];
+
   /**
    * customer form
    *
@@ -228,14 +230,5 @@ export class UpdateCustomerComponent extends FormComponent {
   brickChanged(hq_brick_id) {
     this.hq_brick_id = hq_brick_id;
     this.form.patchValue({hq_brick_id: hq_brick_id});
-  }
-
-  /**
-   * classification changed
-   */
-  classificationChanged(classification) {
-    this.classification = classification;
-    this.form.patchValue({classification: classification});
-    console.log(this.form.value)
   }
 }

@@ -1,249 +1,268 @@
 <div class="box-widget widget-module no-border visit-component" #loading_box>
-    <div class="widget-head clearfix">
-        <span class="h-icon"><i class="fa fa-bars"></i></span>
-        <h4>Report for {{ _report_date }}</h4>
-    </div>
-    <div class="widget-container report-table" style="border-top: 1px solid #eee;" #loading_box>
-        <div class="widget-block reporting" style="padding: 0;">
-            <div class="row">
-                <div class="col-xs-12 col-md-4" style="">
-                    <div class="box-widget widget-module">
-                        <div class="widget-head clearfix" *ngIf="reporting_status != 'closed'">
-                            <h4>
-                                Visited Customers
-                                <button class="btn btn-primary btn-xs" (click)="addMoreCustomer($event)">
-                                    Add More
-                                </button>
-                            </h4>
-                        </div>
-                        <div class="widget-container report-table" style="border-top: 1px solid #eee;">
-                            <div class="widget-block" style="padding: 0;">
-                                <div class="w-contact-widget">
-                                    <div class="w-contact-list">
-                                        <div class="w-contact-list-item"
-                                             [ngClass]="{'active': cus == selected_customer, 'invalid': cus.error}"
-                                             *ngFor="let cus of data" (click)="selectCustomer(cus)">
-                                            <div class="w-contact-thumbnail">
-                                                <a><img src="/assets/images/avatar/manager1.png"></a>
-                                            </div>
-                                            <div class="w-contact-info">
-                                                <h4><a>{{ cus.customer.firm_name }} ({{ cus.customer.grade.name }})</a>
-                                                </h4>
-                                                <h6><a>Type: {{ cus.customer.customer_type.name }}</a></h6>
-                                                <h6><a>Brick: {{ cus.customer.hq_brick.name }}</a></h6>
-                                            </div>
-                                            <div class="w-contact-action">
-                                                <a *ngIf="cus.order.total_amount > 0">
-                                                    <label class="label label-danger">
-                                                        {{ cus.order.total_amount }}
-                                                    </label>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-8" *ngIf="selected_customer" style="padding-left: 0;">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6" style="padding-right: 0; padding-left: 0;">
-                            <div class="row" style="padding-left: 20px;">
-                                <div class="col-xs-4">
-                                    <h4>Mobile No.</h4>
-                                </div>
-                                <div class="col-xs-8">
-                                    <div *ngIf="editable == 'closed'">
-                                        <input class="form-control" placeholder="Mobile Number" style="width: 100%"
-                                               [(ngModel)]="selected_customer.customer.mobile" readonly/>
-                                    </div>
-                                    <div *ngIf="editable == 'open'">
-                                        <input class="form-control" placeholder="Mobile Number" style="width: 100%"
-                                               [(ngModel)]="selected_customer.customer.mobile"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="box-widget widget-module inputs">
-                                <div class="widget-head clearfix">
-                                    <h4>
-                                        Inputs
-                                    </h4>
-                                    <strong class="pull-right" style="padding: 18px;">
-                                        {{ selected_customer.visit.total_inputs }}
-                                    </strong>
-                                </div>
-                                <div class="widget-container report-table" style="border-top: 1px solid #eee;">
-                                    <div class="widget-block" style="padding: 0;">
-                                        <div class="w-contact-widget">
-                                            <div class="w-contact-list">
-                                                <div class="w-contact-list-item"
-                                                     *ngFor="let input of selected_customer.visit.inputs">
-                                                    <div class="w-contact-info">
-                                                        <h4><a>{{ input.name }}</a></h4>
-                                                    </div>
-                                                    <div class="w-contact-action">
-                                                        <div *ngIf="editable == 'closed'">
-                                                            {{ input.value }}
-                                                        </div>
-                                                        <div *ngIf="editable == 'open'">
-                                                            <input class="form-control" type="number" placeholder="0"
-                                                                   [(ngModel)]="input.value" (change)="resetSave()"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6" style="padding-left: 0;">
-                            <div class="box-widget widget-module order">
-                                <div class="widget-head clearfix">
-                                    <h4>Order</h4>
-                                    <strong class="pull-right" style="padding: 18px;">
-                                        <i class="fa fa-rupee"></i> {{ selected_customer.order.total_amount }}
-                                    </strong>
-                                </div>
-                                <div class="widget-container report-table" style="border-top: 1px solid #eee;">
-                                    <div class="widget-block" style="padding: 0;">
-                                        <div class="w-contact-widget">
-                                            <div class="w-contact-list">
-                                                <div class="w-contact-list-item"
-                                                     [ngClass]="{invalid: selected_customer.error}"
-                                                     *ngIf="selected_customer.visit.customer.customer_type_id > 2">
-                                                    <div class="w-contact-info">
-                                                        <h4 *ngIf="editable == 'open'">
-                                                            <a>
-                                                                <customer-select
-                                                                        [title]="environment.projectName + ' Products Delivered By *'"
-                                                                        [value]="selected_customer.order.delivered_by"
-                                                                        (onValueChanged)="setDeliveredBy($event)"
-                                                                        [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
-                                                                        [customer_type_id]="[1,2]"
-                                                                        [synergy]="''"></customer-select>
-                                                                <small *ngIf="selected_customer?.error"
-                                                                       class="text-danger text-center">
-                                                                    * required
-                                                                </small>
-                                                            </a>
-                                                        </h4>
-                                                        <h4 *ngIf="editable == 'open' && selected_customer.order.isSynergy">
-                                                            <a>
-                                                                <customer-select
-                                                                        [title]="'Synergy Products Delivered By *'"
-                                                                        [value]="selected_customer.order.delivered_by_synergy"
-                                                                        (onValueChanged)="setSynergyDeliveredBy($event)"
-                                                                        [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
-                                                                        [customer_type_id]="[1,2]"
-                                                                        [synergy]="1"></customer-select>
-                                                                <small *ngIf="selected_customer?.error"
-                                                                       class="text-danger text-center">
-                                                                    * required
-                                                                </small>
-                                                            </a>
-                                                        </h4>
-                                                        <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
-                                                            <a>
-                                                                <strong>{{ environment.projectName }} Products Delivered
-                                                                    By: </strong>{{
-                                                                selected_customer.order?.delivered_by_user?.firm_name}}
-                                                            </a>
-                                                        </h4>
-                                                        <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_synergy_user">
-                                                            <a>
-                                                                <strong>Abbott Products Delivered By: </strong>{{
-                                                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                                <div class="w-contact-list-item"
-                                                     [ngClass]="{invalid: selected_customer.error}"
-                                                     *ngIf="selected_customer.visit.customer.customer_type_id == 2">
-                                                    <div class="w-contact-info">
-                                                        <h4 *ngIf="editable == 'open'">
-                                                            <a>
-                                                                <customer-select [title]="'Delivered By'"
-                                                                                 [value]="selected_customer.order.delivered_by"
-                                                                                 (onValueChanged)="setDeliveredBy($event)"
-                                                                                 [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
-                                                                                 [customer_type_id]="[1]"
-                                                                                 [synergy]="''"></customer-select>
-                                                                <small *ngIf="selected_customer?.error"
-                                                                       class="text-danger text-center">
-                                                                    * required
-                                                                </small>
-                                                            </a>
-                                                        </h4>
-                                                        <h4 *ngIf="editable == 'open' && selected_customer.order.isSynergy">
-                                                            <a>
-                                                                <customer-select
-                                                                        [title]="'Synergy Products Delivered By *'"
-                                                                        [value]="selected_customer.order.delivered_by_synergy"
-                                                                        (onValueChanged)="setSynergyDeliveredBy($event)"
-                                                                        [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
-                                                                        [customer_type_id]="[1]"
-                                                                        [synergy]="1"></customer-select>
-                                                                <small *ngIf="selected_customer?.error"
-                                                                       class="text-danger text-center">
-                                                                    * required
-                                                                </small>
-                                                            </a>
-                                                        </h4>
-                                                        <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
-                                                            <a>
-                                                                <strong>Delivered By: </strong>{{
-                                                                selected_customer.order?.delivered_by_user?.firm_name}}
-                                                            </a>
-                                                        </h4>
-                                                        <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_synergy_user">
-                                                            <a>
-                                                                <strong>Abbott Products Delivered By: </strong>{{
-                                                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                                <div class="w-contact-list-item"
-                                                     *ngFor="let item of selected_customer.order.order_items">
-                                                    <div class="w-contact-thumbnail">
-                                                        <a><img src="/assets/images/capsule.png"></a>
-                                                    </div>
-                                                    <div class="w-contact-info">
-                                                        <h4><a>{{ item.product.name }}</a></h4>
-                                                    </div>
-                                                    <div class="w-contact-action">
-                                                        <div *ngIf="editable == 'closed'">
-                                                            {{ item.quantity }}
-                                                        </div>
-                                                        <div *ngIf="editable == 'open'">
-                                                            <input class="form-control" type="number" placeholder="0"
-                                                                   [(ngModel)]="item.quantity" (change)="resetSave()"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="widget-head clearfix">
+    <span class="h-icon"><i class="fa fa-bars"></i></span>
+    <h4>Report for {{ _report_date }}</h4>
+  </div>
+  <div class="widget-container report-table" style="border-top: 1px solid #eee;" #loading_box>
+    <div class="widget-block reporting" style="padding: 0;">
+      <div class="row">
+        <div class="col-xs-12 col-md-4" style="">
+          <div class="box-widget widget-module">
+            <div class="widget-head clearfix" *ngIf="reporting_status != 'closed'">
+              <h4>
+                Visited Customers
+                <button class="btn btn-primary btn-xs" (click)="addMoreCustomer($event)">
+                  Add More
+                </button>
+              </h4>
             </div>
+            <div class="widget-container report-table" style="border-top: 1px solid #eee;">
+              <div class="widget-block" style="padding: 0;">
+                <div class="w-contact-widget">
+                  <div class="w-contact-list">
+                    <div class="w-contact-list-item"
+                         [ngClass]="{'active': cus == selected_customer, 'invalid': cus.error}"
+                         *ngFor="let cus of data" (click)="selectCustomer(cus)">
+                      <div class="w-contact-thumbnail">
+                        <a><img src="/assets/images/avatar/manager1.png"></a>
+                      </div>
+                      <div class="w-contact-info">
+                        <h4><a>{{ cus.customer.firm_name }} ({{ cus.customer.grade.name }})</a>
+                        </h4>
+                        <h6><a>Type: {{ cus.customer.customer_type.name }}</a></h6>
+                        <h6><a>Brick: {{ cus.customer.hq_brick.name }}</a></h6>
+                      </div>
+                      <div class="w-contact-action">
+                        <a *ngIf="cus.order.total_amount > 0">
+                          <label class="label label-danger">
+                            {{ cus.order.total_amount }}
+                          </label>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class=" widget-block clearfix">
-            <div *ngIf="editable == 'open'">
-                <button class="btn btn-success pull-right" (click)="submit()" *ngIf="saved">Submit</button>
-                <button class="btn btn-primary pull-right" (click)="save()" *ngIf="!saved">Save</button>
-                <span *ngIf="saved" class="text-info pull-right" style="padding: 10px;">
+        <div class="col-xs-12 col-md-8" *ngIf="selected_customer" style="padding-left: 0;">
+          <div class="row">
+            <div class="col-xs-12 col-md-6" style="padding-right: 0; padding-left: 0;">
+              <div class="row" style="padding-left: 20px;">
+                <div class="col-xs-4">
+                  <h4>Mobile No.</h4>
+                </div>
+                <div class="col-xs-8">
+                  <div *ngIf="editable == 'closed'">
+                    <input class="form-control" placeholder="Mobile Number" style="width: 100%"
+                           [(ngModel)]="selected_customer.customer.mobile" readonly/>
+                  </div>
+                  <div *ngIf="editable == 'open'">
+                    <input class="form-control" placeholder="Mobile Number" style="width: 100%"
+                           [(ngModel)]="selected_customer.customer.mobile"/>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row" style="padding-left: 20px;">
+                <div class="col-xs-4">
+                  <h4>Classification</h4>
+                </div>
+                <div class="col-xs-8">
+                  <div *ngIf="editable == 'closed'">
+                    <input class="form-control" placeholder="Classfication" style="width: 100%"
+                           [(ngModel)]="selected_customer.customer.classification" readonly/>
+                  </div>
+                  <div *ngIf="editable == 'open'">
+                    <select class="form-control" [(ngModel)]="selected_customer.customer.classification">
+                      <option *ngFor="let classification of classifications" [ngValue]="classification.key">
+                        {{ classification.value }}
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+              <div class="box-widget widget-module inputs">
+                <div class="widget-head clearfix">
+                  <h4>
+                    Inputs
+                  </h4>
+                  <strong class="pull-right" style="padding: 18px;">
+                    {{ selected_customer.visit.total_inputs }}
+                  </strong>
+                </div>
+                <div class="widget-container report-table" style="border-top: 1px solid #eee;">
+                  <div class="widget-block" style="padding: 0;">
+                    <div class="w-contact-widget">
+                      <div class="w-contact-list">
+                        <div class="w-contact-list-item"
+                             *ngFor="let input of selected_customer.visit.inputs">
+                          <div class="w-contact-info">
+                            <h4><a>{{ input.name }}</a></h4>
+                          </div>
+                          <div class="w-contact-action">
+                            <div *ngIf="editable == 'closed'">
+                              {{ input.value }}
+                            </div>
+                            <div *ngIf="editable == 'open'">
+                              <input class="form-control" type="number" placeholder="0"
+                                     [(ngModel)]="input.value" (change)="resetSave()"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0;">
+              <div class="box-widget widget-module order">
+                <div class="widget-head clearfix">
+                  <h4>Order</h4>
+                  <strong class="pull-right" style="padding: 18px;">
+                    <i class="fa fa-rupee"></i> {{ selected_customer.order.total_amount }}
+                  </strong>
+                </div>
+                <div class="widget-container report-table" style="border-top: 1px solid #eee;">
+                  <div class="widget-block" style="padding: 0;">
+                    <div class="w-contact-widget">
+                      <div class="w-contact-list">
+                        <div class="w-contact-list-item"
+                             [ngClass]="{invalid: selected_customer.error}"
+                             *ngIf="selected_customer.visit.customer.customer_type_id > 2">
+                          <div class="w-contact-info">
+                            <h4 *ngIf="editable == 'open'">
+                              <a>
+                                <customer-select
+                                  [title]="environment.projectName + ' Products Delivered By *'"
+                                  [value]="selected_customer.order.delivered_by"
+                                  (onValueChanged)="setDeliveredBy($event)"
+                                  [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
+                                  [customer_type_id]="[1,2]"
+                                  [synergy]="''"></customer-select>
+                                <small *ngIf="selected_customer?.error"
+                                       class="text-danger text-center">
+                                  * required
+                                </small>
+                              </a>
+                            </h4>
+                            <h4 *ngIf="editable == 'open' && selected_customer.order.isSynergy">
+                              <a>
+                                <customer-select
+                                  [title]="'Synergy Products Delivered By *'"
+                                  [value]="selected_customer.order.delivered_by_synergy"
+                                  (onValueChanged)="setSynergyDeliveredBy($event)"
+                                  [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
+                                  [customer_type_id]="[1,2]"
+                                  [synergy]="1"></customer-select>
+                                <small *ngIf="selected_customer?.error"
+                                       class="text-danger text-center">
+                                  * required
+                                </small>
+                              </a>
+                            </h4>
+                            <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
+                              <a>
+                                <strong>{{ environment.projectName }} Products Delivered
+                                  By: </strong>{{
+                                selected_customer.order?.delivered_by_user?.firm_name}}
+                              </a>
+                            </h4>
+                            <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_synergy_user">
+                              <a>
+                                <strong>Abbott Products Delivered By: </strong>{{
+                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
+                              </a>
+                            </h4>
+                          </div>
+                        </div>
+                        <div class="w-contact-list-item"
+                             [ngClass]="{invalid: selected_customer.error}"
+                             *ngIf="selected_customer.visit.customer.customer_type_id == 2">
+                          <div class="w-contact-info">
+                            <h4 *ngIf="editable == 'open'">
+                              <a>
+                                <customer-select [title]="'Delivered By'"
+                                                 [value]="selected_customer.order.delivered_by"
+                                                 (onValueChanged)="setDeliveredBy($event)"
+                                                 [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
+                                                 [customer_type_id]="[1]"
+                                                 [synergy]="''"></customer-select>
+                                <small *ngIf="selected_customer?.error"
+                                       class="text-danger text-center">
+                                  * required
+                                </small>
+                              </a>
+                            </h4>
+                            <h4 *ngIf="editable == 'open' && selected_customer.order.isSynergy">
+                              <a>
+                                <customer-select
+                                  [title]="'Synergy Products Delivered By *'"
+                                  [value]="selected_customer.order.delivered_by_synergy"
+                                  (onValueChanged)="setSynergyDeliveredBy($event)"
+                                  [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
+                                  [customer_type_id]="[1]"
+                                  [synergy]="1"></customer-select>
+                                <small *ngIf="selected_customer?.error"
+                                       class="text-danger text-center">
+                                  * required
+                                </small>
+                              </a>
+                            </h4>
+                            <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
+                              <a>
+                                <strong>Delivered By: </strong>{{
+                                selected_customer.order?.delivered_by_user?.firm_name}}
+                              </a>
+                            </h4>
+                            <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_synergy_user">
+                              <a>
+                                <strong>Abbott Products Delivered By: </strong>{{
+                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
+                              </a>
+                            </h4>
+                          </div>
+                        </div>
+                        <div class="w-contact-list-item"
+                             *ngFor="let item of selected_customer.order.order_items">
+                          <div class="w-contact-thumbnail">
+                            <a><img src="/assets/images/capsule.png"></a>
+                          </div>
+                          <div class="w-contact-info">
+                            <h4><a>{{ item.product.name }}</a></h4>
+                          </div>
+                          <div class="w-contact-action">
+                            <div *ngIf="editable == 'closed'">
+                              {{ item.quantity }}
+                            </div>
+                            <div *ngIf="editable == 'open'">
+                              <input class="form-control" type="number" placeholder="0"
+                                     [(ngModel)]="item.quantity" (change)="resetSave()"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=" widget-block clearfix">
+      <div *ngIf="editable == 'open'">
+        <button class="btn btn-success pull-right" (click)="submit()" *ngIf="saved">Submit</button>
+        <button class="btn btn-primary pull-right" (click)="save()" *ngIf="!saved">Save</button>
+        <span *ngIf="saved" class="text-info pull-right" style="padding: 10px;">
                     Report is Saved successfully.. Click on Submit to Send Report
                 </span>
-            </div>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+      </div>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
     </div>
+  </div>
 </div>
