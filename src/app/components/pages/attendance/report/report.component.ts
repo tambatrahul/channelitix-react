@@ -342,12 +342,4 @@ export class ReportComponent extends BaseAuthComponent {
   resetSave() {
     this.saved = false;
   }
-
-  /**
-   * classification changed
-   */
-  classificationChanged(classification) {
-    console.log(classification);
-    this.selected_customer.classification = classification;
-  }
 }
