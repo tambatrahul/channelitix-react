@@ -233,7 +233,7 @@ export class SecondarySaleCreateComponent extends ListComponent {
   get isEditable(): boolean {
     if (this.current_month == 0)
       return (this._month == 11) && (this.year >= this.current_year - 1);
-    return (this._month >= this.current_month - 1) && (this.year >= this.current_year);
+    return (this._month >= this.current_month - 9) && (this.year >= this.current_year);
   }
 
   /**

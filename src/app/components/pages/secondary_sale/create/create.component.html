@@ -117,11 +117,12 @@
                                         </span>
                   </td>
                   <td [ngClass]="{'editing': editing, 'empty': ss.secondary_sale <= 0}">
-                                        <span *ngIf="editing">
-                                            <input class="form-control" [(ngModel)]="ss.secondary_sale" type="number"
-                                                   value="0"/>
-                                        </span>
-                    <span *ngIf="!editing">
+                                        <!--<span *ngIf="editing">-->
+                                            <!--<input class="form-control" [(ngModel)]="ss.secondary_sale" type="number"-->
+                                                   <!--value="0"/>-->
+                                        <!--</span>-->
+                    <!--<span *ngIf="!editing">-->
+                    <span>
                                             {{ ss.secondary_sale | number : '1.2-2' }}
                                         </span>
                   </td>
