@@ -8,6 +8,7 @@ import {Product} from "../../../../models/order/product";
 import {ActivatedRoute} from "@angular/router";
 import * as moment from "moment";
 import {PrimarySale} from "../../../../models/sale/primary_sale";
+
 declare let jQuery: any;
 
 @Component({
@@ -189,7 +190,8 @@ export class SecondarySaleCreateComponent extends ListComponent {
         secondary_sale: ss.secondary_sale,
         adjustment: ss.adjustment,
         primary_qty: ss.primary_qty,
-        primary_sale: ss.primary_sale
+        primary_sale: ss.primary_sale,
+        unit_price: ss.unit_price
       }));
 
     }
