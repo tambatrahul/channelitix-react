@@ -23,6 +23,7 @@
                 <th>Product</th>
                 <th>Target (<i class="fa fa-rupee"></i>)</th>
                 <th>Actual Sale(<i class="fa fa-rupee"></i> )</th>
+                <th>Last year same month actual sale(<i class="fa fa-rupee"></i> )</th>
                 <th>POB (<i class="fa fa-rupee"></i> )</th>
                 <th>% Performance</th>
                 <th>Target(YTD) (<i class="fa fa-rupee"></i>)</th>
@@ -38,6 +39,7 @@
                   </td>
                   <td class="text-right">{{ item.target.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ item.last_year_month_performance.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ item.total_pob.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)
                     }}
@@ -53,6 +55,7 @@
                 <th>Geo Total</th>
                 <th class="text-right">{{ total_geo_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_geo_actual.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total_last_month_geo_actual.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_geo_pob.toFixed(0) | number }}</th>
                 <th class="text-right">{{ (total_geo_target > 0 ? (total_geo_actual / total_geo_target) * 100 : 0).toFixed(2) }}
                 </th>
@@ -65,6 +68,7 @@
                 <th>Total</th>
                 <th class="text-right">{{ total_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_actual.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total_last_year_month_actual.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_pob.toFixed(0) | number }}</th>
                 <th class="text-right">{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}
                 </th>

@@ -22,6 +22,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   till_month_total_target: number = 0;
   total_target: number = 0;
   total_actual: number = 0;
+  total_last_year_month_actual: number = 0;
   till_month_total_sale: number = 0;
   total_pob: number = 0;
 
@@ -32,6 +33,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
    */
   till_month_geo_total_target: number = 0;
   total_geo_target: number = 0;
+  total_last_month_geo_actual: number = 0;
   total_geo_actual: number = 0;
   till_month_total_sale_geo: number = 0;
   total_geo_pob: number = 0;
@@ -131,6 +133,8 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     });
 
     self.total_actual = 0;
+    self.total_last_year_month_actual = 0;
+    self.total_last_month_geo_actual = 0;
     self.total_geo_actual = 0;
     // set performance values
     performance.secondary_sales.map(function (ss) {
@@ -141,6 +145,17 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
 
           if (ss.brand_id != 10)
             self.total_geo_actual += ss.total_amount;
+        }
+      })
+    });
+    performance.last_year_this_month_secondary_sales.map(function (ss) {
+      products.map(function (product) {
+        if (product.brand_id == ss.brand_id) {
+          product.last_year_month_performance = ss.total_amount;
+          self.total_last_year_month_actual += ss.total_amount;
+
+          if (ss.brand_id != 10)
+            self.total_last_month_geo_actual += ss.total_amount;
         }
       })
     });

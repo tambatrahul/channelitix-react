@@ -15,6 +15,7 @@ export class Product extends Model {
   // for internal use only
   target: number = 0;
   performance: number = 0;
+  last_year_month_performance: number = 0;
   invoice_detail: InvoiceDetail;
   amount: number = 0;
   primary_sale_amount: number = 0;
