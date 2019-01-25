@@ -46,7 +46,8 @@
                   </td>
                   <td class="text-right">{{ item.total_target.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ item.total_primary_sale.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (item.total_target > 0 ? (item.total_primary_sale / item.total_target) * 100 : 0).toFixed(2)
+                  <td class="text-right">{{ (item.total_target > 0 ? (item.total_primary_sale / item.total_target) * 100
+                    : 0).toFixed(2)
                     }}
                   </td>
                 </tr>
@@ -57,11 +58,13 @@
                 <th class="text-right">{{ total_geo_actual.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_last_month_geo_actual.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_geo_pob.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (total_geo_target > 0 ? (total_geo_actual / total_geo_target) * 100 : 0).toFixed(2) }}
+                <th class="text-right">{{ (total_geo_target > 0 ? (total_geo_actual / total_geo_target) * 100 :
+                  0).toFixed(2) }}
                 </th>
                 <th class="text-right">{{ till_month_geo_total_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ till_month_total_sale_geo?.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (till_month_geo_total_target > 0 ? (till_month_total_sale_geo / till_month_geo_total_target) * 100 : 0).toFixed(2) }}
+                <th class="text-right">{{ (till_month_geo_total_target > 0 ? (till_month_total_sale_geo /
+                  till_month_geo_total_target) * 100 : 0).toFixed(2) }}
                 </th>
               </tr>
               <tr>
@@ -74,7 +77,8 @@
                 </th>
                 <th class="text-right">{{ till_month_total_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ till_month_total_sale?.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (till_month_total_target > 0 ? (till_month_total_sale / till_month_total_target) * 100 : 0).toFixed(2) }}
+                <th class="text-right">{{ (till_month_total_target > 0 ? (till_month_total_sale /
+                  till_month_total_target) * 100 : 0).toFixed(2) }}
                 </th>
               </tr>
               </tbody>
