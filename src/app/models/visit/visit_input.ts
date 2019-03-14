@@ -4,6 +4,8 @@ export class VisitInput extends Model {
 
     name: string;
     value: number = 0;
+    qty : number = 0;
+    input_id : number = 0;
 
     // for internal use only
     answer_id: number;

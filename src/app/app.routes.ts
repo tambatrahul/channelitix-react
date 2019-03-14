@@ -75,6 +75,7 @@ import {ManagerSyncOrderComponent} from "./components/pages/order/manager_sync_i
 import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_hq_wise/stockist_wise/product/stockist_product_wise.component";
 import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
 import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
+import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -145,6 +146,10 @@ export const routes: Routes = [
           {
             path: 'managers',
             component: ManagerVisitComponent
+          },
+          {
+            path: 'user_input',
+            component: UserInputComponent
           },
           {
             path: 'input_utilization',

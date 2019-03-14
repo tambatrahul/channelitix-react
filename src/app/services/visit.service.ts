@@ -6,6 +6,7 @@ import {BaseService} from "./base.service";
 import {Observable} from "rxjs";
 import {Result} from "../models/result";
 import {Visit} from "../models/visit/visit";
+import {UserInputAck} from "../models/visit/user_input_ack";
 
 @Injectable()
 export class VisitService extends BaseService {
@@ -195,4 +196,13 @@ export class VisitService extends BaseService {
         return this.get(url);
     }
 
+  /**
+   * Create Input
+   *
+   * @param {UserInputAck[]} data
+   * @returns {Observable<Result>}
+   */
+    create_input(data: UserInputAck[]): Observable<Result> {
+        return this.post(this.getBaseUrl() + '/user_input', {'user_input_acks': data})
+    }
 }

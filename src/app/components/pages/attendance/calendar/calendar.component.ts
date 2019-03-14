@@ -113,10 +113,11 @@ export class CalendarAttendanceComponent extends ListComponent {
     }
 
     // get joining date
-    let joining_month = moment(this._service.user.joining_date).format('M');
+    let joining_month_year = moment(this._service.user.joining_date).format('M-Y');
+    let current_month_year = moment(new Date()).format('M-Y');
 
     // Check If Current Month
-    if (this.month == moment().month() && parseInt(joining_month) != this.month + 1) {
+    if (this.month == moment().month() && joining_month_year != current_month_year) {
       // Get Last date Reporting
       let last_reported_date = [];
       for (let at of skeleton) {

@@ -1,128 +1,136 @@
 <div class="container-fluid attendances">
 
-    <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Daily Work Reporting
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-            </div>
-        </div>
-    </div>
-    <!-- Page Breadcrumb -->
-
-    <!-- Attendance Monthly body -->
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
     <div class="row">
-
-        <!-- Calendar view -->
-        <div class="col-xs-12 col-md-6" #loading_box>
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <month-picker [month]="month" [year]="year"
-                                  (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
-                </div>
-            </div>
-
-            <attendance-calendar-select [month]="month" [year]="year" [attendances]="attendances"
-                                        [holidays]="holidays" (onAttendanceSelected)="onAttendanceSelected($event)">
-
-            </attendance-calendar-select>
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Daily Work Reporting
+            </h2>
+          </div>
         </div>
-        <!-- Calendar view -->
+      </div>
+      <div class="col-md-5">
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
 
-        <!-- Create Attendance View -->
-        <div class="col-xs-12 col-md-6" *ngIf="attendance && !today && previousClosed">
-            <div *ngIf="attendance.id">
-                <update-attendance [attendance]="attendance" (viewReportEvent)="viewReport($event)"
-                                   (attendanceCreated)="attendanceCreated($event)"></update-attendance>
-            </div>
-            <div *ngIf="!attendance.id">
+  <!-- Attendance Monthly body -->
+  <div class="row">
 
-                <create-attendance [attendance]="attendance"
-                                   (attendanceCreated)="attendanceCreated($event)"></create-attendance>
-
-            </div>
+    <!-- Calendar view -->
+    <div class="col-xs-12 col-md-6" #loading_box>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <month-picker [month]="month" [year]="year"
+                        (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
-        <div class="col-xs-12 col-md-6" *ngIf="attendance && today">
-            <div class="row">
-                <div class="col-xs-12">
+      </div>
+
+      <attendance-calendar-select [month]="month" [year]="year" [attendances]="attendances"
+                                  [holidays]="holidays" (onAttendanceSelected)="onAttendanceSelected($event)">
+
+      </attendance-calendar-select>
+    </div>
+    <!-- Calendar view -->
+
+    <!-- Create Attendance View -->
+    <div class="col-xs-12 col-md-6" *ngIf="attendance && !today && previousClosed && tourProgramCompleted">
+      <div *ngIf="attendance.id">
+        <update-attendance [attendance]="attendance" (viewReportEvent)="viewReport($event)"
+                           (attendanceCreated)="attendanceCreated($event)"></update-attendance>
+      </div>
+      <div *ngIf="!attendance.id">
+
+        <create-attendance [attendance]="attendance"
+                           (attendanceCreated)="attendanceCreated($event)"></create-attendance>
+
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6" *ngIf="attendance && today && tourProgramCompleted">
+      <div class="row">
+        <div class="col-xs-12">
                     <span class="alert alert-danger">
                         Cannot report for future date
                     </span>
-                </div>
-            </div>
         </div>
-        <div class="col-xs-12 col-md-6" *ngIf="attendance && !today && !previousClosed">
-            <div class="row">
-                <div class="col-xs-12">
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6" *ngIf="attendance && !today && !previousClosed && tourProgramCompleted">
+      <div class="row">
+        <div class="col-xs-12">
                     <span class="alert alert-danger">
                         Complete Previous Date Report
                     </span>
-                </div>
-            </div>
         </div>
-
-        <div class="col-xs-12 col-md-6" *ngIf="!attendance">
-            <div class="row">
-                <div class="col-xs-12">
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6" *ngIf="attendance && !tourProgramCompleted">
+      <div class="row">
+        <div class="col-xs-12">
+                    <span class="alert alert-danger">
+                        Complete Tour Program
+                    </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6" *ngIf="!attendance">
+      <div class="row">
+        <div class="col-xs-12">
                     <span class="alert alert-info">
                     Click on any date to mark for reporting
                     </span>
-                </div>
-            </div>
         </div>
-        <!-- ./Create Attendance View -->
+      </div>
     </div>
-    <!-- ./Attendance Monthly body -->
+    <!-- ./Create Attendance View -->
+  </div>
+  <!-- ./Attendance Monthly body -->
 </div>
 
 <div class="modal fade" #customer_selection>
-    <div class="modal-dialog modal-md" *ngIf="attendance?.id">
-        <div class="modal-content">
-            <div class="modal-body" style="padding: 0;">
-                <div class="row">
-                    <!-- Report section -->
-                    <div class="col-xs-12">
-                        <div>
-                            <customer-selection [user_ids]="attendance.working_with_ids"
-                                                [attendance_date]="attendance.date"
-                                                (customers_selected)="onCustomerSelection($event)"></customer-selection>
-                        </div>
-                    </div>
-                    <!-- ./Report section -->
-                </div>
+  <div class="modal-dialog modal-md" *ngIf="attendance?.id">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 0;">
+        <div class="row">
+          <!-- Report section -->
+          <div class="col-xs-12">
+            <div>
+              <customer-selection [user_ids]="attendance.working_with_ids"
+                                  [attendance_date]="attendance.date"
+                                  (customers_selected)="onCustomerSelection($event)"></customer-selection>
             </div>
-            <div class="modal-footer" style="padding: 0;">
-            </div>
+          </div>
+          <!-- ./Report section -->
         </div>
+      </div>
+      <div class="modal-footer" style="padding: 0;">
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" #attendance_reporting>
-    <div class="modal-dialog modal-lg" *ngIf="attendance?.id">
-        <div class="modal-content">
-            <div class="modal-body" style="padding: 0;">
-                <div class="row">
-                    <!-- Report section -->
-                    <div class="col-xs-12">
-                        <div>
-                            <report-component [attendance]="attendance" [refresh]="refresh"
-                                              [editable]="attendance.reporting_status"
-                                              (attendance_confirmed)="reportSubmitted($event)"
-                                              (add_more_customer)="addMoreCustomer($event)"></report-component>
-                        </div>
-                    </div>
-                    <!-- ./Report section -->
-                </div>
+  <div class="modal-dialog modal-lg" *ngIf="attendance?.id">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 0;">
+        <div class="row">
+          <!-- Report section -->
+          <div class="col-xs-12">
+            <div>
+              <report-component [attendance]="attendance" [refresh]="refresh"
+                                [editable]="attendance.reporting_status"
+                                (attendance_confirmed)="reportSubmitted($event)"
+                                (add_more_customer)="addMoreCustomer($event)"></report-component>
             </div>
-            <div class="modal-footer" style="padding: 0;">
-            </div>
+          </div>
+          <!-- ./Report section -->
         </div>
+      </div>
+      <div class="modal-footer" style="padding: 0;">
+      </div>
     </div>
+  </div>
 </div>

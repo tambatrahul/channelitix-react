@@ -193,6 +193,8 @@ import {MilestoneSaleTrackingGraphComponent} from "./components/pages/dashboard/
 import {SkinliteSaleAnalysisGraphComponent} from "./components/pages/dashboard/skinlite_sales_analysis_graph/skinlite_sales_analysis_graph.component";
 import {BrandService} from "./services/brand.service";
 import {BrandSelectComponent} from "./components/form_elements/order/brand_select/brand-select.component";
+import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
+import {InputSelectComponent} from "./components/form_elements/visit/input_select/input-select.component";
 
 enableProdMode();
 
@@ -275,6 +277,7 @@ enableProdMode();
     ProductWiseSaleForSKComponent,
     CustomerMissingComponent,
     LeaveReportComponent,
+    UserInputComponent,
     DeviationReportComponent,
     HqWiseInputUtilizationReportComponent,
     InputUtilizationReportComponent,
@@ -364,6 +367,7 @@ enableProdMode();
     StockistWiseHqComponent,
     MonthWiseReportComponent,
     ManagerSyncOrderComponent,
+    InputSelectComponent,
 
 
     // Abbott Stp Component

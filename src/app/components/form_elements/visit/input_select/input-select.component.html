@@ -1,0 +1,7 @@
+<label *ngIf="title && title.length > 0"><i class="fa fa-spinner fa-spin"></i>{{ title}} </label>
+<select class="form-control" [ngModel]="value" (ngModelChange)="onValueChange($event)">
+  <option selected value="0">{{ first_value }}</option>
+  <option *ngFor="let c of models" [value]="c.id">
+    {{c.name}}
+  </option>
+</select>
