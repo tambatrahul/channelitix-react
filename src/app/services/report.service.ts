@@ -204,7 +204,7 @@ export class ReportService extends BaseService {
     }
 
     // prepare url
-    let url = this.getBaseUrl() + '/performance/'+2019;
+    let url = this.getBaseUrl() + '/performance';
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
