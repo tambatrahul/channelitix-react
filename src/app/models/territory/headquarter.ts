@@ -3,8 +3,8 @@ import {Area} from "./area";
 import {CustomerType} from "../customer/customer_type";
 import {Customer} from "../customer/customer";
 import {User} from "../user/user";
-import {Input} from "../visit/input";
 import {InputAnswer} from "../visit/input_answer";
+import {cookieServiceFactory} from "angular2-cookie/core";
 
 export class Headquarter extends Model {
 
@@ -37,6 +37,7 @@ export class Headquarter extends Model {
   total_customers_ab: number = 0;
   total_net_amount: number = 0;
   hq_area_id: number = 0;
+  customer_type_id: number = 0;
 
   territories_count: number = 0;
   bricks_count: number = 0;
@@ -62,7 +63,23 @@ export class Headquarter extends Model {
   privilege_leave: number = 0;
   total_input_value: number = 0;
 
+  customer_total_visit_count: number = 0;
+  stockist_total_visit_count: number = 0;
+  semi_total_visit_count: number = 0;
+  retailer_total_visit_count: number = 0;
+  hcp_total_visit_count: number = 0;
+  hub_chemist_total_visit_count: number = 0;
+
+  customer_total_count: number = 0;
+  stockist_total_count: number = 0;
+  semi_total_count: number = 0;
+  retailer_total_count: number = 0;
+  hcp_total_count: number = 0;
+  hub_chemist_total_count: number = 0;
+  total_primary: number = 0;
+
   user: User;
+  norm: number = 0;
 
   constructor(info: any) {
     super(info.id);
@@ -364,5 +381,261 @@ export class Headquarter extends Model {
 
   get closing_amount(): number {
     return (this.opening + this.total_net_amount + this.adjustment) - this.secondary_sale;
+  }
+
+  /**
+   * Call Average Greater Than 95% With Norm 25
+   */
+  get callAverageGreaterThan95PercentageWith25() {
+    return this.total_att > 0 ? (this.all_total_visit / this.total_att) >= 23 : false;
+  }
+
+  /**
+   * Call Average Greater Than 95% With Norm 25
+   */
+  get callAverageBetween85To95PercentageWith25() {
+    return this.total_att > 0 ? ((this.all_total_visit / this.total_att) >= 21 && (this.all_total_visit / this.total_att) <= 22 ) : false;
+  }
+
+  /**
+   * Call Average Greater Than 95% With Norm 25
+   */
+  get callAverageLessThan85PercentageWith25() {
+    return this.total_att > 0 ? (this.all_total_visit / this.total_att) < 21 : false;
+  }
+
+  /**
+   * Coverage For Percentage Greater Than
+   */
+  customerCoverageAbove(customer_type_id, percentage) {
+    if (customer_type_id) {
+      if (customer_type_id == 1 && this.stockist_total_visit_count > 0 && this.stockist_total_count > 0)
+        return (this.stockist_total_visit_count / this.stockist_total_count).toFixed(2) >= percentage;
+      else if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0)
+        return (this.semi_total_visit_count / this.semi_total_count).toFixed(2) >= percentage;
+      else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0)
+        return (this.retailer_total_visit_count / this.retailer_total_count).toFixed(2) >= percentage;
+      else if (customer_type_id == 4 && this.hub_chemist_total_visit_count > 0 && this.hub_chemist_total_count > 0)
+        return (this.hub_chemist_total_visit_count / this.hub_chemist_total_count).toFixed(2) >= percentage;
+      else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0)
+        return (this.hcp_total_visit_count / this.hcp_total_count).toFixed(2) >= percentage;
+    } else {
+      return (this.customer_total_visit_count / this.customer_total_count).toFixed(2) >= percentage;
+    }
+  }
+
+  /**
+   * Coverage For Between 85 To 95 Percentage
+   */
+  customerCoverageBetween(customer_type_id, above_percentage, below_percentage) {
+    if (customer_type_id) {
+      if (customer_type_id == 1 && this.stockist_total_visit_count > 0 && this.stockist_total_count > 0) {
+        return (this.stockist_total_visit_count / this.stockist_total_count).toFixed(2) >= above_percentage
+          && (this.stockist_total_visit_count / this.stockist_total_count).toFixed(2) < below_percentage;
+      }
+      else if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0) {
+        return (this.semi_total_visit_count / this.semi_total_count).toFixed(2) >= above_percentage
+          && (this.semi_total_visit_count / this.semi_total_count).toFixed(2) < below_percentage;
+      }
+      else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0) {
+        return (this.retailer_total_visit_count / this.retailer_total_count).toFixed(2) >= above_percentage
+          && (this.retailer_total_visit_count / this.retailer_total_count).toFixed(2) < below_percentage;
+      }
+      else if (customer_type_id == 4 && this.hub_chemist_total_visit_count > 0 && this.hub_chemist_total_count > 0) {
+        return (this.hub_chemist_total_visit_count / this.hub_chemist_total_count).toFixed(2) >= above_percentage
+          && (this.hub_chemist_total_visit_count / this.hub_chemist_total_count).toFixed(2) < below_percentage;
+      }
+      else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0) {
+        return (this.hcp_total_visit_count / this.hcp_total_count).toFixed(2) >= above_percentage
+          && (this.hcp_total_visit_count / this.hcp_total_count).toFixed(2) < below_percentage;
+      }
+    } else {
+      return (this.customer_total_visit_count / this.customer_total_count).toFixed(2) >= above_percentage
+        && (this.customer_total_visit_count / this.customer_total_count).toFixed(2) < below_percentage;
+    }
+  }
+
+  /**
+   * Coverage Below 85 Percentage
+   */
+  customerCoverageBelow(customer_type_id, percentage) {
+    if (customer_type_id) {
+      if (customer_type_id == 1 && this.stockist_total_visit_count > 0 && this.stockist_total_count > 0)
+        return (this.stockist_total_visit_count / this.stockist_total_count).toFixed(2) < percentage;
+      else if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0)
+        return (this.semi_total_visit_count / this.semi_total_count).toFixed(2) < percentage;
+      else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0)
+        return (this.retailer_total_visit_count / this.retailer_total_count).toFixed(2) < percentage;
+      else if (customer_type_id == 4 && this.hub_chemist_total_visit_count > 0 && this.hub_chemist_total_count > 0)
+        return (this.hub_chemist_total_visit_count / this.hub_chemist_total_count).toFixed(2) < percentage;
+      else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0)
+        return (this.hcp_total_visit_count / this.hcp_total_count).toFixed(2) < percentage;
+    } else {
+      return (this.customer_total_visit_count / this.customer_total_count).toFixed(2) < percentage;
+    }
+  }
+
+  /**
+   * Customer Met HQ Count
+   *
+   * @param customer_type_id
+   * @param aboveCount
+   * @returns {boolean}
+   */
+  customerMetAbove(customer_type_id, aboveCount) {
+    if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0 && this.total_att > 0)
+      return ((this.semi_total_visit_count / this.semi_total_count) / this.total_att).toFixed(3) >= aboveCount;
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0 && this.total_att > 0)
+      return ((this.retailer_total_visit_count / this.retailer_total_count) / this.total_att).toFixed(3) >= aboveCount;
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0 && this.total_att > 0)
+      return ((this.hcp_total_visit_count / this.hcp_total_count) / this.total_att).toFixed(3) >= aboveCount;
+  }
+
+  /**
+   * Customer Met Between
+   *
+   * @param customer_type_id
+   * @param aboveCount
+   * @param belowCount
+   * @returns {boolean}
+   */
+  customerMetBetween(customer_type_id, aboveCount, belowCount) {
+    if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0 && this.total_att > 0) {
+      return ((this.semi_total_visit_count / this.semi_total_count) / this.total_att).toFixed(3) >= aboveCount
+        && ((this.semi_total_visit_count / this.semi_total_count) / this.total_att).toFixed(3) < belowCount;
+    }
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0 && this.total_att > 0) {
+      return ((this.retailer_total_visit_count / this.retailer_total_count) / this.total_att).toFixed(3) >= aboveCount
+        && ((this.retailer_total_visit_count / this.retailer_total_count) / this.total_att).toFixed(3) < belowCount;
+    }
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0 && this.total_att > 0) {
+      return ((this.hcp_total_visit_count / this.hcp_total_count) / this.total_att).toFixed(3) >= aboveCount
+        && ((this.hcp_total_visit_count / this.hcp_total_count) / this.total_att).toFixed(3) < belowCount;
+    }
+  }
+
+  /**
+   * Customer Below Count
+   *
+   * @param customer_type_id
+   * @param belowCount
+   * @returns {boolean}
+   */
+  customerMetBelow(customer_type_id, belowCount) {
+    if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0 && this.total_att > 0)
+      return ((this.semi_total_visit_count / this.semi_total_count) / this.total_att).toFixed(3) < belowCount;
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0 && this.total_att > 0)
+      return ((this.retailer_total_visit_count / this.retailer_total_count) / this.total_att).toFixed(3) < belowCount;
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0 && this.total_att > 0)
+      return ((this.hcp_total_visit_count / this.hcp_total_count) / this.total_att).toFixed(3) < belowCount;
+  }
+
+  /**
+   * POB per day Above 95%
+   * @returns {boolean}
+   */
+  get pobPerDayGreaterThan95Percentage() {
+    return this.total_att > 0 ? this.total_pob / this.total_att >= 9500 : false;
+  }
+
+  /**
+   * POB per day Between 85 to 95%
+   * @returns {boolean}
+   */
+  get pobPerDayBetween85To95Percentage() {
+    return this.total_att > 0 ? this.total_pob / this.total_att >= 8500 && this.total_pob / this.total_att < 9500 : false;
+  }
+
+  /**
+   * POB per day below 85%
+   *
+   * @returns {boolean}
+   */
+  get pobPerDayBelow85Percentage() {
+    return this.total_att > 0 ? this.total_pob / this.total_att < 8500 : false;
+  }
+
+  /**
+   * Minimum Productive Call Above 95%
+   * @returns {boolean}
+   */
+  get minimumProductiveCallsAbove() {
+    return this.total_att > 0 ? this.total_order / this.total_att >= 4.75 : false;
+  }
+
+  /**
+   * Minimum Productive call Between
+   * @returns {boolean}
+   */
+  get minimumProductiveCallsBetween() {
+    return this.total_att > 0 ? this.total_order / this.total_att >= 4.25 && this.total_order / this.total_att < 4.75 : false;
+  }
+
+  /**
+   * Minimum Productive Calls Between
+   *
+   * @returns {boolean}
+   */
+  get minimumProductiveCallBelow() {
+    return this.total_att > 0 ? this.total_order / this.total_att < 4.25 : false;
+  }
+
+  /**
+   * Percentage POB To Primary Sale Above
+   * @returns {boolean}
+   */
+  get percentagePOBToPrimarySaleAbove() {
+    return this.total_primary > 0 ? this.total_pob / this.total_primary >= 0.38 : false;
+  }
+
+  /**
+   * Percentage POB To Primary Sale Betwwen
+   * @returns {boolean}
+   */
+  get percentagePOBToPrimarySaleBetween() {
+    return this.total_primary > 0 ? this.total_pob / this.total_primary >= 0.34 && this.total_pob / this.total_primary < 0.38 : false;
+  }
+
+  /**
+   * Percentage POB To Primary Sale Below
+   * @returns {boolean}
+   */
+  get percentagePOBToPrimarySaleBelow() {
+    return this.total_primary > 0 ? this.total_pob / this.total_primary < 0.34 : false;
+  }
+
+  /**
+   * Coverage For Percentage Greater Than Value
+   */
+  customerCoverageValue(customer_type_id) {
+    if (customer_type_id) {
+      if (customer_type_id == 1 && this.stockist_total_visit_count > 0 && this.stockist_total_count > 0)
+        return ((this.stockist_total_visit_count / this.stockist_total_count) * 100).toFixed(2);
+      else if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0)
+        return ((this.semi_total_visit_count / this.semi_total_count) * 100).toFixed(2);
+      else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0)
+        return ((this.retailer_total_visit_count / this.retailer_total_count) * 100).toFixed(2);
+      else if (customer_type_id == 4 && this.hub_chemist_total_visit_count > 0 && this.hub_chemist_total_count > 0)
+        return ((this.hub_chemist_total_visit_count / this.hub_chemist_total_count) * 100).toFixed(2);
+      else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0)
+        return ((this.hcp_total_visit_count / this.hcp_total_count) * 100).toFixed(2);
+    } else {
+      return ((this.customer_total_visit_count / this.customer_total_count) * 100).toFixed(2);
+    }
+  }
+
+  /**
+   * Customer Met HQ Count
+   *
+   * @param customer_type_id
+   * @returns {boolean}
+   */
+  customerMetValue(customer_type_id) {
+    if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.semi_total_count > 0 && this.total_att > 0)
+      return (((this.semi_total_visit_count / this.semi_total_count) / this.total_att) * 10).toFixed(2);
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.retailer_total_count > 0 && this.total_att > 0)
+      return (((this.retailer_total_visit_count / this.retailer_total_count) / this.total_att) * 10).toFixed(2);
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.hcp_total_count > 0 && this.total_att > 0)
+      return (((this.hcp_total_visit_count / this.hcp_total_count) / this.total_att) * 10).toFixed(2);
   }
 }

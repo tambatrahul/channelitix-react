@@ -1,0 +1,80 @@
+<tr class="dark_grey" #loading_box>
+  <th>ZSM</th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+<tr>
+  <td>No Of Field Working Days/Month</td>
+  <td>20</td>
+  <td><a (click)="openAbove95PercentageModal('NoOfFieldWorkingDays')">{{ onRegionFieldWorkGreaterThan95PercentageWithNorm20 }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('NoOfFieldWorkingDays')">{{ onRegionFieldWorkInBetween85To95PercentageWithNorm20 }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('NoOfFieldWorkingDays')">{{ onRegionFieldWorkLessThan85PercentageWithNorm20 }}</a></td>
+</tr>
+<tr>
+  <td>No of CSE's worked with</td>
+  <td>12</td>
+  <td><a (click)="openAbove95PercentageModal('WorkingWith')">{{ onRegionWorkWithGreaterThan95PercentageWithNorm12 }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('WorkingWith')">{{ onRegionWorkWithInBetween85To95PercentageWithNorm12 }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('WorkingWith')">{{ onRegionWorkWithLessThan85PercentageWithNorm12 }}</a></td>
+</tr>
+<tr>
+  <td>Vacant HQ</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>{{ vacantHQCounts }}</td>
+</tr>
+<tr>
+  <td>No of HQ worked in</td>
+  <td>8</td>
+  <td><a (click)="openAbove95PercentageModal('NoOfHQWorkedIn')">{{ onRegionWorkedInHqGreaterThan95PercentageWithNorm8 }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('NoOfHQWorkedIn')">{{ onRegionWorkedInHqInBetween85To95PercentageWithNorm8 }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('NoOfHQWorkedIn')">{{ onRegionWorkedInHqLessThan85PercentageWithNorm8 }}</a></td>
+</tr>
+<tr>
+  <td>Daily Call Average/Month</td>
+  <td>25</td>
+  <td><a (click)="openAbove95PercentageModal('DailyCallAverage')">{{ onRegionCallAverageGreaterThan95PercentageWithNorm25 }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('DailyCallAverage')">{{ onRegionCallAverageBetween85To95PercentageWithNorm25 }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('DailyCallAverage')">{{ onRegionCallAverageLessThan95PercentageWithNorm25 }}</a></td>
+</tr>
+<tr>
+  <td>HCP met/Day</td>
+  <td>3</td>
+  <td><a (click)="openAbove95PercentageModal('HCPMet')">{{ customerMetWithGreaterThan95Percentage(5,2.85) }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('HCPMet')">{{ customerMetWith85To95Percentage(5,2.55,2.85) }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('HCPMet')">{{ customerMetWithLessThan85Percentage(5,2.55) }}</a></td>
+</tr>
+<tr>
+  <td>Semi met/Day</td>
+  <td>3</td>
+  <td><a (click)="openAbove95PercentageModal('SemiMet')">{{ customerMetWithGreaterThan95Percentage(2,2.85) }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('SemiMet')">{{ customerMetWith85To95Percentage(2,2.55,2.85) }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('SemiMet')">{{ customerMetWithLessThan85Percentage(2,2.55) }}</a></td>
+</tr>
+<tr>
+  <td>Retailer met/Day</td>
+  <td>10</td>
+  <td><a (click)="openAbove95PercentageModal('RetailerMet')">{{ customerMetWithGreaterThan95Percentage(3,9.5) }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('RetailerMet')">{{ customerMetWith85To95Percentage(3,8.5,9.5) }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('RetailerMet')">{{ customerMetWithLessThan85Percentage(3,8.5) }}</a></td>
+</tr>
+<tr>
+  <td>POB per Day</td>
+  <td>10000</td>
+  <td><a (click)="openAbove95PercentageModal('POBPerDay')">{{ pobPerDayGreaterThan95Percentage }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('POBPerDay')">{{ pobPerDayBetween85To95Percentage }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('POBPerDay')">{{ pobPerDayLessThan85Percentage }}</a></td>
+</tr>
+<tr>
+  <td>Minimum Productive Calls/Day</td>
+  <td>5</td>
+  <td><a (click)="openAbove95PercentageModal('MinimumProductiveCalls/Day')">{{
+    minimumProductiveCallsWithGreaterThan95Percentage }}</a></td>
+  <td><a (click)="openBetween85To95PercentageModal('MinimumProductiveCalls/Day')">{{
+    minimumProductiveCallsWithBetween85To95Percentage }}</a></td>
+  <td><a (click)="openBelow85PercentageModal('MinimumProductiveCalls/Day')">{{
+    minimumProductiveCallsWithLessThan85Percentage }}</a></td>
+</tr>

@@ -759,4 +759,37 @@ export class ReportService extends BaseService {
     // make server call
     return this.get(url, new RequestOptions({search: params}));
   }
+
+  /**
+   * Sales API
+   *
+   * @param month
+   * @param year
+   * @returns {Observable<Result>}
+   */
+  getCoverageAndVisitsForCSE(month: number, year: number) {
+    return this.get(this.getBaseUrl() + '/getCoverageAndVisitsForCSE/' + month + "/" + year);
+  }
+
+  /**
+   * Sales API
+   *
+   * @param month
+   * @param year
+   * @returns {Observable<Result>}
+   */
+  getCSMData(month: number, year: number) {
+    return this.get(this.getBaseUrl() + '/getCSMData/' + month + "/" + year);
+  }
+
+  /**
+   * get ZSM Data
+   *
+   * @param month
+   * @param year
+   * @returns {Observable<Result>}
+   */
+  getZSMData(month: number, year: number) {
+    return this.get(this.getBaseUrl() + '/getZSMData/' + month + "/" + year);
+  }
 }

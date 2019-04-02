@@ -75,6 +75,12 @@ export class Region extends Model {
   total_input_value: number = 0;
   user: User;
 
+  semi_total_visit_count: number = 0;
+  retailer_total_visit_count: number = 0;
+  hcp_total_visit_count: number = 0;
+  vacant_hq_count: number = 0;
+  norm: number = 0;
+
   constructor(info: any) {
     super(info.id);
     this.name = info.name;
@@ -174,6 +180,9 @@ export class Region extends Model {
 
     if (info.total_input_value)
       this.total_input_value = parseInt(info.total_input_value);
+
+    if (info.vacant_hq_count)
+      this.vacant_hq_count = info.vacant_hq_count;
   }
 
   /**
@@ -455,5 +464,145 @@ export class Region extends Model {
 
   get closing_amount(): number {
     return (this.opening + this.total_net_amount + this.adjustment) - this.secondary_sale;
+  }
+
+  /**
+   * Call Average Greater Than 95% With Norm 25
+   */
+  get callAverageGreaterThan95PercentageWith25() {
+    return this.total_att > 0 ? (this.all_total_visit / this.total_att) >= 23 : false;
+  }
+
+  /**
+   * Call Average Greater Than 95% With Norm 25
+   */
+  get callAverageBetween85To95PercentageWith25() {
+    return this.total_att > 0 ? ((this.all_total_visit / this.total_att) >= 21 && (this.all_total_visit / this.total_att) <= 22 ) : false;
+  }
+
+  /**
+   * Call Average Greater Than 95% With Norm 25
+   */
+  get callAverageLessThan85PercentageWith25() {
+    return this.total_att > 0 ? (this.all_total_visit / this.total_att) < 21 : false;
+  }
+
+  /**
+   * Customer Met HQ Count
+   *
+   * @param customer_type_id
+   * @param aboveCount
+   * @returns {boolean}
+   */
+  customerMetAbove(customer_type_id, aboveCount) {
+    if (customer_type_id == 2 && this.semi_total_visit_count && this.total_att > 0)
+      return (this.semi_total_visit_count / this.total_att).toFixed(3) >= aboveCount;
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.total_att > 0)
+      return (this.retailer_total_visit_count / this.total_att).toFixed(3) >= aboveCount;
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.total_att > 0)
+      return (this.hcp_total_visit_count / this.total_att).toFixed(3) >= aboveCount;
+  }
+
+  /**
+   * Customer Met Between
+   *
+   * @param customer_type_id
+   * @param aboveCount
+   * @param belowCount
+   * @returns {boolean}
+   */
+  customerMetBetween(customer_type_id, aboveCount, belowCount) {
+    if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.total_att > 0) {
+      return (this.semi_total_visit_count / this.total_att).toFixed(3) >= aboveCount
+        && (this.semi_total_visit_count / this.total_att).toFixed(3) < belowCount;
+    }
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.total_att > 0) {
+      return (this.retailer_total_visit_count / this.total_att).toFixed(3) >= aboveCount
+        && (this.retailer_total_visit_count / this.total_att).toFixed(3) < belowCount;
+    }
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.total_att > 0) {
+      return (this.hcp_total_visit_count / this.total_att).toFixed(3) >= aboveCount
+        && (this.hcp_total_visit_count / this.total_att).toFixed(3) < belowCount;
+    }
+  }
+
+  /**
+   * Customer Below Count
+   *
+   * @param customer_type_id
+   * @param belowCount
+   * @returns {boolean}
+   */
+  customerMetBelow(customer_type_id, belowCount) {
+    if (customer_type_id == 2 && this.semi_total_visit_count > 0 && this.total_att > 0)
+      return (this.semi_total_visit_count / this.total_att).toFixed(3) < belowCount;
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.total_att > 0)
+      return (this.retailer_total_visit_count / this.total_att).toFixed(3) < belowCount;
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.total_att > 0)
+      return (this.hcp_total_visit_count / this.total_att).toFixed(3) < belowCount;
+  }
+
+  /**
+   * POB per day Above 95%
+   * @returns {boolean}
+   */
+  get pobPerDayGreaterThan95Percentage() {
+    return this.total_att > 0 ? this.total_pob/this.total_att >= 9500 : false;
+  }
+
+  /**
+   * POB per day Between 85 to 95%
+   * @returns {boolean}
+   */
+  get pobPerDayBetween85To95Percentage() {
+    return this.total_att > 0 ? this.total_pob / this.total_att >= 8500 && this.total_pob / this.total_att < 9500 : false;
+  }
+
+  /**
+   * POB per day below 85%
+   *
+   * @returns {boolean}
+   */
+  get pobPerDayBelow85Percentage() {
+    return this.total_att > 0 ? this.total_pob / this.total_att < 8500 : false;
+  }
+
+  /**
+   * Minimum Productive Call Above 95%
+   * @returns {boolean}
+   */
+  get minimumProductiveCallsAbove() {
+    return this.total_att > 0 ? this.total_order / this.total_att >= 4.75 : false;
+  }
+
+  /**
+   * Minimum Productive call Between
+   * @returns {boolean}
+   */
+  get minimumProductiveCallsBetween() {
+    return this.total_att > 0 ? this.total_order / this.total_att >= 4.25 && this.total_order / this.total_att < 4.75 : false;
+  }
+
+  /**
+   * Minimum Productive Calls Between
+   *
+   * @returns {boolean}
+   */
+  get minimumProductiveCallBelow() {
+    return this.total_att > 0 ? this.total_order / this.total_att < 4.25 : false;
+  }
+
+  /**
+   * Customer Met Value
+   * @param customer_type_id
+   * @returns {boolean}
+   */
+  customerMetValue(customer_type_id) {
+    if (customer_type_id == 2 && this.semi_total_visit_count && this.total_att > 0)
+      return (this.semi_total_visit_count / this.total_att).toFixed(0);
+    else if (customer_type_id == 3 && this.retailer_total_visit_count > 0 && this.total_att > 0)
+      return (this.retailer_total_visit_count / this.total_att).toFixed(0);
+    else if (customer_type_id == 5 && this.hcp_total_visit_count > 0 && this.total_att > 0)
+      return (this.hcp_total_visit_count / this.total_att).toFixed(0);
   }
 }

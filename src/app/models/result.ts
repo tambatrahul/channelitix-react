@@ -54,6 +54,8 @@ export class Result {
   visited_brick: Visit[];
   all_visits: Visit[];
   v2_v3_visits: Visit[];
+  customer_type_wise_visits: Visit[];
+  hq_visits: Visit[];
   inputs: VisitInput[];
 
   //Orders models
@@ -172,4 +174,8 @@ export class Result {
 
   // brick customer counts
   brick_customer_counts: BrickCustomerCount[];
+
+  // vacant hq counts
+  area_vacant_hq_counts: Area[];
+  region_vacant_hq_counts: Region[];
 }

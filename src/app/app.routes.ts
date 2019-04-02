@@ -76,6 +76,7 @@ import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_
 import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
 import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
+import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -424,6 +425,9 @@ export const routes: Routes = [
           }, {
             path: 'daily_visit_plan',
             component: DailyVisitPlanComponent,
+          }, {
+            path: 'field_efforts_audit_scorecard',
+            component: FieldEffortAuditScoreCardComponent,
           }
         ]
       },

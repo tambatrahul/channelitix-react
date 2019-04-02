@@ -195,6 +195,16 @@ import {BrandService} from "./services/brand.service";
 import {BrandSelectComponent} from "./components/form_elements/order/brand_select/brand-select.component";
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
 import {InputSelectComponent} from "./components/form_elements/visit/input_select/input-select.component";
+import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
+import {CSEFieldEffortsAuditScorecard} from "./components/pages/user/field_efforts_audit_scorecard/cse_field_efforts_data/cse_field_efforts_audit_scorecard.component";
+import {CSMFieldEffortsAuditScorecard} from "./components/pages/user/field_efforts_audit_scorecard/csm_field_efforts_data/csm_field_efforts_audit_scorecard.component";
+import {ZSMFieldEffortsAuditScorecard} from "./components/pages/user/field_efforts_audit_scorecard/zsm_field_efforts_data/zsm_field_efforts_audit_scorecard.component";
+import {HeadquarterListComponent} from "./components/pages/user/field_efforts_audit_scorecard/cse_field_efforts_data/components/headquarter/headquarter_list.component";
+import {BrickListComponent} from "./components/pages/user/field_efforts_audit_scorecard/cse_field_efforts_data/components/brick/brick_list.component";
+import {AreaListComponent} from "./components/pages/user/field_efforts_audit_scorecard/csm_field_efforts_data/components/area/area_list.component";
+import {RegionListComponent} from "./components/pages/user/field_efforts_audit_scorecard/zsm_field_efforts_data/components/region/region_list.component";
+
+
 
 enableProdMode();
 
@@ -387,6 +397,18 @@ enableProdMode();
     // Version 2 Models
     RoleButtonComponent,
     DeactivateUserComponent,
+
+    // Field Efforts Audit Scorecard
+    FieldEffortAuditScoreCardComponent,
+    CSEFieldEffortsAuditScorecard,
+    CSMFieldEffortsAuditScorecard,
+    ZSMFieldEffortsAuditScorecard,
+
+    //
+    HeadquarterListComponent,
+    BrickListComponent,
+    AreaListComponent,
+    RegionListComponent,
   ],
   imports: [
     BrowserModule,

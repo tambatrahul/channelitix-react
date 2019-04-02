@@ -61,6 +61,8 @@ export class Brick extends Model {
   total_customer: number = 0;
   total_customers: number = 0;
   total: number = 0;
+  norm: number = 0;
+  hq_brick_id: number = 0;
 
   constructor(info: any) {
     super(info.id);
@@ -130,6 +132,12 @@ export class Brick extends Model {
 
     if (info.vis_date)
       this.hq_territory = info.vis_date;
+
+    if (info.total_customers)
+      this.total_customers = parseInt(info.total_customers);
+
+    if (info.hq_brick_id)
+      this.hq_brick_id = info.hq_brick_id;
   }
 
   /**
@@ -166,12 +174,57 @@ export class Brick extends Model {
       return 5;
   }
 
+  /**
+   * Semi Count On 95% HQ
+   *
+   * @returns {boolean}
+   */
+  get semiGreaterThan95PercentWithNorm12() {
+    return this.customer_type_id == 2 ? this.total_customers >= 11 : false;
+  }
 
   /**
-   * get business
-   * @returns {number}
+   * Semi Count On 95% HQ
+   *
+   * @returns {boolean}
    */
-  business(month) {
+  get semiInBetween85To95PercentWithNorm12() {
+    return this.customer_type_id == 2 ? this.total_customers >= 10 && this.total_customers < 11 : false;
+  }
 
+  /**
+   * Semi Count On 95% HQ
+   *
+   * @returns {boolean}
+   */
+  get semiLessThan85PercentWithNorm12() {
+    return this.customer_type_id == 2 ? this.total_customers < 10 : false;
+  }
+
+  /**
+   * Attendance Count On 95% HQ
+   *
+   * @returns {boolean}
+   */
+  get hcpGreaterThan95PercentWithNorm10() {
+    return this.customer_type_id == 5 ? this.total_customers > 9 : false;
+  }
+
+  /**
+   * Attendance Count On 95% HQ
+   *
+   * @returns {boolean}
+   */
+  get hcpInBetween85To95PercentWithNorm10() {
+    return this.customer_type_id == 5 ? this.total_customers >= 8 && this.total_customers <= 9 : false;
+  }
+
+  /**
+   * Attendance Count On 95% HQ
+   *
+   * @returns {boolean}
+   */
+  get hcpLessThan85PercentWithNorm10() {
+    return this.customer_type_id == 5 ? this.total_customers < 8 : false;
   }
 }
