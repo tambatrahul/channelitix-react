@@ -58,7 +58,7 @@ export class FieldEffortAuditScoreCardComponent extends ListComponent {
    * on load of call fetch
    */
   ngOnInit() {
-    this.month = moment().month() - 1;
+    this.month = moment().month();
     this.year = moment().year();
     super.ngOnInit();
   }

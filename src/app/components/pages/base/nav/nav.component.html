@@ -219,6 +219,13 @@
                 <span class="nav-label">Input Utilization Report</span>
               </a>
             </li>
+            <li *roleCheck="ROLE_ADMIN">
+              <a class="waves-effect" *ngIf="environment.envName == 'geo'"
+                 routerLink="/reports/field_efforts_audit_scorecard">
+                <span class="nav-icon"><i class="fa fa-building-o"></i></span>
+                <span class="nav-label">Field Effort Audit Scorecard</span>
+              </a>
+            </li>
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">

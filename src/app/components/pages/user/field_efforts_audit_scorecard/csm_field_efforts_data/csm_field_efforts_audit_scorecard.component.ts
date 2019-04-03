@@ -78,7 +78,7 @@ export class CSMFieldEffortsAuditScorecard extends ListComponent {
     if (!this.loading && (this._month || this._month == 0) && this._year) {
       this.loading = true;
       Observable.forkJoin(
-        this.reportService.getCSMData(this._month, this._year)
+        this.reportService.getCSMData(this._month + 1, this._year)
       ).subscribe(data => {
         // get regions
         this.attendances = data[0].attendances.map(att => new Attendance(att));

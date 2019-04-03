@@ -126,56 +126,38 @@
   <td>No of Bricks with Semi</td>
   <td>12</td>
   <td>
-    <a *ngIf="semiGreaterThan95PercentageWithNorm12 < 100" (click)="openAbove95PercentageModal('NoOfBrickWithSemi')">
+    <a (click)="openAbove95PercentageModal('NoOfBrickWithSemi')">
       {{ semiGreaterThan95PercentageWithNorm12 }}
     </a>
-    <span *ngIf="semiGreaterThan95PercentageWithNorm12 > 100">
-      {{ semiGreaterThan95PercentageWithNorm12 }}
-    </span>
   </td>
   <td>
-    <a *ngIf="semiInBetween85To95PercentageWithNorm12 < 100" (click)="openBetween85To95PercentageModal('NoOfBrickWithSemi')">
+    <a (click)="openBetween85To95PercentageModal('NoOfBrickWithSemi')">
       {{ semiInBetween85To95PercentageWithNorm12 }}
     </a>
-    <span *ngIf="semiInBetween85To95PercentageWithNorm12 > 100">
-      {{ semiInBetween85To95PercentageWithNorm12 }}
-    </span>
   </td>
   <td>
-    <a *ngIf="semiLessThan85PercentageWithNorm12 < 100" (click)="openBelow85PercentageModal('NoOfBrickWithSemi')">
+    <a (click)="openBelow85PercentageModal('NoOfBrickWithSemi')">
       {{ semiLessThan85PercentageWithNorm12 }}
     </a>
-    <span *ngIf="semiLessThan85PercentageWithNorm12 > 100">
-      {{ semiLessThan85PercentageWithNorm12 }}
-    </span>
   </td>
 </tr>
 <tr>
   <td>No of Bricks with HCP</td>
   <td>10</td>
   <td>
-    <a *ngIf="hcpGreaterThan95PercentageWithNorm10 < 100" (click)="openAbove95PercentageModal('NoOfBrickWithHCP')">
+    <a (click)="openAbove95PercentageModal('NoOfBrickWithHCP')">
       {{ hcpGreaterThan95PercentageWithNorm10 }}
     </a>
-    <span *ngIf="hcpGreaterThan95PercentageWithNorm10 > 100">
-      {{ hcpGreaterThan95PercentageWithNorm10 }}
-    </span>
   </td>
   <td>
-    <a *ngIf="hcpInBetween85To95PercentageWithNorm10 < 100" (click)="openBetween85To95PercentageModal('NoOfBrickWithHCP')">
+    <a (click)="openBetween85To95PercentageModal('NoOfBrickWithHCP')">
       {{ hcpInBetween85To95PercentageWithNorm10 }}
     </a>
-    <span *ngIf="hcpInBetween85To95PercentageWithNorm10 > 100">
-      {{ hcpInBetween85To95PercentageWithNorm10 }}
-    </span>
   </td>
   <td>
-    <a *ngIf="hcpLessThan85PercentageWithNorm10 < 100" (click)="openBelow85PercentageModal('NoOfBrickWithHCP')">
+    <a (click)="openBelow85PercentageModal('NoOfBrickWithHCP')">
       {{ hcpLessThan85PercentageWithNorm10 }}
     </a>
-    <span *ngIf="hcpLessThan85PercentageWithNorm10 > 100">
-      {{ hcpLessThan85PercentageWithNorm10 }}
-    </span>
   </td>
 </tr>
 <br>
