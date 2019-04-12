@@ -792,4 +792,19 @@ export class ReportService extends BaseService {
   getZSMData(month: number, year: number) {
     return this.get(this.getBaseUrl() + '/getZSMData/' + month + "/" + year);
   }
+
+  /**
+   *
+   * @param {number} month
+   * @param {number} year
+   * @param {number} user_id
+   * @returns {Observable<Result>}
+   */
+  month_summary(month: number, year: number, user_id: number) {
+    // prepare url
+    let url = this.getBaseUrl() + '/month_summary/' + month + '/' + year + '/' + user_id;
+
+    // make server call
+    return this.get(url);
+  }
 }

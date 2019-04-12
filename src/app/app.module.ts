@@ -203,6 +203,7 @@ import {HeadquarterListComponent} from "./components/pages/user/field_efforts_au
 import {BrickListComponent} from "./components/pages/user/field_efforts_audit_scorecard/cse_field_efforts_data/components/brick/brick_list.component";
 import {AreaListComponent} from "./components/pages/user/field_efforts_audit_scorecard/csm_field_efforts_data/components/area/area_list.component";
 import {RegionListComponent} from "./components/pages/user/field_efforts_audit_scorecard/zsm_field_efforts_data/components/region/region_list.component";
+import {MonthSummaryComponent} from "./components/pages/user/summary/month_summary/month_summary.component";
 
 
 
@@ -409,6 +410,7 @@ enableProdMode();
     BrickListComponent,
     AreaListComponent,
     RegionListComponent,
+    MonthSummaryComponent,
   ],
   imports: [
     BrowserModule,

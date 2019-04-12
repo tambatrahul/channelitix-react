@@ -46,6 +46,7 @@ export class Result {
   // attendances models
   attendance: Attendance;
   attendances: Attendance[];
+  leave_counts: Attendance[];
   work_types: WorkType[];
   leave_types: LeaveType[];
 
