@@ -164,11 +164,11 @@ export class CreateUserComponent extends FormComponent {
     if (manager)
       if (manager.hq_headquarter_id)
         this.headquarterChanged(manager.hq_headquarter_id);
-      else if (manager.hq_area_id)
+      if (manager.hq_area_id)
         this.areaChanged(manager.hq_area_id);
-      else if (manager.hq_region_id)
+      if (manager.hq_region_id)
         this.regionChanged(manager.hq_region_id);
-      else if (manager.hq_country_id) {
+      if (manager.hq_country_id) {
         this.form.patchValue({hq_country_id: manager.hq_country_id});
         this.hq_country_id = manager.hq_country_id;
       }
