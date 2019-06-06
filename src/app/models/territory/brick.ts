@@ -1,8 +1,8 @@
-import {Model} from "../model";
-import {CustomerType} from "../customer/customer_type";
-import {Territory} from "./territory";
-import {isNumber} from "util";
-import {Customer} from "../customer/customer";
+import {Model} from '../model';
+import {CustomerType} from '../customer/customer_type';
+import {Territory} from './territory';
+import {isNumber} from 'util';
+import {Customer} from '../customer/customer';
 
 export class Brick extends Model {
 
@@ -78,66 +78,85 @@ export class Brick extends Model {
     this.hq_territory_id = info.hq_territory_id;
     this.target = info.target;
 
-    if (info.customer_ab)
+    if (info.customer_ab) {
       this.customer_ab = parseInt(info.customer_ab);
+    }
 
-    if (info.customer_others)
+    if (info.customer_others) {
       this.customer_others = parseInt(info.customer_others);
+    }
 
-    if (info.customer_hub_chemist)
+    if (info.customer_hub_chemist) {
       this.customer_hub_chemist = parseInt(info.customer_hub_chemist);
+    }
 
-    if (info.customer_semi)
+    if (info.customer_semi) {
       this.customer_semi = parseInt(info.customer_semi);
+    }
 
-    if (info.customer_retailer)
+    if (info.customer_retailer) {
       this.customer_retailer = parseInt(info.customer_retailer);
+    }
 
-    if (info.customer_physician)
+    if (info.customer_physician) {
       this.customer_physician = parseInt(info.customer_physician);
+    }
 
-    if (info.total_customer_others)
+    if (info.total_customer_others) {
       this.total_customer_others = parseInt(info.total_customer_others);
+    }
 
-    if (info.total_customer_hub_chemist)
+    if (info.total_customer_hub_chemist) {
       this.total_customer_hub_chemist = parseInt(info.total_customer_hub_chemist);
+    }
 
-    if (info.total_customer_semi)
+    if (info.total_customer_semi) {
       this.total_customer_semi = parseInt(info.total_customer_semi);
+    }
 
-    if (info.total_customer_retailer)
+    if (info.total_customer_retailer) {
       this.total_customer_retailer = parseInt(info.total_customer_retailer);
+    }
 
-    if (info.total_customer_physician)
+    if (info.total_customer_physician) {
       this.total_customer_physician = parseInt(info.total_customer_physician);
+    }
 
-    if (info.customer_count)
+    if (info.customer_count) {
       this.customer_count = parseInt(info.customer_count);
+    }
 
-    if (info.visit_no_of_days)
+    if (info.visit_no_of_days) {
       this.visit_no_of_days = parseInt(info.visit_no_of_days);
+    }
 
-    if (info.order_total_count)
+    if (info.order_total_count) {
       this.order_total_count = parseInt(info.order_total_count);
+    }
 
-    if (info.target)
+    if (info.target) {
       this.target = parseInt(info.target);
+    }
 
     this.customer_type_id = info.customer_type_id;
     this.grade_id = info.grade_id;
 
 
-    if (info.hq_territory)
+    if (info.hq_territory) {
       this.hq_territory = new Territory(info.hq_territory);
+    }
 
-    if (info.vis_date)
+    if (info.vis_date) {
       this.hq_territory = info.vis_date;
+    }
 
-    if (info.total_customers)
+    if (info.total_customers) {
       this.total_customers = parseInt(info.total_customers);
+    }
 
-    if (info.hq_brick_id)
+    if (info.hq_brick_id) {
       this.hq_brick_id = info.hq_brick_id;
+    }
   }
 
   /**
@@ -149,8 +168,9 @@ export class Brick extends Model {
     let total: number = 0;
     this.customer_types.map(cus => {
       cus.grades.map(grade => {
-        if (grade.customer_count)
+        if (grade.customer_count) {
           total += grade.customer_count;
+        }
       })
     });
     return total;
@@ -162,16 +182,17 @@ export class Brick extends Model {
    * @returns {number}
    */
   get customer_count_pattern() {
-    if (this.customer_ab > 0 && this.customer_semi > 0 && this.customer_hub_chemist > 0)
+    if (this.customer_ab > 0 && this.customer_semi > 0 && this.customer_hub_chemist > 0) {
       return 1;
-    else if (this.customer_semi > 0 && this.customer_hub_chemist > 0 && this.customer_others > 0)
+    } else if (this.customer_semi > 0 && this.customer_hub_chemist > 0 && this.customer_others > 0) {
       return 2;
-    else if (this.customer_ab == 0 && this.customer_semi > 0 && this.customer_hub_chemist > 0)
+    } else if (this.customer_ab == 0 && this.customer_semi > 0 && this.customer_hub_chemist > 0) {
       return 3;
-    else if (this.customer_semi > 0 || this.customer_hub_chemist > 0)
+    } else if (this.customer_semi > 0 || this.customer_hub_chemist > 0) {
       return 4;
-    else if (this.customer_retailer > 0)
+    } else if (this.customer_retailer > 0) {
       return 5;
+    }
   }
 
   /**
@@ -226,5 +247,20 @@ export class Brick extends Model {
    */
   get hcpLessThan85PercentWithNorm10() {
     return this.customer_type_id == 5 ? this.total_customers < 8 : false;
+  }
+
+  /**
+   * get business
+   * @returns {number}
+   */
+  get business() {
+    let brick_target = this.target * this.visit_no_of_days;
+    if (this.order_total_count >= brick_target) {
+      return 1;
+    } else if (this.order_total_count >= brick_target * 0.5) {
+      return 2;
+    } else if (this.order_total_count < brick_target * 0.5) {
+      return 3;
+    }
   }
 }
