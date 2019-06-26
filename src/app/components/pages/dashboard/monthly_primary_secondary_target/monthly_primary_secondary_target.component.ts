@@ -4,6 +4,10 @@ import {ReportService} from "../../../../services/report.service";
 import {Performance} from "../../../../models/SAP/performance";
 import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
+import {AppConstants} from '../../../../app.constants';
+import {Visit} from '../../../../models/visit/visit';
+import {Order} from '../../../../models/order/order';
+import {Attendance} from '../../../../models/attendance/attendance';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -39,7 +43,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   @Input()
   set dates(dates) {
     this._dates = dates;
-    this.fetch();
+    this.fetchPerformance();
   }
 
   /**
@@ -51,7 +55,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   _refresh: boolean;
   set refresh(refresh) {
     this._refresh = refresh;
-    this.fetch();
+    this.fetchPerformance();
   }
 
   /**
@@ -61,7 +65,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   @Input()
   set region_ids(region_ids) {
     this._region_ids = region_ids;
-    this.fetch();
+    this.fetchPerformance();
   };
 
   /**
@@ -71,7 +75,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   @Input()
   set area_ids(area_ids) {
     this._area_ids = area_ids;
-    this.fetch();
+    this.fetchPerformance();
   };
 
   /**
@@ -81,8 +85,25 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   @Input()
   set headquarter_ids(headquarter_ids) {
     this._headquarter_ids = headquarter_ids;
-    this.fetch();
+    this.fetchPerformance();
   };
+
+  /**
+   * Chart data
+   */
+  fetchPerformance = AppConstants.debounce(function () {
+    const self = this;
+    self.loading = true;
+    self.reportService.performance(self._region_ids, self._area_ids, self._headquarter_ids).subscribe(
+      response => {
+        self.loading = false;
+        self.prepareData(new Performance(response.performance));
+      },
+      err => {
+        self.loading = false;
+      }
+    );
+  }, 1000, false);
 
   /**
    *
@@ -94,7 +115,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   ngOnInit() {
     super.ngOnInit();
     this.current_date = moment();
-    this.fetch();
+    this.fetchPerformance();
   }
 
   /**
@@ -122,16 +143,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
    * Chart data
    */
   fetch() {
-    this.loading = true;
-    this.reportService.performance(this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
-      response => {
-        this.loading = false;
-        this.prepareData(new Performance(response.performance));
-      },
-      err => {
-        this.loading = false;
-      }
-    );
+
   }
 
   /**

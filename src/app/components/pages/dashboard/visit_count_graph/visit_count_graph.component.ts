@@ -47,6 +47,37 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   }
 
   /**
+   * region id for filter
+   */
+  _region_ids: Array<number> = [];
+  @Input()
+  set region_ids(region_ids) {
+    this._region_ids = region_ids;
+    this.fetchVisitOrdreTrend();
+  };
+
+  /**
+   * area id for filter
+   */
+  _area_ids: Array<number> = [];
+  @Input()
+  set area_ids(area_ids) {
+    this._area_ids = area_ids;
+    this.fetchVisitOrdreTrend();
+  };
+
+  /**
+   * headquarter id for filter
+   */
+  _headquarter_ids: Array<number> = [];
+  @Input()
+  set headquarter_ids(headquarter_ids) {
+    this._headquarter_ids = headquarter_ids;
+    this.fetchVisitOrdreTrend();
+  };
+
+
+  /**
    * return total visit and orders
    * @type {EventEmitter}
    */

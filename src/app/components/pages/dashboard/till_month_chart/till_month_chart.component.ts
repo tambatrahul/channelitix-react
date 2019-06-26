@@ -4,6 +4,8 @@ import {ReportService} from "../../../../services/report.service";
 import {YearTillMonth} from "../../../../models/SAP/year_till_month";
 import * as moment from "moment";
 import {AuthService} from "../../../../services/AuthService";
+import {AppConstants} from '../../../../app.constants';
+import {Performance} from '../../../../models/SAP/performance';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -46,7 +48,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   @Input()
   set dates(dates) {
     this._dates = dates;
-    this.fetch();
+    this.fetchTillMonthChart();
   }
 
   /**
@@ -58,7 +60,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   _refresh: boolean;
   set refresh(refresh) {
     this._refresh = refresh;
-    this.fetch();
+    this.fetchTillMonthChart();
   }
 
   /**
@@ -68,7 +70,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   @Input()
   set region_ids(region_ids) {
     this._region_ids = region_ids;
-    this.fetch();
+    this.fetchTillMonthChart();
   };
 
   /**
@@ -78,7 +80,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   @Input()
   set area_ids(area_ids) {
     this._area_ids = area_ids;
-    this.fetch();
+    this.fetchTillMonthChart();
   };
 
   /**
@@ -88,8 +90,25 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   @Input()
   set headquarter_ids(headquarter_ids) {
     this._headquarter_ids = headquarter_ids;
-    this.fetch();
+    this.fetchTillMonthChart();
   };
+
+  /**
+   * Chart data
+   */
+  fetchTillMonthChart = AppConstants.debounce(function () {
+    const self = this;
+    self.loading = true;
+    self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year).subscribe(
+      response => {
+        self.prepareData(new YearTillMonth(response.year_till_month));
+        self.loading = false;
+      },
+      err => {
+        self.loading = false;
+      }
+    );
+  }, 1000, false);
 
   /**
    * TillMonthChartComponent constructor
@@ -103,7 +122,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
    */
   ngOnInit() {
     super.ngOnInit();
-    this.fetch();
+    this.fetchTillMonthChart();
     let current_month = moment();
     this.month = current_month.month();
     this.year = current_month.year();
@@ -148,16 +167,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
    * Chart data
    */
   fetch() {
-    this.loading = true;
-    this.reportService.till_month_chart(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year).subscribe(
-      response => {
-        this.prepareData(new YearTillMonth(response.year_till_month));
-        this.loading = false;
-      },
-      err => {
-        this.loading = false;
-      }
-    )
+
   }
 
   /**
@@ -206,6 +216,6 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     this.year = current_month.year();
     this.month_str = current_month.format('MMM');
     this.previous_month = current_month.subtract(1, 'M').format('MMM');
-    this.fetch();
+    this.fetchTillMonthChart();
   }
 }

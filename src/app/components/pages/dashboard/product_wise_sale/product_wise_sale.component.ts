@@ -5,6 +5,7 @@ import {Performance} from "../../../../models/SAP/performance";
 import {Product} from "../../../../models/order/product";
 import * as moment from "moment";
 import {BaseDashboardComponent} from "../base_dashboard.component";
+import {AppConstants} from '../../../../app.constants';
 
 @Component({
   selector: 'product-wise-sale',
@@ -45,7 +46,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   @Input()
   set month(month: number) {
     this._month = month;
-    this.fetch();
+    this.fetchProductWiseSale();
   }
 
   /**
@@ -57,7 +58,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   _refresh: boolean;
   set refresh(refresh) {
     this._refresh = refresh;
-    this.fetch();
+    this.fetchProductWiseSale();
   }
 
   /**
@@ -74,6 +75,56 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
    */
   products: Product[];
 
+  /**
+   * region id for filter
+   */
+  _region_ids: Array<number> = [];
+  @Input()
+  set region_ids(region_ids) {
+    this._region_ids = region_ids;
+    this.fetchProductWiseSale();
+  };
+
+  /**
+   * area id for filter
+   */
+  _area_ids: Array<number> = [];
+  @Input()
+  set area_ids(area_ids) {
+    this._area_ids = area_ids;
+    this.fetchProductWiseSale();
+  };
+
+  /**
+   * headquarter id for filter
+   */
+  _headquarter_ids: Array<number> = [];
+  @Input()
+  set headquarter_ids(headquarter_ids) {
+    this._headquarter_ids = headquarter_ids;
+    this.fetchProductWiseSale();
+  };
+
+
+  /**
+   * Chart data
+   */
+  fetchProductWiseSale = AppConstants.debounce(function () {
+    const self = this;
+    if ((self._month || self._month == 0) && self._year) {
+      self.loading = true;
+      self.reportService.product_wise_sale(self._month + 1, self._year,
+        self._region_ids, self._area_ids, self._headquarter_ids).subscribe(
+        response => {
+          self.formatData(new Performance(response.performance));
+          self.loading = false;
+        }, err => {
+          self.loading = false;
+        }
+      );
+    }
+  }, 1000, false);
+
 
   constructor(public _service: AuthService, private reportService: ReportService) {
     super(_service);
@@ -87,25 +138,14 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     let current_month = moment();
     this._month = current_month.month();
     this._year = current_month.year();
-    this.fetch();
+    this.fetchProductWiseSale();
   }
 
   /**
    * fetch counts from server
    */
   protected fetch() {
-    if ((this._month || this._month == 0) && this._year) {
-      this.loading = true;
-      this.reportService.product_wise_sale(this._month + 1, this._year,
-        this._region_ids, this._area_ids, this._headquarter_ids).subscribe(
-        response => {
-          this.formatData(new Performance(response.performance));
-          this.loading = false;
-        }, err => {
-          this.loading = false;
-        }
-      );
-    }
+
   }
 
   /**
@@ -217,6 +257,6 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     let current_month = moment().month(date.month).year(date.year);
     this._month = current_month.month();
     this._year = current_month.year();
-    this.fetch();
+    this.fetchProductWiseSale();
   }
 }
