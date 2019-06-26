@@ -5,6 +5,7 @@ import {Order} from "../../../../models/order/order";
 import {Visit} from "../../../../models/visit/visit";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {AuthService} from "../../../../services/AuthService";
+import {AppConstants} from '../../../../app.constants';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -42,7 +43,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   _refresh: boolean;
   set refresh(refresh) {
     this._refresh = refresh;
-    this.fetch();
+    this.fetchVisitOrdreTrend();
   }
 
   /**
@@ -82,7 +83,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   @Input()
   set dates(dates) {
     this._dates = dates;
-    this.fetch();
+    this.fetchVisitOrdreTrend();
   }
 
   /**
@@ -95,6 +96,44 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   attendances: Attendance[] = [];
 
   /**
+   * Chart data
+   */
+  fetchVisitOrdreTrend = AppConstants.debounce(function () {
+    const self = this;
+    if (self._dates && self._dates.from_date && self._dates.to_date) {
+      self.loading = true;
+      self.reportService.visit_order_trend(self._dates.from_date, self._dates.to_date, self._dates.year,
+        self._region_ids, self._area_ids, self._headquarter_ids, self.product_id, self.brand_id).subscribe(
+        response => {
+          self.visits = response.visits.map(function (visit) {
+            return new Visit(visit);
+          });
+          self.orders = response.orders.map(function (order) {
+            return new Order(order);
+          });
+
+          self.total_pob_sk = response.orders_sk;
+          self.total_pob_synergy = response.orders_synergy;
+
+          self.attendances = response.attendances.map(function (att) {
+            return new Attendance(att);
+          });
+
+          self.total_orders = response.total_orders;
+
+          self.getGoogle().charts.setOnLoadCallback(() => {
+            self.prepareData();
+          });
+          self.loading = false;
+        },
+        err => {
+          self.loading = false;
+        }
+      )
+    }
+  }, 1000, false);
+
+  /**
    *
    */
   constructor(private reportService: ReportService, public _service: AuthService) {
@@ -103,7 +142,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.fetch();
+    this.fetchVisitOrdreTrend();
   }
 
   /**
@@ -141,37 +180,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
    * Chart data
    */
   fetch() {
-    if (this._dates && this._dates.from_date && this._dates.to_date) {
-      this.loading = true;
-      this.reportService.visit_order_trend(this._dates.from_date, this._dates.to_date, this._dates.year,
-        this._region_ids, this._area_ids, this._headquarter_ids, this.product_id, this.brand_id).subscribe(
-        response => {
-          this.visits = response.visits.map(function (visit) {
-            return new Visit(visit);
-          });
-          this.orders = response.orders.map(function (order) {
-            return new Order(order);
-          });
 
-          this.total_pob_sk = response.orders_sk;
-          this.total_pob_synergy = response.orders_synergy;
-
-          this.attendances = response.attendances.map(function (att) {
-            return new Attendance(att);
-          });
-
-          this.total_orders = response.total_orders;
-
-          this.getGoogle().charts.setOnLoadCallback(() => {
-            this.prepareData();
-          });
-          this.loading = false;
-        },
-        err => {
-          this.loading = false;
-        }
-      )
-    }
   }
 
   /**
@@ -238,7 +247,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
    */
   productChanged(product_id) {
     this.product_id = product_id;
-    this.fetch();
+    this.fetchVisitOrdreTrend();
   }
 
   /**
@@ -248,6 +257,6 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
    */
   brandChanged(brand_id) {
     this.brand_id = brand_id;
-    this.fetch();
+    this.fetchVisitOrdreTrend();
   }
 }

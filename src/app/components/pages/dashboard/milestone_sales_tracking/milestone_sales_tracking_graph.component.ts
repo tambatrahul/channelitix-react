@@ -6,6 +6,7 @@ import {AuthService} from "../../../../services/AuthService";
 import * as moment from "moment";
 import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {Target} from "../../../../models/SAP/target";
+import {AppConstants} from '../../../../app.constants';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -30,8 +31,39 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   _refresh: boolean;
   set refresh(refresh) {
     this._refresh = refresh;
-    this.fetch();
+    this.fetchMilestone();
   }
+
+
+  /**
+   * region id for filter
+   */
+  _region_ids: Array<number> = [];
+  @Input()
+  set region_ids(region_ids) {
+    this._region_ids = region_ids;
+    this.fetchMilestone();
+  };
+
+  /**
+   * area id for filter
+   */
+  _area_ids: Array<number> = [];
+  @Input()
+  set area_ids(area_ids) {
+    this._area_ids = area_ids;
+    this.fetchMilestone();
+  };
+
+  /**
+   * headquarter id for filter
+   */
+  _headquarter_ids: Array<number> = [];
+  @Input()
+  set headquarter_ids(headquarter_ids) {
+    this._headquarter_ids = headquarter_ids;
+    this.fetchMilestone();
+  };
 
   /**
    * Chart options
@@ -70,8 +102,32 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   @Input()
   set dates(dates) {
     this._dates = dates;
-    this.fetch();
+    this.fetchMilestone();
   }
+
+  /**
+   * Chart data
+   */
+  fetchMilestone = AppConstants.debounce(function () {
+    const self = this;
+    if ((self.month || self.month == 0) && self.year) {
+      self.loading = true;
+      self.reportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year).subscribe(
+        response => {
+          let primary_sales = response.primary_sales.map(pr => new PrimarySale(pr));
+          let targets = response.targets.map(tr => new Target(tr));
+
+          self.getGoogle().charts.setOnLoadCallback(() => {
+            self.prepareData(targets, primary_sales);
+          });
+          self.loading = false;
+        },
+        err => {
+          self.loading = false;
+        });
+    }
+  }, 1000, false);
+
 
   /**
    *
@@ -82,7 +138,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.fetch();
+    this.fetchMilestone();
     let current_month = moment();
     this.month = current_month.month();
     this.year = current_month.year();
@@ -124,22 +180,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
    * Chart data
    */
   fetch() {
-    if ((this.month || this.month == 0) && this.year) {
-      this.loading = true;
-      this.reportService.milestone_sales_tracking_chart(this._region_ids, this._area_ids, this._headquarter_ids, this.month + 1, this.year).subscribe(
-        response => {
-          let primary_sales = response.primary_sales.map(pr => new PrimarySale(pr));
-          let targets = response.targets.map(tr => new Target(tr));
 
-          this.getGoogle().charts.setOnLoadCallback(() => {
-            this.prepareData(targets, primary_sales);
-          });
-          this.loading = false;
-        },
-        err => {
-          this.loading = false;
-        });
-    }
   }
 
   /**
@@ -208,7 +249,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     let current_month = moment().month(date.month).year(date.year);
     this.month = current_month.month();
     this.year = current_month.year();
-    this.fetch();
+    this.fetchMilestone();
   }
 
   /**

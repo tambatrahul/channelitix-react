@@ -45,7 +45,6 @@ export class MultipleAreaSelectComponent extends MultipleBaseSelectComponent {
     return this._region_ids;
   }
 
-
   /**
    * Chart data
    */
