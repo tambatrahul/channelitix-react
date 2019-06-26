@@ -2,6 +2,8 @@ import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {MultipleBaseSelectComponent} from "../../base-multiple-select.component";
 import {TerritoryService} from "../../../../services/territory.service";
 import {Headquarter} from "../../../../models/territory/headquarter";
+import {AppConstants} from '../../../../app.constants';
+import {Region} from '../../../../models/territory/region';
 
 @Component({
     selector: 'multiple-headquarter-select',
@@ -37,14 +39,34 @@ export class MultipleHeadquarterSelectComponent extends MultipleBaseSelectCompon
     @Input()
     set area_ids(area_ids) {
         this._area_ids = area_ids;
-        this.fetch();
+        this.fetchHeadquarter();
     };
 
     get area_ids() {
         return this._area_ids;
     }
 
-    /**
+  /**
+   * Chart data
+   */
+  fetchHeadquarter = AppConstants.debounce(function () {
+    const self = this;
+    self.loading = true;
+    self.service.headquarter(null, null, self.area_ids).subscribe(
+      response => {
+        self.loading = false;
+        self.models = response.headquarters.map(function (t, key) {
+          return new Headquarter(t);
+        });
+      },
+      err => {
+        self.loading = false;
+      }
+    );
+  }, 1000, false);
+
+
+  /**
      * Multiple headquarter select component
      * @param service
      */
@@ -56,18 +78,7 @@ export class MultipleHeadquarterSelectComponent extends MultipleBaseSelectCompon
      * load headquarters
      */
     fetch() {
-        this.loading = true;
-        this.service.headquarter(null, null, this.area_ids).subscribe(
-            response => {
-                this.loading = false;
-                this.models = response.headquarters.map(function (t, key) {
-                    return new Headquarter(t);
-                });
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+
     }
 
     /**
