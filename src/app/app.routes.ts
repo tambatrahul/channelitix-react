@@ -436,7 +436,6 @@ export const routes: Routes = [
         path: 'videos',
         component: VideoComponent
       },
-
       // Abbott STP
       {
         path: 'abbott',
