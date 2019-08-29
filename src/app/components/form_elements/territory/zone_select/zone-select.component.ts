@@ -2,18 +2,19 @@ import {Component, Input} from "@angular/core";
 import {TerritoryService} from "../../../../services/territory.service";
 import {Region} from "../../../../models/territory/region";
 import {BaseSelectComponent} from "../../base-select.component";
+import {HQZone} from '../../../../models/territory/zone';
 
 @Component({
-    selector: 'region-select',
-    templateUrl: 'region-select.component.html'
+    selector: 'zone-select',
+    templateUrl: 'zone-select.component.html'
 })
-export class RegionSelectComponent extends BaseSelectComponent {
+export class ZoneSelectComponent extends BaseSelectComponent {
 
     /**
      * title for select field
      */
     @Input()
-    title: string = "Select Region";
+    title: string = "Select Zone";
 
     /**
      * First value text
@@ -24,32 +25,32 @@ export class RegionSelectComponent extends BaseSelectComponent {
     /**
      * Country id for filter
      */
-    _zone_id: number;
+    _country_id: number;
 
     /**
      * regions list
      *
      * @type {Array}
      */
-    regions: Region[] = [];
+    zones: HQZone[] = [];
 
     constructor(private territoryService: TerritoryService) {
         super();
     }
 
     /**
-     * zone_id getter and setters
+     * country_id getter and setters
      *
-     * @param zone_id
+     * @param country_id
      */
     @Input()
-    set zone_id(zone_id: number) {
-        this._zone_id = zone_id;
+    set country_id(country_id: number) {
+        this._country_id = country_id;
         this.fetch();
     }
 
-    get zone_id(): number {
-        return this._zone_id;
+    get country_id(): number {
+        return this._country_id;
     }
 
     /**
@@ -57,10 +58,10 @@ export class RegionSelectComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.territoryService.regions(this._zone_id).subscribe(
+        this.territoryService.zones(this._country_id).subscribe(
             response => {
                 this.loading = false;
-                this.regions = response.regions;
+                this.zones = response.zones;
             },
             err => {
                 this.loading = false;

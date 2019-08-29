@@ -83,7 +83,7 @@
                             {{ errors.working_with_ids }}
                         </small>
                     </div>
-                    <div *ngIf="_service.user.isArea || _service.user.isRegion">
+                    <div *ngIf="_service.user.isArea || _service.user.isRegion || _service.user.isZone">
                         <label>Working With</label>
                         <ss-multiselect-dropdown [options]="rep_options"
                                                  (ngModelChange)="onWorkingWithChanged($event)"

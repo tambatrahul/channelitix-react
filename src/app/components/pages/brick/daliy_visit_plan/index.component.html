@@ -21,7 +21,7 @@
       <region-select [value]="region_id" [title]="'Select Region'" [first_value]="'Select Region'"
                      (onValueChanged)="regionChanged($event)"></region-select>
     </div>
-    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
       <div *ngIf="region_id > 0">
         <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
                      [first_value]="'Select Area'" (_areas)="areas($event)"

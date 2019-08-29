@@ -30,6 +30,7 @@ export class UpdateCustomerComponent extends FormComponent {
   public hq_territory_id: number = 0;
   public hq_area_id: number = 0;
   public hq_region_id: number = 0;
+  public hq_zone_id: number = 0;
   public hq_brick_id: number = 0;
   public classification: string;
 
@@ -47,6 +48,7 @@ export class UpdateCustomerComponent extends FormComponent {
     classification: [""],
     customer_type_id: [""],
     grade_id: [""],
+    hq_zone_id: [""],
     hq_region_id: [""],
     hq_area_id: [""],
     hq_headquarter_id: [""],
@@ -83,6 +85,7 @@ export class UpdateCustomerComponent extends FormComponent {
    */
   ngOnInit() {
     super.ngOnInit();
+    this.zoneChanged(this._service.user.hq_zone_id);
     this.regionChanged(this._service.user.hq_region_id);
     this.areaChanged(this._service.user.hq_area_id);
     this.headquarterChanged(this._service.user.hq_headquarter_id);
@@ -102,6 +105,7 @@ export class UpdateCustomerComponent extends FormComponent {
           address: response.customer.address,
           classification: response.customer.classification
         });
+        this.zoneChanged(response.customer.hq_zone_id);
         this.regionChanged(response.customer.hq_region_id);
         this.areaChanged(response.customer.hq_area_id);
         this.headquarterChanged(response.customer.hq_headquarter_id);
@@ -181,6 +185,16 @@ export class UpdateCustomerComponent extends FormComponent {
     this.grade_id = grade_id;
     this.form.patchValue({grade_id: grade_id});
 
+  }
+
+  /**
+   * when region is changed filter list of customer
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.hq_zone_id = zone_id;
+    this.form.patchValue({hq_zone_id: zone_id});
+    this.regionChanged(0);
   }
 
   /**

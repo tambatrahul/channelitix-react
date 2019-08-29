@@ -29,6 +29,7 @@ export class CreateUserComponent extends FormComponent {
   public hq_headquarter_id: number = 0;
   public hq_area_id: number = 0;
   public hq_region_id: number = 0;
+  public hq_zone_id: number = 0;
   public hq_country_id: number = 0;
 
   /**
@@ -61,6 +62,7 @@ export class CreateUserComponent extends FormComponent {
     hq_headquarter_id: [""],
     hq_area_id: [""],
     hq_region_id: [""],
+    hq_zone_id: [""],
     hq_country_id: [""],
     manager_id: [""],
   });
@@ -133,6 +135,10 @@ export class CreateUserComponent extends FormComponent {
       this.countryChanged(this._service.user.hq_country_id);
 
       // set region
+      if (this._service.user.hq_zone_id)
+        this.zoneChanged(this._service.user.hq_zone_id);
+
+      // set region
       if (this._service.user.hq_region_id)
         this.regionChanged(this._service.user.hq_region_id);
 
@@ -168,6 +174,8 @@ export class CreateUserComponent extends FormComponent {
         this.areaChanged(manager.hq_area_id);
       if (manager.hq_region_id)
         this.regionChanged(manager.hq_region_id);
+    if (manager.hq_zone_id)
+      this.zoneChanged(manager.hq_zone_id);
       if (manager.hq_country_id) {
         this.form.patchValue({hq_country_id: manager.hq_country_id});
         this.hq_country_id = manager.hq_country_id;
@@ -181,6 +189,15 @@ export class CreateUserComponent extends FormComponent {
   countryChanged(country_id) {
     this.hq_country_id = country_id;
     this.form.patchValue({hq_country_id: country_id});
+  }
+
+  /**
+   * when zone is changed filter list of customer
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.hq_zone_id = zone_id;
+    this.form.patchValue({hq_zone_id: zone_id});
   }
 
   /**

@@ -7,16 +7,17 @@ import {Customer} from "../customer/customer";
 import {User} from "../user/user";
 import {InputAnswer} from "../visit/input_answer";
 import {Brand} from "../order/brand";
-import {HQZone} from './zone';
+import {Region} from './region';
 
-export class Region extends Model {
+export class HQZone extends Model {
 
   name: string;
-  hq_zone: HQZone;
+  hq_country: Country;
 
   // for internal user only
   customers: Customer[];
   customer_types: CustomerType[];
+  regions: Region[] = [];
   areas: Area[] = [];
   area_objects = {};
   total: number = 0;
@@ -40,6 +41,7 @@ export class Region extends Model {
   total_customers: number = 0;
 
   areas_count: number = 0;
+  regions_count: number = 0;
   territories_count: number = 0;
   headquarters_count: number = 0;
   bricks_count: number = 0;
@@ -88,12 +90,15 @@ export class Region extends Model {
     this.customer_types = info.customer_types;
     this.customers = info.customers;
     this.total = info.total;
-    if (info.hq_zone) {
-      this.hq_zone = new HQZone(info.hq_zone);
+    if (info.hq_country) {
+      this.hq_country = new Country(info.hq_country);
     }
 
     if (info.areas_count)
       this.areas_count = info.areas_count.aggregate;
+
+    if (info.regions_count)
+      this.regions_count = info.regions_count.aggregate;
 
     if (info.territories_count)
       this.territories_count = info.territories_count.aggregate;
@@ -109,6 +114,9 @@ export class Region extends Model {
 
     if (info.areas)
       this.areas = info.areas.map(area => new Area(area));
+
+    if (info.regions)
+      this.regions = info.regions.map(region => new Region(region));
 
     if (info.total_order)
       this.total_order = parseInt(info.total_order);

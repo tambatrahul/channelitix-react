@@ -112,7 +112,7 @@ export class CustomerSelectionComponent extends ListComponent {
     constructor(private visitService: VisitService, private customerService: CustomerService,
                 private territoryService: TerritoryService, private _authService: AuthService) {
         super(_authService);
-        if (this._authService.user.role_str == this.ROLE_ZSM) {
+        if (this._authService.user.role_str == this.ROLE_RSM) {
             this.hq_region_id = this._authService.user.hq_region_id;
         }
     }

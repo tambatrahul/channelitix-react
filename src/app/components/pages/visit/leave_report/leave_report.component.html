@@ -20,7 +20,7 @@
       </div>
       <div class="col-md-3" style="margin-top: 25px;">
         <div class="col-xs-12" *ngIf="environment.envName != 'sk_group'">
-          <div class="col-xs-4 col-xs-offset-2" *roleCheck="ROLE_ZSM" style="text-align: right;width: 164px;">
+          <div class="col-xs-4 col-xs-offset-2" *roleCheck="ROLE_RSM" style="text-align: right;width: 164px;">
             <a class="btn btn-primary btn-block btn-margin" *ngIf="!btn_loading"
                (click)="download()">
               Export to xlsx
@@ -44,7 +44,7 @@
   <!-- ./Filters for Visit report-->
 
   <div class="row">
-    <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+    <div class="col-xs-12" *roleCheck="ROLE_RSM">
       <div class="row" *ngFor="let region of managers">
         <div class="col-xs-12">
           <div class="box-widget widget-module">
@@ -74,7 +74,7 @@
 
                       <tbody>
                       <template ngFor let-area [ngForOf]="region.children">
-                        <tr tr class="grey" *roleCheck="ROLE_ZSM">
+                        <tr tr class="grey" *roleCheck="ROLE_RSM">
                           <th colspan="7" style="text-align: center;">{{ area.full_name }}
                           </th>
                         </tr>

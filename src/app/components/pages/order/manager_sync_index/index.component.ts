@@ -170,7 +170,7 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
             // separate csm and zsm
             if (user.role_str == this.ROLE_CSM) {
                 managers.push(user);
-            } else if (user.role_str == this.ROLE_ZSM) {
+            } else if (user.role_str == this.ROLE_RSM) {
                 zone_managers.push(user);
             }
         }
@@ -183,7 +183,7 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
         }
 
         // if user is zone manager add it to list
-        if (this._service.user.role_str == this.ROLE_ZSM) {
+        if (this._service.user.role_str == this.ROLE_RSM) {
             this._service.user.children = [];
             zone_managers.push(this._service.user)
         }

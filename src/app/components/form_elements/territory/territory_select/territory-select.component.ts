@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
 import {TerritoryService} from "../../../../services/territory.service";
+import {AppConstants} from '../../../../app.constants';
 
 @Component({
     selector: 'territory-select',
@@ -25,6 +26,23 @@ export class TerritorySelectComponent extends BaseSelectComponent {
      */
     private _headquarter_id: number;
 
+  /**
+   * Chart data
+   */
+  fetchTerritory = AppConstants.debounce(function () {
+    const self = this;
+    self.loading = true;
+    self.territoryService.territory(self._headquarter_id).subscribe(
+      response => {
+        self.loading = false;
+        self.models = response.territories;
+      },
+      err => {
+        self.loading = false;
+      }
+    );
+  }, 1000, false);
+
     constructor(private territoryService: TerritoryService) {
         super();
     }
@@ -48,15 +66,6 @@ export class TerritorySelectComponent extends BaseSelectComponent {
      * load territories
      */
     fetch() {
-        this.loading = true;
-        this.territoryService.territory(this._headquarter_id).subscribe(
-            response => {
-                this.loading = false;
-                this.models = response.territories;
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+        this.fetchTerritory();
     }
 }

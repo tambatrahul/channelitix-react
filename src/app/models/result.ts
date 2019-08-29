@@ -32,11 +32,13 @@ import {SapStockistSale} from "./SAP/sap_stockist_sale";
 import {OpeningStock} from "./openning_stock";
 import {SalesPlanningDetail} from "./plan";
 import {Brand} from "./order/brand";
+import {HQZone} from './territory/zone';
 
 export class Result {
 
   // territory arrays
   countries: Country[];
+  zones: HQZone[];
   regions: Region[];
   areas: Area[];
   territories: Territory[];

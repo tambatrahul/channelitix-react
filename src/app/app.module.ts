@@ -204,6 +204,7 @@ import {BrickListComponent} from "./components/pages/user/field_efforts_audit_sc
 import {AreaListComponent} from "./components/pages/user/field_efforts_audit_scorecard/csm_field_efforts_data/components/area/area_list.component";
 import {RegionListComponent} from "./components/pages/user/field_efforts_audit_scorecard/zsm_field_efforts_data/components/region/region_list.component";
 import {MonthSummaryComponent} from "./components/pages/user/summary/month_summary/month_summary.component";
+import {ZoneSelectComponent} from './components/form_elements/territory/zone_select/zone-select.component';
 
 
 
@@ -334,6 +335,7 @@ enableProdMode();
     PaginationComponent,
     RoleSelectComponent,
     UserSelectComponent,
+    ZoneSelectComponent,
     RegionSelectComponent,
     AreaSelectComponent,
     TerritorySelectComponent,

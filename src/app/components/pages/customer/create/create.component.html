@@ -119,10 +119,29 @@
                                     <!-- ./Select Type and Select Grade-->
 
                                     <div class="row">
+                                      <!-- Zone select -->
+                                      <div class="form-group col-xs-12 col-md-4" *roleCheck="ROLE_ADMIN">
+                                        <div>
+                                          <zone-select [value]="hq_zone_id" [country_id]="hq_country_id"
+                                                         [title]="'Select Zone'"
+                                                         [first_value]="'Select Zone'"
+                                                         (onValueChanged)="zoneChanged($event)"></zone-select>
+
+                                          <small *ngIf="errors['hq_brick_id']"
+                                                 class="text-danger text-center">
+                                            <span *ngIf="hq_region_id > 0"></span>
+                                            <span *ngIf="hq_region_id == 0 || hq_region_id == null">
+                                                        {{ errors.hq_brick_id}}
+                                                    </span>
+                                          </small>
+                                        </div>
+                                      </div>
+                                      <!-- ./Region select -->
+
                                         <!-- Region select -->
                                         <div class="form-group col-xs-12 col-md-4" *roleCheck="ROLE_ADMIN">
                                             <div>
-                                                <region-select [value]="hq_region_id" [country_id]="hq_country_id"
+                                                <region-select [value]="hq_region_id" [zone_id]="hq_zone_id"
                                                                [title]="'Select Region'"
                                                                [first_value]="'Select Region'"
                                                                (onValueChanged)="regionChanged($event)"></region-select>
@@ -139,7 +158,7 @@
                                         <!-- ./Region select -->
 
                                         <!-- Area select -->
-                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="ROLE_ZSM">
+                                        <div class="form-group col-xs-12 col-md-4" *roleCheck="ROLE_RSM">
                                             <div *ngIf="hq_region_id > 0">
                                                 <area-select [value]="hq_area_id" [region_id]="hq_region_id"
                                                              [title]="'Select Area'"

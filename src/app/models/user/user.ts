@@ -6,6 +6,7 @@ import {Visit} from "../visit/visit";
 import * as moment from "moment";
 import {Area} from "../territory/area";
 import {Region} from "../territory/region";
+import {HQZone} from '../territory/zone';
 
 export class User extends Model {
 
@@ -25,6 +26,7 @@ export class User extends Model {
 
   // territory changes
   hq_country_id: number;
+  hq_zone_id: number;
   hq_region_id: number;
   hq_area_id: number;
   hq_headquarter_id: number;
@@ -33,6 +35,7 @@ export class User extends Model {
   hq_headquarter: Headquarter;
   hq_area: Area;
   hq_region: Region;
+  hq_zone: HQZone;
 
 
   // manager
@@ -70,6 +73,7 @@ export class User extends Model {
     this.role_str = info.role_str;
     this.attendances = info.attendances;
     this.manager = info.manager;
+    this.hq_zone_id = info.hq_zone_id;
     this.hq_region_id = info.hq_region_id;
     this.hq_area_id = info.hq_area_id;
     this.hq_headquarter_id = info.hq_headquarter_id;
@@ -92,6 +96,9 @@ export class User extends Model {
 
     if (info.hq_region)
       this.hq_region = new Region(info.hq_region);
+
+    if (info.hq_zone)
+      this.hq_zone = new HQZone(info.hq_zone);
 
     if (!info.attendances)
       this.attendances = [];
@@ -212,8 +219,18 @@ export class User extends Model {
    *
    * @returns {boolean}
    */
-  get isRegion(): boolean {
+  get isZone(): boolean {
     return this.role_str == AppConstants.ROLE_ZSM;
+  }
+
+
+  /**
+   * Check For Region
+   *
+   * @returns {boolean}
+   */
+  get isRegion(): boolean {
+    return this.role_str == AppConstants.ROLE_RSM;
   }
 
   /**

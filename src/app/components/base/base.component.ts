@@ -11,7 +11,8 @@ export abstract class BaseComponent {
 
     public ROLE_CSE = 'HQ_MNG';
     public ROLE_CSM = 'AREA_MNG';
-    public ROLE_ZSM = 'REGION_MNG';
+    public ROLE_RSM = 'REGION_MNG';
+    public ROLE_ZSM = 'ZONE_MNG';
     public ROLE_THIRD_PARTY = 'THIRD_PARTY';
     public ROLE_ADMIN = 'COUNTRY_MNG';
 

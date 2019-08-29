@@ -1,16 +1,16 @@
-import {Component, ViewChild, ElementRef} from "@angular/core";
-import * as moment from "moment";
-import {User} from "../../../../models/user/user";
-import {AppConstants} from "../../../../app.constants";
-import {BaseAuthComponent} from "../../../base/base_auth.component";
-import {AuthService} from "../../../../services/AuthService";
-import {Holiday} from "../../../../models/holiday";
-import {OrderService} from "../../../../services/order.service";
-import {Order} from "../../../../models/order/order";
-import {Observable} from "rxjs/Rx";
-import {AttendanceService} from "../../../../services/attendance.service";
-import {Attendance} from "../../../../models/attendance/attendance";
-import {Target} from "../../../../models/SAP/target";
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import * as moment from 'moment';
+import {User} from '../../../../models/user/user';
+import {AppConstants} from '../../../../app.constants';
+import {BaseAuthComponent} from '../../../base/base_auth.component';
+import {AuthService} from '../../../../services/AuthService';
+import {Holiday} from '../../../../models/holiday';
+import {OrderService} from '../../../../services/order.service';
+import {Order} from '../../../../models/order/order';
+import {Observable} from 'rxjs/Rx';
+import {AttendanceService} from '../../../../services/attendance.service';
+import {Attendance} from '../../../../models/attendance/attendance';
+import {Target} from '../../../../models/SAP/target';
 
 declare let jQuery: any;
 declare let swal: any;
@@ -72,6 +72,7 @@ export class OrderComponent extends BaseAuthComponent {
    * manager_id
    */
   public manager_id: number = 0;
+  hq_zone_id: number = 0;
 
   /**
    * year and month for calendar
@@ -98,7 +99,7 @@ export class OrderComponent extends BaseAuthComponent {
    * @returns {string}
    */
   get title(): string {
-    return moment().year(this.year).month(this.month).format("MMMM, YYYY");
+    return moment().year(this.year).month(this.month).format('MMMM, YYYY');
   }
 
   /**
@@ -132,6 +133,10 @@ export class OrderComponent extends BaseAuthComponent {
     if (this._service.user.username == 'abbottadmin') {
       this.abbott = true;
     }
+
+    if(this._service.user.role_str == 'COUNTRY_MNG')
+      this.hq_zone_id = 1;
+
     this.month = moment().month();
     this.year = moment().year();
     this.fetchData();
@@ -174,35 +179,38 @@ export class OrderComponent extends BaseAuthComponent {
     // add attendance to visit skeleton
     for (let att of attendances) {
       if (data_skeleton.hasOwnProperty(att.created_by)) {
-        data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].attendance = att;
-        if (data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count == 0
-          && att.status == AppConstants.WORKING)
-          data_skeleton[att.created_by][moment(att.date, "YYYY-MM-DD").date() - 1].order_total_count = att.pob_amount;
+        data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].attendance = att;
+        if (data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].order_total_count == 0
+          && att.status == AppConstants.WORKING) {
+          data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].order_total_count = att.pob_amount;
+        }
       }
     }
 
     // add skeleton to user
     for (let user of users) {
       targets.map(target => {
-        if (target.hq_headquarter_id == user.hq_headquarter_id)
+        if (target.hq_headquarter_id == user.hq_headquarter_id) {
           user.total_target = target.total_target;
+        }
       });
 
-      if (data_skeleton.hasOwnProperty(user.id))
+      if (data_skeleton.hasOwnProperty(user.id)) {
         user.orders = data_skeleton[user.id];
-      else
+      } else {
         user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+      }
 
       // separate csm and zsm
       if (user.role_str == this.ROLE_CSM) {
         managers.push(user);
-      } else if (user.role_str == this.ROLE_ZSM) {
+      } else if (user.role_str == this.ROLE_RSM) {
         zone_managers.push(user);
       }
     }
 
     // if user is zone manager add it to list
-    if (this._service.user.role_str == this.ROLE_ZSM && !this.abbott) {
+    if (this._service.user.role_str == this.ROLE_RSM && !this.abbott) {
       this._service.user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
       this._service.user.children = [];
       this._service.user.cse_count = 0;
@@ -300,18 +308,19 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     // depending on list show view
-    if (zone_managers.length > 0)
+    if (zone_managers.length > 0) {
       this.managers = zone_managers;
-    else
+    } else {
       this.managers = managers;
+    }
 
     setTimeout(() => {
       if (!this.excel_loaded) {
         this.excel_loaded = true;
-        jQuery("table").tableExport({
+        jQuery('table').tableExport({
           formats: ['xlsx'],
           bootstrap: true,
-          position: "top"
+          position: 'top'
         });
       }
     }, 2000);
@@ -328,9 +337,9 @@ export class OrderComponent extends BaseAuthComponent {
       synergy = this.abbott ? 1 : 0;
 
     Observable.forkJoin(
-      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy),
+      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.hq_zone_id),
       this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
-        this.product_id, this.brand_id)
+        this.product_id, this.brand_id, this.hq_zone_id)
     ).subscribe(data => {
 
       this.loading = false;
@@ -413,21 +422,22 @@ export class OrderComponent extends BaseAuthComponent {
   selectUser(user: User, date: number, order: Order) {
     this.user = user;
     this.date = date;
-    let popup_date = this.date + " " + moment().year(this.year).month(this.month).format("MMMM, YYYY");
+    let popup_date = this.date + ' ' + moment().year(this.year).month(this.month).format('MMMM, YYYY');
 
-    if (order.attendance.status == 'leave')
-      swal(user.full_name + " on Leave (" + popup_date + ")");
-    else if (order.attendance.status == 'holiday')
-      swal(user.full_name + " on Holiday (" + popup_date + ")");
-    else if (order.attendance.status == 'working') {
-      if (order.attendance.work_type_id == 4)
-        swal(user.full_name + " on Transit (" + popup_date + ")");
-      else if (order.attendance.work_type_id == 1)
-        swal(user.full_name + " on Meeting (" + popup_date + ")");
-      else if (order.attendance.work_type_id == 3)
-        swal(user.full_name + " on Campaign (" + popup_date + ")");
-      else if (order.attendance.work_type_id == 2)
+    if (order.attendance.status == 'leave') {
+      swal(user.full_name + ' on Leave (' + popup_date + ')');
+    } else if (order.attendance.status == 'holiday') {
+      swal(user.full_name + ' on Holiday (' + popup_date + ')');
+    } else if (order.attendance.status == 'working') {
+      if (order.attendance.work_type_id == 4) {
+        swal(user.full_name + ' on Transit (' + popup_date + ')');
+      } else if (order.attendance.work_type_id == 1) {
+        swal(user.full_name + ' on Meeting (' + popup_date + ')');
+      } else if (order.attendance.work_type_id == 3) {
+        swal(user.full_name + ' on Campaign (' + popup_date + ')');
+      } else if (order.attendance.work_type_id == 2) {
         jQuery(this.user_order_table.nativeElement).modal();
+      }
     }
   }
 
@@ -438,6 +448,15 @@ export class OrderComponent extends BaseAuthComponent {
    */
   productChanged(product_id) {
     this.product_id = product_id;
+    this.fetchData();
+  }
+
+  /**
+   * customer type changed
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.hq_zone_id = zone_id;
     this.fetchData();
   }
 
@@ -457,8 +476,9 @@ export class OrderComponent extends BaseAuthComponent {
   download() {
     this.btn_loading = true;
     let synergy;
-    if (this.environment.envName == 'sk_group')
+    if (this.environment.envName == 'sk_group') {
       synergy = this.abbott ? 1 : 0;
+    }
 
     this.orderService.orders_excel_download(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
       this.product_id, this.brand_id).subscribe(

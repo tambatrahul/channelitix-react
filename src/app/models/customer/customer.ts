@@ -10,6 +10,7 @@ import {Headquarter} from "../territory/headquarter";
 import {Region} from "../territory/region";
 import {Area} from "../territory/area";
 import {SalesPlanningDetail} from "../plan";
+import {HQZone} from '../territory/zone';
 
 export class Customer extends Model {
 
@@ -30,6 +31,7 @@ export class Customer extends Model {
   hq_headquarter_id: number;
   hq_area_id: number;
   hq_region_id: number;
+  hq_zone_id: number;
   address: Address;
   synergy: boolean;
 
@@ -55,6 +57,7 @@ export class Customer extends Model {
   hq_territory: Territory;
   hq_headquarter: Headquarter;
   hq_region: Region;
+  hq_zone: HQZone;
   hq_area: Area;
 
   // for internal user only
@@ -94,6 +97,7 @@ export class Customer extends Model {
     this.hq_headquarter_id = info.hq_headquarter_id;
     this.hq_area_id = info.hq_area_id;
     this.hq_region_id = info.hq_region_id;
+    this.hq_zone_id = info.hq_zone_id;
     this.address = info.address;
     this.code = info.code;
     this.synergy = info.synergy;
@@ -122,6 +126,10 @@ export class Customer extends Model {
     // add region
     if (info.hq_region)
       this.hq_region = new Region(info.hq_region);
+
+    // add zone
+    if (info.hq_zone)
+      this.hq_zone = new HQZone(info.hq_zone);
 
     if (info.brick_counts)
       this.brick_counts = parseInt(info.brick_counts);

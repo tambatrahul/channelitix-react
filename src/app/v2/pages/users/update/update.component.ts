@@ -25,6 +25,7 @@ export class UpdateUserComponent extends FormComponent {
   public hq_headquarter_id: number = 0;
   public hq_area_id: number = 0;
   public hq_region_id: number = 0;
+  public hq_zone_id: number = 0;
   public hq_country_id: number = 0;
   public manager_id: number = 0;
   public manager_role_id: number = 0;
@@ -45,6 +46,7 @@ export class UpdateUserComponent extends FormComponent {
     hq_headquarter_id: [""],
     hq_area_id: [""],
     hq_region_id: [""],
+    hq_zone_id: [""],
     hq_country_id: [""],
     manager_id: [""]
   });
@@ -81,6 +83,7 @@ export class UpdateUserComponent extends FormComponent {
         this.dateChanged(moment(response.user.joining_date, "YYYY-MM-DD").format("DD MMMM YYYY"));
         this.headquarterChanged(response.user.hq_headquarter_id);
         this.regionChanged(response.user.hq_region_id);
+        this.zoneChanged(response.user.hq_zone_id);
         this.areaChanged(response.user.hq_area_id);
         this.managerChanged(response.user.manager_id);
         this.loading = false;
@@ -138,6 +141,10 @@ export class UpdateUserComponent extends FormComponent {
       this.managerChanged(this._service.user.id);
       this.countryChanged(this._service.user.hq_country_id);
 
+      // set zone
+      if (this._service.user.hq_zone_id)
+        this.zoneChanged(this._service.user.hq_zone_id);
+
       // set region
       if (this._service.user.hq_region_id)
         this.regionChanged(this._service.user.hq_region_id);
@@ -174,6 +181,8 @@ export class UpdateUserComponent extends FormComponent {
         this.areaChanged(manager.hq_area_id);
       if (manager.hq_region_id)
         this.regionChanged(manager.hq_region_id);
+    if (manager.hq_zone_id)
+      this.zoneChanged(manager.hq_zone_id);
       if (manager.hq_country_id) {
         this.form.patchValue({hq_country_id: manager.hq_country_id});
         this.hq_country_id = manager.hq_country_id;
@@ -187,6 +196,15 @@ export class UpdateUserComponent extends FormComponent {
   countryChanged(country_id) {
     this.hq_country_id = country_id;
     this.form.patchValue({hq_country_id: country_id});
+  }
+
+  /**
+   * when region is changed filter list of customer
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.hq_zone_id = zone_id;
+    this.form.patchValue({hq_zone_id: zone_id});
   }
 
   /**

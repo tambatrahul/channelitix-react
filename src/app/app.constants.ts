@@ -19,13 +19,15 @@ export class AppConstants {
     // roles of user
     static ROLE_CSE = 'HQ_MNG';
     static ROLE_CSM = 'AREA_MNG';
-    static ROLE_ZSM = 'REGION_MNG';
+    static ROLE_RSM = 'REGION_MNG';
+    static ROLE_ZSM = 'ZONE_MNG';
     static ROLE_ADMIN = 'COUNTRY_MNG';
     static ROLE_THIRD_PARTY = 'THIRD_PARTY';
     static roles: Array<Role> = [
-        new Role({id: 7, name: AppConstants.ROLE_THIRD_PARTY, title: 'THIRD PARTY'}),
-        new Role({id: 6, name: AppConstants.ROLE_ADMIN, title: 'ADMIN'}),
-        new Role({id: 5, name: AppConstants.ROLE_ZSM, title: 'ZSM'}),
+        new Role({id: 8, name: AppConstants.ROLE_THIRD_PARTY, title: 'THIRD PARTY'}),
+        new Role({id: 7, name: AppConstants.ROLE_ADMIN, title: 'ADMIN'}),
+        new Role({id: 6, name: AppConstants.ROLE_ZSM, title: 'ZSM'}),
+        new Role({id: 5, name: AppConstants.ROLE_RSM, title: 'RSM'}),
         new Role({id: 4, name: AppConstants.ROLE_CSM, title: 'CSM'}),
         new Role({id: 3, name: AppConstants.ROLE_CSE, title: 'CSE'})
     ];

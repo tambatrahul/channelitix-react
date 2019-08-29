@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
 import {UserService} from "../../../../services/user.service";
+import {AppConstants} from '../../../../app.constants';
 
 @Component({
     selector: 'user-select',
@@ -26,6 +27,23 @@ export class UserSelectComponent extends BaseSelectComponent {
     private _role_id: number;
     private _manager_id: number;
     private _status: string;
+
+  /**
+   * Chart data
+   */
+  fetchUser = AppConstants.debounce(function () {
+    const self = this;
+    self.loading = true;
+    self.userService.children(self._role_id, self._manager_id, self._status).subscribe(
+      response => {
+        self.loading = false;
+        self.models = response.users;
+      },
+      err => {
+        self.loading = false;
+      }
+    );
+  }, 1000, false);
 
     constructor(private userService: UserService) {
         super();
@@ -80,15 +98,6 @@ export class UserSelectComponent extends BaseSelectComponent {
      * load users
      */
     fetch() {
-        this.loading = true;
-        this.userService.children(this._role_id, this._manager_id, this._status).subscribe(
-            response => {
-                this.loading = false;
-                this.models = response.users;
-            },
-            err => {
-                this.loading = false;
-            }
-        );
+        this.fetchUser();
     }
 }

@@ -39,6 +39,23 @@ export class TerritoryService extends BaseService {
   /**
    * get countries
    */
+  public zones(country_id?: number, zone_ids?: Array<number>): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('country_id', String(country_id > 0 ? country_id : ''));
+
+    if (zone_ids && zone_ids.length > 0) {
+      params.set('zone_ids', String(zone_ids));
+    }
+
+    // make server call
+    return this.get(this.getBaseUrl() + '/zones', new RequestOptions({search: params}));
+  }
+
+  /**
+   * get countries
+   */
   public regions(country_id?: number, region_ids?: Array<number>): Observable<Result> {
 
     // prepare get params

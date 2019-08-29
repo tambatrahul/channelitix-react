@@ -55,7 +55,7 @@ export class TourFormComponent extends FormComponent {
             this.showTerritory = true;
             this.headquarter_id = user.hq_headquarter_id;
         } else {
-            if (user.role_id != 5)
+            if (user.role_id < 5)
                 this._manager_id = user.id;
             else
                 this._manager_id = 0;

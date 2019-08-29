@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions, Response, ResponseContentType} from "@angular/http";
-import {Observable} from "rxjs";
-import {Router} from "@angular/router";
-import {AuthService} from "./AuthService";
-import {BaseService} from "./base.service";
-import {Result} from "../models/result";
-import {Attendance} from "../models/attendance/attendance";
+import {Injectable} from '@angular/core';
+import {Http, URLSearchParams, RequestOptions, Response, ResponseContentType} from '@angular/http';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
+import {AuthService} from './AuthService';
+import {BaseService} from './base.service';
+import {Result} from '../models/result';
+import {Attendance} from '../models/attendance/attendance';
 
 
 @Injectable()
@@ -39,7 +39,7 @@ export class AttendanceService extends BaseService {
   monthly(month: number, year: number): Observable<Result> {
 
     // prepare url
-    let url = this.getBaseUrl() + '/monthly/' + month + "/" + year;
+    let url = this.getBaseUrl() + '/monthly/' + month + '/' + year;
 
     // make server call
     return this.get(url, new RequestOptions());
@@ -48,16 +48,17 @@ export class AttendanceService extends BaseService {
   /**
    * get attendance report
    */
-  forChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number): Observable<Result> {
+  forChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, hq_zone_id?: number): Observable<Result> {
 
     // prepare url
-    let url = this.getBaseUrl() + '/monthly/forChildren/' + month + "/" + year;
+    let url = this.getBaseUrl() + '/monthly/forChildren/' + month + '/' + year;
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('role_id', String(role_id > 0 ? role_id : ''));
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
     params.set('synergy', String(synergy ? synergy : ''));
+    params.set('zone_id', String(hq_zone_id ? hq_zone_id : ''));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
@@ -153,7 +154,7 @@ export class AttendanceService extends BaseService {
   leave_report(month: number, year: number, region_id?: number): Observable<Result> {
 
     // prepare url
-    let url = this.getBaseUrl() + '/leave_report/' + month + "/" + year;
+    let url = this.getBaseUrl() + '/leave_report/' + month + '/' + year;
 
     // prepare get params
     let params = new URLSearchParams();
@@ -180,7 +181,7 @@ export class AttendanceService extends BaseService {
     }));
 
     // make server call
-    return this.http.get(this.getBaseUrl() + '/leave_report/' + month + "/" + year + "/" + "excel_download", content);
+    return this.http.get(this.getBaseUrl() + '/leave_report/' + month + '/' + year + '/' + 'excel_download', content);
 
   }
 }

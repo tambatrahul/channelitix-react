@@ -95,7 +95,7 @@
                                         <template [ngIf]="role_str == ROLE_ZSM">
                                             <div class="col-xs-12 col-md-6" *ngIf="hq_country_id > 0">
                                                 <div>
-                                                    <region-select [value]="hq_region_id" [country_id]="hq_country_id"
+                                                    <region-select [value]="hq_region_id" [zone_id]="hq_zone_id"
                                                                    [title]="'Select Region'"
                                                                    [first_value]="'Select Region'"
                                                                    (onValueChanged)="regionChanged($event)"></region-select>

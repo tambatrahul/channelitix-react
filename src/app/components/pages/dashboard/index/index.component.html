@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="row" *ngIf="region_ids.length > 0">
-        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+        <div class="col-xs-12" *roleCheck="ROLE_RSM">
           <div class="row">
             <multiple-area-select [region_ids]="region_ids" [area_ids]="area_ids"
                                   (selectedArea)="areaSelected($event)"></multiple-area-select>
