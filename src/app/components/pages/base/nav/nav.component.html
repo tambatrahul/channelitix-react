@@ -63,21 +63,28 @@
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">
           <a class="waves-effect"
-             [routerLink]="'/territories/regions'">
+             [routerLink]="'/territories/zones'">
             <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
-            <span class="nav-label">Region Master</span>
+            <span class="nav-label">Zone Master</span>
+          </a>
+        </li>
+        <li *ngIf="_auth_service.user?.isZone">
+          <a class="waves-effect"
+             [routerLink]="['/territories/zones/',_auth_service.user.hq_zone_id,'regions/', _auth_service.user.hq_region_id, 'areas']">
+            <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
+            <span class="nav-label">Area Master</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isRegion">
           <a class="waves-effect"
-             [routerLink]="['/territories/regions/', _auth_service.user.hq_region_id, 'areas']">
+             [routerLink]="['/territories/zones/',_auth_service.user.hq_zone_id,'regions', _auth_service.user.hq_region_id, 'areas']">
             <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
             <span class="nav-label">Area Master</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isArea">
           <a class="waves-effect"
-             [routerLink]="['/territories/regions/', _auth_service.user.hq_region_id, 'areas', _auth_service.user.hq_area_id, 'headquarters']">
+             [routerLink]="['/territories/zones/',_auth_service.user.hq_zone_id,'regions', _auth_service.user.hq_region_id, 'areas', _auth_service.user.hq_area_id, 'headquarters']">
             <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
             <span class="nav-label">Headquarter Master</span>
           </a>
@@ -122,7 +129,7 @@
               </a>
             </li>
             <li
-                *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='sk_group'">
+              *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='sk_group'">
               <a class="waves-effect" routerLink="/orders/managers">
                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                 <span class="nav-label">Manager POB Report</span>

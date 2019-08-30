@@ -23,6 +23,7 @@ export class BrickComponent extends ListComponent {
     /**
      * region, territory, area, headquarter & brick id
      */
+    public _zone_id: number = 0;
     public _region_id: number = 0;
     public _area_id: number = 0;
     public _territory_id: number = 0;
@@ -41,6 +42,7 @@ export class BrickComponent extends ListComponent {
      */
     fetch() {
         this.route.params.subscribe(params => {
+            this._zone_id = params['zone_id'];
             this._region_id = params['region_id'];
             this._area_id = params['area_id'];
             this._headquarter_id = params['headquarter_id'];
@@ -81,9 +83,9 @@ export class BrickComponent extends ListComponent {
      * Update Brick
      */
     updateBrick(id: number) {
-        this._router.navigate(['/territories/regions', this._region_id,
-            'areas', this._area_id, 'headquarters', this._headquarter_id,
-            'territories', this._territory_id, 'bricks', 'update', id]);
+        // this._router.navigate(['/territories/regions', this._region_id,
+        //     'areas', this._area_id, 'headquarters', this._headquarter_id,
+        //     'territories', this._territory_id, 'bricks', 'update', id]);
     }
 
     /**

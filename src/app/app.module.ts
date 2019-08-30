@@ -205,6 +205,7 @@ import {AreaListComponent} from "./components/pages/user/field_efforts_audit_sco
 import {RegionListComponent} from "./components/pages/user/field_efforts_audit_scorecard/zsm_field_efforts_data/components/region/region_list.component";
 import {MonthSummaryComponent} from "./components/pages/user/summary/month_summary/month_summary.component";
 import {ZoneSelectComponent} from './components/form_elements/territory/zone_select/zone-select.component';
+import {ZoneComponent} from './components/pages/territory/zone/index.component';
 
 
 
@@ -257,6 +258,7 @@ enableProdMode();
     BroadcastMessageComponent,
     DashBoardCountComponent,
     DashBoardReportComponent,
+    ZoneComponent,
     RegionComponent,
     AreaComponent,
     HeadquarterComponent,

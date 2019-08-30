@@ -77,6 +77,7 @@ import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan
 import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
 import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
+import {ZoneComponent} from './components/pages/territory/zone/index.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -250,47 +251,48 @@ export const routes: Routes = [
         path: 'territories',
         children: [
           {
-            path: 'regions',
+            path: 'zones',
             children: [
               {
                 path: '',
-                component: RegionComponent,
+                component: ZoneComponent,
               },
               {
-                path: ':region_id/areas',
+                path: ':zone_id/regions',
                 children: [
                   {
                     path: '',
-                    component: AreaComponent,
+                    component: RegionComponent,
                   },
                   {
-                    path: ':area_id/headquarters',
+                    path: ':region_id/areas',
                     children: [
                       {
                         path: '',
-                        component: HeadquarterComponent,
+                        component: AreaComponent,
                       },
                       {
-                        path: ':headquarter_id/territories',
+                        path: ':area_id/headquarters',
                         children: [
                           {
                             path: '',
-                            component: TerritoryComponent,
+                            component: HeadquarterComponent,
                           },
                           {
-                            path: ':territory_id/bricks',
+                            path: ':headquarter_id/territories',
                             children: [
                               {
                                 path: '',
-                                component: BrickComponent
+                                component: TerritoryComponent,
                               },
                               {
-                                path: 'create',
-                                component: CreateBrickComponent
-                              },
-                              {
-                                path: 'update/:id',
-                                component: UpdateBrickComponent
+                                path: ':territory_id/bricks',
+                                children: [
+                                  {
+                                    path: '',
+                                    component: BrickComponent
+                                  }
+                                ]
                               },
                             ]
                           },
@@ -301,7 +303,7 @@ export const routes: Routes = [
                 ]
               },
             ]
-          },
+          }
         ]
       },
 

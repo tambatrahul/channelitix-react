@@ -75,7 +75,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         this.region_id = this._service.user.hq_region_id;
       }
       else {
-        if (this._service.user.role_id == 6) {
+        if (this._service.user.role_id == 7) {
           this.region_id = 2;
         }
       }
@@ -89,7 +89,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         this.region_id = this._service.user.hq_region_id;
       }
       else {
-        if (this._service.user.role_id == 6) {
+        if (this._service.user.role_id == 7) {
           this.region_id = 1;
         }
       }

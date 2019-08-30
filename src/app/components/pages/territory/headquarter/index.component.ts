@@ -25,6 +25,7 @@ export class HeadquarterComponent extends ListComponent {
      */
     private _area_id: number;
     private _region_id: number;
+    private _zone_id: number;
     private _country_id: number;
 
     /**
@@ -47,6 +48,7 @@ export class HeadquarterComponent extends ListComponent {
      */
     fetch() {
         this.route.params.subscribe(params => {
+            this._zone_id = params['zone_id'];
             this._region_id = params['region_id'];
             this._area_id = params['area_id'];
             this.loading = true;

@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {Http, URLSearchParams, RequestOptions} from "@angular/http";
-import {Observable} from "rxjs";
-import {BaseService} from "./base.service";
-import {Router} from "@angular/router";
-import {AuthService} from "./AuthService";
-import {Result} from "../models/result";
+import {Injectable} from '@angular/core';
+import {Http, URLSearchParams, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs';
+import {BaseService} from './base.service';
+import {Router} from '@angular/router';
+import {AuthService} from './AuthService';
+import {Result} from '../models/result';
 
 @Injectable()
 export class TerritoryService extends BaseService {
@@ -56,7 +56,7 @@ export class TerritoryService extends BaseService {
   /**
    * get countries
    */
-  public regions(country_id?: number, region_ids?: Array<number>): Observable<Result> {
+  public regions(country_id?: number, region_ids?: Array<number>, zone_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -64,6 +64,10 @@ export class TerritoryService extends BaseService {
 
     if (region_ids && region_ids.length > 0) {
       params.set('region_ids', String(region_ids));
+    }
+
+    if (zone_id && zone_id > 0) {
+      params.set('zone_id', String(zone_id));
     }
 
     // make server call

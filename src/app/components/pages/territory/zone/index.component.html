@@ -5,37 +5,31 @@
             <div class="col-md-4">
                 <div class="page-breadcrumb-wrap">
                     <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Headquarters
-                            <small>List all Headquarters</small>
+                        <h2 class="breadcrumb-titles">Regions
+                            <small>List all Regions</small>
                         </h2>
                         <ul class="list-page-breadcrumb">
                             <li><a href="#">Home</a></li>
-                            <li class="active-page"> Headquarters</li>
+                            <li class="active-page"> Regions</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 pull-right">
-                <div style="padding-top: 30px;">
-                    <a class="btn btn-primary" (click)="excel_download()">Download all Bricks</a>
-                </div>
-            </div>
+
+            <!--<div class="col-md-2 pull-right">-->
+                <!--<div style="padding-top: 30px;">-->
+                    <!--<a class="btn btn-primary" (click)="excel_download()">Download all Bricks</a>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
     <!-- Page Breadcrumb -->
-    <div class="row" *roleCheck="ROLE_RSM">
-        <div class="col-xs-12">
-          <a class="btn btn-default" [routerLink]="['/territories/zones', _zone_id,'regions',_region_id, 'areas']">
-            <i class="fa fa-arrow-left"></i> Back
-          </a>
-        </div>
-    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box-widget widget-module">
                 <div class="widget-head clearfix">
                     <span class="h-icon"><i class="fa fa-table"></i></span>
-                    <h4>Headquarters Table</h4>
+                    <h4>Zones Table</h4>
                 </div>
                 <div class="widget-container brick-table" #loading_box>
                     <div class="widget-block">
@@ -44,6 +38,9 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Total Region</th>
+                                    <th>Total Area</th>
+                                    <th>Total HQ</th>
                                     <th>Total Territory</th>
                                     <th>Total Bricks</th>
                                     <th>Actions</th>
@@ -53,6 +50,9 @@
                                 <tfoot>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Total Region</th>
+                                    <th>Total Area</th>
+                                    <th>Total HQ</th>
                                     <th>Total Territory</th>
                                     <th>Total Bricks</th>
                                     <th>Actions</th>
@@ -60,16 +60,20 @@
                                 </tfoot>
 
                                 <tbody>
-                                <tr *ngFor="let b of headquarters">
+                                <tr *ngFor="let b of zones">
                                     <td>{{ b.name}}</td>
+                                    <td>
+                                        {{ b.regions_count }}
+                                    </td>
+                                    <td>{{ b.areas_count }}</td>
+                                    <td>{{ b.headquarters_count }}</td>
                                     <td>{{ b.territories_count }}</td>
                                     <td>{{ b.bricks_count }}</td>
                                     <td>
-                                      <a
-                                        [routerLink]="['/territories/zones', _zone_id,'regions',_region_id, 'areas',_area_id, 'headquarters', b.id, 'territories']"
-                                        class="btn btn-xs btn-primary">
-                                        view by territory
-                                      </a>
+                                        <a [routerLink]="['/territories/zones/', b.id, 'regions']"
+                                           class="btn btn-xs btn-primary">
+                                            View By Region
+                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>

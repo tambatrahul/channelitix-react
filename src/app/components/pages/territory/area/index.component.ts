@@ -24,7 +24,7 @@ export class AreaComponent extends ListComponent {
      * region id for filter
      */
     private _region_id: number;
-    private _country_id: number;
+    private _zone_id: number;
 
     /**
      * User Component Constructor
@@ -48,6 +48,7 @@ export class AreaComponent extends ListComponent {
     fetch() {
         this.route.params.subscribe(params => {
             this._region_id = params['region_id'];
+            this._zone_id = params['zone_id'];
             this.loading = true;
             this.territoryService.area(this._region_id).subscribe(
                 response => {
