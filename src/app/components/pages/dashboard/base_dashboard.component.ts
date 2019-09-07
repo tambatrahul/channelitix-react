@@ -6,6 +6,15 @@ declare let jQuery: any;
 
 export abstract class BaseDashboardComponent extends ListComponent {
 
+  /**
+   * region id for filter
+   */
+  _zone_ids: Array<number> = [];
+  @Input()
+  set zone_ids(zone_ids) {
+    this._zone_ids = zone_ids;
+    this.fetch();
+  };
 
     /**
      * region id for filter

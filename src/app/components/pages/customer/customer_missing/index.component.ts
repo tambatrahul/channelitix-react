@@ -1,13 +1,14 @@
-import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import * as moment from "moment";
-import {ListComponent} from "../../../base/list.component";
-import {Territory} from "../../../../models/territory/territory";
-import {Headquarter} from "../../../../models/territory/headquarter";
-import {AuthService} from "../../../../services/AuthService";
-import {CustomerService} from "../../../../services/customer.service";
-import {Customer} from "../../../../models/customer/customer";
-import {environment} from "../../../../../environments/environment";
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
+import {ListComponent} from '../../../base/list.component';
+import {Territory} from '../../../../models/territory/territory';
+import {Headquarter} from '../../../../models/territory/headquarter';
+import {AuthService} from '../../../../services/AuthService';
+import {CustomerService} from '../../../../services/customer.service';
+import {Customer} from '../../../../models/customer/customer';
+import {environment} from '../../../../../environments/environment';
+
 declare let jQuery: any;
 
 @Component({
@@ -27,6 +28,7 @@ export class CustomerMissingComponent extends ListComponent {
   /**
    * region, territory, area, headquarter & brick id
    */
+  public zone_id: number = 0;
   public region_id: number = 0;
   public area_id: number = 0;
   public headquarter_id: number = 0;
@@ -68,24 +70,38 @@ export class CustomerMissingComponent extends ListComponent {
         this.region_id = this._service.user.hq_region_id;
         this.area_id = this._service.user.hq_area_id;
       }
-      else if (this._service.user.role_id == 5) {
+      if (this._service.user.role_id == 5) {
         this.region_id = this._service.user.hq_region_id;
       }
-      else if (this._service.user.role_id == 3) {
+      if (this._service.user.role_id == 6) {
+        this.zone_id = this._service.user.hq_zone_id;
+      }
+
+      if (this._service.user.role_id == 7) {
+        this.zone_id = 1;
+      }
+      if (this._service.user.role_id == 3) {
         this.region_id = this._service.user.hq_region_id;
         this.area_id = this._service.user.hq_area_id;
         this.headquarter_id = this._service.user.hq_headquarter_id;
       }
-    }
-    else {
+    } else {
       if (this._service.user.role_id == 4) {
         this.region_id = this._service.user.hq_region_id;
         this.area_id = this._service.user.hq_area_id;
-      }
-      else if (this._service.user.role_id == 5) {
+      }  if (this._service.user.role_id == 5) {
         this.region_id = this._service.user.hq_region_id;
       }
-      else if (this._service.user.role_id == 3) {
+      if (this._service.user.role_id == 5) {
+        this.region_id = this._service.user.hq_region_id;
+      }
+      if (this._service.user.role_id == 6) {
+        this.zone_id = this._service.user.hq_zone_id;
+      }
+      if (this._service.user.role_id == 7) {
+        this.zone_id = 1;
+      }
+      if (this._service.user.role_id == 3) {
         this.region_id = this._service.user.hq_region_id;
         this.area_id = this._service.user.hq_area_id;
         this.headquarter_id = this._service.user.hq_headquarter_id;
@@ -211,6 +227,15 @@ export class CustomerMissingComponent extends ListComponent {
 
   /**
    * when region is changed filter list of customer
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.regionChanged(0);
+  }
+
+  /**
+   * when region is changed filter list of customer
    * @param region_id
    */
   regionChanged(region_id) {
@@ -260,7 +285,7 @@ export class CustomerMissingComponent extends ListComponent {
         // Doing it this way allows you to name the file
         let link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = "customer_missing_report.xls";
+        link.download = 'customer_missing_report.xls';
         link.click();
       },
       err => {

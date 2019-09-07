@@ -33,7 +33,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   counts(from_date, to_date, year, region_ids?: Array<number>,
-         area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
+         area_ids?: Array<number>, headquarter_ids?: Array<number>, zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -55,6 +55,12 @@ export class ReportService extends BaseService {
     if (region_ids && region_ids.length > 0) {
       region_ids.map(function (region_id) {
         params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
       });
     }
 
@@ -109,7 +115,7 @@ export class ReportService extends BaseService {
    */
   visit_order_trend(from_date, to_date, year,
                     region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                    product_id?: number, brand_id?: number): Observable<Result> {
+                    product_id?: number, brand_id?: number, zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -135,6 +141,12 @@ export class ReportService extends BaseService {
       });
     }
 
+    if (zone_ids && zone_ids.length > 0) {
+      region_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
+      });
+    }
+
     // prepare url
     let url = this.getBaseUrl() + '/visit_order_trend';
 
@@ -147,7 +159,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   till_month_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                   month?: number, year?: number): Observable<Result> {
+                   month?: number, year?: number, zone_ids?: Array<number>,): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -164,6 +176,12 @@ export class ReportService extends BaseService {
     if (region_ids && region_ids.length > 0) {
       region_ids.map(function (region_id) {
         params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
       });
     }
     if (month)
@@ -183,7 +201,8 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   performance(region_ids?: Array<number>,
-              area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
+              area_ids?: Array<number>, headquarter_ids?: Array<number>,
+              zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -200,6 +219,12 @@ export class ReportService extends BaseService {
     if (region_ids && region_ids.length > 0) {
       region_ids.map(function (region_id) {
         params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
       });
     }
 
@@ -215,7 +240,8 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  product_wise_sale(month, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>): Observable<Result> {
+  product_wise_sale(month, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+                   zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -232,6 +258,12 @@ export class ReportService extends BaseService {
     if (region_ids && region_ids.length > 0) {
       region_ids.map(function (region_id) {
         params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
       });
     }
 
@@ -337,10 +369,11 @@ export class ReportService extends BaseService {
   /**
    * Headquarter wise report api
    */
-  region_wise_sales(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number) {
+  region_wise_sales(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number, zone_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
@@ -351,7 +384,8 @@ export class ReportService extends BaseService {
   /**
    * Monthly Stockist wise sale report api
    */
-  sap_stockist_wise_monthly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number) {
+  sap_stockist_wise_monthly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number,
+                            zone_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -359,6 +393,7 @@ export class ReportService extends BaseService {
       params.append('month', String(month));
     if (year)
       params.append('year', String(year));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
@@ -369,7 +404,7 @@ export class ReportService extends BaseService {
   /**
    * Monthly Stockist wise sale report api
    */
-  sap_stockist_wise_yearly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number) {
+  sap_stockist_wise_yearly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number, zone_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -377,6 +412,7 @@ export class ReportService extends BaseService {
       params.append('month', String(month));
     if (year)
       params.append('year', String(year));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
@@ -621,7 +657,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   milestone_sales_tracking_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                                 month?: number, year?: number): Observable<Result> {
+                                 month?: number, year?: number,zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -638,6 +674,12 @@ export class ReportService extends BaseService {
     if (region_ids && region_ids.length > 0) {
       region_ids.map(function (region_id) {
         params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
       });
     }
 
@@ -692,11 +734,12 @@ export class ReportService extends BaseService {
    * @param {Array<number>} region_ids
    * @param {Array<number>} area_ids
    * @param {Array<number>} headquarter_ids
-   * @param {number} month
    * @param {number} year
+   * @param zone_ids
    * @returns {Observable<Result>}
    */
-  skinlite_sales_analysis_graph(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>, year?: number): Observable<Result> {
+  skinlite_sales_analysis_graph(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>, year?: number,
+                                zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -713,6 +756,12 @@ export class ReportService extends BaseService {
     if (region_ids && region_ids.length > 0) {
       region_ids.map(function (region_id) {
         params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
       });
     }
 
@@ -733,7 +782,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   skinlite_avg_sales_analysis_graph(region_ids?: Array<number>, area_ids?: Array<number>,
-                                    headquarter_ids?: Array<number>, year?: number): Observable<Result> {
+                                    headquarter_ids?: Array<number>, year?: number, zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -750,6 +799,12 @@ export class ReportService extends BaseService {
     if (region_ids && region_ids.length > 0) {
       region_ids.map(function (region_id) {
         params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
       });
     }
 

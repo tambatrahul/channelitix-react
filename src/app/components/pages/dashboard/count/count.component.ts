@@ -65,6 +65,16 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
   }
 
   /**
+   * zone id for filter
+   */
+  _zone_ids: Array<number> = [];
+  @Input()
+  set zone_ids(zone_ids) {
+    this._zone_ids = zone_ids;
+    this.fetchCounts();
+  };
+
+  /**
    * region id for filter
    */
   _region_ids: Array<number> = [];
@@ -102,7 +112,7 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
     self.loading = true;
     if (self._dates.year) {
       self.reportService.counts(self._dates.from_date, self._dates.to_date, self._dates.year,
-        self._region_ids, self._area_ids, self._headquarter_ids).subscribe(
+        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids).subscribe(
         response => {
           self.counts = response;
           self.loading = false;

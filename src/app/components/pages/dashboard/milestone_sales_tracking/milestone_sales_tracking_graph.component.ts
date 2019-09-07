@@ -34,6 +34,15 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     this.fetchMilestone();
   }
 
+  /**
+   * zone id for filter
+   */
+  _zone_ids: Array<number> = [];
+  @Input()
+  set zone_ids(zone_ids) {
+    this._zone_ids = zone_ids;
+    this.fetchMilestone();
+  };
 
   /**
    * region id for filter
@@ -112,7 +121,8 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     const self = this;
     if ((self.month || self.month == 0) && self.year) {
       self.loading = true;
-      self.reportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year).subscribe(
+      self.reportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
+        self._zone_ids).subscribe(
         response => {
           let primary_sales = response.primary_sales.map(pr => new PrimarySale(pr));
           let targets = response.targets.map(tr => new Target(tr));

@@ -1,17 +1,17 @@
-import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {ListComponent} from "../../base/list.component";
-import {AuthService} from "../../../services/AuthService";
-import * as moment from "moment";
-import {ReportService} from "../../../services/report.service";
-import {Brick} from "../../../models/territory/brick";
-import {Visit} from "../../../models/visit/visit";
-import {Order} from "../../../models/order/order";
-import {Target} from "../../../models/SAP/target";
-import {Territory} from "../../../models/territory/territory";
-import {environment} from "../../../../environments/environment";
-import {Headquarter} from "../../../models/territory/headquarter";
-import {Area} from "../../../models/territory/area";
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ListComponent} from '../../base/list.component';
+import {AuthService} from '../../../services/AuthService';
+import * as moment from 'moment';
+import {ReportService} from '../../../services/report.service';
+import {Brick} from '../../../models/territory/brick';
+import {Visit} from '../../../models/visit/visit';
+import {Order} from '../../../models/order/order';
+import {Target} from '../../../models/SAP/target';
+import {Territory} from '../../../models/territory/territory';
+import {environment} from '../../../../environments/environment';
+import {Headquarter} from '../../../models/territory/headquarter';
+import {Area} from '../../../models/territory/area';
 
 declare let jQuery: any;
 
@@ -39,12 +39,13 @@ export class CustomerBrickCoverageComponent extends ListComponent {
 
   // set months array
   public months_str = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
   ];
 
   /**
    * region, territory, area, headquarter & brick id
    */
+  public zone_id: number = 0;
   public region_id: number = 0;
   public area_id: number = 0;
   public headquarter_id: number = 0;
@@ -71,28 +72,31 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         this.region_id = this._service.user.hq_region_id;
         this.area_id = this._service.user.hq_area_id;
       }
-      else if (this._service.user.role_id == 5) {
+      if (this._service.user.role_id == 5) {
         this.region_id = this._service.user.hq_region_id;
       }
-      else {
-        if (this._service.user.role_id == 7) {
-          this.region_id = 2;
-        }
+      if (this._service.user.role_id == 6) {
+        this.zone_id = this._service.user.hq_zone_id;
       }
-    }
-    else {
+
+      if (this._service.user.role_id == 7) {
+        this.zone_id = 1;
+      }
+    } else {
       if (this._service.user.role_id == 4) {
         this.region_id = this._service.user.hq_region_id;
         this.area_id = this._service.user.hq_area_id;
       }
-      else if (this._service.user.role_id == 5) {
+      if (this._service.user.role_id == 5) {
         this.region_id = this._service.user.hq_region_id;
       }
-      else {
-        if (this._service.user.role_id == 7) {
-          this.region_id = 1;
-        }
+      if (this._service.user.role_id == 6) {
+        this.zone_id = this._service.user.hq_zone_id;
       }
+      if (this._service.user.role_id == 7) {
+        this.zone_id = 1;
+      }
+
     }
   }
 
@@ -158,8 +162,9 @@ export class CustomerBrickCoverageComponent extends ListComponent {
               if (hq_brick.grade_id == 1 || hq_brick.grade_id == 2 || hq_brick.grade_id == 8 ||
                 hq_brick.grade_id == 9 || hq_brick.grade_id == 10 || hq_brick.grade_id == 11) {
                 hq_brick.customer_ab = hq_brick.customer_count;
-              } else
+              } else {
                 brick.customer_others = hq_brick.customer_count;
+              }
             }
             if (hq_brick.customer_type_id == 2) {
               brick.customer_semi = hq_brick.customer_count;
@@ -202,8 +207,9 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         // set targets
         targets.map(target => {
           if (target.hq_headquarter_id == this.headquarter_id) {
-            if (brick.months.hasOwnProperty(target.month))
+            if (brick.months.hasOwnProperty(target.month)) {
               brick.months[target.month].target = ((target.total_target * 0.5) / 24);
+            }
           }
         });
       });
@@ -224,6 +230,15 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    */
   headquarters(data) {
     this._headquarters = data.headquarters;
+  }
+
+  /**
+   * when region is changed filter list of customer
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.regionChanged(0);
   }
 
   /**

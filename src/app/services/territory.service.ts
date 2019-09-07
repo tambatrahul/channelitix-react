@@ -56,7 +56,7 @@ export class TerritoryService extends BaseService {
   /**
    * get countries
    */
-  public regions(country_id?: number, region_ids?: Array<number>, zone_id?: number): Observable<Result> {
+  public regions(country_id?: number, region_ids?: Array<number>, zone_id?: number, zone_ids?: Array<number>): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -66,8 +66,11 @@ export class TerritoryService extends BaseService {
       params.set('region_ids', String(region_ids));
     }
 
-    if (zone_id && zone_id > 0) {
-      params.set('zone_id', String(zone_id));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
+      });
     }
 
     // make server call

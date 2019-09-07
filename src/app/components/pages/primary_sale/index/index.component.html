@@ -24,10 +24,14 @@
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
         <div class="col-md-9">
-            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
-                <region-select [value]="region_id" [title]="'Select Region'"
-                               (onValueChanged)="regionChanged($event)"></region-select>
-            </div>
+          <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+            <zone-select [value]="zone_id" [title]="'Select Zone'" [first_value]="'Select Zone'"
+                         (onValueChanged)="zoneChanged($event)"></zone-select>
+          </div>
+          <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+            <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'" [first_value]="'Select Region'"
+                           (onValueChanged)="regionChanged($event)"></region-select>
+          </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_RSM">
                 <div *ngIf="region_id > 0">
                     <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
@@ -61,7 +65,9 @@
                     <div class="tab-pane active" id="product_wise">
                         <!-- product_wise Table -->
                         <div>
-                            <product-wise [year]="year" [month]="month" [region_id]="region_id"
+                            <product-wise [year]="year" [month]="month"
+                                          [zone_id]="zone_id"
+                                          [region_id]="region_id"
                                           [area_id]="area_id" [headquarter_id]="headquarter_id"></product-wise>
                         </div>
                         <!-- ./product_wise Table -->
@@ -69,7 +75,9 @@
                     <div class="tab-pane" id="stockist_wise">
                         <!-- stockist_wise Table -->
                         <div>
-                            <stockist-wise [month]="month" [year]="year" [region_id]="region_id"
+                            <stockist-wise [month]="month" [year]="year"
+                                           [zone_id]="zone_id"
+                                           [region_id]="region_id"
                                            [area_id]="area_id" [headquarter_id]="headquarter_id"></stockist-wise>
                         </div>
 
@@ -79,7 +87,9 @@
 
                         <!-- Invoice Table -->
                         <div>
-                            <invoices [month]="month" [year]="year" [region_id]="region_id"
+                            <invoices [month]="month" [year]="year"
+                                      [zone_id]="zone_id"
+                                      [region_id]="region_id"
                                       [area_id]="area_id" [headquarter_id]="headquarter_id"></invoices>
                         </div>
                         <!-- ./Invoice Table -->

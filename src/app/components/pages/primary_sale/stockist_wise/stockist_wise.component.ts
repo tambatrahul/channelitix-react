@@ -36,6 +36,16 @@ export class StockistWiseComponent extends ListComponent {
         this._year = year;
     }
 
+  /**
+   * region, area, headquarter
+   */
+  _zone_id: number = 0;
+  @Input()
+  set zone_id(zone_id: number) {
+    this._zone_id = zone_id;
+    this.fetch();
+  }
+
     /**
      * region, area, headquarter
      */
@@ -89,7 +99,7 @@ export class StockistWiseComponent extends ListComponent {
 
             this.loading = true;
             this.saleService.monthly_stockist(this._month + 1,
-                this._year, this._region_id, this._area_id, this._headquarter_id).subscribe(
+                this._year, this._region_id, this._area_id, this._headquarter_id, this._zone_id).subscribe(
                 response => {
 
                     // convert to models

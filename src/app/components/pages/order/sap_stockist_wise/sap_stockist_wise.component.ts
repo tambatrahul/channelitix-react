@@ -32,6 +32,7 @@ export class SapStockistWiseComponent extends ListComponent {
   /**
    * region, area & headquarter
    */
+  public zone_id: number = 0;
   public region_id: number = 0;
   public area_id: number = 0;
   public headquarter_id: number = 0;
@@ -64,17 +65,19 @@ export class SapStockistWiseComponent extends ListComponent {
       this.area_id = this._service.user.hq_area_id;
       this.headquarter_id = this._service.user.hq_headquarter_id;
     }
-    else if (this._service.user.role_id == 4) {
+    if (this._service.user.role_id == 4) {
       this.region_id = this._service.user.hq_region_id;
       this.area_id = this._service.user.hq_area_id;
     }
-    else if (this._service.user.role_id == 5) {
+    if (this._service.user.role_id == 5) {
       this.region_id = this._service.user.hq_region_id;
     }
-    else {
-      if (this._service.user.role_id == 7) {
-        this.region_id = 2;
-      }
+    if (this._service.user.role_id == 6) {
+      this.zone_id = this._service.user.hq_zone_id;
+    }
+
+    if (this._service.user.role_id == 7) {
+      this.zone_id = 1;
     }
 
     this.month_str = moment().month(this.month).format('MMM');
@@ -89,8 +92,8 @@ export class SapStockistWiseComponent extends ListComponent {
     if ((this.month || this.month == 0) && this.year) {
       this.loading = true;
       Observable.forkJoin(
-        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id),
-        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id)).subscribe(
+        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id),
+        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id)).subscribe(
         response => {
           let regions = response[1].regions.map(region => new Region(region));
 
@@ -260,6 +263,16 @@ export class SapStockistWiseComponent extends ListComponent {
     this.year = date.year;
     this.month_str = moment().month(this.month).format('MMM');
     this.prev_month_str = moment().month(this.month).subtract(1, 'months').format('MMM');
+    this.fetch();
+  }
+
+  /**
+   * when region is changed filter list of customer
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.regionChanged(0);
     this.fetch();
   }
 

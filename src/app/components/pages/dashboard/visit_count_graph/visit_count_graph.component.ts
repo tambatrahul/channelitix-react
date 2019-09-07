@@ -49,6 +49,16 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   /**
    * region id for filter
    */
+  _zone_ids: Array<number> = [];
+  @Input()
+  set zone_ids(zone_ids) {
+    this._zone_ids = zone_ids;
+    this.fetchVisitOrdreTrend();
+  };
+
+  /**
+   * region id for filter
+   */
   _region_ids: Array<number> = [];
   @Input()
   set region_ids(region_ids) {
@@ -134,7 +144,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     if (self._dates && self._dates.from_date && self._dates.to_date) {
       self.loading = true;
       self.reportService.visit_order_trend(self._dates.from_date, self._dates.to_date, self._dates.year,
-        self._region_ids, self._area_ids, self._headquarter_ids, self.product_id, self.brand_id).subscribe(
+        self._region_ids, self._area_ids, self._headquarter_ids, self.product_id, self.brand_id, self._zone_ids).subscribe(
         response => {
           self.visits = response.visits.map(function (visit) {
             return new Visit(visit);

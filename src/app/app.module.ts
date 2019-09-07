@@ -206,6 +206,7 @@ import {RegionListComponent} from "./components/pages/user/field_efforts_audit_s
 import {MonthSummaryComponent} from "./components/pages/user/summary/month_summary/month_summary.component";
 import {ZoneSelectComponent} from './components/form_elements/territory/zone_select/zone-select.component';
 import {ZoneComponent} from './components/pages/territory/zone/index.component';
+import {MultipleZoneSelectComponent} from './components/form_elements/territory/multi_zone_select/multiple-zone-select.component';
 
 
 
@@ -354,6 +355,7 @@ enableProdMode();
     MultipleTerritorySelectComponent,
     MultipleHeadquarterSelectComponent,
     MultipleRegionSelectComponent,
+    MultipleZoneSelectComponent,
     MultipleAreaSelectComponent,
     VisitOrderTrendComponent,
     HighestCallComponent,

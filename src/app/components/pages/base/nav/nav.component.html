@@ -70,9 +70,9 @@
         </li>
         <li *ngIf="_auth_service.user?.isZone">
           <a class="waves-effect"
-             [routerLink]="['/territories/zones/',_auth_service.user.hq_zone_id,'regions/', _auth_service.user.hq_region_id, 'areas']">
+             [routerLink]="['/territories/zones/',_auth_service.user.hq_zone_id,'regions']">
             <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
-            <span class="nav-label">Area Master</span>
+            <span class="nav-label">Region Master</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isRegion">

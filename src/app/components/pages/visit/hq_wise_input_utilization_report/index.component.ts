@@ -29,6 +29,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
     /**
      * region, territory, area, headquarter & brick id
      */
+    public zone_id: number = 0;
     public region_id: number = 0;
     public area_id: number = 0;
     public headquarter_id: number = 0;

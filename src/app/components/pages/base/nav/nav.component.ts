@@ -1,7 +1,8 @@
-import {Component} from "@angular/core";
-import {AuthService} from "../../../../services/AuthService";
-import {BaseComponent} from "../../../base/base.component";
-import * as moment from "moment";
+import {Component} from '@angular/core';
+import {AuthService} from '../../../../services/AuthService';
+import {BaseComponent} from '../../../base/base.component';
+import * as moment from 'moment';
+
 declare let jQuery: any;
 
 @Component({
@@ -42,7 +43,7 @@ export class NavComponent extends BaseComponent {
     });
     this.month = moment().month() - 1;
     this.year = moment().year();
-    if (this.month == -1) {
+    if (this.month === -1) {
       this.month = 11;
       this.year = this.year - 1;
     }

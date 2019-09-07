@@ -1,10 +1,10 @@
-import {Component, Input} from "@angular/core";
-import {GoogleChartComponent} from "../../../base/google_chart.component";
-import {ReportService} from "../../../../services/report.service";
-import {AuthService} from "../../../../services/AuthService";
-import * as moment from "moment";
-import {PrimarySale} from "../../../../models/sale/primary_sale";
-import {Observable} from "rxjs/Observable";
+import {Component, Input} from '@angular/core';
+import {GoogleChartComponent} from '../../../base/google_chart.component';
+import {ReportService} from '../../../../services/report.service';
+import {AuthService} from '../../../../services/AuthService';
+import * as moment from 'moment';
+import {PrimarySale} from '../../../../models/sale/primary_sale';
+import {Observable} from 'rxjs/Observable';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -63,7 +63,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
         max: [17, 30, 0]
       }
     },
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     shadow: false,
     tooltip: {
       isHtml: true, ignoreBounds: true,
@@ -135,9 +135,9 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
       this.loading = true;
       Observable.forkJoin(
         this.reportService.skinlite_sales_analysis_graph(this._region_ids, this._area_ids, this._headquarter_ids,
-          this.year),
+          this.year, this._zone_ids),
         this.reportService.skinlite_avg_sales_analysis_graph(this._region_ids, this._area_ids, this._headquarter_ids,
-          this.year)
+          this.year, this._zone_ids)
       ).subscribe(
         data => {
           let geo_primary_sales = data[0].geo_stockist_primary_sales.map(pr => new PrimarySale(pr));
@@ -212,7 +212,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
 
     // add avg column
     data.addRow([
-      'Jan-Dec ' + (this.year - 1) + " (" + total_avg_sale + ")",
+      'Jan-Dec ' + (this.year - 1) + ' (' + total_avg_sale + ')',
       this.geo_avg_sale,
       this.avgToolTip('Geo', 'AVG', this.geo_stockist_count, this.geo_avg_sale),
       this.common_avg_sale,
@@ -224,7 +224,7 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     // set month wise data
     for (let mon in this.months) {
       if (parseInt(mon) <= this.month) {
-        data.addRow([this.months[mon] + " (" + ((sales[mon].geo_primary_sale + sales[mon].common_primary_sale + sales[mon].liva_primary_sale) / 1000).toFixed(0) + ")",
+        data.addRow([this.months[mon] + ' (' + ((sales[mon].geo_primary_sale + sales[mon].common_primary_sale + sales[mon].liva_primary_sale) / 1000).toFixed(0) + ')',
           sales[mon].geo_primary_sale,
           this.toolTip('Geo', this.months[mon], sales[mon].geo_customer_count, sales[mon].geo_primary_sale),
           sales[mon].common_primary_sale,
@@ -297,24 +297,27 @@ export class SkinliteSaleAnalysisGraphComponent extends GoogleChartComponent {
     this.reset();
     if (last_year_geo_sales[0]) {
       let geo_avg_sale = 0;
-      if (last_year_geo_sales[0].total_net_amount > 0)
+      if (last_year_geo_sales[0].total_net_amount > 0) {
         geo_avg_sale = parseInt((last_year_geo_sales[0].total_net_amount / 12).toFixed(0));
+      }
       this.geo_avg_sale = geo_avg_sale;
       this.geo_stockist_count = last_year_geo_sales[0].customer_count;
     }
 
     if (last_year_liva_sales[0]) {
       let liva_avg_sale = 0;
-      if (last_year_liva_sales[0].total_net_amount > 0)
+      if (last_year_liva_sales[0].total_net_amount > 0) {
         liva_avg_sale = parseInt((last_year_liva_sales[0].total_net_amount / 12).toFixed(0));
+      }
       this.liva_avg_sale = liva_avg_sale;
       this.liva_stockist_count = last_year_liva_sales[0].customer_count;
     }
 
     if (last_year_common_sales[0]) {
       let common_avg_sale = 0;
-      if (last_year_common_sales[0].total_net_amount > 0)
+      if (last_year_common_sales[0].total_net_amount > 0) {
         common_avg_sale = parseInt((last_year_common_sales[0].total_net_amount / 12).toFixed(0));
+      }
       this.common_avg_sale = common_avg_sale;
       this.common_stockist_count = last_year_common_sales[0].customer_count;
     }

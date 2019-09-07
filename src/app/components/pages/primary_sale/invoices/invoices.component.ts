@@ -30,6 +30,16 @@ export class InvoicesComponent extends ListComponent {
     @ViewChild('invoice_detail')
     invoice_detail: ElementRef;
 
+  /**
+   * region, area, headquarter
+   */
+  _zone_id: number = 0;
+  @Input()
+  set zone_id(zone_id: number) {
+    this._zone_id = zone_id;
+    this.fetch();
+  }
+
     /**
      * region, area, headquarter
      */
@@ -111,7 +121,7 @@ export class InvoicesComponent extends ListComponent {
                 this.upload_excel.remove();
             this.loading = true;
             this.saleService.monthly_invoice(this._month + 1, this._year,
-                this._region_id, this._area_id, this._headquarter_id, this.page).subscribe(
+                this._region_id, this._area_id, this._headquarter_id, this.page, this._zone_id).subscribe(
                 response => {
                     this.loading = false;
 

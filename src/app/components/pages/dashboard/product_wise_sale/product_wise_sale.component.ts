@@ -78,6 +78,16 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   /**
    * region id for filter
    */
+  _zone_ids: Array<number> = [];
+  @Input()
+  set zone_ids(zone_ids) {
+    this._zone_ids = zone_ids;
+    this.fetchProductWiseSale();
+  };
+
+  /**
+   * region id for filter
+   */
   _region_ids: Array<number> = [];
   @Input()
   set region_ids(region_ids) {
@@ -114,7 +124,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     if ((self._month || self._month == 0) && self._year) {
       self.loading = true;
       self.reportService.product_wise_sale(self._month + 1, self._year,
-        self._region_ids, self._area_ids, self._headquarter_ids).subscribe(
+        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids).subscribe(
         response => {
           self.formatData(new Performance(response.performance));
           self.loading = false;
