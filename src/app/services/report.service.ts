@@ -425,12 +425,13 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  productivity_analysis(from_date, to_date): Observable<Result> {
+  productivity_analysis(from_date, to_date, zone_id?:number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('from_date', String(from_date ? from_date : ''));
     params.set('to_date', String(to_date ? to_date : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/productivity_analysis';
