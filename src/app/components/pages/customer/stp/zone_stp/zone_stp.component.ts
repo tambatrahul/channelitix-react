@@ -1,20 +1,18 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {ListComponent} from "../../../../base/list.component";
-import {Stp} from "../../../../../models/customer/stp";
-import {StpService} from "../../../../../services/stp.service";
 import {AuthService} from "../../../../../services/AuthService";
 import {CustomerType} from "../../../../../models/customer/customer_type";
 import {ActivatedRoute} from "@angular/router";
-import {Area} from "../../../../../models/territory/area";
 import {Customer} from "../../../../../models/customer/customer";
 import {CustomerService} from "../../../../../services/customer.service";
+import {HQZone} from '../../../../../models/territory/zone';
 declare let jQuery: any;
 
 @Component({
-    templateUrl: 'area_stp.component.html',
-    styleUrls: ['area_stp.component.less']
+    templateUrl: 'zone_stp.component.html',
+    styleUrls: ['zone_stp.component.less']
 })
-export class AreaStpComponent extends ListComponent {
+export class ZoneStpComponent extends ListComponent {
 
     /**
      * customer types
@@ -23,31 +21,37 @@ export class AreaStpComponent extends ListComponent {
      */
     public customers: Customer[] = [];
     public customer_types: CustomerType[] = [];
-    public areas: Area[] = [];
+    public zones: HQZone[] = [];
 
     /**
-     * region id for filter
+     * Country id for filter
      */
-    private _region_id: number;
-    private _zone_id: number;
-    private _country_id: number;
+    private _country_id: number = 0;
+
+    /**
+     * country_id getter and setters
+     *
+     * @param country_id
+     */
+    @Input()
+    set country_id(country_id: number) {
+        this._country_id = country_id;
+        this.fetch();
+    }
+
+    get country_id(): number {
+        return this._country_id;
+    }
+
 
     /**
      * Customer Component constructor
      *
      * @param customerService
      * @param _service
-     * @param route
      */
     constructor(private customerService: CustomerService, public _service: AuthService, public route: ActivatedRoute) {
         super(_service);
-    }
-
-    /**
-     * on load of component
-     */
-    ngOnInit() {
-        super.ngOnInit();
     }
 
     /**
@@ -55,11 +59,9 @@ export class AreaStpComponent extends ListComponent {
      */
     fetch() {
         this.route.params.subscribe(params => {
-            this._region_id = params['region_id'];
-            this._zone_id = params['zone_id'];
             this._country_id = params['country_id'];
             this.loading = true;
-            this.customerService.stp(this._country_id, this._zone_id, this._region_id).subscribe(
+            this.customerService.stp(this._country_id).subscribe(
                 response => {
                     this.loading = false;
                     this.customers = response.customers.map(function (cus, index) {
@@ -68,8 +70,8 @@ export class AreaStpComponent extends ListComponent {
                     this.customer_types = response.customer_types.map(function (ct, index) {
                         return new CustomerType(ct);
                     });
-                    this.areas = response.areas.map(function (area, index) {
-                        return new Area(area);
+                    this.zones = response.zones.map(function (region, index) {
+                        return new HQZone(region);
                     });
                     this.formatCustomerData();
                 },
@@ -84,15 +86,15 @@ export class AreaStpComponent extends ListComponent {
      * formatting customer data in stp format
      */
     formatCustomerData() {
-        let areas = {};
+        let zones = {};
 
-        // preparing brick skeleton
+        // preparing hq_zone skeleton
         for (let cus of this.customers) {
-            if (!areas.hasOwnProperty(cus.hq_area_id)) {
-                areas[cus.hq_area_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
+            if (!zones.hasOwnProperty(cus.hq_zone_id)) {
+              zones[cus.hq_zone_id] = {customer_types: this.customer_types.map(ct => new CustomerType(ct))};
             }
 
-            for(let ct of areas[cus.hq_area_id].customer_types) {
+            for(let ct of zones[cus.hq_zone_id].customer_types) {
                 for(let grade of ct.grades) {
                     if (grade.id == cus.grade_id)
                         grade.customer_count = cus.total_customers;
@@ -101,11 +103,11 @@ export class AreaStpComponent extends ListComponent {
         }
 
         // format customers
-        for(let area of this.areas) {
-            if (!areas.hasOwnProperty(area.id))
-                area.customer_types = Object.assign([], this.customer_types);
+        for(let zone of this.zones) {
+            if (!zones.hasOwnProperty(zone.id))
+                zone.customer_types = Object.assign([], this.customer_types);
             else
-                area.customer_types = areas[area.id].customer_types;
+                zone.customer_types = zones[zone.id].customer_types;
         }
     }
 }

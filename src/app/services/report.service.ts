@@ -310,17 +310,22 @@ export class ReportService extends BaseService {
   /**
    * brick wise customers
    */
-  hq_wise_visit_counts(month: number, year: number) {
-    return this.get(this.getBaseUrl() + '/hq_wise_visits/' + month + "/" + year);
+  hq_wise_visit_counts(month: number, year: number, zone_id?: number) {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    return this.get(this.getBaseUrl() + '/hq_wise_visits/' + month + "/" + year, new RequestOptions({search: params}));
   }
 
   /**
    * brick wise customers
    */
-  stockist_wise_pob(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number) {
+  stockist_wise_pob(month: number, year: number, zone_id?: number, region_id?: number, area_id?: number, headquarter_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
@@ -345,8 +350,12 @@ export class ReportService extends BaseService {
   /**
    * executive summary report api
    */
-  executive_summary(month: number, year: number) {
-    return this.get(this.getBaseUrl() + '/executive_summary/' + month + "/" + year, new RequestOptions({}));
+  executive_summary(month: number, year: number, zone_id?: number) {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    return this.get(this.getBaseUrl() + '/executive_summary/' + month + "/" + year, new RequestOptions({search: params}));
   }
 
   /**

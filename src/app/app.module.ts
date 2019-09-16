@@ -207,6 +207,7 @@ import {MonthSummaryComponent} from "./components/pages/user/summary/month_summa
 import {ZoneSelectComponent} from './components/form_elements/territory/zone_select/zone-select.component';
 import {ZoneComponent} from './components/pages/territory/zone/index.component';
 import {MultipleZoneSelectComponent} from './components/form_elements/territory/multi_zone_select/multiple-zone-select.component';
+import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
 
 
 
@@ -248,6 +249,7 @@ enableProdMode();
     UpdateCustomerComponent,
     StpComponent,
     TourComponent,
+    ZoneStpComponent,
     RegionStpComponent,
     AreaStpComponent,
     HeadquarterStpComponent,

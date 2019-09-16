@@ -31,6 +31,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
   public year: number;
 
   /**
+   * zone
+   */
+  public zone_id: number = 0;
+
+  /**
    * get regions
    *
    * @type {Array}
@@ -48,6 +53,10 @@ export class ExecutiveSummaryComponent extends ListComponent {
    * on load of call fetch
    */
   ngOnInit() {
+    super.ngOnInit();
+    if(this._service.user.role_str == 'COUNTRY_MNG')
+      this.zone_id = 1;
+
     this.month = moment().month();
     this.year = moment().year();
     super.ngOnInit();
@@ -60,8 +69,8 @@ export class ExecutiveSummaryComponent extends ListComponent {
     if ((this.month || this.month == 0) && this.year) {
       this.loading = true;
       Observable.forkJoin(
-        this.reportService.executive_summary(this.month + 1, this.year),
-        this.reportService.hq_wise_visit_counts(this.month + 1, this.year)
+        this.reportService.executive_summary(this.month + 1, this.year, this.zone_id),
+        this.reportService.hq_wise_visit_counts(this.month + 1, this.year, this.zone_id)
       ).subscribe(data => {
         // get regions
         this.regions = data[0].regions.map(region => new Region(region));
@@ -328,6 +337,14 @@ export class ExecutiveSummaryComponent extends ListComponent {
     this.fetch();
   }
 
+  /**
+   * zone changed
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.fetch();
+  }
   /**
    * Download Excel For Executive Summary
    */

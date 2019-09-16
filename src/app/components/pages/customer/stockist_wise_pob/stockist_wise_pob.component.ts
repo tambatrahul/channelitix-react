@@ -35,8 +35,9 @@ export class StockistWisePobComponent extends ListComponent {
     public primary_sale_total: number = 0;
 
     /**
-     * region, area & headquarter
+     * zone, region, area & headquarter
      */
+    public zone_id: number = 0;
     public region_id: number = 0;
     public area_id: number = 0;
     public headquarter_id: number = 0;
@@ -69,25 +70,26 @@ export class StockistWisePobComponent extends ListComponent {
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
+        this.zoneChanged(this._service.user.hq_zone_id);
         this.regionChanged(this._service.user.hq_region_id);
         this.areaChanged(this._service.user.hq_area_id);
         if (this.environment.envName == 'geo' && this._service.user.role_str == 'COUNTRY_MNG')
-            this.region_id = 2;
+            this.zone_id = 1;
 
-        if (this._service.user.role_str == 'REGION_MNG' && this.environment.envName == 'sk_group')
-            this.area_id = 1;
+        if (this._service.user.role_str == 'ZONE_MNG' && this.environment.envName == 'sk_group')
+            this.region_id = 2;
     }
 
     /**
      * load users for logged in user
      */
     fetch() {
-        if (this.region_id && (this.month || this.month == 0) && this.year) {
+        if (this.zone_id || this.region_id && (this.month || this.month == 0) && this.year) {
             this.loading = true;
             if (this.environment.envName == 'sk_group') {
                 Observable.forkJoin(
                     this.reportService.stockist_wise_pob(this.month + 1, this.year,
-                        this.region_id, this.area_id, this.headquarter_id),
+                      this.zone_id, this.region_id, this.area_id, this.headquarter_id),
                     this.reportService.synergy_stockist_wise_pob(this.month + 1, this.year,
                         this.region_id, this.area_id, this.headquarter_id)
                 ).subscribe(data => {
@@ -108,7 +110,7 @@ export class StockistWisePobComponent extends ListComponent {
                 });
             } else {
                 this.reportService.stockist_wise_pob(this.month + 1, this.year,
-                    this.region_id, this.area_id, this.headquarter_id).subscribe(
+                  this.zone_id, this.region_id, this.area_id, this.headquarter_id).subscribe(
                     response => {
                         this.loading = false;
 
@@ -244,14 +246,24 @@ export class StockistWisePobComponent extends ListComponent {
     }
 
     /**
+     * when zone is changed filter list of customer
+     * @param zone_id
+     */
+    zoneChanged(zone_id) {
+        this.zone_id = zone_id;
+        this.regionChanged(0);
+        this.fetch();
+    }
+
+    /**
      * when region is changed filter list of customer
      * @param region_id
      */
-    regionChanged(region_id) {
-        this.region_id = region_id;
-        this.areaChanged(0);
-        this.fetch();
-    }
+   regionChanged(region_id) {
+       this.region_id = region_id;
+       this.areaChanged(0);
+       this.fetch();
+   }
 
     /**
      * when area is changed filter list of customer

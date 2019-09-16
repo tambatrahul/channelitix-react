@@ -30,6 +30,7 @@ export class HeadquarterStpComponent extends ListComponent {
      */
     private _area_id: number;
     private _region_id: number;
+    private _zone_id: number;
     private _country_id: number;
 
     /**
@@ -56,10 +57,11 @@ export class HeadquarterStpComponent extends ListComponent {
     fetch() {
         this.route.params.subscribe(params => {
             this._region_id = params['region_id'];
+            this._zone_id = params['zone_id'];
             this._country_id = params['country_id'];
             this._area_id = params['area_id'];
             this.loading = true;
-            this.customerService.stp(this._country_id, this._region_id, this._area_id).subscribe(
+            this.customerService.stp(this._country_id, this._zone_id, this._region_id, this._area_id).subscribe(
                 response => {
                     this.loading = false;
                     this.customers = response.customers.map(function (cus, index) {

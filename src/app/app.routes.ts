@@ -78,6 +78,7 @@ import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_t
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
 import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
 import {ZoneComponent} from './components/pages/territory/zone/index.component';
+import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -313,22 +314,26 @@ export const routes: Routes = [
         children: [
           {
             path: ':country_id',
+            component: ZoneStpComponent,
+          },
+          {
+            path: ':country_id/zones/:zone_id',
             component: RegionStpComponent,
           },
           {
-            path: ':country_id/regions/:region_id',
+            path: ':country_id/zones/:zone_id/regions/:region_id',
             component: AreaStpComponent,
           },
           {
-            path: ':country_id/regions/:region_id/areas/:area_id',
+            path: ':country_id/zones/:zone_id/regions/:region_id/areas/:area_id',
             component: HeadquarterStpComponent,
           },
           {
-            path: ':country_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id',
+            path: ':country_id/zones/:zone_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id',
             component: TerritoryStpComponent,
           },
           {
-            path: ':country_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id/territories/:territory_id',
+            path: ':country_id/zones/:zone_id/regions/:region_id/areas/:area_id/headquarters/:headquarter_id/territories/:territory_id',
             component: BrickStpComponent,
           }
         ]

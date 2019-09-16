@@ -31,7 +31,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th rowspan="2">Region</th>
+                                    <th rowspan="2">Zone</th>
                                     <template ngFor let-ct [ngForOf]="customer_types">
                                         <th [attr.colspan]="ct.grades.length">{{ ct.name }}</th>
                                     </template>
@@ -47,7 +47,7 @@
                                 </thead>
 
                                 <tbody>
-                                <tr *ngFor="let rg of regions">
+                                <tr *ngFor="let rg of zones">
                                     <td>{{ rg.name }}</td>
                                     <template ngFor let-ct [ngForOf]="rg.customer_types">
                                         <td *ngFor="let grade of ct.grades">
@@ -59,7 +59,7 @@
                                     <td>{{ rg.total_customer }}</td>
                                     <td></td>
                                     <td>
-                                        <a class="btn btn-primary btn-xs" [routerLink]="['/stps', _country_id, 'zones', _zone_id, 'regions', rg.id]">View By Area</a>
+                                        <a class="btn btn-primary btn-xs" [routerLink]="['/stps', _country_id, 'zones', rg.id]">View By Region</a>
                                     </td>
                                 </tr>
                                 </tbody>

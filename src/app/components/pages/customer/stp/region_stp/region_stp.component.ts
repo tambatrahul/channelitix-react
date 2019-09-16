@@ -24,23 +24,24 @@ export class RegionStpComponent extends ListComponent {
     public regions: Region[] = [];
 
     /**
-     * Country id for filter
+     * Country id, Zone id for filter
      */
-    private _country_id: number = 1;
+    private _country_id: number = 0;
+    private _zone_id: number = 0;
 
     /**
-     * country_id getter and setters
+     * zone_id getter and setters
      *
-     * @param country_id
+     * @param zone_id
      */
     @Input()
-    set country_id(country_id: number) {
-        this._country_id = country_id;
+    set zone_id(zone_id: number) {
+        this._zone_id = zone_id;
         this.fetch();
     }
 
-    get country_id(): number {
-        return this._country_id;
+    get zone_id(): number {
+        return this._zone_id;
     }
 
 
@@ -59,9 +60,10 @@ export class RegionStpComponent extends ListComponent {
      */
     fetch() {
         this.route.params.subscribe(params => {
+            this._zone_id = params['zone_id'];
             this._country_id = params['country_id'];
             this.loading = true;
-            this.customerService.stp(this._country_id).subscribe(
+            this.customerService.stp(this._country_id, this._zone_id).subscribe(
                 response => {
                     this.loading = false;
                     this.customers = response.customers.map(function (cus, index) {

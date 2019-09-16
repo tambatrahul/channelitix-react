@@ -50,15 +50,19 @@ export class SecondarySaleService extends BaseService {
    *
    * @param month
    * @param year
+   * @param zone_id
    * @returns {Observable<Result>}
    */
-  hq_wise(month: number, year: number): Observable<Result> {
+  hq_wise(month: number, year: number, zone_id?: number): Observable<Result> {
 
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('zone_id', String(zone_id ? zone_id : ''));
     // prepare url
     let url = this.getBaseUrl() + '/headquarter_wise/' + month + "/" + year;
 
     // make server call
-    return this.get(url, new RequestOptions());
+    return this.get(url, new RequestOptions({search: params}));
   }
 
   /**

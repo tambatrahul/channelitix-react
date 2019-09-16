@@ -24,6 +24,11 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
   public year: number;
 
   /**
+   * zone
+   */
+  public zone_id: number = 0;
+
+  /**
    * get title of table
    * @returns {string}
    */
@@ -64,6 +69,8 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
       this.month = 11
     }
     super.ngOnInit();
+    if(this._service.user.role_str == 'COUNTRY_MNG')
+      this.zone_id = 1;
   }
 
   /**
@@ -71,7 +78,7 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
    */
   fetch() {
     this.loading = true;
-    this.saleService.hq_wise(this.month + 1, this.year).subscribe(
+    this.saleService.hq_wise(this.month + 1, this.year, this.zone_id).subscribe(
       response => {
         this.loading = false;
         // convert to models
@@ -169,6 +176,14 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
+    this.fetch();
+  }
+  /**
+   * zone changed
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
     this.fetch();
   }
 }
