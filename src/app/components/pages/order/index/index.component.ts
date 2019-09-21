@@ -72,7 +72,7 @@ export class OrderComponent extends BaseAuthComponent {
    * manager_id
    */
   public manager_id: number = 0;
-  hq_zone_id: number = 0;
+  zone_id: number = 0;
 
   /**
    * year and month for calendar
@@ -135,7 +135,7 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     if(this._service.user.role_str == 'COUNTRY_MNG')
-      this.hq_zone_id = 1;
+      this.zone_id = 1;
 
     this.month = moment().month();
     this.year = moment().year();
@@ -337,9 +337,9 @@ export class OrderComponent extends BaseAuthComponent {
       synergy = this.abbott ? 1 : 0;
 
     Observable.forkJoin(
-      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.hq_zone_id),
+      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id),
       this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
-        this.product_id, this.brand_id, this.hq_zone_id)
+        this.product_id, this.brand_id, this.zone_id)
     ).subscribe(data => {
 
       this.loading = false;
@@ -456,7 +456,7 @@ export class OrderComponent extends BaseAuthComponent {
    * @param zone_id
    */
   zoneChanged(zone_id) {
-    this.hq_zone_id = zone_id;
+    this.zone_id = zone_id;
     this.fetchData();
   }
 
@@ -481,7 +481,7 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     this.orderService.orders_excel_download(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
-      this.product_id, this.brand_id).subscribe(
+      this.product_id, this.brand_id, this.zone_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

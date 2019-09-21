@@ -26,7 +26,7 @@
                            (onValueChanged)="zoneChanged($event)"></zone-select>
             </div>
             <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
-                <region-select [value]="region_id" [title]="'Select Region'"
+                <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'"
                                (onValueChanged)="regionChanged($event)"></region-select>
             </div>
             <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">

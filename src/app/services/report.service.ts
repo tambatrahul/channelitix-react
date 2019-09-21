@@ -361,11 +361,11 @@ export class ReportService extends BaseService {
   /**
    * brick wise customers
    */
-  executive_summary_download(month: number, year: number): Observable<Response> {
+  executive_summary_download(month: number, year: number, zone_id?: number): Observable<Response> {
 
     // prepare get params
     let params = new URLSearchParams();
-
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     // get request with headers
     let content = this.addCredentials(new RequestOptions({
       responseType: ResponseContentType.Blob,

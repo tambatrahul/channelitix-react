@@ -18,9 +18,9 @@
     <!-- Page Breadcrumb -->
 
     <!-- STP Table -->
-    <div class="row" *roleCheck="ROLE_ADMIN">
+    <div class="row" *roleCheck="ROLE_ZSM">
         <div class="col-xs-12">
-            <a class="btn btn-default" [routerLink]="['/stps', _country_id, 'zones', _zone_id, 'regions', _region_id]">
+            <a class="btn btn-default" [routerLink]="['/stps', _country_id, 'zones', _zone_id]">
                 <i class="fa fa-arrow-left"></i> Back
             </a>
         </div>

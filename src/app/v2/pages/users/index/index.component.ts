@@ -36,6 +36,7 @@ export class UserComponent extends ListComponent {
    *
    * @type {number}
    */
+  public zone_id: number = 0;
   public region_id: number = 0;
   public area_id: number = 0;
 
@@ -79,7 +80,7 @@ export class UserComponent extends ListComponent {
    */
   fetch() {
     this.loading = true;
-    this.userService.all(this.role_id, this.status, this.region_id, this.area_id, this.page, 10,this.search).subscribe(
+    this.userService.all(this.role_id, this.status, this.zone_id, this.region_id, this.area_id, this.page, 10, this.search).subscribe(
       response => {
         this.users = response.users;
         this.total = response.total;
@@ -151,6 +152,15 @@ export class UserComponent extends ListComponent {
   pageChanged(page) {
     this.page = page;
     this.fetch();
+  }
+
+  /**
+   * when zone is changed filter list of customer
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.regionChanged(0);
   }
 
   /**

@@ -7,6 +7,8 @@ import {SecondarySaleService} from "../../../../services/secondary_sale.service"
 import {Region} from "../../../../models/territory/region";
 import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {Order} from "../../../../models/order/order";
+import {AppConstants} from '../../../../app.constants';
+import {Target} from '../../../../models/SAP/target';
 
 declare let jQuery: any;
 
@@ -51,6 +53,45 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
   public secondary_sales: SecondarySale[] = [];
 
   /**
+   * Chart data
+   */
+  fetchSecondary = AppConstants.debounce(function () {
+    const self = this;
+    self.loading = true;
+    self.saleService.hq_wise(self.month + 1, self.year, self.zone_id).subscribe(
+      response => {
+        self.loading = false;
+        // convert to models
+        let secondary_sales = response.secondary_sales.map(function (sale, index) {
+          return new SecondarySale(sale);
+        });
+
+        // get primary sales
+        let primaries = response.primary_sales.map(function (ps, index) {
+          return new PrimarySale(ps)
+        });
+
+        // convert to models
+        self.regions = response.regions.map(function (region, index) {
+            return new Region(region);
+          },
+          err => {
+            self.loading = false;
+          }
+        );
+
+        // get Orders
+        let orders = response.orders.map(function (ord, index) {
+          return new Order(ord);
+        });
+
+        // format data for display
+        self.formatSecondarySale(secondary_sales, primaries, orders);
+      }
+    )
+  }, 1000, false);
+
+  /**
    * User Component Constructor
    *
    */
@@ -77,38 +118,7 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
    * fetch customer secondary sales from server
    */
   fetch() {
-    this.loading = true;
-    this.saleService.hq_wise(this.month + 1, this.year, this.zone_id).subscribe(
-      response => {
-        this.loading = false;
-        // convert to models
-        let secondary_sales = response.secondary_sales.map(function (sale, index) {
-          return new SecondarySale(sale);
-        });
-
-        // get primary sales
-        let primaries = response.primary_sales.map(function (ps, index) {
-          return new PrimarySale(ps)
-        });
-
-        // convert to models
-        this.regions = response.regions.map(function (region, index) {
-            return new Region(region);
-          },
-          err => {
-            this.loading = false;
-          }
-        );
-
-        // get Orders
-        let orders = response.orders.map(function (ord, index) {
-          return new Order(ord);
-        });
-
-        // format data for display
-        this.formatSecondarySale(secondary_sales, primaries, orders);
-      }
-    );
+    this.fetchSecondary();
   }
 
   /**

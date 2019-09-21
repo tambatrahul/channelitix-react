@@ -72,7 +72,7 @@ export class VisitComponent extends BaseAuthComponent {
    * customer type id
    */
   customer_type_id: number = 0;
-  hq_zone_id: number = 0;
+  zone_id: number = 0;
 
   /**
    * get date range
@@ -134,7 +134,7 @@ export class VisitComponent extends BaseAuthComponent {
     }
 
     if(this._service.user.role_str == 'COUNTRY_MNG')
-      this.hq_zone_id = 1;
+      this.zone_id = 1;
 
     this.month = moment().month();
     this.year = moment().year();
@@ -303,9 +303,9 @@ export class VisitComponent extends BaseAuthComponent {
     }
 
     Observable.forkJoin(
-      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.hq_zone_id),
+      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id),
       this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.customer_type_id,
-        this.hq_zone_id)
+        this.zone_id)
     ).subscribe(data => {
 
       this.loading = false;
@@ -354,7 +354,7 @@ export class VisitComponent extends BaseAuthComponent {
    * @param zone_id
    */
   zoneChanged(zone_id) {
-    this.hq_zone_id = zone_id;
+    this.zone_id = zone_id;
     this.fetchData();
   }
 
@@ -406,7 +406,7 @@ export class VisitComponent extends BaseAuthComponent {
     }
 
     this.visitService.visit_excel_download(this.month + 1, this.year,
-      this.role_id, this.manager_id, synergy, this.customer_type_id).subscribe(
+      this.role_id, this.manager_id, synergy, this.customer_type_id, this.zone_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

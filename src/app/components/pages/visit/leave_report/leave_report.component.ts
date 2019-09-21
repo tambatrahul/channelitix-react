@@ -30,6 +30,11 @@ export class LeaveReportComponent extends ListComponent {
   public year: number;
 
   /**
+   * zone identifier
+   */
+  zone_id: number = 0;
+
+  /**
    * region identifier
    */
   public region_id: number = 0;
@@ -61,6 +66,8 @@ export class LeaveReportComponent extends ListComponent {
     this.month = moment().month();
     this.year = moment().year();
     super.ngOnInit();
+    if(this._service.user.role_str == 'COUNTRY_MNG')
+      this.zone_id = 1;
   }
 
   /**
@@ -69,7 +76,7 @@ export class LeaveReportComponent extends ListComponent {
   protected fetch() {
     if (this.month && this.year) {
       this.loading = true;
-      this.attendanceService.leave_report(this.month + 1, this.year, this.region_id).subscribe(
+      this.attendanceService.leave_report(this.month + 1, this.year, this.region_id, this.zone_id).subscribe(
         response => {
 
           // get users
@@ -183,12 +190,20 @@ export class LeaveReportComponent extends ListComponent {
   }
 
   /**
+   * customer type changed
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.fetch();
+  }
+  /**
    * Download Excel For Stockist POB
    */
   download() {
     this.btn_loading = true;
 
-    this.attendanceService.leave_report_excel_download(this.month + 1, this.year).subscribe(
+    this.attendanceService.leave_report_excel_download(this.month + 1, this.year,null,null, this.zone_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

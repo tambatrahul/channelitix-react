@@ -252,7 +252,7 @@ export class StockistWisePobComponent extends ListComponent {
     zoneChanged(zone_id) {
         this.zone_id = zone_id;
         this.regionChanged(0);
-        this.fetch();
+
     }
 
     /**
@@ -262,7 +262,7 @@ export class StockistWisePobComponent extends ListComponent {
    regionChanged(region_id) {
        this.region_id = region_id;
        this.areaChanged(0);
-       this.fetch();
+
    }
 
     /**
@@ -272,7 +272,7 @@ export class StockistWisePobComponent extends ListComponent {
     areaChanged(area_id) {
         this.area_id = area_id;
         this.headquarterChanged(0);
-        this.fetch();
+
     }
 
     /**

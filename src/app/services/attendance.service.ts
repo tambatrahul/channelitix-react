@@ -48,7 +48,7 @@ export class AttendanceService extends BaseService {
   /**
    * get attendance report
    */
-  forChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, hq_zone_id?: number): Observable<Result> {
+  forChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, zone_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/monthly/forChildren/' + month + '/' + year;
@@ -58,7 +58,7 @@ export class AttendanceService extends BaseService {
     params.set('role_id', String(role_id > 0 ? role_id : ''));
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
     params.set('synergy', String(synergy ? synergy : ''));
-    params.set('zone_id', String(hq_zone_id ? hq_zone_id : ''));
+    params.set('zone_id', String(zone_id ? zone_id : ''));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
@@ -148,16 +148,18 @@ export class AttendanceService extends BaseService {
    *
    * @param month
    * @param year
+   * @param zone_id
    * @param region_id
    * @returns {Observable<Result>}
    */
-  leave_report(month: number, year: number, region_id?: number): Observable<Result> {
+  leave_report(month: number, year: number, region_id?: number, zone_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/leave_report/' + month + '/' + year;
 
     // prepare get params
     let params = new URLSearchParams();
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     params.set('region_id', String(region_id > 0 ? region_id : ''));
 
     // make server call
@@ -167,12 +169,13 @@ export class AttendanceService extends BaseService {
   /**
    * get all orders
    */
-  leave_report_excel_download(month: number, year: number, role_id?: number, manager_id?: number): Observable<Response> {
+  leave_report_excel_download(month: number, year: number, role_id?: number, manager_id?: number, zone_id?: number): Observable<Response> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('role_id', String(role_id > 0 ? role_id : ''));
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
 
     // get request with headers
     let content = this.addCredentials(new RequestOptions({

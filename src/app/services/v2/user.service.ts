@@ -29,7 +29,7 @@ export class V2UserService extends V2BaseService {
   /**
    * get children for user
    */
-  all(role_id?: number, status?: string, region_id?: number, area_id?: number, page?: number, length?: number, search?: string): Observable<Result> {
+  all(role_id?: number, status?: string, zone_id?: number, region_id?: number, area_id?: number, page?: number, length?: number, search?: string): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl();
@@ -38,6 +38,7 @@ export class V2UserService extends V2BaseService {
     let params = new URLSearchParams();
     params.set('role_id', String(role_id > 0 ? role_id : ''));
     params.set('status', String(status ? status : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('page', String(page > 0 ? page : ''));

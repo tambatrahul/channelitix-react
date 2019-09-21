@@ -350,7 +350,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
    */
   download() {
 
-    this.reportService.executive_summary_download(this.month + 1, this.year).subscribe(
+    this.reportService.executive_summary_download(this.month + 1, this.year, this.zone_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

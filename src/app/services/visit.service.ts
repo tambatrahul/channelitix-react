@@ -54,7 +54,7 @@ export class VisitService extends BaseService {
    * @returns {Observable<Result>}
    */
   monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, customer_type_id?: number,
-                          hq_zone_id?: number): Observable<Result> {
+                          zone_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/monthly/forChildren/' + month + '/' + year + '/count';
@@ -65,7 +65,7 @@ export class VisitService extends BaseService {
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
     params.set('synergy', String(synergy ? synergy : ''));
     params.set('customer_type_id', String(customer_type_id > 0 ? customer_type_id : ''));
-    params.set('zone_id', String(hq_zone_id > 0 ? hq_zone_id : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
@@ -74,7 +74,7 @@ export class VisitService extends BaseService {
   /**
    * get all orders
    */
-  visit_excel_download(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, customer_type_id?: number): Observable<Response> {
+  visit_excel_download(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, customer_type_id?: number, zone_id?: number): Observable<Response> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -82,6 +82,7 @@ export class VisitService extends BaseService {
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
     params.set('synergy', String(synergy ? synergy : ''));
     params.set('customer_type_id', String(customer_type_id > 0 ? customer_type_id : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
 
     // get request with headers
     let content = this.addCredentials(new RequestOptions({
