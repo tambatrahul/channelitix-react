@@ -103,6 +103,9 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
    * on load of component load customer types
    */
   ngOnInit() {
+    if (this._service.user.hq_zone_id)
+      this.zone_id = this._service.user.hq_zone_id;
+
     this.month = moment().month() - 1;
     this.year = moment().year();
     if (this.month < 0) {

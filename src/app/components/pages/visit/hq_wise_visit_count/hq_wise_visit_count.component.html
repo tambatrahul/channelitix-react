@@ -20,6 +20,10 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
+      <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+        <zone-select [value]="zone_id"
+                     (onValueChanged)="zoneChanged($event)"></zone-select>
+      </div>
     </div>
     <!-- ./Filters for Visit report-->
 

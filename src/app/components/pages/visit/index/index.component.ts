@@ -128,6 +128,8 @@ export class VisitComponent extends BaseAuthComponent {
    * on load of component load customer types
    */
   ngOnInit() {
+    if (this._service.user.hq_zone_id)
+      this.zone_id = this._service.user.hq_zone_id;
     super.ngOnInit();
     if (this._service.user.username == 'abbottadmin') {
       this.abbott = true;

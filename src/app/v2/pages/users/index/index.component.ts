@@ -69,8 +69,12 @@ export class UserComponent extends ListComponent {
    * initialize component
    */
   ngOnInit() {
+    if (this._service.user.hq_zone_id)
+      this.zone_id = this._service.user.hq_zone_id;
+
     if (this._service.user.hq_region_id)
       this.region_id = this._service.user.hq_region_id;
+
 
     super.ngOnInit();
   }

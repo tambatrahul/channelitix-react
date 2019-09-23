@@ -62,6 +62,8 @@ export class LeaveReportComponent extends ListComponent {
    * on load of component load customer types
    */
   ngOnInit() {
+    if (this._service.user.hq_zone_id)
+      this.zone_id = this._service.user.hq_zone_id;
     // get current month and year
     this.month = moment().month();
     this.year = moment().year();

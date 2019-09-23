@@ -38,7 +38,7 @@ export class HQWiseVisitComponent extends ListComponent {
      */
     public month: number;
     public year: number;
-
+     zone_id: number = 0;
     /**
      * User Component Constructor
      */
@@ -50,9 +50,14 @@ export class HQWiseVisitComponent extends ListComponent {
      * on load of component load customer types
      */
     ngOnInit() {
+      if (this._service.user.hq_zone_id)
+        this.zone_id = this._service.user.hq_zone_id;
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
+
+      if(this._service.user.role_str == 'COUNTRY_MNG')
+        this.zone_id = 1;
     }
 
     /**
@@ -61,7 +66,7 @@ export class HQWiseVisitComponent extends ListComponent {
     fetch() {
         if ((this.month || this.month == 0) && this.year) {
             this.loading = true;
-            this.reportService.hq_wise_visit_counts(this.month + 1, this.year).subscribe(
+            this.reportService.hq_wise_visit_counts(this.month + 1, this.year, this.zone_id).subscribe(
                 response => {
                     this.loading = false;
 
@@ -204,4 +209,13 @@ export class HQWiseVisitComponent extends ListComponent {
         this.year = date.year;
         this.fetch();
     }
+
+  /**
+   * customer type changed
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.fetch();
+  }
 }

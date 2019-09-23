@@ -54,12 +54,15 @@ export class ExecutiveSummaryComponent extends ListComponent {
    */
   ngOnInit() {
     super.ngOnInit();
+    if (this._service.user.hq_zone_id)
+      this.zone_id = this._service.user.hq_zone_id;
+
     if(this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;
 
     this.month = moment().month();
     this.year = moment().year();
-    super.ngOnInit();
+
   }
 
   /**
