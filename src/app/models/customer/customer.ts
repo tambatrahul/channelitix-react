@@ -11,6 +11,7 @@ import {Region} from "../territory/region";
 import {Area} from "../territory/area";
 import {SalesPlanningDetail} from "../plan";
 import {HQZone} from '../territory/zone';
+import {UserTerritoryCustomer} from './user_territory_customer';
 
 export class Customer extends Model {
 
@@ -78,6 +79,7 @@ export class Customer extends Model {
   visit_counts: number = 0;
   sap_primary_sale: number = 0;
 
+  user_territory_customers: UserTerritoryCustomer[] = [];
   constructor(info: any) {
     super(info.id);
     this.firm_name = info.firm_name;
@@ -161,6 +163,10 @@ export class Customer extends Model {
 
     if (info.brand_category)
       this.brand_category = info.brand_category;
+
+    // add User territory customer
+    if (info.user_territory_customers)
+      this.user_territory_customers = info.user_territory_customers.map(user_territory_customer => new UserTerritoryCustomer(user_territory_customer));
   }
 
   /**

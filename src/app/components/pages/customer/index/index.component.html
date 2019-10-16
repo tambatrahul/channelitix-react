@@ -115,6 +115,13 @@
                           *ngIf="customer.customer_type_id != 1" class="btn btn-xs btn-danger"
                           (click)="deactivate(customer.id)">Deactivate
                         </button>
+                        <span *ngIf="customer.user_territory_customers.length == 0">
+                        <a *roleCheck="ROLE_CSM" class="btn btn-default btn-xs" style="cursor: pointer;"
+                           title="Add" (click)="createTerritoryCustomer(customer.id)">Add To EAPI</a> &nbsp;
+                          </span>
+                        <span  *ngIf="customer.user_territory_customers.length > 0">
+                       Added To EAPI
+                          </span>
                       </td>
                     </tr>
                     </tfoot>

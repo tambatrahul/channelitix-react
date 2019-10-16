@@ -57,6 +57,9 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
         this.month = moment().month();
         this.year = moment().year();
         super.ngOnInit();
+
+      if(this._service.user.role_str == 'COUNTRY_MNG')
+        this.zone_id = 1;
     }
 
     /**
@@ -65,7 +68,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
     fetch() {
         if (this.month && this.year && !this.loading) {
             this.loading = true;
-            this.visitService.hq_wise_input_utilization(this.month + 1, this.year).subscribe(
+            this.visitService.hq_wise_input_utilization(this.month + 1, this.year, this.zone_id).subscribe(
                 response => {
                     // get inputs
                     this.inputs = response.inputs.map(input => new Input(input));
@@ -78,13 +81,14 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
                         return new Region(region);
                     });
 
+                  this.mapInputs(this.inputs);
+
                     // prepare data for display
                     this.prepareData(this.inputs, visits);
 
                     this.loading = false;
 
                     setTimeout(() => {
-                        console.log('here');
                         this.excel_loaded = jQuery(".deviation-table").tableExport({
                             formats: ['xlsx'],
                             bootstrap: true,
@@ -100,7 +104,6 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
 
     // Prepare Data For Display
     prepareData(inputs: Input[], visits: Visit[]) {
-        this.mapInputs(inputs);
         this.regions.map(region => {
             region.areas.map(area => {
                 area.headquarters.map(headquarter => {
@@ -197,4 +200,13 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
         this.year = date.year;
         this.fetch();
     }
+
+  /**
+   * customer type changed
+   * @param zone_id
+   */
+  zoneChanged(zone_id) {
+    this.zone_id = zone_id;
+    this.fetch();
+  }
 }

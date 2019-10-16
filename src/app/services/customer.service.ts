@@ -181,11 +181,18 @@ export class CustomerService extends BaseService {
         return this.get(this.getBaseUrl() + '/masters');
     }
 
-    /**
+  /**
+   * Deactivate brick
+   */
+  deactivate(brick_id): Observable<Result> {
+    return this.post(this.getBaseUrl() + '/' + brick_id + '/deactivate');
+  }
+
+  /**
      * Deactivate brick
      */
-    deactivate(brick_id): Observable<Result> {
-        return this.post(this.getBaseUrl() + '/' + brick_id + '/deactivate')
+    createTerritoryCustomer(id): Observable<Result> {
+        return this.post(this.getBaseUrl() + '/' + id + '/add_to_EAPI');
     }
 
     /**

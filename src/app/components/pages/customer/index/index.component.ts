@@ -187,6 +187,28 @@ export class CustomerComponent extends ListComponent {
   }
 
   /**
+   * Add User
+   */
+  createTerritoryCustomer(id: number) {
+    let self = this;
+    swal({
+      title: 'Are you sure?',
+      text: 'You want to Add this Customer to EAPI ',
+      type: 'info',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function () {
+      self.customerService.createTerritoryCustomer(id).subscribe(
+        response => {
+          swal('Customer Added');
+        },
+        err => {
+        }
+      );
+    });
+  }
+  /**
    * deactivate Brick
    *
    * @param id
