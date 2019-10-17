@@ -202,6 +202,7 @@ export class CustomerComponent extends ListComponent {
       self.customerService.createTerritoryCustomer(id).subscribe(
         response => {
           swal('Customer Added');
+          self.fetch();
         },
         err => {
         }
