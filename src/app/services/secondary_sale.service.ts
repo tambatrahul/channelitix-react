@@ -236,4 +236,23 @@ export class SecondarySaleService extends BaseService {
     // make server call
     return this.get(url, new RequestOptions({search: params}));
   }
+
+  /**
+   * Excel download
+   */
+  secondary_sale_excel_download(month: number, year: number, zone_id: number): Observable<Response> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('zone_id', String(zone_id ? zone_id : ''));
+
+    // get request with headers
+    let content = this.addCredentials(new RequestOptions({
+      responseType: ResponseContentType.Blob,
+      search: params
+    }));
+
+    return this.http.get(this.getBaseUrl() + '/secondary_sale/' + month + "/" + year + "/excel_download", content);
+  }
+
 }

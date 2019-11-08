@@ -24,6 +24,7 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
    */
   public month: number;
   public year: number;
+  btn_loading: boolean = false;
 
   /**
    * zone
@@ -199,4 +200,27 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
     this.zone_id = zone_id;
     this.fetch();
   }
+  /**
+   * Download Excel For Executive Summary
+   */
+  download() {
+    this.btn_loading = true;
+    this.saleService.secondary_sale_excel_download(this.month + 1, this.year, this.zone_id).subscribe(
+      response => {
+        this.btn_loading = false;
+        let blob: Blob = response.blob();
+
+        // Doing it this way allows you to name the file
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "Secondary_Sale_Report.xls";
+        link.click();
+
+      },
+      err => {
+        this.btn_loading = false;
+      }
+    );
+  }
+
 }
