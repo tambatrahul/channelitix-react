@@ -82,9 +82,11 @@ export class CustomerComponent extends ListComponent {
    * initialize component
    */
   ngOnInit() {
+    super.ngOnInit();
+
     if (this._service.user.hq_zone_id)
       this.zone_id = this._service.user.hq_zone_id;
-    super.ngOnInit();
+
     this.zoneChanged(this._service.user.hq_zone_id);
     if(this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;

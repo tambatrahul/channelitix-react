@@ -215,4 +215,27 @@ export class VisitService extends BaseService {
   create_input(data: UserInputAck[]): Observable<Result> {
     return this.post(this.getBaseUrl() + '/user_input', {'user_input_acks': data})
   }
+
+  /**
+   * Input Utilization Excel download
+   * @returns {Observable<Result>}
+   */
+  input_utilization_excel_download(region_id?: number, area_id?: number, headquarter_id?: number,
+                                   month?: number, year?: number, zone_id?: number): Observable<Response> {
+    // prepare get params
+    let params = new URLSearchParams();
+    params.append('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.append('region_id', String(region_id > 0 ? region_id : ''));
+    params.append('area_id', String(area_id > 0 ? area_id : ''));
+    params.append('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
+    // get request with headers
+    let content = this.addCredentials(new RequestOptions({
+      responseType: ResponseContentType.Blob,
+      search: params
+    }));
+
+    // make server call
+    return this.http.get(this.getBaseUrl() + '/input_utilization/' + month + '/' + year + '/excel/download', content);
+  }
 }
