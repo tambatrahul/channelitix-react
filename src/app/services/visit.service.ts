@@ -207,6 +207,28 @@ export class VisitService extends BaseService {
   }
 
   /**
+   * get details till month
+   * @returns {Observable<Result>}
+   */
+  hq_wise_input_utilization_excel_download(month?: number, year?: number, zone_id?: number): Observable<Response> {
+// prepare get params
+    let params = new URLSearchParams();
+
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+
+    // get request with headers
+    let content = this.addCredentials(new RequestOptions({
+      responseType: ResponseContentType.Blob,
+      search: params
+    }));
+
+    // make server call
+    return this.http.get(this.getBaseUrl() + '/input_utilization/' + month + '/' + year + '/excel_download', content);
+
+  }
+
+
+  /**
    * Create Input
    *
    * @param {UserInputAck[]} data
