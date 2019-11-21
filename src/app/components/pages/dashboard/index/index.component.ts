@@ -70,7 +70,6 @@ export class DashBoardComponent extends BaseComponent {
     const self = this;
     if (self.dates.from_date && self.dates.to_date) {
       self.loading = true;
-console.log(self.dates);
       self.reportService.product_wise_actule_sale(self.dates.from_date, self.dates.to_date, self.dates.year,
         self.region_ids, self.area_ids, self.headquarter_ids, self.zone_ids).subscribe(
         response => {
@@ -127,7 +126,6 @@ console.log(self.dates);
         }
       });
     });
-    console.log(self.total_pob_for_sale);
     self.total_actual = 0;
     self.total_geo_actual = 0;
     // set performance values
@@ -143,9 +141,8 @@ console.log(self.dates);
         }
       });
     });
-    console.log(self.total_actual);
     this.total_pob_to_actual_sales = (self.total_actual  > 0) ? parseInt(((this.total_pob_for_sale / self.total_actual ) * 100).toFixed(2)) : 0
-    console.log(this.total_pob_to_actual_sales);
+
   }
 
   /**
