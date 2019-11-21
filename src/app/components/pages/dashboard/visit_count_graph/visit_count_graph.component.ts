@@ -6,6 +6,9 @@ import {Visit} from "../../../../models/visit/visit";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {AuthService} from "../../../../services/AuthService";
 import {AppConstants} from '../../../../app.constants';
+import {Performance} from '../../../../models/SAP/performance';
+import * as moment from 'moment';
+import {Product} from '../../../../models/order/product';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -27,7 +30,6 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   public total_pob_sk: number = 0;
   public total_pob_synergy: number = 0;
   public total_orders: number = 0;
-
   /**
    * Product Id
    */
@@ -170,7 +172,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
         err => {
           self.loading = false;
         }
-      )
+      );
     }
   }, 1000, false);
 
@@ -186,7 +188,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     this.fetchVisitOrdreTrend();
   }
 
-  /**
+    /**
    * draw graph
    */
   drawGraph() {

@@ -1,8 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
 import {BaseComponent} from '../../../base/base.component';
 import {ReportService} from '../../../../services/report.service';
 import {AuthService} from '../../../../services/AuthService';
+import {AppConstants} from '../../../../app.constants';
+import {Performance} from '../../../../models/SAP/performance';
+import {Product} from '../../../../models/order/product';
 
 declare let jQuery: any;
 
@@ -23,22 +26,25 @@ export class DashBoardComponent extends BaseComponent {
     year: ''
   };
 
+
+
   /**
    * total visit and total pob
    * @type {number}
    */
   public total_visits: number = 0;
   public total_pob: number = 0;
+  public total_geo_pob: number = 0;
   public total_pob_sk: number = 0;
   public total_pob_synergy: number = 0;
   public productive_calls: number = 0;
-
-  /**
-   * refresh button
-   *
-   * @type {boolean}
-   */
-  public refresh: boolean = false;
+  public total_actual: number = 0;
+  public total_geo_actual: number = 0;
+  public total_pob_to_actual_sales: number = 0;
+  public total_pob_for_sale: number = 0;
+  public brand_id: number = 0;
+  public product_id: number = 0;
+  public refresh;
 
   /**
    * selected regions, areas and headquarters
@@ -56,6 +62,26 @@ export class DashBoardComponent extends BaseComponent {
    */
   public month: number;
   public year: number;
+
+  /**
+   * Sales data
+   */
+  fetchActualSale = AppConstants.debounce(function () {
+    const self = this;
+    if (self.dates.from_date && self.dates.to_date) {
+      self.loading = true;
+console.log(self.dates);
+      self.reportService.product_wise_actule_sale(self.dates.from_date, self.dates.to_date, self.dates.year,
+        self.region_ids, self.area_ids, self.headquarter_ids, self.zone_ids).subscribe(
+        response => {
+          self.forData(new Performance(response.performance));
+          self.loading = false;
+        }, err => {
+          self.loading = false;
+        }
+      );
+    }
+  }, 1000, false);
 
   /**
    * Dashboard Component Constructor
@@ -76,6 +102,50 @@ export class DashBoardComponent extends BaseComponent {
       this.region_ids.push(this._service.user.hq_region_id);
     if (this._service.user.hq_area_id)
       this.area_ids.push(this._service.user.hq_area_id);
+
+    this.fetchActualSale();
+  }
+
+  /**
+   * For sales data
+   */
+  forData(performance: Performance) {
+    let self = this;
+    // get products
+    let products: Product[] = performance.products;
+    self.total_pob_for_sale = 0;
+    self.total_geo_pob = 0;
+    // set performance values
+    performance.orders.map(function (order) {
+      products.map(function (product) {
+        if (product.brand_id == order.brand_id) {
+          product.total_pob = order.order_total_count;
+          self.total_pob_for_sale += order.order_total_count;
+
+          if (order.brand_id != 10)
+            self.total_geo_pob += order.order_total_count;
+        }
+      });
+    });
+    console.log(self.total_pob_for_sale);
+    self.total_actual = 0;
+    self.total_geo_actual = 0;
+    // set performance values
+    performance.secondary_sales.map(function (ss) {
+      products.map(function (product) {
+        if (product.brand_id == ss.brand_id) {
+          product.performance = ss.total_amount;
+          self.total_actual += ss.total_amount;
+
+          if (ss.brand_id != 10)
+            self.total_geo_actual += ss.total_amount;
+
+        }
+      });
+    });
+    console.log(self.total_actual);
+    this.total_pob_to_actual_sales = (self.total_actual  > 0) ? parseInt(((this.total_pob_for_sale / self.total_actual ) * 100).toFixed(2)) : 0
+    console.log(this.total_pob_to_actual_sales);
   }
 
   /**
@@ -83,9 +153,11 @@ export class DashBoardComponent extends BaseComponent {
    * @param dates
    */
   onDateChanged(dates) {
+    this.total_pob = 0;
+    this.total_actual = 0;
     this.dates = dates;
+    this.fetchActualSale();
   }
-
   /**
    * total visit and pob values
    * @param data

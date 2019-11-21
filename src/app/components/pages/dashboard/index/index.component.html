@@ -142,6 +142,47 @@
                 </div>
               </a>
             </div>
+
+            <div *ngIf="environment.envName == 'geo'">
+              <a class="col-xs-12 remove-underline">
+                <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
+                  <div class="mini-stats-top">
+                                    <span class="mini-stats-value">
+                                      {{(total_pob_to_actual_sales).toFixed(0) | number : fractionSize }} %
+                                    </span>
+                    <span class="mini-stats-label">POB</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div *ngIf="environment.envName == 'sk_group'">
+              <a class="col-xs-12 remove-underline">
+                <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_500">
+                  <div class="mini-stats-top" style="padding: 10px;">
+                                    <span class="mini-stats-value">
+                                      {{(total_pob_to_actual_sales).toFixed(0) | number : fractionSize }} %
+                                    </span>
+                    <span class="mini-stats-label">POB(SK)</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div *ngIf="environment.envName == 'sk_group'">
+              <a class="col-xs-12 remove-underline">
+                <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_75">
+                  <div class="mini-stats-top" style="padding: 10px;">
+                                    <span class="mini-stats-value">
+                                      {{(total_pob_to_actual_sales).toFixed(0) | number : fractionSize }} %
+                                    </span>
+                    <span class="mini-stats-label">POB(SYNERGY)</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+
           </div>
         </div>
       </div>
