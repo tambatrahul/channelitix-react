@@ -16,6 +16,7 @@ declare let jQuery: any;
 export class DeviationReportComponent extends BaseAuthComponent {
 
   excel_loaded;
+  public working_with_id_attendance: Array<number> = [];
 
   /**
    * Attendance
@@ -105,7 +106,6 @@ export class DeviationReportComponent extends BaseAuthComponent {
           attendance.visited_brick = visit.visited_brick;
         }
       });
-
       visits.map(visit => {
         if (visit.visit_date == attendance.date) {
 
@@ -143,6 +143,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
         if (tour.date == attendance.date) {
           // Tour plan
           attendance.tour_plan = tour.tour_plan;
+          attendance.working_with_id_tour = tour.working_with_ids;
         }
       });
     });
@@ -176,4 +177,18 @@ export class DeviationReportComponent extends BaseAuthComponent {
         return '#f76e60';
     }
   }
+
+/**
+ * Compare Tour Plan  And Attendance working with
+ *
+ * @returns {number}
+ */
+public numberArrayCompare(wotk_type: string, a: [number], b: number) {
+  if (wotk_type != "Meeting") {
+    if (a.indexOf(b) == -1) {
+      return '#f76e60';
+    } else
+      return '#FFF';
+  }
+}
 }

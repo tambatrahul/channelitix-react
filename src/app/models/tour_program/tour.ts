@@ -15,6 +15,7 @@ export class Tour extends Model {
     hq_brick: Brick;
     user: User;
     working_with: User;
+    working_with_ids: number;
 
     // for internal use only
     day: number;
@@ -50,5 +51,8 @@ export class Tour extends Model {
 
         if (info.tour_plan)
             this.tour_plan = info.tour_plan;
+
+       if (info.working_with_ids)
+        this.working_with_ids = parseInt(info.working_with_ids);
     }
 }
