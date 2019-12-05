@@ -112,9 +112,10 @@ export class SummaryDetailComponent extends BaseAuthComponent {
                     // visit and order formatting
                     let visits = response.visits.map(visit => new Visit(visit));
                     let orders = response.orders.map(order => new Order(order));
+                    let orders_csm = response.orders_csm.map(order_csm => new Order(order_csm));
 
                     // prepare skeleton for attendance
-                    this.addAttendanceToSkeleton(this._user, attendances, response.holidays, visits, orders);
+                    this.addAttendanceToSkeleton(this._user, attendances, response.holidays, visits, orders, orders_csm);
 
                     // get tours
                     let tours = response.tours.map(function (tour) {
@@ -142,8 +143,9 @@ export class SummaryDetailComponent extends BaseAuthComponent {
      * @param holidays
      * @param visits
      * @param orders
+     * @param orders_csm
      */
-    addAttendanceToSkeleton(user: User, attendances: Attendance[], holidays: Holiday[], visits: Visit[], orders: Order[]) {
+    addAttendanceToSkeleton(user: User, attendances: Attendance[], holidays: Holiday[], visits: Visit[], orders: Order[], orders_csm: Order[]) {
         let data_skeleton = AppConstants.prepareMonthAttendanceSkeleton(
             this._month, this._year, holidays, user.joining_date, user.leaving_date);
 
@@ -167,6 +169,12 @@ export class SummaryDetailComponent extends BaseAuthComponent {
         orders.map(order => {
             if (order.order_day_total_count > 0)
                 data_skeleton[order.order_day - 1].pob_amount = order.order_day_total_count;
+        });
+
+       // add order of csm to attendance
+      orders_csm.map(order_csm => {
+            if (order_csm.order_total_count_for_csm > 0)
+               data_skeleton[order_csm.order_day - 1].pob_amount = order_csm.order_total_count_for_csm;
         });
 
         this._user.attendances = data_skeleton;

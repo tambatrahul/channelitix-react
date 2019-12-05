@@ -63,6 +63,7 @@ export class Result {
 
   //Orders models
   orders: Order[];
+  orders_csm: Order[];
   skinlite_orders: Order[];
   orders_sk: number = 0;
   orders_synergy: number = 0;

@@ -33,6 +33,7 @@ export class Order extends Model {
   zsm_order_total_count: number = 0;
   zsm_order_total_quantity: number = 0;
   order_day_total_count: number = 0;
+  order_total_count_for_csm: number = 0;
   order_day: number;
   order_month: number;
   attendance: Attendance = new Attendance({});
@@ -79,6 +80,9 @@ export class Order extends Model {
 
     if (info.order_day_total_count)
       this.order_day_total_count = parseFloat(info.order_day_total_count);
+
+    if (info.order_total_count_for_csm)
+      this.order_total_count_for_csm = parseFloat(info.order_total_count_for_csm);
 
     if (info.order_items)
       this.order_items = info.order_items.map(function (item) {

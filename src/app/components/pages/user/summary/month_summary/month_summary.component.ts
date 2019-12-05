@@ -38,6 +38,8 @@ export class MonthSummaryComponent extends BaseAuthComponent {
   leave: number = 0;
   transit: number = 0;
   total_pob: number = 0;
+  total_pob_self: number = 0;
+  total_pob_with: number = 0;
   total_visits: number = 0;
 
   /**
@@ -55,6 +57,7 @@ export class MonthSummaryComponent extends BaseAuthComponent {
   @Input()
   set month(month: number) {
     this._month = month;
+    this.reset();
     this.fetch();
   }
 
@@ -85,6 +88,7 @@ export class MonthSummaryComponent extends BaseAuthComponent {
 
           // get pob amount
           let orders = response.orders.map(ord => new Order(ord));
+          let orders_csm = response.orders_csm.map(ord_csm => new Order(ord_csm));
 
           // get unique customer visits count
           let visits = response.visits.map(vis => new Visit(vis));
@@ -94,7 +98,7 @@ export class MonthSummaryComponent extends BaseAuthComponent {
           let attendances = response.attendances.map(att => new Attendance(att));
           let leave_counts = response.leave_counts.map(att => new Attendance(att));
 
-          this.prepareData(orders, visits, attendances, all_visits, leave_counts)
+          this.prepareData(orders, orders_csm, visits, attendances, all_visits, leave_counts);
         },
         err => {
           this.loading = false;
@@ -106,13 +110,14 @@ export class MonthSummaryComponent extends BaseAuthComponent {
   /**
    *
    * @param {Order[]} orders
+   * @param {Order[]} orders_csm
    * @param {Visit[]} visits
    * @param {Attendance[]} attendances
    * @param all_visits
    * @param leave_counts
    * @param customers
    */
-  prepareData(orders: Order[], visits: Visit[], attendances: Attendance[], all_visits: Visit[], leave_counts: Attendance[]) {
+  prepareData(orders: Order[], orders_csm: Order[], visits: Visit[], attendances: Attendance[], all_visits: Visit[], leave_counts: Attendance[]) {
 
     // distinct visit count
     visits.map(vis => {
@@ -144,7 +149,14 @@ export class MonthSummaryComponent extends BaseAuthComponent {
 
     // order count
     orders.map(ord => {
-      this.total_pob += ord.order_total_count;
+      if (ord.order_total_count > 0)
+      this.total_pob_self += ord.order_total_count;
+    });
+
+    // order count for CSM
+    orders_csm.map(ord_csm => {
+      if (ord_csm.order_total_count_for_csm > 0)
+        this.total_pob_with += ord_csm.order_total_count_for_csm;
     });
 
     // leave count
@@ -168,6 +180,8 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     this.leave = 0;
     this.transit = 0;
     this.total_pob = 0;
+    this.total_pob_self = 0;
+    this.total_pob_with = 0;
     this.total_visits = 0;
   }
 }
