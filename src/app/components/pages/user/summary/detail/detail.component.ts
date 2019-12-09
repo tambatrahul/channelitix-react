@@ -100,6 +100,7 @@ export class SummaryDetailComponent extends BaseAuthComponent {
      * Fetch Messages from server
      */
     fetch() {
+
         if (this._user && this._user.id && this._month && this._year) {
             this.loading = true;
             this.reportService.summaryForUser(this._month + 1, this._year, this._user.id).subscribe(
@@ -174,7 +175,7 @@ export class SummaryDetailComponent extends BaseAuthComponent {
        // add order of csm to attendance
       orders_csm.map(order_csm => {
             if (order_csm.order_total_count_for_csm > 0)
-               data_skeleton[order_csm.order_day - 1].pob_amount = order_csm.order_total_count_for_csm;
+               data_skeleton[order_csm.order_day - 1].pob_amount_combine = order_csm.order_total_count_for_csm;
         });
 
         this._user.attendances = data_skeleton;

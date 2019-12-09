@@ -6,6 +6,7 @@ import {Attendance} from "../../../../../models/attendance/attendance";
 import {Order} from "../../../../../models/order/order";
 import {Visit} from "../../../../../models/visit/visit";
 import {Customer} from "../../../../../models/customer/customer";
+import {User} from '../../../../../models/user/user';
 
 declare let jQuery: any;
 
@@ -15,6 +16,11 @@ declare let jQuery: any;
   styleUrls: ['month_summary.component.less']
 })
 export class MonthSummaryComponent extends BaseAuthComponent {
+
+  // /**
+  //  * User
+  //  */
+  // _users: User;
 
   /**
    * User Id
@@ -53,6 +59,26 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     this.reset();
     this.fetch();
   }
+  //
+  // /**
+  //  * user to fetch data
+  //  *
+  //  * @type {number}
+  //  */
+  // @Input()
+  // set user(users: User) {
+  //   this._users = users;
+  //   this.fetch();
+  // }
+
+  // /**
+  //  * get user
+  //  *
+  //  * @returns {User}
+  //  */
+  // get user() {
+  //   return this._users;
+  // }
 
   @Input()
   set month(month: number) {
@@ -149,8 +175,8 @@ export class MonthSummaryComponent extends BaseAuthComponent {
 
     // order count
     orders.map(ord => {
-      if (ord.order_total_count > 0)
-      this.total_pob_self += ord.order_total_count;
+      if (ord.order_day_total_count > 0)
+      this.total_pob_self += ord.order_day_total_count;
     });
 
     // order count for CSM

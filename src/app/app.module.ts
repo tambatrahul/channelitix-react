@@ -103,6 +103,7 @@ import {ProductService} from "./services/product.service";
 import {SummaryComponent} from "./components/pages/user/summary/index/summary.component";
 import {SummaryDetailComponent} from "./components/pages/user/summary/detail/detail.component";
 import {AttendancePobStatusDirective} from "./components/pages/attendance/directives/attendance_pob_status.directive";
+import {AttendancePobCombineStatusDirective} from "./components/pages/attendance/directives/attendance_pob_combine_status.directive";
 import {SummaryVisitOrderGraphComponent} from "./components/pages/user/summary/summary_visit_order_graph/summary_visit_order_graph.component";
 import {OrderComponentComponent} from "./components/pages/order/order_component/order-component.component";
 import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
@@ -326,6 +327,7 @@ enableProdMode();
     CalendarTourStatusDirective,
     TourCountDirective,
     AttendancePobStatusDirective,
+    AttendancePobCombineStatusDirective,
     PrimarySaleComponent,
     TillMonthChartComponent,
     MonthlyPrimarySecondaryTargetComponent,

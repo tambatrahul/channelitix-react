@@ -32,21 +32,32 @@
                                     </tr>
                                     </tfoot>
 
-                                    <tbody>
+                                  <tbody>
+                                    <tr>
                                     <tr>
                                         <td>Daily Reporting</td>
                                         <td *ngFor="let att of _user.attendances" attendanceStatus
                                             [attendance]="att"></td>
                                     </tr>
                                     <tr *ngIf="environment.envName != 'sk_group'">
-                                        <td>POB (in Thousands)</td>
+                                        <td>POB (in Thousands Self)</td>
                                         <td *ngFor="let att of _user.attendances" attendancePobStatus
                                             [attendance]="att" [target]="_user.daily_target"></td>
                                     </tr>
                                     <tr *ngIf="environment.envName == 'sk_group'">
-                                        <td>POB (in Thousands)</td>
+                                        <td>POB (in Thousands Self)</td>
                                         <td *ngFor="let att of _user.attendances" attendancePobStatus
                                             [attendance]="att"></td>
+                                    </tr>
+                                      <tr *ngIf="environment.envName != 'sk_group' && _user.role_id > 3">
+                                        <td>POB (in Thousands Joint Work)</td>
+                                        <td *ngFor="let att of _user.attendances" attendancePobCombineStatus
+                                           [attendance]="att" [target]="_user.daily_target"></td>
+                                       </tr>
+                                    <tr *ngIf="environment.envName == 'sk_group' && _user.role_id > 3">
+                                      <td>POB (in Thousands Joint Work)</td>
+                                      <td *ngFor="let att of _user.attendances" attendancePobCombineStatus
+                                          [attendance]="att"></td>
                                     </tr>
                                     <tr>
                                         <td>

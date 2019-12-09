@@ -19,6 +19,7 @@ export class Attendance extends Model {
   working_withs: User[];
   no_of_calls: number = 0;
   pob_amount: number = 0;
+  pob_amount_combine: number = 0;
   reporting_status: string = "open";
 
   // for internal use only
