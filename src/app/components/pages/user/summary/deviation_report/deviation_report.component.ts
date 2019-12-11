@@ -6,6 +6,7 @@ import {ReportService} from "../../../../../services/report.service";
 import {Tour} from "../../../../../models/tour_program/tour";
 import {Visit} from "../../../../../models/visit/visit";
 import {Order} from "../../../../../models/order/order";
+import {User} from '../../../../../models/user/user';
 declare let jQuery: any;
 
 @Component({
@@ -16,7 +17,7 @@ declare let jQuery: any;
 export class DeviationReportComponent extends BaseAuthComponent {
 
   excel_loaded;
-  public working_with_id_attendance: Array<number> = [];
+  public working_with_attendance: string;
 
   /**
    * Attendance
@@ -24,11 +25,16 @@ export class DeviationReportComponent extends BaseAuthComponent {
    * @type {Array}
    */
   attendances: Attendance[] = [];
-
+  /**
+   * User
+   */
+  _user: User;
   /**
    * User Id
    */
   private _user_id: number;
+  private _role_str: string;
+  public role_id: number;
 
   /**
    * user id to fetch data
@@ -36,11 +42,19 @@ export class DeviationReportComponent extends BaseAuthComponent {
    * @type {number}
    */
   @Input()
-  set user_id(_user_id: number) {
-    this._user_id = _user_id;
+  set user(_user: User) {
+    this._user_id = _user.id;
+    this._role_str = _user.role_str;
     this.fetch();
   }
-
+  /**
+   * get user
+   *
+   * @returns {User}
+   */
+  get user() {
+    return this._user;
+  }
   /**
    * month and year input
    */
@@ -76,6 +90,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
         response => {
           this.loading = false;
 
+          console.log(response.attendances);
           // get attendances
           this.attendances = response.attendances.map(att => new Attendance(att));
 
@@ -99,13 +114,14 @@ export class DeviationReportComponent extends BaseAuthComponent {
 
   prepareData(visits: Visit[], visited_brick: Visit[], orders: Order[], tours: Tour[]) {
     this.attendances.map(attendance => {
-
+      console.log(attendance.date);
       visited_brick.map(visit => {
         if (visit.visit_date == attendance.date) {
           // Visited Brick
           attendance.visited_brick = visit.visited_brick;
         }
       });
+
       visits.map(visit => {
         if (visit.visit_date == attendance.date) {
 
@@ -142,8 +158,12 @@ export class DeviationReportComponent extends BaseAuthComponent {
       tours.map(tour => {
         if (tour.date == attendance.date) {
           // Tour plan
-          attendance.tour_plan = tour.tour_plan;
-          attendance.working_with_id_tour = tour.working_with_ids;
+          if (this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG') {
+            attendance.tour_plan = tour.working_with ? tour.working_with.full_name : '';
+            attendance.working_with_id_tour = tour.working_with_ids;
+          } else {
+            attendance.tour_plan = tour.tour_plan;
+          }
         }
       });
     });
@@ -161,6 +181,12 @@ export class DeviationReportComponent extends BaseAuthComponent {
     }, 1000);
   }
 
+  public compare (wotk_type: string, a: string, b: string, c: [number], d: number) {
+    if (this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG') {
+      return this.numberArrayCompare(wotk_type, c, d);
+    }else
+      return this.stringCompare(wotk_type, a, b);
+  }
   /**
    * Compare Tour Plan And visited brick
    *
@@ -168,7 +194,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
    */
   public stringCompare(wotk_type: string, a: string, b: string) {
     // work plan meeting is not red
-    if(wotk_type != "Meeting"){
+    if(wotk_type != 'Meeting' && wotk_type != 'Office Work/Admin' && wotk_type != 'Sales Closing' && wotk_type != 'Transit'){
       // compare string visited brick and Tour Plan
       if((a != null) && (b != null)){
         if(!b.includes(a))
@@ -184,7 +210,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
  * @returns {number}
  */
 public numberArrayCompare(wotk_type: string, a: [number], b: number) {
-  if (wotk_type != "Meeting") {
+  if (wotk_type != 'Meeting' && wotk_type != 'Office Work/Admin' && wotk_type != 'Sales Closing'  && wotk_type != 'Transit') {
     if (a.indexOf(b) == -1) {
       return '#f76e60';
     } else

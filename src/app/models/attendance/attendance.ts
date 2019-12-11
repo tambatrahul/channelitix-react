@@ -34,6 +34,8 @@ export class Attendance extends Model {
   hq_headquarter_id: number = 0;
   attendance_count: number = 0;
   leave_count: number = 0;
+  all_working_with: string;
+  role_id: number;
 
   // Deviation Report
   visited_brick: string;
@@ -49,6 +51,7 @@ export class Attendance extends Model {
   hq_region_id: number = 0;
   working_with_count: number = 0;
   working_with_id_tour: number;
+  tour_working_with: string;
 
   constructor(info: any) {
     super(info.id);
@@ -62,7 +65,7 @@ export class Attendance extends Model {
     this.created_by = info.created_by;
     this.creator = info.creator;
     this.day = info.day;
-    this.work_type_id = info.work_type_id;
+    this.work_type_id = parseInt(info.work_type_id);
     this.leave_type_id = info.leave_type_id;
     this.working_with_id = info.working_with_id;
     this.reporting_status = info.reporting_status;
@@ -77,14 +80,15 @@ export class Attendance extends Model {
       this.pob_amount = parseFloat(info.pob_amount);
 
     if (info.att_count)
-      this.att_count = parseFloat(info.att_count);
+      this.att_count = parseInt(info.att_count);
 
     if (info.working_withs) {
       let self = this;
       this.working_withs = info.working_withs;
       info.working_withs.map(function (user) {
         self.working_with_ids.push(user.id);
-      })
+        self.all_working_with = user.full_name;
+      });
     } else {
       this.working_with_ids = [];
     }
