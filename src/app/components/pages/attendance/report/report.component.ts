@@ -12,6 +12,8 @@ import {Visit} from "../../../../models/visit/visit";
 import {Order} from "../../../../models/order/order";
 import {OrderItem} from "../../../../models/order/order_item";
 import {Report} from "../../../../models/attendance/report";
+import {Brand} from '../../../../models/order/brand';
+import {Priorities} from '../../../../models/visit/priorities';
 
 @Component({
   selector: 'report-component',
@@ -151,19 +153,23 @@ export class ReportComponent extends BaseAuthComponent {
           return new Visit(visit);
         }), response.orders.map(function (order) {
           return new Order(order);
+        }), response.brands.map(function (brand) {
+          return new Brand(brand);
+        }), response.priorities.map(function (priority) {
+          return new Priorities(priority);
         }));
         this.saved = false;
       },
       err => {
         this.loading = false;
       }
-    )
+    );
   }
 
   /**
    * format data
    */
-  formatData(visits: Visit[], orders: Order[]) {
+  formatData(visits: Visit[], orders: Order[], brands: Brand[], priorities: Priorities[]) {
     let self = this;
     let data = [];
     visits.map(function (visit) {
@@ -233,6 +239,7 @@ export class ReportComponent extends BaseAuthComponent {
     });
     this.data = data;
     this.selectCustomer(data[0]);
+
   }
 
   /**

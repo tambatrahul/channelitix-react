@@ -5,11 +5,15 @@ import {User} from "../user/user";
 import * as moment from "moment";
 import {Visit} from "../visit/visit";
 import {Order} from "../order/order";
+import {Brand} from '../order/brand';
+import {Priorities} from '../visit/priorities';
 
 export class Report extends Model {
 
     visit: Visit;
     order: Order;
+    brand: Brand;
+    priority: Priorities;
     customer_id: number;
     mobile: number;
     classification: string;
@@ -24,5 +28,11 @@ export class Report extends Model {
 
         if (info.order)
             this.order = new Order(info.order);
+
+        if (info.brand)
+            this.brand = new Brand(info.brand);
+
+        if (info.priority)
+            this.priority = new Priorities(info.priority);
     }
 }
