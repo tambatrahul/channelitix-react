@@ -14,6 +14,7 @@ import {OrderItem} from "../../../../models/order/order_item";
 import {Report} from "../../../../models/attendance/report";
 import {Brand} from '../../../../models/order/brand';
 import {Priorities} from '../../../../models/visit/priorities';
+import {CustomerPriorities} from '../../../../models/visit/customer_priorities';
 
 @Component({
   selector: 'report-component',
@@ -227,6 +228,14 @@ export class ReportComponent extends BaseAuthComponent {
         });
       }
 
+      // setting priorities
+      if (visit.customer_priorities) {
+        visit.customer_priorities = [];
+        priorities.forEach(function (priority) {
+          visit.customer_priorities.push(new CustomerPriorities({'priority_name': priority.name, 'priority_id': priority.id, 'brand_id': 0}));
+        });
+      }
+
       // push data to array
       data.push({
         customer: visit.customer,
@@ -234,9 +243,8 @@ export class ReportComponent extends BaseAuthComponent {
         visit: new Visit(visit),
         error: false
       });
-
-
     });
+
     this.data = data;
     this.selectCustomer(data[0]);
 
@@ -311,6 +319,14 @@ export class ReportComponent extends BaseAuthComponent {
     );
   }
 
+
+  /**
+   * set brand by id
+   * @param brand_id
+   */
+  setBrandIdBy(brand_id) {
+    this.selected_customer.brand.id = brand_id;
+  }
   /**
    * select Customer
    *

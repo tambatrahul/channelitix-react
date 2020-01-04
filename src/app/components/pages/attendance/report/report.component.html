@@ -58,19 +58,19 @@
                     <div class="w-contact-widget">
                       <div class="w-contact-list">
                         <div class="w-contact-list-item"
-                             *ngFor="let input of selected_customer.visit.inputs">
+                             *ngFor="let priority of selected_customer.visit.customer_priorities">
                           <div class="w-contact-info">
-                            <h4><a>{{ input.name }}</a></h4>
+                            <h4><a>{{ priority.priority_name }}</a></h4>
                           </div>
-                          <div class="w-contact-action">
-                            <div *ngIf="editable == 'closed'">
-                              {{ input.value }}
-                            </div>
-                            <div *ngIf="editable == 'open'">
-                              <input class="form-control" type="number" placeholder="0"
-                                     [(ngModel)]="input.value" (change)="resetSave()"/>
-                            </div>
-                          </div>
+                          <a>
+                            <priority-brand-select
+                              [value]=""
+                              (onValueChanged)="setBrandIdBy($event)"></priority-brand-select>
+                            <small *ngIf="selected_customer?.error"
+                                   class="text-danger text-center">
+                              * required
+                            </small>
+                          </a>
                         </div>
                       </div>
                     </div>

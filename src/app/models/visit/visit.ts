@@ -4,6 +4,7 @@ import {VisitInput} from "./visit_input";
 import {Customer} from "../customer/customer";
 import {InputAnswer} from "./input_answer";
 import {Attendance} from "../attendance/attendance";
+import {CustomerPriorities} from './customer_priorities';
 
 export class Visit extends Model {
 
@@ -19,6 +20,8 @@ export class Visit extends Model {
   stockist_code: number;
   creator: User;
   inputs: VisitInput[];
+  customer_priorities: CustomerPriorities[] = [];
+  name: string;
   input_answers: InputAnswer[];
   customer: Customer;
 
@@ -79,6 +82,11 @@ export class Visit extends Model {
         return new VisitInput(input);
       });
 
+    // customer priorities
+    if (info.customer_priorities)
+      this.customer_priorities = info.customer_priorities.map(function (priority) {
+        return new CustomerPriorities(priority);
+      });
     // input answers
     if (info.input_answers)
       this.input_answers = info.input_answers.map(function (input) {

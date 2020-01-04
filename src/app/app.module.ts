@@ -196,6 +196,7 @@ import {BrandService} from "./services/brand.service";
 import {BrandSelectComponent} from "./components/form_elements/order/brand_select/brand-select.component";
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
 import {InputSelectComponent} from "./components/form_elements/visit/input_select/input-select.component";
+import {PriorityBrandSelectComponent} from "./components/form_elements/visit/priority_brand_select/priority-brand-select.component";
 import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
 import {CSEFieldEffortsAuditScorecard} from "./components/pages/user/field_efforts_audit_scorecard/cse_field_efforts_data/cse_field_efforts_audit_scorecard.component";
 import {CSMFieldEffortsAuditScorecard} from "./components/pages/user/field_efforts_audit_scorecard/csm_field_efforts_data/csm_field_efforts_audit_scorecard.component";
@@ -389,6 +390,7 @@ enableProdMode();
     MonthWiseReportComponent,
     ManagerSyncOrderComponent,
     InputSelectComponent,
+    PriorityBrandSelectComponent,
 
 
     // Abbott Stp Component
