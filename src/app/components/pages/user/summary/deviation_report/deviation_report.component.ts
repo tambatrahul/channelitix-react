@@ -32,8 +32,8 @@ export class DeviationReportComponent extends BaseAuthComponent {
   /**
    * User Id
    */
-  private _user_id: number;
-  private _role_str: string;
+  public _user_id: number;
+  public _role_str: string;
   public role_id: number;
 
   /**
