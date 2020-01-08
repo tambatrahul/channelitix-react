@@ -33,7 +33,7 @@ import {OpeningStock} from "./openning_stock";
 import {SalesPlanningDetail} from "./plan";
 import {Brand} from "./order/brand";
 import {HQZone} from './territory/zone';
-import {Priorities} from './visit/priorities';
+import {Priority} from './visit/priority';
 
 export class Result {
 
@@ -135,7 +135,7 @@ export class Result {
   brands: Brand[] = [];
 
   // priorities
-  priorities: Priorities[] = [];
+  priorities: Priority[] = [];
 
   last_month_dexona_sale: SapStockistSale[] = [];
   last_month_sale: SapStockistSale[] = [];

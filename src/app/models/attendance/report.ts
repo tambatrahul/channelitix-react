@@ -6,14 +6,14 @@ import * as moment from "moment";
 import {Visit} from "../visit/visit";
 import {Order} from "../order/order";
 import {Brand} from '../order/brand';
-import {Priorities} from '../visit/priorities';
+import {Priority} from '../visit/priority';
 
 export class Report extends Model {
 
     visit: Visit;
     order: Order;
     brand: Brand;
-    priority: Priorities;
+    priority: Priority;
     customer_id: number;
     mobile: number;
     classification: string;
@@ -33,6 +33,6 @@ export class Report extends Model {
             this.brand = new Brand(info.brand);
 
         if (info.priority)
-            this.priority = new Priorities(info.priority);
+            this.priority = new Priority(info.priority);
     }
 }

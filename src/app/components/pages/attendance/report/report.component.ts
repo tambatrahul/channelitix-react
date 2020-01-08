@@ -1,19 +1,19 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {BaseAuthComponent} from "../../../base/base_auth.component";
-import {Router} from "@angular/router";
-import {AuthService} from "../../../../services/AuthService";
-import * as moment from "moment";
-import {Attendance} from "../../../../models/attendance/attendance";
-import {VisitInput} from "../../../../models/visit/visit_input";
-import {AttendanceService} from "../../../../services/attendance.service";
-import {Product} from "../../../../models/order/product";
-import {VisitService} from "../../../../services/visit.service";
-import {Visit} from "../../../../models/visit/visit";
-import {Order} from "../../../../models/order/order";
-import {OrderItem} from "../../../../models/order/order_item";
-import {Report} from "../../../../models/attendance/report";
+import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {BaseAuthComponent} from '../../../base/base_auth.component';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../../services/AuthService';
+import * as moment from 'moment';
+import {Attendance} from '../../../../models/attendance/attendance';
+import {VisitInput} from '../../../../models/visit/visit_input';
+import {AttendanceService} from '../../../../services/attendance.service';
+import {Product} from '../../../../models/order/product';
+import {VisitService} from '../../../../services/visit.service';
+import {Visit} from '../../../../models/visit/visit';
+import {Order} from '../../../../models/order/order';
+import {OrderItem} from '../../../../models/order/order_item';
+import {Report} from '../../../../models/attendance/report';
 import {Brand} from '../../../../models/order/brand';
-import {Priorities} from '../../../../models/visit/priorities';
+import {Priority} from '../../../../models/visit/priority';
 import {CustomerPriorities} from '../../../../models/visit/customer_priorities';
 
 @Component({
@@ -22,6 +22,9 @@ import {CustomerPriorities} from '../../../../models/visit/customer_priorities';
   styleUrls: ['report.component.less']
 })
 export class ReportComponent extends BaseAuthComponent {
+
+  public brand_id: number = 0;
+  customer_priorities: CustomerPriorities[] = [];
 
   /**
    * date of attendance
@@ -83,6 +86,7 @@ export class ReportComponent extends BaseAuthComponent {
    */
   public inputs: VisitInput[] = [];
   public products: Product[] = [];
+  public brands: Brand[] = [];
 
   @Input()
   set refresh(value) {
@@ -98,7 +102,7 @@ export class ReportComponent extends BaseAuthComponent {
   set attendance(attendance: Attendance) {
     this.date = attendance.date;
     this.reporting_status = attendance.reporting_status;
-    this._report_date = moment(attendance.date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    this._report_date = moment(attendance.date, 'YYYY-MM-DD').format('DD MMMM YYYY');
     this.fetchVisits();
   }
 
@@ -134,6 +138,9 @@ export class ReportComponent extends BaseAuthComponent {
         this.products = response.products.map(function (product) {
           return new Product(product);
         });
+        this.brands = response.brands.map(function (brand) {
+          return new Brand(brand);
+        });
         this.fetchVisits();
       },
       err => {
@@ -154,10 +161,8 @@ export class ReportComponent extends BaseAuthComponent {
           return new Visit(visit);
         }), response.orders.map(function (order) {
           return new Order(order);
-        }), response.brands.map(function (brand) {
-          return new Brand(brand);
         }), response.priorities.map(function (priority) {
-          return new Priorities(priority);
+          return new Priority(priority);
         }));
         this.saved = false;
       },
@@ -170,9 +175,9 @@ export class ReportComponent extends BaseAuthComponent {
   /**
    * format data
    */
-  formatData(visits: Visit[], orders: Order[], brands: Brand[], priorities: Priorities[]) {
-    let self = this;
-    let data = [];
+  formatData(visits: Visit[], orders: Order[], priorities: Priority[]) {
+    const self = this;
+    const data = [];
     visits.map(function (visit) {
       // set inputs
       visit.inputs = self.inputs.map(input => new VisitInput(input));
@@ -182,13 +187,13 @@ export class ReportComponent extends BaseAuthComponent {
         visit.inputs.forEach(function (input) {
           if (input.id == answer.input_id) {
             input.value = answer.value;
-            input.answer_id = answer.id
+            input.answer_id = answer.id;
           }
         });
       });
 
       // order setup
-      let order = new Order({
+      const order = new Order({
         order_items: self.products.map(function (product) {
 
           return new OrderItem({
@@ -222,20 +227,21 @@ export class ReportComponent extends BaseAuthComponent {
       });
 
       // remove items not ordered
-      if (self.editable == 'closed') {
+      if (self.editable === 'closed') {
         order.order_items = order.order_items.filter(function (item) {
           return item.quantity > 0;
         });
       }
 
       // setting priorities
-      if (visit.customer_priorities) {
-        visit.customer_priorities = [];
-        priorities.forEach(function (priority) {
-          visit.customer_priorities.push(new CustomerPriorities({'priority_name': priority.name, 'priority_id': priority.id, 'brand_id': 0}));
-        });
+      if (self.editable === 'open' && visit.customer_priorities.length === 0) {
+          visit.customer_priorities = [];
+          priorities.forEach(function (priority) {
+            visit.customer_priorities.push(new CustomerPriorities({
+              'priority': priority
+            }));
+          });
       }
-
       // push data to array
       data.push({
         customer: visit.customer,
@@ -256,11 +262,11 @@ export class ReportComponent extends BaseAuthComponent {
   save() {
     this.loading = true;
     let error = false;
-    let self = this;
+    const self = this;
 
     // format data
-    let formatted_data = this.data.filter(function (d) {
-      return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0 || d.customer.mobile > 0;
+    const formatted_data = this.data.filter(function (d) {
+      return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0 || d.customer.mobile > 0 ;
     }).map(function (d) {
       if (d.customer.customer_type_id > 1
         && ((d.order.isNonSynergy && !d.order.delivered_by)
@@ -268,7 +274,7 @@ export class ReportComponent extends BaseAuthComponent {
         error = true;
         d.error = true;
 
-        if (d == self.selected_customer) {
+        if (d === self.selected_customer) {
           self.selected_customer = d;
         }
       }
@@ -282,7 +288,6 @@ export class ReportComponent extends BaseAuthComponent {
       };
     });
 
-    console.log(formatted_data);
     this.attendanceService.report_update_mobile({customers: formatted_data}).subscribe(
       response => {
       }
@@ -322,10 +327,15 @@ export class ReportComponent extends BaseAuthComponent {
 
   /**
    * set brand by id
-   * @param brand_id
+   * @param data
    */
-  setBrandIdBy(brand_id) {
-    this.selected_customer.brand.id = brand_id;
+  setBrandIdBy(data) {
+    this.selected_customer.visit.customer_priorities = this.selected_customer.visit.customer_priorities.map(function (cp) {
+      if (cp.priority_id === data.priority.priority_id) {
+        cp.brand_id = data.brand_id;
+      }
+      return cp;
+    });
   }
   /**
    * select Customer

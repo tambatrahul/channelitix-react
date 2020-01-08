@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
 import {BrandService} from "../../../../services/brand.service";
+import {Brand} from '../../../../models/order/brand';
 
 @Component({
   selector: 'priority-brand-select',
@@ -12,7 +13,7 @@ export class PriorityBrandSelectComponent extends BaseSelectComponent {
    * Title of input select field
    */
   @Input()
-
+  models: Brand[] = [];
 
   /**
    * First value of options
@@ -28,20 +29,6 @@ export class PriorityBrandSelectComponent extends BaseSelectComponent {
     super();
   }
 
-  /**
-   * fetch brands
-   */
   fetch() {
-    this.loading = true;
-    this.brandService.all()
-      .subscribe(
-        response => {
-          this.loading = false;
-          this.models = response.brands;
-        },
-        err => {
-          this.loading = false;
-        }
-      );
   }
 }

@@ -59,18 +59,16 @@
                       <div class="w-contact-list">
                         <div class="w-contact-list-item"
                              *ngFor="let priority of selected_customer.visit.customer_priorities">
-                          <div class="w-contact-info">
-                            <h4><a>{{ priority.priority_name }}</a></h4>
-                          </div>
-                          <a>
-                            <priority-brand-select
-                              [value]=""
-                              (onValueChanged)="setBrandIdBy($event)"></priority-brand-select>
-                            <small *ngIf="selected_customer?.error"
-                                   class="text-danger text-center">
-                              * required
-                            </small>
-                          </a>
+                          <h4 *ngIf="editable == 'open'">
+                          <brand-att-component [brands]="brands"
+                                           [priority]="priority"
+                                           [priorities]="selected_customer.visit.customer_priorities"
+                          (brandSelected)="this.setBrandIdBy($event) " ></brand-att-component>
+                          </h4>
+                          <h4 *ngIf="editable == 'closed'">
+                            <a>{{ priority.priority ? priority.priority.name : "" }}</a>
+                            <a>{{ priority.brand ? priority.brand.name : "" }}</a>
+                          </h4>
                         </div>
                       </div>
                     </div>
@@ -150,7 +148,7 @@
             <div class="col-xs-12 col-md-4" style="padding-left: 0;">
               <div class="box-widget widget-module order">
                 <div class="widget-head clearfix">
-                  <h4>Order</h4>
+                  <h4>Personal Order(POB)</h4>
                   <strong class="pull-right" style="padding: 18px;">
                     <i class="fa fa-rupee"></i> {{ selected_customer.order.total_amount }}
                   </strong>
@@ -166,7 +164,7 @@
                             <h4 *ngIf="editable == 'open'">
                               <a>
                                 <customer-select
-                                  [title]="environment.projectName + ' Products Delivered By *'"
+                                  [title]="environment.projectName + ' Supplied By *'"
                                   [value]="selected_customer.order.delivered_by"
                                   (onValueChanged)="setDeliveredBy($event)"
                                   [headquarter_id]="selected_customer.visit.customer.hq_headquarter_id"
