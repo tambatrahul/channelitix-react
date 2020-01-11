@@ -1,13 +1,13 @@
 <div class="container-fluid attendances">
   <div class="w-contact-list-item">
     <div class="w-contact-info">
-      <h4><a>{{ priority.priority_name }}</a></h4>
+      <h4><a>{{ priority.name }}</a></h4>
     </div>
     <a>
       <priority-brand-select
         [value]="priority.brand_id"
         [models]="loc_brands"
-        (onValueChanged)="setBrandListBy($event, priority)"></priority-brand-select>
+        (onValueChanged)="setBrandListBy($event)"></priority-brand-select>
     </a>
   </div>
 </div>

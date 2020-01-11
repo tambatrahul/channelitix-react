@@ -13,7 +13,7 @@ import {AuthService} from '../../../../services/AuthService';
   templateUrl: 'brand.component.html',
   styleUrls: ['brand.component.less']
 })
-export class BrandAttendanceComponent extends BaseAuthComponent implements OnChanges{
+export class BrandAttendanceComponent extends BaseAuthComponent implements OnChanges {
   refresh: boolean = false;
   public loc_brands;
 
@@ -63,20 +63,18 @@ export class BrandAttendanceComponent extends BaseAuthComponent implements OnCha
     });
     this.loc_brands = loc_brands;
   }
+
   /**
    * selected Customer
    */
+
   // selected_customer: Report;
 
   /**
    * set brand list by id
    * @param brand_id
-   * @param priority
    */
-  setBrandListBy(brand_id, priority) {
-    this.brandSelected.emit({brand_id: brand_id, priority: priority});
-  }
-
-   fetch() {
+  setBrandListBy(brand_id) {
+    this.brandSelected.emit({brand_id: brand_id, priority: this.priority});
   }
 }
