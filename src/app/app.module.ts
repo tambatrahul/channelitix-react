@@ -108,7 +108,6 @@ import {SummaryVisitOrderGraphComponent} from "./components/pages/user/summary/s
 import {OrderComponentComponent} from "./components/pages/order/order_component/order-component.component";
 import {CustomerSelectionComponent} from "./components/pages/customer/customer_selection/customer_selection.component";
 import {ReportComponent} from "./components/pages/attendance/report/report.component";
-import {BrandAttendanceComponent} from "./components/pages/attendance/brand/brand.component";
 import {CustomerSelectComponent} from "./components/form_elements/attendance/customer/customer-select.component";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect";
 import {PrimarySaleService} from "./services/primary_sale.service";
@@ -211,6 +210,7 @@ import {ZoneSelectComponent} from './components/form_elements/territory/zone_sel
 import {ZoneComponent} from './components/pages/territory/zone/index.component';
 import {MultipleZoneSelectComponent} from './components/form_elements/territory/multi_zone_select/multiple-zone-select.component';
 import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
+import {AttendanceBrandComponent} from './components/pages/attendance/brand/brand-att.component';
 
 
 
@@ -376,7 +376,6 @@ enableProdMode();
     StationSelectComponent,
     TourTypeSelectComponent,
     ReportComponent,
-    BrandAttendanceComponent,
     OrderComponentComponent,
     CustomerSelectionComponent,
     CustomerSelectComponent,
@@ -425,6 +424,8 @@ enableProdMode();
     AreaListComponent,
     RegionListComponent,
     MonthSummaryComponent,
+
+    AttendanceBrandComponent
   ],
   imports: [
     BrowserModule,

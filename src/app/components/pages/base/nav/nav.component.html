@@ -55,7 +55,7 @@
           </a>
         </li>
         <li *roleCheck="ROLE_ADMIN">
-          <a class="waves-effect"
+          <a class="waves-effect" *ngIf="environment.envName == 'geo'"
              [routerLink]="'/dashboard/report'">
             <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>
             <span class="nav-label">Leadership Dashboard</span>
@@ -122,14 +122,14 @@
                 <span class="nav-label">Manager Visit Report</span>
               </a>
             </li>
-            <li *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion)">
+            <li *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='geo'">
               <a class="waves-effect" routerLink="/orders/managers/sync">
                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                 <span class="nav-label">Manager POB Report</span>
               </a>
             </li>
             <li
-              *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion)">
+              *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='sk_group'">
               <a class="waves-effect" routerLink="/orders/managers">
                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                 <span class="nav-label">Manager POB Report</span>
@@ -166,7 +166,8 @@
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/reports/executive_summary">
+              <a class="waves-effect" routerLink="/reports/executive_summary"
+                 *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-table"></i></span>
                 <span class="nav-label">Executive Summary</span>
               </a>
@@ -184,45 +185,49 @@
               </a>
             </li>
             <li *roleCheck="ROLE_ADMIN">
-              <a class="waves-effect"
+              <a class="waves-effect" *ngIf="environment.envName == 'sk_group'"
                  routerLink="/reports/brick_business_tracker_report">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Brick Business Tracker Report</span>
               </a>
             </li>
             <li *roleCheck="ROLE_ADMIN">
-              <a class="waves-effect"
+              <a class="waves-effect" *ngIf="environment.envName == 'sk_group'"
                  routerLink="/reports/daily_visit_plan">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Daily Visit Plan</span>
               </a>
             </li>
             <li *roleCheck="ROLE_RSM">
-              <a class="waves-effect" routerLink="/sales/secondary/region">
+              <a class="waves-effect" routerLink="/sales/secondary/region"
+                 *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Secondary Statement Status</span>
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/customers/missing">
+              <a class="waves-effect" routerLink="/customers/missing"
+                 *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Missing Customer Report</span>
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']">
+              <a class="waves-effect" [routerLink]="['/sales/secondary/hq_wise']"
+                 *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Secondary Statement Report</span>
               </a>
             </li>
             <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" [routerLink]="['/visits/input_utilization']">
+              <a class="waves-effect" [routerLink]="['/visits/input_utilization']"
+                 *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Input Utilization Report</span>
               </a>
             </li>
             <li *roleCheck="ROLE_ADMIN">
-              <a class="waves-effect"
+              <a class="waves-effect" *ngIf="environment.envName == 'geo'"
                  routerLink="/reports/field_efforts_audit_scorecard">
                 <span class="nav-icon"><i class="fa fa-building-o"></i></span>
                 <span class="nav-label">Field Effort Audit Scorecard</span>
@@ -264,18 +269,18 @@
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isHeadquarter">
-          <a class="waves-effect" routerLink="/customers/missing">
+          <a class="waves-effect" routerLink="/customers/missing" *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
             <span class="nav-label">Missing Customer Report</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="environment.envName == 'sk_group' || environment.envName == 'geo'">
           <a class="waves-effect" routerLink="/v2/users" *roleCheck="ROLE_CSM">
             <span class="nav-icon"><i class="fa fa-address-book"></i></span>
             <span class="nav-label">User Management</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="environment.envName == 'sk_group'">
           <a class="waves-effect" href="http://35.186.150.132/customers"
              target="_blank"
              *ngIf="_auth_service.user?.isAdmin">
@@ -283,7 +288,7 @@
             <span class="nav-label">Loyalty</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="environment.envName == 'vikrant'">
           <a class="waves-effect" routerLink="/v2/users" *roleCheck="ROLE_ADMIN">
             <span class="nav-icon"><i class="fa fa-address-book"></i></span>
             <span class="nav-label">User Management</span>
@@ -296,44 +301,48 @@
           </a>
         </li>
 
-        <li *ngIf="_auth_service.user?.isHeadquarter">
+        <li *ngIf="_auth_service.user?.isHeadquarter && environment.envName != 'sk_group'">
           <a class="waves-effect" routerLink="/business_plan">
             <span class="nav-icon"><i class="fa fa-table"></i></span>
             <span class="nav-label">Sales Planning</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isHeadquarter || _auth_service.user?.isArea">
-          <a class="waves-effect" [routerLink]="['/sales/secondary']">
+          <a class="waves-effect" [routerLink]="['/sales/secondary']"
+             *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
             <span class="nav-label">Secondary Sales Report</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isRegion">
-          <a class="waves-effect" [routerLink]="['/sales/secondary/region']">
+          <a class="waves-effect" [routerLink]="['/sales/secondary/region']"
+             *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
             <span class="nav-label">Secondary Sales Report</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isHeadquarter">
           <a class="waves-effect"
-             [routerLink]="['/sales/secondary/stockist_wise', month, year, _auth_service.user?.hq_region_id, _auth_service.user?.hq_area_id, _auth_service.user?.hq_headquarter_id]">
+             [routerLink]="['/sales/secondary/stockist_wise', month, year, _auth_service.user?.hq_region_id, _auth_service.user?.hq_area_id, _auth_service.user?.hq_headquarter_id]"
+             *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
             <span class="nav-label">Secondary Sale Stockist Wise</span>
           </a>
         </li>
         <li>
-          <a class="waves-effect" routerLink="/reports/sap_stockist_wise">
+          <a class="waves-effect" routerLink="/reports/sap_stockist_wise"
+             *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-table"></i></span>
             <span class="nav-label">Monthly Sales Tracking</span>
           </a>
         </li>
-        <li *ngIf="!_auth_service.user?.isHeadquarter">
+        <li *ngIf="!_auth_service.user?.isHeadquarter && environment.envName=='geo'">
           <a class="waves-effect" routerLink="/reports/headquarter_wise_report">
             <span class="nav-icon"><i class="fa fa-cubes" aria-hidden="true"></i></span>
             <span class="nav-label">Headquarter Wise Tracking</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="environment.envName == 'geo'">
           <a class="waves-effect" routerLink="/primary/invoices" *roleCheck="ROLE_CSM">
             <span class="nav-icon"><i class="fa fa-magnet"></i></span>
             <span class="nav-label">Primary Invoices & Reports</span>
@@ -345,19 +354,19 @@
             <span class="nav-label">Product Catalog</span>
           </a>
         </li>
-        <li *ngIf="_auth_service.user?.isHeadquarter">
+        <li *ngIf="environment.envName == 'geo' && _auth_service.user?.isHeadquarter">
           <a class="waves-effect" routerLink="/visits/user_input">
             <span class="nav-icon"><i class="fa fa-map-signs" aria-hidden="true"></i></span>
             <span class="nav-label">User Input</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="environment.envName == 'sk_group'">
           <a class="waves-effect" routerLink="/videos">
             <span class="nav-icon"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
             <span class="nav-label">Video Guide</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="environment.envName == 'geo'">
           <a class="waves-effect" routerLink="/users/reset_password">
             <span class="nav-icon"><i class="fa fa-address-book"></i></span>
             <span class="nav-label">Password Reset</span>

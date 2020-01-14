@@ -60,10 +60,10 @@
                         <div class="w-contact-list-item"
                              *ngFor="let priority of selected_customer.visit.customer_priorities">
                           <h4 *ngIf="editable == 'open'">
-                          <brand-att-component [brands]="brands"
+                          <app-brand-att-component [brands]="brands"
                                            [priority]="priority"
                                            [priorities]="selected_customer.visit.customer_priorities"
-                          (brandSelected)="this.setBrandIdBy($event) " ></brand-att-component>
+                          (brandSelected)="this.setBrandIdBy($event) " ></app-brand-att-component>
                           </h4>
                           <h4 *ngIf="editable == 'closed'">
                             <a>{{ priority.priority ? priority.priority.name : "" }}</a>

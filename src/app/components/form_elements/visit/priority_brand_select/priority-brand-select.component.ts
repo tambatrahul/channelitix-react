@@ -4,7 +4,7 @@ import {BrandService} from "../../../../services/brand.service";
 import {Brand} from '../../../../models/order/brand';
 
 @Component({
-  selector: 'priority-brand-select',
+  selector: 'app-priority-brand-select',
   templateUrl: 'priority-brand-select.component.html'
 })
 export class PriorityBrandSelectComponent extends BaseSelectComponent {
