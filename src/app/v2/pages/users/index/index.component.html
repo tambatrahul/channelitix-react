@@ -123,6 +123,8 @@
                        *ngIf="user.status == 'active'">
                       <i class="fa fa-lock" title="Reset Password"></i>
                     </a>
+                    <a *roleCheck="ROLE_ADMIN" class="btn btn-danger btn-xs" style="cursor: pointer;"
+                       title="Delete Report" (click)="deleteReport(user)">Delete Report</a>
                   </td>
                 </tr>
                 </tbody>
@@ -149,6 +151,13 @@
   <div class="row">
     <div class="col-xs-12">
       <password-reset [user]="reset_password" (passwordReset)="onPasswordReset($event)"></password-reset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <delete-report [user]="deleting_report"
+                       (reportDeleted)="onReportDeletion($event)"></delete-report>
     </div>
   </div>
 </div>

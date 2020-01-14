@@ -60,27 +60,34 @@ export class V2UserService extends V2BaseService {
    * Create new User
    */
   create(user: User): Observable<Result> {
-    return this.post(this.getBaseUrl(), user)
+    return this.post(this.getBaseUrl(), user);
   }
 
   /**
    * Update User
    */
   update(user: User, id: number): Observable<Result> {
-    return this.put(this.getBaseUrl() + '/' + id, user)
+    return this.put(this.getBaseUrl() + '/' + id, user);
   }
 
   /**
    * Deactivate user
    */
   deactivate(data, user_id): Observable<Result> {
-    return this.put(this.getBaseUrl() + '/' + user_id + '/deactivate', data)
+    return this.put(this.getBaseUrl() + '/' + user_id + '/deactivate', data);
   }
 
   /**
    * Reset Password
    */
   reset_password(data, id): Observable<Result> {
-    return this.put(this.getBaseUrl() + '/' + id + '/change_password', data)
+    return this.put(this.getBaseUrl() + '/' + id + '/change_password', data);
+  }
+
+  /**
+   * Reset Password
+   */
+  report_delete(data, id): Observable<Result> {
+    return this.put(this.getBaseUrl() + '/' + id + '/report_delete', data);
   }
 }

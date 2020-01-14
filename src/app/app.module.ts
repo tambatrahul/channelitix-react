@@ -211,6 +211,7 @@ import {ZoneComponent} from './components/pages/territory/zone/index.component';
 import {MultipleZoneSelectComponent} from './components/form_elements/territory/multi_zone_select/multiple-zone-select.component';
 import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
 import {AttendanceBrandComponent} from './components/pages/attendance/brand/brand-att.component';
+import {DeleteReportComponent} from './v2/components/users/delete_report/delete_report.component';
 
 
 
@@ -411,6 +412,7 @@ enableProdMode();
     // Version 2 Models
     RoleButtonComponent,
     DeactivateUserComponent,
+    DeleteReportComponent,
 
     // Field Efforts Audit Scorecard
     FieldEffortAuditScoreCardComponent,
