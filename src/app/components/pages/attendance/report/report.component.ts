@@ -266,7 +266,7 @@ export class ReportComponent extends BaseAuthComponent {
 
     // format data
     const formatted_data = this.data.filter(function (d) {
-      return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0 || d.customer.mobile > 0 ;
+      return d.order.total_amount > 0 || d.visit.total_inputs > 0 || d.order.id > 0 || d.customer.mobile > 0;
     }).map(function (d) {
       if (d.customer.customer_type_id > 1
         && ((d.order.isNonSynergy && !d.order.delivered_by)
@@ -283,7 +283,7 @@ export class ReportComponent extends BaseAuthComponent {
         customer_id: d.customer.id,
         mobile: d.customer.mobile,
         classification: d.customer.classification,
-        visit: d.visit.total_inputs > 0 ? d.visit : null,
+        visit: (d.visit.total_inputs > 0 || d.visit.customer_priorities.length > 0) ? d.visit : null,
         order: d.order.total_amount > 0 ? d.order : null
       };
     });
