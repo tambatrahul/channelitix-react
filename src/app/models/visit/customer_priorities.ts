@@ -4,7 +4,7 @@ import {Priority} from './priority';
 
 export class CustomerPriorities extends Model {
 
-  priority_name: string;
+  name: string;
   brand: Brand;
   priority: Priority;
   priority_id: number;
@@ -12,11 +12,10 @@ export class CustomerPriorities extends Model {
 
   constructor(info: any) {
     super(info.id);
-    this.priority_name = info.priority_name;
 
     if (info.priority) {
       this.priority_id = info.priority.id;
-      this.priority_name = info.priority.name;
+      this.name = info.priority.name;
       this.priority = new Priority(info.priority);
     }
     if (info.brand) {
