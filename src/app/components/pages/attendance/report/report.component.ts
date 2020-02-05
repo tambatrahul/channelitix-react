@@ -15,6 +15,7 @@ import {Report} from '../../../../models/attendance/report';
 import {Brand} from '../../../../models/order/brand';
 import {Priority} from '../../../../models/visit/priority';
 import {CustomerPriorities} from '../../../../models/visit/customer_priorities';
+import {UserInput} from '../../../../models/V2/user/user_input';
 
 @Component({
   selector: 'report-component',
@@ -25,7 +26,6 @@ export class ReportComponent extends BaseAuthComponent {
 
   public brand_id: number = 0;
   customer_priorities: CustomerPriorities[] = [];
-
   /**
    * date of attendance
    */
@@ -85,6 +85,7 @@ export class ReportComponent extends BaseAuthComponent {
    * @type {Array}
    */
   public inputs: VisitInput[] = [];
+  public quantities: UserInput[] = [];
   public products: Product[] = [];
   public brands: Brand[] = [];
 
@@ -147,6 +148,7 @@ export class ReportComponent extends BaseAuthComponent {
         this.loading = false;
       }
     );
+
   }
 
   /**
@@ -253,6 +255,7 @@ export class ReportComponent extends BaseAuthComponent {
 
     this.data = data;
     this.selectCustomer(data[0]);
+
 
   }
 

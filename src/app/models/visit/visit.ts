@@ -5,6 +5,7 @@ import {Customer} from "../customer/customer";
 import {InputAnswer} from "./input_answer";
 import {Attendance} from "../attendance/attendance";
 import {CustomerPriorities} from './customer_priorities';
+import {UserInput} from '../V2/user/user_input';
 
 export class Visit extends Model {
 

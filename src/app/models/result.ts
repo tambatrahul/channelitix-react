@@ -34,6 +34,7 @@ import {SalesPlanningDetail} from "./plan";
 import {Brand} from "./order/brand";
 import {HQZone} from './territory/zone';
 import {Priority} from './visit/priority';
+import {UserInput} from './V2/user/user_input';
 
 export class Result {
 

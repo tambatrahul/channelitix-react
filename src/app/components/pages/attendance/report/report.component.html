@@ -114,7 +114,7 @@
               <div class="box-widget widget-module inputs">
                 <div class="widget-head clearfix">
                   <h4>
-                    Inputs
+                    Sample Acknowledgement
                   </h4>
                   <strong class="pull-right" style="padding: 18px;">
                     {{ selected_customer.visit.total_inputs }}
@@ -133,10 +133,13 @@
                             <div *ngIf="editable == 'closed'">
                               {{ input.value }}
                             </div>
-                            <div *ngIf="editable == 'open'">
-                              <input class="form-control" type="number" placeholder="0"
-                                     [(ngModel)]="input.value" (change)="resetSave()"/>
+                            <div  *ngIf="editable == 'open'">
+                              <input class="form-control" type="number" placeholder="0"  [disabled] ="input.final_quantity <= 0"
+                                     [(ngModel)]="input.value" (change)="resetSave()" />
                             </div>
+                          </div>
+                          <div *ngIf="editable == 'open'" class="w-contact-action">
+                            <h4><a style="white-space: pre"> {{ input.final_quantity }} </a></h4>
                           </div>
                         </div>
                       </div>
