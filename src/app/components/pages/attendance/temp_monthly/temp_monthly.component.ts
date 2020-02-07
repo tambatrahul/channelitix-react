@@ -16,10 +16,10 @@ declare let jQuery: any;
 declare let swal: any;
 
 @Component({
-  templateUrl: 'monthly.component.html',
-  styleUrls: ['monthly.component.less']
+  templateUrl: 'temp_monthly.component.html',
+  styleUrls: ['temp_monthly.component.less']
 })
-export class MonthlyAttendanceComponent extends ListComponent {
+export class TempMonthlyAttendanceComponent extends ListComponent {
 
   refresh: boolean = false;
 
@@ -140,7 +140,6 @@ export class MonthlyAttendanceComponent extends ListComponent {
     this.month = date.month;
     this.year = date.year;
     this.fetchAttendances();
-    this.fetchTours();
   }
 
   /**
@@ -177,8 +176,6 @@ export class MonthlyAttendanceComponent extends ListComponent {
     this.attendance = attendance;
     this.fetchAttendances();
     this.refresh = !this.refresh;
-    if (attendance.work_type.name == AppConstants.FIELD_WORK)
-      jQuery(this.customer_selection.nativeElement).modal();
   }
 
   /**

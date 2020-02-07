@@ -79,6 +79,7 @@ import {UserInputComponent} from "./components/pages/visit/user_input/user_input
 import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
 import {ZoneComponent} from './components/pages/territory/zone/index.component';
 import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
+import {TempMonthlyAttendanceComponent} from './components/pages/attendance/temp_monthly/temp_monthly.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -130,6 +131,10 @@ export const routes: Routes = [
           {
             path: 'monthly',
             component: MonthlyAttendanceComponent
+          },
+          {
+            path: 'temp_monthly',
+            component: TempMonthlyAttendanceComponent
           }
         ]
       },

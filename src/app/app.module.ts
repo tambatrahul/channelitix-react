@@ -212,6 +212,9 @@ import {MultipleZoneSelectComponent} from './components/form_elements/territory/
 import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
 import {AttendanceBrandComponent} from './components/pages/attendance/brand/brand-att.component';
 import {DeleteReportComponent} from './v2/components/users/delete_report/delete_report.component';
+import {TempMonthlyAttendanceComponent} from './components/pages/attendance/temp_monthly/temp_monthly.component';
+import {TempCreateAttendanceComponent} from './components/pages/attendance/temp_create/temp_create.component';
+import {TempUpdateAttendanceComponent} from './components/pages/attendance/temp_update/temp_update.component';
 
 
 
@@ -426,6 +429,9 @@ enableProdMode();
     AreaListComponent,
     RegionListComponent,
     MonthSummaryComponent,
+    TempMonthlyAttendanceComponent,
+    TempCreateAttendanceComponent,
+    TempUpdateAttendanceComponent,
 
     AttendanceBrandComponent
   ],

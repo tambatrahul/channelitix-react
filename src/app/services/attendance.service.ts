@@ -88,6 +88,19 @@ export class AttendanceService extends BaseService {
   }
 
   /**
+   * Create new temp attendance
+   *
+   * @param attendance
+   */
+  temp_create(attendance: Attendance): Observable<Result> {
+    attendance.working_with_id = attendance.working_with_id > 0 ? attendance.working_with_id : null;
+    attendance.leave_type_id = attendance.leave_type_id > 0 ? attendance.leave_type_id : null;
+    attendance.work_type_id = attendance.work_type_id > 0 ? attendance.work_type_id : null;
+    attendance.no_of_calls = attendance.no_of_calls > 0 ? attendance.no_of_calls : null;
+
+    return this.post(this.getBaseUrl() + "/temp_store", attendance);
+  }
+  /**
    * Update attendance
    *
    * @param id

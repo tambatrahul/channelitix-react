@@ -5,6 +5,7 @@ import {LoginService} from '../../../../services/login.service';
 import {FormComponent} from '../../../base/form.component';
 import {AuthService} from '../../../../services/AuthService';
 import {User} from '../../../../models/user/user';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -61,8 +62,10 @@ export class LoginComponent extends FormComponent {
             this._router.navigate(['/visits']);
           } else if (response.user.role_str !== this.ROLE_CSE) {
             this._router.navigate(['/dashboard']);
-          } else {
+          } else if (environment.projectName === 'IKON') {
             this._router.navigate(['/attendances/monthly']);
+          } else if (environment.projectName === 'ASPIRA') {
+            this._router.navigate(['/attendances/temp_monthly']);
           }
           this.loading = false;
         },

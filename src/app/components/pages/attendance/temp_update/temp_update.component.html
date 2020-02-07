@@ -1,0 +1,128 @@
+<div class="box-widget widget-module no-border update_attendance" #loading_box [ngClass]="{'disable-mask': !edit}">
+  <div class="widget-head clearfix">
+    <span class="h-icon"><i class="fa fa-bars"></i></span>
+    <h4 *ngIf="!edit">Attendance for {{ _date }}</h4>
+    <h4 *ngIf="edit">Update Attendance for {{ _date }}</h4>
+    <!--        <h4 *ngIf="_attendance.reporting_status == 'closed' && _attendance.work_type?.name == 'Field Work'">-->
+    <!--            <a (click)="viewReport()" class="btn btn-primary btn-xs">View Report</a>-->
+    <!--        </h4>-->
+  </div>
+
+  <!-- Type of attendance -->
+  <div class="widget-container freezable">
+    <div class="widget-block">
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="iconic-w-wrap icon-only" (click)="selectTab('working')">
+            <a class="ico-cirlce-widget w_bg_green"
+               [ngClass]="{'in_active': active_str != 'working'}">
+              <span><i class="fa fa-user"></i></span>
+            </a>
+            <div class="w-meta-info">
+              <span class="w-meta-title">WORKING</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-4">
+          <div class="iconic-w-wrap icon-only" (click)="selectTab('leave')">
+            <a class="ico-cirlce-widget w_bg_deep_orange"
+               [ngClass]="{'in_active': active_str != 'leave'}">
+              <span><i class="fa fa-user-times"></i></span>
+            </a>
+            <div class="w-meta-info">
+              <span class="w-meta-title">LEAVE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-4">
+          <div class="iconic-w-wrap icon-only" (click)="selectTab('holiday')">
+            <a class="ico-cirlce-widget w_bg_grey"
+               [ngClass]="{'in_active': active_str != 'holiday'}">
+              <span><i class="fa fa-taxi"></i></span>
+            </a>
+            <div class="w-meta-info">
+              <span class="w-meta-title">HOLIDAY</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Type of attendance -->
+
+  <!-- Working form -->
+  <div class="widget-container freezable" *ngIf="active_str == 'working'">
+    <div class="widget-block">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 form-group">
+          <work-type-select [value]="work_type_id" [work_types]="work_types" [loading]="loading"
+                            (onValueChanged)="workTypeChanged($event)"></work-type-select>
+          <small *ngIf="errors?.work_type_ids" class="text-danger text-center">
+            {{ errors.work_type_ids }}
+          </small>
+        </div>
+        <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
+          <div *ngIf="working_withs.length > 0">
+            <label>Working With</label>
+            <div style="min-height: 50px;">
+                        <span *ngFor="let u of working_withs">
+                            {{ u.full_name }},
+                        </span>
+              <span *ngIf="working_with_other">
+                            Others
+                        </span>
+            </div>
+          </div>
+          <div *ngIf="working_with_id">
+            <user-select [value]="working_with_id"
+                         [title]="'Working With'"
+                         [first_value]="'Working Alone'"
+                         [role_id]="3"
+                         (onValueChanged)="managerChanged($event)"></user-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
+          <label>No of calls</label>
+          <input [(ngModel)]="no_of_calls" type="text" placeholder="0"
+                 name="no_of_calls" class="form-control">
+          <small *ngIf="errors?.no_of_calls" class="text-danger text-center">
+            {{ errors.no_of_calls }}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./Working form -->
+
+  <!-- leave form -->
+  <div class="widget-container freezable" *ngIf="active_str == 'leave'">
+    <div class="widget-block">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+          <leave-type-select [value]="leave_type_id" [leave_types]="leave_types" [loading]="loading"
+                             (onValueChanged)="leaveTypeChanged($event)"></leave-type-select>
+          <small *ngIf="errors?.leave_type_id" class="text-danger text-center">
+            {{ errors.leave_type_id}}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./leave form -->
+
+  <div class="widget-container freezable" *ngIf="active_str == 'leave'">
+    <div class="widget-block">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="alert alert-danger">
+            You cannot change this attendance
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
