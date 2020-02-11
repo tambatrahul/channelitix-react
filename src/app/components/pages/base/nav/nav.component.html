@@ -90,14 +90,8 @@
           </a>
         </li>
 
-        <li *ngIf="!_auth_service.user?.isAdmin && environment.projectName === 'ASPIRA'">
+        <li *ngIf="!_auth_service.user?.isAdmin">
           <a class="waves-effect" routerLink="/attendances/temp_monthly">
-            <span class="nav-icon"><i class="fa fa-calendar"></i></span>
-            <span class="nav-label">Daily Work Reporting</span>
-          </a>
-        </li>
-        <li *ngIf="!_auth_service.user?.isAdmin && environment.projectName === 'IKON'">
-          <a class="waves-effect" routerLink="/attendances/monthly">
             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
             <span class="nav-label">Daily Work Reporting</span>
           </a>

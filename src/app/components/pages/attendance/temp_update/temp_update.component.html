@@ -86,16 +86,27 @@
       </div>
       <div class="row">
         <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
-          <label>No of calls</label>
+          <label>No Of Calls</label>
           <input [(ngModel)]="no_of_calls" type="text" placeholder="0"
                  name="no_of_calls" class="form-control">
           <small *ngIf="errors?.no_of_calls" class="text-danger text-center">
             {{ errors.no_of_calls }}
           </small>
         </div>
+        <div class="row">
+        <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
+          <label>Total POB Amount</label>
+          <input [(ngModel)]="pob_amount" type="text" placeholder="0"
+                 name="no_of_calls" class="form-control">
+          <small *ngIf="errors?.pob_amount" class="text-danger text-center">
+            {{ errors.pob_amount }}
+          </small>
+        </div>
+      </div>
       </div>
     </div>
   </div>
+
   <!-- ./Working form -->
 
   <!-- leave form -->

@@ -62,9 +62,7 @@ export class LoginComponent extends FormComponent {
             this._router.navigate(['/visits']);
           } else if (response.user.role_str !== this.ROLE_CSE) {
             this._router.navigate(['/dashboard']);
-          } else if (environment.projectName === 'IKON') {
-            this._router.navigate(['/attendances/monthly']);
-          } else if (environment.projectName === 'ASPIRA') {
+          } else {
             this._router.navigate(['/attendances/temp_monthly']);
           }
           this.loading = false;

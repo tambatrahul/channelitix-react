@@ -252,6 +252,17 @@ export class User extends Model {
   }
 
   /**
+   * Check For Headquarter
+   *
+   * @returns {boolean}
+   */
+  get isReporting(): boolean {
+    if (this.role_str == AppConstants.ROLE_CSE)
+      return this.role_str == AppConstants.ROLE_CSE;
+    return this.role_str == AppConstants.ROLE_CSM;
+  }
+
+  /**
    * get total visits count
    *
    * @returns {any}
