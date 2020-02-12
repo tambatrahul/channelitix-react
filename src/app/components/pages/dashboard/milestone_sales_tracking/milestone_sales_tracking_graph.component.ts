@@ -93,9 +93,9 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   private data;
   private chart;
 
-  public upto_9th_rep_count: number = 0;
-  public upto_18th_rep_count: number = 0;
-  public upto_24th_rep_count: number = 0;
+  public upto_7th_rep_count: number = 0;
+  public upto_14th_rep_count: number = 0;
+  public upto_21th_rep_count: number = 0;
   public upto_28th_rep_count: number = 0;
 
   /**
@@ -199,9 +199,9 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   prepareData(targets: Target[], primary_sales: PrimarySale[]) {
     let data = [];
     data.push(['Date', 'No of Reps']);
-    this.upto_9th_rep_count = 0;
-    this.upto_18th_rep_count = 0;
-    this.upto_24th_rep_count = 0;
+    this.upto_7th_rep_count = 0;
+    this.upto_14th_rep_count = 0;
+    this.upto_21th_rep_count = 0;
     this.upto_28th_rep_count = 0;
 
     // map target
@@ -218,29 +218,29 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
 
           // target
           if (target.total_target > 0) {
-            sale_20_per = parseInt(((primary_sale.upto_9th_sale / target.total_target) * 100).toFixed(0));
-            sale_40_per = parseInt(((primary_sale.upto_18th_sale / target.total_target) * 100).toFixed(0));
-            sale_60_per = parseInt(((primary_sale.upto_24th_sale / target.total_target) * 100).toFixed(0));
+            sale_20_per = parseInt(((primary_sale.upto_7th_sale / target.total_target) * 100).toFixed(0));
+            sale_40_per = parseInt(((primary_sale.upto_14th_sale / target.total_target) * 100).toFixed(0));
+            sale_60_per = parseInt(((primary_sale.upto_21th_sale / target.total_target) * 100).toFixed(0));
             sale_100_per = parseInt(((primary_sale.upto_28th_sale / target.total_target) * 100).toFixed(0));
           }
         }
         if (sale_20_per >= 20)
-          this.upto_9th_rep_count += 1;
+          this.upto_7th_rep_count += 1;
 
         if (sale_40_per >= 40)
-          this.upto_18th_rep_count += 1;
+          this.upto_14th_rep_count += 1;
 
         if (sale_60_per >= 60)
-          this.upto_24th_rep_count += 1;
+          this.upto_21th_rep_count += 1;
 
         if (sale_100_per >= 100)
           this.upto_28th_rep_count += 1;
       });
     });
 
-    data.push(['7th (20%)', this.upto_9th_rep_count]);
-    data.push(['14th (40%)', this.upto_18th_rep_count]);
-    data.push(['21th (60%)', this.upto_24th_rep_count]);
+    data.push(['7th (20%)', this.upto_7th_rep_count]);
+    data.push(['14th (40%)', this.upto_14th_rep_count]);
+    data.push(['21th (60%)', this.upto_21th_rep_count]);
     data.push(['29th (100%)', this.upto_28th_rep_count]);
 
     this.chart_data = [];

@@ -33,9 +33,9 @@ export class PrimarySale extends Model {
   hq_region_id: number;
   month: number;
   year: number;
-  upto_9th_sale: number;
-  upto_18th_sale: number;
-  upto_24th_sale: number;
+  upto_7th_sale: number;
+  upto_14th_sale: number;
+  upto_21th_sale: number;
   upto_28th_sale: number;
 
   constructor(info: any) {
@@ -97,14 +97,14 @@ export class PrimarySale extends Model {
     if (info.total_qty)
       this.total_qty = parseFloat(info.total_qty);
 
-    if (info.upto_9th_sale)
-      this.upto_9th_sale = parseFloat(info.upto_9th_sale);
+    if (info.upto_7th_sale)
+      this.upto_7th_sale = parseFloat(info.upto_7th_sale);
 
-    if (info.upto_18th_sale)
-      this.upto_18th_sale = parseFloat(info.upto_18th_sale);
+    if (info.upto_14th_sale)
+      this.upto_14th_sale = parseFloat(info.upto_14th_sale);
 
-    if (info.upto_24th_sale)
-      this.upto_24th_sale = parseFloat(info.upto_24th_sale);
+    if (info.upto_21th_sale)
+      this.upto_21th_sale = parseFloat(info.upto_21th_sale);
 
     if (info.upto_28th_sale)
       this.upto_28th_sale = parseFloat(info.upto_28th_sale);
