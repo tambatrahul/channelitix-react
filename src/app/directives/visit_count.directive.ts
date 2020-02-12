@@ -15,12 +15,11 @@ export class VisitCountDirective {
   leave: string = "#e74c3c";
   holiday: string = "#ecf0f1";
 
-  below_15: string = "#f1c40f";
-  above_15: string = "#2ecc71";
+  below_10: string = "#FF9800";
+  above_10: string = "#f1c40f";
 
   below_20: string = "#f1c40f";
-  below_30: string = "#FF9800";
-  above_30: string = "#2ecc71";
+  above_20: string = "#2ecc71";
 
   /**
    * Attendance Status Directive
@@ -46,12 +45,12 @@ export class VisitCountDirective {
         this.el.nativeElement.innerText = visit.visit_count;
 
         // set background color depending on status
-        if (visit.visit_count < 20)
-          this.el.nativeElement.style.backgroundColor = this.below_20;
-        else if (visit.visit_count < 30)
-          this.el.nativeElement.style.backgroundColor = this.below_30;
+        if (visit.visit_count < 10)
+          this.el.nativeElement.style.backgroundColor = this.below_10;
+        else if (visit.visit_count < 20)
+          this.el.nativeElement.style.backgroundColor = this.above_10;
         else
-          this.el.nativeElement.style.backgroundColor = this.above_30;
+          this.el.nativeElement.style.backgroundColor = this.above_20;
       }
 
       if (visit.isSunday) {
@@ -64,10 +63,10 @@ export class VisitCountDirective {
         this.el.nativeElement.innerText = visit.visit_count;
 
         // set background color depending on status
-        if (visit.visit_count < 15)
-          this.el.nativeElement.style.backgroundColor = this.below_15;
+        if (visit.visit_count < 10)
+          this.el.nativeElement.style.backgroundColor = this.below_10;
         else
-          this.el.nativeElement.style.backgroundColor = this.above_15;
+          this.el.nativeElement.style.backgroundColor = this.above_10;
       }
 
       if (visit.isSunday) {

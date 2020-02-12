@@ -238,10 +238,10 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
       });
     });
 
-    data.push(['9th (20%)', this.upto_9th_rep_count]);
-    data.push(['18th (40%)', this.upto_18th_rep_count]);
-    data.push(['24th (60%)', this.upto_24th_rep_count]);
-    data.push(['28th (100%)', this.upto_28th_rep_count]);
+    data.push(['7th (20%)', this.upto_9th_rep_count]);
+    data.push(['14th (40%)', this.upto_18th_rep_count]);
+    data.push(['21th (60%)', this.upto_24th_rep_count]);
+    data.push(['29th (100%)', this.upto_28th_rep_count]);
 
     this.chart_data = [];
     this.chart_data = data;
