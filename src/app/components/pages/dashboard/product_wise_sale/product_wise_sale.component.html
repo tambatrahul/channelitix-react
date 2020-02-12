@@ -33,7 +33,7 @@
               </thead>
               <tbody>
               <template ngFor let-item [ngForOf]="products">
-                <tr>
+                <tr *ngIf="item.target != 0 || item.performance != 0 ">
                   <td>
                     {{ item.brands.name }}
                   </td>
