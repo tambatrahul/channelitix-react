@@ -13,6 +13,7 @@ export class OrderCountDirective {
   above_2500: string = "#2ecc71";
   holiday: string = "#ecf0f1";
   leave: string = "#e74c3c";
+  highLight: string = "#fff";
   below_250: string = "#f1c40f";
   above_250: string = "#2ecc71";
 
@@ -83,14 +84,18 @@ export class OrderCountDirective {
         // set background color depending on status
         if (this._order.attendance.status == AppConstants.WORKING && this._order.attendance.work_type_id == 2) {
           if (!this._view_quantity) {
-            if (this._order.order_total_count == 0)
+            if (this._order.order_total_count == 0) {
               this.el.nativeElement.style.backgroundColor = this.leave;
+              this.el.nativeElement.style.color = this.highLight;
+            }
             else
               this.el.nativeElement.style.backgroundColor = this.above_2500;
           } else {
-            if (this._order.order_total_quantity == 0)
+            if (this._order.order_total_quantity == 0) {
               this.el.nativeElement.style.backgroundColor = this.leave;
-            else
+              this.el.nativeElement.style.color = this.highLight;
+            }
+          else
               this.el.nativeElement.style.backgroundColor = this.above_250;
           }
         }
@@ -108,9 +113,9 @@ export class OrderCountDirective {
           this.el.nativeElement.innerText = this._order.attendance.work_type.name.charAt(0).toUpperCase();
 
         // set background color depending on status
-        if (this._order.attendance.status == AppConstants.LEAVE)
-          this.el.nativeElement.style.backgroundColor = this.leave;
-        else if (this._order.attendance.status == AppConstants.HOLIDAY)
+        // if (this._order.attendance.status == AppConstants.LEAVE)
+        //   this.el.nativeElement.style.backgroundColor = this.leave;
+        if (this._order.attendance.status == AppConstants.HOLIDAY)
           this.el.nativeElement.style.backgroundColor = this.holiday;
       }
     }

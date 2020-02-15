@@ -12,7 +12,7 @@ export class VisitCountDirective {
 
   environment = environment;
 
-  leave: string = "#e74c3c";
+  leave: string = "#FF9800";
   holiday: string = "#ecf0f1";
 
   below_10: string = "#FF9800";
