@@ -2,6 +2,6 @@ export const environment = {
     production: true,
     envName: 'geo',
     projectName: 'IKON',
-    server_url: 'http://34.93.3.55/api/v1/',
-  server_url_v2: 'http://34.93.3.55/api/v2/'
+    server_url: 'https://iconapi.channelitix.com/api/v1/',
+  server_url_v2: 'https://iconapi.channelitix.com/api/v2/'
 };

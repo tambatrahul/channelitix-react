@@ -1,0 +1,15 @@
+
+dispatch:
+  - url: "geo.channelitix.com/*"
+    service: default
+
+  - url: "aspira.channelitix.com/*"
+    service: aspira-frontend
+
+  - url: "icon.channelitix.com/*"
+    service: icon-frontend
+
+  - url: "optimus.channelitix.com/*"
+    service: optimus-frontend
+
+
