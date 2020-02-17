@@ -12,4 +12,7 @@ dispatch:
   - url: "optimus.channelitix.com/*"
     service: optimus-frontend
 
+  - url: "3c.channelitix.com/*"
+    service: 3c-frontend
+
 
