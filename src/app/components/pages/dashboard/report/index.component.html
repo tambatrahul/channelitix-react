@@ -40,7 +40,9 @@
                                     <tr style="background-color: #3498db;color: white">
                                         <th></th>
                                         <th style="width: 250px;"></th>
-                                        <th>IKON</th>
+                                        <th *ngIf="environment.projectName == 'IKON'">IKON</th>
+                                        <th *ngIf="environment.projectName == 'ASPIRA'">ASPIRA</th>
+                                        <th *ngIf="environment.projectName == '3c'">3c</th>
                                         <th>Lucknow</th>
                                         <th>Delhi</th>
                                         <th>Kolkata</th>
