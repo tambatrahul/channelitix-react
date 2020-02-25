@@ -226,13 +226,13 @@
                 <span class="nav-label">Input Utilization Report</span>
               </a>
             </li>
-            <li *roleCheck="ROLE_ADMIN">
-              <a class="waves-effect" *ngIf="environment.envName == 'geo'"
-                 routerLink="/reports/field_efforts_audit_scorecard">
-                <span class="nav-icon"><i class="fa fa-building-o"></i></span>
-                <span class="nav-label">Field Effort Audit Scorecard</span>
-              </a>
-            </li>
+<!--            <li *roleCheck="ROLE_ADMIN">-->
+<!--              <a class="waves-effect" *ngIf="environment.envName == 'geo'"-->
+<!--                 routerLink="/reports/field_efforts_audit_scorecard">-->
+<!--                <span class="nav-icon"><i class="fa fa-building-o"></i></span>-->
+<!--                <span class="nav-label">Field Effort Audit Scorecard</span>-->
+<!--              </a>-->
+<!--            </li>-->
           </ul>
         </li>
         <li *ngIf="_auth_service.user?.isAdmin">
@@ -329,13 +329,13 @@
             <span class="nav-label">Secondary Sale Stockist Wise</span>
           </a>
         </li>
-        <li>
-          <a class="waves-effect" routerLink="/reports/sap_stockist_wise"
-             *ngIf="environment.envName != 'sk_group'">
-            <span class="nav-icon"><i class="fa fa-table"></i></span>
-            <span class="nav-label">Monthly Sales Tracking</span>
-          </a>
-        </li>
+<!--        <li>-->
+<!--          <a class="waves-effect" routerLink="/reports/sap_stockist_wise"-->
+<!--             *ngIf="environment.envName != 'sk_group'">-->
+<!--            <span class="nav-icon"><i class="fa fa-table"></i></span>-->
+<!--            <span class="nav-label">Monthly Sales Tracking</span>-->
+<!--          </a>-->
+<!--        </li>-->
         <li *ngIf="!_auth_service.user?.isHeadquarter && environment.envName=='geo'">
           <a class="waves-effect" routerLink="/reports/headquarter_wise_report">
             <span class="nav-icon"><i class="fa fa-cubes" aria-hidden="true"></i></span>
