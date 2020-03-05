@@ -8,7 +8,7 @@ export class VisitInput extends Model {
     value: number = 0;
     qty: number = 0;
     input_id: number = 0;
-    quantity: UserInput;
+    user_quantity: UserInput;
     total_quantity: UserInputAcknowledgement;
     // for internal use only
     answer_id: number;
@@ -22,8 +22,8 @@ export class VisitInput extends Model {
             this.value = parseInt(info.value);
 
       // customer Quantity
-      if (info.quantity)
-        this.quantity = new UserInput(info.quantity);
+      if (info.user_quantity)
+        this.user_quantity = new UserInput(info.user_quantity);
 
       // customer total Quantity
       if (info.total_quantity)
@@ -31,6 +31,6 @@ export class VisitInput extends Model {
     }
 
   get final_quantity() {
-    return this.total_quantity ? +this.total_quantity.qty - (this.quantity && this.quantity.used_qty > 0 ? +this.quantity.used_qty : 0) : 0;
+    return this.total_quantity ? +this.total_quantity.qty - (this.user_quantity && this.user_quantity.used_qty > 0 ? +this.user_quantity.used_qty : 0) : 0;
   }
 }
