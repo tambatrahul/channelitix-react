@@ -235,7 +235,29 @@ export class VisitService extends BaseService {
    * @returns {Observable<Result>}
    */
   create_input(data: UserInputAck[]): Observable<Result> {
-    return this.post(this.getBaseUrl() + '/user_input', {'user_input_acks': data})
+    return this.post(this.getBaseUrl() + '/user_input', {'user_input_acks': data});
+  }
+
+  /**
+   * get user Acknowledgment for user
+   *
+   * @returns {Observable<Result>}
+   */
+  acknowledgment(user_id: number): Observable<Result> {
+    // prepare url
+    let url = this.getBaseUrl() + '/user_acknowledgement/' + user_id;
+
+    // make server call
+    return this.get(url);
+  }
+
+  /**
+   * Add Input Pos for user
+   *
+   * @returns {Observable<Result>}
+   */
+  add_acknowledgment(data, id): Observable<Result> {
+    return this.post(this.getBaseUrl() + '/' + id + '/add_pos', data);
   }
 
   /**
