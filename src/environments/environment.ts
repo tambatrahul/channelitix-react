@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   envName: 'geo',
   projectName: '',
-  server_url: '/api/v1/',
-  server_url_v2: '/api/v2/'
+  server_url: 'http://localhost:8081/api/v1/',
+  server_url_v2: 'http://localhost:8081/api/v2/'
 };

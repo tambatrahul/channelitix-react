@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, RequestOptions, Response, ResponseContentType} from '@angular/http';
+import {Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from '@angular/http';
 import {Router} from '@angular/router';
 import {AuthService} from './AuthService';
 import {BaseService} from './base.service';
@@ -244,10 +244,7 @@ export class VisitService extends BaseService {
    * @returns {Observable<Result>}
    */
   acknowledgment(user_id: number): Observable<Result> {
-    // prepare url
     let url = this.getBaseUrl() + '/user_acknowledgement/' + user_id;
-
-    // make server call
     return this.get(url);
   }
 
@@ -257,7 +254,7 @@ export class VisitService extends BaseService {
    * @returns {Observable<Result>}
    */
   add_acknowledgment(data, id): Observable<Result> {
-    return this.post(this.getBaseUrl() + '/' + id + '/add_pos', data);
+    return this.post(this.getBaseUrl() + '/add_pos/' + id, data);
   }
 
   /**

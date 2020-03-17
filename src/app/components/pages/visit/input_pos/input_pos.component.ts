@@ -1,11 +1,11 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {VisitService} from "../../../../services/visit.service";
 import {AuthService} from "../../../../services/AuthService";
 import {FormComponent} from "../../../../components/base/form.component";
-import {User} from "../../../../models/user/user";
 import {UserInputPos} from '../../../../models/visit/user_input_pos';
+
 declare let jQuery: any;
 declare let swal: any;
 
@@ -104,19 +104,10 @@ export class InputPosComponent extends FormComponent {
             self.reset();
             jQuery(self.input_pos_model.nativeElement).modal('hide');
             self.inputPosAdd.emit(self._input_po);
-          },
-          err => {
-            this.errors = err.errors;
-            swal({
-              title: 'User Does Not Have Valid Sample Quantity',
-              type: 'warning',
-              showClass: {
-                popup: 'animated fadeInDown faster'
-              },
-              hideClass: {
-                popup: 'animated fadeOutUp faster'
-              }
-            });
+          }, err => {
+            console.log(err.errors);
+            self.errors = err.errors;
+            swal.close();
           }
         );
       });

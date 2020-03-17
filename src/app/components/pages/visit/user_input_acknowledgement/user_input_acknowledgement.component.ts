@@ -59,8 +59,6 @@ export class UserInputAcknowledgementComponent extends BaseAuthComponent {
     this.fetch();
   }
 
-
-
   fetch() {
     this.loading = true;
     this.visitService.acknowledgment(this.user_id).subscribe(
