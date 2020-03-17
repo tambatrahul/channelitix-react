@@ -215,6 +215,7 @@ import {DeleteReportComponent} from './v2/components/users/delete_report/delete_
 import {TempMonthlyAttendanceComponent} from './components/pages/attendance/temp_monthly/temp_monthly.component';
 import {TempCreateAttendanceComponent} from './components/pages/attendance/temp_create/temp_create.component';
 import {TempUpdateAttendanceComponent} from './components/pages/attendance/temp_update/temp_update.component';
+import { CustomerListComponent } from "./v2/pages/customers/index/index.component";
 
 
 
@@ -433,7 +434,8 @@ enableProdMode();
     TempCreateAttendanceComponent,
     TempUpdateAttendanceComponent,
 
-    AttendanceBrandComponent
+    AttendanceBrandComponent,
+    CustomerListComponent
   ],
   imports: [
     BrowserModule,
