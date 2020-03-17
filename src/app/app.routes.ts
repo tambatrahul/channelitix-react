@@ -74,6 +74,7 @@ import {StockistProductWiseHqComponent} from "./components/pages/secondary_sale_
 import {DailyVisitPlanComponent} from "./components/pages/brick/daliy_visit_plan/index.component";
 import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_tracker/index.component";
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
+import {UserInputAcknowledgementComponent} from "./components/pages/visit/user_input_acknowledgement/user_input_acknowledgement.component";
 import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
 import {ZoneComponent} from './components/pages/territory/zone/index.component';
 import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
@@ -157,6 +158,10 @@ export const routes: Routes = [
           {
             path: 'user_input',
             component: UserInputComponent
+          },
+          {
+            path: 'user_input_acknowledgement',
+            component: UserInputAcknowledgementComponent
           },
           {
             path: 'input_utilization',

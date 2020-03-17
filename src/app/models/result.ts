@@ -35,6 +35,7 @@ import {Brand} from "./order/brand";
 import {HQZone} from './territory/zone';
 import {Priority} from './visit/priority';
 import {UserInput} from './V2/user/user_input';
+import {UserInputPos} from './visit/user_input_pos';
 
 export class Result {
 
@@ -187,4 +188,7 @@ export class Result {
   // vacant hq counts
   area_vacant_hq_counts: Area[];
   region_vacant_hq_counts: Region[];
+
+  // Input Pos
+  input_pos: UserInputPos[];
 }

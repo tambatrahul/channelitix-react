@@ -1,0 +1,63 @@
+<div class="container-fluid css_v2" #loading_box>
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">User Input Acknowledgement
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box-widget widget-module table-widget">
+            <div class="widget-container">
+              <div class="widget-block table-block">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped no-border-table">
+                    <thead>
+                    <tr>
+                      <th>Product Name</th>
+                      <th>Month of Use</th>
+                      <th>Batch No</th>
+                      <th>Product Type</th>
+                      <th>Quantity Dispatched</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let input_po of input_pos">
+                      <td STYLE="text-align: left;">{{ input_po.product_name }}</td>
+                      <td>{{input_po.month_of_use }}</td>
+                      <td>{{ input_po.batch_no }}</td>
+                      <td>{{ input_po.product_type }}</td>
+                      <td>{{ input_po.quantity_dispatched }}</td>
+                      <td class="actions" STYLE="text-align: left;">
+                        <a class="btn btn-xs btn-primary" style="cursor: pointer;"
+                           (click)="addAcknowledgment(input_po)" title="Add Acknowledgment">Add Acknowledgment
+                        </a>
+                      </td>
+                    </tr>
+                    <tr *ngIf="input_pos.length <= 0">
+                      <td class="text-center" colspan="10">No Acknowledgment Found</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <input-pos [input_po]="input_pos_add" (inputPosAdd)="onAddAcknowledgment($event)"></input-pos>
+    </div>
+ </div>
+</div>
+

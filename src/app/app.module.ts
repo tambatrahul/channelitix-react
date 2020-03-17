@@ -195,6 +195,8 @@ import {SkinliteSaleAnalysisGraphComponent} from "./components/pages/dashboard/s
 import {BrandService} from "./services/brand.service";
 import {BrandSelectComponent} from "./components/form_elements/order/brand_select/brand-select.component";
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
+import {UserInputAcknowledgementComponent} from "./components/pages/visit/user_input_acknowledgement/user_input_acknowledgement.component";
+import {InputPosComponent} from "./components/pages/visit/input_pos/input_pos.component";
 import {InputSelectComponent} from "./components/form_elements/visit/input_select/input-select.component";
 import {PriorityBrandSelectComponent} from "./components/form_elements/visit/priority_brand_select/priority-brand-select.component";
 import {FieldEffortAuditScoreCardComponent} from "./components/pages/user/field_efforts_audit_scorecard/field_efforts_audit_scorecard.component";
@@ -303,6 +305,8 @@ enableProdMode();
     CustomerMissingComponent,
     LeaveReportComponent,
     UserInputComponent,
+    UserInputAcknowledgementComponent,
+    InputPosComponent,
     DeviationReportComponent,
     HqWiseInputUtilizationReportComponent,
     InputUtilizationReportComponent,
