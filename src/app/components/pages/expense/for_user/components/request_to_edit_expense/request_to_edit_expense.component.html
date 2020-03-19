@@ -1,0 +1,20 @@
+<div class="modal-dialog modal-md" role="document" style="max-width: 500px" #loading_box>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>{{ _title }}
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </h2>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <label>Comments (Please Describe)</label>
+          <textarea class="form-control" [(ngModel)]="comments" rows="4" cols="10" placeholder="Comment"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" (click)="requestToEditExpense()">Submit</button>
+    </div>
+  </div>
+</div>

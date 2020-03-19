@@ -1,0 +1,94 @@
+<div class="modal-dialog modal-md" role="document" style="max-width: 1000px" #loading_box>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 *ngIf="expenses">{{ expenses[0]?.hq_headquarter?.name }} {{ _title }}
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </h2>
+    </div>
+    <div class="modal-body">
+      <div class="widget-container report-table">
+        <div class="widget-block">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th style="min-width: 100px;">Date</th>
+                <th style="min-width: 100px;">Attendance Type</th>
+                <th style="min-width: 100px;">Daily Allowance (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Travel Allowance (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Total KM Travelled</th>
+                <th style="min-width: 100px;">Daily Allowance Adjustment (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Total Allowance (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Status</th>
+                <th style="min-width: 100px;">Manager Status</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <template ngFor let-expense [ngForOf]="expenses">
+                <tr>
+                  <td>{{ formatDate(expense.date) }}</td>
+                  <td>{{ expense.work_type }}</td>
+                  <td>{{ expense.daily_allowance }}</td>
+                  <td>{{ expense.travel_allowance }}</td>
+                  <td>{{ expense.total_km_travelled }}</td>
+                  <td>{{ expense.daily_allowance_adjustment_amount }}</td>
+                  <td>{{ expense.totalExpense.toFixed(2) }}</td>
+                  <td [ngClass]="{'text-p': expense.status=='pending', 'text-red': expense.status=='rejected',
+                    'text-green': expense.status=='approved'}">
+                    {{ expense.status }}
+                  </td>
+                  <td [ngClass]="{'text-p': expense.manager_status=='pending', 'text-red': expense.manager_status=='rejected',
+                    'text-green': expense.manager_status=='approved'}">
+                    {{ expense.manager_status }}
+                  </td>
+                </tr>
+              </template>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>{{ totalDailyExpense.toFixed(0) }}</td>
+                <td>{{ totalTravelExpense.toFixed(2) }}</td>
+                <td>{{ totalKMTravel }}</td>
+                <td>{{ totalDailyAdjustmentExpense.toFixed(0) }}</td>
+                <td>{{ totalExpense.toFixed(0) }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <th style="min-width: 100px;">Date</th>
+                <th style="min-width: 100px;">Attendance Type</th>
+                <th style="min-width: 100px;">Daily Allowance (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Travel Allowance (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Total KM Travelled</th>
+                <th style="min-width: 100px;">Daily Allowance Adjustment (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Total Allowance (<i class="fa fa-rupee"></i>)</th>
+                <th style="min-width: 100px;">Status</th>
+                <th style="min-width: 100px;">Manager Status</th>
+              </tr>
+              </tfoot>
+            </table>
+            <div class="row" style="margin: 5px;">
+              <div class="col-md-12 text-center">
+                <a class="btn btn-primary" style="margin: 2px;" (click)="approve('first_fortnight_expense')"
+                   *ngIf="expenses && _first_fortnight_expense == true && expenses[0]?.status == 'approved'
+                   && expenses[0]?.manager_status == 'pending'">Approve</a>
+                <a class="btn btn-danger" style="margin: 2px;" (click)="reject('first_fortnight_expense')"
+                   *ngIf="expenses && _first_fortnight_expense == true && expenses[0]?.status == 'approved'
+                   && expenses[0]?.manager_status == 'pending'">Reject</a>
+                <a class="btn btn-primary" style="margin: 2px;" (click)="approve('second_fortnight_expense')"
+                   *ngIf="expenses && _second_fortnight_expense == true && expenses[0]?.status == 'approved'
+                   && expenses[0]?.manager_status == 'pending'">Approve</a>
+                <a class="btn btn-danger" style="margin: 2px;" (click)="reject('second_fortnight_expense')"
+                   *ngIf="expenses && _second_fortnight_expense == true && expenses[0]?.status == 'approved'
+                   && expenses[0]?.manager_status == 'pending'">Reject</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

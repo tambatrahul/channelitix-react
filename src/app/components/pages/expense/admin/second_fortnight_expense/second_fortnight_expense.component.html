@@ -1,0 +1,84 @@
+<div class="widget-container">
+  <div class="widget-block">
+    <div class="table-responsive">
+      <a class="btn btn-primary btn-xs pull-right" style="margin-bottom: 5px"
+         (click)="download()" *ngIf="!btn_loading">Second Fortnight Excel</a>
+      <a class="btn btn-primary btn-xs pull-right" style="margin-bottom: 5px"
+         *ngIf="btn_loading"><i class="fa fa-spinner fa-spin"></i> Second Fortnight Excel</a>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Region</th>
+          <th>Area</th>
+          <th>Headquarter</th>
+          <th>No Of Days Working</th>
+          <th>Daily Allowance (<i class="fa fa-rupee"></i>)</th>
+          <th>Travel Allowance (<i class="fa fa-rupee"></i>)</th>
+          <th>Total KM Travelled</th>
+          <th>Daily Allowance Adjustment (<i class="fa fa-rupee"></i>)</th>
+          <th>Total (<i class="fa fa-rupee"></i>)</th>
+          <th>Status</th>
+          <th>Manager Status</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <template ngFor let-expense [ngForOf]="_second_fortnight_expenses">
+          <tr>
+            <td>{{ expense.hq_headquarter.hq_area.hq_region.name }}</td>
+            <td>{{ expense.hq_headquarter.hq_area.name }}</td>
+            <td>{{ expense.hq_headquarter.name }}</td>
+            <td>{{ expense.no_of_working_days }}</td>
+            <td>{{ expense.daily_allowance.toFixed(0) }}</td>
+            <td>{{ expense.travel_allowance }}</td>
+            <td>{{ expense.total_km_travelled }}</td>
+            <td>{{ expense.daily_allowance_adjustment_amount.toFixed(0) }}</td>
+            <td>{{ expense.totalExpense.toFixed(0) }}</td>
+            <td [ngClass]="{'text-p': expense.status=='pending', 'text-red': expense.status=='rejected',
+                            'text-green': expense.status=='approved'}">
+              {{ expense.status }}
+            </td>
+            <td [ngClass]="{'text-p': expense.manager_status=='pending', 'text-red': expense.manager_status=='rejected',
+                            'text-green': expense.manager_status=='approved'}">
+              {{ expense.manager_status }}
+            </td>
+            <td>
+              <button class="btn-xs btn-primary" (click)="open_second_fortnight_modal(expense.hq_headquarter.id)">View
+              </button>
+            </td>
+          </tr>
+        </template>
+
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>Region</th>
+          <th>Area</th>
+          <th>Headquarter</th>
+          <th>No Of Days Working</th>
+          <th>Daily Allowance (<i class="fa fa-rupee"></i>)</th>
+          <th>Travel Allowance (<i class="fa fa-rupee"></i>)</th>
+          <th>Total KM Travelled</th>
+          <th>Daily Allowance Adjustment (<i class="fa fa-rupee"></i>)</th>
+          <th>Total (<i class="fa fa-rupee"></i>)</th>
+          <th>Status</th>
+          <th>Manager Status</th>
+          <th>Action</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #second_fortnight_modal>
+  <app-view-expense-modal [title]="'SecondFortNight Expense'"
+                          [month]="_month"
+                          [year]="_year"
+                          [first_fortnight_expense]="false"
+                          [second_fortnight_expense]="true"
+                          [headquarter_id]="hq_headquarter_id"
+                          (managerExpenseStatusChanged)="managerStatusChanged()"
+  ></app-view-expense-modal>
+</div>

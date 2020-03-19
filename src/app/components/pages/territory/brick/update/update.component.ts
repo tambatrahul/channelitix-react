@@ -41,6 +41,7 @@ export class UpdateBrickComponent extends FormComponent {
     /**
      * region, territory, area, headquarter & brick id
      */
+    public _zone_id: number = 0;
     public _region_id: number = 0;
     public _area_id: number = 0;
     public _territory_id: number = 0;
@@ -66,6 +67,7 @@ export class UpdateBrickComponent extends FormComponent {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.id = params['id'];
+            this._zone_id = params['zone_id'];
             this._region_id = params['region_id'];
             this._area_id = params['area_id'];
             this._headquarter_id = params['headquarter_id'];
@@ -106,7 +108,7 @@ export class UpdateBrickComponent extends FormComponent {
                         timer: 1500,
                         showConfirmButton: false
                     });
-                    this._router.navigate(['/territories/regions', this._region_id,
+                    this._router.navigate(['/territories/zones',this._zone_id, 'regions', this._region_id,
                         'areas', this._area_id, 'headquarters', this._headquarter_id,
                         'territories', this._territory_id, 'bricks']);
                     this.loading = false;

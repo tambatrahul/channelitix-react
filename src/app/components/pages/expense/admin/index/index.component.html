@@ -1,0 +1,83 @@
+<div class="container-fluid" #loading_box>
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">User Expense</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-2 pull-right">
+          <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+        </div>
+        <div *ngIf="_service.user.role_str != 'THIRD_PARTY'">
+          <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+            <region-select [value]="region_id" [title]="'Select Region'"
+                           (onValueChanged)="regionChanged($event)"></region-select>
+          </div>
+          <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+            <div *ngIf="region_id > 0">
+              <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                           (onValueChanged)="areaChanged($event)"></area-select>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-2" *roleCheck="ROLE_CSM">
+            <div *ngIf="area_id > 0">
+              <headquarter-select [value]="headquarter_id" [area_id]="area_id"
+                                  [title]="'Select Head Quarter'"
+                                  (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_CSM">
+          <label> Status </label>
+          <select class="form-control" (change)="setStatus($event.target.value)">
+            <option value="">Select Status</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="full-tab-container">
+        <ul class="main-tab nav nav-tabs">
+          <li class="active"><a href="#first_fortnight_expenses" data-toggle="tab">First Fortnight Expenses</a>
+          </li>
+          <li><a href="#second_fortnight_expenses" data-toggle="tab">Second Fortnight Expenses</a>
+          </li>
+        </ul>
+        <div class="main-tab-content tab-content">
+          <div class="tab-pane active" id="first_fortnight_expenses">
+            <div>
+              <first-fortnight-expense
+                [first_fortnight_expenses]="first_fortnight_expenses"
+                [month]="month" [year]="year"
+                [hq_region_id]="region_id"
+                [hq_area_id]="area_id"
+                (managerExpenseStatusChanged)="managerStatusChanged()"></first-fortnight-expense>
+            </div>
+          </div>
+          <div class="tab-pane" id="second_fortnight_expenses">
+            <second-fortnight-expense
+              [second_fortnight_expenses]="second_fortnight_expenses"
+              [month]="month" [year]="year"
+              [hq_region_id]="region_id"
+              [hq_area_id]="area_id"
+              (managerExpenseStatusChanged)="managerStatusChanged()"></second-fortnight-expense>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

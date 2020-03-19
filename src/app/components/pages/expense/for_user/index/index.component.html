@@ -1,0 +1,121 @@
+<div class="container-fluid orders" #loading_box>
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Expense</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 pull-right">
+        <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for Order report-->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module">
+        <div class="widget-head clearfix">
+          <span class="h-icon"><i class="fa fa-table"></i></span>
+          <h4>{{ _service.user.full_name }}</h4>
+        </div>
+
+        <div class="widget-container report-table">
+          <div class="widget-block">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th style="min-width: 100px;">Date</th>
+                  <th style="min-width: 100px;">Attendance Type</th>
+                  <th style="min-width: 100px;">Daily Allowance (<i class="fa fa-rupee"></i>)</th>
+                  <th style="min-width: 100px;">Travel Allowance (<i class="fa fa-rupee"></i>)</th>
+                  <th style="min-width: 100px;">Total KM Travelled</th>
+                  <th style="min-width: 100px;">Daily Allowance Adjustment (<i class="fa fa-rupee"></i>)</th>
+                  <th style="min-width: 100px;">Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <template ngFor let-expense [ngForOf]="expenses">
+                  <tr>
+                    <td>{{ formatDate(expense.date) }}</td>
+                    <td>{{ expense.work_type }}</td>
+                    <td>{{ expense.daily_allowance }}</td>
+                    <td>{{ expense.travel_allowance }}</td>
+                    <td>{{ expense.total_km_travelled }}</td>
+                    <td>{{ expense.daily_allowance_adjustment_amount }}</td>
+                    <td [ngClass]="{'text-p': expense.status=='pending', 'text-red': expense.status=='rejected',
+                    'text-green': expense.status=='approved'}">
+                      {{ expense.status }}
+                    </td>
+                  </tr>
+                </template>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th style="min-width: 100px;">Date</th>
+                  <th style="min-width: 100px;">Attendance Type</th>
+                  <th style="min-width: 100px;">Daily Allowance (<i class="fa fa-rupee"></i>)</th>
+                  <th style="min-width: 100px;">Travel Allowance (<i class="fa fa-rupee"></i>)</th>
+                  <th style="min-width: 100px;">Total KM Travelled</th>
+                  <th style="min-width: 100px;">Daily Allowance Adjustment (<i class="fa fa-rupee"></i>)</th>
+                  <th style="min-width: 100px;">Status</th>
+                </tr>
+                </tfoot>
+              </table>
+              <div class="row">
+                <div class="col-md-12 text-center form-control"
+                     *ngIf="(first_fortnight_manager_expense_status && first_fortnight_manager_expense_status == 'pending')
+                     || (second_fortnight_manager_expense_status && second_fortnight_manager_expense_status == 'pending')">
+                  <input class="pointer_user"
+                    type="checkbox"
+                    [checked]="termsAndCondition"
+                    (change)="termsAndCondition = !termsAndCondition"/>
+                  I Accept And Confirm All Data Is Correct
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-center" *ngIf="termsAndCondition && first_fortnight_manager_expense_status == 'pending'">
+                  <a class="btn btn-success" style="margin: 2px;" *ngIf="first_fortnight"
+                     (click)="approve('first_fortnight_expense')">Submit First Fortnight</a>
+                  <a class="btn btn-danger" style="margin: 2px;" *ngIf="first_fortnight"
+                     (click)="reject('first_fortnight_expense')">Reject First Fortnight</a>
+                  <a class="btn btn-primary" style="margin: 2px;" *ngIf="first_fortnight"
+                     (click)="requestToEdit('first_fortnight_expense')">Request To Edit First Fortnight</a>
+                  <!--                  <p *ngIf="first_fortnight" style="min-width: 200px">Approval Buttons Disable After 25<sup>th</sup></p>-->
+                </div>
+                <div class="col-md-12 text-center" *ngIf="termsAndCondition && second_fortnight_manager_expense_status == 'pending'">
+                  <a class="btn btn-success" style="margin: 2px;" *ngIf="second_fortnight"
+                     (click)="approve('second_fortnight_expense')">Submit Second Fortnight</a>
+                  <a class="btn btn-danger" style="margin: 2px;" *ngIf="second_fortnight"
+                     (click)="reject('second_fortnight_expense')">Reject Second Fortnight</a>
+                  <a class="btn btn-primary" style="margin: 2px;" *ngIf="second_fortnight"
+                     (click)="requestToEdit('second_fortnight_expense')">Request To Edit Second Fortnight</a>
+                  <!--                  <p *ngIf="second_fortnight" style="min-width: 200px">Approval Buttons Disable After 10<sup>th</sup></p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #request_to_edit_modal>
+  <app-request-to-edit-expense [title]="title"
+                               [month]="month"
+                               [year]="year"
+                               [first_fortnight_expense]="first_fortnight"
+                               [second_fortnight_expense]="second_fortnight"
+                               (expenseEditRequestSend)="requestToEditExpenseSend()"
+  ></app-request-to-edit-expense>
+</div>

@@ -218,6 +218,14 @@ import {TempMonthlyAttendanceComponent} from './components/pages/attendance/temp
 import {TempCreateAttendanceComponent} from './components/pages/attendance/temp_create/temp_create.component';
 import {TempUpdateAttendanceComponent} from './components/pages/attendance/temp_update/temp_update.component';
 import { CustomerListComponent } from "./v2/pages/customers/index/index.component";
+import {UserExpenseComponent} from './components/pages/expense/for_user/index/index.component';
+import {ExpenseService} from './services/expense.service';
+import {CommonModule} from '@angular/common';
+import {ExpenseComponent} from './components/pages/expense/admin/index/index.component';
+import {FirstFortnightComponent} from './components/pages/expense/admin/first_fortnight_expense/first_fortnight_expense.component';
+import {SecondFortnightComponent} from './components/pages/expense/admin/second_fortnight_expense/second_fortnight_expense.component';
+import {ViewExpenseModalComponent} from './components/pages/expense/admin/components/view_expense_modal/view_expense_modal.component';
+import {RequestToEditExpenseComponent} from './components/pages/expense/for_user/components/request_to_edit_expense/request_to_edit_expense.component';
 
 
 
@@ -439,7 +447,14 @@ enableProdMode();
     TempUpdateAttendanceComponent,
 
     AttendanceBrandComponent,
-    CustomerListComponent
+    CustomerListComponent,
+
+    UserExpenseComponent,
+    ExpenseComponent,
+    FirstFortnightComponent,
+    SecondFortnightComponent,
+    ViewExpenseModalComponent,
+    RequestToEditExpenseComponent,
   ],
   imports: [
     BrowserModule,
@@ -447,7 +462,8 @@ enableProdMode();
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    CommonModule
   ],
   providers: [
     AuthService,
@@ -469,6 +485,7 @@ enableProdMode();
     ProductService,
     BrandService,
     CustomerTypeService,
+    ExpenseService,
 
     // Version 2 Service
     V2UserService

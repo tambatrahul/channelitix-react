@@ -15,6 +15,8 @@ import {UpdateCustomerComponent} from "./components/pages/customer/update/update
 import {StpComponent} from "./components/pages/customer/stp/stp.component";
 import {TourComponent} from "./components/pages/tour_program/index/index.component";
 import {BrickComponent} from "./components/pages/territory/brick/index/index.component";
+import {CreateBrickComponent} from "./components/pages/territory/brick/create/create.component";
+import {UpdateBrickComponent} from "./components/pages/territory/brick/update/update.component";
 import {RegionStpComponent} from "./components/pages/customer/stp/region_stp/region_stp.component";
 import {AreaStpComponent} from "./components/pages/customer/stp/area_stp/area_stp.component";
 import {HeadquarterStpComponent} from "./components/pages/customer/stp/headquarter_stp/headquarter_stp.component";
@@ -80,6 +82,8 @@ import {ZoneComponent} from './components/pages/territory/zone/index.component';
 import {ZoneStpComponent} from './components/pages/customer/stp/zone_stp/zone_stp.component';
 import {TempMonthlyAttendanceComponent} from './components/pages/attendance/temp_monthly/temp_monthly.component';
 import {CustomerListComponent} from "./v2/pages/customers/index/index.component";
+import {UserExpenseComponent} from './components/pages/expense/for_user/index/index.component';
+import {ExpenseComponent} from './components/pages/expense/admin/index/index.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -213,6 +217,21 @@ export const routes: Routes = [
         ]
       },
 
+      // add user routes
+      {
+        path: 'expenses',
+        children: [
+          {
+            path: '',
+            component: ExpenseComponent
+          },
+          {
+            path: 'for_user',
+            component: UserExpenseComponent
+          }
+        ]
+      },
+
       // add tour routes
       {
         path: 'tours',
@@ -301,7 +320,15 @@ export const routes: Routes = [
                                   {
                                     path: '',
                                     component: BrickComponent
-                                  }
+                                  },
+                                  {
+                                    path: 'create',
+                                    component: CreateBrickComponent
+                                  },
+                                  {
+                                    path: 'update/:id',
+                                    component: UpdateBrickComponent
+                                  },
                                 ]
                               },
                             ]

@@ -36,6 +36,7 @@ import {HQZone} from './territory/zone';
 import {Priority} from './visit/priority';
 import {UserInput} from './V2/user/user_input';
 import {UserInputPos} from './visit/user_input_pos';
+import {Expense} from './expense/expense';
 
 export class Result {
 
@@ -191,4 +192,13 @@ export class Result {
 
   // Input Pos
   input_pos: UserInputPos[];
+
+  // Expense
+  expenses: Expense[];
+
+  first_fortnight_expenses: Expense[];
+  second_fortnight_expenses: Expense[];
+
+  first_fortnight_attendances: Attendance[];
+  second_fortnight_attendances: Attendance[];
 }
