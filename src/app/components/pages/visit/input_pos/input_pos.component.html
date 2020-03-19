@@ -14,7 +14,7 @@
               <div class="form-group">
                 <label class="control-label">Quantity Received </label>
                 <div class="">
-                  <input formControlName="quantity_received" class="form-control" type="text" required>
+                  <input formControlName="quantity_received" class="form-control" type="number" required>
                   <small *ngIf="errors['quantity_received']" class="text-danger text-center">
                     {{ errors['quantity_received'] }}
                   </small>
