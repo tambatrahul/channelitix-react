@@ -253,8 +253,8 @@ export class VisitService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  add_acknowledgment(data, id): Observable<Result> {
-    return this.post(this.getBaseUrl() + '/add_pos/' + id, data);
+  add_acknowledgment(data, id, input_id): Observable<Result> {
+    return this.post(this.getBaseUrl() + '/add_pos/' + id + '/' + input_id , data);
   }
 
   /**

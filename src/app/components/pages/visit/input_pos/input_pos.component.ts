@@ -92,7 +92,7 @@ export class InputPosComponent extends FormComponent {
         closeOnConfirm: false,
         showLoaderOnConfirm: true
       }, function () {
-        self.visitService.add_acknowledgment(data, self._input_po.id).subscribe(
+        self.visitService.add_acknowledgment(data, self._input_po.id, self._input_po.input_id ).subscribe(
           response => {
             swal({
               title: "Input Acknowledgment Added Successfully",
