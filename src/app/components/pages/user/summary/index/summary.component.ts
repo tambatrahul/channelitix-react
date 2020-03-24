@@ -31,7 +31,7 @@ export class SummaryComponent extends BaseAuthComponent {
    */
   public month: number;
   public year: number;
-
+  public search: string = "";
   /**
    * users
    *
@@ -65,7 +65,7 @@ export class SummaryComponent extends BaseAuthComponent {
    */
   fetch() {
     this.loading = true;
-    this.userService.children(0, 0, 'active').subscribe(
+    this.userService.children(0, 0, 'active', this.search).subscribe(
       response => {
         this.users = response.users.map(function (user) {
           return new User(user);
@@ -110,14 +110,18 @@ export class SummaryComponent extends BaseAuthComponent {
   /**
    * on search added
    */
-  onKey(search: string) {
-    this._users = this.users.filter(function (user) {
-      let u = user.full_name.includes(search);
-      if (user.hq_headquarter)
-        u = user.hq_headquarter.name.includes(search);
-      return u;
-    });
+  onKey(event: any) {
+    this.search = event.target.value;
+    this.fetch();
   }
+  // onKey(search: string) {
+  //   this._users = this.users.filter(function (user) {
+  //     let u = user.full_name.includes(search);
+  //     if (user.hq_headquarter)
+  //       u = user.hq_headquarter.name.includes(search);
+  //     return u;
+  //   });
+  // }
 
   clear() {
 

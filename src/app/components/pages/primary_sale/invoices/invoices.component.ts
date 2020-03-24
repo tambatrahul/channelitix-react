@@ -21,6 +21,7 @@ export class InvoicesComponent extends ListComponent {
      */
     public page: number = 1;
     public total: number = 10;
+    public btn_loading: boolean = false;
 
     upload_excel;
 
@@ -164,4 +165,29 @@ export class InvoicesComponent extends ListComponent {
         this.page = page;
         this.fetch();
     }
+  /**
+   * Download Excel For Stockist sales
+   */
+  download() {
+    this.btn_loading = true;
+
+    this.saleService.invoice_excel_download(this._month + 1, this._year,
+      this._region_id, this._area_id, this._headquarter_id).subscribe(
+      response => {
+        let blob: Blob = response.blob();
+
+        // Doing it this way allows you to name the file
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'primary_sales_invoice_report.xls';
+        link.click();
+        this.btn_loading = false;
+
+      },
+      err => {
+        this.btn_loading = false;
+      }
+    );
+  }
+
 }

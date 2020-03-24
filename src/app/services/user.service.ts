@@ -30,7 +30,7 @@ export class UserService extends BaseService {
   /**
    * get children for user
    */
-  children(role_id?: number, manager_id?: number, status?: string): Observable<Result> {
+  children(role_id?: number, manager_id?: number, status?: string, search?: string): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/children';
@@ -40,6 +40,7 @@ export class UserService extends BaseService {
     params.set('role_id', String(role_id > 0 ? role_id : ''));
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
     params.set('status', String(status ? status : ''));
+    params.set('search', String((search && search.length > 0) ? search : ''));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));

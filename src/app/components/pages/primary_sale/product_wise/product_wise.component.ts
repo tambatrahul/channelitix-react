@@ -22,7 +22,8 @@ export class ProductWiseComponent extends ListComponent {
    */
   title: string = '';
 
-  total_amount: number = 0;
+    total_amount: number = 0;
+    btn_loading: boolean = false;
 
   upload_excel;
 
@@ -140,16 +141,41 @@ export class ProductWiseComponent extends ListComponent {
       });
     });
 
-    setTimeout(() => {
-      if (this.upload_excel) {
-        this.upload_excel.reset();
-      } else {
-        this.upload_excel = jQuery('#product_wise_sale').tableExport({
-          formats: ['xlsx'],
-          bootstrap: true,
-          position: 'top'
-        });
+        setTimeout(() => {
+            if (this.upload_excel) {
+                this.upload_excel.reset();
+            }
+            else
+                this.upload_excel = jQuery("#product_wise_sale").tableExport({
+                    formats: ['xlsx'],
+                    bootstrap: true,
+                    position: "top"
+                });
+        }, 1000);
+    }
+  /**
+   * Download Excel For Product sales
+   */
+  download() {
+    this.btn_loading = true;
+
+    this.saleService.product_excel_download(this._month + 1, this._year,
+      this._region_id, this._area_id, this._headquarter_id).subscribe(
+      response => {
+        let blob: Blob = response.blob();
+
+        // Doing it this way allows you to name the file
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'primary_sales_product_report.xls';
+        link.click();
+        this.btn_loading = false;
+
+      },
+      err => {
+        this.btn_loading = false;
       }
-    }, 1000);
+    );
   }
 }
+

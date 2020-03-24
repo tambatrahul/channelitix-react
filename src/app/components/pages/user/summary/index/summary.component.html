@@ -11,7 +11,7 @@
     <div class="task-list-toolbar list-toolbar clearfix">
       <form class="task-search-form list-search-form" style="display: block;">
         <input type="text" class="form-control list-search-input" placeholder="Search" #search
-               (keyup)="onKey(search.value)">
+               (keyup)="onKey($event)">
       </form>
     </div>
     <!-- User list -->

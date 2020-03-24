@@ -2,6 +2,10 @@
     <div class="widget-container">
         <div class="widget-block">
             <div class="table-responsive">
+              <a class="btn btn-primary btn-xs pull-right" style="margin-bottom: 5px"
+                 (click)="download()" *ngIf="!btn_loading">Stockist sales Excel</a>
+              <a class="btn btn-primary btn-xs pull-right" style="margin-bottom: 5px"
+                 *ngIf="btn_loading"><i class="fa fa-spinner fa-spin"></i> Stockist sales Excel</a>
                 <table class="table table-bordered" id="invoices_for_sales">
                     <thead>
                     <tr>

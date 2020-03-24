@@ -251,7 +251,7 @@ export class StockistWiseHqComponent extends ListComponent {
    */
   download() {
     this.btn_loading = true;
-    this.saleService.stockist_wise_excel_download(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id).subscribe(
+    this.saleService.stockist_wise_excel_download(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id,this.product_id).subscribe(
       response => {
         this.btn_loading = false;
         let blob: Blob = response.blob();

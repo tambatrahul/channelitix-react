@@ -21,7 +21,16 @@ export class StockistWiseComponent extends ListComponent {
 
     upload_excel;
 
-    total_amount: number = 0;
+  total_amount: number = 0;
+  btn_loading: boolean = false;
+
+  /**
+   * pages number for customer and total customers
+   *
+   * @type {number}
+   */
+  public page: number = 1;
+  public total: number = 10;
 
     public _month: number;
     @Input()
@@ -97,10 +106,10 @@ export class StockistWiseComponent extends ListComponent {
                 this.upload_excel.remove();
             }
 
-            this.loading = true;
-            this.saleService.monthly_stockist(this._month + 1,
-                this._year, this._region_id, this._area_id, this._headquarter_id, this._zone_id).subscribe(
-                response => {
+      this.loading = true;
+      this.saleService.monthly_stockist(this._month + 1,
+        this._year, this._region_id, this._area_id, this._headquarter_id, this.page, this._zone_id).subscribe(
+        response => {
 
                     // convert to models
                     self.total_amount = 0;
@@ -109,21 +118,56 @@ export class StockistWiseComponent extends ListComponent {
                         self.total_amount += invoice_de.total_net_amount;
                         return invoice_de;
                     });
-
-                    this.loading = false;
-
-                    setTimeout(() => {
-                        self.upload_excel = jQuery("#stockist_wise_sale1").tableExport({
-                            formats: ['xlsx'],
-                            bootstrap: true,
-                            position: "top"
-                        });
-                    }, 1000);
-                },
-                err => {
-                    this.loading = false;
-                }
-            );
+          this.total = response.total;
+          this.loading = false;
+          setTimeout(() => {
+            self.upload_excel = jQuery('#stockist_wise_sale1').tableExport({
+              formats: ['xlsx'],
+              bootstrap: true,
+              position: 'top'
+            });
+          }, 1000);
+        },
+        err => {
+          this.loading = false;
         }
+      );
     }
+  }
+
+  /**
+   * Page changed
+   *
+   * @param page
+   */
+  pageChanged(page) {
+    this.page = page;
+    this.fetch();
+  }
+
+  /**
+   * Download Excel For Stockist sales
+   */
+  download() {
+    this.btn_loading = true;
+
+    this.saleService.stockist_excel_download(this._month + 1, this._year,
+      this._region_id, this._area_id, this._headquarter_id).subscribe(
+      response => {
+        let blob: Blob = response.blob();
+
+        // Doing it this way allows you to name the file
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'primary_sales_stockist_report.xls';
+        link.click();
+        this.btn_loading = false;
+
+      },
+      err => {
+        this.btn_loading = false;
+      }
+    );
+  }
+
 }
