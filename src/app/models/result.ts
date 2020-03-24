@@ -37,6 +37,7 @@ import {Priority} from './visit/priority';
 import {UserInput} from './V2/user/user_input';
 import {UserInputPos} from './visit/user_input_pos';
 import {Expense} from './expense/expense';
+import {DoctorType} from './customer/doctor_type';
 
 export class Result {
 
@@ -101,6 +102,7 @@ export class Result {
   cus_total_customers: Customer[];
   hq_wise_customers: Customer[];
   customer_types: CustomerType[];
+  doctor_types: DoctorType[];
   customer_grades: Grade[];
   grades: Grade[];
 

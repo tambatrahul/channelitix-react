@@ -112,6 +112,15 @@
                                                 {{ errors.grade_id}}
                                             </small>
                                         </div>
+                                      <div class="col-xs-12 col-md-4 form-group" *ngIf="customer_type_id > 4 && grade_id > 0">
+                                        <doctor-type-select [value]="doctor_type_id" [title]="'Select Speciality Type'"
+                                                            [first_value]="'Select Type'"
+                                                            [models]="doctor_types"
+                                                            (onValueChanged)="doctorTypeChanged($event)"></doctor-type-select>
+                                        <small *ngIf="errors['doctor_type_id']" class="text-danger text-center">
+                                          {{ errors.doctor_type_id}}
+                                        </small>
+                                      </div>
                                     </div>
                                     <!-- ./Select Type and Select Grade-->
 

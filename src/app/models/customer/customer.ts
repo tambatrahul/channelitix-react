@@ -12,6 +12,7 @@ import {Area} from "../territory/area";
 import {SalesPlanningDetail} from "../plan";
 import {HQZone} from '../territory/zone';
 import {UserTerritoryCustomer} from './user_territory_customer';
+import {DoctorType} from './doctor_type';
 
 export class Customer extends Model {
 
@@ -23,6 +24,8 @@ export class Customer extends Model {
   classification: string;
   customer_type_id: number;
   customer_type: CustomerType;
+  doctor_type_id: number;
+  doctor_type: DoctorType;
   grade_id: number;
   grade: Grade;
   status: string;
@@ -89,6 +92,8 @@ export class Customer extends Model {
     this.classification = info.classification;
     this.customer_type = info.customer_type;
     this.customer_type_id = info.customer_type_id;
+    this.doctor_type = info.doctor_type;
+    this.doctor_type_id = info.doctor_type_id;
     this.grade_id = info.grade_id;
     this.grade = info.grade;
     this.status = info.status;

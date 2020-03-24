@@ -6,6 +6,7 @@ import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../../../base/form.component";
 import {CustomerType} from "../../../../models/customer/customer_type";
 import {Grade} from "../../../../models/customer/grade";
+import {DoctorType} from '../../../../models/customer/doctor_type';
 
 declare let jQuery: any;
 declare let swal: any;
@@ -18,12 +19,14 @@ declare let swal: any;
 export class CreateCustomerComponent extends FormComponent {
 
   customer_types: CustomerType[] = [];
+  doctor_types: DoctorType[] = [];
   grades: Grade[] = [];
 
   /**
    * Customer type and grade
    */
   public customer_type_id: number = 0;
+  public doctor_type_id: number = 0;
   public grade_id: number = 0;
   public hq_headquarter_id: number = 0;
   public hq_territory_id: number = 0;
@@ -45,6 +48,7 @@ export class CreateCustomerComponent extends FormComponent {
     mobile: [""],
     classification: [""],
     customer_type_id: [""],
+    doctor_type_id: [""],
     grade_id: [""],
     hq_country_id: [""],
     hq_zone_id: [""],
@@ -151,6 +155,13 @@ export class CreateCustomerComponent extends FormComponent {
     this.form.patchValue({grade_id: grade_id});
   }
 
+  /**
+   * Doctor Type changed
+   */
+  doctorTypeChanged(doctor_type_id) {
+    this.doctor_type_id = doctor_type_id;
+    this.form.patchValue({doctor_type_id: doctor_type_id});
+  }
   /**
    * when region is changed filter list of customer
    * @param zone_id

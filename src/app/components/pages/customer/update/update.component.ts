@@ -6,6 +6,7 @@ import {FormBuilder} from "@angular/forms";
 import {FormComponent} from "../../../base/form.component";
 import {CustomerType} from "../../../../models/customer/customer_type";
 import {Grade} from "../../../../models/customer/grade";
+import {DoctorType} from '../../../../models/customer/doctor_type';
 
 declare let jQuery: any;
 declare let swal: any;
@@ -18,6 +19,7 @@ declare let swal: any;
 export class UpdateCustomerComponent extends FormComponent {
 
   customer_types: CustomerType[] = [];
+  doctor_types: DoctorType[] = [];
   grades: Grade[] = [];
   private id: number;
 
@@ -25,6 +27,7 @@ export class UpdateCustomerComponent extends FormComponent {
    * Customer type and grade
    */
   public customer_type_id: number = 0;
+  public doctor_type_id: number = 0;
   public grade_id: number = 0;
   public hq_headquarter_id: number = 0;
   public hq_territory_id: number = 0;
@@ -47,6 +50,7 @@ export class UpdateCustomerComponent extends FormComponent {
     mobile: [""],
     classification: [""],
     customer_type_id: [""],
+    doctor_type_id: [""],
     grade_id: [""],
     hq_zone_id: [""],
     hq_region_id: [""],
@@ -112,6 +116,7 @@ export class UpdateCustomerComponent extends FormComponent {
         this.territoryChanged(response.customer.hq_territory_id);
         this.brickChanged(response.customer.hq_brick_id);
         this.typeChanged(response.customer.customer_type_id);
+        this.doctorTypeChanged(response.customer.doctor_type_id);
         this.gradeChanged(response.customer.grade_id);
       }, err => {
         this.loading = false;
@@ -126,6 +131,7 @@ export class UpdateCustomerComponent extends FormComponent {
     this.customerService.masters().subscribe(
       response => {
         this.customer_types = response.customer_types;
+        this.doctor_types = response.doctor_types;
       },
       err => {
       }
@@ -142,6 +148,8 @@ export class UpdateCustomerComponent extends FormComponent {
 
       // prepare data
       let data = this.form.value;
+      if (data.doctor_type_id === 0)
+        data.doctor_type_id = null;
 
       // upate customer
       this.customerService.update(data, this.id).subscribe(
@@ -185,6 +193,14 @@ export class UpdateCustomerComponent extends FormComponent {
     this.grade_id = grade_id;
     this.form.patchValue({grade_id: grade_id});
 
+  }
+
+  /**
+   * Doctor Type changed
+   */
+  doctorTypeChanged(doctor_type_id) {
+    this.doctor_type_id = doctor_type_id;
+    this.form.patchValue({doctor_type_id: doctor_type_id});
   }
 
   /**

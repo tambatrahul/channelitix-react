@@ -65,6 +65,7 @@ import {DailyTourProgramComponent} from "./components/pages/tour_program/daily/d
 import {CreateCustomerComponent} from "./components/pages/customer/create/create.component";
 import {CustomerComponent} from "./components/pages/customer/index/index.component";
 import {CustomerTypeSelectComponent} from "./components/form_elements/customer/customer_type_select/customer_type-select.component";
+import {DoctorTypeSelectComponent} from "./components/form_elements/customer/doctor_type_select/doctor_type-select.component";
 import {UpdateCustomerComponent} from "./components/pages/customer/update/update.component";
 import {StpComponent} from "./components/pages/customer/stp/stp.component";
 import {GradeSelectComponent} from "./components/form_elements/customer/grade_select/grade-select.component";
@@ -389,6 +390,7 @@ enableProdMode();
     ManagerSelectComponent,
     BrickSelectComponent,
     CustomerTypeSelectComponent,
+    DoctorTypeSelectComponent,
     GradeSelectComponent,
     StationSelectComponent,
     TourTypeSelectComponent,
