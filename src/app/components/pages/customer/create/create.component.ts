@@ -7,6 +7,8 @@ import {FormComponent} from "../../../base/form.component";
 import {CustomerType} from "../../../../models/customer/customer_type";
 import {Grade} from "../../../../models/customer/grade";
 import {DoctorType} from '../../../../models/customer/doctor_type';
+import {CustomerQualification} from '../../../../models/customer/customer_qualification';
+import {IMultiSelectOption} from 'angular-2-dropdown-multiselect/index';
 
 declare let jQuery: any;
 declare let swal: any;
@@ -18,9 +20,18 @@ declare let swal: any;
 })
 export class CreateCustomerComponent extends FormComponent {
 
+  /**
+   * settings
+   */
+  settings = {
+    buttonClasses: "btn btn-default btn-secondary btn-block"
+  };
+
   customer_types: CustomerType[] = [];
   doctor_types: DoctorType[] = [];
   grades: Grade[] = [];
+  customer_qualifications: CustomerQualification[] = [];
+  qualification_options: IMultiSelectOption[] = [];
 
   /**
    * Customer type and grade
@@ -37,6 +48,9 @@ export class CreateCustomerComponent extends FormComponent {
   public hq_brick_id: number = 0;
   public classification: string;
 
+  public qualification_ids: Array<number> = [];
+
+
   /**
    * customer form
    *
@@ -49,6 +63,7 @@ export class CreateCustomerComponent extends FormComponent {
     classification: [""],
     customer_type_id: [""],
     doctor_type_id: [""],
+    qualification_ids: [""],
     grade_id: [""],
     hq_country_id: [""],
     hq_zone_id: [""],
@@ -103,6 +118,12 @@ export class CreateCustomerComponent extends FormComponent {
     this.customerService.masters().subscribe(
       response => {
         this.customer_types = response.customer_types;
+        this.customer_qualifications = response.customer_qualifications;
+        this.qualification_options = this.customer_qualifications.map(function (cusQual) {
+          return {
+            id: cusQual.id, name: cusQual.name
+          };
+        });
       },
       err => {
       }
@@ -117,6 +138,7 @@ export class CreateCustomerComponent extends FormComponent {
     if (this.form.valid) {
       this.loading = true;
       let data = this.form.value;
+      data.qualification_ids = this.qualification_ids;
 
       this.customerService.create(data).subscribe(
         response => {
@@ -162,6 +184,17 @@ export class CreateCustomerComponent extends FormComponent {
     this.doctor_type_id = doctor_type_id;
     this.form.patchValue({doctor_type_id: doctor_type_id});
   }
+
+  // /**
+  //  * headquarter selected action
+  //  *
+  //  * @param qualification_ids
+  //  */
+  // qualificationSelected(qualification_ids: Array<number>) {
+  //   this.qualification_ids = qualification_ids;
+  //   this.form.patchValue({qualification_ids: qualification_ids});
+  // }
+
   /**
    * when region is changed filter list of customer
    * @param zone_id

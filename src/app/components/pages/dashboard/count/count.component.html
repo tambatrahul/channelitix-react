@@ -1,5 +1,5 @@
 <div class="row" #loading_box>
-  <div class="col-md-3 col-xs-6">
+  <div *roleCheck="ROLE_CSM" class="col-md-3 col-xs-6">
     <div class="mini-stats-widget full-block-mini-chart w_bg_teal_500">
       <div class="mini-stats-top">
         <span class="mini-stats-value">{{ counts.total_users }}</span>

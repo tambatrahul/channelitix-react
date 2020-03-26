@@ -13,6 +13,7 @@ import {SalesPlanningDetail} from "../plan";
 import {HQZone} from '../territory/zone';
 import {UserTerritoryCustomer} from './user_territory_customer';
 import {DoctorType} from './doctor_type';
+import {CustomerQualification} from './customer_qualification';
 
 export class Customer extends Model {
 
@@ -24,6 +25,7 @@ export class Customer extends Model {
   classification: string;
   customer_type_id: number;
   customer_type: CustomerType;
+  doctor_qualifications: CustomerQualification[];
   doctor_type_id: number;
   doctor_type: DoctorType;
   grade_id: number;
@@ -137,6 +139,9 @@ export class Customer extends Model {
     // add zone
     if (info.hq_zone)
       this.hq_zone = new HQZone(info.hq_zone);
+
+    // if (info.customer_qualifications)
+    //   this.customer_qualifications = new CustomerQualification(info.customer_qualifications);
 
     if (info.brick_counts)
       this.brick_counts = parseInt(info.brick_counts);

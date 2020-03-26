@@ -7,6 +7,8 @@ import {FormComponent} from "../../../base/form.component";
 import {CustomerType} from "../../../../models/customer/customer_type";
 import {Grade} from "../../../../models/customer/grade";
 import {DoctorType} from '../../../../models/customer/doctor_type';
+import {CustomerQualification} from '../../../../models/customer/customer_qualification';
+import {IMultiSelectOption} from 'angular-2-dropdown-multiselect/index';
 
 declare let jQuery: any;
 declare let swal: any;
@@ -18,9 +20,18 @@ declare let swal: any;
 })
 export class UpdateCustomerComponent extends FormComponent {
 
+  /**
+   * settings
+   */
+  settings = {
+    buttonClasses: "btn btn-default btn-secondary btn-block"
+  };
+
   customer_types: CustomerType[] = [];
   doctor_types: DoctorType[] = [];
   grades: Grade[] = [];
+  customer_qualifications: CustomerQualification[] = [];
+  qualification_options: IMultiSelectOption[] = [];
   private id: number;
 
   /**
@@ -37,6 +48,9 @@ export class UpdateCustomerComponent extends FormComponent {
   public hq_brick_id: number = 0;
   public classification: string;
 
+  public qualification_ids: Array<number> = [];
+
+
   classifications = [{'key': 'core', 'value': 'Core'}, {'key': 'super_core', 'value': 'Super Core'}];
 
   /**
@@ -51,6 +65,7 @@ export class UpdateCustomerComponent extends FormComponent {
     classification: [""],
     customer_type_id: [""],
     doctor_type_id: [""],
+    qualification_ids: [""],
     grade_id: [""],
     hq_zone_id: [""],
     hq_region_id: [""],
@@ -58,6 +73,7 @@ export class UpdateCustomerComponent extends FormComponent {
     hq_headquarter_id: [""],
     hq_territory_id: [""],
     hq_brick_id: [""],
+    qualification_value: [""],
     address: this._fb.group({
       line: [""],
       landmark: [""],
@@ -89,6 +105,7 @@ export class UpdateCustomerComponent extends FormComponent {
    */
   ngOnInit() {
     super.ngOnInit();
+    let self = this;
     this.zoneChanged(this._service.user.hq_zone_id);
     this.regionChanged(this._service.user.hq_region_id);
     this.areaChanged(this._service.user.hq_area_id);
@@ -118,6 +135,10 @@ export class UpdateCustomerComponent extends FormComponent {
         this.typeChanged(response.customer.customer_type_id);
         this.doctorTypeChanged(response.customer.doctor_type_id);
         this.gradeChanged(response.customer.grade_id);
+        if (response.customer.doctor_qualifications)
+        response.customer.doctor_qualifications.map(function (cusQual) {
+          self.qualification_ids.push(cusQual.pivot.qualification_id);
+        });
       }, err => {
         this.loading = false;
       });
@@ -132,6 +153,12 @@ export class UpdateCustomerComponent extends FormComponent {
       response => {
         this.customer_types = response.customer_types;
         this.doctor_types = response.doctor_types;
+        this.customer_qualifications = response.customer_qualifications;
+        this.qualification_options = this.customer_qualifications.map(function (cusQual) {
+          return {
+            id: cusQual.id, name: cusQual.name
+          };
+        });
       },
       err => {
       }
@@ -150,6 +177,11 @@ export class UpdateCustomerComponent extends FormComponent {
       let data = this.form.value;
       if (data.doctor_type_id === 0)
         data.doctor_type_id = null;
+
+      if (data.qualification_ids === 0)
+        data.qualification_ids = null;
+
+      data.qualification_ids = this.qualification_ids;
 
       // upate customer
       this.customerService.update(data, this.id).subscribe(
@@ -261,4 +293,5 @@ export class UpdateCustomerComponent extends FormComponent {
     this.hq_brick_id = hq_brick_id;
     this.form.patchValue({hq_brick_id: hq_brick_id});
   }
+
 }

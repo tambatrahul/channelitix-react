@@ -38,6 +38,7 @@ import {UserInput} from './V2/user/user_input';
 import {UserInputPos} from './visit/user_input_pos';
 import {Expense} from './expense/expense';
 import {DoctorType} from './customer/doctor_type';
+import {CustomerQualification} from './customer/customer_qualification';
 
 export class Result {
 
@@ -105,6 +106,9 @@ export class Result {
   doctor_types: DoctorType[];
   customer_grades: Grade[];
   grades: Grade[];
+  customer_qualifications: CustomerQualification[];
+  customer_qualification: CustomerQualification[];
+
 
   // total number
   total: number;
