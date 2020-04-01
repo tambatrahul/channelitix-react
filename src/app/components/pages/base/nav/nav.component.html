@@ -412,13 +412,13 @@
     </template>
     <template [ngIf]="_auth_service.user.role_str == 'THIRD_PARTY'">
       <ul class="list-accordion">
-        <li *roleCheck="ROLE_CSM">
-          <a class="waves-effect"
-             [routerLink]="'/dashboard'">
-            <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>
-            <span class="nav-label">Dashboard</span>
-          </a>
-        </li>
+<!--        <li *roleCheck="ROLE_CSM">-->
+<!--          <a class="waves-effect"-->
+<!--             [routerLink]="'/dashboard'">-->
+<!--            <span class="nav-icon"><i class="fa fa-bar-chart"></i></span>-->
+<!--            <span class="nav-label">Dashboard</span>-->
+<!--          </a>-->
+<!--        </li>-->
         <li *roleCheck="ROLE_CSM">
           <a>
                     <span class="nav-icon">
@@ -506,12 +506,12 @@
                 <span class="nav-label">Executive Summary</span>
               </a>
             </li>
-            <li>
-              <a class="waves-effect" routerLink="/expenses">
-                <span class="nav-icon"><i class="fa fa-building-o"></i></span>
-                <span class="nav-label">Expense Report</span>
-              </a>
-            </li>
+<!--            <li>-->
+<!--              <a class="waves-effect" routerLink="/expenses">-->
+<!--                <span class="nav-icon"><i class="fa fa-building-o"></i></span>-->
+<!--                <span class="nav-label">Expense Report</span>-->
+<!--              </a>-->
+<!--            </li>-->
           </ul>
         </li>
 <!--        <li>-->
