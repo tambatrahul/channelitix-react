@@ -88,6 +88,15 @@ export class BrickComponent extends ListComponent {
             'territories', this._territory_id, 'bricks', 'update', id]);
     }
 
+  /**
+   * Create Brick
+   */
+  createBrick() {
+    this._router.navigate(['/territories/zones', this._zone_id, 'regions', this._region_id,
+      'areas', this._area_id, 'headquarters', this._headquarter_id,
+      'territories', this._territory_id, 'bricks', 'create']);
+  }
+
     /**
      * deactivate Brick
      *

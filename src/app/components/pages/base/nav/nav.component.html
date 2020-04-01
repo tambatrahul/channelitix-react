@@ -446,73 +446,80 @@
               </a>
             </li>
             <li>
-              <a class="waves-effect" routerLink="/orders/managers">
+              <a class="waves-effect" routerLink="/orders/managers/sync">
                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                 <span class="nav-label">Manager POB Report</span>
               </a>
             </li>
+<!--            <li>-->
+<!--              <a class="waves-effect" routerLink="/orders/managers">-->
+<!--                <span class="nav-icon"><i class="fa fa-map-signs"></i></span>-->
+<!--                <span class="nav-label">Manager POB Report</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a class="waves-effect" routerLink="/tours">-->
+<!--                <span class="nav-icon"><i class="fa fa-map-marker"></i></span>-->
+<!--                <span class="nav-label">Tour Program Report</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a class="waves-effect" routerLink="/users/summary">-->
+<!--                <span class="nav-icon"><i class="fa fa-bar-chart-o"></i></span>-->
+<!--                <span class="nav-label">User Reporting Summary</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li *roleCheck="ROLE_CSM">-->
+<!--              <a class="waves-effect" routerLink="/reports/brick_wise_customers">-->
+<!--                <span class="nav-icon"><i class="fa fa-table"></i></span>-->
+<!--                <span class="nav-label">Customer Distribution Report</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li *roleCheck="ROLE_CSM">-->
+<!--              <a class="waves-effect" routerLink="/reports/hq_wise_visits">-->
+<!--                <span class="nav-icon"><i class="fa fa-table"></i></span>-->
+<!--                <span class="nav-label">Coverage Report</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li *roleCheck="ROLE_CSM">-->
+<!--              <a class="waves-effect" routerLink="/reports/stockist_wise_pob">-->
+<!--                <span class="nav-icon"><i class="fa fa-table"></i></span>-->
+<!--                <span class="nav-label">Stockist POB Report</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li *roleCheck="ROLE_CSM">-->
+<!--              <a class="waves-effect" routerLink="/reports/productivity_analysis">-->
+<!--                <span class="nav-icon"><i class="fa fa-table"></i></span>-->
+<!--                <span class="nav-label">Productivity Analysis</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li *roleCheck="ROLE_CSM">-->
+<!--              <a class="waves-effect" routerLink="/dashboard/brick_coverage">-->
+<!--                <span class="nav-icon"><i class="fa fa-calendar"></i></span>-->
+<!--                <span class="nav-label">Brick Working Report</span>-->
+<!--              </a>-->
+<!--            </li>-->
+            <li *roleCheck="ROLE_CSM">
+              <a class="waves-effect" routerLink="/reports/executive_summary"
+                 *ngIf="environment.envName != 'sk_group'">
+                <span class="nav-icon"><i class="fa fa-table"></i></span>
+                <span class="nav-label">Executive Summary</span>
+              </a>
+            </li>
             <li>
-              <a class="waves-effect" routerLink="/tours">
-                <span class="nav-icon"><i class="fa fa-map-marker"></i></span>
-                <span class="nav-label">Tour Program Report</span>
-              </a>
-            </li>
-            <li>
-              <a class="waves-effect" routerLink="/users/summary">
-                <span class="nav-icon"><i class="fa fa-bar-chart-o"></i></span>
-                <span class="nav-label">User Reporting Summary</span>
-              </a>
-            </li>
-            <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/reports/brick_wise_customers">
-                <span class="nav-icon"><i class="fa fa-table"></i></span>
-                <span class="nav-label">Customer Distribution Report</span>
-              </a>
-            </li>
-            <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/reports/hq_wise_visits">
-                <span class="nav-icon"><i class="fa fa-table"></i></span>
-                <span class="nav-label">Coverage Report</span>
-              </a>
-            </li>
-            <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/reports/stockist_wise_pob">
-                <span class="nav-icon"><i class="fa fa-table"></i></span>
-                <span class="nav-label">Stockist POB Report</span>
-              </a>
-            </li>
-            <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/reports/productivity_analysis">
-                <span class="nav-icon"><i class="fa fa-table"></i></span>
-                <span class="nav-label">Productivity Analysis</span>
-              </a>
-            </li>
-            <li *roleCheck="ROLE_CSM">
-              <a class="waves-effect" routerLink="/dashboard/brick_coverage">
-                <span class="nav-icon"><i class="fa fa-calendar"></i></span>
-                <span class="nav-label">Brick Working Report</span>
+              <a class="waves-effect" routerLink="/expenses">
+                <span class="nav-icon"><i class="fa fa-building-o"></i></span>
+                <span class="nav-label">Expense Report</span>
               </a>
             </li>
           </ul>
         </li>
-        <li>
-          <a class="waves-effect" routerLink="/expenses">
-            <span class="nav-icon"><i class="fa fa-building-o"></i></span>
-            <span class="nav-label">Expense Report</span>
-          </a>
-        </li>
-        <li>
-          <a class="waves-effect" routerLink="/customers">
-            <span class="nav-icon"><i class="fa fa-database"></i></span>
-            <span class="nav-label">Customer Database</span>
-          </a>
-        </li>
-        <li>
-          <a class="waves-effect" routerLink="/v2/users">
-            <span class="nav-icon"><i class="fa fa-address-book"></i></span>
-            <span class="nav-label">User Management</span>
-          </a>
-        </li>
+<!--        <li>-->
+<!--          <a class="waves-effect" routerLink="/v2/users">-->
+<!--            <span class="nav-icon"><i class="fa fa-address-book"></i></span>-->
+<!--            <span class="nav-label">User Management</span>-->
+<!--          </a>-->
+<!--        </li>-->
       </ul>
     </template>
 

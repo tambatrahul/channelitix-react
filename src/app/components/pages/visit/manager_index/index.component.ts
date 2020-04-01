@@ -211,6 +211,7 @@ export class ManagerVisitComponent extends BaseAuthComponent {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
                     m.visits.forEach(function (vis, index) {
+                        z.visits[index].visit_count += vis.visit_count;
                         z.visits[index].visit_total_count += vis.visit_count;
                     });
                 }
@@ -227,8 +228,9 @@ export class ManagerVisitComponent extends BaseAuthComponent {
                 zone_managers[0].children.push(m);
                 m.visits.forEach(function (att, index) {
                     zone_managers[0].visits[index].visit_count += att.visit_count;
+                    zone_managers[0].visits[index].visit_total_count += att.visit_count;
                 });
-                zone_managers[0].cse_count += m.children.length
+                zone_managers[0].cse_count += m.children.length;
 
             }
         }
@@ -243,8 +245,9 @@ export class ManagerVisitComponent extends BaseAuthComponent {
                 zone_managers[0].children.push(m);
                 m.visits.forEach(function (att, index) {
                     zone_managers[0].visits[index].visit_count += att.visit_count;
+                    zone_managers[0].visits[index].visit_total_count += att.visit_count;
                 });
-                zone_managers[0].cse_count += m.children.length
+                zone_managers[0].cse_count += m.children.length;
 
             }
         }
@@ -255,12 +258,14 @@ export class ManagerVisitComponent extends BaseAuthComponent {
             third_party_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
             third_party_user.children = [];
             third_party_user.cse_count = 0;
-            for (let m of managers) {
+          zone_managers.push(third_party_user);
+          for (let m of managers) {
                 zone_managers[0].children.push(m);
                 m.visits.forEach(function (att, index) {
                     zone_managers[0].visits[index].visit_count += att.visit_count;
+                    zone_managers[0].visits[index].visit_total_count += att.visit_count;
                 });
-                zone_managers[0].cse_count += m.children.length
+                zone_managers[0].cse_count += m.children.length;
             }
         }
 

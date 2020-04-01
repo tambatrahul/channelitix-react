@@ -90,7 +90,6 @@ export class DeviationReportComponent extends BaseAuthComponent {
         response => {
           this.loading = false;
 
-          console.log(response.attendances);
           // get attendances
           this.attendances = response.attendances.map(att => new Attendance(att));
 
@@ -114,7 +113,6 @@ export class DeviationReportComponent extends BaseAuthComponent {
 
   prepareData(visits: Visit[], visited_brick: Visit[], orders: Order[], tours: Tour[]) {
     this.attendances.map(attendance => {
-      console.log(attendance.date);
       visited_brick.map(visit => {
         if (visit.visit_date == attendance.date) {
           // Visited Brick

@@ -144,15 +144,15 @@ export class LeaveReportComponent extends ListComponent {
     }
 
     // if user is zone manager add it to list
-    if (this._service.user.role_str == this.ROLE_RSM) {
+    if (this._service.user.role_str == this.ROLE_RSM || this._service.user.role_str == this.ROLE_THIRD_PARTY ) {
       this._service.user.children = [];
-      zone_managers.push(this._service.user)
+      zone_managers.push(this._service.user);
     }
 
     // if user is zone manager add it to list
     if (this._service.user.role_str == this.ROLE_CSM) {
       this._service.user.children = [];
-      managers.push(this._service.user)
+      managers.push(this._service.user);
     }
 
     // add children to managers
@@ -168,6 +168,9 @@ export class LeaveReportComponent extends ListComponent {
     for (let z of zone_managers) {
       for (let m of managers) {
         if (m.manager_id == z.id) {
+          z.children.push(m);
+        }
+        if (this._service.user.role_str == this.ROLE_THIRD_PARTY && m.hq_region_id == z.hq_region_id ) {
           z.children.push(m);
         }
       }

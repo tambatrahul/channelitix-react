@@ -196,6 +196,21 @@ export class TourComponent extends BaseMonthlyComponent {
       }
     }
 
+    if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
+      let abbott_user = this._service.user;
+      abbott_user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
+      abbott_user.children = [];
+      abbott_user.cse_count = 0;
+      zone_managers.push(abbott_user);
+      for (let m of managers) {
+        zone_managers[0].children.push(m);
+        m.tours.forEach(function (att, index) {
+          zone_managers[0].tours[index].t_count += att.t_count;
+        });
+        zone_managers[0].cse_count += m.children.length;
+      }
+    }
+
     // depending on list show view
     if (zone_managers.length > 0)
       this.managers = zone_managers;
