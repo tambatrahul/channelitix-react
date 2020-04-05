@@ -8,6 +8,9 @@ import {Customer} from "../../../../models/customer/customer";
 import {SapStockistSale} from "../../../../models/SAP/sap_stockist_sale";
 import {Observable} from "rxjs";
 import {Visit} from "../../../../models/visit/visit";
+import {environment} from '../../../../../environments/environment';
+import {WorkType} from '../../../../models/attendance/work_type';
+import {Brand} from '../../../../models/order/brand';
 
 declare let jQuery: any;
 
@@ -19,6 +22,8 @@ export class SapStockistWiseComponent extends ListComponent {
 
   excel_loaded: boolean = false;
 
+  brands: Brand[] = [];
+
   /**
    * year and month for calendar
    * @type {number}
@@ -28,6 +33,8 @@ export class SapStockistWiseComponent extends ListComponent {
   public year: number;
   month_str: string;
   prev_month_str: string;
+  public brand_name: string;
+  public brand_id: number = 0;
 
   /**
    * region, area & headquarter
@@ -59,6 +66,7 @@ export class SapStockistWiseComponent extends ListComponent {
   ngOnInit() {
     this.month = moment().month();
     this.year = moment().year();
+    this.brand_id = 1;
 
     if (this._service.user.role_id == 3) {
       this.region_id = this._service.user.hq_region_id;
@@ -91,9 +99,10 @@ export class SapStockistWiseComponent extends ListComponent {
   fetch() {
     if ((this.month || this.month == 0) && this.year) {
       this.loading = true;
+
       Observable.forkJoin(
-        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id),
-        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id)).subscribe(
+        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id),
+        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id)).subscribe(
         response => {
           let regions = response[1].regions.map(region => new Region(region));
 
@@ -108,12 +117,12 @@ export class SapStockistWiseComponent extends ListComponent {
           let visits_this_month_manager = response[0].visits_this_month_manager.map(visit => new Visit(visit));
           let visits_this_month_rep = response[0].visits_this_month_rep.map(visit => new Visit(visit));
           let current_month_sale = response[0].current_month_sale.map(cms => new SapStockistSale(cms));
-
+          this.brands = response[0].brands;
           // get customers
           let customers = response[1].customers.map(cus => new Customer(cus));
 
           this.prepareData(regions, customers, yearly_sales, yearly_dexona_sales, last_month_sale,
-            last_month_dexona_sale, visits_this_month_manager, visits_this_month_rep, current_month_sale);
+            last_month_dexona_sale, visits_this_month_manager, visits_this_month_rep, current_month_sale, this.brands);
 
           this.loading = false;
 
@@ -145,12 +154,14 @@ export class SapStockistWiseComponent extends ListComponent {
    * @param yearly_dexona_sales
    * @param last_month_sale
    * @param last_month_dexona_sale
-   * @param visits_this_month
+   * @param visits_this_month_manger
+   * @param visits_this_month_rep
    * @param current_month_sale
+   * @param brands
    */
   prepareData(regions: Region[], customers: Customer[], yearly_sales: SapStockistSale[], yearly_dexona_sales: SapStockistSale[],
               last_month_sale: SapStockistSale[], last_month_dexona_sale: SapStockistSale[], visits_this_month_manger: Visit[],
-              visits_this_month_rep: Visit[], current_month_sale: SapStockistSale[]) {
+              visits_this_month_rep: Visit[], current_month_sale: SapStockistSale[], brands: Brand[]) {
 
     // add customers  to individual hq
 
@@ -250,6 +261,12 @@ export class SapStockistWiseComponent extends ListComponent {
       });
     }
 
+    brands.map(br => {
+      if (this.brand_id == br.id) {
+          this.brand_name = br.name;
+      }
+    });
+
     this.regions = regions;
   }
 
@@ -274,6 +291,7 @@ export class SapStockistWiseComponent extends ListComponent {
     this.zone_id = zone_id;
     this.regionChanged(0);
     this.fetch();
+
   }
 
   /**
@@ -284,6 +302,7 @@ export class SapStockistWiseComponent extends ListComponent {
     this.region_id = region_id;
     this.areaChanged(0);
     this.fetch();
+
   }
 
   /**
@@ -294,6 +313,7 @@ export class SapStockistWiseComponent extends ListComponent {
     this.area_id = area_id;
     this.headquarterChanged(0);
     this.fetch();
+
   }
 
   /**
@@ -303,5 +323,17 @@ export class SapStockistWiseComponent extends ListComponent {
   headquarterChanged(headquarter_id) {
     this.headquarter_id = headquarter_id;
     this.fetch();
+
+  }
+
+  /**
+   * brand Filter
+   *
+   * @param brand_id
+   */
+  brandChanged(brand_id) {
+    this.brand_id = brand_id;
+    this.fetch();
+
   }
 }
