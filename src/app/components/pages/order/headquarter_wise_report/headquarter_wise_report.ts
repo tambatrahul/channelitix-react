@@ -33,6 +33,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   public zone_id: number = 0;
   public region_id: number = 0;
   public area_id: number = 0;
+  public department_id: number = 0;
 
 
   /**
@@ -71,6 +72,8 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
       if (this._service.user.role_id == 7) {
         this.zone_id = 1;
       }
+      if (this._service.user.department.length > 0)
+        this.department_id = this._service.user.department[0].pivot.department_id;
     } else {
       if (this._service.user.role_id == 4) {
         this.region_id = this._service.user.hq_region_id;
@@ -96,7 +99,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   fetch() {
     if (this.month >= 0 && this.year) {
       this.loading = true;
-      this.reportService.region_wise_sales(this.month + 1, this.year, this.region_id, this.area_id, null, this.zone_id).subscribe(
+      this.reportService.region_wise_sales(this.month + 1, this.year, this.region_id, this.area_id, null, this.zone_id, this.department_id).subscribe(
         response => {
           let regions = response.regions.map(region => new Region(region));
           let secondary_sales = response.secondary_sales.map(sale => new SecondarySale(sale));
@@ -230,7 +233,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
     this.zone_id = zone_id;
     this.regionChanged(0);
   }
-  
+
   /**
    * when region is changed filter list of customer
    * @param region_id
@@ -247,6 +250,15 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
    */
   areaChanged(area_id) {
     this.area_id = area_id;
+    this.fetch();
+  }
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
     this.fetch();
   }
 }

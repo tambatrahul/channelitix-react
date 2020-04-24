@@ -41,8 +41,10 @@ export class StockistWisePobComponent extends ListComponent {
     public region_id: number = 0;
     public area_id: number = 0;
     public headquarter_id: number = 0;
+    public department_id: number = 0;
 
-    /**
+
+  /**
      * customer types
      *
      * @type {Array}
@@ -78,6 +80,11 @@ export class StockistWisePobComponent extends ListComponent {
 
         if (this._service.user.role_str == 'ZONE_MNG' && this.environment.envName == 'sk_group')
             this.region_id = 2;
+
+        if (this._service.user.department.length > 0)
+           this.department_id = this._service.user.department[0].pivot.department_id;
+
+        this.fetch();
     }
 
     /**
@@ -110,7 +117,7 @@ export class StockistWisePobComponent extends ListComponent {
                 });
             } else {
                 this.reportService.stockist_wise_pob(this.month + 1, this.year,
-                  this.zone_id, this.region_id, this.area_id, this.headquarter_id).subscribe(
+                  this.zone_id, this.region_id, this.area_id, this.headquarter_id, this.department_id).subscribe(
                     response => {
                         this.loading = false;
 
@@ -283,4 +290,14 @@ export class StockistWisePobComponent extends ListComponent {
         this.headquarter_id = headquarter_id;
         this.fetch();
     }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.fetch();
+  }
 }

@@ -55,6 +55,8 @@ export class SecondarySaleCreateComponent extends ListComponent {
    */
   public _customer_id: number;
   public customer: Customer;
+  public _department_id: number = 0;
+
 
   /**
    * secondary sales
@@ -81,8 +83,11 @@ export class SecondarySaleCreateComponent extends ListComponent {
    */
   ngOnInit() {
     super.ngOnInit();
+
+
     this.current_month = moment().month();
     this.current_year = moment().year();
+
   }
 
   /**
@@ -90,10 +95,11 @@ export class SecondarySaleCreateComponent extends ListComponent {
    */
   fetch() {
     this.route.params.subscribe(params => {
+      this._department_id = params['department_id'];
       this._customer_id = params['id'];
       this.month = parseInt(params['month']);
       this.year = parseInt(params['year']);
-      this.fetchSales()
+      this.fetchSales();
     });
   }
 
@@ -102,7 +108,7 @@ export class SecondarySaleCreateComponent extends ListComponent {
    */
   fetchSales() {
     this.loading = true;
-    this.saleService.forCustomer(this._month + 1, this.year, this._customer_id).subscribe(
+    this.saleService.forCustomer(this._month + 1, this.year, this._customer_id, this._department_id).subscribe(
       response => {
         this.loading = false;
 
@@ -162,7 +168,6 @@ export class SecondarySaleCreateComponent extends ListComponent {
         }));
       }
     }
-
     secondary_sales.map(ss => {
       primary_sales.map(ps => {
         if (ps.prd_code == ss.product.code) {

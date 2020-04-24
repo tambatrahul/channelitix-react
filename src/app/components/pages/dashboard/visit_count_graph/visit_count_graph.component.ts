@@ -48,6 +48,14 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     this.fetchVisitOrdreTrend();
   }
 
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.brand_id = 0;
+    this.fetchVisitOrdreTrend();
+  }
+
   /**
    * region id for filter
    */
@@ -146,7 +154,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     if (self._dates && self._dates.from_date && self._dates.to_date) {
       self.loading = true;
       self.reportService.visit_order_trend(self._dates.from_date, self._dates.to_date, self._dates.year,
-        self._region_ids, self._area_ids, self._headquarter_ids, self.product_id, self.brand_id, self._zone_ids).subscribe(
+        self._region_ids, self._area_ids, self._headquarter_ids, self.product_id, self.brand_id, self._zone_ids, self._department_id).subscribe(
         response => {
           self.visits = response.visits.map(function (visit) {
             return new Visit(visit);

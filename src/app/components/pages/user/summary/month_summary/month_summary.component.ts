@@ -59,6 +59,14 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     this.reset();
     this.fetch();
   }
+
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.reset();
+    this.fetch();
+  }
   //
   // /**
   //  * user to fetch data
@@ -108,7 +116,7 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     if (this._user_id && this._year) {
       this.loading = true;
 
-      this.reportService.month_summary(this._month + 1, this._year, this._user_id).subscribe(
+      this.reportService.month_summary(this._month + 1, this._year, this._user_id, this._department_id).subscribe(
         response => {
           this.loading = false;
 

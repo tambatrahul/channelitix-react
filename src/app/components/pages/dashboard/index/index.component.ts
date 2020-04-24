@@ -44,6 +44,7 @@ export class DashBoardComponent extends BaseComponent {
   public total_pob_for_sale: number = 0;
   public brand_id: number = 0;
   public product_id: number = 0;
+  public department_id: number = 0;
   public refresh;
 
   /**
@@ -71,7 +72,7 @@ export class DashBoardComponent extends BaseComponent {
     if (self.dates.from_date && self.dates.to_date) {
       self.loading = true;
       self.reportService.product_wise_actule_sale(self.dates.from_date, self.dates.to_date, self.dates.year,
-        self.region_ids, self.area_ids, self.headquarter_ids, self.zone_ids).subscribe(
+        self.region_ids, self.area_ids, self.headquarter_ids, self.zone_ids, self.department_id).subscribe(
         response => {
           self.forData(new Performance(response.performance));
           self.loading = false;
@@ -101,6 +102,10 @@ export class DashBoardComponent extends BaseComponent {
       this.region_ids.push(this._service.user.hq_region_id);
     if (this._service.user.hq_area_id)
       this.area_ids.push(this._service.user.hq_area_id);
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
 
     this.fetchActualSale();
   }
@@ -211,5 +216,15 @@ export class DashBoardComponent extends BaseComponent {
    */
   headquarterSelected(headquarter_ids: Array<number>) {
     this.headquarter_ids = headquarter_ids;
+  }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.fetchActualSale();
   }
 }

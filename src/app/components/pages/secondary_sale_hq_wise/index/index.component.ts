@@ -25,6 +25,8 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
   public month: number;
   public year: number;
   btn_loading: boolean = false;
+  public department_id: number = 0;
+
 
   /**
    * zone
@@ -59,7 +61,7 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
   fetchSecondary = AppConstants.debounce(function () {
     const self = this;
     self.loading = true;
-    self.saleService.hq_wise(self.month + 1, self.year, self.zone_id).subscribe(
+    self.saleService.hq_wise(self.month + 1, self.year, self.zone_id, self.department_id).subscribe(
       response => {
         self.loading = false;
         // convert to models
@@ -107,6 +109,9 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
     if (this._service.user.hq_zone_id)
       this.zone_id = this._service.user.hq_zone_id;
 
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
     this.month = moment().month() - 1;
     this.year = moment().year();
     if (this.month < 0) {
@@ -116,6 +121,10 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
     super.ngOnInit();
     if(this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;
+
+
+    this.fetch();
+
   }
 
   /**
@@ -200,12 +209,22 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
     this.zone_id = zone_id;
     this.fetch();
   }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.fetch();
+  }
   /**
    * Download Excel For Executive Summary
    */
   download() {
     this.btn_loading = true;
-    this.saleService.secondary_sale_excel_download(this.month + 1, this.year, this.zone_id).subscribe(
+    this.saleService.secondary_sale_excel_download(this.month + 1, this.year, this.zone_id, this.department_id).subscribe(
       response => {
         this.btn_loading = false;
         let blob: Blob = response.blob();

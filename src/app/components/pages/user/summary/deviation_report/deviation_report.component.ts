@@ -61,6 +61,14 @@ export class DeviationReportComponent extends BaseAuthComponent {
   _month: number;
   _year: number;
 
+
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetch();
+  }
+
   @Input()
   set month(month: number) {
     this._month = month;
@@ -86,7 +94,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
   fetch() {
     if (this._user_id && this._month && this._year) {
       this.loading = true;
-      this.reportService.deviation_report(this._month + 1, this._year, this._user_id).subscribe(
+      this.reportService.deviation_report(this._month + 1, this._year, this._user_id, this._department_id).subscribe(
         response => {
           this.loading = false;
 

@@ -27,6 +27,8 @@ export class PrimarySaleComponent extends ListComponent {
   public region_id: number = 0;
   public area_id: number = 0;
   public headquarter_id: number = 0;
+  public department_id: number = 0;
+
 
   /**
    * get title of table
@@ -72,6 +74,10 @@ export class PrimarySaleComponent extends ListComponent {
     if (this._service.user.role_id == 7) {
       this.zone_id = 1;
     }
+
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
 
     super.ngOnInit();
   }
@@ -125,5 +131,14 @@ export class PrimarySaleComponent extends ListComponent {
    */
   headquarterChanged(headquarter_id) {
     this.headquarter_id = headquarter_id;
+  }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
   }
 }

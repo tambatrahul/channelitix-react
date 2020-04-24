@@ -14,6 +14,12 @@
   <!-- pages layout -->
   <div class="row">
     <div class="col-md-2 col-md-push-10">
+      <div class="row" style="margin-bottom: 15px;">
+        <div class="col-xs-12" *ngIf="environment.envName == 'geo' && this._service.user.department.length > 1">
+          <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
+                             (onValueChanged)="departmentChanged($event)"></department-select>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-12">
           <button class="btn btn-primary btn-block btn-xs" (click)="pageRefresh()">
@@ -64,13 +70,13 @@
     </div>
     <div class="col-md-10 col-md-pull-2">
       <dashboard-count [dates]="dates" [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                       [headquarter_ids]="headquarter_ids" [productive_calls]="productive_calls"></dashboard-count>
+                       [department_id]="department_id" [headquarter_ids]="headquarter_ids" [productive_calls]="productive_calls"></dashboard-count>
 
       <div class="row" *ngIf="environment.envName == 'geo'">
 
         <!-- Highest Call graph -->
         <div class="col-xs-12 col-md-6" *roleCheck="ROLE_CSM">
-          <till-month-chart [zone_ids]="zone_ids"
+          <till-month-chart [zone_ids]="zone_ids" [department_id]="department_id"
                             [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
                             [headquarter_ids]="headquarter_ids"></till-month-chart>
         </div>
@@ -78,7 +84,7 @@
         <div class="col-xs-12 col-md-6" *roleCheck="ROLE_CSM">
           <milestone-sales-tracking-graph [dates]="dates"
                                           [refresh]="refresh"
-                                          [zone_ids]="zone_ids"
+                                          [zone_ids]="zone_ids" [department_id]="department_id"
                                           [region_ids]="region_ids" [area_ids]="area_ids"
                                           [headquarter_ids]="headquarter_ids"></milestone-sales-tracking-graph>
         </div>
@@ -90,7 +96,7 @@
         <div class="col-xs-12 col-md-9" *roleCheck="ROLE_CSM">
           <visit-count-graph [dates]="dates"
                              (totalVisitOrders)="totalVisitOrders($event)" [refresh]="refresh"
-                             [zone_ids]="zone_ids"
+                             [zone_ids]="zone_ids" [department_id]="department_id"
                              [region_ids]="region_ids" [area_ids]="area_ids"
                              [headquarter_ids]="headquarter_ids"></visit-count-graph>
         </div>
@@ -213,7 +219,7 @@
   <div class="row" *ngIf="environment.envName != 'sk_group'">
     <div class="col-xs-12 col-md-6">
       <monthly-primary-secondary-target [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                        [headquarter_ids]="headquarter_ids">
+                                        [department_id]="department_id" [headquarter_ids]="headquarter_ids">
 
       </monthly-primary-secondary-target>
     </div>
@@ -227,7 +233,7 @@
     <div class="row" *ngIf="environment.envName != 'sk_group'">
       <div class="col-xs-12 col-md-12">
         <product-wise-sale [year]="year" [month]="month" [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids"
-                           [refresh]="refresh"
+                           [refresh]="refresh" [department_id]="department_id"
                            [headquarter_ids]="headquarter_ids"></product-wise-sale>
       </div>
     </div>

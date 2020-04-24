@@ -39,6 +39,7 @@ import {UserInputPos} from './visit/user_input_pos';
 import {Expense} from './expense/expense';
 import {DoctorType} from './customer/doctor_type';
 import {CustomerQualification} from './customer/customer_qualification';
+import {Department} from './user/department';
 
 export class Result {
 
@@ -142,6 +143,7 @@ export class Result {
 
   // brands
   brands: Brand[] = [];
+  departments: Department[] = [];
 
   // priorities
   priorities: Priority[] = [];

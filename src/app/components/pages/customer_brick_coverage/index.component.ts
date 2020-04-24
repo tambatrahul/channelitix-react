@@ -52,6 +52,8 @@ export class CustomerBrickCoverageComponent extends ListComponent {
   public _headquarters: Headquarter[] = [];
   public _areas: Area[] = [];
   btn_loading: boolean = false;
+  public department_id: number = 0;
+
 
   /**
    * User Component Cons3tructor
@@ -98,6 +100,10 @@ export class CustomerBrickCoverageComponent extends ListComponent {
       }
 
     }
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
   }
 
   /**
@@ -111,7 +117,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         5: {order_total: 0}, 6: {order_total: 0}, 7: {order_total: 0}, 8: {order_total: 0},
         9: {order_total: 0}, 10: {order_total: 0}, 11: {order_total: 0}, 12: {order_total: 0}
       };
-      this.reportService.brick_coverage(this.year, this.headquarter_id).subscribe(
+      this.reportService.brick_coverage(this.year, this.headquarter_id, this.department_id).subscribe(
         response => {
           // get bricks
           let bricks = response.bricks.map(brick => new Brick(brick));
@@ -267,6 +273,16 @@ export class CustomerBrickCoverageComponent extends ListComponent {
   headquarterChanged(headquarter_id) {
     this.headquarter_id = headquarter_id;
     this.territories = [];
+  }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.fetch();
   }
 
   /**

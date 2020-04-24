@@ -43,6 +43,8 @@ export class SapStockistWiseComponent extends ListComponent {
   public region_id: number = 0;
   public area_id: number = 0;
   public headquarter_id: number = 0;
+  public department_id: number = 0;
+
 
 
   /**
@@ -66,7 +68,6 @@ export class SapStockistWiseComponent extends ListComponent {
   ngOnInit() {
     this.month = moment().month();
     this.year = moment().year();
-    this.brand_id = 1;
 
     if (this._service.user.role_id == 3) {
       this.region_id = this._service.user.hq_region_id;
@@ -88,6 +89,17 @@ export class SapStockistWiseComponent extends ListComponent {
       this.zone_id = 1;
     }
 
+    if (this._service.user.department.length > 0) {
+      this.department_id = this._service.user.department[0].pivot.department_id;
+    }
+
+    if (this.department_id == 2) {
+      this.brand_id = 4;
+    }
+
+    this.brand_id = 1;
+
+
     this.month_str = moment().month(this.month).format('MMM');
     this.prev_month_str = moment().month(this.month).subtract(1).format('MMM');
     super.ngOnInit();
@@ -101,8 +113,8 @@ export class SapStockistWiseComponent extends ListComponent {
       this.loading = true;
 
       Observable.forkJoin(
-        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id),
-        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id)).subscribe(
+        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id, this.department_id),
+        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id, this.department_id)).subscribe(
         response => {
           let regions = response[1].regions.map(region => new Region(region));
 
@@ -335,5 +347,19 @@ export class SapStockistWiseComponent extends ListComponent {
     this.brand_id = brand_id;
     this.fetch();
 
+  }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    if (this.department_id == 2)
+      this.brand_id = 4;
+    if (this.department_id == 1)
+      this.brand_id = 1;
+    this.fetch();
   }
 }

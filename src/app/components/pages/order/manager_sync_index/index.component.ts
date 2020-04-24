@@ -44,8 +44,11 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
      */
     public manager_id: number = 0;
 
+    public department_id: number = 0;
 
-    /**
+
+
+  /**
      * year and month for calendar
      * @type {number}
      */
@@ -101,7 +104,11 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
      */
     ngOnInit() {
         super.ngOnInit();
-        this.month = moment().month();
+
+      if (this._service.user.department.length > 0)
+        this.department_id = this._service.user.department[0].pivot.department_id;
+
+      this.month = moment().month();
         this.year = moment().year();
         this.fetchData();
     }
@@ -112,8 +119,8 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
     fetchData() {
         this.loading = true;
         Observable.forkJoin(
-            this.orderService.area_manager_sync_orders(this.month + 1, this.year, this.role_id, this.manager_id),
-            this.orderService.region_manager_sync_orders(this.month + 1, this.year, this.role_id, this.manager_id)
+            this.orderService.area_manager_sync_orders(this.month + 1, this.year, this.role_id, this.manager_id, this.department_id),
+            this.orderService.region_manager_sync_orders(this.month + 1, this.year, this.role_id, this.manager_id , this.department_id)
         ).subscribe(data => {
 
             this.loading = false;
@@ -231,4 +238,14 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
         this.year = date.year;
         this.fetchData();
     }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.fetchData();
+  }
 }

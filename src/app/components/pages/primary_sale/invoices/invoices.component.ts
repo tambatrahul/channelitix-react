@@ -41,6 +41,12 @@ export class InvoicesComponent extends ListComponent {
     this.fetch();
   }
 
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetch();
+  }
     /**
      * region, area, headquarter
      */
@@ -122,7 +128,7 @@ export class InvoicesComponent extends ListComponent {
                 this.upload_excel.remove();
             this.loading = true;
             this.saleService.monthly_invoice(this._month + 1, this._year,
-                this._region_id, this._area_id, this._headquarter_id, this.page, this._zone_id).subscribe(
+                this._region_id, this._area_id, this._headquarter_id, this.page, this._zone_id, this._department_id).subscribe(
                 response => {
                     this.loading = false;
 

@@ -51,13 +51,16 @@ export class SecondarySaleService extends BaseService {
    * @param month
    * @param year
    * @param zone_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  hq_wise(month: number, year: number, zone_id?: number): Observable<Result> {
+  hq_wise(month: number, year: number, zone_id?: number, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('zone_id', String(zone_id ? zone_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
     // prepare url
     let url = this.getBaseUrl() + '/headquarter_wise/' + month + "/" + year;
 
@@ -71,12 +74,13 @@ export class SecondarySaleService extends BaseService {
    * @param month
    * @param year
    * @param customer_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  forCustomer(month: number, year: number, customer_id: number): Observable<Result> {
+  forCustomer(month: number, year: number, customer_id: number, department_id?: number): Observable<Result> {
 
     // prepare url
-    let url = this.getBaseUrl() + '/monthly/' + month + "/" + year + "/" + customer_id;
+    let url = this.getBaseUrl() + '/monthly/' + month + "/" + year + "/" + customer_id + "/" + department_id;
 
     // make server call
     return this.get(url, new RequestOptions());
@@ -90,15 +94,17 @@ export class SecondarySaleService extends BaseService {
    * @param hq_id
    * @param area_id
    * @param region_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  product_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number): Observable<Result> {
+  product_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('headquarter_id', String(hq_id ? hq_id : ''));
     params.set('area_id', String(area_id ? area_id : ''));
     params.set('region_id', String(region_id ? region_id : ''));
+    params.set('department_id', String(department_id ? department_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/product_wise/' + month + "/" + year;
@@ -173,9 +179,10 @@ export class SecondarySaleService extends BaseService {
    * @param area_id
    * @param region_id
    * @param product_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  stockist_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number, product_id: number): Observable<Result> {
+  stockist_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number, product_id: number, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -183,6 +190,7 @@ export class SecondarySaleService extends BaseService {
     params.set('area_id', String(area_id ? area_id : ''));
     params.set('region_id', String(region_id ? region_id : ''));
     params.set('product_id', String(product_id > 0 ? product_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/stockist_wise/' + month + "/" + year;
@@ -194,7 +202,7 @@ export class SecondarySaleService extends BaseService {
   /**
    * brick wise customers
    */
-  stockist_wise_excel_download(month: number, year: number, hq_id: number, area_id: number, region_id: number, product_id: number): Observable<Response> {
+  stockist_wise_excel_download(month: number, year: number, hq_id: number, area_id: number, region_id: number, product_id: number, department_id?: number): Observable<Response> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -202,6 +210,8 @@ export class SecondarySaleService extends BaseService {
     params.set('area_id', String(area_id ? area_id : ''));
     params.set('region_id', String(region_id ? region_id : ''));
     params.set('product_id', String(product_id > 0 ? product_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
 
     // get request with headers
     let content = this.addCredentials(new RequestOptions({
@@ -220,9 +230,10 @@ export class SecondarySaleService extends BaseService {
    * @param {number} area_id
    * @param {number} region_id
    * @param {number} customer_id
+   * @param {number} department_id
    * @returns {Observable<Result>}
    */
-  stockist_product_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number, customer_id: number): Observable<Result> {
+  stockist_product_wise(month: number, year: number, hq_id: number, area_id: number, region_id: number, customer_id: number, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -230,6 +241,7 @@ export class SecondarySaleService extends BaseService {
     params.set('area_id', String(area_id ? area_id : ''));
     params.set('region_id', String(region_id ? region_id : ''));
     params.set('customer_id', String(customer_id ? customer_id : ''));
+    params.set('department_id', String(department_id ? department_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/stockist_product_wise/' + month + "/" + year;
@@ -241,11 +253,12 @@ export class SecondarySaleService extends BaseService {
   /**
    * Excel download
    */
-  secondary_sale_excel_download(month: number, year: number, zone_id: number): Observable<Response> {
+  secondary_sale_excel_download(month: number, year: number, zone_id: number, department_id?: number): Observable<Response> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('zone_id', String(zone_id ? zone_id : ''));
+    params.set('department_id', String(department_id ? department_id : ''));
 
     // get request with headers
     let content = this.addCredentials(new RequestOptions({

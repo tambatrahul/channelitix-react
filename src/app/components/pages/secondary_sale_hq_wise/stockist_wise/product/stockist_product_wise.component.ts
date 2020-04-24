@@ -63,6 +63,7 @@ export class StockistProductWiseHqComponent extends ListComponent {
   public _hq_id: number;
   public _area_id: number;
   public _region_id: number;
+  public _department_id: number = 0;
   public headquarter: Headquarter;
 
   /**
@@ -93,6 +94,7 @@ export class StockistProductWiseHqComponent extends ListComponent {
    */
   fetch() {
     this.route.params.subscribe(params => {
+      this._department_id = params['department_id'];
       this._customer_id = params['customer_id'];
       this._hq_id = params['hq_id'];
       this._area_id = params['area_id'];
@@ -108,7 +110,7 @@ export class StockistProductWiseHqComponent extends ListComponent {
    */
   fetchSales() {
     this.loading = true;
-    this.saleService.stockist_product_wise(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id, this._customer_id).subscribe(
+    this.saleService.stockist_product_wise(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id, this._customer_id, this._department_id).subscribe(
       response => {
 
         this.loading = false;

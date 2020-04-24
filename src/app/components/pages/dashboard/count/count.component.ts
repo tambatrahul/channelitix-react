@@ -40,6 +40,13 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
     this._productive_calls = productive_calls;
   }
 
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetchCounts();
+  }
+
   /**
    * dates
    *
@@ -112,7 +119,7 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
     self.loading = true;
     if (self._dates.year) {
       self.reportService.counts(self._dates.from_date, self._dates.to_date, self._dates.year,
-        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids).subscribe(
+        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
         response => {
           self.counts = response;
           self.loading = false;

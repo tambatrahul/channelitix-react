@@ -20,6 +20,20 @@ export class BrandSelectComponent extends BaseSelectComponent {
   @Input()
   first_value: string = "All";
 
+  private _department_id: number = 0;
+
+
+  /**
+   * Department Filter
+   *
+   * @type {number}
+   */
+  @Input()
+  set department_id(department_id) {
+    this._department_id = department_id;
+    this.fetch();
+  }
+
 
   /**
    * Role Select Component with AuthService
@@ -33,15 +47,28 @@ export class BrandSelectComponent extends BaseSelectComponent {
    */
   fetch() {
     this.loading = true;
-    this.brandService.all()
-      .subscribe(
-        response => {
-          this.loading = false;
-          this.models = response.brands;
-        },
-        err => {
-          this.loading = false;
-        }
-      );
+    if (this._department_id > 0) {
+      this.brandService.brands(this._department_id)
+        .subscribe(
+          response => {
+            this.loading = false;
+            this.models = response.brands;
+          },
+          err => {
+            this.loading = false;
+          }
+        );
+    } else {
+      this.brandService.all()
+        .subscribe(
+          response => {
+            this.loading = false;
+            this.models = response.brands;
+          },
+          err => {
+            this.loading = false;
+          }
+        );
+    }
   }
 }

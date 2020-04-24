@@ -194,6 +194,7 @@ import {BrickBusinessTrackerComponent} from "./components/pages/brick/business_t
 import {MilestoneSaleTrackingGraphComponent} from "./components/pages/dashboard/milestone_sales_tracking/milestone_sales_tracking_graph.component";
 import {SkinliteSaleAnalysisGraphComponent} from "./components/pages/dashboard/skinlite_sales_analysis_graph/skinlite_sales_analysis_graph.component";
 import {BrandService} from "./services/brand.service";
+import {DepartmentService} from "./services/department.service";
 import {BrandSelectComponent} from "./components/form_elements/order/brand_select/brand-select.component";
 import {UserInputComponent} from "./components/pages/visit/user_input/user_input.component";
 import {UserInputAcknowledgementComponent} from "./components/pages/visit/user_input_acknowledgement/user_input_acknowledgement.component";
@@ -226,6 +227,8 @@ import {ExpenseComponent} from './components/pages/expense/admin/index/index.com
 import {FirstFortnightComponent} from './components/pages/expense/admin/first_fortnight_expense/first_fortnight_expense.component';
 import {SecondFortnightComponent} from './components/pages/expense/admin/second_fortnight_expense/second_fortnight_expense.component';
 import {ViewExpenseModalComponent} from './components/pages/expense/admin/components/view_expense_modal/view_expense_modal.component';
+import {DepartmentSelectComponent} from "./components/form_elements/user/department_select/department-select.component";
+import {SupportComponent} from "./components/pages/support/index.component";
 import {RequestToEditExpenseComponent} from './components/pages/expense/for_user/components/request_to_edit_expense/request_to_edit_expense.component';
 
 
@@ -322,6 +325,7 @@ enableProdMode();
     MissingCustomerListComponent,
     BrickBusinessTrackerComponent,
     DailyVisitPlanComponent,
+    SupportComponent,
 
     //dashboard report Component
     SalesComponent,
@@ -411,6 +415,7 @@ enableProdMode();
     ManagerSyncOrderComponent,
     InputSelectComponent,
     PriorityBrandSelectComponent,
+    DepartmentSelectComponent,
 
 
     // Abbott Stp Component
@@ -486,6 +491,7 @@ enableProdMode();
     PrimarySaleService,
     ProductService,
     BrandService,
+    DepartmentService,
     CustomerTypeService,
     ExpenseService,
 

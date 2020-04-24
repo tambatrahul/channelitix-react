@@ -42,10 +42,10 @@ export class OrderService extends BaseService {
   /**
    * get monthly report
    */
-  forUser(user_id: number, month: number, year: number, day?: number): Observable<Result> {
+  forUser(user_id: number, month: number, year: number, day?: number, department_id?: number): Observable<Result> {
 
     // prepare url
-    let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year;
+    let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year + "/" + department_id;
 
     // prepare get params
     let params = new URLSearchParams();
@@ -66,10 +66,11 @@ export class OrderService extends BaseService {
    * @param product_id
    * @param brand_id
    * @param zone_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
   monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number,
-                          product_id?: number, brand_id?: number, zone_id?: number): Observable<Result> {
+                          product_id?: number, brand_id?: number, zone_id?: number, department_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + "/monthly/forChildren/" + month + "/" + year + "/count";
@@ -81,6 +82,7 @@ export class OrderService extends BaseService {
     params.set('product_id', String(product_id > 0 ? product_id : ''));
     params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
     if (synergy || synergy == 0)
       params.set('synergy', String(synergy));
 
@@ -92,7 +94,7 @@ export class OrderService extends BaseService {
    * get all orders
    */
   orders_excel_download(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number,
-                        product_id?: number, brand_id?: number, zone_id?: number): Observable<Response> {
+                        product_id?: number, brand_id?: number, zone_id?: number, department_id?: number): Observable<Response> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -101,6 +103,7 @@ export class OrderService extends BaseService {
     params.set('product_id', String(product_id > 0 ? product_id : ''));
     params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
     if (synergy || synergy == 0)
       params.set('synergy', String(synergy));
 
@@ -144,9 +147,10 @@ export class OrderService extends BaseService {
    * @param year
    * @param role_id
    * @param manager_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  area_manager_sync_orders(month: number, year: number, role_id?: number, manager_id?: number,): Observable<Result> {
+  area_manager_sync_orders(month: number, year: number, role_id?: number, manager_id?: number, department_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + "/area_manager/" + month + "/" + year;
@@ -155,6 +159,8 @@ export class OrderService extends BaseService {
     let params = new URLSearchParams();
     params.set('role_id', String(role_id > 0 ? role_id : ''));
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
@@ -167,9 +173,10 @@ export class OrderService extends BaseService {
    * @param year
    * @param role_id
    * @param manager_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  region_manager_sync_orders(month: number, year: number, role_id?: number, manager_id?: number,): Observable<Result> {
+  region_manager_sync_orders(month: number, year: number, role_id?: number, manager_id?: number, department_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + "/region_manager/" + month + "/" + year;
@@ -178,6 +185,8 @@ export class OrderService extends BaseService {
     let params = new URLSearchParams();
     params.set('role_id', String(role_id > 0 ? role_id : ''));
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));

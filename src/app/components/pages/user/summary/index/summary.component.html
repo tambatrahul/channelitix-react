@@ -2,8 +2,12 @@
   <div class="col-xs-12 col-md-6">
     <h2>User Summary</h2>
   </div>
-  <div class="col-xs-12 col-md-3 col-md-offset-1">
+  <div class="col-xs-12 col-md-2">
     <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+  </div>
+  <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.department.length > 1">
+    <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
+                       (onValueChanged)="departmentChanged($event)"></department-select>
   </div>
 </div>
 <div class="task-container clearfix apps-container">
@@ -47,7 +51,7 @@
       <div class="task-body-content" *ngIf="user">
         <div class="task-info" #task_info>
           <template ngIf [ngIf]="user">
-            <summary-detail [user]="user" [month]="month" [year]="year"
+            <summary-detail [user]="user" [month]="month" [year]="year" [department_id]="department_id"
                             (showTour)="onShowTour($event)"></summary-detail>
           </template>
         </div>

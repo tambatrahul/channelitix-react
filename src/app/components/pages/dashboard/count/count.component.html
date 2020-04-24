@@ -34,9 +34,17 @@
   </div>
   <div class="col-md-3 col-xs-6" *ngIf="environment.envName != 'sk_group'">
     <div class="mini-stats-widget full-block-mini-chart">
-      <div class="mini-stats-top">
+<!--      <div class="mini-stats-top" *ngIf="environment.projectName != 'IKON'">-->
+<!--        <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>-->
+<!--        <span class="mini-stats-label">% Performance (Primary)</span>-->
+<!--      </div>-->
+      <div class="mini-stats-top" *ngIf="_department_id == 1">
         <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
-        <span class="mini-stats-label">% Performance (Primary)</span>
+        <span class="mini-stats-label">% ICON Performance (Primary)</span>
+      </div>
+      <div class="mini-stats-top" *ngIf="_department_id == 2">
+        <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
+        <span class="mini-stats-label">% CHl Performance (Primary)</span>
       </div>
 <!--      <div class="mini-stats-bottom w_bg" *ngIf="environment.envName == 'geo'">-->
 <!--        <span>Team Perf.</span> <span>{{ counts.skinlite_performance_per.toFixed(2)}} % </span>-->

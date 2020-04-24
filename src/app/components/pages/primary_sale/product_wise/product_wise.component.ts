@@ -61,6 +61,13 @@ export class ProductWiseComponent extends ListComponent {
     this.fetch();
   }
 
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetch();
+  }
+
   /**
    * month of invoice
    */
@@ -110,7 +117,7 @@ export class ProductWiseComponent extends ListComponent {
     if ((this._month || this._month == 0) && this._year && !this.loading) {
       this.loading = true;
       this.saleService.monthly_product(this._month + 1, this._year,
-        this._region_id, this._area_id, this._headquarter_id, this._zone_id).subscribe(
+        this._region_id, this._area_id, this._headquarter_id, this._zone_id, this._department_id).subscribe(
         response => {
           this.loading = false;
 
@@ -160,7 +167,7 @@ export class ProductWiseComponent extends ListComponent {
     this.btn_loading = true;
 
     this.saleService.product_excel_download(this._month + 1, this._year,
-      this._region_id, this._area_id, this._headquarter_id).subscribe(
+      this._region_id, this._area_id, this._headquarter_id, this._department_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

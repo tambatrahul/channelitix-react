@@ -35,6 +35,9 @@ export class ExecutiveSummaryComponent extends ListComponent {
    */
   public zone_id: number = 0;
 
+  public department_id: number = 0;
+
+
   /**
    * get regions
    *
@@ -60,6 +63,10 @@ export class ExecutiveSummaryComponent extends ListComponent {
     if(this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;
 
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
     this.month = moment().month();
     this.year = moment().year();
 
@@ -72,7 +79,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
     if ((this.month || this.month == 0) && this.year) {
       this.loading = true;
       Observable.forkJoin(
-        this.reportService.executive_summary(this.month + 1, this.year, this.zone_id),
+        this.reportService.executive_summary(this.month + 1, this.year, this.zone_id, this.department_id),
         this.reportService.hq_wise_visit_counts(this.month + 1, this.year, this.zone_id)
       ).subscribe(data => {
         // get regions
@@ -348,12 +355,23 @@ export class ExecutiveSummaryComponent extends ListComponent {
     this.zone_id = zone_id;
     this.fetch();
   }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.fetch();
+  }
+
   /**
    * Download Excel For Executive Summary
    */
   download() {
 
-    this.reportService.executive_summary_download(this.month + 1, this.year, this.zone_id).subscribe(
+    this.reportService.executive_summary_download(this.month + 1, this.year, this.zone_id, this.department_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

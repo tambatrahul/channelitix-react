@@ -45,6 +45,12 @@ export class MonthWiseReportComponent extends BaseAuthComponent {
     // Coverage
     public coverages = [];
 
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetch();
+  }
     /**
      * user id to fetch data
      *
@@ -61,6 +67,7 @@ export class MonthWiseReportComponent extends BaseAuthComponent {
         this._year = year;
         this.fetch();
     }
+
 
     /**
      * Message List Component Constructor
@@ -83,7 +90,7 @@ export class MonthWiseReportComponent extends BaseAuthComponent {
                 9: {pob_amount: 0, call_average: 0, coverage: 0}, 10: {pob_amount: 0, call_average: 0, coverage: 0},
                 11: {pob_amount: 0, call_average: 0, coverage: 0}, 12: {pob_amount: 0, call_average: 0, coverage: 0}
             };
-            this.reportService.month_wise(this._year, this._user_id).subscribe(
+            this.reportService.month_wise(this._year, this._user_id, this._department_id).subscribe(
                 response => {
                     this.loading = false;
 

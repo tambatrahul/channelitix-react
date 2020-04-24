@@ -39,6 +39,17 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   till_month_total_sale_geo: number = 0;
   total_geo_pob: number = 0;
 
+
+  /**
+   * department_id
+   */
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetchProductWiseSale();
+  }
+
   /**
    * month of invoice
    */
@@ -124,7 +135,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     if ((self._month || self._month == 0) && self._year) {
       self.loading = true;
       self.reportService.product_wise_sale(self._month + 1, self._year,
-        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids).subscribe(
+        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
         response => {
           self.formatData(new Performance(response.performance));
           self.loading = false;
@@ -148,6 +159,10 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     let current_month = moment();
     this._month = current_month.month();
     this._year = current_month.year();
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
     this.fetchProductWiseSale();
   }
 
@@ -269,4 +284,5 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     this._year = current_month.year();
     this.fetchProductWiseSale();
   }
+
 }

@@ -1,5 +1,5 @@
 <div style="margin-top: 20px;">
-    <month-wise [user_id]="user.id" [year]="_year"></month-wise>
+    <month-wise [user_id]="user.id" [year]="_year" [department_id]="_department_id"></month-wise>
 </div>
 <div class="topics-list" #loading_box>
     <div class="topic-container new-ticket">
@@ -79,8 +79,8 @@
     </div>
 </div>
 <div>
-    <deviation-report [user]="user" [month]="_month" [year]="_year"></deviation-report>
+    <deviation-report [user]="user" [month]="_month" [year]="_year" [department_id]="_department_id"></deviation-report>
 </div>
 <div>
-  <month-summary [user_id]="user.id" [month]="_month" [year]="_year"></month-summary>
+  <month-summary [user_id]="user.id" [month]="_month" [year]="_year" [department_id]="_department_id"></month-summary>
 </div>

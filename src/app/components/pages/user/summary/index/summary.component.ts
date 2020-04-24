@@ -32,6 +32,8 @@ export class SummaryComponent extends BaseAuthComponent {
   public month: number;
   public year: number;
   public search: string = "";
+  public department_id: number = 0;
+
   /**
    * users
    *
@@ -55,6 +57,10 @@ export class SummaryComponent extends BaseAuthComponent {
    */
   ngOnInit() {
     super.ngOnInit();
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
     this.month = moment().month();
     this.year = moment().year();
     this.fetch();
@@ -97,6 +103,16 @@ export class SummaryComponent extends BaseAuthComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
+  }
+
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
   }
 
   /**

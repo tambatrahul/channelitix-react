@@ -33,7 +33,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   counts(from_date, to_date, year, region_ids?: Array<number>,
-         area_ids?: Array<number>, headquarter_ids?: Array<number>, zone_ids?: Array<number>): Observable<Result> {
+         area_ids?: Array<number>, headquarter_ids?: Array<number>, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -63,6 +63,7 @@ export class ReportService extends BaseService {
         params.append('zone_id[]', String(zone_id));
       });
     }
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
 
     // make server call
     return this.get(this.getBaseUrl() + '/counts', new RequestOptions({search: params}));
@@ -73,9 +74,12 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  summaryForUser(month: number, year: number, user_id: number): Observable<Result> {
+  summaryForUser(month: number, year: number, user_id: number, department_id?: number): Observable<Result> {
+
     // prepare url
-    let url = this.getBaseUrl() + '/summary/' + month + '/' + year + '/' + user_id;
+    let url = this.getBaseUrl() + '/summary/' + month + '/' + year + '/' + user_id + '/' + department_id ;
+
+
 
     // make server call
     return this.get(url);
@@ -86,9 +90,9 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  deviation_report(month: number, year: number, user_id: number): Observable<Result> {
+  deviation_report(month: number, year: number, user_id: number, department_id?: number): Observable<Result> {
     // prepare url
-    let url = this.getBaseUrl() + '/deviation_report/' + month + '/' + year + '/' + user_id;
+    let url = this.getBaseUrl() + '/deviation_report/' + month + '/' + year + '/' + user_id + '/' + department_id;
 
     // make server call
     return this.get(url);
@@ -97,12 +101,14 @@ export class ReportService extends BaseService {
   /**
    * get All Months POB, Call Average and Coverage
    *
+   * @param year
    * @param user_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  month_wise(year: number, user_id: number) {
+  month_wise(year: number, user_id: number, department_id: number) {
     // prepare url
-    let url = this.getBaseUrl() + '/months_report/' + year + '/' + user_id;
+    let url = this.getBaseUrl() + '/months_report/' + year + '/' + user_id + '/' + department_id;
 
     // make server call
     return this.get(url);
@@ -115,7 +121,7 @@ export class ReportService extends BaseService {
    */
   visit_order_trend(from_date, to_date, year,
                     region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                    product_id?: number, brand_id?: number, zone_ids?: Array<number>): Observable<Result> {
+                    product_id?: number, brand_id?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -147,6 +153,8 @@ export class ReportService extends BaseService {
       });
     }
 
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
     // prepare url
     let url = this.getBaseUrl() + '/visit_order_trend';
 
@@ -160,7 +168,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   product_wise_actule_sale(from_date, to_date, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                    zone_ids?: Array<number>): Observable<Result> {
+                    zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -189,6 +197,8 @@ export class ReportService extends BaseService {
         params.append('zone_id[]', String(zone_id));
       });
     }
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
     // prepare url
     let url = this.getBaseUrl() + '/target_performance_actual';
 
@@ -201,7 +211,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   till_month_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                   month?: number, year?: number, zone_ids?: Array<number>,): Observable<Result> {
+                   month?: number, year?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -231,6 +241,9 @@ export class ReportService extends BaseService {
     if (year)
       params.append('year', String(year));
 
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
     // prepare url
     let url = this.getBaseUrl() + '/sap/till_month';
 
@@ -244,7 +257,7 @@ export class ReportService extends BaseService {
    */
   performance(region_ids?: Array<number>,
               area_ids?: Array<number>, headquarter_ids?: Array<number>,
-              zone_ids?: Array<number>): Observable<Result> {
+              zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -269,6 +282,7 @@ export class ReportService extends BaseService {
         params.append('zone_id[]', String(zone_id));
       });
     }
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/performance';
@@ -283,7 +297,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   product_wise_sale(month, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                   zone_ids?: Array<number>): Observable<Result> {
+                   zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -309,6 +323,8 @@ export class ReportService extends BaseService {
         params.append('zone_id[]', String(zone_id));
       });
     }
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
 
     // make server call
     return this.get(this.getBaseUrl() + '/target_performance/' + month + '/' + year, new RequestOptions({search: params}));
@@ -364,7 +380,7 @@ export class ReportService extends BaseService {
   /**
    * brick wise customers
    */
-  stockist_wise_pob(month: number, year: number, zone_id?: number, region_id?: number, area_id?: number, headquarter_id?: number) {
+  stockist_wise_pob(month: number, year: number, zone_id?: number, region_id?: number, area_id?: number, headquarter_id?: number, department_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -372,6 +388,8 @@ export class ReportService extends BaseService {
     params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
 
     return this.get(this.getBaseUrl() + '/stockist_report/' + month + "/" + year, new RequestOptions({search: params}));
   }
@@ -393,22 +411,26 @@ export class ReportService extends BaseService {
   /**
    * executive summary report api
    */
-  executive_summary(month: number, year: number, zone_id?: number) {
+  executive_summary(month: number, year: number, zone_id?: number, department_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
     return this.get(this.getBaseUrl() + '/executive_summary/' + month + "/" + year, new RequestOptions({search: params}));
   }
 
   /**
    * brick wise customers
    */
-  executive_summary_download(month: number, year: number, zone_id?: number): Observable<Response> {
+  executive_summary_download(month: number, year: number, zone_id?: number, department_id?: number): Observable<Response> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
     // get request with headers
     let content = this.addCredentials(new RequestOptions({
       responseType: ResponseContentType.Blob,
@@ -421,7 +443,7 @@ export class ReportService extends BaseService {
   /**
    * Headquarter wise report api
    */
-  region_wise_sales(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number, zone_id?: number) {
+  region_wise_sales(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number, zone_id?: number, department_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -429,6 +451,7 @@ export class ReportService extends BaseService {
     params.set('region_id', String(region_id > 0 ? region_id : ''));
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
 
     return this.get(this.getBaseUrl() + '/region_wise_sales/' + month + "/" + year, new RequestOptions({search: params}));
   }
@@ -437,7 +460,7 @@ export class ReportService extends BaseService {
    * Monthly Stockist wise sale report api
    */
   sap_stockist_wise_monthly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number,
-                            zone_id?: number, brand_id?: number) {
+                            zone_id?: number, brand_id?: number, department_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -450,6 +473,7 @@ export class ReportService extends BaseService {
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
     params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
 
     return this.get(this.getBaseUrl() + '/stockist_wise_sap_monthly', new RequestOptions({search: params}));
   }
@@ -457,7 +481,7 @@ export class ReportService extends BaseService {
   /**
    * Monthly Stockist wise sale report api
    */
-  sap_stockist_wise_yearly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number, zone_id?: number, brand_id?: number) {
+  sap_stockist_wise_yearly(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number, zone_id?: number, brand_id?: number, department_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -470,6 +494,7 @@ export class ReportService extends BaseService {
     params.set('area_id', String(area_id > 0 ? area_id : ''));
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
     params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
 
 
     return this.get(this.getBaseUrl() + '/stockist_wise_sap_yearly', new RequestOptions({search: params}));
@@ -480,13 +505,15 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  productivity_analysis(from_date, to_date, zone_id?:number): Observable<Result> {
+  productivity_analysis(from_date, to_date, zone_id?: number, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('from_date', String(from_date ? from_date : ''));
     params.set('to_date', String(to_date ? to_date : ''));
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
 
     // prepare url
     let url = this.getBaseUrl() + '/productivity_analysis';
@@ -555,16 +582,18 @@ export class ReportService extends BaseService {
   /**
    * Customer Brick Coverage
    *
-   * @param month
    * @param year
    * @param headquarter_id
+   * @param department_id
    * @returns {Observable<Result>}
    */
-  brick_coverage(year: number, headquarter_id: number) {
+  brick_coverage(year: number, headquarter_id: number, department_id?: number) {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
 
     return this.get(this.getBaseUrl() + '/brick_coverage_report/' + year, new RequestOptions({search: params}));
   }
@@ -713,7 +742,7 @@ export class ReportService extends BaseService {
    * @returns {Observable<Result>}
    */
   milestone_sales_tracking_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
-                                 month?: number, year?: number,zone_ids?: Array<number>): Observable<Result> {
+                                 month?: number, year?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -738,6 +767,8 @@ export class ReportService extends BaseService {
         params.append('zone_id[]', String(zone_id));
       });
     }
+
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/milestone_sales_tracking/' + month + "/" + year;
@@ -909,11 +940,13 @@ export class ReportService extends BaseService {
    * @param {number} month
    * @param {number} year
    * @param {number} user_id
+   * @param {number} department_id
    * @returns {Observable<Result>}
    */
-  month_summary(month: number, year: number, user_id: number) {
+  month_summary(month: number, year: number, user_id: number, department_id?: number) {
+
     // prepare url
-    let url = this.getBaseUrl() + '/month_summary/' + month + '/' + year + '/' + user_id;
+    let url = this.getBaseUrl() + '/month_summary/' + month + '/' + year + '/' + user_id + '/' + department_id ;
 
     // make server call
     return this.get(url);

@@ -55,6 +55,13 @@ export class StockistWiseComponent extends ListComponent {
     this.fetch();
   }
 
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetch();
+  }
+
     /**
      * region, area, headquarter
      */
@@ -108,7 +115,7 @@ export class StockistWiseComponent extends ListComponent {
 
       this.loading = true;
       this.saleService.monthly_stockist(this._month + 1,
-        this._year, this._region_id, this._area_id, this._headquarter_id, this.page, this._zone_id).subscribe(
+        this._year, this._region_id, this._area_id, this._headquarter_id, this.page, this._zone_id, this._department_id).subscribe(
         response => {
 
                     // convert to models
@@ -152,7 +159,7 @@ export class StockistWiseComponent extends ListComponent {
     this.btn_loading = true;
 
     this.saleService.stockist_excel_download(this._month + 1, this._year,
-      this._region_id, this._area_id, this._headquarter_id).subscribe(
+      this._region_id, this._area_id, this._headquarter_id, this._department_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

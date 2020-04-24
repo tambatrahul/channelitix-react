@@ -25,6 +25,7 @@ export class ProductSelectComponent extends BaseSelectComponent {
      * Area id for filter
      */
     private _abbott: boolean = false;
+    private _department_id: number = 0;
 
     /**
      * Synergy Filter
@@ -36,6 +37,17 @@ export class ProductSelectComponent extends BaseSelectComponent {
         this._abbott = abbott;
         this.fetch();
     }
+
+  /**
+   * Synergy Filter
+   *
+   * @type {number}
+   */
+  @Input()
+  set department_id(department_id) {
+    this._department_id = department_id;
+    this.fetch();
+  }
 
     get abbott(): boolean {
         return this._abbott;
@@ -53,15 +65,29 @@ export class ProductSelectComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.productService.all(this._abbott)
+        if (this._department_id > 0) {
+          this.productService.allProduct(this._department_id)
             .subscribe(
-                response => {
-                    this.loading = false;
-                    this.models = response.products;
-                },
-                err => {
-                    this.loading = false;
-                }
+              response => {
+                this.loading = false;
+                this.models = response.products;
+              },
+              err => {
+                this.loading = false;
+              }
             );
+        } else
+        {
+          this.productService.all(this._abbott)
+            .subscribe(
+              response => {
+                this.loading = false;
+                this.models = response.products;
+              },
+              err => {
+                this.loading = false;
+              }
+            );
+        }
     }
 }

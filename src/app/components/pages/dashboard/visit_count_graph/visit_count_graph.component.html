@@ -17,7 +17,7 @@
           </div>
           <div class="col-xs-12 col-md-6 form-group-sm" *ngIf="environment.envName != 'sk_group'">
             <div style="margin-right: 7px;">
-              <brand-select [value]="brand_id" [title]="''" [first_value]="'Select Brand'"
+              <brand-select [value]="brand_id" [title]="''" [first_value]="'Select Brand'" [department_id]="_department_id"
                             (onValueChanged)="brandChanged($event)"></brand-select>
             </div>
           </div>

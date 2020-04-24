@@ -7,10 +7,12 @@ import * as moment from "moment";
 import {Area} from "../territory/area";
 import {Region} from "../territory/region";
 import {HQZone} from '../territory/zone';
+import {Department} from './department';
 
 export class User extends Model {
 
   full_name: string;
+  emp_code: string;
   mobile: string;
   username: string;
   password: string;
@@ -23,6 +25,9 @@ export class User extends Model {
   synergy: number;
   manager_id: number;
   unread_count: number = 0;
+  department: Department[];
+  user_id: number;
+  department_id: number;
 
   // territory changes
   hq_country_id: number;
@@ -62,6 +67,7 @@ export class User extends Model {
   constructor(info: any) {
     super(info.id);
     this.full_name = info.full_name;
+    this.emp_code = info.emp_code;
     this.mobile = info.mobile;
     this.username = info.username;
     this.password = info.password;
@@ -81,6 +87,8 @@ export class User extends Model {
     this.hq_brick_id = info.hq_brick_id;
     this.hq_country_id = info.hq_country_id;
     this.manager_id = info.manager_id;
+    this.user_id = info.user_id;
+    this.department_id = info.department_id;
 
     if (info.user_count)
       this.user_count = parseInt(info.user_count);
@@ -117,6 +125,10 @@ export class User extends Model {
 
     if (info.privilege_leave)
       this.privilege_leave = parseInt(info.privilege_leave);
+
+    if (info.department)
+      this.department = info.department.map(d => new Department(d));
+
   }
 
   get daily_target(): number {

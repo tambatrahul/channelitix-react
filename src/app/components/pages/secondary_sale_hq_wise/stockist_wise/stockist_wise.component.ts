@@ -63,6 +63,7 @@ export class StockistWiseHqComponent extends ListComponent {
   public _hq_id: number;
   public _area_id: number;
   public _region_id: number;
+  public _department_id: number = 0;
   public headquarter: Headquarter;
 
   /**
@@ -87,6 +88,12 @@ export class StockistWiseHqComponent extends ListComponent {
    */
   ngOnInit() {
     super.ngOnInit();
+
+    if (this._service.user.department.length > 0)
+      this._department_id = this._service.user.department[0].pivot.department_id;
+
+    this.fetch();
+
   }
 
   /**
@@ -94,12 +101,14 @@ export class StockistWiseHqComponent extends ListComponent {
    */
   fetch() {
     this.route.params.subscribe(params => {
+      this._department_id = params['department_id'];
       this._hq_id = params['hq_id'];
       this._area_id = params['area_id'];
       this._region_id = params['region_id'];
       this.month = parseInt(params['month']);
       this.year = parseInt(params['year']);
-      this.fetchSales()
+      this.product_id = 0;
+      this.fetchSales();
     });
   }
 
@@ -109,7 +118,7 @@ export class StockistWiseHqComponent extends ListComponent {
   fetchSales() {
     this.loading = true;
     this.saleService.stockist_wise(this.month + 1, this.year, this._hq_id,
-      this._area_id, this._region_id, this.product_id).subscribe(
+      this._area_id, this._region_id, this.product_id, this._department_id).subscribe(
       response => {
 
         this.loading = false;
@@ -251,7 +260,7 @@ export class StockistWiseHqComponent extends ListComponent {
    */
   download() {
     this.btn_loading = true;
-    this.saleService.stockist_wise_excel_download(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id,this.product_id).subscribe(
+    this.saleService.stockist_wise_excel_download(this.month + 1, this.year, this._hq_id, this._area_id, this._region_id, this.product_id, this._department_id).subscribe(
       response => {
         this.btn_loading = false;
         let blob: Blob = response.blob();
@@ -298,5 +307,15 @@ export class StockistWiseHqComponent extends ListComponent {
       ratio = (primary_sale / secondary_sale) * 100;
 
     return ratio < 75 || ratio > 125;
+  }
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this._department_id = department_id;
+    this.product_id = 0;
+    this.fetchSales();
   }
 }

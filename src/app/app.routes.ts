@@ -84,6 +84,7 @@ import {TempMonthlyAttendanceComponent} from './components/pages/attendance/temp
 import {CustomerListComponent} from "./v2/pages/customers/index/index.component";
 import {UserExpenseComponent} from './components/pages/expense/for_user/index/index.component';
 import {ExpenseComponent} from './components/pages/expense/admin/index/index.component';
+import {SupportComponent} from './components/pages/support/index.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -394,7 +395,7 @@ export const routes: Routes = [
                 component: SecondarySaleComponent
               },
               {
-                path: 'create/:month/:year/:id',
+                path: 'create/:month/:year/:id/:department_id',
                 component: SecondarySaleCreateComponent
               },
               {
@@ -406,15 +407,15 @@ export const routes: Routes = [
                 component: SecondarySaleHqWiseComponent
               },
               {
-                path: 'product_wise/:month/:year/:region_id/:area_id/:hq_id',
+                path: 'product_wise/:month/:year/:region_id/:area_id/:hq_id/:department_id',
                 component: ProductWiseHqComponent
               },
               {
-                path: 'stockist_product_wise/:month/:year/:region_id/:area_id/:hq_id/:customer_id',
+                path: 'stockist_product_wise/:month/:year/:region_id/:area_id/:hq_id/:customer_id/:department_id',
                 component: StockistProductWiseHqComponent
               },
               {
-                path: 'stockist_wise/:month/:year/:region_id/:area_id/:hq_id',
+                path: 'stockist_wise/:month/:year/:region_id/:area_id/:hq_id/:department_id',
                 component: StockistWiseHqComponent
               },
             ]
@@ -478,6 +479,10 @@ export const routes: Routes = [
       {
         path: 'videos',
         component: VideoComponent
+      },
+      {
+        path: 'support',
+        component: SupportComponent
       },
       // Abbott STP
       {

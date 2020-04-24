@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, RequestOptions, URLSearchParams} from '@angular/http';
+import {Http} from "@angular/http";
 import {Router} from "@angular/router";
 import {AuthService} from "./AuthService";
 import {BaseService} from "./base.service";
@@ -7,14 +7,14 @@ import {Observable} from "rxjs";
 import {Result} from "../models/result";
 
 @Injectable()
-export class BrandService extends BaseService {
+export class DepartmentService extends BaseService {
 
   /**
    * model url
    *
    * @type {string}
    */
-  protected modelUrl: string = 'brands';
+  protected modelUrl: string = 'departments';
 
   /**
    * Brand Service constructor
@@ -34,19 +34,5 @@ export class BrandService extends BaseService {
   all(): Observable<Result> {
     // make server call
     return this.get(this.getBaseUrl());
-  }
-
-  /**
-   * get department brands
-   */
-  brands(department_id?: number): Observable<Result> {
-
-    // prepare get params
-    let params = new URLSearchParams();
-    params.set('department_id', String(department_id > 0 ? department_id : ''));
-
-
-    // make server call
-    return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
   }
 }

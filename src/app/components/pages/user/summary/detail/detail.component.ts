@@ -31,7 +31,10 @@ export class SummaryDetailComponent extends BaseAuthComponent {
      */
     _user: User;
 
-    /**
+  _department_id: number = 0;
+
+
+  /**
      * Attendance
      *
      * @type {Array}
@@ -77,6 +80,13 @@ export class SummaryDetailComponent extends BaseAuthComponent {
     _month: number;
     _year: number;
 
+
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetch();
+  }
+
     @Input()
     set month(month: number) {
         this._month = month;
@@ -89,6 +99,7 @@ export class SummaryDetailComponent extends BaseAuthComponent {
         this.fetch();
     }
 
+
     /**
      * Message List Component Constructor
      */
@@ -100,10 +111,9 @@ export class SummaryDetailComponent extends BaseAuthComponent {
      * Fetch Messages from server
      */
     fetch() {
-
         if (this._user && this._user.id && this._month && this._year) {
             this.loading = true;
-            this.reportService.summaryForUser(this._month + 1, this._year, this._user.id).subscribe(
+            this.reportService.summaryForUser(this._month + 1, this._year, this._user.id, this._department_id).subscribe(
                 response => {
                     this.loading = false;
 

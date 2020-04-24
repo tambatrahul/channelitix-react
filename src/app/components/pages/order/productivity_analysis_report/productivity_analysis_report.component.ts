@@ -39,6 +39,8 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
    */
   regions: Region[] = [];
   zone_id: number = 0;
+  public department_id: number = 0;
+
 
   /**
    * customer types
@@ -59,6 +61,10 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
    */
   ngOnInit() {
     super.ngOnInit();
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
   }
 
   /**
@@ -84,7 +90,7 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
     }
     if (this._dates && this._dates.from_date && this._dates.to_date && !this.loading) {
       this.loading = true;
-      this.reportService.productivity_analysis(this._dates.from_date, this._dates.to_date, this.zone_id).subscribe(
+      this.reportService.productivity_analysis(this._dates.from_date, this._dates.to_date, this.zone_id, this.department_id).subscribe(
         data => {
           // get regions
           this.regions = data.regions.map(region => new Region(region));
@@ -238,6 +244,16 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
    */
   zoneChanged(zone_id) {
     this.zone_id = zone_id;
+    this.fetch();
+  }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
     this.fetch();
   }
 }

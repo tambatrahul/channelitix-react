@@ -20,6 +20,9 @@ export class SecondarySaleComponent extends ListComponent {
   public month: number;
   public year: number;
 
+  public department_id: number = 0;
+
+
   /**
    * get title of table
    * @returns {string}
@@ -47,6 +50,10 @@ export class SecondarySaleComponent extends ListComponent {
    * on load of component load customer types
    */
   ngOnInit() {
+
+    if (this._service.user.department.length > 0)
+      this.department_id = this._service.user.department[0].pivot.department_id;
+
     this.month = moment().month() - 1;
     this.year = moment().year();
 
@@ -119,6 +126,15 @@ export class SecondarySaleComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
+    this.fetch();
+  }
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
     this.fetch();
   }
 }

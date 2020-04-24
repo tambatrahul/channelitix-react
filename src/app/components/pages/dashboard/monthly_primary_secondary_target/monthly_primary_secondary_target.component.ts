@@ -40,6 +40,14 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
     to_date: '',
     year: ''
   };
+
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetchPerformance();
+  }
+
   @Input()
   set dates(dates) {
     this._dates = dates;
@@ -104,7 +112,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   fetchPerformance = AppConstants.debounce(function () {
     const self = this;
     self.loading = true;
-    self.reportService.performance(self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids).subscribe(
+    self.reportService.performance(self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
       response => {
         self.loading = false;
         self.prepareData(new Performance(response.performance));

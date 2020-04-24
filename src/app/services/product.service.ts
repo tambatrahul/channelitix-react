@@ -41,4 +41,18 @@ export class ProductService extends BaseService {
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
     }
+
+  /**
+   * get monthly report
+   */
+  allProduct(department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
+    // make server call
+    return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
+  }
 }

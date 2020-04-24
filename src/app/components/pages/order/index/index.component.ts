@@ -43,6 +43,7 @@ export class OrderComponent extends BaseAuthComponent {
    */
   public product_id: number = 0;
   public brand_id: number = 0;
+  public department_id: number = 0;
 
   /**
    * user id
@@ -134,8 +135,11 @@ export class OrderComponent extends BaseAuthComponent {
       this.abbott = true;
     }
 
-    if(this._service.user.role_str == 'COUNTRY_MNG')
+    if (this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;
+
+    if (this._service.user.department.length > 0)
+    this.department_id = this._service.user.department[0].pivot.department_id;
 
     this.month = moment().month();
     this.year = moment().year();
@@ -163,19 +167,18 @@ export class OrderComponent extends BaseAuthComponent {
 
     // prepare order skeleton
     for (let order of orders) {
-
       // add user if not present
       if (!data_skeleton.hasOwnProperty(order.created_by)) {
         data_skeleton[order.created_by] = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
         users.push(order.creator);
       }
+      // set order detail
+      data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count ? order.order_total_count : 0;
 
-      // set order details
-      data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count;
-
-      data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity;
+      data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity ? order.order_total_count : 0;
     }
-
+    console.log(data_skeleton);
+    console.log(users);
     // add attendance to visit skeleton
     for (let att of attendances) {
       if (data_skeleton.hasOwnProperty(att.created_by)) {
@@ -189,6 +192,7 @@ export class OrderComponent extends BaseAuthComponent {
 
     // add skeleton to user
     for (let user of users) {
+      user.orders = [];
       targets.map(target => {
         if (target.hq_headquarter_id == user.hq_headquarter_id) {
           user.total_target = target.total_target;
@@ -200,7 +204,6 @@ export class OrderComponent extends BaseAuthComponent {
       } else {
         user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
       }
-
       // separate csm and zsm
       if (user.role_str == this.ROLE_CSM) {
         managers.push(user);
@@ -261,7 +264,6 @@ export class OrderComponent extends BaseAuthComponent {
         }
       }
     }
-
     if (this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group') {
       let abbott_user = new User({full_name: 'Abbott'});
       abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
@@ -362,7 +364,7 @@ export class OrderComponent extends BaseAuthComponent {
     Observable.forkJoin(
       this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id),
       this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
-        this.product_id, this.brand_id, this.zone_id)
+        this.product_id, this.brand_id, this.zone_id, this.department_id)
     ).subscribe(data => {
 
       this.loading = false;
@@ -379,6 +381,7 @@ export class OrderComponent extends BaseAuthComponent {
       let orders = data[1].orders.map(order => new Order(order));
 
       let attendances = data[0].attendances.map(att => new Attendance(att));
+      console.log(data[1].orders);
 
       this.addOrderToSkeleton(children, orders, data[1].holidays, attendances, targets);
     }, err => {
@@ -494,6 +497,17 @@ export class OrderComponent extends BaseAuthComponent {
   }
 
   /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.brand_id = 0;
+    this.fetchData();
+  }
+
+  /**
    * Download Excel For Orders Report
    */
   download() {
@@ -504,7 +518,7 @@ export class OrderComponent extends BaseAuthComponent {
     }
 
     this.orderService.orders_excel_download(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
-      this.product_id, this.brand_id, this.zone_id).subscribe(
+      this.product_id, this.brand_id, this.zone_id, this.department_id).subscribe(
       response => {
         let blob: Blob = response.blob();
 

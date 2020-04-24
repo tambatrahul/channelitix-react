@@ -108,6 +108,14 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     to_date: '',
     year: ''
   };
+
+  _department_id: number = 0;
+  @Input()
+  set department_id(department_id: number) {
+    this._department_id = department_id;
+    this.fetchMilestone();
+  }
+
   @Input()
   set dates(dates) {
     this._dates = dates;
@@ -122,7 +130,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     if ((self.month || self.month == 0) && self.year) {
       self.loading = true;
       self.reportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
-        self._zone_ids).subscribe(
+        self._zone_ids, self._department_id).subscribe(
         response => {
           let primary_sales = response.primary_sales.map(pr => new PrimarySale(pr));
           let targets = response.targets.map(tr => new Target(tr));
