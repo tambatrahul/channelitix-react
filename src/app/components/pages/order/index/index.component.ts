@@ -177,8 +177,7 @@ export class OrderComponent extends BaseAuthComponent {
 
       data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity ? order.order_total_count : 0;
     }
-    console.log(data_skeleton);
-    console.log(users);
+
     // add attendance to visit skeleton
     for (let att of attendances) {
       if (data_skeleton.hasOwnProperty(att.created_by)) {
@@ -381,7 +380,6 @@ export class OrderComponent extends BaseAuthComponent {
       let orders = data[1].orders.map(order => new Order(order));
 
       let attendances = data[0].attendances.map(att => new Attendance(att));
-      console.log(data[1].orders);
 
       this.addOrderToSkeleton(children, orders, data[1].holidays, attendances, targets);
     }, err => {
