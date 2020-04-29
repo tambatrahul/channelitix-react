@@ -109,14 +109,17 @@ export class SecondarySaleHqWiseComponent extends ListComponent {
     if (this._service.user.hq_zone_id)
       this.zone_id = this._service.user.hq_zone_id;
 
-    if (this._service.user.department.length > 0)
-      this.department_id = this._service.user.department[0].pivot.department_id;
+    if (this._service.user.departments.length > 0)
+      this.department_id = 0;
+
+    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
 
     this.month = moment().month() - 1;
     this.year = moment().year();
     if (this.month < 0) {
       this.year = this.year - 1;
-      this.month = 11
+      this.month = 11;
     }
     super.ngOnInit();
     if(this._service.user.role_str == 'COUNTRY_MNG')

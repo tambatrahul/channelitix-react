@@ -3,6 +3,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
 import {PrimarySaleService} from "../../../../services/primary_sale.service";
 import {InvoiceDetail} from "../../../../models/SAP/invoice_detail";
+import {AppConstants} from '../../../../app.constants';
 declare let jQuery: any;
 
 @Component({
@@ -36,7 +37,7 @@ export class StockistWiseComponent extends ListComponent {
     @Input()
     set month(month: number) {
         this._month = month;
-        this.fetch();
+        this.fetchStockistWiseSale();
     }
 
     public _year: number;
@@ -52,14 +53,14 @@ export class StockistWiseComponent extends ListComponent {
   @Input()
   set zone_id(zone_id: number) {
     this._zone_id = zone_id;
-    this.fetch();
+    this.fetchStockistWiseSale();
   }
 
   _department_id: number = 0;
   @Input()
   set department_id(department_id: number) {
     this._department_id = department_id;
-    this.fetch();
+    this.fetchStockistWiseSale();
   }
 
     /**
@@ -69,21 +70,21 @@ export class StockistWiseComponent extends ListComponent {
     @Input()
     set region_id(region_id: number) {
         this._region_id = region_id;
-        this.fetch();
+        this.fetchStockistWiseSale();
     }
 
     _area_id: number = 0;
     @Input()
     set area_id(area_id: number) {
         this._area_id = area_id;
-        this.fetch();
+        this.fetchStockistWiseSale();
     }
 
     _headquarter_id: number = 0;
     @Input()
     set headquarter_id(headquarter_id: number) {
         this._headquarter_id = headquarter_id;
-        this.fetch();
+        this.fetchStockistWiseSale();
     }
 
     /**
@@ -93,40 +94,30 @@ export class StockistWiseComponent extends ListComponent {
      */
     public invoice_details: InvoiceDetail[] = [];
 
-    /**
-     * Monthly Tour Program Constructor
-     *
-     * @param saleService
-     * @param _service
-     */
-    constructor(private saleService: PrimarySaleService, public _service: AuthService) {
-        super(_service);
-    }
-
-    /**
-     * fetch from server
-     */
-    fetch() {
-        let self = this;
-        if ((this._month || this._month == 0) && this._year && !this.loading) {
-            if (this.upload_excel) {
-                this.upload_excel.remove();
-            }
+  /**
+   * fetch from server
+   */
+  fetchStockistWiseSale = AppConstants.debounce(function () {
+    let self = this;
+    if ((self._month || self._month == 0) && self._year && !this.loading) {
+      if (self.upload_excel) {
+        self.upload_excel.remove();
+      }
 
       this.loading = true;
-      this.saleService.monthly_stockist(this._month + 1,
-        this._year, this._region_id, this._area_id, this._headquarter_id, this.page, this._zone_id, this._department_id).subscribe(
+      self.saleService.monthly_stockist(self._month + 1,
+        self._year, self._region_id, self._area_id, self._headquarter_id, self.page, self._zone_id, self._department_id).subscribe(
         response => {
 
-                    // convert to models
-                    self.total_amount = 0;
-                    this.invoice_details = response.invoice_details.map(function (user, index) {
-                        let invoice_de = new InvoiceDetail(user);
-                        self.total_amount += invoice_de.total_net_amount;
-                        return invoice_de;
-                    });
-          this.total = response.total;
-          this.loading = false;
+          // convert to models
+          self.total_amount = 0;
+          self.invoice_details = response.invoice_details.map(function (user, index) {
+            let invoice_de = new InvoiceDetail(user);
+            self.total_amount += invoice_de.total_net_amount;
+            return invoice_de;
+          });
+          self.total = response.total;
+          self.loading = false;
           setTimeout(() => {
             self.upload_excel = jQuery('#stockist_wise_sale1').tableExport({
               formats: ['xlsx'],
@@ -140,6 +131,21 @@ export class StockistWiseComponent extends ListComponent {
         }
       );
     }
+  }, 1000, false);
+
+
+  /**
+     * Monthly Tour Program Constructor
+     *
+     * @param saleService
+     * @param _service
+     */
+    constructor(private saleService: PrimarySaleService, public _service: AuthService) {
+        super(_service);
+    }
+
+  protected fetch() {
+
   }
 
   /**
@@ -149,7 +155,7 @@ export class StockistWiseComponent extends ListComponent {
    */
   pageChanged(page) {
     this.page = page;
-    this.fetch();
+    this.fetchStockistWiseSale();
   }
 
   /**

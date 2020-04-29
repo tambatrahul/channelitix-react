@@ -66,9 +66,9 @@ export class OrderCountDirective {
   formatCell() {
     if (this._order) {
       if (this._order.order_total_count >= 0 && this._order.attendance.status == AppConstants.WORKING) {
-
-        if (this._order.order_total_count == 0 && this._order.attendance.pob_amount > 0)
-          this._order.order_total_count = this._order.attendance.pob_amount;
+        //
+        // if (this._order.order_total_count == 0 && this._order.attendance.pob_amount > 0)
+        //   this._order.order_total_count = this._order.attendance.pob_amount;
 
         // set text value
         if (this._view_quantity)

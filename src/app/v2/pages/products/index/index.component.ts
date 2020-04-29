@@ -33,8 +33,12 @@ export class ProductComponent extends ListComponent {
   ngOnInit() {
 
     super.ngOnInit();
-    if (this._service.user.department.length > 0)
-      this.department_id = this._service.user.department[0].pivot.department_id;
+
+    if (this._service.user.departments.length > 0)
+      this.department_id = 0;
+
+    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
 
     this.fetch();
   }
@@ -44,20 +48,37 @@ export class ProductComponent extends ListComponent {
    */
   fetch() {
     this.loading = true;
-    this.productService.allProduct(this.department_id).subscribe(
-      response => {
+    if (this.department_id > 0) {
+      this.productService.allProduct(this.department_id).subscribe(
+        response => {
 
-        // convert to models
-        this.products = response.products.map(function (product, index) {
-          return new Product(product);
-        });
+          // convert to models
+          this.products = response.products.map(function (product, index) {
+            return new Product(product);
+          });
 
-        this.loading = false;
-      },
-      err => {
-        this.loading = false;
-      }
-    );
+          this.loading = false;
+        },
+        err => {
+          this.loading = false;
+        }
+      );
+    }else {
+      this.productService.all().subscribe(
+        response => {
+
+          // convert to models
+          this.products = response.products.map(function (product, index) {
+            return new Product(product);
+          });
+
+          this.loading = false;
+        },
+        err => {
+          this.loading = false;
+        }
+      );
+    }
   }
 
   /**

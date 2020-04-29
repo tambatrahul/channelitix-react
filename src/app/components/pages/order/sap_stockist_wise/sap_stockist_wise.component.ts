@@ -88,10 +88,8 @@ export class SapStockistWiseComponent extends ListComponent {
     if (this._service.user.role_id == 7) {
       this.zone_id = 1;
     }
-
-    if (this._service.user.department.length > 0) {
-      this.department_id = this._service.user.department[0].pivot.department_id;
-    }
+    if (this._service.user.departments.length > 0 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
 
     if (this.department_id == 2) {
       this.brand_id = 4;

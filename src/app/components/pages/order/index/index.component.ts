@@ -138,8 +138,11 @@ export class OrderComponent extends BaseAuthComponent {
     if (this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;
 
-    if (this._service.user.department.length > 0)
-    this.department_id = this._service.user.department[0].pivot.department_id;
+    if (this._service.user.departments.length > 0)
+      this.department_id = 0;
+
+    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
 
     this.month = moment().month();
     this.year = moment().year();
@@ -182,10 +185,10 @@ export class OrderComponent extends BaseAuthComponent {
     for (let att of attendances) {
       if (data_skeleton.hasOwnProperty(att.created_by)) {
         data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].attendance = att;
-        if (data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].order_total_count == 0
-          && att.status == AppConstants.WORKING) {
-          data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].order_total_count = att.pob_amount;
-        }
+        // if (data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].order_total_count == 0
+        //   && att.status == AppConstants.WORKING) {
+        //   data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].order_total_count = att.pob_amount;
+        // }
       }
     }
 

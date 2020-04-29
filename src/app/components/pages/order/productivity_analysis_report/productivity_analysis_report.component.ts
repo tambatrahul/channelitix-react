@@ -62,8 +62,11 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
   ngOnInit() {
     super.ngOnInit();
 
-    if (this._service.user.department.length > 0)
-      this.department_id = this._service.user.department[0].pivot.department_id;
+    if (this._service.user.departments.length > 0)
+      this.department_id = 0;
+
+    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
 
   }
 
@@ -212,15 +215,15 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
           attendances.map(att => {
             if (att.hq_headquarter_id == headquarter.id) {
               headquarter.total_att += att.attendance_count;
-              headquarter.total_pob += att.pob_amount;
+              // headquarter.total_pob += att.pob_amount;
               headquarter.total_visit += att.no_of_calls;
 
               area.total_att += att.attendance_count;
-              area.total_pob += att.pob_amount;
+              // area.total_pob += att.pob_amount;
               area.total_visit += att.no_of_calls;
 
               region.total_att += att.attendance_count;
-              region.total_pob += att.pob_amount;
+              // region.total_pob += att.pob_amount;
               region.total_visit += att.no_of_calls;
             }
           });

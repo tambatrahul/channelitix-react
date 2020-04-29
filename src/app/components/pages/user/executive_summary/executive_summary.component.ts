@@ -63,9 +63,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
     if(this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;
 
+    if (this._service.user.departments.length > 0)
+      this.department_id = 0;
 
-    if (this._service.user.department.length > 0)
-      this.department_id = this._service.user.department[0].pivot.department_id;
+    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
 
     this.month = moment().month();
     this.year = moment().year();
@@ -302,13 +304,13 @@ export class ExecutiveSummaryComponent extends ListComponent {
         area.headquarters.map(headquarter => {
           attendances.map(att => {
             if (att.hq_headquarter_id == headquarter.id) {
-              headquarter.total_pob += att.pob_amount;
+              // headquarter.total_pob += att.pob_amount;
               headquarter.total_visit += att.no_of_calls;
               headquarter.total_att += att.att_count;
-              area.total_pob += att.pob_amount;
+              // area.total_pob += att.pob_amount;
               area.total_visit += att.no_of_calls;
               area.total_att += att.att_count;
-              region.total_pob += att.pob_amount;
+              // region.total_pob += att.pob_amount;
               region.total_visit += att.no_of_calls;
               region.total_att += att.att_count;
 

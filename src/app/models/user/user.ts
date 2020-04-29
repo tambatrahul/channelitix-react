@@ -25,7 +25,7 @@ export class User extends Model {
   synergy: number;
   manager_id: number;
   unread_count: number = 0;
-  department: Department[];
+  departments: Department[];
   user_id: number;
   department_id: number;
 
@@ -126,8 +126,8 @@ export class User extends Model {
     if (info.privilege_leave)
       this.privilege_leave = parseInt(info.privilege_leave);
 
-    if (info.department)
-      this.department = info.department.map(d => new Department(d));
+    if (info.departments)
+      this.departments = info.departments.map(d => new Department(d));
 
   }
 

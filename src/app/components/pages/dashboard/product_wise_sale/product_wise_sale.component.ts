@@ -160,9 +160,6 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     this._month = current_month.month();
     this._year = current_month.year();
 
-    if (this._service.user.department.length > 0)
-      this.department_id = this._service.user.department[0].pivot.department_id;
-
     this.fetchProductWiseSale();
   }
 

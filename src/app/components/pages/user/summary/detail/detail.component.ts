@@ -134,7 +134,7 @@ export class SummaryDetailComponent extends BaseAuthComponent {
                     });
 
                     if (environment.envName != 'sk_group')
-                        this._user.total_target = response.targets[0].total_target;
+                        this._user.total_target = response.targets[0] ? response.targets[0].total_target : 0 ;
 
                     // prepare skeleton for tours
                     this.addTourToSkeleton(this._user, tours, response.holidays);

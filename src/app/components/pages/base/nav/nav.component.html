@@ -338,7 +338,7 @@
         </li>
         <li *ngIf="_auth_service.user?.isHeadquarter">
           <a class="waves-effect"
-             [routerLink]="['/sales/secondary/stockist_wise', month, year, _auth_service.user?.hq_region_id, _auth_service.user?.hq_area_id, _auth_service.user?.hq_headquarter_id, this._auth_service.user?.department[0].pivot.department_id]"
+             [routerLink]="['/sales/secondary/stockist_wise', month, year, _auth_service.user?.hq_region_id, _auth_service.user?.hq_area_id, _auth_service.user?.hq_headquarter_id, this._auth_service.user?.departments[0].pivot.department_id]"
              *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-calendar"></i></span>
             <span class="nav-label">Secondary Sale Stockist Wise</span>

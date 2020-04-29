@@ -89,8 +89,8 @@ export class StockistWiseHqComponent extends ListComponent {
   ngOnInit() {
     super.ngOnInit();
 
-    if (this._service.user.department.length > 0)
-      this._department_id = this._service.user.department[0].pivot.department_id;
+    if (this._service.user.departments.length > 0)
+      this._department_id = this._service.user.departments[0].pivot.department_id;
 
     this.fetch();
 

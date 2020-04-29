@@ -101,9 +101,11 @@ export class CustomerBrickCoverageComponent extends ListComponent {
 
     }
 
-    if (this._service.user.department.length > 0)
-      this.department_id = this._service.user.department[0].pivot.department_id;
+    if (this._service.user.departments.length > 0)
+      this.department_id = 0;
 
+    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
   }
 
   /**
