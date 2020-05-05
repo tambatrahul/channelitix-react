@@ -34,7 +34,7 @@
   </div>
   <div class="col-md-3 col-xs-6" *ngIf="environment.envName != 'sk_group'">
     <div class="mini-stats-widget full-block-mini-chart">
-      <div class="mini-stats-top" *ngIf="environment.projectName != 'IKON' && _department_id == 1 ">
+      <div class="mini-stats-top" *ngIf="environment.projectName != 'IKON' ">
         <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
         <span class="mini-stats-label">% Performance (Primary)</span>
       </div>
