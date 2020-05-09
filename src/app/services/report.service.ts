@@ -252,6 +252,51 @@ export class ReportService extends BaseService {
   }
 
   /**
+   * get details till month
+   * @returns {Observable<Result>}
+   */
+  till_month_chart_aspira(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+                   month?: number, year?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+      });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
+      });
+    }
+    if (month)
+      params.append('month', String(month));
+    if (year)
+      params.append('year', String(year));
+
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
+    // prepare url
+    let url = this.getBaseUrl() + '/sap/till_month_aspira';
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
+  }
+
+  /**
    * get performance for year
    * @returns {Observable<Result>}
    */
@@ -328,6 +373,45 @@ export class ReportService extends BaseService {
 
     // make server call
     return this.get(this.getBaseUrl() + '/target_performance/' + month + '/' + year, new RequestOptions({search: params}));
+  }
+
+  /**
+   * get all product wise sale for dashboard
+   *
+   * @returns {Observable<Result>}
+   */
+  product_wise_sale_aspira(month, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+                    zone_ids?: Array<number>, department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+      });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
+      });
+    }
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
+    // make server call
+    return this.get(this.getBaseUrl() + '/target_performance_aspira/' + month + '/' + year, new RequestOptions({search: params}));
   }
 
   /**

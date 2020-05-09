@@ -117,16 +117,29 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   fetchTillMonthChart = AppConstants.debounce(function () {
     const self = this;
     self.loading = true;
-    self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
-      self._zone_ids, self._department_id).subscribe(
-      response => {
-        self.prepareData(new YearTillMonth(response.year_till_month));
-        self.loading = false;
-      },
-      err => {
-        self.loading = false;
-      }
-    );
+    if (this.environment.projectName == 'ASPIRA') {
+      self.reportService.till_month_chart_aspira(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
+        self._zone_ids, self._department_id).subscribe(
+        response => {
+          self.prepareData(new YearTillMonth(response.year_till_month));
+          self.loading = false;
+        },
+        err => {
+          self.loading = false;
+        }
+      );
+    } else {
+      self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
+        self._zone_ids, self._department_id).subscribe(
+        response => {
+          self.prepareData(new YearTillMonth(response.year_till_month));
+          self.loading = false;
+        },
+        err => {
+          self.loading = false;
+        }
+      );
+    }
   }, 1000, false);
 
   /**

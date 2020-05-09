@@ -132,17 +132,32 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
    */
   fetchProductWiseSale = AppConstants.debounce(function () {
     const self = this;
-    if ((self._month || self._month == 0) && self._year) {
-      self.loading = true;
-      self.reportService.product_wise_sale(self._month + 1, self._year,
-        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
-        response => {
-          self.formatData(new Performance(response.performance));
-          self.loading = false;
-        }, err => {
-          self.loading = false;
-        }
-      );
+    if (this.environment.projectName == 'ASPIRA') {
+      if ((self._month || self._month == 0) && self._year) {
+        self.loading = true;
+        self.reportService.product_wise_sale_aspira(self._month + 1, self._year,
+          self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
+          response => {
+            self.formatData(new Performance(response.performance));
+            self.loading = false;
+          }, err => {
+            self.loading = false;
+          }
+        );
+      }
+    } else {
+      if ((self._month || self._month == 0) && self._year) {
+        self.loading = true;
+          self.reportService.product_wise_sale(self._month + 1, self._year,
+           self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
+          response => {
+            self.formatData(new Performance(response.performance));
+            self.loading = false;
+          }, err => {
+            self.loading = false;
+          }
+        );
+      }
     }
   }, 1000, false);
 
