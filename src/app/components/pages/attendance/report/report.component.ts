@@ -16,13 +16,16 @@ import {Brand} from '../../../../models/order/brand';
 import {Priority} from '../../../../models/visit/priority';
 import {CustomerPriorities} from '../../../../models/visit/customer_priorities';
 import {UserInput} from '../../../../models/V2/user/user_input';
+import {FormComponent} from '../../../base/form.component';
+declare let swal: any;
+
 
 @Component({
   selector: 'report-component',
   templateUrl: 'report.component.html',
   styleUrls: ['report.component.less']
 })
-export class ReportComponent extends BaseAuthComponent {
+export class ReportComponent extends FormComponent {
 
   public brand_id: number = 0;
   customer_priorities: CustomerPriorities[] = [];
@@ -51,7 +54,7 @@ export class ReportComponent extends BaseAuthComponent {
    * form fields
    */
   _report_date: string;
-
+public mobile_valid: boolean = false;
   /**
    * customer list
    *
@@ -79,6 +82,12 @@ export class ReportComponent extends BaseAuthComponent {
    */
   @Output()
   add_more_customer = new EventEmitter();
+
+  /**
+   * selected value
+   */
+  @Input()
+  value: number = 0;
 
   /**
    * inputs for
@@ -293,6 +302,9 @@ export class ReportComponent extends BaseAuthComponent {
 
     this.attendanceService.report_update_mobile({customers: formatted_data}).subscribe(
       response => {
+        this.loading = false;
+      },
+      err => {
       }
     );
 
@@ -377,5 +389,14 @@ export class ReportComponent extends BaseAuthComponent {
    */
   resetSave() {
     this.saved = false;
+  }
+
+  onMobileChange(value) {
+    this.value = value;
+    if (this.value >= 6000000000 && this.value <= 9999999999 || this.value == null ) {
+      this.mobile_valid = false;
+    } else {
+      this.mobile_valid = true;
+    }
   }
 }

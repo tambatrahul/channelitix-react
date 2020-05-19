@@ -87,8 +87,11 @@
                            [(ngModel)]="selected_customer.customer.mobile" readonly/>
                   </div>
                   <div *ngIf="editable == 'open'">
-                    <input class="form-control" placeholder="Mobile Number" style="width: 100%"
-                           [(ngModel)]="selected_customer.customer.mobile"/>
+                    <input class="form-control" placeholder="Mobile Number" type="number"  style="width: 100%"
+                           [(ngModel)]="selected_customer.customer.mobile" (ngModelChange) = "onMobileChange($event)"/>
+                    <small *ngIf="mobile_valid" class="text-danger text-center">
+                      Mobile Number is Invalid.
+                    </small>
                   </div>
 
                 </div>
@@ -287,7 +290,10 @@
     <div class=" widget-block clearfix">
       <div *ngIf="editable == 'open'">
         <button class="btn btn-success pull-right" (click)="submit()" *ngIf="saved">Submit</button>
-        <button class="btn btn-primary pull-right" (click)="save()" *ngIf="!saved">Save</button>
+        <button class="btn btn-primary pull-right" (click)="save()" *ngIf="!saved && !mobile_valid">Save</button>
+        <span *ngIf="mobile_valid" class="text-danger pull-right" style="padding: 10px;">
+                    Please Enter Vaild Mobile Number.
+                </span>
         <span *ngIf="saved" class="text-info pull-right" style="padding: 10px;">
                     Report is Saved successfully.. Click on Submit to Send Report
                 </span>
