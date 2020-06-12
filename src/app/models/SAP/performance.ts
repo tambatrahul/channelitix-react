@@ -11,6 +11,7 @@ export class Performance {
   targets: Target[];
   primary_sales: PrimarySale[];
   secondary_sales: SecondarySale[];
+  secondary_total_sales: SecondarySale[];
   last_year_this_month_secondary_sales: SecondarySale[];
   orders: Order[];
   till_month_targets: Target[];
@@ -28,6 +29,10 @@ export class Performance {
     if (info.secondary_sales) {
       this.secondary_sales = info.secondary_sales.map(tar => new SecondarySale(tar));
     }
+    if (info.secondary_total_sales) {
+      this.secondary_total_sales = info.secondary_total_sales.map(tar => new SecondarySale(tar));
+    }
+
     if (info.last_year_this_month_secondary_sales) {
       this.last_year_this_month_secondary_sales = info.last_year_this_month_secondary_sales.map(tar => new SecondarySale(tar));
     }

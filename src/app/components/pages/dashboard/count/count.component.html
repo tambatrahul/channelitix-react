@@ -38,9 +38,14 @@
         <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
         <span class="mini-stats-label">% Performance (Primary)</span>
       </div>
-      <div class="mini-stats-top" *ngIf="environment.projectName == 'IKON' && _department_id == 0 ">
-        <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
-        <span class="mini-stats-label">% Performance (Primary)</span>
+      <div  *ngIf="environment.projectName == 'IKON' && _department_id == 0 ">
+        <div class="mini-stats-bottom w_bg">
+          <span>ICON Perf.</span> <span>{{ counts.performance_icon.toFixed(2)}} % </span>
+        </div>
+        <br />
+        <div class="mini-stats-bottom w_bg" >
+          <span>CHL Perf.</span> <span>{{ counts.performance_chl.toFixed(2)}} % </span>
+        </div>
       </div>
       <div class="mini-stats-top" *ngIf="_department_id == 1 && environment.projectName == 'IKON'">
         <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
