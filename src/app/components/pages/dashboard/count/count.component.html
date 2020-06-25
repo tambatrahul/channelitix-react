@@ -48,11 +48,11 @@
         </div>
       </div>
       <div class="mini-stats-top" *ngIf="_department_id == 1 && environment.projectName == 'IKON'">
-        <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
+        <span class="mini-stats-value">{{ counts.performance_icon.toFixed(2) }}</span>
         <span class="mini-stats-label">% ICON Performance (Primary)</span>
       </div>
       <div class="mini-stats-top" *ngIf="_department_id == 2 && environment.projectName == 'IKON'">
-        <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
+        <span class="mini-stats-value">{{ counts.performance_chl.toFixed(2) }}</span>
         <span class="mini-stats-label">% CHl Performance (Primary)</span>
       </div>
 <!--      <div class="mini-stats-bottom w_bg" *ngIf="environment.envName == 'geo'">-->

@@ -3,6 +3,8 @@ import {Model} from "../model";
 export class Brand extends Model {
 
   name: string;
+  icon_name: string;
+  chl_name: string;
 
   // for internal use only
   primary_sale: number = 0;
@@ -14,6 +16,12 @@ export class Brand extends Model {
   constructor(info: any) {
     super(info.id);
     this.name = info.name;
+    if (info.id <= 4) {
+      this.icon_name = info.name;
+    }
+    if (info.id > 4) {
+      this.chl_name = info.name;
+    }
   }
 
   /**
