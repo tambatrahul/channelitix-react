@@ -364,7 +364,7 @@ export class OrderComponent extends BaseAuthComponent {
       synergy = this.abbott ? 1 : 0;
 
     Observable.forkJoin(
-      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id),
+      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id, this.department_id),
       this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
         this.product_id, this.brand_id, this.zone_id, this.department_id)
     ).subscribe(data => {

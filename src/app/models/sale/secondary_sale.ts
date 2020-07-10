@@ -31,6 +31,7 @@ export class SecondarySale extends Model {
 
   // for internal user only
   total_amount: number = 0;
+  total_pending_amount: number = 0;
   brand_id: number = 0;
 
   get closing_in_value(): number {
@@ -121,6 +122,10 @@ export class SecondarySale extends Model {
 
     if (info.total_amount)
       this.total_amount = parseFloat(info.total_amount);
+
+
+    if (info.total_pending_amount)
+      this.total_pending_amount = parseFloat(info.total_pending_amount);
 
     if (info.primary_qty)
       this.primary_qty = parseFloat(info.primary_qty);

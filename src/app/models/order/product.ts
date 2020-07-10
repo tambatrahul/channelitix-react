@@ -15,7 +15,9 @@ export class Product extends Model {
   // for internal use only
   target: number = 0;
   performance: number = 0;
+  performance_pending: number = 0;
   performance_total: number = 0;
+  performance_pending_total: number = 0;
   last_year_month_performance: number = 0;
   invoice_detail: InvoiceDetail;
   amount: number = 0;
@@ -69,8 +71,15 @@ export class Product extends Model {
     if (info.performance)
       this.performance = parseFloat(info.performance);
 
+
+    if (info.performance_pending)
+      this.performance_pending = parseFloat(info.performance_pending);
+
     if (info.performance_total)
       this.performance_total = parseFloat(info.performance_total);
+
+    if (info.performance_pending_total)
+      this.performance_pending_total = parseFloat(info.performance_pending_total);
 
     if (info.amount)
       this.amount = parseFloat(info.amount);

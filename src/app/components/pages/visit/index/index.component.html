@@ -43,6 +43,10 @@
     <div class="col-xs-12 col-md-3">
       <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
     </div>
+    <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">
+      <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
+                         (onValueChanged)="departmentChanged($event)"></department-select>
+    </div>
     <div class="col-xs-12 col-md-3">
       <customer-type-select [value]="customer_type_id"
                             (onValueChanged)="customerTypeChanged($event)"></customer-type-select>

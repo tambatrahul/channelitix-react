@@ -23,7 +23,9 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   till_month_total_target: number = 0;
   total_target: number = 0;
   total_actual: number = 0;
+  total_pending_actual: number = 0;
   total_actual_sales: number = 0;
+  total_pending_actual_sales: number = 0;
   total_last_year_month_actual: number = 0;
   till_month_total_sale: number = 0;
   total_pob: number = 0;
@@ -37,7 +39,9 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   total_geo_target: number = 0;
   total_last_month_geo_actual: number = 0;
   total_geo_actual: number = 0;
+  total_pending_geo_actual: number = 0;
   total_product_geo_actual: number = 0;
+  total_pending_product_geo_actual: number = 0;
   till_month_total_sale_geo: number = 0;
   total_geo_pob: number = 0;
 
@@ -50,7 +54,9 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   total_icon_target: number = 0;
   total_last_month_icon_actual: number = 0;
   total_icon_actual: number = 0;
+  total_pending_icon_actual: number = 0;
   total_product_icon_actual: number = 0;
+  total_pending_product_icon_actual: number = 0;
   till_month_total_sale_icon: number = 0;
   total_icon_pob: number = 0;
 
@@ -229,42 +235,56 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     });
 
     self.total_actual = 0;
+    self.total_pending_actual = 0;
     self.total_last_year_month_actual = 0;
     self.total_last_month_geo_actual = 0;
     self.total_last_month_icon_actual = 0;
     self.total_geo_actual = 0;
     self.total_icon_actual = 0;
+    self.total_pending_icon_actual = 0;
+    self.total_pending_geo_actual = 0;
     // set performance values
     performance.secondary_sales.map(function (ss) {
       products.map(function (product) {
         if (product.brand_id == ss.brand_id) {
           product.performance = ss.total_amount;
+          product.performance_pending = ss.total_pending_amount;
           self.total_actual += ss.total_amount;
+          self.total_pending_actual += ss.total_pending_amount;
 
           if (ss.brand_id > 4)
             self.total_geo_actual += ss.total_amount;
+            self.total_pending_geo_actual += ss.total_pending_amount;
 
           if (ss.brand_id <= 4)
             self.total_icon_actual += ss.total_amount;
+            self.total_pending_icon_actual += ss.total_pending_amount;
         }
       })
     });
 
     self.total_actual_sales = 0;
+    self.total_pending_actual_sales = 0;
     self.total_product_geo_actual = 0;
+    self.total_pending_product_geo_actual = 0;
     self.total_product_icon_actual = 0;
+    self.total_pending_product_icon_actual = 0;
     // set performance Total values
     performance.secondary_total_sales.map(function (sst) {
       products.map(function (product) {
         if (product.brand_id == sst.brand_id) {
           product.performance_total = sst.total_amount;
+          product.performance_pending_total = sst.total_pending_amount;
           self.total_actual_sales += sst.total_amount;
+          self.total_pending_actual_sales += sst.total_pending_amount;
 
           if (sst.brand_id > 4)
             self.total_product_geo_actual += sst.total_amount;
+            self.total_pending_product_geo_actual += sst.total_pending_amount;
 
           if (sst.brand_id <= 4)
             self.total_product_icon_actual += sst.total_amount;
+            self.total_pending_product_icon_actual += sst.total_pending_amount;
 
         }
       })

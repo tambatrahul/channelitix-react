@@ -48,7 +48,7 @@ export class AttendanceService extends BaseService {
   /**
    * get attendance report
    */
-  forChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, zone_id?: number): Observable<Result> {
+  forChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, zone_id?: number, department_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/monthly/forChildren/' + month + '/' + year;
@@ -59,6 +59,7 @@ export class AttendanceService extends BaseService {
     params.set('manager_id', String(manager_id > 0 ? manager_id : ''));
     params.set('synergy', String(synergy ? synergy : ''));
     params.set('zone_id', String(zone_id ? zone_id : ''));
+    params.set('department_id', String(department_id ? department_id : ''));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));

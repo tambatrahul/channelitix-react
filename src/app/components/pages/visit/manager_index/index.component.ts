@@ -56,8 +56,10 @@ export class ManagerVisitComponent extends BaseAuthComponent {
      * manager_id
      */
     public manager_id: number = 0;
+    public department_id: number = 0;
 
-    public options: {};
+
+  public options: {};
     public chart_data = [];
 
     /**
@@ -130,6 +132,13 @@ export class ManagerVisitComponent extends BaseAuthComponent {
         if (this._service.user.username == 'abbottadmin') {
             this.abbott = true;
         }
+
+        if (this._service.user.departments.length > 0)
+            this.department_id = 0;
+
+        if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+            this.department_id = this._service.user.departments[0].pivot.department_id;
+
         this.month = moment().month();
         this.year = moment().year();
         this.fetchData();
@@ -298,8 +307,8 @@ export class ManagerVisitComponent extends BaseAuthComponent {
             synergy = this.abbott ? 1 : 0;
 
         Observable.forkJoin(
-            this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy),
-            this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.customer_type_id)
+            this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, null, this.department_id ),
+            this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.customer_type_id, null, this.department_id)
         ).subscribe(data => {
 
             this.loading = false;
@@ -351,6 +360,16 @@ export class ManagerVisitComponent extends BaseAuthComponent {
         this.excel_loaded = false;
         this.fetchData();
     }
+
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
+    this.fetchData();
+  }
 
     /**
      * select user to view list

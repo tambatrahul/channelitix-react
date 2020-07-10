@@ -45,6 +45,8 @@ export class VisitComponent extends BaseAuthComponent {
    */
   public role_id: number = 0;
   public manager_role_id: number = 0;
+  public department_id: number = 0;
+
 
   /**
    * abbott check
@@ -137,6 +139,12 @@ export class VisitComponent extends BaseAuthComponent {
 
     if(this._service.user.role_str == 'COUNTRY_MNG')
       this.zone_id = 1;
+
+    if (this._service.user.departments.length > 0)
+      this.department_id = 0;
+
+    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+      this.department_id = this._service.user.departments[0].pivot.department_id;
 
     this.month = moment().month();
     this.year = moment().year();
@@ -321,9 +329,9 @@ export class VisitComponent extends BaseAuthComponent {
     }
 
     Observable.forkJoin(
-      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id),
+      this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id, this.department_id),
       this.visitService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.customer_type_id,
-        this.zone_id)
+        this.zone_id, this.department_id)
     ).subscribe(data => {
 
       this.loading = false;
@@ -382,6 +390,15 @@ export class VisitComponent extends BaseAuthComponent {
   switchToAbbott() {
     this.abbott = !this.abbott;
     this.excel_loaded = false;
+    this.fetchData();
+  }
+  /**
+   * department Filter
+   *
+   * @param department_id
+   */
+  departmentChanged(department_id) {
+    this.department_id = department_id;
     this.fetchData();
   }
 
