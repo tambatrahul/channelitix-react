@@ -1,10 +1,13 @@
-import {Component, Input} from "@angular/core";
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import * as moment from "moment";
 import {User} from "../../../../models/user/user";
 import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
 import {Visit} from "../../../../models/visit/visit";
 import {VisitService} from "../../../../services/visit.service";
+import {AppConstants} from '../../../../app.constants';
+import {Brick} from '../../../../models/territory/brick';
+import {InvoiceDetail} from '../../../../models/SAP/invoice_detail';
 declare let jQuery: any;
 
 @Component({
@@ -14,17 +17,18 @@ declare let jQuery: any;
 })
 export class UserVisitListComponent extends BaseAuthComponent {
 
+
   /**
    * selected visit id
    */
   selectedVisitId: number;
 
-  _user: User;
-  @Input()
-  set user(user) {
-    this._user = user;
-    this.fetch();
-  }
+  // _user: User;
+  // @Input()
+  // set user(user) {
+  //   this._user = user;
+  //   this.fetch();
+  // }
 
   /**
    * month for report
@@ -41,11 +45,18 @@ export class UserVisitListComponent extends BaseAuthComponent {
   /**
    * date for report
    */
-  _date: number;
+  _date: number = 0;
   @Input()
   set date(date: number) {
     this._date = date;
-    this.fetch();
+    this.fetchData();
+  }
+
+  _user: User;
+  @Input()
+  set user(user) {
+    this._user = user;
+    this.fetchData();
   }
 
   /**
@@ -62,6 +73,15 @@ export class UserVisitListComponent extends BaseAuthComponent {
    * @type {{}}
    */
   public visits: Visit[] = [];
+
+  customer_type_id: number = 0;
+  customer_count: number;
+  customer_total: number = 0;
+  customer_stockist: number = 0;
+  customer_semi: number = 0;
+  customer_retailer: number = 0;
+  customer_hub_chemist: number = 0;
+  customer_doctor: number = 0;
 
   /**
    * Visit
@@ -80,23 +100,64 @@ export class UserVisitListComponent extends BaseAuthComponent {
     super.ngOnInit();
   }
 
+  reset() {
+    this.customer_total = 0;
+    this.customer_stockist = 0;
+    this.customer_semi = 0;
+    this.customer_retailer = 0;
+    this.customer_hub_chemist = 0;
+    this.customer_doctor = 0;
+  }
   /**
    * fetch server data for visits
    */
-  fetch() {
-    if ((this.month || this.month == 0) && this.year && this._user && this._date) {
-      this.loading = true;
-      this.visitService.forUser(this._user.id, this.month + 1, this.year, this._date).subscribe(
+  fetchData = AppConstants.debounce(function() {
+    const self = this;
+    self.reset();
+    if ((self.month || self.month == 0) && self.year && self._user && self._date > 0) {
+      self.loading = true;
+      self.visitService.forUser(self._user.id, self.month + 1, self.year, self._date).subscribe(
         response => {
-          this.visits = response.visits.map(visit => new Visit(visit));
-          this.loading = false;
+          self.visits = response.visits.map(function (vis, index) {
+            let visit_de = new Visit(vis);
+            self.customer_total += visit_de.customer_count;
+            self.customer_type_id = visit_de.customer_type_id;
+
+            /**
+             * All Customers counts
+             */
+            if (self.customer_type_id == 1) {
+              self.customer_stockist += visit_de.customer_count;
+            }
+
+            if (self.customer_type_id == 2) {
+              self.customer_semi += visit_de.customer_count;
+            }
+
+            if (self.customer_type_id == 3) {
+              self.customer_retailer += visit_de.customer_count;
+            }
+
+            if (self.customer_type_id == 4) {
+              self.customer_hub_chemist += visit_de.customer_count;
+            }
+
+            if (self.customer_type_id == 5) {
+              self.customer_doctor += visit_de.customer_count;
+            }
+
+            return visit_de;
+          });
+
+          self.loading = false;
         },
         err => {
-          this.loading = false;
+          self.loading = false;
         }
       )
     }
-  }
+  }, 1000, false);
+
 
   /**
    * select visit

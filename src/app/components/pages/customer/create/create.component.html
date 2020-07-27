@@ -65,16 +65,77 @@
                                     <div class="col-xs-12 col-md-6 form-group">
                                       <!-- Mobile -->
                                       <div class="form-group">
-                                        <label class="control-label">Mobile</label>
+                                        <label class="control-label">Gst No</label>
                                         <div class="">
-                                          <input class="form-control" formControlName="mobile" type="text"
-                                                 name="mobile">
-                                          <small *ngIf="errors['mobile']" class="text-danger text-center">
-                                            {{ errors.mobile}}
+                                          <input class="form-control" formControlName="gst_no" type="text"
+                                                 name="gst_no" (ngModelChange) = "onGstChange($event)">
+                                          <small *ngIf="gst_valid" class="text-danger text-center">
+                                            Gst Number is Invalid.
                                           </small>
                                         </div>
                                       </div>
                                     </div>
+                                      <div class="col-xs-12 col-md-6 form-group">
+                                        <!-- Mobile -->
+                                        <div class="form-group">
+                                          <label class="control-label">Mobile</label>
+                                          <div class="">
+                                            <input class="form-control" formControlName="mobile" type="text"
+                                                   name="mobile">
+                                            <small *ngIf="errors['mobile']" class="text-danger text-center">
+                                              {{ errors.mobile}}
+                                            </small>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="row">
+                                    <div class="col-xs-12 col-md-6 formControlName" style="padding-bottom: 15px">
+                                        <label>
+                                          <input style="margin: 0px 5px 0px 0px;"
+                                            type="checkbox"
+                                            [(ngModel)]="channel"
+                                            [ngModelOptions]="{standalone: true}"/><span>Enroll for Channel Paisa</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 formControlName" style="padding-bottom: 15px">
+                                      <label>
+                                        <input style="margin: 0px 5px 0px 0px;"
+                                               type="checkbox"
+                                               [(ngModel)]="channel_pay"
+                                               [ngModelOptions]="{standalone: true}"/><span>Enroll for Channel Pay</span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                    <div class="row">
+                                    <div class="col-xs-12 col-md-6 formControlName" *ngIf="channel">
+                                      <!-- Channel Paisa Mobile -->
+                                      <div class="form-group">
+                                        <label class="control-label">Channel Paisa Reg-Mobile</label>
+                                        <div class="">
+                                          <input class="form-control" formControlName="channel_paisa_mobile" type="text"
+                                                 name="channel_paisa_mobile" (ngModelChange) = "onMobileChange($event)">
+                                          <small *ngIf="mobile_valid" class="text-danger text-center">
+                                            Mobile Number is Invalid.
+                                          </small>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 form-group" *ngIf="channel_pay">
+                                      <!-- Channel Pay Mobile -->
+                                      <div class="form-group">
+                                        <label class="control-label">Channel Pay Reg-Mobile</label>
+                                        <div class="">
+                                          <input class="form-control" formControlName="channel_pay_mobile" type="text"
+                                                 name="channel_pay_mobile" (ngModelChange) = "onMobileChangePay($event)">
+                                          <small *ngIf="mobile_valid_pay" class="text-danger text-center">
+                                            Mobile Number is Invalid.
+                                          </small>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
                                     <div class="col-xs-12 col-md-6 form-group" *ngIf="customer_type_id == 2">
                                       <!-- Mobile -->
                                       <div class="form-group">

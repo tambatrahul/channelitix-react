@@ -22,6 +22,7 @@ export class Visit extends Model {
   creator: User;
   inputs: VisitInput[];
   customer_priorities: CustomerPriorities[] = [];
+  priorities: CustomerPriorities[] = [];
   name: string;
   input_answers: InputAnswer[];
   customer: Customer;
@@ -42,6 +43,7 @@ export class Visit extends Model {
   visited_twice: number = 0;
   visited_thrice: number = 0;
   customer_type_id: number = 0;
+  customer_count: number;
   days: string;
 
   visited_brick: string;
@@ -94,6 +96,11 @@ export class Visit extends Model {
         return new InputAnswer(input);
       });
 
+    // customer priorities
+    if (info.priorities)
+      this.priorities = info.priorities.map(function (priority) {
+        return new CustomerPriorities(priority);
+      });
     // internal
     if (info.visit_count)
       this.visit_count = parseInt(info.visit_count);
@@ -113,6 +120,9 @@ export class Visit extends Model {
     if (info.customer_type_id)
       this.customer_type_id = parseInt(info.customer_type_id);
 
+    if (info.customer_count)
+      this.customer_count = parseInt(info.customer_count);
+
     this.hq_brick_id = info.hq_brick_id;
     this.no_of_days = info.no_of_days;
 
@@ -127,6 +137,7 @@ export class Visit extends Model {
 
     if (info.visited_hq)
       this.visited_hq = info.visited_hq;
+
   }
 
   /**

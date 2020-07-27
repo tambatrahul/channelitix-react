@@ -1,4 +1,58 @@
 <div class="box-widget widget-module daily_tour">
+  <div class="forum-header" style="background-color: #edf1f2;">
+  <div class="forum-stats">
+    <div class="row">
+    <div class="col-md-2 col-sm-6">
+      <a class="sats-widget all" style="margin: 0px 0px 0px -10px;">
+        <span class="stats-info" style="background-color: #2980b9">
+          <span class="topics-couner" style="color: #fff">{{ customer_total}}</span>
+          <span class="topic-type" style="color: #fff">All</span>
+        </span>
+      </a>
+    </div>
+    <div class="col-md-2 col-sm-6">
+      <a class="sats-widget all"  style="margin: 0px 0px 0px -25px;">
+        <span class="stats-info">
+          <span class="topics-couner" style="color: #9b59b6;">{{customer_stockist}}</span>
+          <span class="topic-type" style="color: #9b59b6;">Stockists</span>
+          </span>
+      </a>
+    </div>
+      <div class="col-md-2 col-sm-6">
+        <a class="sats-widget all" style=" margin: 0px 0px 0px -18px;">
+        <span class="stats-info">
+          <span class="topics-couner" style="color: #e67e22;">{{customer_semi}}</span>
+          <span class="topic-type" style="color: #e67e22;">Semis</span>
+          </span>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-6">
+        <a class="sats-widget all" style="margin: 0px 0px 0px -32px;">
+        <span class="stats-info">
+          <span class="topics-couner" style="color: #34495e;">{{customer_retailer}}</span>
+          <span class="topic-type" style="color: #34495e;">Retailers</span>
+          </span>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-6">
+        <a class="sats-widget all" style="margin: 0px 0px 0px -30px;">
+        <span class="stats-info">
+          <span class="topics-couner" style="color: #e74c3c;">{{customer_hub_chemist}}</span>
+          <span class="topic-type" style="color: #e74c3c;">Hub Chemists</span>
+          </span>
+        </a>
+      </div>
+      <div class="col-md-2 col-sm-6">
+        <a class="sats-widget all" style="margin: 0px 0px 0px -21px;">
+        <span class="stats-info" style="color: #9b59b6;">
+          <span class="topics-couner" style="color: #9b59b6;">{{customer_doctor}}</span>
+          <span class="topic-type">Healthcare Providers</span>
+          </span>
+        </a>
+      </div>
+  </div>
+  </div>
+  </div>
     <div class="widget-head clearfix">
         <span class="h-icon"><i class="fa fa-table"></i></span>
         <h4>Visit on <span [innerHTML]="title"></span></h4>
@@ -38,6 +92,16 @@
                                 <td></td>
                                 <td colspan="4" style="padding: 10px;">
                                     <table class="table table-bordered sub-table">
+                                      <tr>
+                                        <th>Priority</th>
+                                        <th>Brand Name</th>
+                                      </tr>
+                                      <template ngFor let-cuspri [ngForOf]="vis.priorities">
+                                        <tr *ngIf="cuspri.pri_brand_id > 0 ">
+                                          <td>{{ cuspri.priority.name }}</td>
+                                          <td>{{ cuspri.brand?.name }}</td>
+                                        </tr>
+                                      </template>
                                         <tr>
                                             <th>Input</th>
                                             <th>Answer</th>

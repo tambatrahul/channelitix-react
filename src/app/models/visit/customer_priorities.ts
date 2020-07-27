@@ -9,10 +9,11 @@ export class CustomerPriorities extends Model {
   priority: Priority;
   priority_id: number;
   brand_id = 0;
+  pri_brand_id : number;
 
   constructor(info: any) {
     super(info.id);
-
+    this.pri_brand_id = info.brand_id;
     if (info.priority) {
       this.priority_id = info.priority.id;
       this.name = info.priority.name;

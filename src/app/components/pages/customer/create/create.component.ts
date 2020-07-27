@@ -46,6 +46,13 @@ export class CreateCustomerComponent extends FormComponent {
   public hq_zone_id: number = 0;
   public hq_country_id: number = 0;
   public hq_brick_id: number = 0;
+  public value: number = 0;
+  public temp_gst: string ;
+  public channel: boolean = false;
+  public channel_pay: boolean = false;
+  public mobile_valid: boolean = false;
+  public mobile_valid_pay: boolean = false;
+  public gst_valid: boolean = false;
   public classification: string;
 
   public qualification_ids: Array<number> = [];
@@ -60,6 +67,9 @@ export class CreateCustomerComponent extends FormComponent {
     firm_name: [""],
     email: [""],
     mobile: [""],
+    channel_paisa_mobile: [""],
+    channel_pay_mobile: [""],
+    gst_no: [""],
     classification: [""],
     customer_type_id: [""],
     doctor_type_id: [""],
@@ -255,5 +265,32 @@ export class CreateCustomerComponent extends FormComponent {
   classificationChanged(classification) {
     this.classification = classification;
     this.form.patchValue({classification: classification});
+  }
+
+  onMobileChange(value) {
+    this.value = value;
+    if (this.value >= 6000000000 && this.value <= 9999999999 || this.value == null ) {
+      this.mobile_valid = false;
+    } else {
+      this.mobile_valid = true;
+    }
+  }
+
+  onMobileChangePay(e) {
+    this.value = e;
+    if (this.value >= 6000000000 && this.value <= 9999999999 || this.value == null ) {
+      this.mobile_valid_pay = false;
+    } else {
+      this.mobile_valid_pay = true;
+    }
+  }
+
+    onGstChange(val) {
+      this.temp_gst = val;
+      if (this.temp_gst.match('\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}[Z]{1}[A-Z\\d]{1}') && this.temp_gst.length <= 15 || this.temp_gst == null) {
+        this.gst_valid = false;
+      } else {
+        this.gst_valid = true;
+      }
   }
 }
