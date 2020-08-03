@@ -20,8 +20,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
     selectedOrderId: number;
     public btn_loading: boolean = false;
     public _department_id: number = 0;
-
-
+    public _brand_id: number = 0;
 
     _user: User;
     @Input()
@@ -29,6 +28,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
         this._user = user;
         this.fetch();
     }
+
   /**
    * Department Filter
    *
@@ -37,6 +37,18 @@ export class UserOrderListComponent extends BaseAuthComponent {
   @Input()
   set department_id(department_id) {
     this._department_id = department_id;
+    this.fetch();
+  }
+
+
+  /**
+   * Brand Filter
+   *
+   * @type {number}
+   */
+  @Input()
+  set brand_id(brand_id) {
+    this._brand_id = brand_id;
     this.fetch();
   }
 
@@ -51,6 +63,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
      */
     @Input()
     year: number;
+
 
     /**
      * date for report
@@ -98,7 +111,8 @@ export class UserOrderListComponent extends BaseAuthComponent {
     fetch() {
         if ((this.month || this.month == 0) && this.year && this._user && this._date) {
             this.loading = true;
-            this.orderService.forUser(this._user.id, this.month + 1, this.year, this._date, this._department_id).subscribe(
+            this.orderService.forUser(this._user.id, this.month + 1, this.year,
+              this._date, this._department_id, this._brand_id).subscribe(
                 response => {
                     this.orders = response.orders.map(order => new Order(order));
                     if (this._service.user.username == 'abbottadmin')

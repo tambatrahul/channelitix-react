@@ -33,7 +33,7 @@
 
                     <tbody>
                     <template ngFor let-o [ngForOf]="orders">
-                        <tr>
+                        <tr *ngIf="o.order_items.length > 0">
                             <td>{{ o.id }}</td>
                             <td>{{ o.customer.firm_name }}</td>
                             <td>{{ o.customer.customer_type.name }}</td>
@@ -82,18 +82,16 @@
                                                  item.quantity).toFixed(2) }}
                                                </td>
                                             </template>
-                                            <template [ngIf]="_service.user.username != 'abbottadmin' && _department_id == 1 &&  item.product.id < 6 && environment.projectName == 'IKON'">
+                                            <template [ngIf]="_service.user.username != 'abbottadmin' && _department_id == 1 && environment.projectName == 'IKON'">
                                                 <td>{{ item.product.name }}</td>
                                                 <td>{{ item.quantity }}</td>
-                                                <td><i class="fa fa-rupee"></i> {{ (item.unit_price *
-                                                    item.quantity).toFixed(2) }}
+                                                <td><i class="fa fa-rupee"></i> {{ (item.unit_price * item.quantity).toFixed(2) }}
                                                 </td>
                                             </template>
-                                            <template [ngIf]="_service.user.username != 'abbottadmin' && _department_id == 2 &&  item.product.id > 5 && environment.projectName == 'IKON' ">
+                                            <template [ngIf]="_service.user.username != 'abbottadmin' && _department_id == 2 && environment.projectName == 'IKON' ">
                                                 <td>{{ item.product.name }}</td>
                                                 <td>{{ item.quantity }}</td>
-                                                <td><i class="fa fa-rupee"></i> {{ (item.unit_price *
-                                                    item.quantity).toFixed(2) }}
+                                                <td><i class="fa fa-rupee"></i> {{ (item.unit_price * item.quantity).toFixed(2) }}
                                             </td>
                                           </template>
                                         </tr>

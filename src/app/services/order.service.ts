@@ -42,7 +42,8 @@ export class OrderService extends BaseService {
   /**
    * get monthly report
    */
-  forUser(user_id: number, month: number, year: number, day?: number, department_id?: number): Observable<Result> {
+  forUser(user_id: number, month: number, year: number,
+        day?: number, department_id?: number, brand_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year + "/" + department_id;
@@ -50,6 +51,8 @@ export class OrderService extends BaseService {
     // prepare get params
     let params = new URLSearchParams();
     params.set('date', String(day > 0 ? day : ''));
+    if (brand_id && brand_id > 0)
+      params.set('brand_id', String(brand_id));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
