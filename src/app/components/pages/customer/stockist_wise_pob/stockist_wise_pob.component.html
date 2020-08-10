@@ -30,22 +30,33 @@
                            (onValueChanged)="zoneChanged($event)"></zone-select>
             </div>
             <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
-                <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'"
+                <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'" [first_value]="'Select Region'"
                                (onValueChanged)="regionChanged($event)"></region-select>
             </div>
             <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
                 <div *ngIf="region_id > 0">
-                    <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
+                    <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" [first_value]="'Select Area'"
                                  (onValueChanged)="areaChanged($event)"></area-select>
                 </div>
             </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
                 <div *ngIf="area_id > 0">
-                    <headquarter-select [value]="headquarter_id" [area_id]="area_id"
-                                        [title]="'Select Head Quarter'"
+                    <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)"
+                                        [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
                                         (onValueChanged)="headquarterChanged($event)"></headquarter-select>
                 </div>
             </div>
+          <div class="col-xs-12 col-md-3">
+            <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;width: 25%;"
+               *ngIf="headquarter_id > 0"
+               (click)="fetch_data()">
+              Go
+            </a>
+            <a class="btn btn-primary btn-block btn-margin disabled" style="margin-top: 25px;width: 25%;"
+               *ngIf="!headquarter_id ||  headquarter_id==0">
+              Go
+            </a>
+          </div>
         </div>
     </div>
     <!-- ./Filters for Visit report-->
@@ -58,7 +69,7 @@
                     <span class="h-icon"><i class="fa fa-table"></i></span>
                     <h4><strong>A/B Stockist Visit & POB Report</strong></h4>
                 </div>
-                <div *ngIf="customers.length > 0 && !region_id">
+                <div *ngIf="customers.length > 0 ">
                     <div class="widget-container report-table">
                         <div class="widget-block">
                             <div class="table-responsive">
