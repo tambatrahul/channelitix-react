@@ -13,6 +13,8 @@ import {Observable} from "rxjs/Rx";
 import {Visit} from "../../../../models/visit/visit";
 import {Role} from "../../../../models/role";
 import {RoleCheckDirective} from "../../../../directives/role.directive";
+import {Headquarter} from '../../../../models/territory/headquarter';
+import {Territory} from '../../../../models/territory/territory';
 declare let jQuery: any;
 
 @Component({
@@ -33,6 +35,10 @@ export class StockistWisePobComponent extends ListComponent {
     public products: Product[] = [];
     public all_total: number = 0;
     public primary_sale_total: number = 0;
+    public _headquarters: Headquarter[] = [];
+    public territories: Territory[] = [];
+
+
 
     /**
      * zone, region, area & headquarter
@@ -72,28 +78,39 @@ export class StockistWisePobComponent extends ListComponent {
         super.ngOnInit();
         this.month = moment().month();
         this.year = moment().year();
-        this.zoneChanged(this._service.user.hq_zone_id);
-        this.regionChanged(this._service.user.hq_region_id);
-        this.areaChanged(this._service.user.hq_area_id);
-        if (this.environment.envName == 'geo' && this._service.user.role_str == 'COUNTRY_MNG')
-            this.zone_id = 1;
 
-        if (this._service.user.role_str == 'ZONE_MNG' && this.environment.envName == 'sk_group')
-            this.region_id = 2;
+        if (this._service.user.role_id == 4) {
+           this.region_id = this._service.user.hq_region_id;
+           this.area_id = this._service.user.hq_area_id;
+        }
+        if (this._service.user.role_id == 5) {
+           this.region_id = this._service.user.hq_region_id;
+        }
+        if (this._service.user.role_id == 6) {
+           this.zone_id = this._service.user.hq_zone_id;
+        }
 
-      if (this._service.user.departments.length > 0)
-        this.department_id = 0;
+        if (this._service.user.role_id == 7) {
+           this.zone_id = 1;
+        }
 
-      if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
-        this.department_id = this._service.user.departments[0].pivot.department_id;
+        if (this._service.user.departments.length > 0) {
+          this.department_id = 0;
+        }
 
-        this.fetch();
+        if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 ) {
+          this.department_id = this._service.user.departments[0].pivot.department_id;
+        }
+
     }
 
-    /**
+  protected fetch() {
+  }
+
+  /**
      * load users for logged in user
      */
-    fetch() {
+    fetch_data() {
         if (this.zone_id || this.region_id && (this.month || this.month == 0) && this.year) {
             this.loading = true;
             if (this.environment.envName == 'sk_group') {
@@ -116,7 +133,14 @@ export class StockistWisePobComponent extends ListComponent {
 
                     // prepare data
                     let customers = this.prepareData(all_customers, orders, null, visits);
-                    this.addSynergyData(customers, data[1].orders.map(order => new Order(order)))
+                    this.addSynergyData(customers, data[1].orders.map(order => new Order(order)));
+
+                  this.customers = [];
+                  for (let i in customers) {
+                    let customer = customers[i];
+                    this.customers.push(customer);
+                  }
+
                 });
             } else {
                 this.reportService.stockist_wise_pob(this.month + 1, this.year,
@@ -240,7 +264,7 @@ export class StockistWisePobComponent extends ListComponent {
                 this.primary_sale_total += primary_sale.total_net_amount;
             });
         }
-
+      console.log(customers);
         return customers;
     }
 
@@ -252,7 +276,6 @@ export class StockistWisePobComponent extends ListComponent {
     monthYearChanged(date) {
         this.month = date.month;
         this.year = date.year;
-        this.fetch();
     }
 
     /**
@@ -290,8 +313,8 @@ export class StockistWisePobComponent extends ListComponent {
      * @param headquarter_id
      */
     headquarterChanged(headquarter_id) {
-        this.headquarter_id = headquarter_id;
-        this.fetch();
+      this.headquarter_id = headquarter_id;
+      this.territories = [];
     }
 
   /**
@@ -301,6 +324,12 @@ export class StockistWisePobComponent extends ListComponent {
    */
   departmentChanged(department_id) {
     this.department_id = department_id;
-    this.fetch();
+  }
+
+  /**
+   * get headquarters
+   */
+  headquarters(data) {
+    this._headquarters = data.headquarters;
   }
 }

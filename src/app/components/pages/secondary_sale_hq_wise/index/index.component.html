@@ -68,7 +68,7 @@
                     </thead>
 
                     <tbody>
-                    <tr class="dark_grey">
+                    <tr class="dark_grey" *roleCheck="ROLE_RSM">
                       <th>Total</th>
                       <th></th>
                       <th class="value">{{ region.total_order.toFixed(0) | number : fractionSize }}</th>
