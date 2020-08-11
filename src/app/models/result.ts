@@ -40,6 +40,11 @@ import {Expense} from './expense/expense';
 import {DoctorType} from './customer/doctor_type';
 import {CustomerQualification} from './customer/customer_qualification';
 import {Department} from './user/department';
+import {Stockist} from './download/stockist';
+import {BrickDownload} from './download/brick_download';
+import {HeadquaterDownload} from './download/headquater_download';
+import {PrimaryDownload} from './download/primary_download';
+import {Download} from './download/download';
 
 export class Result {
 
@@ -209,4 +214,11 @@ export class Result {
 
   first_fortnight_attendances: Attendance[];
   second_fortnight_attendances: Attendance[];
+
+  // Download
+  stockists: Stockist[];
+  brick_downloads: BrickDownload[];
+  headquater_downloads: HeadquaterDownload[];
+  primary_downloads: PrimaryDownload[];
+  download: Download;
 }

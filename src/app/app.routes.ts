@@ -85,6 +85,7 @@ import {CustomerListComponent} from "./v2/pages/customers/index/index.component"
 import {UserExpenseComponent} from './components/pages/expense/for_user/index/index.component';
 import {ExpenseComponent} from './components/pages/expense/admin/index/index.component';
 import {SupportComponent} from './components/pages/support/index.component';
+import { DownloadComponent } from './components/pages/download/download.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -475,7 +476,11 @@ export const routes: Routes = [
           }
         ]
       },
-
+      //Download Report
+      {
+        path: 'download',
+        component: DownloadComponent
+      },
       {
         path: 'videos',
         component: VideoComponent
