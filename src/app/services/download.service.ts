@@ -1,5 +1,7 @@
 import {Stockist} from './../models/download/stockist';
 import {BrickDownload} from './../models/download/brick_download';
+import {HeadquaterDownload} from './../models/download/headquater_download';
+import {PrimaryDownload} from './../models/download/primary_download';
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from '@angular/http';
 import {Observable} from "rxjs";

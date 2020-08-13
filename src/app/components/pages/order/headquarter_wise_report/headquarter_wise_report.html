@@ -41,6 +41,24 @@
     </div>
 
     <div class="row">
+        <div class="col-xs-11 col-md-4">
+            <headquater-report-select [value]="headquater_report_id" [title]="'Select Headquaterwise Tracking Report'" [first_value]="'Select Headquaterwise Tracking Report'" (onValueChanged)="headquaterReportChanged($event)"></headquater-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-sm"
+                *ngIf="headquater_report_id > 0" 
+                (click)="report_download()">
+                <i class="fa fa-download"></i>
+            </a>
+            <a class="btn btn-primary btn-sm disabled"
+                *ngIf="!headquater_report_id || headquater_report_id==0">
+                <i class="fa fa-download"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-xs-12">
             <div *ngFor="let region of regions">
                 <div class="col-xs-12">

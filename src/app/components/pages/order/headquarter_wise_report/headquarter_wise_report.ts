@@ -2,12 +2,14 @@ import {Component} from '@angular/core';
 import {AuthService} from '../../../../services/AuthService';
 import {ListComponent} from '../../../base/list.component';
 import {ReportService} from '../../../../services/report.service';
+import {DownloadService} from '../../../../services/download.service';
 import {Region} from '../../../../models/territory/region';
 import * as moment from 'moment';
 import {Customer} from '../../../../models/customer/customer';
 import {Visit} from '../../../../models/visit/visit';
 import {SecondarySale} from '../../../../models/sale/secondary_sale';
 import {Target} from '../../../../models/SAP/target';
+import {HeadquaterDownload} from '../../../../models/download/headquater_download';
 import {environment} from '../../../../../environments/environment';
 
 declare let jQuery: any;
@@ -34,6 +36,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   public region_id: number = 0;
   public area_id: number = 0;
   public department_id: number = 0;
+  public headquater_report_id: number = 0;
 
 
   /**
@@ -46,7 +49,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   /**
    * User Component Constructor
    */
-  constructor(public _service: AuthService, public reportService: ReportService) {
+  constructor(public _service: AuthService, public reportService: ReportService, public downloadService: DownloadService) {
     super(_service);
   }
 
@@ -265,5 +268,20 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   departmentChanged(department_id) {
     this.department_id = department_id;
     this.fetch();
+  }
+
+  /**
+   * get headquater report id to download
+   */
+  headquaterReportChanged(headquater_report_id) {
+    this.headquater_report_id = headquater_report_id;
+  }
+
+   /**
+   * Download Excel For Report
+   */
+  report_download() {
+    let url = this.downloadService.report_download(this.headquater_report_id);
+    window.open(url, "_blank");
   }
 }
