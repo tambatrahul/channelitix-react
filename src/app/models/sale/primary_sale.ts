@@ -16,6 +16,7 @@ export class PrimarySale extends Model {
   uom: UOM;
   net_amt: number;
   stockist_code: number;
+  invoice_no: number;
   prd_code: number;
   customer_count: number;
   product: Product;
@@ -54,6 +55,8 @@ export class PrimarySale extends Model {
       this.brand_category = info.brand_category;
 
     this.stockist_code = info.stockist_code;
+
+    this.invoice_no = info.doc_no;
 
     if (info.prd_code)
       this.prd_code = parseFloat(info.prd_code);

@@ -60,7 +60,7 @@
                 </tr>
               </template>
               <template ngFor let-item [ngForOf]="products">
-                <tr *ngIf="item.brands.id <=4 && environment.projectName == 'IKON'">
+                <tr *ngIf="item.brands.department_id == 1 && environment.projectName == 'IKON'">
                   <td>
                     {{ item.brands.icon_name }}
                   </td>
@@ -103,7 +103,7 @@
                 </th>
               </tr>
               <template ngFor let-item [ngForOf]="products">
-                <tr *ngIf="item.brands.id > 4  && environment.projectName == 'IKON' ">
+                <tr *ngIf="item.brands.department_id == 2  && environment.projectName == 'IKON' ">
                   <td>
                     {{ item.brands.chl_name }}
                   </td>

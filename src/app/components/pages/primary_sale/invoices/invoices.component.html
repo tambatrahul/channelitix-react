@@ -10,6 +10,7 @@
                     <thead>
                     <tr>
                         <th></th>
+                        <th>Invoice No</th>
                         <th>Stockist Code</th>
                         <th>Stockist (Grade)</th>
                         <th>Brick</th>
@@ -23,6 +24,7 @@
                     <tfoot>
                     <tr>
                         <th></th>
+                        <th>Invoice No</th>
                         <th>Stockist Code</th>
                         <th>Stockist (Grade)</th>
                         <th>Brick</th>
@@ -37,6 +39,7 @@
                     <template ngFor let-ps [ngForOf]="primary_sales" let-i="index">
                         <tr *ngIf="ps.customer">
                             <td>{{ i+1 }}</td>
+                            <th class="text-center">{{ ps.invoice_no }}</th>
                             <th class="text-center">{{ ps.stockist_code }}</th>
                             <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
                             <td>{{ ps.customer.hq_brick.name}}</td>
