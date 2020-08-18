@@ -103,10 +103,13 @@ export class SapStockistWiseComponent extends ListComponent {
     super.ngOnInit();
   }
 
+  protected fetch() {
+  }
+
   /**
    * load users for logged in user
    */
-  fetch() {
+  fetch_data() {
     if ((this.month || this.month == 0) && this.year) {
       this.loading = true;
 
@@ -290,7 +293,6 @@ export class SapStockistWiseComponent extends ListComponent {
     this.year = date.year;
     this.month_str = moment().month(this.month).format('MMM');
     this.prev_month_str = moment().month(this.month).subtract(1, 'months').format('MMM');
-    this.fetch();
   }
 
   /**
@@ -300,8 +302,6 @@ export class SapStockistWiseComponent extends ListComponent {
   zoneChanged(zone_id) {
     this.zone_id = zone_id;
     this.regionChanged(0);
-    this.fetch();
-
   }
 
   /**
@@ -311,7 +311,6 @@ export class SapStockistWiseComponent extends ListComponent {
   regionChanged(region_id) {
     this.region_id = region_id;
     this.areaChanged(0);
-    this.fetch();
 
   }
 
@@ -322,7 +321,6 @@ export class SapStockistWiseComponent extends ListComponent {
   areaChanged(area_id) {
     this.area_id = area_id;
     this.headquarterChanged(0);
-    this.fetch();
 
   }
 
@@ -332,7 +330,6 @@ export class SapStockistWiseComponent extends ListComponent {
    */
   headquarterChanged(headquarter_id) {
     this.headquarter_id = headquarter_id;
-    this.fetch();
 
   }
 
@@ -343,7 +340,6 @@ export class SapStockistWiseComponent extends ListComponent {
    */
   brandChanged(brand_id) {
     this.brand_id = brand_id;
-    this.fetch();
 
   }
 
@@ -358,6 +354,5 @@ export class SapStockistWiseComponent extends ListComponent {
       this.brand_id = 4;
     if (this.department_id == 1)
       this.brand_id = 1;
-    this.fetch();
   }
 }

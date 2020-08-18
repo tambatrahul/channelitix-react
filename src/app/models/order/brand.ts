@@ -12,14 +12,16 @@ export class Brand extends Model {
   month_target: number = 0;
   opening: number = 0;
   target: number = 0;
+  department_id: number = 0;
 
   constructor(info: any) {
     super(info.id);
     this.name = info.name;
-    if (info.id <= 4) {
+    this.department_id = info.department_id;
+    if (info.department_id == 1) {
       this.icon_name = info.name;
     }
-    if (info.id > 4) {
+    if (info.department_id == 2) {
       this.chl_name = info.name;
     }
   }

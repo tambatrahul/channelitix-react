@@ -29,9 +29,11 @@
             <zone-select [value]="zone_id" [title]="'Select Zone'"
                            (onValueChanged)="zoneChanged($event)"></zone-select>
             </div>
-            <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+            <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+              <div *ngIf="zone_id > 0">
                 <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'" [first_value]="'Select Region'"
                                (onValueChanged)="regionChanged($event)"></region-select>
+            </div>
             </div>
             <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
                 <div *ngIf="region_id > 0">
@@ -108,7 +110,7 @@
                                         <th class="grey"></th>
                                         <th class="grey"></th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
-                                        <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
+                                        <th class="grey" *ngIf="environment.envName != 'sk_group'">{{primary_sale_total.toFixed(2)}}</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                         <th class="grey">{{ all_total.toFixed(2)}}</th>
                                         <th class="grey"></th>

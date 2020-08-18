@@ -137,12 +137,6 @@ export class StockistWisePobComponent extends ListComponent {
                     let customers = this.prepareData(all_customers, orders, null, visits);
                     this.addSynergyData(customers, data[1].orders.map(order => new Order(order)));
 
-                  this.customers = [];
-                  for (let i in customers) {
-                    let customer = customers[i];
-                    this.customers.push(customer);
-                  }
-
                 });
             } else {
                 this.reportService.stockist_wise_pob(this.month + 1, this.year,
@@ -250,7 +244,7 @@ export class StockistWisePobComponent extends ListComponent {
 
         // prepare list of customers with POB
         orders.map(order => {
-            customers[order.delivered_by].total_pob += order.order_total_count;
+            customers[order.delivered_by].total_pob += order.order_total_count ;
             this.all_total += order.order_total_count;
         });
 
@@ -266,7 +260,6 @@ export class StockistWisePobComponent extends ListComponent {
                 this.primary_sale_total += primary_sale.total_net_amount;
             });
         }
-      console.log(customers);
         return customers;
     }
 
