@@ -66,13 +66,9 @@ export class DownloadService extends BaseService {
     /**
      * download report
      */
-    report_download(report_id?: number) {
+    report_download(report_id?: number, type?: number, month?: number, year?: number, headquater_id?: number) {
 
-        // prepare get params
-        //let params = new URLSearchParams();
-        //params.set('report_id', String(report_id > 0 ? report_id : ''));
-
-        // make server call
-        return this.getBaseUrl() + '/downloadreport?report_id=' + report_id;
+       //generating url for download
+        return this.getBaseUrl() + '/downloadreport?report_id=' + report_id + '&type=' + type + '&month=' + month + '&year=' + year + '&headquater_id=' + headquater_id;
     }
 }

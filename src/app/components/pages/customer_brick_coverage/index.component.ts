@@ -309,7 +309,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    * Download Excel For Report
    */
   report_download() {
-    let url = this.downloadService.report_download(this.brick_report_id);
+    let url = this.downloadService.report_download(this.brick_report_id, 2, 0, this.year, this.headquarter_id);
     window.open(url, "_blank");
   }
 }

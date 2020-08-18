@@ -346,7 +346,8 @@ export class StockistWisePobComponent extends ListComponent {
    * Download Excel For Report
    */
   report_download() {
-    let url = this.downloadService.report_download(this.stockist_report_id);
+    console.log(this.month);
+    let url = this.downloadService.report_download(this.stockist_report_id, 1, this.month, this.year, this.headquarter_id);
     window.open(url, "_blank");
   }
 }

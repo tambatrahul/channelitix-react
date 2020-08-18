@@ -281,7 +281,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
    * Download Excel For Report
    */
   report_download() {
-    let url = this.downloadService.report_download(this.headquater_report_id);
+    let url = this.downloadService.report_download(this.headquater_report_id, 3, this.month, this.year);
     window.open(url, "_blank");
   }
 }
