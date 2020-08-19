@@ -98,10 +98,13 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
     super.ngOnInit();
   }
 
+  protected fetch() {
+  }
+
   /**
    * load users for logged in user
    */
-  fetch() {
+  fetch_data() {
     if (this.month >= 0 && this.year) {
       this.loading = true;
       this.reportService.region_wise_sales(this.month + 1, this.year, this.region_id, this.area_id, null, this.zone_id, this.department_id).subscribe(
@@ -227,7 +230,6 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
-    this.fetch();
   }
 
   /**
@@ -246,7 +248,6 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   regionChanged(region_id) {
     this.region_id = region_id;
     this.areaChanged(0);
-    this.fetch();
   }
 
   /**
@@ -255,7 +256,6 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
    */
   areaChanged(area_id) {
     this.area_id = area_id;
-    this.fetch();
   }
   /**
    * department Filter
@@ -264,6 +264,5 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
    */
   departmentChanged(department_id) {
     this.department_id = department_id;
-    this.fetch();
   }
 }
