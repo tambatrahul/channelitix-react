@@ -10,6 +10,8 @@ import {Region} from '../../../../models/territory/region';
 import {VisitService} from '../../../../services/visit.service';
 import {AuthService} from '../../../../services/AuthService';
 import {InputAnswer} from '../../../../models/visit/input_answer';
+import {DownloadService} from '../../../../services/download.service';
+import {InputReport} from '../../../../models/download/input_report';
 
 declare let jQuery: any;
 
@@ -34,6 +36,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
   public region_id: number = 0;
   public area_id: number = 0;
   public headquarter_id: number = 0;
+  public input_report_id: number = 0;
   public _headquarters: Headquarter[] = [];
   public inputs: Input[] = [];
 
@@ -48,7 +51,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
   /**
    * User Component Constructor
    */
-  constructor(public _service: AuthService, public route: ActivatedRoute, public visitService: VisitService) {
+  constructor(public _service: AuthService, private downloadService: DownloadService, public route: ActivatedRoute, public visitService: VisitService) {
     super(_service);
   }
 
@@ -236,5 +239,20 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
         this.btn_loading = false;
       }
     );
+  }
+
+  /**
+   * get primary report id to download
+   */
+  inputReportChanged(input_report_id) {
+    this.input_report_id = input_report_id;
+  }
+
+   /**
+   * Download Excel For Report
+   */
+  report_download() {
+    let url = this.downloadService.report_download(this.input_report_id, 6, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
+    window.open(url, "_blank");
   }
 }

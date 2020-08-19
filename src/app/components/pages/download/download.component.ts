@@ -7,6 +7,7 @@ import {Stockist} from '../../../models/download/stockist';
 import {BrickDownload} from '../../../models/download/brick_download';
 import {HeadquaterDownload} from '../../../models/download/headquater_download';
 import {PrimaryDownload} from '../../../models/download/primary_download';
+import {InputReport} from '../../../models/download/input_report';
 import {Download} from '../../../models/download/download';
 
 declare let jQuery: any;
@@ -28,6 +29,7 @@ export class DownloadComponent extends BaseAuthComponent {
   public brick_downloads: BrickDownload[];
   public headquater_downloads: HeadquaterDownload[];
   public primary_downloads: PrimaryDownload[];
+  public input_reports: InputReport[];
   public download: Download;
 
 
@@ -38,6 +40,7 @@ export class DownloadComponent extends BaseAuthComponent {
   public brick_report_id: number = 0;
   public headquater_report_id: number = 0;
   public primary_report_id: number = 0;
+  public input_report_id: number = 0;
   public report_id: number = 0;
 
   btn_loading: boolean = false;
@@ -76,6 +79,13 @@ export class DownloadComponent extends BaseAuthComponent {
    */
   primaryReportChanged(primary_report_id) {
     this.report_id = primary_report_id;
+  }
+
+  /**
+   * get input report id to download
+   */
+  inputReportChanged(input_report_id) {
+    this.report_id = input_report_id;
   }
 
   /**
