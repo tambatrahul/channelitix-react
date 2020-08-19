@@ -340,7 +340,7 @@ export class StockistWisePobComponent extends ListComponent {
    */
   report_download() {
     console.log(this.month);
-    let url = this.downloadService.report_download(this.stockist_report_id, 1, this.month, this.year, this.headquarter_id);
+    let url = this.downloadService.report_download(this.stockist_report_id, 1, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
     window.open(url, "_blank");
   }
 }

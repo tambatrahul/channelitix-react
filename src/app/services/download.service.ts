@@ -66,9 +66,9 @@ export class DownloadService extends BaseService {
     /**
      * download report
      */
-    report_download(report_id?: number, type?: number, month?: number, year?: number, headquater_id?: number) {
+    report_download(report_id?: number, type?: number, month?: number, year?: number, zone_id?: number, region_id?: number, area_id?: number, headquater_id?: number) {
 
        //generating url for download
-        return this.getBaseUrl() + '/downloadreport?report_id=' + report_id + '&type=' + type + '&month=' + month + '&year=' + year + '&headquater_id=' + headquater_id;
+        return this.getBaseUrl() + '/downloadreport?report_id=' + report_id + '&type=' + type + '&month=' + month + '&year=' + year + '&zone_id=' + zone_id + '&region_id=' + region_id + '&area_id=' + area_id + '&headquater_id=' + headquater_id;
     }
 }
