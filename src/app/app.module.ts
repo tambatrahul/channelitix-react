@@ -230,8 +230,12 @@ import {ViewExpenseModalComponent} from './components/pages/expense/admin/compon
 import {DepartmentSelectComponent} from "./components/form_elements/user/department_select/department-select.component";
 import {SupportComponent} from "./components/pages/support/index.component";
 import {RequestToEditExpenseComponent} from './components/pages/expense/for_user/components/request_to_edit_expense/request_to_edit_expense.component';
-
-
+import { DownloadComponent } from './components/pages/download/download.component';
+import {DownloadService} from "./services/download.service";
+import {StockistReportSelectComponent} from "./components/form_elements/download/stockist_report_select/stockist_report_select.component";
+import {BrickReportSelectComponent} from "./components/form_elements/download/brick_report_select/brick_report_select.component";
+import {HeadquaterReportSelectComponent} from "./components/form_elements/download/headquater_report_select/headquater_report_select.component";
+import {PrimaryReportSelectComponent} from "./components/form_elements/download/primary_report_select/primary_report_select.component";
 
 enableProdMode();
 
@@ -416,7 +420,10 @@ enableProdMode();
     InputSelectComponent,
     PriorityBrandSelectComponent,
     DepartmentSelectComponent,
-
+    StockistReportSelectComponent,
+    BrickReportSelectComponent,
+    HeadquaterReportSelectComponent,
+    PrimaryReportSelectComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,
@@ -462,6 +469,7 @@ enableProdMode();
     SecondFortnightComponent,
     ViewExpenseModalComponent,
     RequestToEditExpenseComponent,
+    DownloadComponent,
   ],
   imports: [
     BrowserModule,
@@ -494,6 +502,7 @@ enableProdMode();
     DepartmentService,
     CustomerTypeService,
     ExpenseService,
+    DownloadService,
 
     // Version 2 Service
     V2UserService

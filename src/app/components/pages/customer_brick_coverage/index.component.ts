@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ListComponent} from '../../base/list.component';
 import {AuthService} from '../../../services/AuthService';
 import * as moment from 'moment';
+import {DownloadService} from '../../../services/download.service';
 import {ReportService} from '../../../services/report.service';
 import {Brick} from '../../../models/territory/brick';
 import {Visit} from '../../../models/visit/visit';
@@ -12,6 +13,7 @@ import {Territory} from '../../../models/territory/territory';
 import {environment} from '../../../../environments/environment';
 import {Headquarter} from '../../../models/territory/headquarter';
 import {Area} from '../../../models/territory/area';
+import {BrickDownload} from '../../../models/download/brick_download';
 
 declare let jQuery: any;
 
@@ -53,12 +55,13 @@ export class CustomerBrickCoverageComponent extends ListComponent {
   public _areas: Area[] = [];
   btn_loading: boolean = false;
   public department_id: number = 0;
+  public brick_report_id: number = 0;
 
 
   /**
    * User Component Cons3tructor
    */
-  constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService) {
+  constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService, public downloadService: DownloadService) {
     super(_service);
   }
 
@@ -293,5 +296,20 @@ export class CustomerBrickCoverageComponent extends ListComponent {
    */
   onYearChanged(year) {
     this.year = year;
+  }
+
+  /**
+   * get brick report id to download
+   */
+  brickReportChanged(brick_report_id) {
+    this.brick_report_id = brick_report_id;
+  }
+
+  /**
+   * Download Excel For Report
+   */
+  report_download() {
+    let url = this.downloadService.report_download(this.brick_report_id);
+    window.open(url, "_blank");
   }
 }

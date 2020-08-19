@@ -1,0 +1,58 @@
+<div class="container-fluid sales" #loading_box>
+
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Download Reports
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Page Content -->
+    <div class="row">
+        <div class="col-xs-11 col-md-4">
+        	<stockist-report-select [value]="stockist_report_id" [title]="'Select Stockist POB Report'" [first_value]="'Select Stockist POB Report'" (onValueChanged)="stockistReportChanged($event)"></stockist-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+
+        <div class="col-xs-11 col-md-4">
+        	<brick-report-select [value]="brick_report_id" [title]="'Select Brick Working Report'" [first_value]="'Select Brick Working Report'" (onValueChanged)="brickReportChanged($event)"></brick-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-11 col-md-4">
+            <headquater-report-select [value]="headquater_report_id" [title]="'Select Headquaterwise Tracking Report'" [first_value]="'Select Headquaterwise Tracking Report'" (onValueChanged)="headquaterReportChanged($event)"></headquater-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+
+        <div class="col-xs-11 col-md-4">
+            <primary-report-select [value]="primary_report_id" [title]="'Select Primary Sales Report'" [first_value]="'Select Primary Sales Report'" (onValueChanged)="primaryReportChanged($event)"></primary-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+    </div>
+    <!-- Page Content -->
+</div>

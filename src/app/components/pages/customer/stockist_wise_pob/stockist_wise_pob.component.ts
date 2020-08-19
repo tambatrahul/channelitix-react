@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ListComponent} from "../../../base/list.component";
 import {AuthService} from "../../../../services/AuthService";
 import {ReportService} from "../../../../services/report.service";
+import {DownloadService} from '../../../../services/download.service';
 import {CustomerType} from "../../../../models/customer/customer_type";
 import * as moment from "moment";
 import {Order} from "../../../../models/order/order";
@@ -48,6 +49,7 @@ export class StockistWisePobComponent extends ListComponent {
     public area_id: number = 0;
     public headquarter_id: number = 0;
     public department_id: number = 0;
+    public stockist_report_id: number = 0;
 
 
   /**
@@ -67,7 +69,7 @@ export class StockistWisePobComponent extends ListComponent {
     /**
      * User Component Constructor
      */
-    constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService) {
+    constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService, public downloadService: DownloadService) {
         super(_service);
     }
 
@@ -324,5 +326,20 @@ export class StockistWisePobComponent extends ListComponent {
    */
   headquarters(data) {
     this._headquarters = data.headquarters;
+  }
+
+  /**
+   * get stockist report id to download
+   */
+  stockistReportChanged(stockist_report_id) {
+    this.stockist_report_id = stockist_report_id;
+  }
+
+  /**
+   * Download Excel For Report
+   */
+  report_download() {
+    let url = this.downloadService.report_download(this.stockist_report_id);
+    window.open(url, "_blank");
   }
 }

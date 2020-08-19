@@ -2,8 +2,10 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import * as moment from 'moment';
 import {AuthService} from '../../../../services/AuthService';
 import {ListComponent} from '../../../base/list.component';
+import {DownloadService} from '../../../../services/download.service';
 import {PrimarySaleService} from '../../../../services/primary_sale.service';
 import {InvoiceDetail} from '../../../../models/SAP/invoice_detail';
+import {PrimaryDownload} from '../../../../models/download/primary_download';
 
 declare let jQuery: any;
 
@@ -28,6 +30,7 @@ export class PrimarySaleComponent extends ListComponent {
   public area_id: number = 0;
   public headquarter_id: number = 0;
   public department_id: number = 0;
+  public primary_report_id: number = 0;
 
 
   /**
@@ -49,7 +52,7 @@ export class PrimarySaleComponent extends ListComponent {
    * User Component Constructor
    *
    */
-  constructor(private saleService: PrimarySaleService, public _service: AuthService) {
+  constructor(private saleService: PrimarySaleService, private downloadService: DownloadService, public _service: AuthService) {
     super(_service);
   }
 
@@ -142,5 +145,21 @@ export class PrimarySaleComponent extends ListComponent {
    */
   departmentChanged(department_id) {
     this.department_id = department_id;
+  }
+
+
+  /**
+   * get primary report id to download
+   */
+  primaryReportChanged(primary_report_id) {
+    this.primary_report_id = primary_report_id;
+  }
+
+   /**
+   * Download Excel For Report
+   */
+  report_download() {
+    let url = this.downloadService.report_download(this.primary_report_id);
+    window.open(url, "_blank");
   }
 }
