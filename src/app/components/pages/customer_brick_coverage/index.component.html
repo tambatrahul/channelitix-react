@@ -71,13 +71,8 @@
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm" 
-                *ngIf="brick_report_id > '0'"
+            <a class="btn btn-primary btn-sm"
                 (click)="report_download()">
-                <i class="fa fa-download"></i>
-            </a>
-            <a class="btn btn-primary btn-sm disabled" 
-                *ngIf="!brick_report_id || brick_report_id=='0'">
                 <i class="fa fa-download"></i>
             </a>
         </div>
