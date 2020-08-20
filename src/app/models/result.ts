@@ -45,6 +45,7 @@ import {BrickDownload} from './download/brick_download';
 import {HeadquaterDownload} from './download/headquater_download';
 import {PrimaryDownload} from './download/primary_download';
 import {InputReport} from './download/input_report';
+import {PriorityReport} from './download/priority_report';
 import {Download} from './download/download';
 
 export class Result {
@@ -222,5 +223,6 @@ export class Result {
   headquater_downloads: HeadquaterDownload[];
   primary_downloads: PrimaryDownload[];
   input_reports: InputReport[];
+  priority_reports: PriorityReport[];
   download: Download;
 }

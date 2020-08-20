@@ -237,6 +237,7 @@ import {BrickReportSelectComponent} from "./components/form_elements/download/br
 import {HeadquaterReportSelectComponent} from "./components/form_elements/download/headquater_report_select/headquater_report_select.component";
 import {PrimaryReportSelectComponent} from "./components/form_elements/download/primary_report_select/primary_report_select.component";
 import {InputReportSelectComponent} from "./components/form_elements/download/input_report_select/input_report_select.component";
+import {PriorityReportSelectComponent} from "./components/form_elements/download/priority_report_select/priority_report_select.component";
 
 enableProdMode();
 
@@ -426,6 +427,7 @@ enableProdMode();
     HeadquaterReportSelectComponent,
     PrimaryReportSelectComponent,
     InputReportSelectComponent,
+    PriorityReportSelectComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,

@@ -63,6 +63,14 @@
             <label>&nbsp;</label><br>
             <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
+
+        <div class="col-xs-11 col-md-4">
+            <priority-report-select [value]="priority_report_id" [title]="'Select Dr. Detailing Report'" [first_value]="'Select Dr. Detailing Report'" (onValueChanged)="priorityReportChanged($event)"></priority-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
     </div>
     <!-- Page Content -->
 </div>

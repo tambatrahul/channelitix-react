@@ -73,6 +73,14 @@ export class DownloadService extends BaseService {
     }
 
     /**
+     * get input utilization report list
+     */
+    priorityReportLists() : Observable<Result> {
+        // make server call
+        return this.get(this.getBaseUrl() + '/priorityReportList');
+    }
+    
+    /**
      * download report
      */
     report_download(report_id?: number, type?: number, month?: number, year?: number, zone_id?: number, region_id?: number, area_id?: number, headquater_id?: number) {
