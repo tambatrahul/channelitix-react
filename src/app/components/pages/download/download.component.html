@@ -54,5 +54,15 @@
             <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-11 col-md-4">
+            <input-report-select [value]="input_report_id" [title]="'Select Input Utilization Report'" [first_value]="'Select Input Utilization Report'" (onValueChanged)="inputReportChanged($event)"></input-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+    </div>
     <!-- Page Content -->
 </div>

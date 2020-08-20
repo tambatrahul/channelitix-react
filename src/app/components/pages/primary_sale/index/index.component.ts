@@ -32,6 +32,8 @@ export class PrimarySaleComponent extends ListComponent {
   public department_id: number = 0;
   public primary_report_id: number = 0;
 
+  public type: number = 0;
+
 
   /**
    * get title of table
@@ -159,7 +161,13 @@ export class PrimarySaleComponent extends ListComponent {
    * Download Excel For Report
    */
   report_download() {
-    let url = this.downloadService.report_download(this.primary_report_id);
+    if(this.primary_report_id == 0) {
+      this.type = 4;
+    }
+    else {
+      this.type = 5;
+    }
+    let url = this.downloadService.report_download(this.primary_report_id, this.type, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
     window.open(url, "_blank");
   }
 }

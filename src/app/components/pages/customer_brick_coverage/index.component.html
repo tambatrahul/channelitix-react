@@ -67,17 +67,17 @@
 
     <div class="row" style="padding-bottom: 10px;">
         <div class="col-xs-11 col-md-4">
-            <brick-report-select [value]="brick_report_id" [title]="'Select Brick Working Report'" [first_value]="'Select Brick Working Report'" (onValueChanged)="brickReportChanged($event)"></brick-report-select>
+            <brick-report-select [value]="brick_report_id" [title]="'Download Report'" [first_value]="'Select Download Report'" (onValueChanged)="brickReportChanged($event)"></brick-report-select>
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
             <a class="btn btn-primary btn-sm" 
-                *ngIf="brick_report_id > 0"
+                *ngIf="brick_report_id > '0'"
                 (click)="report_download()">
                 <i class="fa fa-download"></i>
             </a>
             <a class="btn btn-primary btn-sm disabled" 
-                *ngIf="!brick_report_id || brick_report_id==0">
+                *ngIf="!brick_report_id || brick_report_id=='0'">
                 <i class="fa fa-download"></i>
             </a>
         </div>

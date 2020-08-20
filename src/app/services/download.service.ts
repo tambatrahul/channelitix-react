@@ -2,6 +2,7 @@ import {Stockist} from './../models/download/stockist';
 import {BrickDownload} from './../models/download/brick_download';
 import {HeadquaterDownload} from './../models/download/headquater_download';
 import {PrimaryDownload} from './../models/download/primary_download';
+import {InputReport} from './../models/download/input_report';
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from '@angular/http';
 import {Observable} from "rxjs";
@@ -48,7 +49,7 @@ export class DownloadService extends BaseService {
     }
 
     /**
-     * get stockist report list
+     * get headquater report list
      */
     headquaterReportLists() : Observable<Result> {
         // make server call
@@ -56,7 +57,7 @@ export class DownloadService extends BaseService {
     }
 
     /**
-     * get brick working report list
+     * get primary sales report list
      */
     primaryReportLists() : Observable<Result> {
         // make server call
@@ -64,15 +65,19 @@ export class DownloadService extends BaseService {
     }
 
     /**
+     * get input utilization report list
+     */
+    inputReportLists() : Observable<Result> {
+        // make server call
+        return this.get(this.getBaseUrl() + '/inputReportList');
+    }
+
+    /**
      * download report
      */
-    report_download(report_id?: number) {
+    report_download(report_id?: number, type?: number, month?: number, year?: number, zone_id?: number, region_id?: number, area_id?: number, headquater_id?: number) {
 
-        // prepare get params
-        //let params = new URLSearchParams();
-        //params.set('report_id', String(report_id > 0 ? report_id : ''));
-
-        // make server call
-        return this.getBaseUrl() + '/downloadreport?report_id=' + report_id;
+       //generating url for download
+        return this.getBaseUrl() + '/downloadreport?report_id=' + report_id + '&type=' + type + '&month=' + month + '&year=' + year + '&zone_id=' + zone_id + '&region_id=' + region_id + '&area_id=' + area_id + '&headquater_id=' + headquater_id;
     }
 }
