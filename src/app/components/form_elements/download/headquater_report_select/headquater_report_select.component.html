@@ -1,7 +1,6 @@
 <label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> {{ title}} </label>
 <select class="form-control" [ngModel]="value" (ngModelChange)="onValueChange($event)">
     <option selected value="0">{{ first_value }}</option>
-    <option value="00">Headquater Wise Tracking Report - Search</option>
     <option *ngFor="let b of models" [value]="b.id">
         {{b.display_name}}
     </option>

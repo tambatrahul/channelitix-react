@@ -14,13 +14,13 @@ export class PrimaryReportSelectComponent extends BaseSelectComponent {
      * Title of input select field
      */
     @Input()
-    title: string = "Select Primary Report";
+    title: string = "Primary Sales Report";
 
     /**
      * First value of options
      */
     @Input()
-    first_value: string = "Select Primary Report";
+    first_value: string = "Select Primary Sales Report";
 
     /**
      * primary report list

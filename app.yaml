@@ -1,6 +1,6 @@
 # [START runtime]
-#service: aspira-frontend
-service: icon-frontend
+service: aspira-frontend
+#service: icon-frontend
 #service: 3c-frontend
 #service: optimus-frontend
 runtime: python27

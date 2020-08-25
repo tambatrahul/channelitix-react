@@ -160,14 +160,13 @@ export class PrimarySaleComponent extends ListComponent {
    /**
    * Download Excel For Report
    */
-  report_download() {
-    if(this.primary_report_id == 0) {
-      this.type = 4;
-    }
-    else {
-      this.type = 5;
-    }
-    let url = this.downloadService.report_download(this.primary_report_id, this.type, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
+  product_report_download() {
+    let url = this.downloadService.report_download(this.primary_report_id, 4, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
+    window.open(url, "_blank");
+  }
+
+  stockist_report_download() {
+    let url = this.downloadService.report_download(this.primary_report_id, 5, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
     window.open(url, "_blank");
   }
 }

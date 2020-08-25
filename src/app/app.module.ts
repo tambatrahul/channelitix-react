@@ -238,6 +238,8 @@ import {HeadquaterReportSelectComponent} from "./components/form_elements/downlo
 import {PrimaryReportSelectComponent} from "./components/form_elements/download/primary_report_select/primary_report_select.component";
 import {InputReportSelectComponent} from "./components/form_elements/download/input_report_select/input_report_select.component";
 import {PriorityReportSelectComponent} from "./components/form_elements/download/priority_report_select/priority_report_select.component";
+import {CustomerReportSelectComponent} from "./components/form_elements/download/customer_report_select/customer_report_select.component";
+import {TargetReportSelectComponent} from "./components/form_elements/download/target_report_select/target_report_select.component";
 
 enableProdMode();
 
@@ -428,6 +430,8 @@ enableProdMode();
     PrimaryReportSelectComponent,
     InputReportSelectComponent,
     PriorityReportSelectComponent,
+    CustomerReportSelectComponent,
+    TargetReportSelectComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,
