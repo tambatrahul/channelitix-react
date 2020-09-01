@@ -1,33 +1,33 @@
 import {Component, Input, Output} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
 import {DownloadService} from "../../../../services/download.service";
-import {PriorityReport} from "../../../../models/download/priority_report";
+import {CustomerReport} from "../../../../models/download/customer_report";
 
 @Component({
-    selector: 'priority-report-select',
-    templateUrl: 'priority_report_select.component.html',
+    selector: 'customer-report-select',
+    templateUrl: 'customer_report_select.component.html',
     inputs: ['refresh']
 })
-export class PriorityReportSelectComponent extends BaseSelectComponent {
+export class CustomerReportSelectComponent extends BaseSelectComponent {
 
     /**
      * Title of input select field
      */
     @Input()
-    title: string = "Dr. Detailing Report";
+    title: string = "Customer Detailed Report";
 
     /**
      * First value of options
      */
     @Input()
-    first_value: string = "Select Dr. Detailing Report";
+    first_value: string = "Select Customer Detailed Report";
 
     /**
-     * Priority report list
+     * Customer report list
      *
      * @type {Array}
      */
-    priority_reports: PriorityReport[];
+    customer_reports: CustomerReport[];
 
     constructor(private downloadService: DownloadService) {
         super();
@@ -50,11 +50,11 @@ export class PriorityReportSelectComponent extends BaseSelectComponent {
      */
     fetch() {
         this.loading = true;
-        this.downloadService.priorityReportLists()
+        this.downloadService.customerReportLists()
             .subscribe(
                 response => {
                     this.loading = false;
-                    this.models = response.priority_reports;
+                    this.models = response.customer_reports;
                 },
                 err => {
                     this.loading = false;

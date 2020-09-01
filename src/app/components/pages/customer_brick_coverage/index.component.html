@@ -17,66 +17,62 @@
 
     <!-- Filters for report-->
     <div class="row" style="padding-bottom: 10px;">
-      <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
-        <label> Year </label>
-        <select class="form-control" (change)="onYearChanged($event.target.value)" [(ngModel)]="year">
-          <option *ngFor="let y of years" [value]="y">
-            {{ y }}
-          </option>
-        </select>
-      </div>
-      <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">
-        <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
-                           (onValueChanged)="departmentChanged($event)"></department-select>
-      </div>
-      <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
-        <zone-select [value]="zone_id" [title]="'Select Zone'" [first_value]="'Select Zone'"
-                       (onValueChanged)="zoneChanged($event)"></zone-select>
-      </div>
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+          <label> Year </label>
+          <select class="form-control" (change)="onYearChanged($event.target.value)" [(ngModel)]="year">
+            <option *ngFor="let y of years" [value]="y">
+              {{ y }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">
+            <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'" (onValueChanged)="departmentChanged($event)"></department-select>
+        </div>
+
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+            <zone-select [value]="zone_id" [title]="'Select Zone'" [first_value]="'Select Zone'" (onValueChanged)="zoneChanged($event)"></zone-select>
+        </div>
+
         <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
             <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'" [first_value]="'Select Region'"
                            (onValueChanged)="regionChanged($event)"></region-select>
         </div>
+
         <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
             <div *ngIf="region_id > 0">
-                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
-                             [first_value]="'Select Area'" (_areas)="areas($event)"
-                             (onValueChanged)="areaChanged($event)"></area-select>
+                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" [first_value]="'Select Area'" (_areas)="areas($event)" (onValueChanged)="areaChanged($event)"></area-select>
             </div>
         </div>
+
         <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
             <div *ngIf="area_id > 0">
-                <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)"
-                                    [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'"
-                                    (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+                <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)" [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
             </div>
         </div>
-        <div class="col-xs-12 col-md-3">
-            <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;width: 25%;"
+    </div>
+
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-xs-12 col-md-2">
+            <a class="btn btn-primary btn-block btn-margin"
+                (click)="report_download()">
+                <i class="fa fa-download"></i> Download
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+            <a class="btn btn-primary btn-block btn-margin"
                *ngIf="headquarter_id > 0"
                (click)="fetch()">
-                Go
+                <i class="fa fa-eye"></i> View
             </a>
-            <a class="btn btn-primary btn-block btn-margin disabled" style="margin-top: 25px;width: 25%;"
+            <a class="btn btn-primary btn-block btn-margin disabled"
                *ngIf="!headquarter_id ||  headquarter_id==0">
-                Go
+                <i class="fa fa-eye"></i> View
             </a>
         </div>
     </div>
     <!-- ./Filters for report-->
-
-    <div class="row" style="padding-bottom: 10px;">
-        <div class="col-xs-11 col-md-4">
-            <brick-report-select [value]="brick_report_id" [title]="'Download Report'" [first_value]="'Select Download Report'" (onValueChanged)="brickReportChanged($event)"></brick-report-select>
-        </div>
-        <div class="col-xs-1 col-md-1">
-            <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm"
-                (click)="report_download()">
-                <i class="fa fa-download"></i>
-            </a>
-        </div>
-    </div>
 
     <!-- Report Table -->
     <div class="row">

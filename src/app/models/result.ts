@@ -46,6 +46,8 @@ import {HeadquaterDownload} from './download/headquater_download';
 import {PrimaryDownload} from './download/primary_download';
 import {InputReport} from './download/input_report';
 import {PriorityReport} from './download/priority_report';
+import {CustomerReport} from './download/customer_report';
+import {TargetReport} from './download/target_report';
 import {Download} from './download/download';
 
 export class Result {
@@ -224,5 +226,7 @@ export class Result {
   primary_downloads: PrimaryDownload[];
   input_reports: InputReport[];
   priority_reports: PriorityReport[];
+  customer_reports: CustomerReport[];
+  target_reports: TargetReport[];
   download: Download;
 }

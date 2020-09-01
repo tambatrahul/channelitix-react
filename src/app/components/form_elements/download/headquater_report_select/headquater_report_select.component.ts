@@ -14,13 +14,13 @@ export class HeadquaterReportSelectComponent extends BaseSelectComponent {
      * Title of input select field
      */
     @Input()
-    title: string = "Select Headquater Report";
+    title: string = "Headquarterwise Tracking Report";
 
     /**
      * First value of options
      */
     @Input()
-    first_value: string = "Select Headquater Report";
+    first_value: string = "Select Headquarterwise Tracking Report";
 
     /**
      * headquater report list

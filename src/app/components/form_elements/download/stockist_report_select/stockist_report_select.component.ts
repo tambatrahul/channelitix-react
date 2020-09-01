@@ -14,13 +14,13 @@ export class StockistReportSelectComponent extends BaseSelectComponent {
      * Title of input select field
      */
     @Input()
-    title: string = "Select Stockist Report";
+    title: string = "Stockist POB Report";
 
     /**
      * First value of options
      */
     @Input()
-    first_value: string = "Select Stockist Report";
+    first_value: string = "Select Stockist POB Report";
 
     /**
      * stockist report list

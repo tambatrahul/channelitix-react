@@ -3,6 +3,9 @@ import {BrickDownload} from './../models/download/brick_download';
 import {HeadquaterDownload} from './../models/download/headquater_download';
 import {PrimaryDownload} from './../models/download/primary_download';
 import {InputReport} from './../models/download/input_report';
+import {PriorityReport} from './../models/download/priority_report';
+import {CustomerReport} from './../models/download/customer_report';
+import {TargetReport} from './../models/download/target_report';
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from '@angular/http';
 import {Observable} from "rxjs";
@@ -73,11 +76,27 @@ export class DownloadService extends BaseService {
     }
 
     /**
-     * get input utilization report list
+     * get priority report list
      */
     priorityReportLists() : Observable<Result> {
         // make server call
         return this.get(this.getBaseUrl() + '/priorityReportList');
+    }
+
+    /**
+     * get customer dump report list
+     */
+    customerReportLists() : Observable<Result> {
+        // make server call
+        return this.get(this.getBaseUrl() + '/customerReportList');
+    }
+
+    /**
+     * get target dump report list
+     */
+    targetReportLists() : Observable<Result> {
+        // make server call
+        return this.get(this.getBaseUrl() + '/targetReportList');
     }
     
     /**

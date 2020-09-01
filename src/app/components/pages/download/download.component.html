@@ -19,57 +19,75 @@
     <!-- Page Breadcrumb -->
 
     <!-- Page Content -->
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px;">
         <div class="col-xs-11 col-md-4">
-        	<stockist-report-select [value]="stockist_report_id" [title]="'Select Stockist POB Report'" [first_value]="'Select Stockist POB Report'" (onValueChanged)="stockistReportChanged($event)"></stockist-report-select>
+        	<stockist-report-select [value]="stockist_report_id" [title]="'Stockist POB Report'" [first_value]="'Select Stockist POB Report'" (onValueChanged)="stockistReportChanged($event)"></stockist-report-select>
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
 
         <div class="col-xs-11 col-md-4">
-        	<brick-report-select [value]="brick_report_id" [title]="'Select Brick Working Report'" [first_value]="'Select Brick Working Report'" (onValueChanged)="brickReportChanged($event)"></brick-report-select>
+        	<brick-report-select [value]="brick_report_id" [title]="'Brick Working Report'" [first_value]="'Select Brick Working Report'" (onValueChanged)="brickReportChanged($event)"></brick-report-select>
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px;">
         <div class="col-xs-11 col-md-4">
-            <headquater-report-select [value]="headquater_report_id" [title]="'Select Headquaterwise Tracking Report'" [first_value]="'Select Headquaterwise Tracking Report'" (onValueChanged)="headquaterReportChanged($event)"></headquater-report-select>
+            <headquater-report-select [value]="headquater_report_id" [title]="'Headquarter Wise Tracking Report'" [first_value]="'Select Headquarter Wise Tracking Report'" (onValueChanged)="headquaterReportChanged($event)"></headquater-report-select>
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
 
         <div class="col-xs-11 col-md-4">
-            <primary-report-select [value]="primary_report_id" [title]="'Select Primary Sales Report'" [first_value]="'Select Primary Sales Report'" (onValueChanged)="primaryReportChanged($event)"></primary-report-select>
+            <primary-report-select [value]="primary_report_id" [title]="'Primary Sales Report'" [first_value]="'Select Primary Sales Report'" (onValueChanged)="primaryReportChanged($event)"></primary-report-select>
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px;">
         <div class="col-xs-11 col-md-4">
-            <input-report-select [value]="input_report_id" [title]="'Select Input Utilization Report'" [first_value]="'Select Input Utilization Report'" (onValueChanged)="inputReportChanged($event)"></input-report-select>
+            <input-report-select [value]="input_report_id" [title]="'Input Utilization Report'" [first_value]="'Select Input Utilization Report'" (onValueChanged)="inputReportChanged($event)"></input-report-select>
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
 
         <div class="col-xs-11 col-md-4">
-            <priority-report-select [value]="priority_report_id" [title]="'Select Dr. Detailing Report'" [first_value]="'Select Dr. Detailing Report'" (onValueChanged)="priorityReportChanged($event)"></priority-report-select>
+            <priority-report-select [value]="priority_report_id" [title]="'Dr. Detailing Report'" [first_value]="'Select Dr. Detailing Report'" (onValueChanged)="priorityReportChanged($event)"></priority-report-select>
         </div>
         <div class="col-xs-1 col-md-1">
             <label>&nbsp;</label><br>
-            <a class="btn btn-primary btn-sm" (click)="report_download()"><i class="fa fa-download"></i></a>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-xs-11 col-md-4">
+            <customer-report-select [value]="customer_report_id" [title]="'Customer Detailed Report'" [first_value]="'Select Customer Report'" (onValueChanged)="customerReportChanged($event)"></customer-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+
+        <div class="col-xs-11 col-md-4">
+            <target-report-select [value]="target_report_id" [title]="'Target Detailed Report'" [first_value]="'Select Target Report'" (onValueChanged)="targetReportChanged($event)"></target-report-select>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label>&nbsp;</label><br>
+            <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
     </div>
     <!-- Page Content -->

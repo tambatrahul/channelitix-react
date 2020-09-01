@@ -14,13 +14,13 @@ export class BrickReportSelectComponent extends BaseSelectComponent {
      * Title of input select field
      */
     @Input()
-    title: string = "Select Brick Report";
+    title: string = "Brick Working Report";
 
     /**
      * First value of options
      */
     @Input()
-    first_value: string = "Select Brick Report";
+    first_value: string = "Select Brick Working Report";
 
     /**
      * brick report list

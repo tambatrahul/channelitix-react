@@ -14,13 +14,13 @@ export class InputReportSelectComponent extends BaseSelectComponent {
      * Title of input select field
      */
     @Input()
-    title: string = "Select Input Report";
+    title: string = "Input Uitlization Report";
 
     /**
      * First value of options
      */
     @Input()
-    first_value: string = "Select Input Report";
+    first_value: string = "Select Input Utilization Report";
 
     /**
      * Input report list

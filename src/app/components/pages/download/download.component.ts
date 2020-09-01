@@ -9,6 +9,8 @@ import {HeadquaterDownload} from '../../../models/download/headquater_download';
 import {PrimaryDownload} from '../../../models/download/primary_download';
 import {InputReport} from '../../../models/download/input_report';
 import {PriorityReport} from '../../../models/download/priority_report';
+import {CustomerReport} from '../../../models/download/customer_report';
+import {TargetReport} from '../../../models/download/target_report';
 import {Download} from '../../../models/download/download';
 
 declare let jQuery: any;
@@ -32,6 +34,8 @@ export class DownloadComponent extends BaseAuthComponent {
   public primary_downloads: PrimaryDownload[];
   public input_reports: InputReport[];
   public priority_reports: PriorityReport[];
+  public customer_reports: CustomerReport[];
+  public target_reports: TargetReport[];
   public download: Download;
 
 
@@ -44,6 +48,8 @@ export class DownloadComponent extends BaseAuthComponent {
   public primary_report_id: number = 0;
   public input_report_id: number = 0;
   public priority_report_id: number = 0;
+  public customer_report_id: number = 0;
+  public target_report_id: number = 0;
   public report_id: number = 0;
 
   btn_loading: boolean = false;
@@ -96,6 +102,20 @@ export class DownloadComponent extends BaseAuthComponent {
    */
   priorityReportChanged(priority_report_id) {
     this.report_id = priority_report_id;
+  }
+
+  /**
+   * get customer report id to download
+   */
+  customerReportChanged(customer_report_id) {
+    this.report_id = customer_report_id;
+  }
+
+  /**
+   * get target report id to download
+   */
+  targetReportChanged(target_report_id) {
+    this.report_id = target_report_id;
   }
 
   /**
