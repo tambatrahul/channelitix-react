@@ -177,19 +177,20 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
       data.addColumn('number', 'Secondary Sales');
       // data.addColumn('number', 'Closing');
 
-      let new_current_date = moment(this.current_date).subtract(11, 'months');
+      //console.log(data);
+
+      let new_current_date = moment(this.current_date).subtract(14, 'months');
       let current_month = moment(this.current_date).month();
 
       let new_data = {};
-      for (let i = 1; i <= 12; i++) {
-        new_data[parseInt(new_current_date.format('M')) - (current_month + 2) + "_" + new_current_date.format('MMM')] = {};
+      for (let i = 1; i <= 15; i++) {
+        new_data[parseInt(new_current_date.format('Y')) + "_" + parseInt(new_current_date.format('M')) + "_" + new_current_date.format('MMM')] = {};
         new_current_date.add(1, 'month').format("DD/MM/YYYY");
       }
 
-
       // add target to object
       performance.targets.forEach(function (target) {
-        new_data[target.month - (current_month + 2) + "_" + moment(target.month, 'M').format('MMM')] = {
+          new_data[target.year + "_" + target.month + "_" + moment(target.month, 'M').format('MMM')] = {
           target: parseFloat((target.total_target / 1000).toFixed(2)),
           primary: 0,
           secondary: 0
@@ -198,31 +199,31 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
 
       // add primary sale to object
       performance.primary_sales.forEach(function (ps) {
-        if (!new_data.hasOwnProperty(ps.month - (current_month + 2) + "_" + moment(ps.month, 'M').format('MMM'))) {
-          new_data[ps.month - (current_month + 2) + "_" + moment(ps.month, 'M').format('MMM')] = {
+        if (!new_data.hasOwnProperty(ps.year + "_" + ps.month + "_" + moment(ps.month, 'M').format('MMM'))) {
+          new_data[ps.year + "_" + ps.month + "_" + moment(ps.month, 'M').format('MMM')] = {
             target: 0,
             primary: parseFloat((ps.total_net_amount / 1000).toFixed(2)),
             secondary: 0
           };
         } else
-          new_data[ps.month - (current_month + 2) + "_" + moment(ps.month, 'M').format('MMM')].primary = parseFloat((ps.total_net_amount / 1000).toFixed(2))
+          new_data[ps.year + "_" + ps.month + "_" + moment(ps.month, 'M').format('MMM')].primary = parseFloat((ps.total_net_amount / 1000).toFixed(2))
       });
 
       performance.secondary_sales.forEach(function (ss) {
-        if (!new_data.hasOwnProperty(ss.month - (current_month + 2) + "_" + moment(ss.month, 'M').format('MMM'))) {
-          new_data[ss.month - (current_month + 2) + "_" + moment(ss.month, 'M').format('MMM')] = {
+        if (!new_data.hasOwnProperty(ss.year + "_" + ss.month + "_" + moment(ss.month, 'M').format('MMM'))) {
+          new_data[ss.year + "_" + ss.month + "_" + moment(ss.month, 'M').format('MMM')] = {
             target: 0,
             primary: 0,
             secondary: parseFloat((ss.total_amount / 1000).toFixed(2))
           };
         } else
-          new_data[ss.month - (current_month + 2) + "_" + moment(ss.month, 'M').format('MMM')].secondary = parseFloat((ss.total_amount / 1000).toFixed(2));
+          new_data[ss.year + "_" + ss.month + "_" + moment(ss.month, 'M').format('MMM')].secondary = parseFloat((ss.total_amount / 1000).toFixed(2));
       });
 
       // prepare data
       let prepared_data = [];
       for (let key in new_data) {
-        prepared_data.push([key.replace(/[0-9]_/g, ' ').replace(/[-]/g, ' '), new_data[key].target,
+        prepared_data.push([key.replace(/[\d_]+/g, ' ').replace(/[-]/g, ' '), new_data[key].target,
           new_data[key].primary, new_data[key].secondary])
       }
 
@@ -233,7 +234,8 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
       this.chart_data = data;
 
       // set chart data callback
-      this.drawGraph();
+      this.drawGraph();    
+     
     });
 
   }
