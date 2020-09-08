@@ -40,7 +40,8 @@
                   </td>
                   <td class="text-right">{{ item.target.toFixed(0) | number : fractionSize }}</td>
                   <td *ngIf="_service.user.role_id != 7" class="text-right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>
-                  <td *ngIf="_service.user.role_id == 7"  class="text-right">{{ item.performance_total.toFixed(0) | number : fractionSize }}</td>
+                  <td *ngIf="_service.user.role_id == 7 && environment.projectName == '3c'" class="text-right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>
+                  <td *ngIf="_service.user.role_id == 7 && environment.projectName != '3c'"  class="text-right">{{ item.performance_total.toFixed(0) | number : fractionSize }}</td>
                   <td *ngIf=" _service.user.role_id != 7 && environment.projectName != '3c'" class="text-right">{{ item.performance_pending.toFixed(0) | number : fractionSize }}</td>
                   <td *ngIf=" _service.user.role_id == 7 && environment.projectName != '3c'" class="text-right">{{ item.performance_pending_total.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ item.last_year_month_performance.toFixed(0) | number : fractionSize }}</td>
@@ -48,7 +49,10 @@
                   <td *ngIf="_service.user.role_id != 7" class="text-right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)
                     }}
                   </td>
-                  <td *ngIf="_service.user.role_id == 7" class="text-right">{{ (item.target > 0 ? (item.performance_total / item.target) * 100 : 0).toFixed(2)
+                  <td *ngIf="_service.user.role_id == 7 && environment.projectName == '3c'" class="text-right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)
+                    }}
+                  </td>
+                  <td *ngIf="_service.user.role_id == 7 && environment.projectName != '3c'" class="text-right">{{ (item.target > 0 ? (item.performance_total / item.target) * 100 : 0).toFixed(2)
                     }}
                   </td>
                   <td class="text-right">{{ item.total_target.toFixed(0) | number : fractionSize }}</td>
@@ -165,13 +169,15 @@
                 <th>Total</th>
                 <th class="text-right">{{ total_target.toFixed(0) | number }}</th>
                 <th *ngIf="_service.user.role_id != 7" class="text-right">{{ total_actual.toFixed(0) | number }}</th>
-                <th *ngIf="_service.user.role_id == 7" class="text-right">{{ total_actual_sales.toFixed(0) | number }}</th>
+                <th *ngIf="_service.user.role_id == 7 && environment.projectName == '3c' " class="text-right">{{ total_actual.toFixed(0) | number }}</th>
+                <th *ngIf="_service.user.role_id == 7 && environment.projectName != '3c' " class="text-right">{{ total_actual_sales.toFixed(0) | number }}</th>
                 <th *ngIf="environment.projectName != '3c' && _service.user.role_id != 7" class="text-right">{{ total_pending_actual.toFixed(0) | number }}</th>
                 <th *ngIf="environment.projectName != '3c' && _service.user.role_id == 7" class="text-right">{{ total_pending_actual_sales.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_last_year_month_actual.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total_pob.toFixed(0) | number }}</th>
                 <th *ngIf="_service.user.role_id != 7" class="text-right">{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>
-                <th *ngIf="_service.user.role_id == 7" class="text-right">{{ (total_target > 0 ? (total_actual_sales / total_target) * 100 : 0).toFixed(2) }}</th>
+                <th *ngIf="environment.projectName == '3c' && _service.user.role_id == 7" class="text-right">{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>
+                <th *ngIf="environment.projectName != '3c' && _service.user.role_id == 7" class="text-right">{{ (total_target > 0 ? (total_actual_sales / total_target) * 100 : 0).toFixed(2) }}</th>
                 <th class="text-right">{{ till_month_total_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ till_month_total_sale?.toFixed(0) | number }}</th>
                 <th class="text-right">{{ (till_month_total_target > 0 ? (till_month_total_sale /
