@@ -5,9 +5,14 @@ import {UserInputAcknowledgement} from '../V2/user/user_input_acknowledgement';
 export class VisitInput extends Model {
 
   name: string;
+  promo_name: string;
+  sample_name: string;
   value: number = 0;
+  promo_value: number = 0;
+  sample_value: number = 0;
   qty: number = 0;
   input_id: number = 0;
+  product_type: string;
   user_quantity: UserInput[];
   total_quantity: UserInputAcknowledgement[];
   // for internal use only
@@ -16,10 +21,25 @@ export class VisitInput extends Model {
   constructor(info: any) {
     super(info.id);
     this.name = info.name;
+    this.product_type = info.product_type;
     this.answer_id = info.answer_id;
 
+    if (this.product_type == 'Promotional Input') {
+      this.promo_name = '';
+      this.promo_name = info.name;
+  }
+
+    if (this.product_type == 'Sample' || this.product_type == 'Promotional Input')
+      this.sample_name = info.name;
+    console.log(this.promo_name);
     if (info.value)
       this.value = parseInt(info.value);
+
+    if (this.product_type == 'Promotional Input')
+      this.promo_value = parseInt(info.value);
+
+    if (this.product_type == 'Sample' || this.product_type == 'Promotional Input')
+      this.sample_value = parseInt(info.value);
 
     // customer Quantity
     if (info.user_quantity)
@@ -34,6 +54,35 @@ export class VisitInput extends Model {
       });
   }
 
+  get final_quantity_promo() {
+    let total_qty: number = 0;
+    let total_used: number = 0;
+    if (this.product_type == 'Promotional Input') {
+      this.total_quantity.map(function (totqty) {
+        total_qty += +totqty.qty;
+      });
+      this.user_quantity.map(function (usedqty) {
+        total_used += usedqty.used_qty;
+      });
+
+      return this.total_quantity ? +total_qty - (this.user_quantity && total_used > 0 ? +total_used : 0) : 0;
+    }
+  }
+
+  get final_quantity_sample() {
+    let total_qty: number = 0;
+    let total_used: number = 0;
+    if (this.product_type == 'Promotional Input' || this.product_type == 'Sample') {
+      this.total_quantity.map(function (totqty) {
+        total_qty += +totqty.qty;
+      });
+      this.user_quantity.map(function (usedqty) {
+        total_used += usedqty.used_qty;
+      });
+
+      return this.total_quantity ? +total_qty - (this.user_quantity && total_used > 0 ? +total_used : 0) : 0;
+    }
+  }
   get final_quantity() {
     let total_qty: number = 0;
     let total_used: number = 0;

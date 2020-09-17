@@ -60,10 +60,10 @@
                         <div class="w-contact-list-item"
                              *ngFor="let priority of selected_customer.visit.customer_priorities">
                           <h4 *ngIf="editable == 'open'">
-                          <app-brand-att-component [brands]="brands"
-                                           [priority]="priority"
-                                           [priorities]="selected_customer.visit.customer_priorities"
-                          (brandSelected)="this.setBrandIdBy($event) " ></app-brand-att-component>
+                            <app-brand-att-component [brands]="brands"
+                                                     [priority]="priority"
+                                                     [priorities]="selected_customer.visit.customer_priorities"
+                                                     (brandSelected)="this.setBrandIdBy($event) "></app-brand-att-component>
                           </h4>
                           <h4 *ngIf="editable == 'closed'">
                             <a>{{ priority.priority ? priority.priority.name : "" }}</a>
@@ -87,8 +87,8 @@
                            [(ngModel)]="selected_customer.customer.mobile" readonly/>
                   </div>
                   <div *ngIf="editable == 'open'">
-                    <input class="form-control" placeholder="Mobile Number" type="number"  style="width: 100%"
-                           [(ngModel)]="selected_customer.customer.mobile" (ngModelChange) = "onMobileChange($event)"/>
+                    <input class="form-control" placeholder="Mobile Number" type="number" style="width: 100%"
+                           [(ngModel)]="selected_customer.customer.mobile" (ngModelChange)="onMobileChange($event)"/>
                     <small *ngIf="mobile_valid" class="text-danger text-center">
                       Mobile Number is Invalid.
                     </small>
@@ -123,26 +123,58 @@
                     {{ selected_customer.visit.total_inputs }}
                   </strong>
                 </div>
-                <div class="widget-container report-table" style="border-top: 1px solid #eee;">
+                <div class="widget-container report-table" style="border-top: 1px solid #eee;"
+                     *ngIf="selected_customer.customer.customer_type.name != 'Healthcare Provider'">
+                  <div class="widget-block" style="padding: 0;">
+                    <div class="w-contact-widget">
+                      <div class="w-contact-list">
+                        <template ngFor let-input [ngForOf]=" selected_customer.visit.inputs" >
+                        <div class="w-contact-list-item"
+                             *ngIf ="input.product_type == 'Promotional Input'">
+                          <div class="w-contact-info">
+                            <h4><a>{{ input.promo_name }}</a></h4>
+                          </div>
+                          <div class="w-contact-action">
+                            <div *ngIf="editable == 'closed'">
+                              {{ input.promo_value }}
+                            </div>
+                            <div *ngIf="editable == 'open'">
+                              <input class="form-control" type="number" placeholder="0"
+                                     [disabled]="input.final_quantity_promo <= 0"
+                                     [(ngModel)]="input.promo_value" (change)="resetSave()"/>
+                            </div>
+                          </div>
+                          <div *ngIf="editable == 'open' " class="w-contact-action">
+                            <h4><a style="white-space: pre"> {{ input.final_quantity_promo }} </a></h4>
+                          </div>
+                        </div>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="widget-container report-table" style="border-top: 1px solid #eee;"
+                     *ngIf="selected_customer.customer.customer_type.name == 'Healthcare Provider'">
                   <div class="widget-block" style="padding: 0;">
                     <div class="w-contact-widget">
                       <div class="w-contact-list">
                         <div class="w-contact-list-item"
                              *ngFor="let input of selected_customer.visit.inputs">
                           <div class="w-contact-info">
-                            <h4><a>{{ input.name }}</a></h4>
+                            <h4><a>{{ input.sample_name }}</a></h4>
                           </div>
                           <div class="w-contact-action">
                             <div *ngIf="editable == 'closed'">
-                              {{ input.value }}
+                              {{ input.sample_value }}
                             </div>
-                            <div  *ngIf="editable == 'open'">
-                              <input class="form-control" type="number" placeholder="0"  [disabled] ="input.final_quantity <= 0"
-                                     [(ngModel)]="input.value" (change)="resetSave()" />
+                            <div *ngIf="editable == 'open'">
+                              <input class="form-control" type="number" placeholder="0"
+                                     [disabled]="input.final_quantity_sample <= 0"
+                                     [(ngModel)]="input.sample_value" (change)="resetSave()"/>
                             </div>
                           </div>
                           <div *ngIf="editable == 'open'" class="w-contact-action">
-                            <h4><a style="white-space: pre"> {{ input.final_quantity }} </a></h4>
+                            <h4><a style="white-space: pre"> {{ input.final_quantity_sample }} </a></h4>
                           </div>
                         </div>
                       </div>
@@ -201,13 +233,13 @@
                               <a>
                                 <strong>{{ environment.projectName }} Products Delivered
                                   By: </strong>{{
-                                selected_customer.order?.delivered_by_user?.firm_name}}
+                                  selected_customer.order?.delivered_by_user?.firm_name}}
                               </a>
                             </h4>
                             <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_synergy_user">
                               <a>
                                 <strong>Abbott Products Delivered By: </strong>{{
-                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
+                                  selected_customer.order?.delivered_by_synergy_user?.firm_name}}
                               </a>
                             </h4>
                           </div>
@@ -248,13 +280,13 @@
                             <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_user">
                               <a>
                                 <strong>Delivered By: </strong>{{
-                                selected_customer.order?.delivered_by_user?.firm_name}}
+                                  selected_customer.order?.delivered_by_user?.firm_name}}
                               </a>
                             </h4>
                             <h4 *ngIf="editable == 'closed' && selected_customer.order.delivered_by_synergy_user">
                               <a>
                                 <strong>Abbott Products Delivered By: </strong>{{
-                                selected_customer.order?.delivered_by_synergy_user?.firm_name}}
+                                  selected_customer.order?.delivered_by_synergy_user?.firm_name}}
                               </a>
                             </h4>
                           </div>
