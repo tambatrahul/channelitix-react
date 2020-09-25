@@ -32,13 +32,12 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  counts(from_date, to_date, year, region_ids?: Array<number>,
+  counts(month, year, region_ids?: Array<number>,
          area_ids?: Array<number>, headquarter_ids?: Array<number>, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('from_date', String(from_date ? from_date : ''));
-    params.set('to_date', String(to_date ? to_date : ''));
+    params.set('month', String(month > 0 ? month : ''));
     params.set('year', String(year > 0 ? year : ''));
 
     // prepare get params
@@ -119,14 +118,13 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  visit_order_trend(from_date, to_date, year,
+  visit_order_trend(month, year,
                     region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
                     product_id?: number, brand_id?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('from_date', String(from_date ? from_date : ''));
-    params.set('to_date', String(to_date ? to_date : ''));
+    params.set('month', String(month > 0 ? month : ''));
     params.set('year', String(year > 0 ? year : ''));
     params.set('product_id', String(product_id > 0 ? product_id : ''));
     params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
@@ -167,13 +165,12 @@ export class ReportService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  product_wise_actule_sale(from_date, to_date, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+  product_wise_actule_sale(month, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
                     zone_ids?: Array<number>, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
-    params.set('from_date', String(from_date ? from_date : ''));
-    params.set('to_date', String(to_date ? to_date : ''));
+    params.set('month', String(month > 0 ? month : ''));
     params.set('year', String(year > 0 ? year : ''));
 
     if (headquarter_ids && headquarter_ids.length > 0) {

@@ -23,6 +23,25 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   year: number;
 
   /**
+   * year and month for calendar
+   * @type {number}
+   */
+  public _month: number;
+  public _year: number;
+
+
+  @Input()
+  set month_(month: number) {
+    this._month = month;
+    this.fetchMilestone();
+  }
+
+  @Input()
+  set year_(year: number) {
+    this._year = year;
+    this.fetchMilestone();
+  }
+  /**
    * view quantity
    *
    * @type {number}
@@ -127,9 +146,9 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
    */
   fetchMilestone = AppConstants.debounce(function () {
     const self = this;
-    if ((self.month || self.month == 0) && self.year) {
+    if ((self._month || self._month == 0) && self._year) {
       self.loading = true;
-      self.reportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
+      self.reportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self._year,
         self._zone_ids, self._department_id).subscribe(
         response => {
           let primary_sales = response.primary_sales.map(pr => new PrimarySale(pr));
@@ -158,8 +177,8 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     super.ngOnInit();
     this.fetchMilestone();
     let current_month = moment();
-    this.month = current_month.month();
-    this.year = current_month.year();
+    this._month = current_month.month();
+    this._year = current_month.year();
   }
 
   /**
@@ -276,7 +295,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   excel_download() {
     this.btn_loading = true;
     this.reportService.milestone_sales_tracking_excel_download(this._region_ids, this._area_ids, this._headquarter_ids,
-      this.month + 1, this.year).subscribe(
+      this._month + 1, this._year).subscribe(
       response => {
         let blob: Blob = response.blob();
 

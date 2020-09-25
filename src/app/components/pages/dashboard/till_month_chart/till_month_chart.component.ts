@@ -36,6 +36,14 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   year: number;
 
   /**
+   * year and month for calendar
+   * @type {number}
+   */
+  public _month: number;
+  public _year: number;
+
+
+  /**
    * dates
    *
    * @type {}
@@ -52,6 +60,19 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     this._department_id = department_id;
     this.fetchTillMonthChart();
   }
+
+  @Input()
+  set month_(month: number) {
+    this._month = month;
+    this.fetchTillMonthChart();
+  }
+
+  @Input()
+  set year_(year: number) {
+    this._year = year;
+    this.fetchTillMonthChart();
+  }
+
 
   @Input()
   set dates(dates) {
@@ -118,7 +139,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     const self = this;
     self.loading = true;
     if (this.environment.projectName == 'ASPIRA') {
-      self.reportService.till_month_chart_aspira(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
+      self.reportService.till_month_chart_aspira(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self._year,
         self._zone_ids, self._department_id).subscribe(
         response => {
           self.prepareData(new YearTillMonth(response.year_till_month));
@@ -129,7 +150,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
         }
       );
     } else {
-      self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self.month + 1, self.year,
+      self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self ._year,
         self._zone_ids, self._department_id).subscribe(
         response => {
           self.prepareData(new YearTillMonth(response.year_till_month));
@@ -156,8 +177,8 @@ export class TillMonthChartComponent extends GoogleChartComponent {
     super.ngOnInit();
     this.fetchTillMonthChart();
     let current_month = moment();
-    this.month = current_month.month();
-    this.year = current_month.year();
+    this._month = current_month.month();
+    this._year = current_month.year();
     this.month_str = current_month.format('MMM');
     this.previous_month = current_month.subtract(1, 'M').format('MMM');
   }
