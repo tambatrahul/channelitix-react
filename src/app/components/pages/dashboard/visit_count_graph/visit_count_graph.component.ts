@@ -37,6 +37,26 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   public brand_id: number = 0;
 
   /**
+   * year and month for calendar
+   * @type {number}
+   */
+  public _month: number;
+  public _year: number;
+
+
+  @Input()
+  set month_(month: number) {
+    this._month = month;
+    this.fetchVisitOrdreTrend();
+  }
+
+  @Input()
+  set year_(year: number) {
+    this._year = year;
+    this.fetchVisitOrdreTrend();
+  }
+
+  /**
    * view quantity
    *
    * @type {number}
@@ -151,9 +171,9 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
    */
   fetchVisitOrdreTrend = AppConstants.debounce(function () {
     const self = this;
-    if (self._dates && self._dates.from_date && self._dates.to_date) {
+    if ((self._month || self._month == 0) && self._year) {
       self.loading = true;
-      self.reportService.visit_order_trend(self._dates.from_date, self._dates.to_date, self._dates.year,
+      self.reportService.visit_order_trend(self._month + 1, self._year,
         self._region_ids, self._area_ids, self._headquarter_ids, self.product_id, self.brand_id, self._zone_ids, self._department_id).subscribe(
         response => {
           self.visits = response.visits.map(function (visit) {

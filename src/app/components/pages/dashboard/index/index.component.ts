@@ -69,9 +69,9 @@ export class DashBoardComponent extends BaseComponent {
    */
   fetchActualSale = AppConstants.debounce(function () {
     const self = this;
-    if (self.dates.from_date && self.dates.to_date) {
+    if (self.month && self.year) {
       self.loading = true;
-      self.reportService.product_wise_actule_sale(self.dates.from_date, self.dates.to_date, self.dates.year,
+      self.reportService.product_wise_actule_sale(self.month + 1, self.year,
         self.region_ids, self.area_ids, self.headquarter_ids, self.zone_ids, self.department_id).subscribe(
         response => {
           self.forData(new Performance(response.performance));
@@ -160,6 +160,15 @@ export class DashBoardComponent extends BaseComponent {
     this.total_pob = 0;
     this.total_actual = 0;
     this.dates = dates;
+    this.fetchActualSale();
+  }
+
+  monthYearChanged(date) {
+    this.total_pob = 0;
+    this.total_actual = 0;
+    let current_month = moment().month(date.month).year(date.year);
+    this.month = current_month.month();
+    this.year = current_month.year();
     this.fetchActualSale();
   }
   /**

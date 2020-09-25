@@ -36,6 +36,13 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
     skinlite_performance_per: 0
   };
 
+  /**
+   * year and month for calendar
+   * @type {number}
+   */
+  public _month: number;
+  public _year: number;
+
   _productive_calls: number = 0;
   @Input()
   set productive_calls(productive_calls: number) {
@@ -46,6 +53,19 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
   @Input()
   set department_id(department_id: number) {
     this._department_id = department_id;
+    this.fetchCounts();
+  }
+
+
+  @Input()
+  set month(month: number) {
+    this._month = month;
+    this.fetchCounts();
+  }
+
+  @Input()
+  set year(year: number) {
+    this._year = year;
     this.fetchCounts();
   }
 
@@ -119,8 +139,8 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
   fetchCounts = AppConstants.debounce(function () {
     const self = this;
     self.loading = true;
-    if (self._dates.year) {
-      self.reportService.counts(self._dates.from_date, self._dates.to_date, self._dates.year,
+    if (self._month && self._year) {
+      self.reportService.counts(self._month + 1, self._year,
         self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
         response => {
           self.counts = response;

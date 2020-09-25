@@ -33,6 +33,7 @@ export class MonthPickerComponent {
         // start date picker
         let picker = jQuery(this.month_year_input.nativeElement).datepicker({
             language: 'en',
+            position: 'left center',
             onSelect: function (fd, d, picker) {
                 self.onMonthYearChanged.emit({
                     month: d.getMonth(),

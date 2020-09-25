@@ -28,10 +28,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
-          <dates-select (onDateChanged)="onDateChanged($event)"></dates-select>
+          <div class="col-xs-12 ">
+            <month-picker [month]="month" [year]="year"
+                          (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+          </div>
         </div>
-      </div>
       <div class="row" *roleCheck="ROLE_ADMIN">
         <div class="col-xs-12">
           <div class="row">
@@ -69,20 +70,20 @@
       </div>
     </div>
     <div class="col-md-10 col-md-pull-2">
-      <dashboard-count [dates]="dates" [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
+      <dashboard-count [month]="month" [year]="year" [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
                        [department_id]="department_id" [headquarter_ids]="headquarter_ids" [productive_calls]="productive_calls"></dashboard-count>
 
       <div class="row" *ngIf="environment.envName == 'geo'">
 
         <!-- Highest Call graph -->
         <div class="col-xs-12 col-md-6" *roleCheck="ROLE_CSM">
-          <till-month-chart [zone_ids]="zone_ids" [department_id]="department_id"
+          <till-month-chart [month_]="month" [year_]="year" [zone_ids]="zone_ids" [department_id]="department_id"
                             [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
                             [headquarter_ids]="headquarter_ids"></till-month-chart>
         </div>
         <!-- ./Highest Call graph -->
         <div class="col-xs-12 col-md-6" *roleCheck="ROLE_CSM">
-          <milestone-sales-tracking-graph [dates]="dates"
+          <milestone-sales-tracking-graph [month_]="month" [year_]="year"
                                           [refresh]="refresh"
                                           [zone_ids]="zone_ids" [department_id]="department_id"
                                           [region_ids]="region_ids" [area_ids]="area_ids"
@@ -94,7 +95,7 @@
       <!-- Visit Order Trend -->
       <div class="row">
         <div class="col-xs-12 col-md-9" *roleCheck="ROLE_CSM">
-          <visit-count-graph [dates]="dates"
+          <visit-count-graph [month_]="month" [year_]="year"
                              (totalVisitOrders)="totalVisitOrders($event)" [refresh]="refresh"
                              [zone_ids]="zone_ids" [department_id]="department_id"
                              [region_ids]="region_ids" [area_ids]="area_ids"
