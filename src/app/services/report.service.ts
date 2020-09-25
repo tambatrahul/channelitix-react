@@ -148,7 +148,7 @@ export class ReportService extends BaseService {
     }
 
     if (zone_ids && zone_ids.length > 0) {
-      region_ids.map(function (zone_id) {
+      zone_ids.map(function (zone_id) {
         params.append('zone_id[]', String(zone_id));
       });
     }

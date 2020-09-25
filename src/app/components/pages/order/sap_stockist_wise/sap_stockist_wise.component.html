@@ -54,12 +54,12 @@
   <div class="row" style="margin-bottom: 10px;">
     <div class="col-xs-12 col-md-3">
       <a class="btn btn-primary btn-block btn-margin"
-         *ngIf="headquarter_id > 0"
+         *ngIf="area_id > 0"
          (click)="fetch_data()">
         <i class="fa fa-eye"></i> View
       </a>
       <a class="btn btn-primary btn-block btn-margin disabled"
-         *ngIf="!headquarter_id ||  headquarter_id==0">
+         *ngIf="!area_id ||  area_id==0">
         <i class="fa fa-eye"></i> View
       </a>
     </div>

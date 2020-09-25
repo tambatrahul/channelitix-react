@@ -31,7 +31,7 @@ export class VisitInput extends Model {
 
     if (this.product_type == 'Sample' || this.product_type == 'Promotional Input')
       this.sample_name = info.name;
-    console.log(this.promo_name);
+
     if (info.value)
       this.value = parseInt(info.value);
 

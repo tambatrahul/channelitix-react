@@ -158,25 +158,27 @@
                   <div class="widget-block" style="padding: 0;">
                     <div class="w-contact-widget">
                       <div class="w-contact-list">
-                        <div class="w-contact-list-item"
-                             *ngFor="let input of selected_customer.visit.inputs">
-                          <div class="w-contact-info">
-                            <h4><a>{{ input.sample_name }}</a></h4>
-                          </div>
-                          <div class="w-contact-action">
-                            <div *ngIf="editable == 'closed'">
-                              {{ input.sample_value }}
+                        <template ngFor let-input [ngForOf]=" selected_customer.visit.inputs" >
+                          <div class="w-contact-list-item"
+                               *ngIf ="input.product_type == 'Promotional Input' || input.product_type == 'Sample'">
+                            <div class="w-contact-info">
+                              <h4><a>{{ input.sample_name }}</a></h4>
                             </div>
-                            <div *ngIf="editable == 'open'">
-                              <input class="form-control" type="number" placeholder="0"
-                                     [disabled]="input.final_quantity_sample <= 0"
-                                     [(ngModel)]="input.sample_value" (change)="resetSave()"/>
+                            <div class="w-contact-action">
+                              <div *ngIf="editable == 'closed'">
+                                {{ input.sample_value }}
+                              </div>
+                              <div *ngIf="editable == 'open'">
+                                <input class="form-control" type="number" placeholder="0"
+                                       [disabled]="input.final_quantity_sample <= 0"
+                                       [(ngModel)]="input.sample_value" (change)="resetSave()"/>
+                              </div>
+                            </div>
+                            <div *ngIf="editable == 'open' " class="w-contact-action">
+                              <h4><a style="white-space: pre"> {{ input.final_quantity_sample }} </a></h4>
                             </div>
                           </div>
-                          <div *ngIf="editable == 'open'" class="w-contact-action">
-                            <h4><a style="white-space: pre"> {{ input.final_quantity_sample }} </a></h4>
-                          </div>
-                        </div>
+                        </template>
                       </div>
                     </div>
                   </div>

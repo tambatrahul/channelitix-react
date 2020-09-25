@@ -59,7 +59,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
    * on load of component load customer types
    */
   ngOnInit() {
-    this.month = moment().month() - 3;
+    this.month = moment().month();
     this.year = moment().year();
     super.ngOnInit();
 

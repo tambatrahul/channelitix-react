@@ -114,8 +114,8 @@ export class SapStockistWiseComponent extends ListComponent {
       this.loading = true;
 
       Observable.forkJoin(
-        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id, this.department_id),
-        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, this.headquarter_id, this.zone_id, this.brand_id, this.department_id)).subscribe(
+        this.reportService.sap_stockist_wise_monthly(this.month + 1, this.year, this.region_id, this.area_id, null, this.zone_id, this.brand_id, this.department_id),
+        this.reportService.sap_stockist_wise_yearly(this.month + 1, this.year, this.region_id, this.area_id, null, this.zone_id, this.brand_id, this.department_id)).subscribe(
         response => {
           let regions = response[1].regions.map(region => new Region(region));
 
