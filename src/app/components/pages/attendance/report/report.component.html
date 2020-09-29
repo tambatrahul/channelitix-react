@@ -132,20 +132,20 @@
                         <div class="w-contact-list-item"
                              *ngIf ="input.product_type == 'Promotional Input'">
                           <div class="w-contact-info">
-                            <h4><a>{{ input.name }}</a></h4>
+                            <h4><a>{{ input.promo_name }}</a></h4>
                           </div>
                           <div class="w-contact-action">
                             <div *ngIf="editable == 'closed'">
-                              {{ input.value }}
+                              {{ input.promo_value }}
                             </div>
                             <div *ngIf="editable == 'open'">
                               <input class="form-control" type="number" placeholder="0"
-                                     [disabled]="input.final_quantity <= 0"
-                                     [(ngModel)]="input.value" (change)="resetSave()"/>
+                                     [disabled]="input.final_quantity_promo <= 0"
+                                     [(ngModel)]="input.promo_value" (change)="resetSave()"/>
                             </div>
                           </div>
                           <div *ngIf="editable == 'open' " class="w-contact-action">
-                            <h4><a style="white-space: pre"> {{ input.final_quantity }} </a></h4>
+                            <h4><a style="white-space: pre"> {{ input.final_quantity_promo }} </a></h4>
                           </div>
                         </div>
                         </template>
@@ -161,20 +161,20 @@
                         <div class="w-contact-list-item"
                              *ngFor="let input of selected_customer.visit.inputs">
                           <div class="w-contact-info">
-                            <h4><a>{{ input.name }}</a></h4>
+                            <h4><a>{{ input.sample_name }}</a></h4>
                           </div>
                           <div class="w-contact-action">
                             <div *ngIf="editable == 'closed'">
-                              {{ input.value }}
+                              {{ input.sample_value }}
                             </div>
                             <div *ngIf="editable == 'open'">
                               <input class="form-control" type="number" placeholder="0"
-                                     [disabled]="input.final_quantity <= 0"
-                                     [(ngModel)]="input.value" (change)="resetSave()"/>
+                                     [disabled]="input.final_quantity_sample <= 0"
+                                     [(ngModel)]="input.sample_value" (change)="resetSave()"/>
                             </div>
                           </div>
                           <div *ngIf="editable == 'open'" class="w-contact-action">
-                            <h4><a style="white-space: pre"> {{ input.final_quantity }} </a></h4>
+                            <h4><a style="white-space: pre"> {{ input.final_quantity_sample }} </a></h4>
                           </div>
                         </div>
                       </div>
