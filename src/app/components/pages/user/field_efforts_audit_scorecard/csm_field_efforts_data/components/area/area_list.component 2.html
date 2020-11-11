@@ -1,0 +1,32 @@
+<div class="box-widget widget-module daily_tour">
+  <div class="widget-head clearfix">
+    <span class="h-icon"><i class="fa fa-table"></i></span>
+    <h4>Areas {{ _title }}</h4>
+  </div>
+  <div class="widget-container" #loading_box>
+    <div class="widget-block">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Region</th>
+            <th>Area</th>
+            <th>Norms</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <template ngFor let-area [ngForOf]="areas">
+            <tr>
+              <td>{{ area?.hq_region?.name }}</td>
+              <td>{{ area?.name }}</td>
+              <td>{{ area?.norm }}</td>
+            </tr>
+          </template>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

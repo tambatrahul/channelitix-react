@@ -1,0 +1,79 @@
+<div class="topics-list" #loading_box>
+  <div class="topic-container new-ticket">
+    <div class="row summary">
+      <div class="col-xs-12">
+        <div class="box-widget widget-module">
+          <div class="widget-head clearfix">
+            <span class="h-icon"><i class="fa fa-table"></i></span>
+            <h4> Months Summary Report</h4>
+          </div>
+          <div class="widget-container details-table">
+            <div class="widget-block">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+                  <tr>
+                    <th>Total Dr. Meet</th>
+                    <td>{{ total_dr_meet }}</td>
+                    <th>Total Chemist Meet</th>
+                    <td>{{ total_chemist_meet }}</td>
+                  </tr>
+                  <tr>
+                    <th>Dr. Call Average</th>
+                    <td>{{ field_work_days > 0 ? (total_dr_met/field_work_days).toFixed(2) : 0 }}</td>
+                    <th>Chemist Call Average</th>
+                    <td>{{ field_work_days > 0 ? (total_chemist_met/field_work_days).toFixed(2) : 0 }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Field Work Days</th>
+                    <td>{{ field_work_days }}</td>
+                    <th>Stockist Meet</th>
+                    <td>{{ stockist_meet }}</td>
+                  </tr>
+                  <!--<tr>-->
+                    <!--<th>MCR Dr. Cover</th>-->
+                    <!--<td></td>-->
+                    <!--<th>MCR Coverage %</th>-->
+                    <!--<td></td>-->
+                  <!--</tr>-->
+                  <!--<tr>-->
+                  <!--<th>BRF/Meet</th>-->
+                  <!--<td></td>-->
+                  <!--<th>Sunday/Holiday</th>-->
+                  <!--<td></td>-->
+                  <!--</tr>-->
+                  <tr>
+                    <th>Transit</th>
+                    <td>{{ transit }}</td>
+                    <th>Leave</th>
+                    <td>{{ leave }}</td>
+                  </tr>
+                  <!--<tr>-->
+                  <!--<th>Office Work</th>-->
+                  <!--<td></td>-->
+                  <!--<th>Others</th>-->
+                  <!--<td></td>-->
+                  <!--</tr>-->
+                  <tr>
+                    <th>Total POB(Self)</th>
+                    <td>{{ total_pob_self.toFixed(0) }}</td>
+                    <th>Total Visits</th>
+                    <td>{{ total_visits }}</td>
+                  </tr>
+                  <tr>
+                    <th>Total POB(Joint Work)</th>
+                    <td>{{ total_pob_with.toFixed(0) }}</td>
+                    <th></th>
+                    <td></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
