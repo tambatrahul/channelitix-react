@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import {Router} from '@angular/router';
 import {Validators, FormBuilder} from '@angular/forms';
 import {LoginService} from '../../../../services/login.service';
 import {FormComponent} from '../../../base/form.component';
@@ -20,8 +20,6 @@ export class LoginComponent extends FormComponent {
    */
   public error: string = '';
 
-  public token: string = '';
-
   /**
    * login form
    *
@@ -41,16 +39,8 @@ export class LoginComponent extends FormComponent {
    * @param _service
    */
   constructor(public loginService: LoginService, public _router: Router,
-              public _fb: FormBuilder, public _service: AuthService, private activatedRoute: ActivatedRoute) {
+              public _fb: FormBuilder, public _service: AuthService) {
     super(_service);
-  }
-
-  ngOnInit() {
-    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
-    this.activatedRoute.queryParams.subscribe(params => {
-        this.token = params['token'];
-        console.log(this.token);
-      });
   }
 
   /**
@@ -63,8 +53,7 @@ export class LoginComponent extends FormComponent {
       let data = this.form.value;
       this.loginService.login(data.username, data.password).subscribe(
         response => {
-          localStorage.setItem('user', this.token);
-          /*localStorage.setItem('user', JSON.stringify(response.user));*/
+          localStorage.setItem('user', JSON.stringify(response.user));
           this._service.user = new User(response.user);
 
           if (response.user.username === 'abbottadmin') {
