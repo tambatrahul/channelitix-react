@@ -161,12 +161,12 @@ export class PrimarySaleComponent extends ListComponent {
    * Download Excel For Report
    */
   product_report_download() {
-    let url = this.downloadService.report_download(this.primary_report_id, 4, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id, this.department_id);
+    let url = this.downloadService.report_download(this.primary_report_id, 4, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
     window.open(url, "_blank");
   }
 
   stockist_report_download() {
-    let url = this.downloadService.report_download(this.primary_report_id, 5, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id, this.department_id);
+    let url = this.downloadService.report_download(this.primary_report_id, 5, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
     window.open(url, "_blank");
   }
 }
