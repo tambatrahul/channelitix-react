@@ -137,7 +137,7 @@ export class UpdateCustomerComponent extends FormComponent {
         this.gradeChanged(response.customer.grade_id);
         if (response.customer.doctor_qualifications)
         response.customer.doctor_qualifications.map(function (cusQual) {
-          self.qualification_ids.push(cusQual.pivot.qualification_id);
+          self.qualification_ids.push(cusQual.id);
         });
       }, err => {
         this.loading = false;
