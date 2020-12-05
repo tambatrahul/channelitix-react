@@ -123,7 +123,7 @@ export class MonthlyAttendanceComponent extends ListComponent {
         });
 
         // check for tour count filled for the month
-        this.tourProgramCompleted = this.tours.length >= +moment().daysInMonth() - 5;
+        this.tourProgramCompleted = this.tours.length >= +moment().daysInMonth() - 6;
       },
       err => {
         this.loading = false;
