@@ -50,7 +50,7 @@ export class LoginService extends BaseService {
   }
 
   user_data(): Observable<Result> {
-    return this.http.get(this.getBaseUrl() + 'loginHandle')
+    return this.http.get(this.getBaseUrl() + 'getUser')
     .map((res: Response) =>  {
       return res.json();
     })
