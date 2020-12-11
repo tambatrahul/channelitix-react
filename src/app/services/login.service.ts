@@ -50,10 +50,6 @@ export class LoginService extends BaseService {
   }
 
   user_data(): Observable<Result> {
-    return this.http.get(this.getBaseUrl() + 'getUser')
-    .map((res: Response) =>  {
-      return res.json();
-    })
-    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    return this.get(this.getBaseUrl() + '/getUser');
   }
 }

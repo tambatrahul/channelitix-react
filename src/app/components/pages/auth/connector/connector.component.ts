@@ -37,6 +37,7 @@ export class ConnectorComponent extends BaseAuthComponent {
     this.activatedRoute.queryParams.subscribe(params => {
         this.token = params['token'];
         localStorage.setItem('auth_token', this.token);
+        this.fetch_data();
     });
   }
 
