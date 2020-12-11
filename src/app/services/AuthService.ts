@@ -10,7 +10,7 @@ export class AuthService {
      */
     public user: User;
 
-    public auth_token = '';
+    public auth_token: string;
 
     /**
      * auth Service constructor
