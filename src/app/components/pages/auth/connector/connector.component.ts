@@ -35,7 +35,7 @@ export class ConnectorComponent extends BaseAuthComponent {
   ngOnInit() {
     // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
     this.activatedRoute.queryParams.subscribe(params => {
-        this.token = params['token'];
+        this.token = decodeURIComponent(params['token']);
         localStorage.setItem('auth_token', this.token);
         this.fetch_data();
     });
