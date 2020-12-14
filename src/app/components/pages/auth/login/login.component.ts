@@ -53,6 +53,7 @@ export class LoginComponent extends FormComponent {
       let data = this.form.value;
       this.loginService.login(data.username, data.password).subscribe(
         response => {
+          console.log(response);
           localStorage.setItem('user', JSON.stringify(response.user));
           this._service.user = new User(response.user);
 

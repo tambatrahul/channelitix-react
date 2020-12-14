@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
 import {ReportService} from "../../../../services/report.service";
+import {DownloadService} from '../../../../services/download.service';
 import {Region} from "../../../../models/territory/region";
 import * as moment from "moment";
 import {Customer} from "../../../../models/customer/customer";
@@ -58,7 +59,7 @@ export class SapStockistWiseComponent extends ListComponent {
   /**
    * User Component Constructor
    */
-  constructor(public _service: AuthService, public reportService: ReportService) {
+  constructor(public _service: AuthService, public reportService: ReportService,  public downloadService: DownloadService) {
     super(_service);
   }
 
@@ -354,5 +355,10 @@ export class SapStockistWiseComponent extends ListComponent {
       this.brand_id = 4;
     if (this.department_id == 1)
       this.brand_id = 1;
+  }
+
+  downloadMonthlySalesReport() {
+    let url = this.downloadService.downloadMonthlySalesReport(this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.brand_id, this.department_id);
+    window.open(url, "_blank");
   }
 }

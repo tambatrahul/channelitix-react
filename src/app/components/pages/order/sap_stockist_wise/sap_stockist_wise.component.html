@@ -55,6 +55,17 @@
     <div class="col-xs-12 col-md-3">
       <a class="btn btn-primary btn-block btn-margin"
          *ngIf="area_id > 0"
+         (click)="downloadMonthlySalesReport()">
+        <i class="fa fa-download"></i> Download
+      </a>
+      <a class="btn btn-primary btn-block btn-margin disabled"
+         *ngIf="!area_id ||  area_id==0">
+        <i class="fa fa-download"></i> Download
+      </a>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <a class="btn btn-primary btn-block btn-margin"
+         *ngIf="area_id > 0"
          (click)="fetch_data()">
         <i class="fa fa-eye"></i> View
       </a>

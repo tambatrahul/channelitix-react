@@ -252,7 +252,7 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
    * Download Excel For Report
    */
   report_download() {
-    let url = this.downloadService.report_download(this.input_report_id, 6, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id);
+    let url = this.downloadService.report_download(this.input_report_id, 6, this.month + 1, this.year, this.zone_id, this.region_id, this.area_id, this.headquarter_id, 0);
     window.open(url, "_blank");
   }
 }

@@ -11,6 +11,7 @@ import {HeaderComponent} from "./components/pages/base/header/header.component";
 import {routing} from "./app.routes";
 // pages
 import {LoginComponent} from "./components/pages/auth/login/login.component";
+import {ConnectorComponent} from "./components/pages/auth/connector/connector.component";
 import {CustomerCountComponent} from "./components/pages/customer/customer_count/customer_count.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
 import {AuthService} from "./services/AuthService";
@@ -334,6 +335,7 @@ enableProdMode();
     BrickBusinessTrackerComponent,
     DailyVisitPlanComponent,
     SupportComponent,
+    ConnectorComponent,
 
     //dashboard report Component
     SalesComponent,
