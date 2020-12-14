@@ -14,6 +14,7 @@ export class HeaderComponent {
      * Logged in user
      */
     public user: User;
+    public continueUrl: string;
 
     /**
      * Header component constructor
@@ -26,15 +27,24 @@ export class HeaderComponent {
     }
 
 
-    /**
-     * on load of call fetch
-     */
-    ngOnInit() {
-        if (localStorage.getItem("user") == null || localStorage.getItem("user") == 'null') {
-            this._router.navigate(['/login']);
-        }
-    }
+    // /**
+    //  * on load of call fetch
+    //  */
+    // ngOnInit() {
+    //     if (localStorage.getItem("user") == null || localStorage.getItem("user") == 'null') {
+    //       this.continueUrl = encodeURIComponent('https://geo.channelitix.com/login');
+    //         window.location.href = 'http://localhost:3003/login?continue=' + this.continueUrl;
+    //     }
+    // }
 
+  /**
+   * on load of call fetch
+   */
+  ngOnInit() {
+    if (localStorage.getItem("user") == null || localStorage.getItem("user") == 'null') {
+      this._router.navigate(['/login']);
+    }
+  }
     /**
      * actions on view load
      */
