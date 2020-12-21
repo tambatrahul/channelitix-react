@@ -43,6 +43,7 @@ export class ConnectorComponent extends BaseAuthComponent {
 
   fetch_data() {
     this.loginService.user_data().subscribe(response => {
+      this._service.user = new User(response.user);
       if (response.user.username === 'abbottadmin') {
         this._router.navigate(['/visits']);
       } else if (response.user.role_str === this.ROLE_THIRD_PARTY) {
