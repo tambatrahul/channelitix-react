@@ -64,6 +64,7 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
         "ikon": "environments/environment.ikon.ts",
+        "iconcx": "environments/environment.iconcx.ts",
         "aspira": "environments/environment.aspira.ts",
         "3c": "environments/environment.3c.ts",
         "sk_prod": "environments/environment.sk_prod.ts",

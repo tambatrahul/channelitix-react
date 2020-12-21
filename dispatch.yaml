@@ -12,7 +12,14 @@ dispatch:
   - url: "optimus.channelitix.com/*"
     service: optimus-frontend
 
+  - url: "vikrant.channelitix.com/*"
+    service: vikrant-frontend
+
   - url: "3c.channelitix.com/*"
     service: 3c-frontend
 
+  - url: "cam.channelitix.com/*"
+    service: cam-frontend
 
+  - url: "cx.channelitix.com/*"
+    service: iconcx-frontend
