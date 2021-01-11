@@ -6,7 +6,6 @@ import {AuthService} from "../AuthService";
 import {AppConstants} from "../../app.constants";
 import {Observable} from "rxjs";
 import {Result} from "../../models/result";
-import { Console } from "console";
 
 export abstract class V2BaseService {
 
@@ -137,8 +136,8 @@ export abstract class V2BaseService {
         }
 
         // add auth token to headers
-        if (this._authService) {
-            headers.append('Auth-Token', this._authService.auth_token);
+        if (this._authService.user) {
+            headers.append('Auth-Token', this._authService.user.auth_token);
         }
 
         options.headers = headers;

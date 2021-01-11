@@ -153,20 +153,20 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
    */
   fetchProductWiseSale = AppConstants.debounce(function () {
     const self = this;
-    if (this.environment.projectName == 'ASPIRA') {
-      if ((self._month || self._month == 0) && self._year) {
-        self.loading = true;
-        self.reportService.product_wise_sale_aspira(self._month + 1, self._year,
-          self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
-          response => {
-            self.formatData(new Performance(response.performance));
-            self.loading = false;
-          }, err => {
-            self.loading = false;
-          }
-        );
-      }
-    } else {
+    // if (this.environment.projectName == 'ASPIRA') {
+    //   if ((self._month || self._month == 0) && self._year) {
+    //     self.loading = true;
+    //     self.reportService.product_wise_sale_aspira(self._month + 1, self._year,
+    //       self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
+    //       response => {
+    //         self.formatData(new Performance(response.performance));
+    //         self.loading = false;
+    //       }, err => {
+    //         self.loading = false;
+    //       }
+    //     );
+    //   }
+    // } else {
       if ((self._month || self._month == 0) && self._year) {
         self.loading = true;
           self.reportService.product_wise_sale(self._month + 1, self._year,
@@ -179,8 +179,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           }
         );
       }
-    }
-  }, 1000, false);
+    }, 1000, false);
 
 
   constructor(public _service: AuthService, private reportService: ReportService) {
@@ -225,10 +224,10 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           product.target = target.total_target;
           self.total_target += target.total_target;
 
-          if (target.brand_id > 4 && target.brand_id != 15)
+          if (product.brands.department_id == 2)
             self.total_geo_target += target.total_target;
 
-          if (target.brand_id <= 4 || target.brand_id == 15)
+          if (product.brands.department_id == 1 )
             self.total_icon_target += target.total_target;
         }
       });
@@ -252,12 +251,12 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           self.total_actual += ss.total_amount;
           self.total_pending_actual += ss.total_pending_amount;
 
-          if (ss.brand_id > 4 && ss.brand_id != 15) {
+          if (product.brands.department_id == 2) {
             self.total_geo_actual += ss.total_amount;
             self.total_pending_geo_actual += ss.total_pending_amount;
           }
 
-          if (ss.brand_id <= 4 || ss.brand_id == 15) {
+          if (product.brands.department_id == 1) {
             self.total_icon_actual += ss.total_amount;
             self.total_pending_icon_actual += ss.total_pending_amount;
           }
@@ -280,12 +279,12 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           self.total_actual_sales += sst.total_amount;
           self.total_pending_actual_sales += sst.total_pending_amount;
 
-          if (sst.brand_id > 4 && sst.brand_id != 15) {
+          if (product.brands.department_id == 2) {
             self.total_product_geo_actual += sst.total_amount;
             self.total_pending_product_geo_actual += sst.total_pending_amount;
           }
 
-          if (sst.brand_id <= 4 || sst.brand_id == 15) {
+          if (product.brands.department_id == 1) {
             self.total_product_icon_actual += sst.total_amount;
             self.total_pending_product_icon_actual += sst.total_pending_amount;
           }
@@ -299,10 +298,10 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           product.last_year_month_performance = ss.total_amount;
           self.total_last_year_month_actual += ss.total_amount;
 
-          if (ss.brand_id > 4 && ss.brand_id != 15)
+          if (product.brands.department_id == 2)
             self.total_last_month_geo_actual += ss.total_amount;
 
-          if (ss.brand_id <= 4 || ss.brand_id == 15)
+          if (product.brands.department_id == 1)
             self.total_last_month_icon_actual += ss.total_amount;
         }
       })
@@ -318,10 +317,10 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           product.total_pob = order.order_total_count;
           self.total_pob += order.order_total_count;
 
-          if (order.brand_id > 4 && order.brand_id != 15)
+          if (product.brands.department_id == 2)
             self.total_geo_pob += order.order_total_count;
 
-          if (order.brand_id <= 4 || order.brand_id == 15)
+          if (product.brands.department_id == 1)
             self.total_icon_pob += order.order_total_count;
         }
       })
@@ -337,10 +336,10 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           product.total_target = target.total_target;
           self.till_month_total_target += target.total_target;
 
-          if(+target.brand_id > 4 && +target.brand_id != 15)
+          if(product.brands.department_id == 2)
             self.till_month_geo_total_target += target.total_target;
 
-          if(+target.brand_id <= 4 || +target.brand_id == 15)
+          if(product.brands.department_id == 1)
             self.till_month_icon_total_target += target.total_target;
         }
       })
@@ -356,10 +355,10 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           product.total_primary_sale = sale.total_net_amt;
           self.till_month_total_sale += sale.total_net_amt;
 
-          if(sale.brand_id > 4 && sale.brand_id != 15)
+          if(product.brands.department_id == 2)
             self.till_month_total_sale_geo += sale.total_net_amt;
 
-          if(sale.brand_id <= 4 || sale.brand_id == 15)
+          if(product.brands.department_id == 1)
             self.till_month_total_sale_icon += sale.total_net_amt;
         }
       })

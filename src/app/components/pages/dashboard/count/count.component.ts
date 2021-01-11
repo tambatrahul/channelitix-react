@@ -139,7 +139,7 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
   fetchCounts = AppConstants.debounce(function () {
     const self = this;
     self.loading = true;
-    if (self._month && self._year) {
+    if ((self._month == 0 || self._month >= 0 ) && self._year) {
       self.reportService.counts(self._month + 1, self._year,
         self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
         response => {

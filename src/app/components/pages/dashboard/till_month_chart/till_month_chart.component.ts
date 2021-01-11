@@ -138,18 +138,6 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   fetchTillMonthChart = AppConstants.debounce(function () {
     const self = this;
     self.loading = true;
-    if (this.environment.projectName == 'ASPIRA') {
-      self.reportService.till_month_chart_aspira(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self._year,
-        self._zone_ids, self._department_id).subscribe(
-        response => {
-          self.prepareData(new YearTillMonth(response.year_till_month));
-          self.loading = false;
-        },
-        err => {
-          self.loading = false;
-        }
-      );
-    } else {
       self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self ._year,
         self._zone_ids, self._department_id).subscribe(
         response => {
@@ -160,8 +148,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
           self.loading = false;
         }
       );
-    }
-  }, 1000, false);
+    }, 1000, false);
 
   /**
    * TillMonthChartComponent constructor
@@ -239,10 +226,10 @@ export class TillMonthChartComponent extends GoogleChartComponent {
       data.addRows([
         [this.month_str, year_till_month.month_target, year_till_month.month_target,
           year_till_month.month_sale, year_till_month.month_sale],
-        ['YTD(' + this.month_str + ')', (year_till_month.till_month_target + year_till_month.month_target),
-          (year_till_month.till_month_target + year_till_month.month_target),
-          (year_till_month.till_month_sale + year_till_month.month_sale),
-          (year_till_month.till_month_sale + year_till_month.month_sale)],
+        ['YTD(' + this.month_str + ')', (year_till_month.till_month_target),
+          (year_till_month.till_month_target),
+          (year_till_month.till_month_sale),
+          (year_till_month.till_month_sale)],
       ]);
 
       this.data = data;

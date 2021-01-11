@@ -23,3 +23,6 @@ dispatch:
 
   - url: "cx.channelitix.com/*"
     service: iconcx-frontend
+
+  - url: "ace.channelitix.com/*"
+    service: ace-frontend

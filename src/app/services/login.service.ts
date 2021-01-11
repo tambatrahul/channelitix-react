@@ -48,8 +48,4 @@ export class LoginService extends BaseService {
       })
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
-
-  user_data(): Observable<Result> {
-    return this.get(this.getBaseUrl() + '/getUser');
-  }
 }

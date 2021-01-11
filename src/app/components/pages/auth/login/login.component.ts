@@ -5,7 +5,6 @@ import {LoginService} from '../../../../services/login.service';
 import {FormComponent} from '../../../base/form.component';
 import {AuthService} from '../../../../services/AuthService';
 import {User} from '../../../../models/user/user';
-import {environment} from '../../../../../environments/environment';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -53,7 +52,6 @@ export class LoginComponent extends FormComponent {
       let data = this.form.value;
       this.loginService.login(data.username, data.password).subscribe(
         response => {
-          console.log(response);
           localStorage.setItem('user', JSON.stringify(response.user));
           this._service.user = new User(response.user);
 

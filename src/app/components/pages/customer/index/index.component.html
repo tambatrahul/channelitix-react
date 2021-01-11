@@ -99,7 +99,7 @@
                     <tfoot>
                     <tr *ngFor="let customer of customers">
                       <td>{{ customer.firm_name}}</td>
-                      <td>{{ customer.hq_brick.name}}</td>
+                      <td>{{ customer.hq_brick?.name}}</td>
                       <td>{{ customer.hq_headquarter?.name}}</td>
                       <td>{{ customer.customer_type.name }} ({{ customer.grade.name }}) {{customer.doctor_type?.name}}</td>
                       <td>

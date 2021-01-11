@@ -15,8 +15,6 @@ export class HeaderComponent {
      */
     public user: User;
 
-    public continueUrl = '';
-
     /**
      * Header component constructor
      *
@@ -31,14 +29,10 @@ export class HeaderComponent {
     /**
      * on load of call fetch
      */
-      // /**
-    //  * on load of call fetch
-    //  */
     ngOnInit() {
-     if (localStorage.getItem("auth_token") == null || localStorage.getItem("auth_token") == 'null') {
-           this.continueUrl = encodeURIComponent('https://geo.channelitix.com/login');
-             window.location.href = 'http://localhost:3003/login?continue=' + this.continueUrl;
-      }
+        if (localStorage.getItem("user") == null || localStorage.getItem("user") == 'null') {
+            this._router.navigate(['/login']);
+        }
     }
 
     /**

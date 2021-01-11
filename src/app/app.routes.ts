@@ -2,7 +2,6 @@ import {ModuleWithProviders} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {BaseComponent} from "./components/pages/base/base/base.component";
 // pages
-import {ConnectorComponent} from "./components/pages/auth/connector/connector.component";
 import {LoginComponent} from "./components/pages/auth/login/login.component";
 import {AttendanceTableComponent} from "./components/pages/attendance/index/index.component";
 import {VisitComponent} from "./components/pages/visit/index/index.component";
@@ -585,11 +584,6 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  },
-
-  {
-    path: 'connector',
-    component: ConnectorComponent
   }
 ];
 

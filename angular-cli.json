@@ -67,6 +67,7 @@
         "iconcx": "environments/environment.iconcx.ts",
         "aspira": "environments/environment.aspira.ts",
         "3c": "environments/environment.3c.ts",
+        "ace": "environments/environment.ace.ts",
         "sk_prod": "environments/environment.sk_prod.ts",
         "sk_dev": "environments/environment.sk_dev.ts",
         "afd_prod": "environments/environment.afd_prod.ts",

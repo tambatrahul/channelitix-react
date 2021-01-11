@@ -136,8 +136,8 @@ export abstract class BaseService {
         }
 
         // add auth token to headers
-        if (this._authService) {
-            headers.append('Auth-Token', this._authService.auth_token);
+        if (this._authService.user) {
+            headers.append('Auth-Token', this._authService.user.auth_token);
         }
 
         options.headers = headers;

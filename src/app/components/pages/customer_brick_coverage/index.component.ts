@@ -30,7 +30,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
   public year: number;
   public headquarter_name: string = '';
   public territories: Territory[] = [];
-  public years = [2017, 2018, 2019, 2020];
+  public years = [2017, 2018, 2019, 2020, 2021];
 
   // set months object for visit, pob and target data
   public months: Object = {
