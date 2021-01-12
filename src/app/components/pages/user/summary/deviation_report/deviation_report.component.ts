@@ -92,7 +92,7 @@ export class DeviationReportComponent extends BaseAuthComponent {
    * Fetch Messages from server
    */
   fetch() {
-    if (this._user_id && this._month && this._year) {
+    if (this._user_id && (this._month || this._month >= 0) && this._year) {
       this.loading = true;
       this.reportService.deviation_report(this._month + 1, this._year, this._user_id, this._department_id).subscribe(
         response => {
