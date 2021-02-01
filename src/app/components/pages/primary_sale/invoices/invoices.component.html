@@ -42,8 +42,8 @@
                             <th class="text-center">{{ ps.invoice_no }}</th>
                             <th class="text-center">{{ ps.stockist_code }}</th>
                             <td>{{ ps.customer.firm_name}} ({{ ps.customer.grade.name }})</td>
-                            <td>{{ ps.customer.hq_brick.name}}</td>
-                            <td>{{ ps.customer.hq_territory.name}}</td>
+                            <td>{{ ps.customer.hq_brick?.name}}</td>
+                            <td>{{ ps.customer.hq_territory?.name}}</td>
                             <td>{{ ps.doc_date }}</td>
                             <td><i class="fa fa-rupee"></i> {{ ps.net_amt | number : fractionSize }}</td>
                             <td>
