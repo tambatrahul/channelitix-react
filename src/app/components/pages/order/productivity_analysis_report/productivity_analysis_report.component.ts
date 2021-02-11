@@ -68,6 +68,13 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
     if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
       this.department_id = this._service.user.departments[0].pivot.department_id;
 
+    if (this._service.user.role_id == 7) {
+      this.zone_id = 1;
+    }
+    if (this._service.user.role_id == 6) {
+      this.zone_id = this._service.user.hq_zone_id;
+    }
+    this.fetch();
   }
 
   /**
@@ -76,9 +83,6 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
    */
   onDateChanged(dates) {
     this._dates = dates;
-    if (this._service.user.role_id == 7) {
-      this.zone_id = 1;
-    }
     this.fetch();
   }
 
