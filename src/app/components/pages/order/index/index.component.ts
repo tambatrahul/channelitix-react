@@ -311,28 +311,28 @@ export class OrderComponent extends BaseAuthComponent {
       }
     }
 
-    if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
-      let abbott_user = this._service.user;
-      abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
-      abbott_user.children = [];
-      abbott_user.cse_count = 0;
-      abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
-      zone_managers.push(abbott_user);
-      zone_managers[0].total_target = 0;
-      for (let m of managers) {
-        zone_managers[0].children.push(m);
-        m.visits.forEach(function (att, index) {
-          zone_managers[0].visits[index].visit_count += att.visit_count;
-        });
-        m.orders.forEach(function (ord, index) {
-          zone_managers[0].orders[index].order_total_count += ord.order_total_count;
-          zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
-        });
-        zone_managers[0].total_target += m.total_target;
-        zone_managers[0].cse_count += m.children.length;
-
-      }
-    }
+    // if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
+    //   let abbott_user = this._service.user;
+    //   abbott_user.visits = AppConstants.prepareMonthVisitSkeleton(this.month, this.year, holidays);
+    //   abbott_user.children = [];
+    //   abbott_user.cse_count = 0;
+    //   abbott_user.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
+    //   zone_managers.push(abbott_user);
+    //   zone_managers[0].total_target = 0;
+    //   for (let m of managers) {
+    //     zone_managers[0].children.push(m);
+    //     m.visits.forEach(function (att, index) {
+    //       zone_managers[0].visits[index].visit_count += att.visit_count;
+    //     });
+    //     m.orders.forEach(function (ord, index) {
+    //       zone_managers[0].orders[index].order_total_count += ord.order_total_count;
+    //       zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
+    //     });
+    //     zone_managers[0].total_target += m.total_target;
+    //     zone_managers[0].cse_count += m.children.length;
+    //
+    //   }
+    // }
 
     // depending on list show view
     if (zone_managers.length > 0) {

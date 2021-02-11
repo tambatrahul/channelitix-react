@@ -192,11 +192,11 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
             managers.push(this._service.user)
         }
 
-        // if user is zone manager add it to list
-        if (this._service.user.role_str == this.ROLE_RSM || this._service.user.role_str == this.ROLE_THIRD_PARTY) {
-            this._service.user.children = [];
-            zone_managers.push(this._service.user)
-        }
+        // // if user is zone manager add it to list
+        // if (this._service.user.role_str == this.ROLE_RSM || this._service.user.role_str == this.ROLE_THIRD_PARTY) {
+        //     this._service.user.children = [];
+        //     zone_managers.push(this._service.user)
+        // }
 
         // add to zone manager
         for (let z of zone_managers) {
@@ -209,12 +209,12 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
                        m.order_total_count += +ord.order_day_total_count;
                     });
                 }
-               if (this._service.user.role_str == this.ROLE_THIRD_PARTY && m.hq_region_id == z.hq_region_id ) {
-                   z.children.push(m);
-                   m.orders.map(function (ord) {
-                      m.order_total_count += +ord.order_day_total_count;
-                   });
-              }
+              //  if (this._service.user.role_str == this.ROLE_THIRD_PARTY && m.hq_region_id == z.hq_region_id ) {
+              //      z.children.push(m);
+              //      m.orders.map(function (ord) {
+              //         m.order_total_count += +ord.order_day_total_count;
+              //      });
+              // }
             }
 
             for (let order of region_orders) {
