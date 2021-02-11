@@ -58,7 +58,7 @@ export class LoginComponent extends FormComponent {
           if (response.user.username === 'abbottadmin') {
             this._router.navigate(['/visits']);
           } else if (response.user.role_str === this.ROLE_THIRD_PARTY) {
-            this._router.navigate(['/visits']);
+            this._router.navigate(['/dashboard']);
           } else if (response.user.role_str !== this.ROLE_CSE) {
             this._router.navigate(['/dashboard']);
           } else {

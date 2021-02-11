@@ -66,7 +66,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
     if (this._service.user.departments.length > 0)
       this.department_id = 0;
 
-    if (this._service.user.departments.length > 0 && this._service.user.role_id == 6 )
+    if (this._service.user.departments.length > 0 && (this._service.user.role_id == 6  || this._service.user.role_id == 8 ))
       this.department_id = this._service.user.departments[0].pivot.department_id;
 
     this.month = moment().month();
