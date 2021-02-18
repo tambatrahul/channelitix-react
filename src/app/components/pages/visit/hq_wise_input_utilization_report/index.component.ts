@@ -68,13 +68,16 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
     }
   }
 
+  protected fetch() {
+  }
+
   /**
    * load users for logged in user
    */
-  fetch() {
+  fetch_data() {
     if (this.month && this.year && !this.loading) {
       this.loading = true;
-      this.visitService.hq_wise_input_utilization(this.month + 1, this.year, this.zone_id).subscribe(
+      this.visitService.hq_wise_input_utilization(this.month + 1, this.year, this.zone_id, this.region_id).subscribe(
         response => {
           // get inputs
           this.inputs = response.inputs.map(input => new Input(input));
@@ -204,7 +207,9 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
   monthYearChanged(date) {
     this.month = date.month;
     this.year = date.year;
-    this.fetch();
+    if (this._service.user.role_str != 'COUNTRY_MNG' && this._service.user.role_str != 'ZONE_MNG') {
+      this.fetch_data()
+    }
   }
 
   /**
@@ -213,7 +218,6 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
    */
   zoneChanged(zone_id) {
     this.zone_id = zone_id;
-    this.fetch();
   }
 
   /**

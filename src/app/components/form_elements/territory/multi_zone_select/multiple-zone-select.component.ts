@@ -66,9 +66,9 @@ export class MultipleZoneSelectComponent extends MultipleBaseSelectComponent {
         this.service.zones(this._country_id).subscribe(
             response => {
                 this.loading = false;
-                this.models = response.zones.map(function (t, key) {
-                    return new HQZone(t);
-                });
+              this.models = response.zones.map(function (zone) {
+                  return new HQZone(zone);
+              });
             },
             err => {
                 this.loading = false;

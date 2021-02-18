@@ -196,11 +196,12 @@ export class VisitService extends BaseService {
    * get details till month
    * @returns {Observable<Result>}
    */
-  hq_wise_input_utilization(month?: number, year?: number, zone_id?: number): Observable<Result> {
+  hq_wise_input_utilization(month?: number, year?: number, zone_id?: number, region_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('region_id', String(region_id > 0 ? region_id : ''));
 
     // prepare url
     let url = this.getBaseUrl() + '/input_utilization/headquarter_wise/' + month + '/' + year;
