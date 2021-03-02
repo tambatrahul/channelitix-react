@@ -241,7 +241,7 @@ export class VisitComponent extends BaseAuthComponent {
     // add to zone manager
     for (let z of zone_managers) {
       for (let m of managers) {
-        if (m.manager_id == z.id) {
+        if (m.manager_id == z.id || m.manager_id == z.access_id) {
           z.children.push(m);
           m.visits.forEach(function (vis, index) {
             z.visits[index].visit_count += vis.visit_count;

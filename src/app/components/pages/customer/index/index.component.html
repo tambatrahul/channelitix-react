@@ -53,12 +53,12 @@
               </div>
             </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-              <div style="padding-top: 20px;">
+              <div style="padding-top: 20px;" *ngIf="_service.user.access_id <= 0">
                 <a class="btn btn-primary btn-block" routerLink="/customers/create">Create Customer</a>
               </div>
             </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-              <div style="padding-top: 20px;" *ngIf="area_id > 0">
+              <div style="padding-top: 20px;" *ngIf="area_id > 0 && _service.user.access_id <= 0">
                 <a class="btn btn-primary btn-block" *ngIf="!btn_loading"
                    (click)="excel_download()">
                   Export to xlsx
@@ -92,7 +92,7 @@
                       <th>Type (Grade)</th>
                       <th>Classification</th>
                       <th>Status</th>
-                      <th>Actions</th>
+                      <th *ngIf="_service.user.access_id <= 0">Actions</th>
                     </tr>
                     </thead>
 
@@ -107,7 +107,7 @@
                         <span *ngIf="customer.classification =='super_core'">Super Core</span>
                       </td>
                       <td class="text-center"><i status [field]="customer.status"></i></td>
-                      <td>
+                      <td *ngIf="_service.user.access_id <= 0">
                         <a class="btn btn-default btn-xs" style="cursor: pointer;"
                            title="Update" (click)="updateCustomer(customer.id)">Edit</a> &nbsp;
 

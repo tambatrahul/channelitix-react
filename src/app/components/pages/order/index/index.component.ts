@@ -252,7 +252,7 @@ export class OrderComponent extends BaseAuthComponent {
     for (let z of zone_managers) {
       z.total_target = 0;
       for (let m of managers) {
-        if (m.manager_id == z.id) {
+        if (m.manager_id == z.id || m.manager_id == z.access_id) {
           z.children.push(m);
           m.orders.forEach(function (ord, index) {
             if (z.children.length == 1) {
