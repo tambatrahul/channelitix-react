@@ -121,8 +121,8 @@ export class TerritoryStpComponent extends ListComponent {
                 territories[cus.hq_territory_id].bricks[cus.hq_brick_id] = {
                     id: cus.hq_brick.id,
                     name: cus.hq_brick.name,
-                    distance_from_hq: cus.hq_brick.distance_from_hq != 0 ? cus.hq_brick.distance_from_hq : '',
-                    expected_business: cus.hq_brick.expected_business != 0 ? cus.hq_brick.expected_business : '',
+                    distance_from_hq: cus.hq_brick.distance_from_hq  ? cus.hq_brick.distance_from_hq : '',
+                    expected_business: cus.hq_brick.expected_business  ? cus.hq_brick.expected_business : '',
                     no_of_work_days: cus.hq_brick.no_of_work_days != 0 ? cus.hq_brick.no_of_work_days : '',
                     customer_types: this.customer_types.map(ct => new CustomerType(ct)),
                     total: 0
@@ -178,8 +178,8 @@ export class TerritoryStpComponent extends ListComponent {
                             territories[territory.id].bricks[br.id] = {
                                 id: br.id,
                                 name: br.name,
-                                distance_from_hq: br.distance_from_hq != 0 ? br.distance_from_hq : '',
-                                expected_business: br.expected_business != 0 ? br.expected_business : '',
+                                distance_from_hq: br.distance_from_hq ? br.distance_from_hq : '',
+                                expected_business: br.expected_business ? br.expected_business : '',
                                 no_of_work_days: br.no_of_work_days != 0 ? br.no_of_work_days : '',
                                 customer_types: this.customer_types.map(ct => new CustomerType(ct))
                             };
