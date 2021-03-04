@@ -299,10 +299,13 @@ export class ReportService extends BaseService {
    */
   performance(region_ids?: Array<number>,
               area_ids?: Array<number>, headquarter_ids?: Array<number>,
-              zone_ids?: Array<number>, department_id?: number): Observable<Result> {
+              zone_ids?: Array<number>, sub_name?:string, brand_id?: number, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
+    params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
+    params.set('sub_name', sub_name);
+
     if (headquarter_ids && headquarter_ids.length > 0) {
       headquarter_ids.map(function (h_id) {
         params.append('headquarter_id[]', String(h_id));

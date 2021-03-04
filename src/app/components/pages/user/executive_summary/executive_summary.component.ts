@@ -91,17 +91,24 @@ export class ExecutiveSummaryComponent extends ListComponent {
         // get targets
         let targets = data[0].targets.map(target => new Target(target));
         let skinlite_targets = data[0].skinlite_targets.map(target => new Target(target));
-        this.mapTargets(targets, skinlite_targets, customer_types);
+        let gelusil_targets = data[0].gelusil_targets.map(target=>new Target(target));
+        let becosules_targets = data[0].becosules_targets.map(target => new Target(target));
+        this.mapTargets(targets, skinlite_targets, gelusil_targets, becosules_targets, customer_types);
+
 
         // get primary sales
         let primaries = data[0].primary_sales.map(ps => new PrimarySale(ps));
         let skinlite_primaries = data[0].skinlite_primary_sales.map(ps => new PrimarySale(ps));
-        this.mapPrimary(primaries, skinlite_primaries);
+        let gelusil_primaries = data[0].gelusil_primary_sales.map(ps => new PrimarySale(ps));
+        let becosules_primaries = data[0].becosules_primary_sales.map(ps => new PrimarySale(ps));
+        this.mapPrimary(primaries, skinlite_primaries, gelusil_primaries, becosules_primaries);
 
         // get orders
         let orders = data[0].orders.map(ord => new Order(ord));
         let skinlite_orders = data[0].skinlite_orders.map(ord => new Order(ord));
-        this.mapOrders(orders,skinlite_orders);
+        let gelusil_orders = data[0].gelusil_orders.map(ord => new Order(ord));
+        let becosules_orders = data[0].becosules_orders.map(ord => new Order(ord));
+        this.mapOrders(orders,skinlite_orders, gelusil_orders, becosules_orders);
 
         // get visits and attendances
         let visits = data[0].visits.map(vis => new Visit(vis));
@@ -204,9 +211,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
    *
    * @param targets
    * @param skinlite_targets
+   * @param gelusil_targets
+   * @param becosules_targets
    * @param customer_types
    */
-  mapTargets(targets: Target[], skinlite_targets: Target[], customer_types: CustomerType[]) {
+  mapTargets(targets: Target[], skinlite_targets: Target[], gelusil_targets: Target[], becosules_targets: Target[], customer_types: CustomerType[]) {
     this.regions.map(region => {
       region.areas.map(area => {
         area.headquarters.map(headquarter => {
@@ -217,11 +226,28 @@ export class ExecutiveSummaryComponent extends ListComponent {
               region.target += target.total_target ? target.total_target : 0;
             }
           });
+
           skinlite_targets.map(target => {
             if (target.hq_headquarter_id == headquarter.id) {
               headquarter.skinlite_target = target.total_target ? target.total_target : 0;
               area.skinlite_target += target.total_target ? target.total_target : 0;
               region.skinlite_target += target.total_target ? target.total_target : 0;
+            }
+          });
+
+          gelusil_targets.map(target => {
+            if (target.hq_headquarter_id == headquarter.id) {
+              headquarter.gelusil_target = target.total_target ? target.total_target : 0;
+              area.gelusil_target += target.total_target ? target.total_target : 0;
+              region.gelusil_target += target.total_target ? target.total_target : 0;
+            }
+          });
+
+          becosules_targets.map(target => {
+            if (target.hq_headquarter_id == headquarter.id) {
+              headquarter.becosules_target = target.total_target ? target.total_target : 0;
+              area.becosules_target += target.total_target ? target.total_target : 0;
+              region.becosules_target += target.total_target ? target.total_target : 0;
             }
           });
           headquarter.customer_types = customer_types.map(ct => new CustomerType(ct));
@@ -237,8 +263,10 @@ export class ExecutiveSummaryComponent extends ListComponent {
    *
    * @param primaries
    * @param skinlite_primaries
+   * @param gelusil_primaries
+   * @param becosules_primaries
    */
-  mapPrimary(primaries: PrimarySale[], skinlite_primaries: PrimarySale[]) {
+  mapPrimary(primaries: PrimarySale[], skinlite_primaries: PrimarySale[], gelusil_primaries: PrimarySale[], becosules_primaries: PrimarySale[]) {
     this.regions.map(region => {
       region.areas.map(area => {
         area.headquarters.map(headquarter => {
@@ -256,6 +284,20 @@ export class ExecutiveSummaryComponent extends ListComponent {
               region.skinlite_primary += primary.total_net_amount;
             }
           });
+          gelusil_primaries.map(primary => {
+            if (primary.hq_headquarter_id == headquarter.id) {
+              headquarter.gelusil_primary = primary.total_net_amount;
+              area.gelusil_primary += primary.total_net_amount;
+              region.gelusil_primary += primary.total_net_amount;
+            }
+          });
+          becosules_primaries.map(primary => {
+            if (primary.hq_headquarter_id == headquarter.id) {
+              headquarter.becosules_primary = primary.total_net_amount;
+              area.becosules_primary += primary.total_net_amount;
+              region.becosules_primary += primary.total_net_amount;
+            }
+          });
         });
       });
     });
@@ -266,8 +308,10 @@ export class ExecutiveSummaryComponent extends ListComponent {
    *
    * @param orders
    * @param skinlite_orders
+   * @param becosules_orders
+   * @param gelusil_orders
    */
-  mapOrders(orders: Order[],skinlite_orders: Order[]) {
+  mapOrders(orders: Order[],skinlite_orders: Order[], gelusil_orders: Order[], becosules_orders: Order[]) {
     this.regions.map(region => {
       region.areas.map(area => {
         area.headquarters.map(headquarter => {
@@ -283,6 +327,20 @@ export class ExecutiveSummaryComponent extends ListComponent {
               headquarter.skinlite_total_pob += ord.order_total_count;
               area.skinlite_total_pob += ord.order_total_count;
               region.skinlite_total_pob += ord.order_total_count;
+            }
+          });
+          gelusil_orders.map(ord => {
+            if (ord.hq_headquarter_id == headquarter.id) {
+              headquarter.gelusil_total_pob += ord.order_total_count;
+              area.gelusil_total_pob += ord.order_total_count;
+              region.gelusil_total_pob += ord.order_total_count;
+            }
+          });
+          becosules_orders.map(ord => {
+            if (ord.hq_headquarter_id == headquarter.id) {
+              headquarter.becosules_total_pob += ord.order_total_count;
+              area.becosules_total_pob += ord.order_total_count;
+              region.becosules_total_pob += ord.order_total_count;
             }
           });
         });

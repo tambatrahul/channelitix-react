@@ -118,6 +118,8 @@ import {StockistWiseComponent} from "./components/pages/primary_sale/stockist_wi
 import {InvoicesComponent} from "./components/pages/primary_sale/invoices/invoices.component";
 import {TillMonthChartComponent} from "./components/pages/dashboard/till_month_chart/till_month_chart.component";
 import {MonthlyPrimarySecondaryTargetComponent} from "./components/pages/dashboard/monthly_primary_secondary_target/monthly_primary_secondary_target.component";
+import {MonthlyPrimarySecondaryTargetBecosuleComponent} from "./components/pages/dashboard/monthly_primary_secondary_target_becosule/monthly_primary_secondary_target_becosule.component";
+import {MonthlyPrimarySecondaryTargetGelusilComponent} from "./components/pages/dashboard/monthly_primary_secondary_target_gelusil/monthly_primary_secondary_target_gelusil.component";
 import {InvoiceDetailComponent} from "./components/pages/primary_sale/invoice_detail/invoice_detail.component";
 import {ProductWiseSaleComponent} from "./components/pages/dashboard/product_wise_sale/product_wise_sale.component";
 import {MultipleRegionSelectComponent} from "./components/form_elements/territory/multi_region_select/multiple-region-select.component";
@@ -362,6 +364,8 @@ enableProdMode();
     PrimarySaleComponent,
     TillMonthChartComponent,
     MonthlyPrimarySecondaryTargetComponent,
+    MonthlyPrimarySecondaryTargetBecosuleComponent,
+    MonthlyPrimarySecondaryTargetGelusilComponent,
     BrickWiseCustomerComponent,
     CustomerDataComponent,
     CustomerSelectDashboardComponent,

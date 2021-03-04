@@ -14,12 +14,12 @@ declare let jQuery: any;
 declare let d3: any;
 
 @Component({
-  selector: 'monthly-primary-secondary-target',
-  styleUrls: ['monthly_primary_secondary_target.component.less'],
-  templateUrl: 'monthly_primary_secondary_target.component.html',
+  selector: 'monthly-primary-secondary-target-gelusil',
+  styleUrls: ['monthly_primary_secondary_target_gelusil.component.less'],
+  templateUrl: 'monthly_primary_secondary_target_gelusil.component.html',
   inputs: ['refresh']
 })
-export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent {
+export class MonthlyPrimarySecondaryTargetGelusilComponent extends GoogleChartComponent {
   /**
    * data for chart
    */
@@ -31,7 +31,6 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
    */
   public product_id: number = 0;
   public brand_id: number = 0;
-  public sub_name: string;
 
   /**
    * chart and data
@@ -114,6 +113,8 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
     this.fetchPerformance();
   };
 
+  @Input()
+  sub_name:string;
   /**
    * Chart data
    */
@@ -160,8 +161,8 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
       },
       colors: ['#097138', '#e67e22', '#3366cc']
     };
-
-    this.chart = this.createLineChart(document.getElementById('p_s_t_sales'));
+    
+    this.chart = this.createLineChart(document.getElementById('p_s_t_sales_gelu'));
     this.chart.draw(this.chart_data, options);
   }
 
@@ -189,24 +190,31 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
 
       let new_current_date = moment(this.current_date).subtract(14, 'months');
       let current_month = moment(this.current_date).month();
+/* 
+      console.log(new_current_date);
+      console.log(new_current_date.format('MMM'));
+      console.log(parseInt(new_current_date.format('MMM'))); */
 
       let new_data = {};
       for (let i = 1; i <= 15; i++) {
         new_data[parseInt(new_current_date.format('Y')) + "_" + parseInt(new_current_date.format('M')) + "_" + new_current_date.format('MMM')] = {};
+        //console.log(new_data);
         new_current_date.add(1, 'month').format("DD/MM/YYYY");
       }
 
       // add target to object
       performance.targets.forEach(function (target) {
-          new_data[target.year + "_" + target.month + "_" + moment(target.month, 'M').format('MMM')] = {
-          target: parseFloat((target.total_target / 1000).toFixed(2)),
-          primary: 0,
-          secondary: 0
-        };
-      });
+        //console.log(target)
+       new_data[target.year + "_" + target.month + "_" + moment(target.month, 'M').format('MMM')] = {
+        target: parseFloat((target.total_target/ 1000).toFixed(2)),
+        primary: 0,
+        secondary: 0
+      }
+    });
 
       // add primary sale to object
       performance.primary_sales.forEach(function (ps) {
+        //console.log(ps)
         if (!new_data.hasOwnProperty(ps.year + "_" + ps.month + "_" + moment(ps.month, 'M').format('MMM'))) {
           new_data[ps.year + "_" + ps.month + "_" + moment(ps.month, 'M').format('MMM')] = {
             target: 0,
@@ -218,6 +226,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
       });
 
       performance.secondary_sales.forEach(function (ss) {
+        //console.log(ss);
         if (!new_data.hasOwnProperty(ss.year + "_" + ss.month + "_" + moment(ss.month, 'M').format('MMM'))) {
           new_data[ss.year + "_" + ss.month + "_" + moment(ss.month, 'M').format('MMM')] = {
             target: 0,
@@ -235,6 +244,8 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
           new_data[key].primary, new_data[key].secondary])
       }
 
+      //console.log(prepared_data);
+
       // prepared data
       data.addRows(prepared_data);
 
@@ -242,9 +253,29 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
       this.chart_data = data;
 
       // set chart data callback
-      this.drawGraph();
-
+      this.drawGraph();    
+     
     });
-
   }
+    /**
+     * product Filter
+     *
+     * @param product_id
+     */
+    productChanged(product_id) {
+      this.product_id = product_id;
+      this.fetchPerformance();
+    }
+
+    /**
+     * brand Filter
+     *
+     * @param sub_name
+     */
+    subnameChanged(sub_name) {
+      //console.log(sub_name);
+      this.sub_name = sub_name;
+      this.fetchPerformance();
+    }
 }
+

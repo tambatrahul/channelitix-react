@@ -59,12 +59,21 @@
                           </th>
                         </template>
                         <th colspan="3">Total POB ('000s)</th>
-                        <template [ngIf]="environment.envName != 'sk_group'">
-                          <th colspan="3" class="grey">
-                            Primary Sale ('000s)
+
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th colspan="3" class="pink">
+                            Total Primary Sale ('000s) Gelusil
                           </th>
+                          <th colspan="3" class="light_pink">Total POB ('000s) Gelusil</th>
                         </template>
-                        <th colspan="3">POB ('000s)</th>
+
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th colspan="3" class="orange">
+                            Total Primary Sale ('000s) Becosules
+                          </th>
+                          <th colspan="3" class="light_orange">Total POB ('000s) Becosules</th>
+                        </template>
+
                         <th class="grey">FW Days</th>
                         <th class="grey">Call Avg</th>
                         <th colspan="3">Total</th>
@@ -85,14 +94,26 @@
                         <th>Tgt</th>
                         <th>Ach</th>
                         <th>% Ach</th>
-                        <template [ngIf]="environment.envName != 'sk_group'">
-                          <th class="grey">Tgt</th>
-                          <th class="grey">Ach</th>
-                          <th class="grey">% Ach</th>
+
+
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th class="pink">Tgt</th>
+                          <th class="pink">Ach</th>
+                          <th class="pink">% Ach</th>
+                          <th class="light_pink">Tgt</th>
+                          <th class="light_pink">Ach</th>
+                          <th class="light_pink">% Ach</th>
                         </template>
-                        <th>Tgt</th>
-                        <th>Ach</th>
-                        <th>% Ach</th>
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th class="orange">Tgt</th>
+                          <th class="orange">Ach</th>
+                          <th class="orange">% Ach</th>
+                          <th class="light_orange">Tgt</th>
+                          <th class="light_orange">Ach</th>
+                          <th class="light_orange">% Ach</th>
+                        </template>
+
+
                         <th class="grey"></th>
                         <th class="grey"></th>
                         <th>Customer</th>
@@ -129,14 +150,24 @@
                         <th>Tgt</th>
                         <th>Ach</th>
                         <th>% Ach</th>
-                        <template [ngIf]="environment.envName != 'sk_group'">
-                          <th class="grey">Tgt</th>
-                          <th class="grey">Ach</th>
-                          <th class="grey">% Ach</th>
+
+
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th class="pink">Tgt</th>
+                          <th class="pink">Ach</th>
+                          <th class="pink">% Ach</th>
+                          <th class="light_pink">Tgt</th>
+                          <th class="light_pink">Ach</th>
+                          <th class="light_pink">% Ach</th>
                         </template>
-                        <th>Tgt</th>
-                        <th>Ach</th>
-                        <th>% Ach</th>
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th class="orange">Tgt</th>
+                          <th class="orange">Ach</th>
+                          <th class="orange">% Ach</th>
+                          <th class="light_orange">Tgt</th>
+                          <th class="light_orange">Ach</th>
+                          <th class="light_orange">% Ach</th>
+                        </template>
                         <th class="grey"></th>
                         <th class="grey"></th>
                         <th>Customer</th>
@@ -168,12 +199,20 @@
                           </th>
                         </template>
                         <th colspan="3">Total POB ('000s)</th>
-                        <template [ngIf]="environment.envName != 'sk_group'">
-                          <th colspan="3" class="grey">
-                            Primary Sale ('000s)
+
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th colspan="3" class="pink">
+                            Total Primary Sale ('000s) Gelusil
                           </th>
+                          <th colspan="3" class="light_pink">Total POB ('000s) Gelusil</th>
                         </template>
-                        <th colspan="3">POB ('000s)</th>
+
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <th colspan="3" class="orange">
+                            Total Primary Sale ('000s) Becosules
+                          </th>
+                          <th colspan="3" class="light_orange">Total POB ('000s) Becosules</th>
+                        </template>
                         <th class="grey">FW Days</th>
                         <th class="grey">Call Avg</th>
                         <th colspan="3">Total</th>
@@ -209,26 +248,7 @@
                             0.5)).toFixed(0)) : 0 }} %
                           </td>
                         </template>
-                        <template [ngIf]="environment.envName != 'sk_group'">
-                          <td class="grey">{{
-                            (region.skinlite_target/1000).toFixed(0) | number : fractionSize}}
-                          </td>
-                          <td class="grey">{{
-                            (region.skinlite_primary/1000).toFixed(0) | number : fractionSize }}
-                          </td>
-                          <td class="grey">
-                            {{ region.skinlite_target > 0 ? ((region.skinlite_primary * 100 /
-                            region.skinlite_target).toFixed(0)) :
-                            0 }} %
-                          </td>
-                          <td>{{ ((region.skinlite_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
-                          </td>
-                          <td>{{ (region.skinlite_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
-                          <td>
-                            {{ region.skinlite_target > 0 ?((region.skinlite_total_pob * 100 /(region.skinlite_target *
-                            0.5)).toFixed(0)) : 0 }} %
-                          </td>
-                        </template>
+
 
                         <template [ngIf]="environment.envName == 'sk_group'">
                           <td>{{ (region.target/1000).toFixed(0) | number : fractionSize }}</td>
@@ -238,6 +258,48 @@
                             /(region.target)).toFixed(0)) : 0 }} %
                           </td>
                         </template>
+
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <td class="pink">{{
+                            (region.gelusil_target/1000).toFixed(0) | number : fractionSize}}
+                          </td>
+                          <td class="pink">{{
+                            (region.gelusil_primary/1000).toFixed(0) | number : fractionSize }}
+                          </td>
+                          <td class="pink">
+                            {{ region.gelusil_target > 0 ? ((region.gelusil_primary * 100 /
+                            region.gelusil_target).toFixed(0)) :
+                            0 }} %
+                          </td>
+                          <td class="light_pink">{{ ((region.gelusil_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                          </td>
+                          <td class="light_pink">{{ (region.gelusil_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                          <td class="light_pink">
+                            {{ region.gelusil_target > 0 ?((region.gelusil_total_pob * 100 /(region.gelusil_target *
+                            0.5)).toFixed(0)) : 0 }} %
+                          </td>
+                        </template>
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                          <td class="orange">{{
+                            (region.becosules_target/1000).toFixed(0) | number : fractionSize}}
+                          </td>
+                          <td class="orange">{{
+                            (region.becosules_primary/1000).toFixed(0) | number : fractionSize }}
+                          </td>
+                          <td class="orange">
+                            {{ region.becosules_target > 0 ? ((region.becosules_primary * 100 /
+                            region.becosules_target).toFixed(0)) :
+                            0 }} %
+                          </td>
+                          <td class="light_orange">{{ ((region.becosules_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                          </td>
+                          <td class="light_orange">{{ (region.becosules_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                          <td class="light_orange">
+                            {{ region.becosules_target > 0 ?((region.becosules_total_pob * 100 /(region.becosules_target *
+                            0.5)).toFixed(0)) : 0 }} %
+                          </td>
+                        </template>
+
 
                         <td class="grey">{{ region.total_att }}</td>
                         <td class="grey">{{ (region.all_total_visit / region.total_att).toFixed(1)
@@ -324,30 +386,50 @@
                               0.5)).toFixed(0)) : 0 }} %
                             </td>
                           </template>
-                          <template [ngIf]="environment.envName != 'sk_group'">
-                            <td class="grey">{{ (area.skinlite_target/1000).toFixed(0) | number : fractionSize}}</td>
-                            <td class="grey">{{ (area.skinlite_primary/1000).toFixed(0) | number :
-                              fractionSize }}
-                            </td>
-                            <td class="grey">
-                              {{ area.skinlite_target > 0 ? ((area.skinlite_primary * 100 /
-                              area.skinlite_target).toFixed(0)) :
-                              0 }} %
-                            </td>
-                            <td>{{ ((area.skinlite_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
-                            </td>
-                            <td>{{ (area.skinlite_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
-                            <td>
-                              {{ area.skinlite_target > 0 ?((area.skinlite_total_pob * 100 /(area.skinlite_target *
-                              0.5)).toFixed(0)) : 0 }} %
-                            </td>
-                          </template>
+
                           <template [ngIf]="environment.envName == 'sk_group'">
                             <td>{{ (area.target/1000).toFixed(0) | number : fractionSize }}</td>
                             <td>{{ (area.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
                             <td>
                               {{ area.target > 0 ?((area.total_pob * 100
                               /(area.target)).toFixed(0)) : 0 }} %
+                            </td>
+                          </template>
+
+                          <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                            <td class="grey">{{ (area.gelusil_target/1000).toFixed(0) | number : fractionSize}}</td>
+                            <td class="grey">{{ (area.gelusil_primary/1000).toFixed(0) | number :
+                              fractionSize }}
+                            </td>
+                            <td class="grey">
+                              {{ area.gelusil_target > 0 ? ((area.gelusil_primary * 100 /
+                              area.gelusil_target).toFixed(0)) :
+                              0 }} %
+                            </td>
+                            <td class="grey">{{ ((area.gelusil_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="grey">{{ (area.gelusil_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                            <td class="grey">
+                              {{ area.gelusil_target > 0 ?((area.gelusil_total_pob * 100 /(area.gelusil_target *
+                              0.5)).toFixed(0)) : 0 }} %
+                            </td>
+                          </template>
+                          <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                            <td class="grey">{{ (area.becosules_target/1000).toFixed(0) | number : fractionSize}}</td>
+                            <td class="grey">{{ (area.becosules_primary/1000).toFixed(0) | number :
+                              fractionSize }}
+                            </td>
+                            <td class="grey">
+                              {{ area.becosules_target > 0 ? ((area.becosules_primary * 100 /
+                              area.becosules_target).toFixed(0)) :
+                              0 }} %
+                            </td>
+                            <td class="grey">{{ ((area.becosules_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="grey">{{ (area.becosules_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                            <td class="grey">
+                              {{ area.becosules_target > 0 ?((area.becosules_total_pob * 100 /(area.becosules_target *
+                              0.5)).toFixed(0)) : 0 }} %
                             </td>
                           </template>
 
@@ -440,25 +522,7 @@
                                 0.5)).toFixed(0)) : 0 }} %
                               </td>
                             </template>
-                            <template [ngIf]="environment.envName != 'sk_group'">
-                              <td class="grey">{{ (hq.skinlite_target/1000).toFixed(0) | number : fractionSize}}</td>
-                              <td class="grey">{{ (hq.skinlite_primary/1000).toFixed(0) | number :
-                                fractionSize
-                                }}
-                              </td>
-                              <td class="grey">
-                                {{ hq.skinlite_target > 0 ? ((hq.skinlite_primary * 100 /
-                                hq.skinlite_target).toFixed(0)) :
-                                0 }} %
-                              </td>
-                              <td>{{ ((hq.skinlite_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
-                              </td>
-                              <td>{{ (hq.skinlite_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
-                              <td>
-                                {{ hq.skinlite_target > 0 ?((hq.skinlite_total_pob * 100 /(hq.skinlite_target *
-                                0.5)).toFixed(0)) : 0 }} %
-                              </td>
-                            </template>
+
 
                             <template [ngIf]="environment.envName == 'sk_group'">
                               <td>{{ (hq.target).toFixed(0) | number : fractionSize }}</td>
@@ -466,6 +530,45 @@
                               <td>
                                 {{ hq.target > 0 ?((hq.total_pob * 100
                                 /(hq.target)).toFixed(0)) : 0 }} %
+                              </td>
+                            </template>
+
+                            <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                              <td class="pink">{{ (hq.gelusil_target/1000).toFixed(0) | number : fractionSize}}</td>
+                              <td class="pink">{{ (hq.gelusil_primary/1000).toFixed(0) | number :
+                                fractionSize
+                                }}
+                              </td>
+                              <td class="pink">
+                                {{ hq.gelusil_target > 0 ? ((hq.gelusil_primary * 100 /
+                                hq.gelusil_target).toFixed(0)) :
+                                0 }} %
+                              </td>
+                              <td class="light_pink">{{ ((hq.gelusil_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                              </td>
+                              <td class="light_pink">{{ (hq.gelusil_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                              <td class="light_pink">
+                                {{ hq.gelusil_target > 0 ?((hq.gelusil_total_pob * 100 /(hq.gelusil_target *
+                                0.5)).toFixed(0)) : 0 }} %
+                              </td>
+                            </template>
+                            <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'ICONCX'">
+                              <td class="orange">{{ (hq.becosules_target/1000).toFixed(0) | number : fractionSize}}</td>
+                              <td class="orange">{{ (hq.becosules_primary/1000).toFixed(0) | number :
+                                fractionSize
+                                }}
+                              </td>
+                              <td class="orange">
+                                {{ hq.becosules_target > 0 ? ((hq.becosules_primary * 100 /
+                                hq.becosules_target).toFixed(0)) :
+                                0 }} %
+                              </td>
+                              <td class="light_orange">{{ ((hq.becosules_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                              </td>
+                              <td class="light_orange">{{ (hq.becosules_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                              <td class="light_orange">
+                                {{ hq.becosules_target > 0 ?((hq.becosules_total_pob * 100 /(hq.becosules_target *
+                                0.5)).toFixed(0)) : 0 }} %
                               </td>
                             </template>
 

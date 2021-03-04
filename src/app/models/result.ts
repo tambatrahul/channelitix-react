@@ -81,6 +81,8 @@ export class Result {
   orders: Order[];
   orders_csm: Order[];
   skinlite_orders: Order[];
+  gelusil_orders: Order[];
+  becosules_orders: Order[];
   orders_sk: number = 0;
   orders_synergy: number = 0;
   order_counts: Order[];
@@ -135,6 +137,8 @@ export class Result {
   // primary sales
   primary_sales: PrimarySale[];
   skinlite_primary_sales: PrimarySale[];
+  gelusil_primary_sales: PrimarySale[];
+  becosules_primary_sales: PrimarySale[];
 
   // primary sales
   geo_stockist_primary_sales: PrimarySale[];
@@ -198,6 +202,8 @@ export class Result {
   // targets
   targets: Target[];
   skinlite_targets: Target[];
+  gelusil_targets: Target[];
+  becosules_targets: Target[];
   sap_targets: Target[];
 
   // brick customer counts
