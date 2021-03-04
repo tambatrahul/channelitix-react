@@ -68,7 +68,7 @@
                                     <td>{{ ss.customer.firm_name}} ({{ ss.customer.grade.name }})</td>
                                     <td *roleCheck="ROLE_CSM">{{ ss.customer.hq_headquarter?.name}}</td>
                                     <td>{{ ss.customer.hq_brick?.name}}</td>
-                                    <td>{{ ss.customer.hq_territory.name}}</td>
+                                    <td>{{ ss.customer.hq_territory?.name}}</td>
                                     <td class="text-center">
                                         <span *ngIf="ss.sum_secondary_sale > 0">
                                             <i class="green fa fa-check-circle"></i>

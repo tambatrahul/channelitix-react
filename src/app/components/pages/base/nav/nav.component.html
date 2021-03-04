@@ -219,7 +219,7 @@
                 <span class="nav-label">Secondary Statement Report</span>
               </a>
             </li>
-            <li *ngIf="_auth_service.user.role_id != 6">
+            <li>
               <a class="waves-effect" [routerLink]="['/visits/input_utilization']"
                  *ngIf="environment.envName != 'sk_group'">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>

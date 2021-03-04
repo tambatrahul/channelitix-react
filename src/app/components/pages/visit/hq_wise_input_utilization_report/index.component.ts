@@ -66,6 +66,10 @@ export class HqWiseInputUtilizationReportComponent extends ListComponent {
     if (this._service.user.role_str == 'COUNTRY_MNG') {
       this.zone_id = 1;
     }
+
+    if (this._service.user.role_id == 6) {
+      this.zone_id = this._service.user.hq_zone_id;
+    }
   }
 
   protected fetch() {
