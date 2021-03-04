@@ -102,7 +102,7 @@
                                         </tr>
                                         <tr>
                                             <template ngFor let-month [ngForOf]="months_str" let-i="index">
-                                                <th [ngClass]="{'grey': i%2 == 0}">Visits</th>
+                                                <th [ngClass]="{'grey': i%2 == 0}">VisitsDay</th>
                                                 <th [ngClass]="{'grey': i%2 == 0}">POB</th>
                                             </template>
                                         </tr>
@@ -139,7 +139,7 @@
                                                     <template ngFor let-month [ngForOf]="months_str" let-i="index">
                                                         <td [ngClass]="{'grey': i%2 == 0}">
                                                             {{ brick.months[i+1].visit_no_of_days ?
-                                                            brick.months[i+1].visit_no_of_days : 0}}
+                                                            brick.months[i+1].visit_no_of_days : ""}}
                                                         </td>
                                                         <td style="width: 100px;" [ngClass]="{'grey': i%2 == 0, 'dark_green': brick.business(i+1) == 1, 'orange': brick.business(i+1) == 2,
                                         'light_red': brick.business(i+1) == 3}">
