@@ -9,6 +9,7 @@ import {Customer} from '../../../../models/customer/customer';
 import {Visit} from '../../../../models/visit/visit';
 import {SecondarySale} from '../../../../models/sale/secondary_sale';
 import {Target} from '../../../../models/SAP/target';
+import {Order} from '../../../../models/order/order';
 import {HeadquaterDownload} from '../../../../models/download/headquater_download';
 import {environment} from '../../../../../environments/environment';
 
@@ -118,8 +119,9 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
           let customers_count = response.targets.map(target => new Target(target));
           let customers = response.customers.map(cus => new Customer(cus));
           let targets = response.sap_targets.map(target => new Target(target));
+          let orders = response.orders.map(order =>new Order(order));
 
-          this.prepareData(regions, secondary_sales, customers, visits, customers_count, targets);
+          this.prepareData(regions, secondary_sales, customers, visits, customers_count, targets, orders);
 
           this.loading = false;
 
@@ -153,7 +155,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
    * @param sap_targets
    */
   prepareData(regions: Region[], secondary_Sales: SecondarySale[], customers: Customer[],
-              visits: Visit[], customers_count: Target[], sap_targets: Target[]) {
+              visits: Visit[], customers_count: Target[], sap_targets: Target[], orders: Order[]) {
 
     // add customers  to individual hq
 
@@ -178,9 +180,14 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
             }
           });
 
+          orders.map(ord => {
+            if (ord.hq_headquarter_id == headquarter.id) {
+              headquarter.order_count = ord.order_count;
+            }
+          })
+
           customers_count.map(target => {
             if (target.hq_headquarter_id == headquarter.id) {
-              headquarter.order_count = target.order_count;
               headquarter.total_net_amount = target.total_net_amount;
             }
           });

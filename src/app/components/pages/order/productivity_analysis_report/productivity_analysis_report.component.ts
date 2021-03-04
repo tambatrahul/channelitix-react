@@ -151,7 +151,7 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
             if (vis.hq_headquarter_id == headquarter.id) {
               headquarter.customer_types.map(ct => {
                 if (ct.id == vis.customer_type_id) {
-                  ct.visit_count = vis.visit_count;
+                  ct.visit_count += vis.visit_count;
                 }
               });
               area.customer_types.map(ct => {
@@ -220,15 +220,15 @@ export class ProductivityAnalysisReportComponent extends ListComponent {
             if (att.hq_headquarter_id == headquarter.id) {
               headquarter.total_att += att.attendance_count;
               // headquarter.total_pob += att.pob_amount;
-              headquarter.total_visit += att.no_of_calls;
+              //headquarter.total_visit += att.no_of_calls;
 
               area.total_att += att.attendance_count;
               // area.total_pob += att.pob_amount;
-              area.total_visit += att.no_of_calls;
+              //area.total_visit += att.no_of_calls;
 
               region.total_att += att.attendance_count;
               // region.total_pob += att.pob_amount;
-              region.total_visit += att.no_of_calls;
+              //region.total_visit += att.no_of_calls;
             }
           });
 

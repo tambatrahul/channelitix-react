@@ -38,12 +38,14 @@ export class PrimarySale extends Model {
   upto_14th_sale: number;
   upto_21th_sale: number;
   upto_28th_sale: number;
+  sub_name: string;
 
   constructor(info: any) {
     super(info.id);
     this.doc_date = info.doc_date;
     this.customer_id = info.customer_id;
     this.uom_id = info.uom_id;
+    this.sub_name = info.sub_name;
 
     if (info.month)
       this.month = parseInt(info.month);

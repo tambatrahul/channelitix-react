@@ -12,6 +12,7 @@
             <th></th>
             <th>Code</th>
             <th>Stockist</th>
+            <th>Product</th>
             <th>Qty</th>
             <th>Total Amount</th>
           </tr>
@@ -22,6 +23,7 @@
             <th></th>
             <th>Code</th>
             <th>Stockist</th>
+            <th>Product</th>
             <th>Qty</th>
             <th>Total Amount</th>
           </tr>
@@ -29,6 +31,7 @@
 
           <tbody>
           <tr class="grey">
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -44,6 +47,7 @@
               <th>
                 {{ item.customer?.firm_name }}
               </th>
+              <th>{{ item.product?.name }}</th>
               <td>{{ item.total_qty | number }}</td>
               <td><i class="fa fa-rupee"></i> {{ item.total_net_amount | number }}</td>
             </tr>

@@ -28,6 +28,7 @@ export class SecondarySale extends Model {
   closing: number;
   closing_value: number;
   unit_price: number;
+  sub_name: string;
 
   // for internal user only
   total_amount: number = 0;
@@ -55,6 +56,7 @@ export class SecondarySale extends Model {
     this.customer_id = info.customer_id;
     this.product_id = info.product_id;
     this.uom_id = info.uom_id;
+    this.sub_name = info.sub_name;
 
     if (info.sum_secondary_sale)
       this.sum_secondary_sale = parseFloat(info.sum_secondary_sale);
