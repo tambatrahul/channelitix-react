@@ -57,17 +57,17 @@
                 <a class="btn btn-primary btn-block" routerLink="/customers/create">Create Customer</a>
               </div>
             </div>
-            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-              <div style="padding-top: 20px;" *ngIf="area_id > 0 && _service.user.access_id <= 0">
-                <a class="btn btn-primary btn-block" *ngIf="!btn_loading"
-                   (click)="excel_download()">
-                  Export to xlsx
-                </a>
-                <div class="btn btn-primary btn-block" *ngIf="btn_loading">
-                  <i class="fa fa-spinner fa-spin"></i> Export to xlsx
-                </div>
-              </div>
-            </div>
+<!--            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">-->
+<!--              <div style="padding-top: 20px;" *ngIf="area_id > 0 && _service.user.access_id <= 0">-->
+<!--                <a class="btn btn-primary btn-block" *ngIf="!btn_loading"-->
+<!--                   (click)="excel_download()">-->
+<!--                  Export to xlsx-->
+<!--                </a>-->
+<!--                <div class="btn btn-primary btn-block" *ngIf="btn_loading">-->
+<!--                  <i class="fa fa-spinner fa-spin"></i> Export to xlsx-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
         </div>
       </div>
@@ -87,6 +87,7 @@
                     <thead>
                     <tr>
                       <th>Name</th>
+                      <th>Mobile No</th>
                       <th>Brick</th>
                       <th>Headquarter</th>
                       <th>Type (Grade)</th>
@@ -99,6 +100,7 @@
                     <tfoot>
                     <tr *ngFor="let customer of customers">
                       <td>{{ customer.firm_name}}</td>
+                      <td>{{ customer?.mobile}}</td>
                       <td>{{ customer.hq_brick?.name}}</td>
                       <td>{{ customer.hq_headquarter?.name}}</td>
                       <td>{{ customer.customer_type.name }} ({{ customer.grade.name }}) {{customer.doctor_type?.name}}</td>
@@ -110,9 +112,12 @@
                       <td *ngIf="_service.user.access_id <= 0">
                         <a class="btn btn-default btn-xs" style="cursor: pointer;"
                            title="Update" (click)="updateCustomer(customer.id)">Edit</a> &nbsp;
-
                         <button
-                          *ngIf="customer.customer_type_id != 1" class="btn btn-xs btn-danger"
+                          *ngIf="_service.user.role_id > 3 && environment.projectName == 'ACE'" class="btn btn-xs btn-danger"
+                          (click)="deactivate(customer.id)">Deactivate
+                        </button>
+                        <button
+                          *ngIf="customer.customer_type_id != 1 && environment.projectName != 'ACE'" class="btn btn-xs btn-danger"
                           (click)="deactivate(customer.id)">Deactivate
                         </button>
                         <span *ngIf="customer.user_territory_customers.length == 0">
