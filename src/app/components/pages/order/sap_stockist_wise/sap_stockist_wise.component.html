@@ -66,17 +66,17 @@
   </div>
 
   <div class="row" style="margin-bottom: 10px;">
-<!--    <div class="col-xs-12 col-md-3">-->
-<!--      <a class="btn btn-primary btn-block btn-margin"-->
-<!--         *ngIf="area_id > 0"-->
-<!--         (click)="downloadMonthlySalesReport()">-->
-<!--        <i class="fa fa-download"></i> Download-->
-<!--      </a>-->
-<!--      <a class="btn btn-primary btn-block btn-margin disabled"-->
-<!--         *ngIf="!area_id ||  area_id==0">-->
-<!--        <i class="fa fa-download"></i> Download-->
-<!--      </a>-->
-<!--    </div>-->
+    <div class="col-xs-12 col-md-3" *ngIf="_service.user.download_access == 1">
+      <a class="btn btn-primary btn-block btn-margin"
+         *ngIf="area_id > 0"
+         (click)="downloadMonthlySalesReport()">
+        <i class="fa fa-download"></i> Download
+      </a>
+      <a class="btn btn-primary btn-block btn-margin disabled"
+         *ngIf="!area_id ||  area_id==0">
+        <i class="fa fa-download"></i> Download
+      </a>
+    </div>
     <div class="col-xs-12 col-md-3" *ngIf="environment.projectName != 'ACE'">
       <a class="btn btn-primary btn-block btn-margin"
          *ngIf="area_id > 0"

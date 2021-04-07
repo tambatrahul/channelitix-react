@@ -17,22 +17,22 @@
           </div>
         </div>
       </div>
-<!--      <div class="col-md-5" style="margin-top: 25px;">-->
-<!--        <div class="col-xs-12" *ngIf="environment.envName != 'sk_group'">-->
-<!--          <div class="col-xs-4 col-xs-offset-2" *roleCheck="ROLE_ADMIN" style="text-align: right;width: 164px;">-->
-<!--            <a class="btn btn-primary btn-block btn-margin" *ngIf="!btn_loading"-->
-<!--               (click)="download()">-->
-<!--              Export to xlsx-->
-<!--            </a>-->
-<!--            <a class="btn btn-primary btn-block btn-margin" *ngIf="btn_loading">-->
-<!--              <i class="fa fa-spinner fa-spin"></i>Export to xlsx-->
-<!--            </a>-->
-<!--          </div>-->
-<!--          <div class="col-xs-4" style="padding: 0;text-align: right;">-->
-<!--            <a class="btn btn-primary" routerLink="/visits/leave_report">Leave Report</a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="col-md-5" style="margin-top: 25px;" *ngIf="_service.user.download_access == 1">
+        <div class="col-xs-12" *ngIf="environment.envName != 'sk_group'">
+          <div class="col-xs-4 col-xs-offset-2" *roleCheck="ROLE_ADMIN" style="text-align: right;width: 164px;">
+            <a class="btn btn-primary btn-block btn-margin" *ngIf="!btn_loading"
+               (click)="download()">
+              Export to xlsx
+            </a>
+            <a class="btn btn-primary btn-block btn-margin" *ngIf="btn_loading">
+              <i class="fa fa-spinner fa-spin"></i>Export to xlsx
+            </a>
+          </div>
+          <div class="col-xs-4" style="padding: 0;text-align: right;">
+            <a class="btn btn-primary" routerLink="/visits/leave_report">Leave Report</a>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

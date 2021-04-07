@@ -52,13 +52,13 @@
         </div>
     </div>
 
-    <div class="row" style="margin-bottom: 10px;">
-<!--        <div class="col-xs-12 col-md-2">-->
-<!--            <a class="btn btn-primary btn-block btn-margin"-->
-<!--                (click)="report_download()">-->
-<!--                <i class="fa fa-download"></i> Download-->
-<!--            </a>-->
-<!--        </div>-->
+    <div class="row" style="margin-bottom: 10px;" *ngIf="_service.user.download_access == 1">
+        <div class="col-xs-12 col-md-2">
+            <a class="btn btn-primary btn-block btn-margin"
+                (click)="report_download()">
+                <i class="fa fa-download"></i> Download
+            </a>
+        </div>
 
         <div class="col-xs-12 col-md-2">
             <a class="btn btn-primary btn-block btn-margin"

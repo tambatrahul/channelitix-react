@@ -11,12 +11,12 @@
           </div>
         </div>
       </div>
-<!--      <div class="col-xs-12 col-md-3" *ngIf="headquarter_id > 0">-->
-<!--        <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;"-->
-<!--           (click)="download()">-->
-<!--          Download Missed Customers(xlsx)-->
-<!--        </a>-->
-<!--      </div>-->
+      <div class="col-xs-12 col-md-3" *ngIf="headquarter_id > 0 && _service.user.download_access == 1">
+        <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;"
+           (click)="download()">
+          Download Missed Customers(xlsx)
+        </a>
+      </div>
     </div>
   </div>
   <!-- Page Breadcrumb -->

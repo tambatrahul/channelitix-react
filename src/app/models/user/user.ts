@@ -29,6 +29,7 @@ export class User extends Model {
   user_id: number;
   department_id: number;
   access_id: number;
+  download_access: number;
 
   // territory changes
   hq_country_id: number;
@@ -91,6 +92,7 @@ export class User extends Model {
     this.user_id = info.user_id;
     this.department_id = info.department_id;
     this.access_id = info.access_id;
+    this.download_access = info.download_access;
 
     if (info.user_count)
       this.user_count = parseInt(info.user_count);
