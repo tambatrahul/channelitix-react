@@ -5,6 +5,7 @@ service: iconcx-frontend
 #service: 3c-frontend
 #service: ace-frontend
 #service: optimus-frontend
+#service: pfizer-territory
 runtime: python27
 threadsafe: yes
 # [END runtime]

@@ -26,3 +26,6 @@ dispatch:
 
   - url: "ace.channelitix.com/*"
     service: ace-frontend
+
+  - url: "pfizerupdates.channelitix.com/*"
+    service: pfizer-territory
