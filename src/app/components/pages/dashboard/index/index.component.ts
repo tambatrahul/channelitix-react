@@ -45,6 +45,7 @@ export class DashBoardComponent extends BaseComponent {
   public brand_id: number = 0;
   public product_id: number = 0;
   public department_id: number = 0;
+  public total_sample: number = 0;
   public refresh;
 
   /**
@@ -149,7 +150,8 @@ export class DashBoardComponent extends BaseComponent {
       });
     });
     this.total_pob_to_actual_sales = (self.total_actual  > 0) ? parseInt(((this.total_pob_for_sale / self.total_actual ) * 100).toFixed(2)) : 0
-
+    this.total_sample = 0;
+    this.total_sample = performance.total_sample;
   }
 
   /**

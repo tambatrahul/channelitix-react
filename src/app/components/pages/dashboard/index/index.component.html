@@ -94,25 +94,25 @@
 
       <!-- Visit Order Trend -->
       <div class="row">
-        <div class="col-xs-12 col-md-9" *roleCheck="ROLE_CSM">
+        <div class="col-xs-12 col-md-6" *roleCheck="ROLE_CSM">
           <visit-count-graph [month_]="month" [year_]="year"
                              (totalVisitOrders)="totalVisitOrders($event)" [refresh]="refresh"
                              [zone_ids]="zone_ids" [department_id]="department_id"
                              [region_ids]="region_ids" [area_ids]="area_ids"
                              [headquarter_ids]="headquarter_ids"></visit-count-graph>
         </div>
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-6">
           <div class="row" *roleCheck="ROLE_CSM" >
-            <a class="col-xs-12 remove-underline" [routerLink]="'/visits'">
+            <a class="col-md-6 col-xs-6 remove-underline" [routerLink]="'/visits'">
               <div class="mini-stats-widget full-block-mini-chart w_bg_green_500">
-                <div class="mini-stats-top" style="padding: 10px;">
+                <div class="mini-stats-top">
                   <span class="mini-stats-value">{{ total_visits }}</span>
                   <span class="mini-stats-label">Total Visits</span>
                 </div>
               </div>
             </a>
             <div *ngIf="environment.envName == 'geo'">
-              <a class="col-xs-12 remove-underline" [routerLink]="'/orders'">
+              <a class="col-md-6 col-xs-3 remove-underline" [routerLink]="'/orders'">
                 <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
                   <div class="mini-stats-top">
                                     <span class="mini-stats-value"><i class="fa fa-rupee"></i>
@@ -122,6 +122,17 @@
                   </div>
                 </div>
               </a>
+            </div>
+
+            <div *ngIf="environment.envName == 'geo'">
+            <a class="col-md-6 col-xs-6 remove-underline" [routerLink]="'/visits'">
+              <div class="mini-stats-widget full-block-mini-chart w_bg_green_500">
+                <div class="mini-stats-top">
+                  <span class="mini-stats-value">{{ total_sample }}</span>
+                  <span class="mini-stats-label">HCP Sample</span>
+                </div>
+              </div>
+            </a>
             </div>
 
             <div *ngIf="environment.envName == 'sk_group'">
@@ -151,7 +162,7 @@
             </div>
 
             <div *ngIf="environment.envName == 'geo'">
-              <a class="col-xs-12 remove-underline">
+              <a class="col-md-6 col-xs-6  remove-underline">
                 <div class="mini-stats-widget full-block-mini-chart w_bg_deep_purple_500">
                   <div class="mini-stats-top">
                                     <span class="mini-stats-value">

@@ -18,6 +18,7 @@ export class Performance {
   till_month_sales: PrimarySale[];
 
   products: Product[];
+  total_sample: number = 0;
 
   constructor(info: any) {
     if (info.targets)
@@ -49,5 +50,8 @@ export class Performance {
 
     if (info.till_month_targets)
       this.till_month_targets = info.till_month_targets.map(tr => new Target(tr));
+
+    if (info.total_sample)
+      this.total_sample = parseFloat(info.total_sample);
   }
 }
