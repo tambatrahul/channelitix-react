@@ -165,9 +165,14 @@ export class DeviationReportComponent extends BaseAuthComponent {
         if (tour.date == attendance.date) {
           // Tour plan
           if (this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG') {
-            attendance.tour_plan = tour.working_with ? tour.working_with.full_name : '';
-            attendance.working_with_id_tour = tour.working_with_ids;
-          } else {
+            attendance.tour_plan = tour.tour_plan;
+            if (!tour.tour_plan) {
+              // attendance.working_with_tour = tour.working_with ? tour.working_with.full_name : '';
+              attendance.working_with_tour = tour.working_with_users;
+              attendance.working_with_id_tour = tour.working_with_ids;
+            }
+          }
+          else {
             attendance.tour_plan = tour.tour_plan;
           }
         }
@@ -187,11 +192,17 @@ export class DeviationReportComponent extends BaseAuthComponent {
     }, 1000);
   }
 
-  public compare (wotk_type: string, a: string, b: string, c: [number], d: number) {
-    if (this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG') {
-      return this.numberArrayCompare(wotk_type, c, d);
-    }else
-      return this.stringCompare(wotk_type, a, b);
+  public compare (wotk_type: string, a: string, b: string, c: [number], d: number, e:string) {
+    if (this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG' || this._role_str === 'HQ_MNG') {
+      if (e == null) {
+        return this.stringCompare(wotk_type, a, b);
+      }
+      if (e != null) {
+        return this.numberArrayCompare(wotk_type, c, d);
+      }
+    }
+    // else
+    //   return this.stringCompare(wotk_type, a, b);
   }
   /**
    * Compare Tour Plan And visited brick

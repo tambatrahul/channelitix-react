@@ -33,7 +33,8 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
     total_bricks: 0,
     total_headquarters: 0,
     performance_per: 0,
-    skinlite_performance_per: 0
+    skinlite_performance_per: 0,
+    growth_per: 0
   };
 
   /**

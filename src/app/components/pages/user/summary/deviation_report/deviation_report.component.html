@@ -15,7 +15,8 @@
                   <tr>
                     <th>Working Date</th>
                     <th>Work Type</th>
-                    <th style="width: 100px;">Tour Plan</th>
+                    <th style="width: 100px;">Tour Plan (Brick)</th>
+                    <th *ngIf="this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG'" style="width: 100px;">Tour Plan (Working With)</th>
                     <th style="width: 100px;">Visited Brick</th>
                     <th *ngIf="this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG'" style="width: 100px;"> Working With</th>
                     <th>Stockist met</th>
@@ -28,12 +29,13 @@
                   </thead>
 
                   <tbody>
-                  <tr *ngFor="let attendance of attendances" [ngStyle]="{'background-color': (compare(attendance.work_type?.name, attendance.tour_plan,attendance.visited_brick, attendance.working_with_ids,attendance.working_with_id_tour))}">
+                  <tr *ngFor="let attendance of attendances" [ngStyle]="{'background-color': (compare(attendance.work_type?.name, attendance.tour_plan,attendance.visited_brick, attendance.working_with_ids,attendance.working_with_id_tour,attendance.working_with_tour))}">
                     <td>{{attendance.date | date:'d, MMM y'}}</td>
                     <td>{{ attendance.work_type?.name }}</td>
                     <td >{{ attendance.tour_plan }}</td>
+                    <td *ngIf="this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG'" >{{ attendance.working_with_tour }}</td>
                     <td>{{ attendance.visited_brick }}</td>
-                    <td *ngIf="this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG'" >{{ attendance.all_working_with }}</td>
+                    <td *ngIf="this._role_str === 'REGION_MNG' || this._role_str === 'AREA_MNG'" >{{ attendance.daily_working_with_users }}</td>
                     <td>{{ attendance.stockist_met }}</td>
                     <td>{{ attendance.semi_met }}</td>
                     <td>{{ attendance.retailer_met }}</td>
