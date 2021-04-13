@@ -29,3 +29,6 @@ dispatch:
 
   - url: "pfizerupdates.channelitix.com/*"
     service: pfizer-territory
+
+  - url: "yuva.channelitix.com/*"
+    service: jbcpl-frontend
