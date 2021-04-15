@@ -32,3 +32,6 @@ dispatch:
 
   - url: "yuva.channelitix.com/*"
     service: jbcpl-frontend
+
+  - url: "maxx.channelitix.com/*"
+    service: maxx-frontend
