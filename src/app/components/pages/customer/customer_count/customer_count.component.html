@@ -1,24 +1,32 @@
 <div class="forum-stats" #loading_box>
   <div class="row">
-    <div class="col-md-2 col-sm-6">
+    <div class="col-md-3 col-sm-6">
+      <div class="mini-stats-top">
       <a class="sats-widget all" (click)="onCustomerTypeChange(0)" [ngClass]="{'active': customer_type_id == 0}">
         <span class="stats-info">
-          <span class="topics-couner">{{ total }}</span>
-          <span class="topic-type">All</span>
+          <span class="topics-couner">{{ total }} <br> All</span>
+          <!-- <span class="topic-type">All</span> -->
         </span>
       </a>
+      </div>
+      <div class="mini-stats-bottom w_bg_cyan_80">
+        <span>Coverage {{ ((total_visits/total)*100).toFixed(2) }}%</span>
+      </div>
     </div>
-    <div class="col-md-2 col-sm-6" *ngFor="let c of customers" >
+    <div class="col-md-3 col-sm-6" *ngFor="let c of customers" >
       <a class="sats-widget" customerType [customer_type]="c.customer_type"
          (click)="onCustomerTypeChange(c.customer_type.id)" [ngClass]="{'active': customer_type_id == c.customer_type.id}">
         <span class="stats-info">
-          <span class="topics-couner">{{ c.total_customers}}</span>
-          <span class="topic-type">{{ c.customer_type.name}}s</span>
+          <span class="topics-couner">{{ c.total_customers }} <br> {{ c.customer_type.name }}s</span>
+          <!-- <span class="topic-type">{{ c.customer_type.name }}s</span> -->
           <span class="selected" *ngIf="customer_type_id == c.customer_type.id">
             <i class="fa fa-check-square"></i>
           </span>
         </span>
       </a>
+      <div class="mini-stats-bottom w_bg_cyan_80">
+        <span>Coverage {{ ((c.visit_count/c.total_customers)*100).toFixed(2) }}%</span>
+      </div>
     </div>
   </div>
 </div>

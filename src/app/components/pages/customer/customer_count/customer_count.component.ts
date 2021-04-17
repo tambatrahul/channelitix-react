@@ -76,6 +76,11 @@ export class CustomerCountComponent {
   public total: number = 0;
 
   /**
+   * Total visits
+   */
+  public total_visits: number = 0;
+
+  /**
    * selected customer type id
    *
    * @type {number}
@@ -100,8 +105,10 @@ export class CustomerCountComponent {
       response => {
         self.loading = false;
         self.total = 0;
+        self.total_visits = 0;
         self.customers = response.customers;
         self.customers.forEach(cus => self.total += parseInt(cus.total_customers));
+        self.customers.forEach(cus => self.total_visits += parseInt(cus.visit_count))
         self.customer_type_id = 0;
       },
       err => {
