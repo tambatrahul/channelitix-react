@@ -1,0 +1,6 @@
+<label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> {{ title}} </label>
+<select class="form-control" [ngModel]="value" (ngModelChange)="onValueChange($event)">
+  <option selected value="0">{{ first_value }}</option>
+  <option *ngFor="let c of models" [value]="c.sub_name">
+    {{c.sub_name}}</option>
+</select>

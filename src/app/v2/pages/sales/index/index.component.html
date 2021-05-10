@@ -1,0 +1,91 @@
+<div class="container-fluid visits" #loading_box>
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Sales
+              <small>Daily Sales Report</small>
+            </h2>
+            <ul class="list-page-breadcrumb">
+              <li><a href="#">Home</a>
+              </li>
+              <li class="active-page"> Daily Sales</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Breadcrumb -->
+
+  <!-- Filters for Visit report-->
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+    <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">
+      <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
+                         (onValueChanged)="departmentChanged($event)"></department-select>
+    </div>
+    <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+      <zone-select [value]="zone_id"
+                            (onValueChanged)="zoneChanged($event)"></zone-select>
+    </div>
+  </div>
+  <!-- ./Filters for Visit report-->
+
+  <!-- Attendance Table -->
+  <div class="row">
+    <div class="col-xs-12" *roleCheck="ROLE_RSM">
+        <div class="col-xs-12">
+          <div class="box-widget widget-module">
+            <div class="widget-head clearfix">
+              <span class="h-icon"><i class="fa fa-table"></i></span>
+              <h4><strong>Manish</strong></h4>
+            </div>
+            <div>
+              <div class="widget-container report-table">
+                <div class="widget-block">
+                  <div class="table-responsive">
+                    <table class="table table-bordered visit_table">
+                      <thead>
+                      <tr style="background-color: #3498db;color: white">
+                        <th style="min-width: 100px;">Month Year</th>
+                        <th>Total Target</th>
+                        <th *ngFor="let d of dates">
+                          {{ d }}
+                        </th>
+                      </tr>
+                      </thead>
+
+                      <tfoot>
+                      <tr style="background-color: #3498db;color: white">
+                        <th style="min-width: 100px;">Month Year</th>
+                        <th>Total Target</th>
+                        <th *ngFor="let d of dates">
+                          {{ d }}
+                        </th>
+                      </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr>
+                          <td>Dec 20</td>
+                          <td>50000</td>
+                          <td>1200</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ./Attendance Table -->
+  </div>

@@ -40,6 +40,7 @@ export class PrimarySale extends Model {
   upto_28th_sale: number;
   sub_name: string;
 
+
   constructor(info: any) {
     super(info.id);
     this.doc_date = info.doc_date;

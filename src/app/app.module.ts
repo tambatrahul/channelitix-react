@@ -242,6 +242,11 @@ import {InputReportSelectComponent} from "./components/form_elements/download/in
 import {PriorityReportSelectComponent} from "./components/form_elements/download/priority_report_select/priority_report_select.component";
 import {CustomerReportSelectComponent} from "./components/form_elements/download/customer_report_select/customer_report_select.component";
 import {TargetReportSelectComponent} from "./components/form_elements/download/target_report_select/target_report_select.component";
+import {ListComponent} from './components/base/list.component';
+import {DailySalesComponent} from './v2/pages/sales/index/index.component';
+import {SaleService} from './services/v2/sale.service';
+import {SubNameSelectComponent} from './components/form_elements/order/subname_select/subname-select-component';
+import {SubNameService} from './services/subname_service';
 
 enableProdMode();
 
@@ -340,6 +345,7 @@ enableProdMode();
     SalesComponent,
     FFEffortMetricsComponent,
     ManagerActivitiesComponent,
+    DailySalesComponent,
 
     // dashboard stockist sales graph
     StockistSalesGraphComponent,
@@ -415,6 +421,7 @@ enableProdMode();
     CustomerSelectComponent,
     ProductSelectComponent,
     BrandSelectComponent,
+    SubNameSelectComponent,
     SalesPlanningComponent,
     SalePlanComponent,
     ProductSalePlanComponent,
@@ -510,13 +517,15 @@ enableProdMode();
     PrimarySaleService,
     ProductService,
     BrandService,
+    SubNameService,
     DepartmentService,
     CustomerTypeService,
     ExpenseService,
     DownloadService,
 
     // Version 2 Service
-    V2UserService
+    V2UserService,
+    SaleService
   ],
   bootstrap: [AppComponent]
 })

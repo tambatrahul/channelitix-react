@@ -1,3 +1,5 @@
+import {Brand} from "../order/brand";
+
 export class YearTillMonth {
 
   // target fields
@@ -16,6 +18,7 @@ export class YearTillMonth {
   skinlite_month_sale: number = 0;
   skinlite_till_month_sale: number = 0;
 
+  month_sale_target: Brand[];
 
   constructor(info: any) {
 
@@ -42,5 +45,9 @@ export class YearTillMonth {
 
     if (info.skinlite_till_month_sale)
       this.skinlite_till_month_sale = parseFloat((parseFloat(info.skinlite_till_month_sale) / 100000).toFixed(0));
-  }
+
+    if(info.month_sale_target)
+      this.month_sale_target = info.month_sale_target.map(br => new Brand(br));
+    }
+
 }

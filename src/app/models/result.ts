@@ -32,6 +32,7 @@ import {SapStockistSale} from "./SAP/sap_stockist_sale";
 import {OpeningStock} from "./openning_stock";
 import {SalesPlanningDetail} from "./plan";
 import {Brand} from "./order/brand";
+import {SubName} from "./order/subname";
 import {HQZone} from './territory/zone';
 import {Priority} from './visit/priority';
 import {UserInput} from './V2/user/user_input';
@@ -49,6 +50,8 @@ import {PriorityReport} from './download/priority_report';
 import {CustomerReport} from './download/customer_report';
 import {TargetReport} from './download/target_report';
 import {Download} from './download/download';
+import {PrimarySecondaryTarget} from './sale/primary_secondary_target';
+import {BrandWiseSummary} from './sale/brandwise_summary';
 
 export class Result {
 
@@ -139,6 +142,11 @@ export class Result {
   skinlite_primary_sales: PrimarySale[];
   gelusil_primary_sales: PrimarySale[];
   becosules_primary_sales: PrimarySale[];
+  daily_sales: {};
+
+  //brandwise summary
+  brandWiseSales: BrandWiseSummary[];
+  // total_summary: BrandWiseSummary;
 
   // primary sales
   geo_stockist_primary_sales: PrimarySale[];
@@ -156,6 +164,7 @@ export class Result {
 
   // brands
   brands: Brand[] = [];
+  subname: SubName[] = [];
   departments: Department[] = [];
 
   // priorities
@@ -186,6 +195,7 @@ export class Result {
   total_orders: number = 0;
   performance_per: number = 0;
   skinlite_performance_per: number = 0;
+  stockist_count: number =0;
 
   // target till month and sales till month
   year_till_month: YearTillMonth;
@@ -235,4 +245,11 @@ export class Result {
   customer_reports: CustomerReport[];
   target_reports: TargetReport[];
   download: Download;
+
+  stockist_list: Stockist[];
+
+  primarysecondarysalestargets: PrimarySecondaryTarget[];
+
+  month_sale_target: Brand[];
+
 }

@@ -242,7 +242,7 @@ export class ReportService extends BaseService {
 
 
     // prepare url
-    let url = this.getBaseUrl() + '/sap/till_month';
+    let url = this.getBaseUrl() + '/sap/till_month_summary';
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
@@ -299,7 +299,7 @@ export class ReportService extends BaseService {
    */
   performance(region_ids?: Array<number>,
               area_ids?: Array<number>, headquarter_ids?: Array<number>,
-              zone_ids?: Array<number>, sub_name?:string, brand_id?: number, department_id?: number): Observable<Result> {
+              zone_ids?: Array<number>, sub_name?: string, brand_id?: number, department_id?: number): Observable<Result> {
 
     // prepare get params
     let params = new URLSearchParams();
@@ -330,7 +330,7 @@ export class ReportService extends BaseService {
     params.set('department_id', String(department_id > 0 ? department_id : ''));
 
     // prepare url
-    let url = this.getBaseUrl() + '/performance';
+    let url = this.getBaseUrl() + '/performance_summary';
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
@@ -372,7 +372,7 @@ export class ReportService extends BaseService {
 
 
     // make server call
-    return this.get(this.getBaseUrl() + '/target_performance/' + month + '/' + year, new RequestOptions({search: params}));
+    return this.get(this.getBaseUrl() + '/target_performance_summary' + '/' + month + '/' + year, new RequestOptions({search: params}));
   }
 
   /**

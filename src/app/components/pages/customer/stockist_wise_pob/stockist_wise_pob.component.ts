@@ -241,11 +241,12 @@ export class StockistWisePobComponent extends ListComponent {
         all_customers.map(cus => {
             customers[cus.id] = cus;
         });
-
         // prepare list of customers with POB
         orders.map(order => {
-            customers[order.delivered_by].total_pob += order.order_total_count ;
-            this.all_total += order.order_total_count;
+          if (!order) {
+            customers[order.delivered_by].total_pob += order.order_total_count ? order.order_total_count : 0;
+            this.all_total += order.order_total_count ? order.order_total_count : 0;
+          }
         });
 
         // prepare list of visits for customers

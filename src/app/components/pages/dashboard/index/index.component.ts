@@ -70,7 +70,7 @@ export class DashBoardComponent extends BaseComponent {
    */
   fetchActualSale = AppConstants.debounce(function () {
     const self = this;
-    if (self.month && self.year) {
+    if ( (self.month || self.month == 0) && self.year) {
       self.loading = true;
       self.reportService.product_wise_actule_sale(self.month + 1, self.year,
         self.region_ids, self.area_ids, self.headquarter_ids, self.zone_ids, self.department_id).subscribe(

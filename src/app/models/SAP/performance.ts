@@ -3,6 +3,8 @@ import {Target} from "./target";
 import {SecondarySale} from "../sale/secondary_sale";
 import {Product} from "../order/product";
 import {Order} from "../order/order";
+import {BrandWiseSummary} from '../sale/brandwise_summary'
+import {PrimarySecondaryTarget} from '../sale/primary_secondary_target'
 
 
 export class Performance {
@@ -16,8 +18,10 @@ export class Performance {
   orders: Order[];
   till_month_targets: Target[];
   till_month_sales: PrimarySale[];
-
   products: Product[];
+  primarysecondarysalestargets: PrimarySecondaryTarget[];
+  brandWiseSales: BrandWiseSummary[];
+  total: BrandWiseSummary[];
   total_sample: number = 0;
 
   constructor(info: any) {
@@ -47,9 +51,18 @@ export class Performance {
     if (info.till_month_sales)
       this.till_month_sales = info.till_month_sales.map(sale => new PrimarySale(sale));
 
-
     if (info.till_month_targets)
       this.till_month_targets = info.till_month_targets.map(tr => new Target(tr));
+
+    if (info.primarysecondarysalestargets)
+      this.primarysecondarysalestargets = info.primarysecondarysalestargets.map(tr => new PrimarySecondaryTarget(tr));
+
+    if (info.brandWiseSales)
+      this.brandWiseSales = info.brandWiseSales.map(tr => new BrandWiseSummary(tr));
+
+    if (info.total)
+      this.total = info.total.map(tr => new BrandWiseSummary(tr));
+
 
     if (info.total_sample)
       this.total_sample = parseFloat(info.total_sample);

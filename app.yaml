@@ -1,5 +1,5 @@
 # [START runtime]
-#service: aspira-frontend
+service: aspira-frontend
 #service: icon-frontend
 #service: iconcx-frontend
 #service: 3c-frontend
@@ -7,7 +7,7 @@
 #service: optimus-frontend
 #service: pfizer-territory
 #service: jbcpl-frontend
-service: maxx-frontend
+#service: maxx-frontend
 runtime: python27
 threadsafe: yes
 # [END runtime]
@@ -17,12 +17,12 @@ handlers:
 - url: /(.*\.(gif|png|jpg|css|js|otf|eot|svg|ttf|woff|woff2)(|\.map))$
   static_files: dist/\1
   upload: dist/(.*)(|\.map)
-#  secure: always
+  secure: always
 
 - url: /(.*)
   static_files: dist/index.html
   upload: dist/index.html
-#  secure: always
+  secure: always
 
 # Temporary setting to keep gcloud from uploading not required files for deployment
 skip_files:

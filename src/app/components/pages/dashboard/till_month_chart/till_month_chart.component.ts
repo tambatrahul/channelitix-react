@@ -137,8 +137,9 @@ export class TillMonthChartComponent extends GoogleChartComponent {
    */
   fetchTillMonthChart = AppConstants.debounce(function () {
     const self = this;
-    self.loading = true;
-      self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self ._year,
+    if ((self._month || self._month == 0) && self._year) {
+      self.loading = true;
+      self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self._year,
         self._zone_ids, self._department_id).subscribe(
         response => {
           self.prepareData(new YearTillMonth(response.year_till_month));
@@ -148,6 +149,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
           self.loading = false;
         }
       );
+    }
     }, 1000, false);
 
   /**
@@ -195,8 +197,9 @@ export class TillMonthChartComponent extends GoogleChartComponent {
         }
       },
       vAxis: {
-        title: 'Target vs Performance'
-      }
+        title: 'Target vs Performance',
+      },
+      isStacked: true,
     };
 
     this.chart = this.createColumnChart(document.getElementById('ytd_sales'));
@@ -219,6 +222,31 @@ export class TillMonthChartComponent extends GoogleChartComponent {
 
       let data = new google.visualization.DataTable();
       data.addColumn('string', 'YTD');
+      data.addColumn('number', 'Aspira');
+      data.addColumn('number', 'Becosules');
+      data.addColumn('number', 'Hypertension');
+      data.addColumn({type: 'number', role: 'annotation'});
+      data.addRows([
+        ['Target(' + this.month_str + ')', year_till_month.month_sale_target[0]['total_target'],
+          year_till_month.month_sale_target[1]['total_target'],
+          year_till_month.month_sale_target[2]['total_target'],
+          year_till_month.month_sale_target[0]['total_target'] + year_till_month.month_sale_target[1]['total_target'] + year_till_month.month_sale_target[2]['total_target']],
+        ['Performance(' + this.month_str + ')', year_till_month.month_sale_target[0]['total_net_amt'],
+          year_till_month.month_sale_target[1]['total_net_amt'],
+          year_till_month.month_sale_target[2]['total_net_amt'],
+          year_till_month.month_sale_target[0]['total_net_amt'] + year_till_month.month_sale_target[1]['total_net_amt'] + year_till_month.month_sale_target[2]['total_net_amt']],
+        ['YTD_Target(' + this.month_str + ')', year_till_month.month_sale_target[0]['YTD_target'],
+          year_till_month.month_sale_target[1]['YTD_target'],
+          year_till_month.month_sale_target[2]['YTD_target'],
+          year_till_month.month_sale_target[0]['YTD_target'] + year_till_month.month_sale_target[1]['YTD_target'] + year_till_month.month_sale_target[2]['YTD_target']],
+        ['YTD_Performance(' + this.month_str + ')', year_till_month.month_sale_target[0]['YTD_sale'],
+          year_till_month.month_sale_target[1]['YTD_sale'],
+          year_till_month.month_sale_target[2]['YTD_sale'],
+          year_till_month.month_sale_target[0]['YTD_sale'] + year_till_month.month_sale_target[1]['YTD_sale'] + year_till_month.month_sale_target[2]['YTD_sale']],
+      ]);
+
+      /* let data = new google.visualization.DataTable();
+      data.addColumn('string', 'YTD');
       data.addColumn('number', 'Target');
       data.addColumn({type: 'number', role: 'annotation'});
       data.addColumn('number', 'Performance');
@@ -230,7 +258,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
           (year_till_month.till_month_target),
           (year_till_month.till_month_sale),
           (year_till_month.till_month_sale)],
-      ]);
+      ]); */
 
       this.data = data;
 

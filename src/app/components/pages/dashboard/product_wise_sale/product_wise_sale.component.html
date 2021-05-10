@@ -6,13 +6,6 @@
         <h4>
           Product Wise Sale
         </h4>
-<!--        <div class="col-xs-12 col-md-3 form-group-sm">-->
-<!--          <div style="margin: 12px;">-->
-<!--            <month-picker [month]="_month" [year]="_year"-->
-<!--                          [title]="''"-->
-<!--                          (onMonthYearChanged)="monthYearChanged($event)"></month-picker>-->
-<!--          </div>-->
-<!--        </div>-->
       </div>
       <div class="widget-container details-table" #loading_box>
         <div class="widget-block">
@@ -22,8 +15,9 @@
               <tr>
                 <th>Product</th>
                 <th>Target (<i class="fa fa-rupee"></i>)</th>
-                <th>Actual Sale(<i class="fa fa-rupee"></i> )</th>
-                <th *ngIf="environment.projectName != '3c'">Actual Pending Sale(<i class="fa fa-rupee"></i> )</th>
+                <th>{{ currentmonth }} Sale(<i class="fa fa-rupee"></i> )</th>
+                <th>{{ lastmonth }} Sale(<i class="fa fa-rupee"></i> )</th>
+                <th>{{ lasttolastmonth }} Sale(<i class="fa fa-rupee"></i> )</th>
                 <th>Last year same month actual sale(<i class="fa fa-rupee"></i> )</th>
                 <th>POB (<i class="fa fa-rupee"></i> )</th>
                 <th>% Performance</th>
@@ -33,156 +27,38 @@
               </tr>
               </thead>
               <tbody>
-              <template ngFor let-item [ngForOf]="products">
-                <tr *ngIf="environment.projectName != 'IKON'">
-                  <td>
-                    {{ item.brands.name }}
-                  </td>
-                  <td class="text-right">{{ item.target.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>
-<!--                  <td *ngIf="_service.user.role_id == 7 && environment.projectName == '3c'" class="text-right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>-->
-<!--                  <td *ngIf="_service.user.role_id == 7 && environment.projectName != '3c'"  class="text-right">{{ item.performance_total.toFixed(0) | number : fractionSize }}</td>-->
-                  <td *ngIf=" environment.projectName != '3c'" class="text-right">{{ item.performance_pending.toFixed(0) | number : fractionSize }}</td>
-<!--                  <td *ngIf=" _service.user.role_id == 7 && environment.projectName != '3c'" class="text-right">{{ item.performance_pending_total.toFixed(0) | number : fractionSize }}</td>-->
-                  <td class="text-right">{{ item.last_year_month_performance.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.total_pob.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)
+              <template ngFor let-b [ngForOf]="brandwisesummary">
+                <tr>
+                  <td>{{ b.name }}</td>
+                  <td class="text-right">{{ b.target.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.net_amt.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.lastmonthsale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.lasttolastmonthsale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.last_year_same_month.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.pob_amount.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ (b.target > 0 ? (b.net_amt / b.target) * 100 : 0).toFixed(2)
                     }}
                   </td>
-<!--                  <td *ngIf="_service.user.role_id == 7 && environment.projectName == '3c'" class="text-right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)-->
-<!--                    }}-->
-<!--                  </td>-->
-<!--                  <td *ngIf="_service.user.role_id == 7 && environment.projectName != '3c'" class="text-right">{{ (item.target > 0 ? (item.performance_total / item.target) * 100 : 0).toFixed(2)-->
-<!--                    }}-->
-<!--                  </td>-->
-                  <td class="text-right">{{ item.total_target.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.total_primary_sale.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (item.total_target > 0 ? (item.total_primary_sale / item.total_target) * 100
+                  <td class="text-right">{{ b.ytd_target.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.ytd_sale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ (b.ytd_target > 0 ? (b.ytd_sale / b.ytd_target) * 100
                     : 0).toFixed(2)
                     }}
                   </td>
                 </tr>
               </template>
-              <template ngFor let-item [ngForOf]="products">
-                <tr *ngIf="item.brands.department_id == 1 && environment.projectName == 'IKON'">
-                  <td>
-                    {{ item.brands.icon_name }}
-                  </td>
-                  <td class="text-right">{{ item.target.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>
-<!--                  <td *ngIf="_service.user.role_id == 7"  class="text-right">{{ item.performance_total.toFixed(0) | number : fractionSize }}</td>-->
-                  <td  class="text-right">{{ item.performance_pending.toFixed(0) | number : fractionSize }}</td>
-<!--                  <td *ngIf="_service.user.role_id == 7" class="text-right">{{ item.performance_pending_total.toFixed(0) | number : fractionSize }}</td>-->
-                  <td class="text-right">{{ item.last_year_month_performance.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.total_pob.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)
-                    }}
-                  </td>
-<!--                  <td *ngIf="_service.user.role_id == 7" class="text-right">{{ (item.target > 0 ? (item.performance_total / item.target) * 100 : 0).toFixed(2)-->
-                    }}
-<!--                  </td>-->
-                  <td class="text-right">{{ item.total_target.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.total_primary_sale.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (item.total_target > 0 ? (item.total_primary_sale / item.total_target) * 100
-                    : 0).toFixed(2)
-                    }}
-                  </td>
-                </tr>
-              </template>
-              <tr STYLE="background-color: #ffa31a" *ngIf="environment.projectName == 'IKON'  && _department_id != 2">
-                <th>ICON Total</th>
-                <th class="text-right">{{ (total_icon_target ).toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_icon_actual.toFixed(0) | number }}</th>
-<!--                <th *ngIf="_service.user.role_id == 7" class="text-right">{{ total_product_icon_actual.toFixed(0) | number }}</th>-->
-                <th class="text-right">{{ total_pending_icon_actual.toFixed(0) | number }}</th>
-<!--                <th *ngIf="_service.user.role_id == 7"class="text-right">{{ total_pending_product_icon_actual.toFixed(0) | number }}</th>-->
-                <th class="text-right">{{ total_last_month_icon_actual.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_icon_pob.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (total_icon_target > 0 ? (total_icon_actual / total_icon_target) * 100 : 0).toFixed(2) }}</th>
-<!--                <th *ngIf="_service.user.role_id == 7" class="text-right">{{ (total_icon_target > 0 ? (total_product_icon_actual /  total_icon_target) * 100 : 0).toFixed(2) }}</th>-->
-                <th class="text-right">{{  till_month_icon_total_target.toFixed(0) | number }}</th>
-                <th class="text-right">{{  till_month_total_sale_icon?.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (till_month_icon_total_target > 0 ? (till_month_total_sale_icon /
-                   till_month_icon_total_target) * 100 : 0).toFixed(2) }}
-                </th>
-              </tr>
-              <template ngFor let-item [ngForOf]="products">
-                <tr *ngIf="item.brands.department_id == 2  && environment.projectName == 'IKON' ">
-                  <td>
-                    {{ item.brands.chl_name }}
-                  </td>
-                  <td class="text-right">{{ item.target.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.performance.toFixed(0) | number : fractionSize }}</td>
-<!--                  <td *ngIf="_service.user.role_id == 7"  class="text-right">{{ item.performance_total.toFixed(0) | number : fractionSize }}</td>-->
-                  <td class="text-right">{{ item.performance_pending.toFixed(0) | number : fractionSize }}</td>
-<!--                  <td  *ngIf="_service.user.role_id == 7" class="text-right">{{ item.performance_pending_total.toFixed(0) | number : fractionSize }}</td>-->
-                  <td class="text-right">{{ item.last_year_month_performance.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.total_pob.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (item.target > 0 ? (item.performance / item.target) * 100 : 0).toFixed(2)
-                    }}
-                  </td>
-<!--                  <td *ngIf="_service.user.role_id == 7" class="text-right">{{ (item.target > 0 ? (item.performance_total / item.target) * 100 : 0).toFixed(2)-->
-<!--                    }}-->
-<!--                  </td>-->
-                  <td class="text-right">{{ item.total_target.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ item.total_primary_sale.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (item.total_target > 0 ? (item.total_primary_sale / item.total_target) * 100
-                    : 0).toFixed(2)
-                    }}
-                  </td>
-                </tr>
-              </template>
-              <tr style="background-color: #80deea" *ngIf="environment.projectName == 'IKON' && _department_id != 1">
-                <th>CHL Total</th>
-                <th class="text-right">{{ total_geo_target.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_geo_actual.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_pending_geo_actual.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_last_month_geo_actual.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_geo_pob.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (total_geo_target > 0 ? (total_geo_actual / total_geo_target) * 100 :
-                  0).toFixed(2) }}
-                </th>
-                <th class="text-right">{{ till_month_geo_total_target.toFixed(0) | number }}</th>
-                <th class="text-right">{{ till_month_total_sale_geo?.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (till_month_geo_total_target > 0 ? (till_month_total_sale_geo /
-                  till_month_geo_total_target) * 100 : 0).toFixed(2) }}
-                </th>
-              </tr>
-              <tr style="background-color: #00c853" *ngIf="environment.projectName == 'IKON'  && _service.user.role_id != 6">
+              <tr style="background-color: #00c853" *ngIf="total">
                 <th>Total</th>
-                <th class="text-right">{{ total_target.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_actual.toFixed(0) | number }}</th>
-<!--                <th *ngIf="_service.user.role_id == 7" class="text-right">{{ total_actual_sales.toFixed(0) | number }}</th>-->
-                <th class="text-right">{{ total_pending_actual.toFixed(0) | number }}</th>
-<!--                <th *ngIf="_service.user.role_id == 7" class="text-right">{{ total_pending_actual_sales.toFixed(0) | number }}</th>-->
-                <th class="text-right">{{ total_last_year_month_actual.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_pob.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>
-<!--                <th *ngIf="_service.user.role_id == 7" class="text-right">{{ (total_target > 0 ? (total_actual_sales / total_target) * 100 : 0).toFixed(2) }}</th>-->
-                <th class="text-right">{{ till_month_total_target.toFixed(0) | number }}</th>
-                <th class="text-right">{{ till_month_total_sale?.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (till_month_total_target > 0 ? (till_month_total_sale /
-                  till_month_total_target) * 100 : 0).toFixed(2) }}
-                </th>
-              </tr>
-              <tr style="background-color: #00c853"  *ngIf="environment.projectName != 'IKON'">
-                <th>Total</th>
-                <th class="text-right">{{ total_target.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_actual.toFixed(0) | number }}</th>
-<!--                <th *ngIf="_service.user.role_id == 7 && environment.projectName == '3c' " class="text-right">{{ total_actual.toFixed(0) | number }}</th>-->
-<!--                <th *ngIf="_service.user.role_id == 7 && environment.projectName != '3c' " class="text-right">{{ total_actual_sales.toFixed(0) | number }}</th>-->
-                <th *ngIf="environment.projectName != '3c'" class="text-right">{{ total_pending_actual.toFixed(0) | number }}</th>
-<!--                <th *ngIf="environment.projectName != '3c' && _service.user.role_id == 7" class="text-right">{{ total_pending_actual_sales.toFixed(0) | number }}</th>-->
-                <th class="text-right">{{ total_last_year_month_actual.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total_pob.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>
-<!--                <th *ngIf="environment.projectName == '3c' && _service.user.role_id == 7" class="text-right">{{ (total_target > 0 ? (total_actual / total_target) * 100 : 0).toFixed(2) }}</th>-->
-<!--                <th *ngIf="environment.projectName != '3c' && _service.user.role_id == 7" class="text-right">{{ (total_target > 0 ? (total_actual_sales / total_target) * 100 : 0).toFixed(2) }}</th>-->
-                <th class="text-right">{{ till_month_total_target.toFixed(0) | number }}</th>
-                <th class="text-right">{{ till_month_total_sale?.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (till_month_total_target > 0 ? (till_month_total_sale /
-                  till_month_total_target) * 100 : 0).toFixed(2) }}
-                </th>
+                <th class="text-right">{{ total.target.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total.net_amt.toFixed(0) | number }}</th>
+                <td class="text-right">{{ total.lastmonthsale.toFixed(0) | number }}</td>
+                <td class="text-right">{{ total.lasttolastmonthsale.toFixed(0) | number}}</td>
+                <th class="text-right">{{ total.last_year_same_month.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total.pob_amount.toFixed(0) | number }}</th>
+                <th class="text-right">{{ (total.target > 0 ? (total.net_amt / total.target) * 100 : 0).toFixed(2) }}</th>
+                <th class="text-right">{{ total.ytd_target.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total.ytd_sale.toFixed(0) | number }}</th>
+                <th class="text-right">{{ (total.ytd_target > 0 ? (total.ytd_sale / total.ytd_target) * 100 : 0).toFixed(2) }}</th>
               </tr>
               </tbody>
             </table>
@@ -192,3 +68,5 @@
     </div>
   </div>
 </div>
+
+

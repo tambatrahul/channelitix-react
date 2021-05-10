@@ -9,6 +9,12 @@ export abstract class BaseSelectComponent {
     @Input()
     value: number = 0;
 
+  /**
+   * selected value
+   */
+  @Input()
+  name: string;
+
     /**
      * title for select field
      */
