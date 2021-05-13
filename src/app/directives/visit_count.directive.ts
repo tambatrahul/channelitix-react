@@ -78,7 +78,7 @@ export class VisitCountDirective {
     if (visit.attendance.status) {
       if (visit.attendance.status != AppConstants.WORKING)
         this.el.nativeElement.innerText = visit.attendance.status.charAt(0).toUpperCase();
-      else if (visit.attendance.status == AppConstants.WORKING && visit.attendance.work_type_id != 2) {
+      else if (visit.attendance.status == AppConstants.WORKING && visit.attendance.work_type_id != 2 && visit.attendance.work_type_id != 10 ) {
         this.el.nativeElement.innerText = visit.attendance.work_type.name.charAt(0).toUpperCase();
       }
 

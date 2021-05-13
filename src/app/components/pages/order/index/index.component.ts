@@ -76,6 +76,10 @@ export class OrderComponent extends BaseAuthComponent {
   zone_id: number = 0;
 
   /**
+   * customer_type_id
+   */
+  customer_type_id: number = 0;
+  /**
    * year and month for calendar
    * @type {number}
    */
@@ -365,7 +369,7 @@ export class OrderComponent extends BaseAuthComponent {
 
     Observable.forkJoin(
       this.attendanceService.forChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.zone_id, this.department_id),
-      this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy,
+      this.orderService.monthlyCountForChildren(this.month + 1, this.year, this.role_id, this.manager_id, synergy, this.customer_type_id,
         this.product_id, this.brand_id, this.zone_id, this.department_id)
     ).subscribe(data => {
 
@@ -465,7 +469,19 @@ export class OrderComponent extends BaseAuthComponent {
       } else if (order.attendance.work_type_id == 2) {
         jQuery(this.user_order_table.nativeElement).modal();
       }
+      else if (order.attendance.work_type_id == 10) {
+        jQuery(this.user_order_table.nativeElement).modal();
+      }
     }
+  }
+
+  /**
+   *
+   * @param c_t_id
+   */
+  customerTypeChanged(c_t_id) {
+    this.customer_type_id = c_t_id;
+    this.fetchData();
   }
 
   /**

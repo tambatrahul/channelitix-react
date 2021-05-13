@@ -82,7 +82,7 @@ export class OrderCountDirective {
           this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
 
         // set background color depending on status
-        if (this._order.attendance.status == AppConstants.WORKING && this._order.attendance.work_type_id == 2) {
+        if (this._order.attendance.status == AppConstants.WORKING && this._order.attendance.work_type_id == 2 || this._order.attendance.work_type_id == 10) {
           if (!this._view_quantity) {
             if (this._order.order_total_count == 0) {
               this.el.nativeElement.style.backgroundColor = this.leave;
@@ -109,7 +109,7 @@ export class OrderCountDirective {
       if (this._order.attendance.status) {
         if (this._order.attendance.status != AppConstants.WORKING)
           this.el.nativeElement.innerText = this._order.attendance.status.charAt(0).toUpperCase();
-        else if (this._order.attendance.status == AppConstants.WORKING && this._order.attendance.work_type_id != 2)
+        else if (this._order.attendance.status == AppConstants.WORKING && this._order.attendance.work_type_id != 2 && this._order.attendance.work_type_id != 10)
           this.el.nativeElement.innerText = this._order.attendance.work_type.name.charAt(0).toUpperCase();
 
         // set background color depending on status

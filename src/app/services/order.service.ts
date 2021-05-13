@@ -43,7 +43,7 @@ export class OrderService extends BaseService {
    * get monthly report
    */
   forUser(user_id: number, month: number, year: number,
-        day?: number, department_id?: number, brand_id?: number): Observable<Result> {
+        day?: number, department_id?: number, brand_id?: number, customer_type_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/forUser/' + user_id + "/" + month + "/" + year + "/" + department_id;
@@ -51,6 +51,7 @@ export class OrderService extends BaseService {
     // prepare get params
     let params = new URLSearchParams();
     params.set('date', String(day > 0 ? day : ''));
+    params.set('customer_type_id', String(customer_type_id > 0 ? customer_type_id: ''));
     if (brand_id && brand_id > 0)
       params.set('brand_id', String(brand_id));
 
@@ -66,13 +67,14 @@ export class OrderService extends BaseService {
    * @param role_id
    * @param manager_id
    * @param synergy
+   * @param customer_type_id
    * @param product_id
    * @param brand_id
    * @param zone_id
    * @param department_id
    * @returns {Observable<Result>}
    */
-  monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number,
+  monthlyCountForChildren(month: number, year: number, role_id?: number, manager_id?: number, synergy?: number, customer_type_id?: number,
                           product_id?: number, brand_id?: number, zone_id?: number, department_id?: number): Observable<Result> {
 
     // prepare url
@@ -86,6 +88,7 @@ export class OrderService extends BaseService {
     params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
     params.set('department_id', String(department_id > 0 ? department_id : ''));
+    params.set('customer_type_id', String(customer_type_id> 0 ? customer_type_id: ''));
     if (synergy || synergy == 0)
       params.set('synergy', String(synergy));
 

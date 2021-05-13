@@ -158,7 +158,7 @@ export class VisitService extends BaseService {
   /**
    * get monthly report
    */
-  forUser(user_id: number, month: number, year: number, day?: number): Observable<Result> {
+  forUser(user_id: number, month: number, year: number, day?: number, customer_type_id?: number): Observable<Result> {
 
     // prepare url
     let url = this.getBaseUrl() + '/forUser/' + user_id + '/' + month + '/' + year;
@@ -166,6 +166,7 @@ export class VisitService extends BaseService {
     // prepare get params
     let params = new URLSearchParams();
     params.set('date', String(day > 0 ? day : ''));
+    params.set('customer_type_id', String(customer_type_id > 0 ? customer_type_id : ''));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));

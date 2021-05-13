@@ -42,6 +42,10 @@
       <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
                     (onValueChanged)="departmentChanged($event)"></department-select>
     </div>
+    <div class="col-xs-12 col-md-2">
+      <customer-type-select [value]="customer_type_id"
+                            (onValueChanged)="customerTypeChanged($event)"></customer-type-select>
+    </div>
     <div class="col-xs-12 col-md-2"
          *ngIf="environment.envName == 'sk_group' && _service.user.username != 'abbottadmin'">
       <button class="btn btn-primary" (click)="switchToAbbott()" style="margin-top: 25px;" *ngIf="!abbott">
@@ -375,7 +379,7 @@
             <div>
               <user-order-list [user]="user" [date]="date" [month]="month"
                                 [brand_id]="brand_id"
-                               [year]="year" [department_id]="department_id"></user-order-list>
+                               [year]="year" [department_id]="department_id" [customer_type_id]="customer_type_id"></user-order-list>
             </div>
           </div>
           <!-- ./Tour Table -->

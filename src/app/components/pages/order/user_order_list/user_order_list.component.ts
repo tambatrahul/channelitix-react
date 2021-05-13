@@ -76,6 +76,16 @@ export class UserOrderListComponent extends BaseAuthComponent {
     }
 
     /**
+     * customer_type_id filter
+     */
+    _customer_type_id: number = 0;
+    @Input()
+    set customer_type_id(customer_type_id: number) {
+        this._customer_type_id = customer_type_id;
+        this.fetch();
+    }
+
+    /**
      * get title of table
      * @returns {string}
      */
@@ -112,7 +122,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
         if ((this.month || this.month == 0) && this.year && this._user && this._date) {
             this.loading = true;
             this.orderService.forUser(this._user.id, this.month + 1, this.year,
-              this._date, this._department_id, this._brand_id).subscribe(
+              this._date, this._department_id, this._brand_id, this._customer_type_id).subscribe(
                 response => {
                     this.orders = response.orders.map(order => new Order(order));
                     if (this._service.user.username == 'abbottadmin')

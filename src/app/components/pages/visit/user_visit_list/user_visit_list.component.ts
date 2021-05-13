@@ -31,6 +31,16 @@ export class UserVisitListComponent extends BaseAuthComponent {
   // }
 
   /**
+   * customer_type_id for report
+   */
+  _customer_type_id: number = 0;
+  @Input()
+  set customer_type_id(customer_type_id: number) {
+    this._customer_type_id = customer_type_id;
+    this.fetchData();
+  }
+
+  /**
    * month for report
    */
   @Input()
@@ -74,7 +84,7 @@ export class UserVisitListComponent extends BaseAuthComponent {
    */
   public visits: Visit[] = [];
 
-  customer_type_id: number = 0;
+  // customer_type_id: number = 0;
   customer_count: number;
   customer_total: number = 0;
   customer_stockist: number = 0;
@@ -82,6 +92,8 @@ export class UserVisitListComponent extends BaseAuthComponent {
   customer_retailer: number = 0;
   customer_hub_chemist: number = 0;
   customer_doctor: number = 0;
+  customer_stockist_salesman: number= 0;
+  customer_otc_semi: number = 0;
 
   /**
    * Visit
@@ -107,6 +119,8 @@ export class UserVisitListComponent extends BaseAuthComponent {
     this.customer_retailer = 0;
     this.customer_hub_chemist = 0;
     this.customer_doctor = 0;
+    this.customer_stockist_salesman = 0;
+    this.customer_otc_semi = 0;
   }
   /**
    * fetch server data for visits
@@ -116,35 +130,44 @@ export class UserVisitListComponent extends BaseAuthComponent {
     self.reset();
     if ((self.month || self.month == 0) && self.year && self._user && self._date > 0) {
       self.loading = true;
-      self.visitService.forUser(self._user.id, self.month + 1, self.year, self._date).subscribe(
+      self.visitService.forUser(self._user.id, self.month + 1, self.year, self._date, self._customer_type_id).subscribe(
         response => {
           self.visits = response.visits.map(function (vis, index) {
             let visit_de = new Visit(vis);
             self.customer_total += visit_de.customer_count;
-            self.customer_type_id = visit_de.customer_type_id;
+            self._customer_type_id = visit_de.customer_type_id;
 
             /**
              * All Customers counts
              */
-            if (self.customer_type_id == 1) {
+            if (self._customer_type_id == 1) {
               self.customer_stockist += visit_de.customer_count;
             }
 
-            if (self.customer_type_id == 2) {
+            if (self._customer_type_id == 2) {
               self.customer_semi += visit_de.customer_count;
             }
 
-            if (self.customer_type_id == 3) {
+            if (self._customer_type_id == 3) {
               self.customer_retailer += visit_de.customer_count;
             }
 
-            if (self.customer_type_id == 4) {
+            if (self._customer_type_id == 4) {
               self.customer_hub_chemist += visit_de.customer_count;
             }
 
-            if (self.customer_type_id == 5) {
+            if (self._customer_type_id == 5) {
               self.customer_doctor += visit_de.customer_count;
             }
+
+            if (self._customer_type_id == 6) {
+              self.customer_stockist_salesman += visit_de.customer_count;
+            }
+
+            if (self._customer_type_id == 7) {
+              self.customer_otc_semi += visit_de.customer_count;
+            }
+
 
             return visit_de;
           });
@@ -156,11 +179,13 @@ export class UserVisitListComponent extends BaseAuthComponent {
         }
       )
     }
+    self._customer_type_id = 0;
   }, 1000, false);
 
 
   /**
    * select visit
+   *
    *
    * @param visit_id
    */

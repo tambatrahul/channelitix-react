@@ -427,6 +427,9 @@ export class VisitComponent extends BaseAuthComponent {
       } else if (visit.attendance.work_type_id == 2) {
         jQuery(this.visit_table.nativeElement).modal();
       }
+      else if (visit.attendance.work_type_id == 10) {
+          jQuery(this.visit_table.nativeElement).modal();
+      }
     }
   }
 
