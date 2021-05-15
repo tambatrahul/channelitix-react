@@ -30,15 +30,6 @@ export class UserVisitListComponent extends BaseAuthComponent {
   //   this.fetch();
   // }
 
-  /**
-   * customer_type_id for report
-   */
-  _customer_type_id: number = 0;
-  @Input()
-  set customer_type_id(customer_type_id: number) {
-    this._customer_type_id = customer_type_id;
-    this.fetchData();
-  }
 
   /**
    * month for report
@@ -70,6 +61,16 @@ export class UserVisitListComponent extends BaseAuthComponent {
   }
 
   /**
+   * customer_type_id for report
+   */
+  _customer_type_id: number = 0;
+  @Input()
+  set customer_type_id(customer_type_id: number) {
+    this._customer_type_id = customer_type_id;
+    this.fetchData();
+  }
+
+  /**
    * get title of table
    * @returns {string}
    */
@@ -84,7 +85,6 @@ export class UserVisitListComponent extends BaseAuthComponent {
    */
   public visits: Visit[] = [];
 
-  // customer_type_id: number = 0;
   customer_count: number;
   customer_total: number = 0;
   customer_stockist: number = 0;
@@ -94,6 +94,7 @@ export class UserVisitListComponent extends BaseAuthComponent {
   customer_doctor: number = 0;
   customer_stockist_salesman: number= 0;
   customer_otc_semi: number = 0;
+  customer_type: number = 0;
 
   /**
    * Visit
@@ -135,36 +136,36 @@ export class UserVisitListComponent extends BaseAuthComponent {
           self.visits = response.visits.map(function (vis, index) {
             let visit_de = new Visit(vis);
             self.customer_total += visit_de.customer_count;
-            self._customer_type_id = visit_de.customer_type_id;
+            self.customer_type = visit_de.customer_type_id;
 
             /**
              * All Customers counts
              */
-            if (self._customer_type_id == 1) {
+            if (self.customer_type == 1) {
               self.customer_stockist += visit_de.customer_count;
             }
 
-            if (self._customer_type_id == 2) {
+            if (self.customer_type == 2) {
               self.customer_semi += visit_de.customer_count;
             }
 
-            if (self._customer_type_id == 3) {
+            if (self.customer_type_id == 3) {
               self.customer_retailer += visit_de.customer_count;
             }
 
-            if (self._customer_type_id == 4) {
+            if (self.customer_type == 4) {
               self.customer_hub_chemist += visit_de.customer_count;
             }
 
-            if (self._customer_type_id == 5) {
+            if (self.customer_type == 5) {
               self.customer_doctor += visit_de.customer_count;
             }
 
-            if (self._customer_type_id == 6) {
+            if (self.customer_type == 6) {
               self.customer_stockist_salesman += visit_de.customer_count;
             }
 
-            if (self._customer_type_id == 7) {
+            if (self.customer_type == 7) {
               self.customer_otc_semi += visit_de.customer_count;
             }
 
@@ -179,7 +180,6 @@ export class UserVisitListComponent extends BaseAuthComponent {
         }
       )
     }
-    self._customer_type_id = 0;
   }, 1000, false);
 
 
