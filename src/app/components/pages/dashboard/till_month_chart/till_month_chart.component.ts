@@ -41,6 +41,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
    */
   public _month: number;
   public _year: number;
+  public month_name: string;
 
 
   /**
@@ -64,6 +65,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   @Input()
   set month_(month: number) {
     this._month = month;
+    this.month_name = moment.months(this._month);
     this.fetchTillMonthChart();
   }
 
@@ -218,52 +220,65 @@ export class TillMonthChartComponent extends GoogleChartComponent {
    */
   prepareData(year_till_month: YearTillMonth) {
     this.getGoogle().charts.setOnLoadCallback(() => {
-      let google = this.getGoogle();
-
-      let data = new google.visualization.DataTable();
+      const google = this.getGoogle();
+      const data = new google.visualization.DataTable();
       data.addColumn('string', 'YTD');
-      data.addColumn('number', 'Aspira');
-      data.addColumn('number', 'Becosules');
-      data.addColumn('number', 'Hypertension');
+      for ( let i = 0; i < year_till_month.sub_name.length; i++) {
+        data.addColumn('number', year_till_month.sub_name[i]['sub_name']);
+      }
       data.addColumn({type: 'number', role: 'annotation'});
-      data.addRows([
-        ['Target(' + this.month_str + ')', year_till_month.month_sale_target[0]['total_target'],
-          year_till_month.month_sale_target[1]['total_target'],
-          year_till_month.month_sale_target[2]['total_target'],
-          year_till_month.month_sale_target[0]['total_target'] + year_till_month.month_sale_target[1]['total_target'] + year_till_month.month_sale_target[2]['total_target']],
-        ['Performance(' + this.month_str + ')', year_till_month.month_sale_target[0]['total_net_amt'],
-          year_till_month.month_sale_target[1]['total_net_amt'],
-          year_till_month.month_sale_target[2]['total_net_amt'],
-          year_till_month.month_sale_target[0]['total_net_amt'] + year_till_month.month_sale_target[1]['total_net_amt'] + year_till_month.month_sale_target[2]['total_net_amt']],
-        ['YTD_Target(' + this.month_str + ')', year_till_month.month_sale_target[0]['YTD_target'],
-          year_till_month.month_sale_target[1]['YTD_target'],
-          year_till_month.month_sale_target[2]['YTD_target'],
-          year_till_month.month_sale_target[0]['YTD_target'] + year_till_month.month_sale_target[1]['YTD_target'] + year_till_month.month_sale_target[2]['YTD_target']],
-        ['YTD_Performance(' + this.month_str + ')', year_till_month.month_sale_target[0]['YTD_sale'],
-          year_till_month.month_sale_target[1]['YTD_sale'],
-          year_till_month.month_sale_target[2]['YTD_sale'],
-          year_till_month.month_sale_target[0]['YTD_sale'] + year_till_month.month_sale_target[1]['YTD_sale'] + year_till_month.month_sale_target[2]['YTD_sale']],
-      ]);
 
-      /* let data = new google.visualization.DataTable();
-      data.addColumn('string', 'YTD');
-      data.addColumn('number', 'Target');
-      data.addColumn({type: 'number', role: 'annotation'});
-      data.addColumn('number', 'Performance');
-      data.addColumn({type: 'number', role: 'annotation'});
-      data.addRows([
-        [this.month_str, year_till_month.month_target, year_till_month.month_target,
-          year_till_month.month_sale, year_till_month.month_sale],
-        ['YTD(' + this.month_str + ')', (year_till_month.till_month_target),
-          (year_till_month.till_month_target),
-          (year_till_month.till_month_sale),
-          (year_till_month.till_month_sale)],
-      ]); */
+      let rows = [['Target(' + this.month_name + ')',0],['Performance(' + this.month_name + ')',0],
+          ['YTD_Target(' + this.month_name + ')',0],['YTD_Performance(' + this.month_name + ')',0]]
 
+      /* rows.fill(0, 0, year_till_month.sub_name.length-1); */
+      for (let i=0; i < rows.length; i++) {
+        for (let j=0;j < year_till_month.sub_name.length - 1; j++) {
+          rows[i].push(0);
+        }
+      }
+
+      for (let i = 0; i < rows.length; i++) {
+        for(let j = 1;j <= year_till_month.sub_name.length; j++) {
+          for(let k = 0; k <= year_till_month.sub_name.length - 1; k++) {
+            if (k == j - 1) {
+              if ( i==0 )
+                rows[i][j] = year_till_month.month_sale_target[k]['total_target'];
+              if ( i==1 )
+                rows[i][j] = year_till_month.month_sale_target[k]['total_net_amt'];
+              if ( i==2 )
+                rows[i][j] = year_till_month.month_sale_target[k]['YTD_target'];
+              if ( i==3 )
+                rows[i][j] = year_till_month.month_sale_target[k]['YTD_sale'];
+            }
+            else {
+              continue;
+            }
+          }
+        }
+      }
+
+      let total_target = 0 , total_sale = 0, ytd_target = 0, ytd_sale = 0;
+
+      for (let l = 0; l <= year_till_month.sub_name.length - 1; l++) {
+        total_target += year_till_month.month_sale_target[l]['total_target'];
+        total_sale += year_till_month.month_sale_target[l]['total_net_amt'];
+        ytd_target += year_till_month.month_sale_target[l]['YTD_target'];
+        ytd_sale += year_till_month.month_sale_target[l]['YTD_sale'];
+      }
+      rows[0].push(total_target);
+      rows[1].push(total_sale);
+      rows[2].push(ytd_target);
+      rows[3].push(ytd_sale);
+
+      /* for (let a=0; a<rows.length; a++){
+        data.addRows([rows[a]]);
+      } */
+      data.addRows(rows);
       this.data = data;
-
       // set chart data callback
       this.drawGraph();
+
     });
   }
 

@@ -8,6 +8,7 @@ import {PrimarySale} from "../../../../models/sale/primary_sale";
 import * as moment from "moment";
 import {BaseDashboardComponent} from "../base_dashboard.component";
 import {AppConstants} from '../../../../app.constants';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'product-wise-sale',
@@ -59,7 +60,6 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
    * @type {number}
    */
   till_month_icon_total_target: number = 0;
-  total_icon_target: number = 0;
   total_last_month_icon_actual: number = 0;
   total_icon_actual: number = 0;
   total_pending_icon_actual: number = 0;
@@ -67,6 +67,24 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
   total_pending_product_icon_actual: number = 0;
   till_month_total_sale_icon: number = 0;
   total_icon_pob: number = 0;
+
+  total_icon_last_year_same_month: number = 0;
+  total_icon_net_amt: number = 0;
+  total_icon_target: number = 0;
+  total_icon_pob_amount: number = 0;
+  total_icon_ytd_sale: number = 0;
+  total_icon_ytd_target: number = 0;
+  total_icon_lastmonthsale: number = 0;
+  total_icon_lasttolastmonthsale: number = 0;
+
+  total_chl_last_year_same_month: number = 0;
+  total_chl_net_amt: number = 0;
+  total_chl_pob_amount: number = 0;
+  total_chl_target: number = 0;
+  total_chl_ytd_sale: number = 0;
+  total_chl_ytd_target: number = 0;
+  total_chl_lastmonthsale: number = 0;
+  total_chl_lasttolastmonthsale: number = 0;
 
 
   /**
@@ -181,6 +199,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           response => {
             self.brandwisesummary = response.performance.brandWiseSales.map(b => new BrandWiseSummary(b));
             self.total = new BrandWiseSummary(response.performance.total);
+            self.formateData(self.brandwisesummary);
             self.loading = false;
           }, err => {
             self.loading = false;
@@ -190,6 +209,34 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
     }, 1000, false);
 
 
+  formateData(brandwisesummary: BrandWiseSummary[]) {
+    const self = this;
+
+    self.brandwisesummary.map(summary => {
+      if (summary.department_id == 1) {
+        self.total_icon_net_amt +=  summary.icon_net_amt;
+        self.total_icon_pob_amount +=  summary.icon_pob_amount;
+        self.total_icon_ytd_sale +=  summary.icon_ytd_sale;
+        self.total_icon_lastmonthsale +=  summary.icon_lastmonthsale;
+        self.total_icon_lasttolastmonthsale +=  summary.icon_lasttolastmonthsale;
+        self.total_icon_last_year_same_month +=  summary.icon_last_year_same_month;
+        self.total_icon_ytd_target +=  summary.icon_ytd_target;
+        self.total_icon_target +=  summary.icon_target;
+      }
+
+      if (summary.department_id == 2) {
+        self.total_chl_net_amt +=  summary.chl_net_amt;
+        self.total_chl_pob_amount +=  summary.chl_pob_amount;
+        self.total_chl_ytd_sale +=  summary.chl_ytd_sale;
+        self.total_chl_lastmonthsale +=  summary.chl_lastmonthsale;
+        self.total_chl_lasttolastmonthsale +=  summary.chl_lasttolastmonthsale;
+        self.total_chl_last_year_same_month +=  summary.chl_last_year_same_month;
+        self.total_chl_ytd_target +=  summary.chl_ytd_target;
+        self.total_chl_target +=  summary.chl_target;
+      }
+      }
+    );
+  }
   constructor(public _service: AuthService, private reportService: ReportService) {
     super(_service);
   }

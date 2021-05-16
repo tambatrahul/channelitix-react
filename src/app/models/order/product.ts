@@ -28,6 +28,8 @@ export class Product extends Model {
 
   brands: Brand;
 
+  department_id: number;
+
   unit_price: number = 0;
   opening: number = 0;
   opening_value: number = 0;
@@ -49,6 +51,7 @@ export class Product extends Model {
     super(info.id);
     this.name = info.name;
     this.code = info.code;
+    this.department_id = info.department_id;
     this.short_name = this.name.replace(/ *\([^)]*\) */g, "");
     if (info.synergy)
       this.synergy = info.synergy;
@@ -58,6 +61,8 @@ export class Product extends Model {
         this.uoms.push(new UOM(u));
       }
     }
+    if (info.total_target)
+      this.total_target = parseFloat(info.total_target);
 
     if (info.brands)
       this.brands = new Brand(info.brands);

@@ -27,8 +27,8 @@
               </tr>
               </thead>
               <tbody>
-              <template ngFor let-b [ngForOf]="brandwisesummary">
-                <tr>
+              <template ngFor let-b [ngForOf]="brandwisesummary" >
+                <tr *ngIf="environment.projectName != 'IKON'">
                   <td>{{ b.name }}</td>
                   <td class="text-right">{{ b.target.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ b.net_amt.toFixed(0) | number : fractionSize }}</td>
@@ -47,6 +47,72 @@
                   </td>
                 </tr>
               </template>
+              <template ngFor let-b [ngForOf]="brandwisesummary" >
+                <tr *ngIf="environment.projectName == 'IKON' && b.department_id == 1">
+                  <td>{{ b.icon_name }}</td>
+                  <td class="text-right">{{ b.icon_target.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.icon_net_amt.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.icon_lastmonthsale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.icon_lasttolastmonthsale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.icon_last_year_same_month.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.icon_pob_amount.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ (b.icon_target > 0 ? (b.icon_net_amt / b.icon_target) * 100 : 0).toFixed(2)
+                    }}
+                  </td>
+                  <td class="text-right">{{ b.icon_ytd_target.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.icon_ytd_sale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ (b.icon_ytd_target > 0 ? (b.icon_ytd_sale / b.icon_ytd_target) * 100
+                    : 0).toFixed(2)
+                    }}
+                  </td>
+                </tr>
+              </template>
+                <tr STYLE="background-color: #ffa31a" *ngIf="environment.projectName == 'IKON'  && _department_id != 2">
+                  <th>ICON Total</th>
+                  <th class="text-right">{{ total_icon_target.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ total_icon_net_amt.toFixed(0) | number }}</th>
+                  <td class="text-right">{{ total_icon_lastmonthsale.toFixed(0) | number }}</td>
+                  <td class="text-right">{{ total_icon_lasttolastmonthsale.toFixed(0) | number}}</td>
+                  <th class="text-right">{{ total_icon_last_year_same_month.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ total_icon_pob_amount.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ (total_icon_target > 0 ? (total_icon_net_amt / total_icon_target) * 100 : 0).toFixed(2) }}</th>
+                  <th class="text-right">{{ total_icon_ytd_target.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ total_icon_ytd_sale.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ (total_icon_ytd_target > 0 ? (total_icon_ytd_sale / total_icon_ytd_target) * 100 : 0).toFixed(2) }}</th>
+                </tr>
+              <template ngFor let-b [ngForOf]="brandwisesummary">
+                <tr *ngIf="environment.projectName == 'IKON' && b.department_id == 2">
+                  <td>{{ b.chl_name }}</td>
+                  <td class="text-right">{{ b.chl_target.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.chl_net_amt.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.chl_lastmonthsale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.chl_lasttolastmonthsale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.chl_last_year_same_month.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.chl_pob_amount.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ (b.chl_target > 0 ? (b.chl_net_amt / b.chl_target) * 100 : 0).toFixed(2)
+                    }}
+                  </td>
+                  <td class="text-right">{{ b.chl_ytd_target.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.chl_ytd_sale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ (b.chl_ytd_target > 0 ? (b.chl_ytd_sale / b.chl_ytd_target) * 100
+                    : 0).toFixed(2)
+                    }}
+                  </td>
+                </tr>
+              </template>
+                <tr style="background-color: #80deea" *ngIf="environment.projectName == 'IKON'  && _department_id != 1">
+                  <th>CHL Total</th>
+                  <th class="text-right">{{ total_chl_target.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ total_chl_net_amt.toFixed(0) | number }}</th>
+                  <td class="text-right">{{ total_chl_lastmonthsale.toFixed(0) | number }}</td>
+                  <td class="text-right">{{ total_chl_lasttolastmonthsale.toFixed(0) | number}}</td>
+                  <th class="text-right">{{ total_chl_last_year_same_month.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ total_chl_pob_amount.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ (total_chl_target > 0 ? (total_chl_net_amt / total_chl_target) * 100 : 0).toFixed(2) }}</th>
+                  <th class="text-right">{{ total_chl_ytd_target.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ total_chl_ytd_sale.toFixed(0) | number }}</th>
+                  <th class="text-right">{{ (total_chl_ytd_target > 0 ? (total_chl_ytd_sale / total_chl_ytd_target) * 100 : 0).toFixed(2) }}</th>
+                </tr>
               <tr style="background-color: #00c853" *ngIf="total">
                 <th>Total</th>
                 <th class="text-right">{{ total.target.toFixed(0) | number }}</th>

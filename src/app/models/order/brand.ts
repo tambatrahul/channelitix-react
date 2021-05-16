@@ -32,16 +32,16 @@ export class Brand extends Model {
       this.chl_name = info.name;
     }
     if (info.total_net_amt)
-      this.total_net_amt = parseFloat(info.total_net_amt);
+      this.total_net_amt = parseFloat((parseFloat(info.total_net_amt) / 100000).toFixed(0));
 
     if (info.total_target)
-      this.total_target = parseFloat(info.total_target);
+      this.total_target = parseFloat((parseFloat(info.total_target) / 100000).toFixed(0));
 
     if (info.YTD_sale)
-      this.YTD_sale = parseFloat(info.YTD_sale);
+      this.YTD_sale = parseFloat((parseFloat(info.YTD_sale) / 100000).toFixed(0));
 
     if (info.YTD_target)
-      this.YTD_target = parseFloat(info.YTD_target);
+      this.YTD_target = parseFloat((parseFloat(info.YTD_target) / 100000).toFixed(0));
   }
 
   /**

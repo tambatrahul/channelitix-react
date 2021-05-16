@@ -1,4 +1,5 @@
 import {Brand} from "../order/brand";
+import {SubName} from "../order/subname";
 
 export class YearTillMonth {
 
@@ -19,6 +20,8 @@ export class YearTillMonth {
   skinlite_till_month_sale: number = 0;
 
   month_sale_target: Brand[];
+
+  sub_name: SubName[];
 
   constructor(info: any) {
 
@@ -48,6 +51,9 @@ export class YearTillMonth {
 
     if(info.month_sale_target)
       this.month_sale_target = info.month_sale_target.map(br => new Brand(br));
+
+    if (info.sub_name)
+      this.sub_name = info.sub_name.map(br => new SubName(br));
     }
 
 }

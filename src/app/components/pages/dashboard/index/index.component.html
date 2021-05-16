@@ -236,26 +236,27 @@
       </monthly-primary-secondary-target>
     </div>
 
-    <div class="col-xs-12 col-md-6" *ngIf="environment.envName == 'ICONCX'">
+    <div class="col-xs-12 col-md-6">
 
     </div>
   </div>
 
   <div class="row" *ngIf="environment.envName != 'sk_group'">
 
-    <!-- Monthly Primary graph Gelusil-->
-    <div class="col-xs-12 col-md-6" *ngIf="environment.projectName == 'ICONCX'">
-      <monthly-primary-secondary-target-gelusil [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                        [headquarter_ids]="headquarter_ids" [sub_name]="'Gelusil'">
-      </monthly-primary-secondary-target-gelusil>
-    </div>
+<!--    &lt;!&ndash; Monthly Primary graph Gelusil&ndash;&gt;-->
+<!--    <div class="col-xs-12 col-md-6">-->
+<!--      <monthly-primary-secondary-target-gelusil [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"-->
+<!--                                        [headquarter_ids]="headquarter_ids" [sub_name]="'Gelusil'">-->
+<!--      </monthly-primary-secondary-target-gelusil>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; ./Monthly Primary graph Gelusil&ndash;&gt;-->
 
-    <!-- Monthly Primary graph Becosule-->
-    <div class="col-xs-12 col-md-6" *ngIf="environment.projectName == 'ICONCX'">
-      <monthly-primary-secondary-target-becosule [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"
-                                        [headquarter_ids]="headquarter_ids" [sub_name]="'Becosule'">
-      </monthly-primary-secondary-target-becosule>
-    </div>
+
+<!--    <div class="col-xs-12 col-md-6">-->
+<!--      <monthly-primary-secondary-target-becosule [zone_ids]="zone_ids" [region_ids]="region_ids" [area_ids]="area_ids" [refresh]="refresh"-->
+<!--                                        [headquarter_ids]="headquarter_ids" [sub_name]="'Becosule'">-->
+<!--      </monthly-primary-secondary-target-becosule>-->
+<!--    </div>-->
 
 
     <div class="row" *ngIf="environment.envName != 'sk_group'">
