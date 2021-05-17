@@ -12,6 +12,7 @@ import {PriorityReport} from '../../../models/download/priority_report';
 import {CustomerReport} from '../../../models/download/customer_report';
 import {TargetReport} from '../../../models/download/target_report';
 import {Download} from '../../../models/download/download';
+import {SampleReport} from '../../../models/download/sample_report';
 
 declare let jQuery: any;
 declare let swal: any;
@@ -36,10 +37,11 @@ export class DownloadComponent extends BaseAuthComponent {
   public priority_reports: PriorityReport[];
   public customer_reports: CustomerReport[];
   public target_reports: TargetReport[];
+  public sample_reports: SampleReport[];
   public download: Download;
 
 
-  /** 
+  /**
    * report id
    */
   public stockist_report_id: number = 0;
@@ -50,6 +52,7 @@ export class DownloadComponent extends BaseAuthComponent {
   public priority_report_id: number = 0;
   public customer_report_id: number = 0;
   public target_report_id: number = 0;
+  public sample_report_id: number = 0;
   public report_id: number = 0;
 
   btn_loading: boolean = false;
@@ -116,6 +119,13 @@ export class DownloadComponent extends BaseAuthComponent {
    */
   targetReportChanged(target_report_id) {
     this.report_id = target_report_id;
+  }
+
+  /**
+   * get sample report id to download
+   */
+  sampleReportChanged(sample_report_id) {
+    this.report_id = sample_report_id;
   }
 
   /**

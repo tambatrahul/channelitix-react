@@ -52,6 +52,7 @@ import {TargetReport} from './download/target_report';
 import {Download} from './download/download';
 import {PrimarySecondaryTarget} from './sale/primary_secondary_target';
 import {BrandWiseSummary} from './sale/brandwise_summary';
+import {SampleReport} from './download/sample_report';
 
 export class Result {
 
@@ -244,6 +245,7 @@ export class Result {
   priority_reports: PriorityReport[];
   customer_reports: CustomerReport[];
   target_reports: TargetReport[];
+  sample_reports: SampleReport[];
   download: Download;
 
   stockist_list: Stockist[];

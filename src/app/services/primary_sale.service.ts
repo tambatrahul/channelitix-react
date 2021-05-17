@@ -122,6 +122,29 @@ export class PrimarySaleService extends BaseService {
     // make server call
     return this.get(url, new RequestOptions({search: params}));
   }
+
+  monthly_stockist_product(month: number, year: number,
+                    region_id?: number, area_id?: number, headquarter_id?: number, page?: number, zone_id?: number, department_id?: number): Observable<Result> {
+
+        // prepare url
+        let url = this.getBaseUrl() + '/invoices/customer_product_wise/' + month + "/" + year;
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('page', String(page > 0 ? page : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('region_id', String(region_id > 0 ? region_id : ''));
+    params.set('area_id', String(area_id > 0 ? area_id : ''));
+    params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
+  }
+
+
+
   /**
    * get all product
    */
@@ -167,6 +190,27 @@ export class PrimarySaleService extends BaseService {
 
     // make server call
     return this.http.get(this.getBaseUrl() + '/invoices/stockist_excel_download/' + month + '/' + year, content);
+
+  }
+
+  stockist_product_excel_download(month: number, year: number, region_id?: number, area_id?: number, headquarter_id?: number, department_id?: number): Observable<Response> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('region_id', String(region_id > 0 ? region_id : ''));
+    params.set('area_id', String(area_id > 0 ? area_id : ''));
+    params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
+    // get request with headers
+    let content = this.addCredentials(new RequestOptions({
+      responseType: ResponseContentType.Blob,
+      search: params
+    }));
+
+    // make server call
+    return this.http.get(this.getBaseUrl() + '/invoices/stockist_product_excel_download/' + month + '/' + year, content);
 
   }
 

@@ -75,6 +75,8 @@
                     </li>
                     <li><a href="#stockist_wise" data-toggle="tab">Stockist Wise</a>
                     </li>
+                    <li><a href="#stockist_product_wise" data-toggle="tab">Stockist And Product Wise</a>
+                    </li>
                     <li><a href="#invoice" data-toggle="tab">Invoice</a>
                     </li>
                 </ul>
@@ -96,6 +98,17 @@
                                            [zone_id]="zone_id"
                                            [region_id]="region_id"
                                            [area_id]="area_id" [headquarter_id]="headquarter_id" [department_id]="department_id"></stockist-wise>
+                        </div>
+
+                        <!-- ./stockist_wise Table -->
+                    </div>
+                    <div class="tab-pane" id="stockist_product_wise">
+                        <!-- stockist_wise Table -->
+                        <div>
+                            <stockist-product-wise [month]="month" [year]="year"
+                                           [zone_id]="zone_id"
+                                           [region_id]="region_id"
+                                           [area_id]="area_id" [headquarter_id]="headquarter_id" [department_id]="department_id"></stockist-product-wise>
                         </div>
 
                         <!-- ./stockist_wise Table -->

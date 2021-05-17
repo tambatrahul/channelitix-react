@@ -90,5 +90,20 @@
             <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
         </div>
     </div>
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-xs-11 col-md-4">
+      <sample-report-select [value]="sample_report_id" [title]="'Sample Summary Report'" [first_value]="'Select Sample Report'" (onValueChanged)="sampleReportChanged($event)"></sample-report-select>
+    </div>
+    <div class="col-xs-1 col-md-1">
+      <label>&nbsp;</label><br>
+      <a class="btn btn-primary btn-margin" (click)="report_download()"><i class="fa fa-download"></i></a>
+    </div>
+
+    <div class="col-xs-11 col-md-4">
+    </div>
+    <div class="col-xs-1 col-md-1">
+
+    </div>
+  </div>
     <!-- Page Content -->
 </div>

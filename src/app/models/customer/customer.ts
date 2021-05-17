@@ -27,6 +27,7 @@ export class Customer extends Model {
   customer_type: CustomerType;
   doctor_qualifications: CustomerQualification[];
   doctor_type_id: number;
+  doctor_speciality: string;
   doctor_type: DoctorType;
   grade_id: number;
   grade: Grade;
@@ -96,6 +97,7 @@ export class Customer extends Model {
     this.customer_type_id = info.customer_type_id;
     this.doctor_type = info.doctor_type;
     this.doctor_type_id = info.doctor_type_id;
+    this.doctor_speciality = info.doctor_speciality;
     this.grade_id = info.grade_id;
     this.grade = info.grade;
     this.status = info.status;

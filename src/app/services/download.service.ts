@@ -99,6 +99,14 @@ export class DownloadService extends BaseService {
         return this.get(this.getBaseUrl() + '/targetReportList');
     }
 
+  /**
+   * get primary sales report list
+   */
+  sampleReportLists() : Observable<Result> {
+    // make server call
+    return this.get(this.getBaseUrl() + '/sampleReportList');
+  }
+
     /**
      * download report
      */

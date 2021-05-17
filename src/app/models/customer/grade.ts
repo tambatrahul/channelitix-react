@@ -9,6 +9,19 @@ export class Grade extends Model {
     // for internal user only
     customer_count: number = 0;
     visit_count: number = 0;
+    gp_visit_count: number = 0;
+    psy_visit_count: number = 0;
+    phy_visit_count: number = 0;
+
+    not_gp_visit_count: number = 0;
+    not_phy_psy_visit_count: number = 0;
+
+    gp_customer_count: number = 0;
+    psy_customer_count: number = 0;
+    phy_customer_count: number = 0;
+
+    not_gp_customer_count: number = 0;
+    not_phy_psy_customer_count: number = 0;
 
     constructor(info: any) {
         super(info.id);

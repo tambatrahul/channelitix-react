@@ -115,6 +115,7 @@ import {PrimarySaleService} from "./services/primary_sale.service";
 import {PrimarySaleComponent} from "./components/pages/primary_sale/index/index.component";
 import {ProductWiseComponent} from "./components/pages/primary_sale/product_wise/product_wise.component";
 import {StockistWiseComponent} from "./components/pages/primary_sale/stockist_wise/stockist_wise.component";
+import {StockistProductWiseComponent} from "./components/pages/primary_sale/stockist_product_wise/stockist_product_wise.component";
 import {InvoicesComponent} from "./components/pages/primary_sale/invoices/invoices.component";
 import {TillMonthChartComponent} from "./components/pages/dashboard/till_month_chart/till_month_chart.component";
 import {MonthlyPrimarySecondaryTargetComponent} from "./components/pages/dashboard/monthly_primary_secondary_target/monthly_primary_secondary_target.component";
@@ -247,6 +248,7 @@ import {DailySalesComponent} from './v2/pages/sales/index/index.component';
 import {SaleService} from './services/v2/sale.service';
 import {SubNameSelectComponent} from './components/form_elements/order/subname_select/subname-select-component';
 import {SubNameService} from './services/subname_service';
+import {SampleReportSelectComponent} from './components/form_elements/download/sample_report_select/sample_report_select.component';
 
 enableProdMode();
 
@@ -311,6 +313,7 @@ enableProdMode();
     SummaryDetailComponent,
     ProductWiseComponent,
     StockistWiseComponent,
+    StockistProductWiseComponent,
     StockistProductWiseHqComponent,
     InvoicesComponent,
     InvoiceDetailComponent,
@@ -442,6 +445,7 @@ enableProdMode();
     PriorityReportSelectComponent,
     CustomerReportSelectComponent,
     TargetReportSelectComponent,
+    SampleReportSelectComponent,
 
     // Abbott Stp Component
     AbbottStpComponent,

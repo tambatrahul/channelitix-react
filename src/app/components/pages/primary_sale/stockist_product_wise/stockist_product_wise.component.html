@@ -1,0 +1,63 @@
+<div class="box-widget widget-module user_tour">
+  <div class="widget-container" #loading_box>
+    <div class="widget-block">
+      <div class="table-responsive">
+        <a class="btn btn-primary btn-xs pull-right" style="margin-bottom: 5px"
+           (click)="download()" *ngIf="!btn_loading && _service.user.download_access == 1">Stockist Product Sales Excel</a>
+        <a class="btn btn-primary btn-xs pull-right" style="margin-bottom: 5px"
+           *ngIf="btn_loading"><i class="fa fa-spinner fa-spin"></i> Stockist Product Sales Excel</a>
+        <table class="table table-bordered" id="stockist_product_wise_sale1">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Code</th>
+            <th>Stockist</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Total Amount</th>
+          </tr>
+          </thead>
+
+          <tfoot>
+          <tr>
+            <th></th>
+            <th>Code</th>
+            <th>Stockist</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Total Amount</th>
+          </tr>
+          </tfoot>
+
+          <tbody>
+          <tr class="grey">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th class="">Total</th>
+            <th class="align-right"><i class="fa fa-rupee"></i> {{ total_amount | number }}</th>
+          </tr>
+          <template ngFor let-item [ngForOf]="invoice_details" let-i="index">
+            <tr>
+              <td>{{ i+1 }}</td>
+              <th class="text-center">
+                {{ item.customer?.code }}
+              </th>
+              <th>
+                {{ item.customer?.firm_name }}
+              </th>
+              <th>{{ item.product?.name }}</th>
+              <td>{{ item.total_qty | number }}</td>
+              <td><i class="fa fa-rupee"></i> {{ item.total_net_amount | number }}</td>
+            </tr>
+          </template>
+
+          </tbody>
+        </table>
+      </div>
+      <pagination [page]="page" [total]="total"
+                  (onPageChanged)="pageChanged($event)"></pagination>
+    </div>
+  </div>
+</div>
