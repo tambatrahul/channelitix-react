@@ -32,6 +32,7 @@ import {TerritorySelectComponent} from "./components/form_elements/territory/ter
 import {RegionSelectComponent} from "./components/form_elements/territory/region_select/region-select.component";
 import {DatePickerComponent} from "./components/form_elements/calendar/date_picker/date_picker.component";
 import {RoleCheckDirective} from "./directives/role.directive";
+import {OnlyRoleCheckDirective} from "./directives/only_role.directive";
 import {VisitService} from "./services/visit.service";
 import {VisitComponent} from "./components/pages/visit/index/index.component";
 import {VisitCountDirective} from "./directives/visit_count.directive";
@@ -361,6 +362,7 @@ enableProdMode();
     CustomerTypeDirective,
     StatusDirective,
     RoleCheckDirective,
+    OnlyRoleCheckDirective,
     VisitCountDirective,
     ManagerVisitCountDirective,
     OrderCountDirective,

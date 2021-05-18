@@ -55,6 +55,7 @@ export class User extends Model {
   tours: Tour[] = [];
   children: User[] = [];
   cse_count: number = 0;
+  abm_count: number = 0;
   total_target: number = 0;
   mg_total_target: number = 0;
   zsm_total_target: number = 0;

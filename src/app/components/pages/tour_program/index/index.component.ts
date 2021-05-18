@@ -143,7 +143,8 @@ export class TourComponent extends BaseMonthlyComponent {
       this._service.user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
       this._service.user.children = [];
       this._service.user.cse_count = 0;
-      zone_managers.push(this._service.user)
+      this._service.user.abm_count = 0;
+      zone_managers.push(this._service.user);
     }
 
     // if user is zone manager add it to list
@@ -168,48 +169,66 @@ export class TourComponent extends BaseMonthlyComponent {
       }
     }
 
+
+
+    for (let z of zone_managers) {
+      z.children = [];
+      for (let m of managers) {
+        if (m.manager_id == z.id) {
+          m.tours.forEach(function (tour, index) {
+            if (tour.tour_count > 0) {
+              z.tours[index].t_count += 1;
+            }
+          });
+        }
+      }
+
+    }
+
     // add to zone manager
     for (let z of zone_managers) {
       for (let m of managers) {
         if (m.manager_id == z.id) {
           z.children.push(m);
+          z.abm_count += z.children.length
           m.tours.forEach(function (tour, index) {
             z.tours[index].t_count += tour.t_count;
           });
           z.cse_count += m.children.length
+
         }
       }
     }
 
-    if (this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group') {
-      let abbott_user = new User({full_name: 'Abbott'});
-      abbott_user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
-      abbott_user.children = [];
-      abbott_user.cse_count = 0;
-      zone_managers.push(abbott_user);
-      for (let m of managers) {
-        zone_managers[0].children.push(m);
-        m.tours.forEach(function (att, index) {
-          zone_managers[0].tours[index].t_count += att.t_count;
-        });
-        zone_managers[0].cse_count += m.children.length;
-      }
-    }
+    // if (this._service.user.role_str == this.ROLE_ADMIN && this.abbott && this.environment.envName == 'sk_group') {
+    //   let abbott_user = new User({full_name: 'Abbott'});
+    //   abbott_user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
+    //   abbott_user.children = [];
+    //   abbott_user.cse_count = 0;
+    //   zone_managers.push(abbott_user);
+    //   for (let m of managers) {
+    //     zone_managers[0].children.push(m);
+    //     m.tours.forEach(function (att, index) {
+    //       zone_managers[0].tours[index].t_count += att.t_count;
+    //     });
+    //     zone_managers[0].cse_count += m.children.length;
+    //   }
+    // }
 
-    if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
-      let abbott_user = this._service.user;
-      abbott_user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
-      abbott_user.children = [];
-      abbott_user.cse_count = 0;
-      zone_managers.push(abbott_user);
-      for (let m of managers) {
-        zone_managers[0].children.push(m);
-        m.tours.forEach(function (att, index) {
-          zone_managers[0].tours[index].t_count += att.t_count;
-        });
-        zone_managers[0].cse_count += m.children.length;
-      }
-    }
+    // if (this._service.user.role_str == this.ROLE_THIRD_PARTY) {
+    //   let abbott_user = this._service.user;
+    //   abbott_user.tours = AppConstants.prepareMonthTourSkeleton(this.month, this.year, holidays);
+    //   abbott_user.children = [];
+    //   abbott_user.cse_count = 0;
+    //   zone_managers.push(abbott_user);
+    //   for (let m of managers) {
+    //     zone_managers[0].children.push(m);
+    //     m.tours.forEach(function (att, index) {
+    //       zone_managers[0].tours[index].t_count += att.t_count;
+    //     });
+    //     zone_managers[0].cse_count += m.children.length;
+    //   }
+    // }
 
     // depending on list show view
     if (zone_managers.length > 0)

@@ -32,54 +32,91 @@
 
     <!-- Tour Table -->
     <div class="row" #loading_box>
-        <div class="col-xs-12" *roleCheck="ROLE_RSM">
+        <div class="col-xs-12" *onlyRoleCheck="ROLE_RSM">
             <div class="row" *ngFor="let z of managers">
                 <div class="col-xs-12">
                     <div class="box-widget widget-module">
                         <div class="widget-head clearfix">
                             <span class="h-icon"><i class="fa fa-table"></i></span>
-                            <h4>{{ z.full_name }}</h4>
+                            <h4>{{ z.hq_region?.name }}</h4>
                         </div>
                         <div class="widget-container report-table">
                             <div class="widget-block">
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th style="min-width: 200px;">Users</th>
-                                            <th *ngIf="!compact_view">Headquarter</th>
-                                            <th *ngIf="!compact_view"></th>
-                                            <th *ngIf="compact_view">CSE Count</th>
-                                            <th *ngFor="let d of dates">
-                                                {{ d }}
-                                            </th>
-                                        </tr>
+                                            <tr>
+                                                <th style="min-width: 200px;">Users</th>
+                                                <th *ngIf="!compact_view">Region</th>
+                                                <th *ngIf="!compact_view">Area</th>
+                                                <th *ngIf="!compact_view">Headquarter</th>
+                                                <th *ngIf="!compact_view"></th>
+                                                <th *ngIf="compact_view">ABM Count</th>
+                                                <th *ngIf="compact_view">CSE Count</th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
                                         </thead>
 
                                         <tfoot>
-                                        <tr>
-                                            <th>Users</th>
-                                            <th *ngIf="!compact_view">Headquarter</th>
-                                            <th *ngIf="!compact_view"></th>
-                                            <th *ngIf="compact_view">CSE Count</th>
-                                            <th *ngFor="let d of dates">
-                                                {{ d }}
-                                            </th>
-                                        </tr>
+                                            <tr>
+                                                <th style="min-width: 200px;">Users</th>
+                                                <th *ngIf="!compact_view">Region</th>
+                                                <th *ngIf="!compact_view">Area</th>
+                                                <th *ngIf="!compact_view">Headquarter</th>
+                                                <th *ngIf="!compact_view"></th>
+                                                <th *ngIf="compact_view">ABM Count</th>
+                                                <th *ngIf="compact_view">CSE Count</th>
+                                                <th *ngFor="let d of dates">
+                                                    {{ d }}
+                                                </th>
+                                            </tr>
                                         </tfoot>
 
                                         <tbody *ngIf="!compact_view">
+                                            <!-- <tr>
+                                                <td>
+                                                    <a (click)="showAllTourForUser(z)">{{ z.full_name }}</a>
+                                                    <strong>&nbsp;RBM</strong>
+                                                </td>
+                                                <td>{{ z.hq_region?.name }}</td>
+                                                <td>{{ z.hq_area?.name }}</td>
+                                                <td>{{ z.hq_headquarter?.name }}</td>
+                                                <td>
+                                                    <i status [field]="z.status"></i>
+                                                </td>
+                                                <td *ngFor="let tour of z.tours" tourCount [tour]="tour"
+                                                    (click)="showTours(tour, z)"></td>
+                                            </tr> -->
+
                                         <template ngFor let-mg [ngForOf]="z.children">
                                             <tr>
                                                 <td [colSpan]="mg.children[0]?.tours.length + 2"
                                                     class="text-center">
-                                                    <strong>{{ mg.full_name }}</strong>
+                                                    <strong>{{ mg.hq_area?.name }}</strong>
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a (click)="showAllTourForUser(mg)">{{ mg.full_name }}</a>
+                                                    <strong>&nbsp;ABM</strong>
+                                                </td>
+                                                <td>{{ mg.hq_region?.name }}</td>
+                                                <td>{{ mg.hq_area?.name }}</td>
+                                                <td>{{ mg.hq_headquarter?.name }}</td>
+                                                <td>
+                                                    <i status [field]="mg.status"></i>
+                                                </td>
+                                                <td *ngFor="let tour of mg.tours" tourCount [tour]="tour"
+                                                    (click)="showTours(tour, mg)"></td>
                                             </tr>
                                             <tr *ngFor="let user of mg.children">
                                                 <td>
                                                     <a (click)="showAllTourForUser(user)">{{ user.full_name }}</a>
                                                 </td>
+                                                <td>{{ user.hq_region?.name }}</td>
+                                                <td>{{ user.hq_area?.name }}</td>
                                                 <td>{{ user.hq_headquarter?.name }}</td>
                                                 <td>
                                                     <i status [field]="user.status"></i>
@@ -90,8 +127,196 @@
                                         </template>
                                         </tbody>
                                         <tbody *ngIf="compact_view">
+                                            <tr>
+                                                <td><strong>{{ z.full_name }} </strong></td>
+                                                <td>{{ z.children.length }}</td>
+                                                <td></td>
+                                                <td *ngFor="let tour of z.tours"
+                                                        [ngClass]="{'green': z.children.length == tour.t_count}">
+                                                    <span *ngIf="tour.t_count > 0">
+                                                        {{ tour.t_count }}
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="100%">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Total CSE</strong></td>
+                                                <td></td>
+                                                <td>{{ z.cse_count }}</td>
+                                                <td *ngFor="let tour of z.tours"
+                                                    [ngClass]="{'green': z.cse_count == tour.t_count}">
+                                                    <span *ngIf="tour.t_count > 0">
+                                                        {{ tour.t_count }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <template ngFor let-mg [ngForOf]="z.children">
+
+                                                <tr>
+                                                    <td><strong>{{ mg.full_name }} &nbsp;-&nbsp;ABM</strong></td>
+
+                                                    <td></td>
+                                                    <td>{{ mg.children.length }}</td>
+                                                    <td *ngFor="let tour of mg.tours"
+                                                        [ngClass]="{'green': mg.children.length== tour.t_count}">
+                                                    <span *ngIf="tour.t_count > 0">
+                                                        {{ tour.t_count }}
+                                                    </span>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngFor="let user of mg.children">
+                                                    <td>
+                                                        {{ user.full_name }}
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td *ngFor="let tour of user.tours"
+                                                        [ngClass]="{'green': tour.tour_count}">
+                                                    <span *ngIf="tour.tour_count > 0">
+                                                        {{ tour.tour_count }}
+                                                    </span>
+                                                </tr>
+
+                                            </template>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12" *roleCheck="ROLE_ZSM">
+            <div class="row" *ngFor="let z of managers">
+                <div class="col-xs-12">
+                    <div class="box-widget widget-module">
+                        <div class="widget-head clearfix">
+                            <span class="h-icon"><i class="fa fa-table"></i></span>
+                            <h4>{{ z.hq_region?.name }}</h4>
+                        </div>
+                        <div class="widget-container report-table">
+                            <div class="widget-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th style="min-width: 200px;">Users</th>
+                                            <th *ngIf="!compact_view">Region</th>
+                                            <th *ngIf="!compact_view">Area</th>
+                                            <th *ngIf="!compact_view">Headquarter</th>
+                                            <th *ngIf="!compact_view"></th>
+                                            <th *ngIf="compact_view">ABM Count</th>
+                                            <th *ngIf="compact_view">CSE Count</th>
+                                            <th *ngFor="let d of dates">
+                                                {{ d }}
+                                            </th>
+                                        </tr>
+                                        </thead>
+
+                                        <tfoot>
+                                        <tr>
+                                            <th>Users</th>
+                                            <th *ngIf="!compact_view">Region</th>
+                                            <th *ngIf="!compact_view">Area</th>
+                                            <th *ngIf="!compact_view">Headquarter</th>
+                                            <th *ngIf="!compact_view"></th>
+                                            <th *ngIf="compact_view">ABM Count</th>
+                                            <th *ngIf="compact_view">CSE Count</th>
+                                            <th *ngFor="let d of dates">
+                                                {{ d }}
+                                            </th>
+                                        </tr>
+                                        </tfoot>
+
+                                        <tbody *ngIf="!compact_view">
+                                            <tr>
+                                                <td>
+                                                    <a (click)="showAllTourForUser(z)">{{ z.full_name }}</a>
+                                                    <strong>&nbsp;RBM</strong>
+                                                </td>
+                                                <td>{{ z.hq_region?.name }}</td>
+                                                <td>{{ z.hq_area?.name }}</td>
+                                                <td>{{ z.hq_headquarter?.name }}</td>
+                                                <td>
+                                                    <i status [field]="z.status"></i>
+                                                </td>
+                                                <td *ngFor="let tour of z.tours" tourCount [tour]="tour"
+                                                    (click)="showTours(tour, z)"></td>
+                                            </tr>
+
+                                        <template ngFor let-mg [ngForOf]="z.children">
+                                            <tr>
+                                                <td [colSpan]="mg.children[0]?.tours.length + 2"
+                                                    class="text-center">
+                                                    <strong>{{ mg.hq_area?.name }}</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a (click)="showAllTourForUser(mg)">{{ mg.full_name }}</a>
+                                                    <strong>&nbsp;ABM</strong>
+                                                </td>
+                                                <td>{{ mg.hq_region?.name }}</td>
+                                                <td>{{ mg.hq_area?.name }}</td>
+                                                <td>{{ mg.hq_headquarter?.name }}</td>
+                                                <td>
+                                                    <i status [field]="mg.status"></i>
+                                                </td>
+                                                <td *ngFor="let tour of mg.tours" tourCount [tour]="tour"
+                                                    (click)="showTours(tour, mg)"></td>
+                                            </tr>
+                                            <tr *ngFor="let user of mg.children">
+                                                <td>
+                                                    <a (click)="showAllTourForUser(user)">{{ user.full_name }}</a>
+                                                </td>
+                                                <td>{{ user.hq_region?.name }}</td>
+                                                <td>{{ user.hq_area?.name }}</td>
+                                                <td>{{ user.hq_headquarter?.name }}</td>
+                                                <td>
+                                                    <i status [field]="user.status"></i>
+                                                </td>
+                                                <td *ngFor="let tour of user.tours" tourCount [tour]="tour"
+                                                    (click)="showTours(tour, user)"></td>
+                                            </tr>
+                                        </template>
+                                        </tbody>
+                                        <tbody *ngIf="compact_view">
+                                        <!-- <tr>
+                                            <td><strong>Total ABM</strong></td>
+                                            <td>{{ z.abm_count }}</td>
+                                            <td></td>
+                                            <td *ngFor="let tour of z.tours"
+                                                [ngClass]="{'green': z.abm_count == tour.t_count}">
+                                                <span *ngIf="tour.t_count > 0">
+                                                    {{ tour.t_count }}
+                                                </span>
+                                            </td>
+                                        </tr> -->
+                                        <tr>
+                                            <td><strong>{{ z.full_name }} </strong></td>
+                                            <td>{{ z.children.length }}</td>
+                                            <td></td>
+                                            <td *ngFor="let tour of z.tours"
+                                                    [ngClass]="{'green': z.children.length == tour.t_count}">
+                                                <span *ngIf="tour.t_count > 0">
+                                                    {{ tour.t_count }}
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="100%">&nbsp;</td>
+                                        </tr>
                                         <tr>
                                             <td><strong>Total CSE</strong></td>
+                                            <td></td>
                                             <td>{{ z.cse_count }}</td>
                                             <td *ngFor="let tour of z.tours"
                                                 [ngClass]="{'green': z.cse_count == tour.t_count}">
@@ -101,8 +326,11 @@
                                             </td>
                                         </tr>
                                         <template ngFor let-mg [ngForOf]="z.children">
+
                                             <tr>
-                                                <td><strong>{{ mg.full_name }}</strong></td>
+                                                <td><strong>{{ mg.full_name }} &nbsp;-&nbsp;ABM</strong></td>
+
+                                                <td></td>
                                                 <td>{{ mg.children.length }}</td>
                                                 <td *ngFor="let tour of mg.tours"
                                                     [ngClass]="{'green': mg.children.length== tour.t_count}">
@@ -111,6 +339,19 @@
                                                 </span>
                                                 </td>
                                             </tr>
+                                            <tr *ngFor="let user of mg.children">
+                                                <td>
+                                                    {{ user.full_name }}
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td *ngFor="let tour of user.tours"
+                                                    [ngClass]="{'green': tour.tour_count}">
+                                                <span *ngIf="tour.tour_count > 0">
+                                                    {{ tour.tour_count }}
+                                                </span>
+                                            </tr>
+
                                         </template>
 
                                         </tbody>
@@ -122,6 +363,11 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
         <div class="col-xs-12" *ngIf="_service.user.isArea">
             <div class="row" *ngFor="let z of managers">
                 <div class="col-xs-12">
