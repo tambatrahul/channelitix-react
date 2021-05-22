@@ -39,6 +39,8 @@ export class HQWiseVisitComponent extends ListComponent {
     public month: number;
     public year: number;
      zone_id: number = 0;
+     department_id: number = 0;
+     training_id: number= 0;
     /**
      * User Component Constructor
      */
@@ -130,21 +132,84 @@ export class HQWiseVisitComponent extends ListComponent {
                         if (vis.hq_headquarter_id == headquarter.id) {
                             headquarter.customer_types.map(ct => {
                                 ct.grades.map(grade => {
-                                    if (grade.id == vis.grade_id)
-                                        grade.visit_count = vis.visit_count
+                                    if (grade.id == vis.grade_id) {
+                                            grade.visit_count += vis.visit_count;
+                                    }
+
+                                    // if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Practitioner'){
+                                    //         grade.gp_visit_count += vis.visit_count;
+                                    //     }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Physician' && vis.customer_type_id == 5) {
+                                            grade.phy_visit_count += vis.visit_count;
+                                        }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'Psychiatrist' && vis.customer_type_id == 5) {
+                                            grade.psy_visit_count += vis.visit_count;
+                                        }
+
+                                    // if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Practitioner' && vis.customer_type_id == 5) {
+                                    //         grade.not_gp_visit_count += vis.visit_count;
+                                    //     }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Physician' && vis.doctor_speciality != 'Psychiatrist' && vis.customer_type_id == 5) {
+                                            grade.not_phy_psy_visit_count += vis.visit_count;
+                                        }
+
                                 });
                             });
 
                             area.customer_types.map(ct => {
                                 ct.grades.map(grade => {
                                     if (grade.id == vis.grade_id)
-                                        grade.visit_count += vis.visit_count
+                                        grade.visit_count += vis.visit_count;
+
+                                    // if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Practitioner'){
+                                    //     grade.gp_visit_count += vis.visit_count;
+                                    // }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Physician' && vis.customer_type_id == 5){
+                                        grade.phy_visit_count += vis.visit_count;
+                                    }
+
+                                    // if (grade.id == vis.grade_id && vis.doctor_speciality == 'Psychiatrist' && vis.customer_type_id == 5){
+                                    //     grade.psy_visit_count += vis.visit_count;
+                                    // }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Practitioner' && vis.customer_type_id == 5) {
+                                        grade.not_gp_visit_count += vis.visit_count;
+                                    }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Physician' && vis.doctor_speciality != 'Psychiatrist' && vis.customer_type_id == 5){
+                                        grade.not_phy_psy_visit_count += vis.visit_count;
+                                    }
                                 });
                             });
                             region.customer_types.map(ct => {
                                 ct.grades.map(grade => {
                                     if (grade.id == vis.grade_id)
-                                        grade.visit_count += vis.visit_count
+                                        grade.visit_count += vis.visit_count;
+
+                                    // if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Practitioner'){
+                                    //     grade.gp_visit_count += vis.visit_count;
+                                    // }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Physician' && vis.customer_type_id == 5){
+                                        grade.phy_visit_count += vis.visit_count;
+                                    }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'Psychiatrist' && vis.customer_type_id == 5){
+                                        grade.psy_visit_count += vis.visit_count;
+                                    }
+
+                                    // if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Practitioner' && vis.customer_type_id == 5) {
+                                    //     grade.not_gp_visit_count += vis.visit_count;
+                                    // }
+
+                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Physician' && vis.doctor_speciality != 'Psychiatrist' && vis.customer_type_id == 5){
+                                        grade.not_phy_psy_visit_count += vis.visit_count;
+                                    }
+
                                 });
                             });
                         }
@@ -155,19 +220,84 @@ export class HQWiseVisitComponent extends ListComponent {
                             headquarter.customer_types.map(ct => {
                                 ct.grades.map(grade => {
                                     if (grade.id == cus.grade_id)
-                                        grade.customer_count = cus.visit_count
+                                        grade.customer_count += cus.visit_count;
+
+                                    // if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Practitioner' && cus.customer_type_id == 5 ) {
+                                    //     grade.gp_customer_count +=cus.visit_count;
+                                    // }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Physician' && cus.customer_type_id == 5 ) {
+                                        grade.phy_customer_count +=cus.visit_count;
+                                    }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'Psychiatrist' && cus.customer_type_id == 5 ) {
+                                        grade.psy_customer_count +=cus.visit_count;
+                                    }
+
+                                    // if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Practitioner' && cus.customer_type_id == 5 ) {
+                                    //     grade.not_gp_customer_count +=cus.visit_count;
+
+                                    // }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Physician' && cus.doctor_speciality != 'Psychiatrist'  && cus.customer_type_id == 5){
+                                        grade.not_phy_psy_customer_count += cus.visit_count;
+                                    }
+
+
                                 });
                             });
                             area.customer_types.map(ct => {
                                 ct.grades.map(grade => {
                                     if (grade.id == cus.grade_id)
-                                        grade.customer_count += cus.visit_count
+                                        grade.customer_count += cus.visit_count;
+
+                                    // if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Practitioner' && cus.customer_type_id == 5 ) {
+                                    //     grade.gp_customer_count +=cus.visit_count;
+                                    // }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Physician' && cus.customer_type_id == 5 ) {
+                                        grade.phy_customer_count +=cus.visit_count;
+                                    }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'Psychiatrist' && cus.customer_type_id == 5 ) {
+                                        grade.psy_customer_count +=cus.visit_count;
+                                    }
+
+                                    // if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Practitioner' && cus.customer_type_id == 5 ) {
+                                    //     grade.not_gp_customer_count +=cus.visit_count;
+
+                                    // }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Physician' && cus.doctor_speciality != 'Psychiatrist'  && cus.customer_type_id == 5){
+                                        grade.not_phy_psy_customer_count += cus.visit_count;
+                                    }
+
                                 });
                             });
                             region.customer_types.map(ct => {
                                 ct.grades.map(grade => {
                                     if (grade.id == cus.grade_id)
                                         grade.customer_count += cus.visit_count
+
+                                    // if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Practitioner' && cus.customer_type_id == 5 ) {
+                                    //     grade.gp_customer_count +=cus.visit_count;
+                                    // }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Physician' && cus.customer_type_id == 5 ) {
+                                        grade.phy_customer_count +=cus.visit_count;
+                                    }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'Psychiatrist' && cus.customer_type_id == 5 ) {
+                                        grade.psy_customer_count +=cus.visit_count;
+                                    }
+
+                                    // if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Practitioner' && cus.customer_type_id == 5 ) {
+                                    //     grade.not_gp_customer_count +=cus.visit_count;
+                                    // }
+
+                                    if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Physician' && cus.doctor_speciality != 'Psychiatrist'  && cus.customer_type_id == 5){
+                                        grade.not_phy_psy_customer_count += cus.visit_count;
+                                    }
                                 });
                             });
                         }

@@ -150,7 +150,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
               headquarter.customer_types.map(ct => {
                 ct.grades.map(grade => {
                   if (grade.id == vis.grade_id)
-                    grade.visit_count = vis.visit_count
+                    grade.visit_count += vis.visit_count
                 });
               });
               area.customer_types.map(ct => {
@@ -173,7 +173,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
               headquarter.customer_types.map(ct => {
                 ct.grades.map(grade => {
                   if (grade.id == cus.grade_id)
-                    grade.customer_count = cus.visit_count
+                    grade.customer_count += cus.visit_count
                 });
               });
               area.customer_types.map(ct => {
