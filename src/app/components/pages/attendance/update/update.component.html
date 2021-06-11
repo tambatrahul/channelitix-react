@@ -3,7 +3,7 @@
         <span class="h-icon"><i class="fa fa-bars"></i></span>
         <h4 *ngIf="!edit">Attendance for {{ _date }}</h4>
         <h4 *ngIf="edit">Update Attendance for {{ _date }}</h4>
-        <h4 *ngIf="_attendance.reporting_status == 'closed' && _attendance.work_type?.id == 2">
+        <h4 *ngIf="_attendance.reporting_status == 'closed' && _attendance.work_type?.type == 'Field Work'">
             <a (click)="viewReport()" class="btn btn-primary btn-xs">View Report</a>
         </h4>
     </div>
@@ -63,7 +63,7 @@
                         {{ errors.work_type_ids }}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-6 form-group" *ngIf="work_type_id == 2">
+                <div class="col-xs-12 col-md-6 form-group" *ngIf="(work_type_id == 2 || work_type_id == 10)">
                     <div *ngIf="working_withs.length > 0">
                         <label>Working With</label>
                         <div style="min-height: 50px;">

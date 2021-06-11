@@ -1,7 +1,7 @@
-<div class="container-fluid visits" #loading_box>
+<div class="container-fluid sales" #loading_box>
 
   <!-- Page Breadcrumb -->
-  <div class="page-breadcrumb">
+  <div class="page-breadcrumb" style="padding-left: 15px">
     <div class="row">
       <div class="col-md-7">
         <div class="page-breadcrumb-wrap">
@@ -22,29 +22,49 @@
   <!-- Page Breadcrumb -->
 
   <!-- Filters for Visit report-->
-  <div class="row">
-    <div class="col-xs-12 col-md-3">
-      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+  <div class="row" style="padding-left: 15px" >
+<!--    <div class="col-xs-12 col-md-3">-->
+<!--      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>-->
+<!--    </div>-->
+    <div class="col-xs-12 col-md-2" >
+      <brand-select [value]="brand_id" [department_id]="department_id"  [title]="'Select Brand'"
+                    [first_value]="'All'" (onValueChanged)="brandChanged($event)" style="margin-bottom: 10%;"></brand-select>
     </div>
-    <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">
-      <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
-                         (onValueChanged)="departmentChanged($event)"></department-select>
-    </div>
-    <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+<!--    <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">-->
+<!--      <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"-->
+<!--                         (onValueChanged)="departmentChanged($event)"></department-select>-->
+<!--    </div>-->
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
       <zone-select [value]="zone_id"
                             (onValueChanged)="zoneChanged($event)"></zone-select>
     </div>
-  </div>
-  <!-- ./Filters for Visit report-->
 
-  <!-- Attendance Table -->
-  <div class="row">
-    <div class="col-xs-12" *roleCheck="ROLE_RSM">
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+      <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'" [first_value]="'All'" (onValueChanged)="regionChanged($event)"></region-select>
+    </div>
+
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
+      <div *ngIf="region_id > 0">
+        <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" (onValueChanged)="areaChanged($event)"></area-select>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+      <div *ngIf="area_id > 0">
+        <headquarter-select [value]="headquarter_id" [area_id]="area_id" [title]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+      </div>
+    </div>
+  </div>
+  <!-- ./Filters for sales report-->
+
+  <!-- sales Table -->
+  <div class="row" style="margin-top: 5% ; padding-left: 0%;">
+    <div class="col-xs-12" *roleCheck="ROLE_CSM">
         <div class="col-xs-12">
           <div class="box-widget widget-module">
             <div class="widget-head clearfix">
               <span class="h-icon"><i class="fa fa-table"></i></span>
-              <h4><strong>Manish</strong></h4>
+              <h4><strong>Target & Sales Achievement %</strong></h4>
             </div>
             <div>
               <div class="widget-container report-table">
@@ -54,7 +74,9 @@
                       <thead>
                       <tr style="background-color: #3498db;color: white">
                         <th style="min-width: 100px;">Month Year</th>
-                        <th>Total Target</th>
+                        <th>Total Target (Lakhs)</th>
+                        <th>Total Sales (Lakhs)</th>
+                        <th>Achievement %</th>
                         <th *ngFor="let d of dates">
                           {{ d }}
                         </th>
@@ -63,22 +85,50 @@
 
                       <tfoot>
                       <tr style="background-color: #3498db;color: white">
-                        <th style="min-width: 100px;">Month Year</th>
-                        <th>Total Target</th>
-                        <th *ngFor="let d of dates">
+                        <th class="text-center" style="min-width: 100px;">Month Year</th>
+                        <th class="text-center" >Total Target (Lakhs)</th>
+                        <th class="text-center" >Total Sales (Lakhs)</th>
+                        <th class="text-center" >Achievement %</th>
+                        <th class="text-center" *ngFor="let d of dates">
                           {{ d }}
                         </th>
                       </tr>
                       </tfoot>
                       <tbody>
-                        <tr>
-                          <td>Dec 20</td>
-                          <td>50000</td>
-                          <td>1200</td>
+                      <template class="text-center" ngFor let-sales [ngForOf]="sales_data">
+                      <tr>
+                          <td class="text-center">{{ sales.month_year }}</td>
+                          <td class="text-center">{{ (sales.target / 100000 ).toFixed(0) | number  }}</td>
+                          <td class="text-center">{{ (sales.total_sales / 100000 ).toFixed(0) | number  }}</td>
+                          <td class="text-center" *ngIf="sales.achievement >= 100" style="background-color:#ffa31a; color: #000">{{ (sales.achievement ).toFixed(2) | number  }}</td>
+                          <td class="text-center" *ngIf="sales.achievement < 100">{{ (sales.achievement ).toFixed(2) | number  }}</td>
+                        <template class="text-center" ngFor let-day [ngForOf]="sales.days">
+                        <td salesStatus [sale_value] = "day.sales"  [prv_day_sales] = "day.prv_day_sales"
+                            [actual_sales] = "day.actual_sales">
+                            {{ (sales.target > 0 ? ( day.sales / sales.target ) * 100 : 0).toFixed(2)}}
+                        </td>
+                        </template>
                         </tr>
-
+                      </template>
                       </tbody>
                     </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="widget-container" style="padding: 10px;">
+              <div class="widget-block">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <span class="label growth">&nbsp;</span>&nbsp;
+                    <small>Sales Growth Increase</small>
+                    &nbsp;&nbsp;
+                    <span class="label non_growth">&nbsp;</span>&nbsp;
+                    <small>Sales Growth Not-Increase</small>
+                    &nbsp;&nbsp;
+                    <span class="label achievement">&nbsp;</span>&nbsp;
+                    <small>Achievement 100%</small>
+                    &nbsp;&nbsp;
                   </div>
                 </div>
               </div>
@@ -87,5 +137,5 @@
         </div>
       </div>
     </div>
-    <!-- ./Attendance Table -->
+    <!-- ./Sales Table -->
   </div>

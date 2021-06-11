@@ -29,16 +29,18 @@ export class SaleService extends V2BaseService {
   /**
    * get daily sales data for user
    */
-  daily_sales(): Observable<Result> {
+  daily_sales(zone_id?: number, region_id?: number, area_id?: number, headquarter_id?: number, brand_id?: number): Observable<Result> {
 
     // prepare url
-    let url = this.getBaseUrl() + '/fetchDayWiseYearsPerformance/';
+    let url = this.getBaseUrl() + '/fetchDayWiseYearsPerformance';
 
     // prepare get params
     let params = new URLSearchParams();
-    // params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
-    // params.set('region_id', String(region_id > 0 ? region_id : ''));
-    // params.set('area_id', String(area_id > 0 ? area_id : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('region_id', String(region_id > 0 ? region_id : ''));
+    params.set('area_id', String(area_id > 0 ? area_id : ''));
+    params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+    params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));

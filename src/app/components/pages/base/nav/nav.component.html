@@ -242,6 +242,12 @@
             </li>
           </ul>
         </li>
+        <li *ngIf="(environment.envName == 'sk_group' || environment.envName == 'geo') ">
+          <a class="waves-effect" routerLink="/v2/daily_sales" *roleCheck="ROLE_CSM">
+            <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+            <span class="nav-label">Daily Sales Report</span>
+          </a>
+        </li>
         <li *roleCheck="ROLE_ADMIN">
           <a class="waves-effect" routerLink="/download" *ngIf="_auth_service.user.download_access == 1">
             <span class="nav-icon"><i class="fa fa-download"></i></span>

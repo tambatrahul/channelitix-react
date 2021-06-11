@@ -86,6 +86,7 @@ import {UserExpenseComponent} from './components/pages/expense/for_user/index/in
 import {ExpenseComponent} from './components/pages/expense/admin/index/index.component';
 import {SupportComponent} from './components/pages/support/index.component';
 import { DownloadComponent } from './components/pages/download/download.component';
+import {DailySalesComponent} from './v2/pages/sales/index/index.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -576,6 +577,12 @@ export const routes: Routes = [
       children: [{
         path: '',
         component: CustomerListComponent
+      }]
+    },{
+      path: 'daily_sales',
+      children: [{
+        path: '',
+        component: DailySalesComponent
       }]
     }]
   },
