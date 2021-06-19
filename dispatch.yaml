@@ -35,3 +35,6 @@ dispatch:
 
   - url: "maxx.channelitix.com/*"
     service: maxx-frontend
+
+  - url: "cimune.channelitix.com/*"
+    service: cimune-frontend

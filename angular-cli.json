@@ -73,7 +73,9 @@
         "sk_prod": "environments/environment.sk_prod.ts",
         "sk_dev": "environments/environment.sk_dev.ts",
         "afd_prod": "environments/environment.afd_prod.ts",
-        "vikrant": "environments/environment.vikrant.ts"
+        "vikrant": "environments/environment.vikrant.ts",
+        "vikrant2": "environments/environment.vikrant2.ts",
+        "cimune": "environments/environment.cimune.ts"
       }
     }
   ],

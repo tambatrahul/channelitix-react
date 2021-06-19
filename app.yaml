@@ -8,6 +8,8 @@ service: aspira-frontend
 #service: pfizer-territory
 #service: jbcpl-frontend
 #service: maxx-frontend
+#service: vikrant-frontend
+#service: cimune-frontend
 runtime: python27
 threadsafe: yes
 # [END runtime]
