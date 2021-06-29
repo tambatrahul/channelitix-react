@@ -38,3 +38,6 @@ dispatch:
 
   - url: "cimune.channelitix.com/*"
     service: cimune-frontend
+
+  - url: "training.channelitix.com/*"
+    service: training-channelitix
