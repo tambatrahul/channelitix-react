@@ -19,6 +19,9 @@ export class Target extends Model {
     hq_headquarter: Headquarter;
     sub_name: string;
 
+    brand_name: string;
+    brand_sub_name: string;
+
     constructor(info: any) {
         super(info.id);
         this.product_id = info.product_id;
@@ -45,5 +48,8 @@ export class Target extends Model {
 
         if (info.brand_id)
             this.brand_id = parseInt(info.brand_id);
+
+        if (info.brand_sub_name)
+            this.brand_sub_name = info.brand_sub_name;
     }
 }

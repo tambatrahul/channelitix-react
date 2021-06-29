@@ -24,6 +24,9 @@ export class Order extends Model {
   delivered_by_user: Customer;
   delivered_by_synergy_user: Customer;
 
+  brand_name: string;
+  brand_sub_name: string;
+
   // for internal use only
   isSunday: boolean = false;
   order_total_count: number = 0;
@@ -46,6 +49,7 @@ export class Order extends Model {
   order_count: number = 0;
   customer_type_id: number = 0;
   brand_id: number = 0;
+  distinct_order_count: number =0;
 
   constructor(info: any) {
     super(info.id);
@@ -57,6 +61,7 @@ export class Order extends Model {
     this.delivered_by = info.delivered_by;
     this.delivered_by_synergy = info.delivered_by_synergy;
     this.product_id = info.product_id;
+
 
     if (info.unit_price)
       this.unit_price = parseFloat(info.unit_price);
@@ -113,6 +118,9 @@ export class Order extends Model {
     if (info.order_month)
       this.order_month = parseInt(info.order_month);
 
+    if (info.distinct_order_count)
+      this.distinct_order_count = parseInt(info.distinct_order_count);
+
     if (info.order_count)
       this.order_count = parseInt(info.order_count);
 
@@ -121,6 +129,9 @@ export class Order extends Model {
 
     if (info.brand_id)
       this.brand_id = parseInt(info.brand_id);
+
+    if (info.brand_sub_name)
+      this.brand_sub_name = info.brand_sub_name;
 
     this.hq_brick_id = info.hq_brick_id;
   }

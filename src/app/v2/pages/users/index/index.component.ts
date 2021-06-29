@@ -51,6 +51,11 @@ export class UserComponent extends ListComponent {
   public deleting_report: User = new User({});
 
   /**
+   * trigger training mail to user
+   */
+  public training_report: User = new User({});
+
+  /**
    * Resetting User Password
    */
   public reset_password: User = new User({});
@@ -160,12 +165,28 @@ export class UserComponent extends ListComponent {
   }
 
   /**
+   *
+   */
+  trainingSelect(user) {
+    this.training_report = user;
+  }
+
+  /**
    * on user deactivation
    *
    * @param data
    */
   onReportDeletion(data) {
     this.deleting_report = new User({});
+    this.fetch();
+  }
+
+  /**
+   *
+   * @param data
+   */
+  onTrainingSelect(data) {
+    this.training_report = new User({});
     this.fetch();
   }
 

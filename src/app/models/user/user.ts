@@ -16,6 +16,9 @@ export class User extends Model {
   mobile: string;
   username: string;
   password: string;
+  official_email: string;
+  managerOfficialEmail: string;
+  email: string;
   joining_date: string;
   leaving_date: string;
   status: string;
@@ -73,6 +76,9 @@ export class User extends Model {
     this.emp_code = info.emp_code;
     this.mobile = info.mobile;
     this.username = info.username;
+    this.official_email = info.official_email;
+    this.managerOfficialEmail = info.managerOfficialEmail;
+    this.email = info.email;
     this.password = info.password;
     this.joining_date = info.joining_date;
     this.leaving_date = info.leaving_date;

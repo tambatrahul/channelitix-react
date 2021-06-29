@@ -41,6 +41,7 @@ import {Expense} from './expense/expense';
 import {DoctorType} from './customer/doctor_type';
 import {CustomerQualification} from './customer/customer_qualification';
 import {Department} from './user/department';
+import {UserTraining} from './user/user_training';
 import {Stockist} from './download/stockist';
 import {BrickDownload} from './download/brick_download';
 import {HeadquaterDownload} from './download/headquater_download';
@@ -167,6 +168,7 @@ export class Result {
   brands: Brand[] = [];
   subname: SubName[] = [];
   departments: Department[] = [];
+  trainings: UserTraining[] = [];
 
   // priorities
   priorities: Priority[] = [];

@@ -9,6 +9,7 @@ export class Grade extends Model {
     // for internal user only
     customer_count: number = 0;
     visit_count: number = 0;
+    all_visit_count: number = 0;
     gp_visit_count: number = 0;
     psy_visit_count: number = 0;
     phy_visit_count: number = 0;
@@ -31,5 +32,7 @@ export class Grade extends Model {
             this.customer_count = parseInt(info.customer_count);
         if (info.visit_count)
             this.visit_count = parseInt(info.visit_count);
+        if (info.all_visit_count)
+            this.all_visit_count = parseInt(info.all_visit_count);
     }
 }

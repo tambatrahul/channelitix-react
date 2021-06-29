@@ -458,7 +458,7 @@ export class ReportService extends BaseService {
     // prepare get params
     let params = new URLSearchParams();
     params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
-    return this.get(this.getBaseUrl() + '/hq_wise_visits/' + month + "/" + year, new RequestOptions({search: params}));
+    return this.get(this.getBaseUrl() + '/hq-wise-visits/' + month + "/" + year, new RequestOptions({search: params}));
   }
 
   /**

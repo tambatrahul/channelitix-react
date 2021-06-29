@@ -53,6 +53,12 @@ export class ExecutiveSummaryComponent extends ListComponent {
   }
 
   /**
+     * Customer Coverage view flag
+     * @type {boolean}
+     */
+   public coverage_view: boolean = true;
+
+  /**
    * on load of call fetch
    */
   ngOnInit() {
@@ -114,13 +120,12 @@ export class ExecutiveSummaryComponent extends ListComponent {
         let visits = data[0].visits.map(vis => new Visit(vis));
         let attendances = data[0].attendances.map(att => new Attendance(att));
 
-        // get all visits and map it to visits and attendances
-        let all_visits = data[1].all_visits.map(vis => new Visit(vis));
-        this.mapAttendances(attendances, visits, all_visits);
+        this.mapAttendances(attendances, visits);
 
         // prepare customers
         let customers = data[1].customers.map(cus => new Customer(cus));
         let visit_counts = data[1].visits.map(visit => new Visit(visit));
+
 
         // get v2 and v3 visits
         let v2_v3_visits = data[1].v2_v3_visits.map(visit => new Visit(visit));
@@ -150,19 +155,42 @@ export class ExecutiveSummaryComponent extends ListComponent {
               headquarter.customer_types.map(ct => {
                 ct.grades.map(grade => {
                   if (grade.id == vis.grade_id)
-                    grade.visit_count += vis.visit_count
+                    grade.visit_count += vis.visit_count;
                 });
               });
               area.customer_types.map(ct => {
                 ct.grades.map(grade => {
                   if (grade.id == vis.grade_id)
-                    grade.visit_count += vis.visit_count
+                    grade.visit_count += vis.visit_count;
                 });
               });
               region.customer_types.map(ct => {
                 ct.grades.map(grade => {
                   if (grade.id == vis.grade_id)
-                    grade.visit_count += vis.visit_count
+                    grade.visit_count += vis.visit_count;
+                });
+              });
+            }
+          });
+
+          visits.map(vis => {
+            if (vis.hq_headquarter_id == headquarter.id) {
+              headquarter.customer_types.map(ct => {
+                ct.grades.map(grade => {
+                  if (grade.id == vis.grade_id)
+                    grade.all_visit_count += vis.all_visit_count;
+                });
+              });
+              area.customer_types.map(ct => {
+                ct.grades.map(grade => {
+                  if (grade.id == vis.grade_id)
+                    grade.all_visit_count += vis.all_visit_count;
+                });
+              });
+              region.customer_types.map(ct => {
+                ct.grades.map(grade => {
+                  if (grade.id == vis.grade_id)
+                    grade.all_visit_count += vis.all_visit_count;
                 });
               });
             }
@@ -221,7 +249,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
         area.headquarters.map(headquarter => {
           targets.map(target => {
             if (target.hq_headquarter_id == headquarter.id) {
-              headquarter.target = target.total_target ? target.total_target : 0;
+              headquarter.target += target.total_target ? target.total_target : 0;
               area.target += target.total_target ? target.total_target : 0;
               region.target += target.total_target ? target.total_target : 0;
             }
@@ -229,9 +257,19 @@ export class ExecutiveSummaryComponent extends ListComponent {
 
           skinlite_targets.map(target => {
             if (target.hq_headquarter_id == headquarter.id) {
-              headquarter.skinlite_target = target.total_target ? target.total_target : 0;
-              area.skinlite_target += target.total_target ? target.total_target : 0;
-              region.skinlite_target += target.total_target ? target.total_target : 0;
+              if (target.brand_sub_name == 'Gelusil') {
+                headquarter.gelusil_target += target.total_target ? target.total_target : 0;
+                area.gelusil_target += target.total_target ? target.total_target : 0;
+                region.gelusil_target += target.total_target ? target.total_target : 0;
+              }
+            }
+
+            if (target.hq_headquarter_id == headquarter.id) {
+              if (target.brand_sub_name == 'Becosule') {
+                headquarter.becosules_target += target.total_target ? target.total_target : 0;
+                area.becosules_target += target.total_target ? target.total_target : 0;
+                region.becosules_target += target.total_target ? target.total_target : 0;
+              }
             }
           });
 
@@ -272,16 +310,17 @@ export class ExecutiveSummaryComponent extends ListComponent {
         area.headquarters.map(headquarter => {
           primaries.map(primary => {
             if (primary.hq_headquarter_id == headquarter.id) {
-              headquarter.primary = primary.total_net_amount;
+              headquarter.primary += primary.total_net_amount;
               area.primary += primary.total_net_amount;
               region.primary += primary.total_net_amount;
             }
-          });
-          skinlite_primaries.map(primary => {
+
             if (primary.hq_headquarter_id == headquarter.id) {
-              headquarter.skinlite_primary = primary.total_net_amount;
-              area.skinlite_primary += primary.total_net_amount;
-              region.skinlite_primary += primary.total_net_amount;
+              if (primary.brand_sub_name == 'Gelusil') {
+                headquarter.gelusil_primary += primary.total_net_amount;
+                area.gelusil_primary += primary.total_net_amount;
+                region.gelusil_primary += primary.total_net_amount;
+              }
             }
           });
           gelusil_primaries.map(primary => {
@@ -311,7 +350,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
    * @param becosules_orders
    * @param gelusil_orders
    */
-  mapOrders(orders: Order[],skinlite_orders: Order[], gelusil_orders: Order[], becosules_orders: Order[]) {
+  mapOrders(orders: Order[], skinlite_orders: Order[], gelusil_orders: Order[], becosules_orders: Order[]) {
     this.regions.map(region => {
       region.areas.map(area => {
         area.headquarters.map(headquarter => {
@@ -321,12 +360,21 @@ export class ExecutiveSummaryComponent extends ListComponent {
               area.total_pob += ord.order_total_count;
               region.total_pob += ord.order_total_count;
             }
-          });
-          skinlite_orders.map(ord => {
+
             if (ord.hq_headquarter_id == headquarter.id) {
-              headquarter.skinlite_total_pob += ord.order_total_count;
-              area.skinlite_total_pob += ord.order_total_count;
-              region.skinlite_total_pob += ord.order_total_count;
+              if (ord.brand_sub_name == 'Gelusil') {
+                headquarter.gelusil_total_pob += ord.order_total_count;
+                area.gelusil_total_pob += ord.order_total_count;
+                region.gelusil_total_pob += ord.order_total_count;
+              }
+            }
+
+            if (ord.hq_headquarter_id == headquarter.id) {
+              if (ord.brand_sub_name == 'Becosule') {
+                headquarter.becosules_total_pob += ord.order_total_count;
+                area.becosules_total_pob += ord.order_total_count;
+                region.becosules_total_pob += ord.order_total_count;
+              }
             }
           });
           gelusil_orders.map(ord => {
@@ -353,9 +401,8 @@ export class ExecutiveSummaryComponent extends ListComponent {
    *
    * @param attendances
    * @param visits
-   * @param all_visits
    */
-  mapAttendances(attendances: Attendance[], visits: Visit[], all_visits: Visit[]) {
+  mapAttendances(attendances: Attendance[], visits: Visit[]) {
 
     this.regions.map(region => {
       region.areas.map(area => {
@@ -383,11 +430,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
             }
           });
 
-          all_visits.map(vis => {
+          visits.map(vis => {
             if (vis.hq_headquarter_id == headquarter.id) {
-              headquarter.all_total_visit += vis.visit_count;
-              area.all_total_visit += vis.visit_count;
-              region.all_total_visit += vis.visit_count;
+              headquarter.all_total_visit += vis.all_visit_count;
+              area.all_total_visit += vis.all_visit_count;
+              region.all_total_visit += vis.all_visit_count;
             }
           });
         });
@@ -425,6 +472,13 @@ export class ExecutiveSummaryComponent extends ListComponent {
     this.department_id = department_id;
     this.fetch();
   }
+
+  /**
+     * Toggle Customer coverage view
+     */
+   toggleCoverageView() {
+    this.coverage_view = !this.coverage_view;
+}
 
   /**
    * Download Excel For Executive Summary
