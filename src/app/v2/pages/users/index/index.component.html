@@ -127,6 +127,11 @@
                     </a>
                     <a *roleCheck="ROLE_RSM" class="btn btn-danger btn-xs" style="cursor: pointer;"
                        title="Delete Report" (click)="deleteReport(user)">Delete Report</a>
+                    <template [ngIf]="environment.projectName == 'IKON'">
+                      <a class="btn btn-primary btn-xs" style="cursor: pointer;"
+                        title="User Trainings" (click)="trainingSelect(user)">User Trainings
+                      </a>
+                    </template>
                   </td>
                 </tr>
                 </tbody>
@@ -160,6 +165,13 @@
     <div class="col-xs-12">
       <delete-report [user]="deleting_report"
                        (reportDeleted)="onReportDeletion($event)"></delete-report>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <training-report [user]="training_report"
+                       (trainingSelected)="onTrainingSelect($event)"></training-report>
     </div>
   </div>
 </div>

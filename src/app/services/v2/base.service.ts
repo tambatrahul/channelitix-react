@@ -45,6 +45,14 @@ export abstract class V2BaseService {
     }
 
     /**
+     * get user_training url
+     * @returns {string}
+     */
+    public getUserTrainingUrl() {
+        return AppConstants.USER_TRAINING_ENDPOINT + (this.modelUrl ? this.modelUrl : '');
+    }
+
+    /**
      * on permission denied error logout user
      *
      * @param response

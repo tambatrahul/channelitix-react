@@ -250,6 +250,9 @@ import {SaleService} from './services/v2/sale.service';
 import {SubNameSelectComponent} from './components/form_elements/order/subname_select/subname-select-component';
 import {SubNameService} from './services/subname_service';
 import {SampleReportSelectComponent} from './components/form_elements/download/sample_report_select/sample_report_select.component';
+
+import {UserTrainingSelectComponent} from './components/form_elements/user/user-training-select/user-training-select.component';
+import { TrainingReportComponent } from "./v2/components/users/training_report/training_report.component";
 import {SalesDirective} from './directives/sales.directive';
 
 enableProdMode();
@@ -496,6 +499,9 @@ enableProdMode();
     ViewExpenseModalComponent,
     RequestToEditExpenseComponent,
     DownloadComponent,
+
+    UserTrainingSelectComponent,
+    TrainingReportComponent,
   ],
   imports: [
     BrowserModule,

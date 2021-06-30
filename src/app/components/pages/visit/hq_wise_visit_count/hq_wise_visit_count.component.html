@@ -46,8 +46,18 @@
                                         <th></th>
                                         <th colspan="3" class="grey">Total</th>
                                         <th colspan="3">Semi</th>
-                                        <th colspan="3" class="grey">Retailer</th>
-                                        <th colspan="3">Hub</th>
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                            <th colspan="3" class="grey">Retailer</th>
+                                        </template>
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
+                                            <th colspan="3" class="grey">Other Retailer</th>
+                                        </template>
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                            <th colspan="3">Hub</th>
+                                        </template>
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
+                                            <th colspan="3">Control Chemist</th>
+                                        </template>
                                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
                                             <th colspan="3" class="grey">HCP</th>
                                         </template>

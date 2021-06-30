@@ -132,19 +132,18 @@ export class HQWiseVisitComponent extends ListComponent {
                         if (vis.hq_headquarter_id == headquarter.id) {
                             headquarter.customer_types.map(ct => {
                                 ct.grades.map(grade => {
-                                    if (grade.id == vis.grade_id) {
-                                            grade.visit_count += vis.visit_count;
-                                    }
+                                    if (grade.id == vis.grade_id)
+                                            grade.visit_count += vis.visit_count
 
                                     // if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Practitioner'){
                                     //         grade.gp_visit_count += vis.visit_count;
                                     //     }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Physician' && vis.customer_type_id == 5) {
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName == 'Consultant Physician' && vis.customer_type_id == 5){
                                             grade.phy_visit_count += vis.visit_count;
                                         }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'Psychiatrist' && vis.customer_type_id == 5) {
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName == 'Psychiatrist' && vis.customer_type_id == 5){
                                             grade.psy_visit_count += vis.visit_count;
                                         }
 
@@ -152,7 +151,7 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //         grade.not_gp_visit_count += vis.visit_count;
                                     //     }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Physician' && vis.doctor_speciality != 'Psychiatrist' && vis.customer_type_id == 5) {
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName != 'Consultant Physician' && vis.doctorGroupName != 'Psychiatrist' && vis.customer_type_id == 5){
                                             grade.not_phy_psy_visit_count += vis.visit_count;
                                         }
 
@@ -168,7 +167,7 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.gp_visit_count += vis.visit_count;
                                     // }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Physician' && vis.customer_type_id == 5){
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName == 'Consultant Physician' && vis.customer_type_id == 5){
                                         grade.phy_visit_count += vis.visit_count;
                                     }
 
@@ -176,11 +175,11 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.psy_visit_count += vis.visit_count;
                                     // }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Practitioner' && vis.customer_type_id == 5) {
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName != 'General Practitioner' && vis.customer_type_id == 5) {
                                         grade.not_gp_visit_count += vis.visit_count;
                                     }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Physician' && vis.doctor_speciality != 'Psychiatrist' && vis.customer_type_id == 5){
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName != 'Consultant Physician' && vis.doctorGroupName != 'Psychiatrist' && vis.customer_type_id == 5){
                                         grade.not_phy_psy_visit_count += vis.visit_count;
                                     }
                                 });
@@ -194,11 +193,11 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.gp_visit_count += vis.visit_count;
                                     // }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'General Physician' && vis.customer_type_id == 5){
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName == 'Consultant Physician' && vis.customer_type_id == 5){
                                         grade.phy_visit_count += vis.visit_count;
                                     }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality == 'Psychiatrist' && vis.customer_type_id == 5){
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName == 'Psychiatrist' && vis.customer_type_id == 5){
                                         grade.psy_visit_count += vis.visit_count;
                                     }
 
@@ -206,7 +205,7 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.not_gp_visit_count += vis.visit_count;
                                     // }
 
-                                    if (grade.id == vis.grade_id && vis.doctor_speciality != 'General Physician' && vis.doctor_speciality != 'Psychiatrist' && vis.customer_type_id == 5){
+                                    if (grade.id == vis.grade_id && vis.doctorGroupName != 'Consultant Physician' && vis.doctorGroupName != 'Psychiatrist' && vis.customer_type_id == 5){
                                         grade.not_phy_psy_visit_count += vis.visit_count;
                                     }
 
@@ -226,11 +225,11 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.gp_customer_count +=cus.visit_count;
                                     // }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Physician' && cus.customer_type_id == 5 ) {
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName == 'Consultant Physician' && cus.customer_type_id == 5 ) {
                                         grade.phy_customer_count +=cus.visit_count;
                                     }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'Psychiatrist' && cus.customer_type_id == 5 ) {
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName == 'Psychiatrist' && cus.customer_type_id == 5 ) {
                                         grade.psy_customer_count +=cus.visit_count;
                                     }
 
@@ -239,7 +238,7 @@ export class HQWiseVisitComponent extends ListComponent {
 
                                     // }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Physician' && cus.doctor_speciality != 'Psychiatrist'  && cus.customer_type_id == 5){
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName != 'Consultant Physician' && cus.doctorGroupName != 'Psychiatrist'  && cus.customer_type_id == 5){
                                         grade.not_phy_psy_customer_count += cus.visit_count;
                                     }
 
@@ -255,11 +254,11 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.gp_customer_count +=cus.visit_count;
                                     // }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Physician' && cus.customer_type_id == 5 ) {
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName == 'Consultant Physician' && cus.customer_type_id == 5 ) {
                                         grade.phy_customer_count +=cus.visit_count;
                                     }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'Psychiatrist' && cus.customer_type_id == 5 ) {
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName == 'Psychiatrist' && cus.customer_type_id == 5 ) {
                                         grade.psy_customer_count +=cus.visit_count;
                                     }
 
@@ -268,7 +267,7 @@ export class HQWiseVisitComponent extends ListComponent {
 
                                     // }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Physician' && cus.doctor_speciality != 'Psychiatrist'  && cus.customer_type_id == 5){
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName != 'Consultant Physician' && cus.doctorGroupName != 'Psychiatrist'  && cus.customer_type_id == 5){
                                         grade.not_phy_psy_customer_count += cus.visit_count;
                                     }
 
@@ -283,11 +282,11 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.gp_customer_count +=cus.visit_count;
                                     // }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'General Physician' && cus.customer_type_id == 5 ) {
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName == 'Consultant Physician' && cus.customer_type_id == 5 ) {
                                         grade.phy_customer_count +=cus.visit_count;
                                     }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality == 'Psychiatrist' && cus.customer_type_id == 5 ) {
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName == 'Psychiatrist' && cus.customer_type_id == 5 ) {
                                         grade.psy_customer_count +=cus.visit_count;
                                     }
 
@@ -295,7 +294,7 @@ export class HQWiseVisitComponent extends ListComponent {
                                     //     grade.not_gp_customer_count +=cus.visit_count;
                                     // }
 
-                                    if (grade.id == cus.grade_id && cus.doctor_speciality != 'General Physician' && cus.doctor_speciality != 'Psychiatrist'  && cus.customer_type_id == 5){
+                                    if (grade.id == cus.grade_id && cus.doctorGroupName != 'Consultant Physician' && cus.doctorGroupName != 'Psychiatrist'  && cus.customer_type_id == 5){
                                         grade.not_phy_psy_customer_count += cus.visit_count;
                                     }
                                 });
@@ -347,5 +346,14 @@ export class HQWiseVisitComponent extends ListComponent {
   zoneChanged(zone_id) {
     this.zone_id = zone_id;
     this.fetch();
+  }
+
+  /**
+   * @param department_id
+   */
+
+  departmentChanged(department_id) {
+      this.department_id = department_id;
+      this.fetch();
   }
 }
