@@ -25,6 +25,9 @@ export class PrimarySale extends Model {
 
   old_date_value: string;
 
+  brand_name: string;
+  brand_sub_name: string;
+
   // for internal use only
   total_net_amount: number;
   total_net_amt: number;
@@ -120,5 +123,9 @@ export class PrimarySale extends Model {
 
     if (info.old_date_value)
       this.old_date_value = info.old_date_value;
+
+    if (info.brand_sub_name)
+      this.brand_sub_name = info.brand_sub_name;
+
   }
 }

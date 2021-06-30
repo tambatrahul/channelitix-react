@@ -7,6 +7,7 @@ export class CustomerType extends Model {
     grades: Grade[] = [];
     customer_count: number = 0;
     doctor_speciality: string;
+    doctor_group_name: string;
 
 
     // for internal use
@@ -20,11 +21,13 @@ export class CustomerType extends Model {
     total_pob: number = 0;
     total_call_avg: number = 0;
     total_productive_avg: number = 0;
+    distinct_order_count: number =0;
 
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
         this.doctor_speciality = info.doctor_speciality;
+        this.doctor_group_name = info.doctor_group_name;
         if (info.customer_count)
             this.customer_count = parseInt(info.customer_count);
         if (info.grades) {
@@ -81,6 +84,20 @@ export class CustomerType extends Model {
     }
 
     /**
+     * Get all Visit count for type A customers
+     * @returns {number}
+     */
+     get aAllVisitCount() {
+        let count_all_a = 0;
+        this.grades.map(grade => {
+            if (grade.name.indexOf('A') >= 0) {
+                count_all_a += grade.all_visit_count;
+            }
+        });
+        return count_all_a;
+    }
+
+    /**
      * Visit count for type B customers
      *
      * @returns {number}
@@ -96,6 +113,21 @@ export class CustomerType extends Model {
     }
 
     /**
+     * Get All Visit count for type B customers
+     *
+     * @returns {number}
+     */
+    get bAllVisitCount() {
+        let count_all_b = 0;
+        this.grades.map(grade => {
+            if (grade.name.indexOf('B') >= 0) {
+                count_all_b += grade.all_visit_count;
+            }
+        });
+        return count_all_b;
+    }
+
+    /**
      * Visit count for customers
      * @returns {number}
      */
@@ -105,6 +137,18 @@ export class CustomerType extends Model {
             count += grade.visit_count;
         });
         return count;
+    }
+
+    /**
+     * Gives total visit count for Customers
+     * @returns {number}
+     */
+    get allVisitCount() {
+        let count_all = 0;
+        this.grades.map(grade => {
+            count_all += grade.all_visit_count;
+        });
+        return count_all;
     }
 
     /**

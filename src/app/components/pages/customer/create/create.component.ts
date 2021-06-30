@@ -47,6 +47,7 @@ export class CreateCustomerComponent extends FormComponent {
   public hq_country_id: number = 0;
   public hq_brick_id: number = 0;
   public value: number = 0;
+  public approval: number = 0;
   public temp_gst: string ;
   public channel: boolean = false;
   public channel_pay: boolean = false;
@@ -67,7 +68,7 @@ export class CreateCustomerComponent extends FormComponent {
     firm_name: [""],
     email: [""],
     mobile: [""],
-    channel_paisa_mobile: [""],
+    channel_paischannel_paisa_mobilea_mobile: [""],
     channel_pay_mobile: [""],
     gst_no: [""],
     classification: [""],
@@ -82,6 +83,7 @@ export class CreateCustomerComponent extends FormComponent {
     hq_headquarter_id: [""],
     hq_territory_id: [""],
     hq_brick_id: [""],
+    approved_status: [""],
     address: this._fb.group({
       line: [""],
       landmark: [""],
@@ -148,7 +150,13 @@ export class CreateCustomerComponent extends FormComponent {
     if (this.form.valid) {
       this.loading = true;
       let data = this.form.value;
+      if (data.customer_type_id == 2 || data.customer_type_id == 4 || data.customer_type_id == 5 ) {
+        data.approved_status = 'pending';
+      } else {
+        data.approved_status = 'approved';
+      }
       data.qualification_ids = this.qualification_ids;
+      console.log(data);
 
       this.customerService.create(data).subscribe(
         response => {

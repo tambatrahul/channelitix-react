@@ -199,8 +199,22 @@ export class CustomerService extends BaseService {
      * Activate brick
      */
     activate(brick_id): Observable<Result> {
-        return this.post(this.getBaseUrl() + '/' + brick_id + '/activate')
+        return this.post(this.getBaseUrl() + '/' + brick_id + '/activate');
     }
+
+  /**
+   * Approved customer
+   */
+  approveCustomer(id): Observable<Result> {
+    return this.post(this.getBaseUrl() + '/' + id + '/approve-customer');
+  }
+
+  /**
+   * Rejected customer
+   */
+  rejectedCustomer(id): Observable<Result> {
+    return this.post(this.getBaseUrl() + '/' + id + '/reject-customer');
+  }
 
     /**
      * get all bricks user

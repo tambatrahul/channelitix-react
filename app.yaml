@@ -1,5 +1,5 @@
 # [START runtime]
-service: aspira-frontend
+#service: aspira-frontend
 #service: icon-frontend
 #service: iconcx-frontend
 #service: 3c-frontend
@@ -10,6 +10,7 @@ service: aspira-frontend
 #service: maxx-frontend
 #service: vikrant-frontend
 #service: cimune-frontend
+service: training-channelitix
 runtime: python27
 threadsafe: yes
 # [END runtime]

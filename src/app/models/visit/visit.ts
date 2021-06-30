@@ -30,6 +30,7 @@ export class Visit extends Model {
   // for internal use only
   isSunday: boolean = false;
   visit_count: number = 0;
+  all_visit_count: number = 0;
   visit_total_count: number = 0;
   total_visit_count: number = 0;
   visit_day: number = 0;
@@ -41,6 +42,7 @@ export class Visit extends Model {
   hq_region_id: number;
   grade_id: number;
   doctor_speciality: string;
+  doctor_group_name: string;
   visited_twice: number = 0;
   visited_thrice: number = 0;
   customer_type_id: number = 0;
@@ -69,6 +71,7 @@ export class Visit extends Model {
     this.hq_region_id = info.hq_region_id;
     this.grade_id = info.grade_id;
     this.doctor_speciality = info.doctor_speciality;
+    this.doctor_group_name = info.doctor_group_name;
     this.stockist_code = info.stockist_code;
 
     if (info.days)
@@ -108,6 +111,11 @@ export class Visit extends Model {
       this.visit_count = parseInt(info.visit_count);
     else
       this.visit_count = 0;
+
+    if (info.all_visit_count)
+      this.all_visit_count = parseInt(info.all_visit_count);
+    else
+      this.all_visit_count = 0;
 
     if (info.visit_day)
       this.visit_day = parseInt(info.visit_day);
