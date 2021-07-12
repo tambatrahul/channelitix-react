@@ -254,6 +254,7 @@ import {SampleReportSelectComponent} from './components/form_elements/download/s
 import {UserTrainingSelectComponent} from './components/form_elements/user/user-training-select/user-training-select.component';
 import { TrainingReportComponent } from "./v2/components/users/training_report/training_report.component";
 import {SalesDirective} from './directives/sales.directive';
+import {UserLocationComponent} from './components/pages/attendance/user_location_map/user_location.component';
 
 enableProdMode();
 
@@ -502,6 +503,7 @@ enableProdMode();
 
     UserTrainingSelectComponent,
     TrainingReportComponent,
+    UserLocationComponent
   ],
   imports: [
     BrowserModule,
@@ -536,6 +538,7 @@ enableProdMode();
     CustomerTypeService,
     ExpenseService,
     DownloadService,
+
 
     // Version 2 Service
     V2UserService,

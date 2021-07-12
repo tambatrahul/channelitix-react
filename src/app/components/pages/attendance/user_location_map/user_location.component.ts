@@ -34,10 +34,11 @@ export class UserLocationComponent extends GoogleChartComponent {
      * @param route
      * @param _service
      */
-    constructor(public userLocationService: UserLocationService, 
+    constructor(public userLocationService: UserLocationService,
                 public _router: Router, public route: ActivatedRoute,
                 public userService: UserService, public _service: AuthService) {
         super(_service);
+      console.log("hi");
     }
 
     /**
@@ -53,7 +54,7 @@ export class UserLocationComponent extends GoogleChartComponent {
     }
 
     protected fetch() {
-        
+
     }
 
     /**
@@ -104,7 +105,7 @@ export class UserLocationComponent extends GoogleChartComponent {
             data.addColumn('number', 'Lat');
             data.addColumn('number', 'Long');
             data.addColumn('string', 'Date');
-            
+
             let locations = [];
             locations = user_locations.map(l => [l.latitude, l.longitude, l.date]);
 

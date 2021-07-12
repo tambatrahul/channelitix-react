@@ -42,7 +42,7 @@ export class Visit extends Model {
   hq_region_id: number;
   grade_id: number;
   doctor_speciality: string;
-  doctor_group_name: string;
+  doctorGroupName: string;
   visited_twice: number = 0;
   visited_thrice: number = 0;
   customer_type_id: number = 0;
@@ -71,7 +71,7 @@ export class Visit extends Model {
     this.hq_region_id = info.hq_region_id;
     this.grade_id = info.grade_id;
     this.doctor_speciality = info.doctor_speciality;
-    this.doctor_group_name = info.doctor_group_name;
+    this.doctorGroupName = info.doctorGroupName;
     this.stockist_code = info.stockist_code;
 
     if (info.days)
