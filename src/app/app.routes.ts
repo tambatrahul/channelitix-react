@@ -87,6 +87,7 @@ import {ExpenseComponent} from './components/pages/expense/admin/index/index.com
 import {SupportComponent} from './components/pages/support/index.component';
 import { DownloadComponent } from './components/pages/download/download.component';
 import {DailySalesComponent} from './v2/pages/sales/index/index.component';
+import { UserLocationComponent } from "./components/pages/attendance/user_location_map/user_location.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -591,6 +592,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  }, 
+  {
+    path: 'user-locations/:month_year',
+    component: UserLocationComponent
   }
 ];
 
