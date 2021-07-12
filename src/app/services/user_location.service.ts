@@ -33,8 +33,8 @@ export class UserLocationService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  all(month_year: number): Observable<Result> {
-    let url = this.getBaseUrl() + '/' + month_year;
+  all(user_id: number, month_year: number): Observable<Result> {
+    let url = this.getBaseUrl() + '/' + user_id + '/' + month_year;
 
     return this.get(url, new RequestOptions({}));
   }

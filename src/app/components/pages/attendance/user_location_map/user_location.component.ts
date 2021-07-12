@@ -23,6 +23,8 @@ export class UserLocationComponent extends GoogleChartComponent {
     private chart;
     public chart_data;
     private month_year;
+    private user_id;
+
     /**
      * Create user Constructor
      *
@@ -45,6 +47,7 @@ export class UserLocationComponent extends GoogleChartComponent {
         super.ngOnInit();
         this.route.params.subscribe(params => {
             this.month_year = params['month_year'];
+            this.user_id = params['id'];
             this.fetchPerformance();
         });
     }
@@ -79,7 +82,7 @@ export class UserLocationComponent extends GoogleChartComponent {
     fetchPerformance = AppConstants.debounce(function () {
         const self = this;
         self.loading = true;
-        self.userLocationService.all(this.month_year).subscribe(
+        self.userLocationService.all(this.user_id, this.month_year).subscribe(
             response => {
                 self.loading = false;
                 let user_locations = response.user_locations.map(ul => new UserLocation(ul));

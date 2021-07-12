@@ -594,7 +594,7 @@ export const routes: Routes = [
     component: LoginComponent
   }, 
   {
-    path: 'user-locations/:month_year',
+    path: 'user-locations/:id/:month_year',
     component: UserLocationComponent
   }
 ];
