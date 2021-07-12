@@ -10,6 +10,7 @@ import {environment} from "../environments/environment";
 export class AppConstants {
     static API_ENDPOINT: string = environment.server_url;
     static API_ENDPOINT_V2: string = environment.server_url_v2;
+    static API_ENDPOINT_V3: string = environment.server_url_v3;
     static USER_TRAINING_ENDPOINT: string = environment.userTrainingUrl;
     // static API_ENDPOINT: string = 'http://master.channelitix.com/api/v1/';
     // static API_ENDPOINT: string = 'http://35.189.172.175/api/v1/';
