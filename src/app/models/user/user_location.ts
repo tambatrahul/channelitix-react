@@ -2,9 +2,9 @@ import {Model} from "../model";
 
 export class UserLocation extends Model {
 
-  latitude: number;
-  longitude: number;
-  date: number;
+  latitude: string;
+  longitude: string;
+  date: string;
 
   constructor(info: any) {
     super(info.id);

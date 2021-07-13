@@ -31,7 +31,8 @@ export abstract class GoogleChartComponent extends BaseDashboardComponent implem
     super.ngOnInit();
     if (!GoogleChartComponent.googleLoaded) {
       GoogleChartComponent.googleLoaded = true;
-      google.charts.load('current', {packages: ['corechart', 'table']});
+      google.charts.load('current', {packages: ['corechart', 'table', 'map'],
+        'mapsApiKey': 'AIzaSyCv-70Q4VJ5VZYPzQs06SuUiA-QX0195Nw'});
     }
   }
 
@@ -67,6 +68,16 @@ export abstract class GoogleChartComponent extends BaseDashboardComponent implem
    */
   createLineChart(element: any): any {
     return new google.visualization.LineChart(element);
+  }
+
+  /**
+   * create line chart
+   *
+   * @param element
+   * @returns {google.visualization.BarChart}
+   */
+  createMap(element: any): any {
+    return new google.visualization.Map(element);
   }
 
   /**
