@@ -53,10 +53,10 @@ export class ExecutiveSummaryComponent extends ListComponent {
   }
 
   /**
-     * Customer Coverage view flag
-     * @type {boolean}
-     */
-   public coverage_view: boolean = true;
+   * Customer Coverage view flag
+   * @type {boolean}
+   */
+  public coverage_view: boolean = true;
 
   /**
    * on load of call fetch
@@ -474,11 +474,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
   }
 
   /**
-     * Toggle Customer coverage view
-     */
-   toggleCoverageView() {
+   * Toggle Customer coverage view
+   */
+  toggleCoverageView() {
     this.coverage_view = !this.coverage_view;
-}
+  }
 
   /**
    * Download Excel For Executive Summary

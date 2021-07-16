@@ -74,6 +74,7 @@ export class UpdateCustomerComponent extends FormComponent {
     hq_territory_id: [""],
     hq_brick_id: [""],
     qualification_value: [""],
+    approved_status: [""],
     address: this._fb.group({
       line: [""],
       landmark: [""],
@@ -175,6 +176,11 @@ export class UpdateCustomerComponent extends FormComponent {
 
       // prepare data
       let data = this.form.value;
+      if (data.customer_type_id == 2 || data.customer_type_id == 4 || data.customer_type_id == 5 ) {
+        data.approved_status = 'pending';
+      } else {
+        data.approved_status = 'approved';
+      }
       if (data.doctor_type_id === 0)
         data.doctor_type_id = null;
 

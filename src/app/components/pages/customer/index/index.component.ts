@@ -211,6 +211,103 @@ export class CustomerComponent extends ListComponent {
       );
     });
   }
+
+  /**
+   * Approved Customer
+   */
+  approvedCustomer(id: number) {
+    let self = this;
+    swal({
+      title: 'Are you sure?',
+      text: 'You want to Approve this Customer',
+      type: 'info',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function () {
+      self.customerService.approveCustomer(id).subscribe(
+        response => {
+          swal('Customer Approved');
+          self.fetch();
+        },
+        err => {
+        }
+      );
+    });
+  }
+
+  /**
+   * Rejected Customer
+   */
+  rejectedCustomer(id: number) {
+    let self = this;
+    swal({
+      title: 'Are you sure?',
+      text: 'You want to Reject this Customer',
+      type: 'info',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function () {
+      self.customerService.rejectedCustomer(id).subscribe(
+        response => {
+          swal('Customer Rejected');
+          self.fetch();
+        },
+        err => {
+        }
+      );
+    });
+  }
+
+  /**
+   * Approved Customer
+   */
+  approvalToDeactivateCustomer(id: number) {
+    let self = this;
+    swal({
+      title: 'Are you sure?',
+      text: 'You want to approve Deactivation of this Customer',
+      type: 'info',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function () {
+      self.customerService.rejectedCustomer(id).subscribe(
+        response => {
+          swal('Customer Approved For Deactivation');
+          self.fetch();
+        },
+        err => {
+        }
+      );
+    });
+  }
+
+  /**
+   * Rejected Customer
+   */
+  rejectionToDeactivateCustomer(id: number) {
+    let self = this;
+    swal({
+      title: 'Are you sure?',
+      text: 'You want to Reject Deactivation of this Customer',
+      type: 'info',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function () {
+      self.customerService.approveCustomer(id).subscribe(
+        response => {
+          swal('Customer Rejected for Deactivation');
+          self.fetch();
+        },
+        err => {
+        }
+      );
+    });
+  }
+
   /**
    * deactivate Brick
    *

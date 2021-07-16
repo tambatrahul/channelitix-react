@@ -93,7 +93,7 @@
                       <th>Headquarter</th>
                       <th>Type (Grade)</th>
                       <th>Classification</th>
-                      <th>Status</th>
+                      <th>Approval</th>
                       <th *ngIf="_service.user.access_id <= 0">Actions</th>
                     </tr>
                     </thead>
@@ -110,7 +110,17 @@
                         <span *ngIf="customer.classification =='core'">Core</span>
                         <span *ngIf="customer.classification =='super_core'">Super Core</span>
                       </td>
-                      <td class="text-center"><i status [field]="customer.status"></i></td>
+                      <td class="text-center">
+                        <span *ngIf="customer.approved_status == 'approved'"><i status [field]="customer.status"></i></span>
+                        <span *ngIf="customer.approved_status == 'pending'">
+                        <a *roleCheck="ROLE_CSM" class="btn btn-xs btn-success" style="cursor: pointer;"
+                           title="Approved" (click)="approvedCustomer(customer.id)">Approved</a> &nbsp;
+                          </span>
+                        <span *ngIf="customer.approved_status == 'pending'">
+                        <a *roleCheck="ROLE_CSM" class="btn btn-xs btn-danger" style="cursor: pointer;"
+                           title="Rejected" (click)="rejectedCustomer(customer.id)">Rejected</a> &nbsp;
+                          </span>
+                      </td>
                       <td *ngIf="_service.user.access_id <= 0">
                         <a class="btn btn-default btn-xs" style="cursor: pointer;"
                            title="Update" (click)="updateCustomer(customer.id)">Edit</a> &nbsp;
@@ -119,9 +129,17 @@
                           (click)="deactivate(customer.id)">Deactivate
                         </button>
                         <button
-                          *ngIf="customer.customer_type_id != 1 && environment.projectName != 'ACE'" class="btn btn-xs btn-danger"
+                          *ngIf="customer.customer_type_id != 1 && environment.projectName != 'ACE' && customer.approved_status == 'approved' " class="btn btn-xs btn-danger"
                           (click)="deactivate(customer.id)">Deactivate
                         </button>
+                        <span *ngIf="customer.approved_status == 'in_process'">
+                        <a *roleCheck="ROLE_CSM" class="btn btn-xs btn-success" style="cursor: pointer;"
+                           title="Approved" (click)="approvalToDeactivateCustomer(customer.id)">Approved</a> &nbsp;
+                          </span>
+                        <span *ngIf="customer.approved_status == 'in_process'">
+                        <a *roleCheck="ROLE_CSM" class="btn btn-xs btn-danger" style="cursor: pointer;"
+                           title="Rejected" (click)="rejectionToDeactivateCustomer(customer.id)">Rejected</a> &nbsp;
+                          </span>
                         <span *ngIf="customer.user_territory_customers.length == 0">
                         <a *roleCheck="ROLE_CSM" class="btn btn-default btn-xs" style="cursor: pointer;"
                            title="Add" (click)="createTerritoryCustomer(customer.id)">Add To EAPI</a> &nbsp;

@@ -35,10 +35,10 @@
     </div>
     <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
       <div class="form-group">
-          <label>&nbsp;</label>
-          <button class="btn btn-primary btn-block" (click)="toggleCoverageView()">{{ coverage_view == true ? 'View Call Avg' : 'View Coverage' }}</button>
+        <label>&nbsp;</label>
+        <button class="btn btn-primary btn-block" (click)="toggleCoverageView()">{{ coverage_view == true ? 'View Call Avg' : 'View Coverage' }}</button>
       </div>
-  </div>
+    </div>
   </div>
 
   <div class="row">
@@ -344,65 +344,65 @@
 
                         <td>
                           {{ region.customer_types[0].customerCount
-                          +region.customer_types[1].customerCount
-                          +region.customer_types[2].customerCount
-                          +region.customer_types[3].customerCount
-                          +region.customer_types[4].customerCount}}
+                        +region.customer_types[1].customerCount
+                        +region.customer_types[2].customerCount
+                        +region.customer_types[3].customerCount
+                        +region.customer_types[4].customerCount}}
                         </td>
                         <td *ngIf="coverage_view">
                           {{ region.customer_types[0].visitCount
-                          +region.customer_types[1].visitCount
-                          +region.customer_types[2].visitCount
-                          +region.customer_types[3].visitCount
-                          +region.customer_types[4].visitCount}}
+                        +region.customer_types[1].visitCount
+                        +region.customer_types[2].visitCount
+                        +region.customer_types[3].visitCount
+                        +region.customer_types[4].visitCount}}
                         </td>
                         <td *ngIf="!coverage_view">
                           {{ region.customer_types[0].allVisitCount
-                          +region.customer_types[1].allVisitCount
-                          +region.customer_types[2].allVisitCount
-                          +region.customer_types[3].allVisitCount
-                          +region.customer_types[4].allVisitCount }}
+                        +region.customer_types[1].allVisitCount
+                        +region.customer_types[2].allVisitCount
+                        +region.customer_types[3].allVisitCount
+                        +region.customer_types[4].allVisitCount }}
                         </td>
 
                         <td *ngIf="coverage_view">
                           {{
                           (((region.customer_types[0].visitCount
-                          +region.customer_types[1].visitCount
-                          +region.customer_types[2].visitCount
-                          +region.customer_types[3].visitCount
-                          +region.customer_types[4].visitCount)
-                          /(region.customer_types[0].customerCount
-                          +region.customer_types[1].customerCount
-                          +region.customer_types[2].customerCount
-                          +region.customer_types[3].customerCount
-                          +region.customer_types[4].customerCount)) * 100).toFixed(0)
+                            +region.customer_types[1].visitCount
+                            +region.customer_types[2].visitCount
+                            +region.customer_types[3].visitCount
+                            +region.customer_types[4].visitCount)
+                            /(region.customer_types[0].customerCount
+                              +region.customer_types[1].customerCount
+                              +region.customer_types[2].customerCount
+                              +region.customer_types[3].customerCount
+                              +region.customer_types[4].customerCount)) * 100).toFixed(0)
                           }} %
                         </td>
                         <td *ngIf="!coverage_view">
                           {{ region.total_att > 0 ?
                           ((region.customer_types[0].allVisitCount
-                          +region.customer_types[1].allVisitCount
-                          +region.customer_types[2].allVisitCount
-                          +region.customer_types[3].allVisitCount
-                          +region.customer_types[4].allVisitCount)
-                          /region.total_att).toFixed(1) : 0.0 }}
+                            +region.customer_types[1].allVisitCount
+                            +region.customer_types[2].allVisitCount
+                            +region.customer_types[3].allVisitCount
+                            +region.customer_types[4].allVisitCount)
+                            /region.total_att).toFixed(1) : 0.0 }}
                         </td>
 
                         <td>{{ region.customer_types[0].aCustomerCount
-                          + region.customer_types[0].bCustomerCount }}
+                        + region.customer_types[0].bCustomerCount }}
                         </td>
                         <td *ngIf="coverage_view">{{ region.customer_types[0].aVisitCount
-                          + region.customer_types[0].bVisitCount }}
+                        + region.customer_types[0].bVisitCount }}
                         </td>
                         <td *ngIf="coverage_view">{{ region.customer_types[0].v2_count }}</td>
                         <td *ngIf="coverage_view">{{ region.customer_types[0].v3_count }}</td>
                         <td *ngIf="!coverage_view">{{ region.customer_types[0].aAllVisitCount
-                          + region.customer_types[0].bAllVisitCount }}
+                        + region.customer_types[0].bAllVisitCount }}
                         </td>
                         <td *ngIf="!coverage_view">
                           {{ region.total_att>0? ((region.customer_types[0].aAllVisitCount
-                            + region.customer_types[0].bAllVisitCount)/region.total_att).toFixed(1) : 0}}
-                         </td>
+                          + region.customer_types[0].bAllVisitCount)/region.total_att).toFixed(1) : 0}}
+                        </td>
 
                         <td class="grey">{{ region.customer_types[1].customerCount }}</td>
                         <td *ngIf="coverage_view" class="grey">{{ region.customer_types[1].visitCount }}</td>
@@ -412,7 +412,7 @@
                           region.customer_types[1].percentageCount.toFixed(0)}} %
                         </td>
                         <td *ngIf="!coverage_view" class="grey">
-                         {{ region.total_att > 0? (region.customer_types[1].allVisitCount/region.total_att).toFixed(1) : 0}}
+                          {{ region.total_att > 0? (region.customer_types[1].allVisitCount/region.total_att).toFixed(1) : 0}}
                         </td>
 
                         <td>{{ region.customer_types[2].customerCount }}</td>
@@ -423,7 +423,7 @@
                           region.customer_types[2].percentageCount.toFixed(0)}} %
                         </td>
                         <td *ngIf="!coverage_view" class="grey">
-                         {{ region.total_att >0? (region.customer_types[2].allVisitCount/region.total_att).toFixed(1) : 0 }}
+                          {{ region.total_att >0? (region.customer_types[2].allVisitCount/region.total_att).toFixed(1) : 0 }}
                         </td>
 
                         <td class="grey">{{ region.customer_types[3].customerCount }}</td>
@@ -434,7 +434,7 @@
                           region.customer_types[3].percentageCount.toFixed(0)}} %
                         </td>
                         <td *ngIf="!coverage_view" class="grey">
-                         {{ region.total_att> 0?(region.customer_types[3].allVisitCount/region.total_att).toFixed(1) : 0 }}
+                          {{ region.total_att> 0?(region.customer_types[3].allVisitCount/region.total_att).toFixed(1) : 0 }}
                         </td>
 
                         <td>{{ region.customer_types[4].customerCount }}</td>
@@ -445,7 +445,7 @@
                           region.customer_types[4].percentageCount.toFixed(0)}} %
                         </td>
                         <td *ngIf="!coverage_view" class="grey">
-                         {{region.total_att > 0? (region.customer_types[4].allVisitCount/region.total_att).toFixed(1) : 0}}
+                          {{region.total_att > 0? (region.customer_types[4].allVisitCount/region.total_att).toFixed(1) : 0}}
                         </td>
                       </tr>
                       <template ngFor let-area [ngForOf]="region.areas">
@@ -532,56 +532,56 @@
                           </td>
                           <td *ngIf="coverage_view">
                             {{ area.customer_types[0].visitCount
-                            +area.customer_types[1].visitCount
-                            +area.customer_types[2].visitCount
-                            +area.customer_types[3].visitCount
-                            +area.customer_types[4].visitCount}}
+                          +area.customer_types[1].visitCount
+                          +area.customer_types[2].visitCount
+                          +area.customer_types[3].visitCount
+                          +area.customer_types[4].visitCount}}
                           </td>
                           <td *ngIf="!coverage_view">
                             {{ area.customer_types[0].allVisitCount
-                            +area.customer_types[1].allVisitCount
-                            +area.customer_types[2].allVisitCount
-                            +area.customer_types[3].allVisitCount
-                            +area.customer_types[4].allVisitCount }}
+                          +area.customer_types[1].allVisitCount
+                          +area.customer_types[2].allVisitCount
+                          +area.customer_types[3].allVisitCount
+                          +area.customer_types[4].allVisitCount }}
                           </td>
                           <td *ngIf="coverage_view">
                             {{
                             (((area.customer_types[0].visitCount
-                            +area.customer_types[1].visitCount
-                            +area.customer_types[2].visitCount
-                            +area.customer_types[3].visitCount
-                            +area.customer_types[4].visitCount)
-                            /(area.customer_types[0].customerCount
-                            +area.customer_types[1].customerCount
-                            +area.customer_types[2].customerCount
-                            +area.customer_types[3].customerCount
-                            +area.customer_types[4].customerCount)) * 100).toFixed(0)
+                              +area.customer_types[1].visitCount
+                              +area.customer_types[2].visitCount
+                              +area.customer_types[3].visitCount
+                              +area.customer_types[4].visitCount)
+                              /(area.customer_types[0].customerCount
+                                +area.customer_types[1].customerCount
+                                +area.customer_types[2].customerCount
+                                +area.customer_types[3].customerCount
+                                +area.customer_types[4].customerCount)) * 100).toFixed(0)
                             }} %
                           </td>
                           <td *ngIf="!coverage_view">
                             {{ area.total_att > 0?
                             ((area.customer_types[0].allVisitCount
-                            +area.customer_types[1].allVisitCount
-                            +area.customer_types[2].allVisitCount
-                            +area.customer_types[3].allVisitCount
-                            +area.customer_types[4].allVisitCount)
-                            /area.total_att).toFixed(1) : 0.0 }}
+                              +area.customer_types[1].allVisitCount
+                              +area.customer_types[2].allVisitCount
+                              +area.customer_types[3].allVisitCount
+                              +area.customer_types[4].allVisitCount)
+                              /area.total_att).toFixed(1) : 0.0 }}
                           </td>
                           <td>{{ area.customer_types[0].aCustomerCount
-                            + area.customer_types[0].bCustomerCount }}
+                          + area.customer_types[0].bCustomerCount }}
                           </td>
                           <td *ngIf="coverage_view">{{ area.customer_types[0].aVisitCount
-                            + area.customer_types[0].bVisitCount }}
+                          + area.customer_types[0].bVisitCount }}
                           </td>
                           <td *ngIf="coverage_view">{{ area.customer_types[0].v2_count }}</td>
                           <td *ngIf="coverage_view">{{ area.customer_types[0].v3_count }}</td>
                           <td *ngIf="!coverage_view">{{ area.customer_types[0].aAllVisitCount
-                            + area.customer_types[0].bAllVisitCount }}
+                          + area.customer_types[0].bAllVisitCount }}
                           </td>
                           <td *ngIf="!coverage_view">
                             {{ area.total_att>0 ? ((area.customer_types[0].aAllVisitCount
-                              + area.customer_types[0].bAllVisitCount)/area.total_att).toFixed(1) : 0}}
-                           </td>
+                            + area.customer_types[0].bAllVisitCount)/area.total_att).toFixed(1) : 0}}
+                          </td>
 
                           <td class="grey">{{ area.customer_types[1].customerCount }}</td>
                           <td *ngIf="coverage_view" class="grey">{{ area.customer_types[1].visitCount }}</td>
@@ -591,7 +591,7 @@
                             area.customer_types[1].percentageCount.toFixed(0)}} %
                           </td>
                           <td *ngIf="!coverage_view" class="grey">
-                           {{ area.total_att>0? (area.customer_types[1].allVisitCount/area.total_att).toFixed(1) : 0 }}
+                            {{ area.total_att>0? (area.customer_types[1].allVisitCount/area.total_att).toFixed(1) : 0 }}
                           </td>
 
                           <td>{{ area.customer_types[2].customerCount }}</td>
@@ -602,7 +602,7 @@
                             area.customer_types[2].percentageCount.toFixed(0)}} %
                           </td>
                           <td *ngIf="!coverage_view" class="grey">
-                           {{ area.total_att>0 ? (area.customer_types[2].allVisitCount/area.total_att).toFixed(1): 0 }}
+                            {{ area.total_att>0 ? (area.customer_types[2].allVisitCount/area.total_att).toFixed(1): 0 }}
                           </td>
 
                           <td class="grey">{{ area.customer_types[3].customerCount }}</td>
@@ -613,7 +613,7 @@
                             area.customer_types[3].percentageCount.toFixed(0)}} %
                           </td>
                           <td *ngIf="!coverage_view" class="grey">
-                           {{ area.total_att > 0? (area.customer_types[3].allVisitCount/area.total_att).toFixed(1) : 0 }}
+                            {{ area.total_att > 0? (area.customer_types[3].allVisitCount/area.total_att).toFixed(1) : 0 }}
                           </td>
 
                           <td>{{ area.customer_types[4].customerCount }}</td>
@@ -624,7 +624,7 @@
                             area.customer_types[4].percentageCount.toFixed(0)}} %
                           </td>
                           <td *ngIf="!coverage_view" class="grey">
-                           {{ area.total_att > 0? (area.customer_types[4].allVisitCount/area.total_att).toFixed(1) : 0 }}
+                            {{ area.total_att > 0? (area.customer_types[4].allVisitCount/area.total_att).toFixed(1) : 0 }}
                           </td>
                         </tr>
                         <template ngFor let-hq [ngForOf]="area.headquarters">
@@ -716,57 +716,57 @@
                             </td>
                             <td *ngIf="coverage_view">
                               {{ hq.customer_types[0].visitCount
-                              +hq.customer_types[1].visitCount
-                              +hq.customer_types[2].visitCount
-                              +hq.customer_types[3].visitCount
-                              +hq.customer_types[4].visitCount}}
+                            +hq.customer_types[1].visitCount
+                            +hq.customer_types[2].visitCount
+                            +hq.customer_types[3].visitCount
+                            +hq.customer_types[4].visitCount}}
                             </td>
                             <td *ngIf="!coverage_view">
                               {{ hq.customer_types[0].allVisitCount
-                              +hq.customer_types[1].allVisitCount
-                              +hq.customer_types[2].allVisitCount
-                              +hq.customer_types[3].allVisitCount
-                              +hq.customer_types[4].allVisitCount }}
+                            +hq.customer_types[1].allVisitCount
+                            +hq.customer_types[2].allVisitCount
+                            +hq.customer_types[3].allVisitCount
+                            +hq.customer_types[4].allVisitCount }}
                             </td>
                             <td *ngIf="coverage_view">
                               {{
                               (((hq.customer_types[0].visitCount
-                              +hq.customer_types[1].visitCount
-                              +hq.customer_types[2].visitCount
-                              +hq.customer_types[3].visitCount
-                              +hq.customer_types[4].visitCount)
-                              /(hq.customer_types[0].customerCount
-                              +hq.customer_types[1].customerCount
-                              +hq.customer_types[2].customerCount
-                              +hq.customer_types[3].customerCount
-                              +hq.customer_types[4].customerCount)) * 100).toFixed(0)
+                                +hq.customer_types[1].visitCount
+                                +hq.customer_types[2].visitCount
+                                +hq.customer_types[3].visitCount
+                                +hq.customer_types[4].visitCount)
+                                /(hq.customer_types[0].customerCount
+                                  +hq.customer_types[1].customerCount
+                                  +hq.customer_types[2].customerCount
+                                  +hq.customer_types[3].customerCount
+                                  +hq.customer_types[4].customerCount)) * 100).toFixed(0)
                               }} %
                             </td>
                             <td *ngIf="!coverage_view">
                               {{ hq.total_att > 0?
                               ((hq.customer_types[0].allVisitCount
-                              +hq.customer_types[1].allVisitCount
-                              +hq.customer_types[2].allVisitCount
-                              +hq.customer_types[3].allVisitCount
-                              +hq.customer_types[4].allVisitCount)
-                              /hq.total_att).toFixed(1) : 0.0 }}
-                              </td>
+                                +hq.customer_types[1].allVisitCount
+                                +hq.customer_types[2].allVisitCount
+                                +hq.customer_types[3].allVisitCount
+                                +hq.customer_types[4].allVisitCount)
+                                /hq.total_att).toFixed(1) : 0.0 }}
+                            </td>
 
                             <td>{{ hq.customer_types[0].aCustomerCount
-                              + hq.customer_types[0].bCustomerCount }}
+                            + hq.customer_types[0].bCustomerCount }}
                             </td>
                             <td *ngIf="coverage_view">{{ hq.customer_types[0].aVisitCount
-                              + hq.customer_types[0].bVisitCount }}
+                            + hq.customer_types[0].bVisitCount }}
                             </td>
                             <td *ngIf="coverage_view">{{ hq.customer_types[0].v2_count }}</td>
                             <td *ngIf="coverage_view">{{ hq.customer_types[0].v3_count }}</td>
                             <td *ngIf="!coverage_view">{{ hq.customer_types[0].aAllVisitCount
-                              + hq.customer_types[0].bAllVisitCount }}
+                            + hq.customer_types[0].bAllVisitCount }}
                             </td>
                             <td *ngIf="!coverage_view">
                               {{ hq.total_att > 0? ((hq.customer_types[0].aAllVisitCount
-                                + hq.customer_types[0].bAllVisitCount)/hq.total_att).toFixed(1) : 0 }}
-                             </td>
+                              + hq.customer_types[0].bAllVisitCount)/hq.total_att).toFixed(1) : 0 }}
+                            </td>
 
                             <td class="grey">{{ hq.customer_types[1].customerCount }}</td>
                             <td *ngIf="coverage_view" class="grey">{{ hq.customer_types[1].visitCount }}</td>
@@ -776,7 +776,7 @@
                               hq.customer_types[1].percentageCount.toFixed(0)}} %
                             </td>
                             <td *ngIf="!coverage_view" class="grey">
-                             {{ hq.total_att>0? (hq.customer_types[1].allVisitCount/hq.total_att).toFixed(1) : 0 }}
+                              {{ hq.total_att>0? (hq.customer_types[1].allVisitCount/hq.total_att).toFixed(1) : 0 }}
                             </td>
 
                             <td>{{ hq.customer_types[2].customerCount }}</td>
@@ -787,7 +787,7 @@
                               hq.customer_types[2].percentageCount.toFixed(0)}} %
                             </td>
                             <td *ngIf="!coverage_view">
-                             {{ hq.total_att > 0 ? (hq.customer_types[2].allVisitCount/hq.total_att).toFixed(1) : 0}}
+                              {{ hq.total_att > 0 ? (hq.customer_types[2].allVisitCount/hq.total_att).toFixed(1) : 0}}
                             </td>
 
                             <td class="grey">{{ hq.customer_types[3].customerCount }}</td>
@@ -798,7 +798,7 @@
                               hq.customer_types[3].percentageCount.toFixed(0)}} %
                             </td>
                             <td *ngIf="!coverage_view" class="grey">
-                             {{ hq.total_att > 0? (hq.customer_types[3].allVisitCount/hq.total_att).toFixed(1) : 0 }}
+                              {{ hq.total_att > 0? (hq.customer_types[3].allVisitCount/hq.total_att).toFixed(1) : 0 }}
                             </td>
 
                             <td>{{ hq.customer_types[4].customerCount }}</td>
@@ -809,7 +809,7 @@
                               hq.customer_types[4].percentageCount.toFixed(0)}} %
                             </td>
                             <td *ngIf="!coverage_view">
-                             {{ hq.total_att > 0? (hq.customer_types[4].allVisitCount/hq.total_att).toFixed(1) : 0 }}
+                              {{ hq.total_att > 0? (hq.customer_types[4].allVisitCount/hq.total_att).toFixed(1) : 0 }}
                             </td>
                           </tr>
                         </template>

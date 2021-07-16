@@ -54,6 +54,7 @@ import {Download} from './download/download';
 import {PrimarySecondaryTarget} from './sale/primary_secondary_target';
 import {BrandWiseSummary} from './sale/brandwise_summary';
 import {SampleReport} from './download/sample_report';
+import { UserLocation } from "./user/user_location";
 
 export class Result {
 
@@ -255,5 +256,7 @@ export class Result {
   primarysecondarysalestargets: PrimarySecondaryTarget[];
 
   month_sale_target: Brand[];
+
+  user_locations: UserLocation[];
 
 }

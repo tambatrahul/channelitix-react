@@ -7,7 +7,7 @@ export class CustomerType extends Model {
     grades: Grade[] = [];
     customer_count: number = 0;
     doctor_speciality: string;
-    doctorGroupName: string;
+    doctor_group_name: string;
 
 
     // for internal use
@@ -27,7 +27,7 @@ export class CustomerType extends Model {
         super(info.id);
         this.name = info.name;
         this.doctor_speciality = info.doctor_speciality;
-        this.doctorGroupName = info.doctorGroupName;
+        this.doctor_group_name = info.doctor_group_name;
         if (info.customer_count)
             this.customer_count = parseInt(info.customer_count);
         if (info.grades) {

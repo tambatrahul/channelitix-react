@@ -33,6 +33,7 @@ export class Customer extends Model {
   grade_id: number;
   grade: Grade;
   status: string;
+  approved_status: string;
   total_customers: number = 0;
   hq_brick_id: number;
   hq_territory_id: number;
@@ -103,6 +104,7 @@ export class Customer extends Model {
     this.grade_id = info.grade_id;
     this.grade = info.grade;
     this.status = info.status;
+    this.approved_status = info.approved_status;
     if (info.total_customers)
       this.total_customers = parseInt(info.total_customers);
     this.hq_brick_id = info.hq_brick_id;

@@ -7,7 +7,6 @@ import {TourService} from "../../../../services/tour.service";
 import {Tour} from "../../../../models/tour_program/tour";
 import {BaseMonthlyComponent} from "../../../base/base_monthly.component";
 import * as moment from "moment";
-import { ComponentStillLoadingError } from "@angular/compiler/src/private_import_core";
 declare let jQuery: any;
 declare let d3: any;
 
@@ -173,6 +172,7 @@ export class TourComponent extends BaseMonthlyComponent {
     }
 
 
+
     for (let z of zone_managers) {
       z.children = [];
       for (let m of managers) {
@@ -220,6 +220,7 @@ export class TourComponent extends BaseMonthlyComponent {
         });
       }
     }, 3000);
+
   }
 
   /**
