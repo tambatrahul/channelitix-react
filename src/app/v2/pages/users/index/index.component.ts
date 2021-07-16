@@ -55,6 +55,12 @@ export class UserComponent extends ListComponent {
    */
   public training_report: User = new User({});
 
+
+  /**
+   * Unlock reporting for user
+   */
+  public unlock_report: User = new User({});
+
   /**
    * Resetting User Password
    */
@@ -172,6 +178,13 @@ export class UserComponent extends ListComponent {
   }
 
   /**
+   * Unlock reporting for user
+   */
+  unlockReportSelect(user) {
+    this.unlock_report = user;
+  }
+
+  /**
    * on user deactivation
    *
    * @param data
@@ -197,6 +210,15 @@ export class UserComponent extends ListComponent {
    */
   pageChanged(page) {
     this.page = page;
+    this.fetch();
+  }
+
+  /**
+   *
+   * @param data
+   */
+  onUnlockReportSelect(data) {
+    this.unlock_report = new User({});
     this.fetch();
   }
 
