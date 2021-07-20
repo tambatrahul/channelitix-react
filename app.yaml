@@ -20,12 +20,12 @@ handlers:
 - url: /(.*\.(gif|png|jpg|css|js|otf|eot|svg|ttf|woff|woff2)(|\.map))$
   static_files: dist/\1
   upload: dist/(.*)(|\.map)
-  secure: always
+#  secure: always
 
 - url: /(.*)
   static_files: dist/index.html
   upload: dist/index.html
-  secure: always
+#  secure: always
 
 # Temporary setting to keep gcloud from uploading not required files for deployment
 skip_files:

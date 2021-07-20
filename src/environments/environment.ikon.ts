@@ -5,5 +5,6 @@ export const environment = {
     orgCode: 'PFICONRX',
     server_url: 'https://iconapi.channelitix.com/api/v1/',
     server_url_v2: 'https://iconapi.channelitix.com/api/v2/',
-    userTrainingUrl: 'http://training.channelitix.com/trainings/'
+    server_url_v3: 'https://iconapi.channelitix.com/api/v3/',
+    userTrainingUrl: 'https://training.channelitix.com/trainings/'
 };

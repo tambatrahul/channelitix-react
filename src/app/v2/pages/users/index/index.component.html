@@ -128,8 +128,13 @@
                     <a *roleCheck="ROLE_RSM" class="btn btn-danger btn-xs" style="cursor: pointer;"
                        title="Delete Report" (click)="deleteReport(user)">Delete Report</a>
                     <template [ngIf]="environment.projectName == 'IKON'">
-                      <a class="btn btn-primary btn-xs" style="cursor: pointer;"
+                      <a  *roleCheck="ROLE_RSM" class="btn btn-primary btn-xs" style="cursor: pointer;"
                         title="User Trainings" (click)="trainingSelect(user)">User Trainings
+                      </a>
+                    </template>
+                    <template [ngIf]="environment.projectName == 'JBCPL' && user.reporting_locked == 1 ">
+                      <a *onlyRoleCheck="ROLE_ADMIN" class="btn btn-primary btn-xs" style="cursor: pointer;"
+                         title="User Trainings" (click)="unlockReportSelect(user)">Unlock Reporting
                       </a>
                     </template>
                   </td>
@@ -174,4 +179,10 @@
                        (trainingSelected)="onTrainingSelect($event)"></training-report>
     </div>
   </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <unlock-report [user]="unlock_report"
+                       (unlockReportingSelected)="onUnlockReportSelect($event)"></unlock-report>
+      </div>
+    </div>
 </div>

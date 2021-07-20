@@ -256,6 +256,7 @@ import { TrainingReportComponent } from "./v2/components/users/training_report/t
 import {SalesDirective} from './directives/sales.directive';
 import {UserLocationComponent} from './components/pages/attendance/user_location_map/user_location.component';
 import { UserLocationService } from "./services/v3/user_location.service";
+import {UnlockReportComponent} from './v3/components/users/unlock_report/unlock_report.component';
 
 enableProdMode();
 
@@ -504,6 +505,7 @@ enableProdMode();
 
     UserTrainingSelectComponent,
     TrainingReportComponent,
+    UnlockReportComponent,
     UserLocationComponent
   ],
   imports: [

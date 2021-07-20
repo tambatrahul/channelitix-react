@@ -1,0 +1,26 @@
+<div class="modal fade css_v2" tabindex="-1" role="dialog" #deletingReport_modal>
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Unlock reporting for {{ _user.full_name }}</h4>
+            </div>
+            <div class="modal-body" #loading_box>
+                <form (ngSubmit)="save()" novalidate>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <small style="color: black;text-align: center">
+                                <i>Are you sure to unlock reporting?</i>
+                            </small>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary ">Confirm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
