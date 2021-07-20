@@ -58,10 +58,9 @@ export class UserLocationComponent extends GoogleChartComponent {
     */
     drawGraph() {
         let options = {
-            chartArea: {left: 60, top: 40, bottom: 40, right: 40, width: "100%", height: "100%"},
-            legend: {position: 'top', alignment: 'start'}
-        };
 
+        };
+      console.log(this.chart_data);
         this.chart = this.createMap(document.getElementById('user_location_maps'));
         this.chart.draw(this.chart_data, options);
     }
@@ -91,8 +90,8 @@ export class UserLocationComponent extends GoogleChartComponent {
         this.getGoogle().charts.setOnLoadCallback(() => {
             let google = this.getGoogle();
             let data = new google.visualization.DataTable();
-            data.addColumn('string', 'Lat');
-            data.addColumn('string', 'Long');
+            data.addColumn('number', 'Lat');
+            data.addColumn('number', 'Long');
             data.addColumn('string', 'Date');
 
             let locations = [];
