@@ -11,6 +11,6 @@ export const environment = {
   server_url: 'http://localhost:8000/api/v1/',
   server_url_v2: 'http://localhost:8000/api/v2/',
   server_url_v3: 'http://localhost:8000/api/v3/',
-  userTrainingUrl: 'http://localhost:8000/trainings/'
+  userTrainingUrl: 'https://training.channelitix.com/trainings/'
 
 };
