@@ -124,6 +124,7 @@
                           <th [colSpan]="mg.children[0]?.visits.length + 4"
                               class="text-center">
                             <strong>{{ mg.full_name }}</strong>
+                            <a *ngIf="_service.user.map_access == 1" ><i (click)="showLocationMapForUser(mg)" class="fa fa-map-marker color-padding"></i></a>
                           </th>
                         </tr>
                         <tr class="grey">
@@ -137,7 +138,8 @@
 
                         </tr>
                         <tr *ngFor="let user of mg.children">
-                          <th>{{ user.full_name }}</th>
+                          <th>{{ user.full_name }}
+                            <a *ngIf="_service.user.map_access == 1" ><i (click)="showLocationMapForUser(user)" class="fa fa-map-marker color-padding"></i></a></th>
                           <th>{{ user.hq_headquarter?.name }}</th>
                           <td>
                             <i status [field]="user.status"></i>
@@ -205,7 +207,8 @@
 
                       <tbody>
                       <tr *ngFor="let user of z.children">
-                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.full_name }}
+                          <a *ngIf="_service.user.map_access == 1" ><i (click)="showLocationMapForUser(user)" class="fa fa-map-marker color-padding"></i></a></td>
                         <td>{{ user.hq_headquarter.name }}</td>
                         <td>
                           <i status [field]="user.status"></i>

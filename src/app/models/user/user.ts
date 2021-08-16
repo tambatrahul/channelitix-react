@@ -34,6 +34,7 @@ export class User extends Model {
   access_id: number;
   download_access: number;
   reporting_locked: number;
+  map_access: number;
 
   // territory changes
   hq_country_id: number;
@@ -102,6 +103,7 @@ export class User extends Model {
     this.access_id = info.access_id;
     this.download_access = info.download_access;
     this.reporting_locked = info.reporting_locked;
+    this.map_access = info.map_access;
 
 
     if (info.user_count)

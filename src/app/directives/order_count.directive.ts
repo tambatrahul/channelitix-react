@@ -89,6 +89,9 @@ export class OrderCountDirective {
               this.el.nativeElement.style.color = this.highLight;
             }
             else
+            if ((this._order.order_total_count / 1000) < (this._target))
+              this.el.nativeElement.style.backgroundColor = this.below_500;
+            else
               this.el.nativeElement.style.backgroundColor = this.above_2500;
           } else {
             if (this._order.order_total_quantity == 0) {
@@ -113,8 +116,8 @@ export class OrderCountDirective {
           this.el.nativeElement.innerText = this._order.attendance.work_type.name.charAt(0).toUpperCase();
 
         // set background color depending on status
-        // if (this._order.attendance.status == AppConstants.LEAVE)
-        //   this.el.nativeElement.style.backgroundColor = this.leave;
+        if (this._order.attendance.status == AppConstants.LEAVE)
+          this.el.nativeElement.style.color = this.leave;
         if (this._order.attendance.status == AppConstants.HOLIDAY)
           this.el.nativeElement.style.backgroundColor = this.holiday;
       }

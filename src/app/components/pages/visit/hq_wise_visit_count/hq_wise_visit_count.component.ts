@@ -171,15 +171,16 @@ export class HQWiseVisitComponent extends ListComponent {
                                         grade.phy_visit_count += vis.visit_count;
                                     }
 
-                                    // if (grade.id == vis.grade_id && vis.doctor_speciality == 'Psychiatrist' && vis.customer_type_id == 5){
-                                    //     grade.psy_visit_count += vis.visit_count;
-                                    // }
+                                  if (grade.id == vis.grade_id && vis.doctorGroupName == 'Psychiatrist' && vis.customer_type_id == 5){
+                                    grade.psy_visit_count += vis.visit_count;
+                                  }
 
-                                    if (grade.id == vis.grade_id && vis.doctorGroupName != 'General Practitioner' && vis.customer_type_id == 5) {
-                                        grade.not_gp_visit_count += vis.visit_count;
-                                    }
+                                  // if (grade.id == vis.grade_id && vis.doctorGroupName != 'General Practitioner' && vis.customer_type_id == 5) {
+                                  //     grade.not_gp_visit_count += vis.visit_count;
+                                  // }
 
-                                    if (grade.id == vis.grade_id && vis.doctorGroupName != 'Consultant Physician' && vis.doctorGroupName != 'Psychiatrist' && vis.customer_type_id == 5){
+
+                                  if (grade.id == vis.grade_id && vis.doctorGroupName != 'Consultant Physician' && vis.doctorGroupName != 'Psychiatrist' && vis.customer_type_id == 5){
                                         grade.not_phy_psy_visit_count += vis.visit_count;
                                     }
                                 });

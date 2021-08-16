@@ -10,6 +10,7 @@ import {Holiday} from '../../../../models/holiday';
 import {AttendanceService} from '../../../../services/attendance.service';
 import {Attendance} from '../../../../models/attendance/attendance';
 import {Observable} from 'rxjs/Rx';
+import {Router} from '@angular/router';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -46,6 +47,7 @@ export class VisitComponent extends BaseAuthComponent {
   public role_id: number = 0;
   public manager_role_id: number = 0;
   public department_id: number = 0;
+  public user_id: number = 0;
 
 
   /**
@@ -69,6 +71,9 @@ export class VisitComponent extends BaseAuthComponent {
    */
   public month: number;
   public year: number;
+  public _month;
+  public month_year;
+  public url;
 
   /**
    * customer type id
@@ -122,7 +127,7 @@ export class VisitComponent extends BaseAuthComponent {
    *
    */
   constructor(public visitService: VisitService, public attendanceService: AttendanceService,
-              public _service: AuthService) {
+              public _service: AuthService, public _router: Router) {
     super(_service);
   }
 
@@ -185,10 +190,10 @@ export class VisitComponent extends BaseAuthComponent {
     for (let att of attendances) {
       if (data_skeleton.hasOwnProperty(att.created_by)) {
         data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].attendance = att;
-        if (data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].visit_count == 0
-          && att.status == AppConstants.WORKING) {
-          data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].visit_count = att.no_of_calls;
-        }
+        // if (data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].visit_count == 0
+        //   && att.status == AppConstants.WORKING) {
+        //   data_skeleton[att.created_by][moment(att.date, 'YYYY-MM-DD').date() - 1].visit_count = att.no_of_calls;
+        // }
       }
     }
 
@@ -400,6 +405,16 @@ export class VisitComponent extends BaseAuthComponent {
   departmentChanged(department_id) {
     this.department_id = department_id;
     this.fetchData();
+  }
+
+  /**
+   * show all location for user
+   */
+  showLocationMapForUser(user: User) {
+    this.user_id = user.id;
+    this.month_year = "" + this.year + ( this._month = ((this.month + 1) < 9) ?  ""+ 0 + (this.month + 1) : (this.month + 1));
+    this.url = this._router.serializeUrl(this._router.createUrlTree(['user-locations', this.user_id, this.month_year]));
+    window.open(this.url, '_blank');
   }
 
   /**

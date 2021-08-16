@@ -149,7 +149,7 @@ export class UserVisitListComponent extends BaseAuthComponent {
               self.customer_semi += visit_de.customer_count;
             }
 
-            if (self.customer_type_id == 3) {
+            if (self.customer_type == 3) {
               self.customer_retailer += visit_de.customer_count;
             }
 
