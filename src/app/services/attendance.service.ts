@@ -142,8 +142,8 @@ export class AttendanceService extends BaseService {
    * @param data
    * @returns {Observable<Result>}
    */
-  report_update_mobile(data) {
-    return this.post(this.getBaseUrl() + '/report_update_mobile', data);
+  update_mobile_while_reporting(data) {
+    return this.post(this.getBaseUrl() + '/update-mobile-while-reporting', data);
   }
 
   /**

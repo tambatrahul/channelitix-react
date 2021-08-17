@@ -47,6 +47,7 @@ export class ReportComponent extends FormComponent {
   saved: boolean = false;
 
   reporting_status: string = '';
+  mobile_number: number = 0;
 
   classifications = [{'key': 'core', 'value': 'Core'}, {'key': 'super_core', 'value': 'Super Core'}];
 
@@ -300,7 +301,7 @@ public mobile_valid: boolean = false;
       };
     });
 
-    this.attendanceService.report_update_mobile({customers: formatted_data}).subscribe(
+    this.attendanceService.update_mobile_while_reporting({customers: formatted_data}).subscribe(
       response => {
         this.loading = false;
       },
@@ -392,8 +393,8 @@ public mobile_valid: boolean = false;
   }
 
   onMobileChange(value) {
-    this.value = value;
-    if (this.value >= 6000000000 && this.value <= 9999999999 || this.value == null ) {
+    this.mobile_number = value;
+    if (this.mobile_number >= 6000000000 && this.mobile_number <= 9999999999 || this.mobile_number == null ) {
       this.mobile_valid = false;
     } else {
       this.mobile_valid = true;
