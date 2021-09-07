@@ -57,6 +57,7 @@ import {LeaveTypeSelectComponent} from "./components/form_elements/attendance/le
 import {ManagerSelectComponent} from "./components/form_elements/attendance/manager/manager-select.component";
 import {UpdateAttendanceComponent} from "./components/pages/attendance/update/update.component";
 import {TourService} from "./services/tour.service";
+import {V2TourService } from "./services/v2/tour.service";
 import {CalendarTourStatusDirective} from "./components/pages/tour_program/directives/calendar_tour_status.directive";
 import {CalendarTourComponent} from "./components/pages/tour_program/calendar/calendar.component";
 import {MonthlyTourProgramComponent} from "./components/pages/tour_program/monthly/monthly.component";
@@ -529,6 +530,7 @@ enableProdMode();
     BrickService,
     OrderService,
     TourService,
+    V2TourService,
     MessageService,
     ReportService,
     V2ReportService,

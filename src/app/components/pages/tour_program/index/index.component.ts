@@ -7,6 +7,7 @@ import {TourService} from "../../../../services/tour.service";
 import {Tour} from "../../../../models/tour_program/tour";
 import {BaseMonthlyComponent} from "../../../base/base_monthly.component";
 import * as moment from "moment";
+import { V2TourService } from "app/services/v2/tour.service";
 declare let jQuery: any;
 declare let d3: any;
 
@@ -42,6 +43,8 @@ export class TourComponent extends BaseMonthlyComponent {
    */
   tour: Tour;
   tours: Tour[] = [];
+
+  btn_loading: boolean = false;
 
   /**
    * user id
@@ -81,8 +84,9 @@ export class TourComponent extends BaseMonthlyComponent {
    *
    * @param tourService
    * @param _service
+   * @param v2TourService
    */
-  constructor(private tourService: TourService, public _service: AuthService) {
+  constructor(private tourService: TourService, public _service: AuthService, private v2TourService: V2TourService) {
     super(_service);
   }
 
@@ -250,6 +254,30 @@ export class TourComponent extends BaseMonthlyComponent {
       },
       err => {
         this.loading = false;
+      }
+    );
+  }
+
+  /**
+   * Download Excel For Stockist POB
+   */
+   download() {
+    this.btn_loading = true;
+
+    this.v2TourService.tour_program_report_excel_download(this.month + 1, this.year, this._service.user.hq_country_id, this._service.user.hq_zone_id,
+                                                        this._service.user.hq_region_id, this._service.user.hq_area_id ).subscribe(
+      response => {
+        let blob: Blob = response.blob();
+
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download ='userwise-tour-program-report.xls';
+        link.click();
+        this.btn_loading = false;
+
+      },
+      err => {
+        this.btn_loading = false;
       }
     );
   }

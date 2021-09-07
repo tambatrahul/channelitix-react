@@ -132,7 +132,7 @@
                         title="User Trainings" (click)="trainingSelect(user)">User Trainings
                       </a>
                     </template>
-                    <template [ngIf]="environment.projectName == 'JBCPL' && user.reporting_locked == 1 ">
+                    <template [ngIf]=" user.reporting_locked == 1 ">
                       <a *onlyRoleCheck="ROLE_ADMIN" class="btn btn-primary btn-xs" style="cursor: pointer;"
                          title="User Trainings" (click)="unlockReportSelect(user)">Unlock Reporting
                       </a>

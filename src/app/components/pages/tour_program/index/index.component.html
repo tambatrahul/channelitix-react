@@ -1,19 +1,37 @@
 <div class="container-fluid tours">
 
     <!-- Page Breadcrumb -->
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="page-breadcrumb-wrap">
-                    <div class="page-breadcrumb-info">
-                        <h2 class="breadcrumb-titles">Tours
-                            <small>Tour Report for all Users</small>
-                        </h2>
-                    </div>
-                </div>
-            </div>
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">Tours
+              <small>Tour Report for all Users</small>
+            </h2>
+          </div>
         </div>
+      </div>
+      <div class="col-md-5" style="margin-top: 25px;">
+        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'JBCPL'">
+        <div class="col-xs-12" *ngIf="environment.envName != 'sk_group'">
+          <div class="col-xs-4 col-xs-offset-2" *roleCheck="ROLE_CSM" style="text-align: right;width: 164px;">
+            <a class="btn btn-primary btn-block btn-margin" *ngIf="!btn_loading"
+               (click)="download()">
+              Export to xlsx
+            </a>
+            <a class="btn btn-primary btn-block btn-margin" *ngIf="btn_loading">
+              <i class="fa fa-spinner fa-spin"></i>Export to xlsx
+            </a>
+          </div>
+        </div>
+        </template>
+      </div>
+
     </div>
+  </div>
+
+
     <!-- Page Breadcrumb -->
 
     <!-- Filters for tour report-->
