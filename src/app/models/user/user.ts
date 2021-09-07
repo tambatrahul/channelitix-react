@@ -35,6 +35,8 @@ export class User extends Model {
   download_access: number;
   reporting_locked: number;
   map_access: number;
+  parent_headquarter_id: number;
+  total_pool_hq: number;
 
   // territory changes
   hq_country_id: number;
@@ -104,6 +106,8 @@ export class User extends Model {
     this.download_access = info.download_access;
     this.reporting_locked = info.reporting_locked;
     this.map_access = info.map_access;
+    this.parent_headquarter_id = info.parent_headquarter_id;
+    this.total_pool_hq = info.total_pool_hq;
 
 
     if (info.user_count)
@@ -149,32 +153,32 @@ export class User extends Model {
 
   get daily_target(): number {
     if (this.environment.envName == 'sk_group')
-      return this.total_target > 0 ? parseFloat(((this.total_target / 1000) / 24).toFixed(1)) : 0;
-    return this.total_target > 0 ? parseFloat((((this.total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
+      return this.total_target > 0 ? parseFloat((((this.total_target / 1000) / 24) / this.total_pool_hq).toFixed(1)) : 0;
+    return this.total_target > 0 ? parseFloat(((((this.total_target / 1000) * 0.50) / 24) / this.total_pool_hq).toFixed(1)) : 0;
   }
 
   get daily_target_40(): number {
-    return this.total_target > 0 ? parseFloat((((this.total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
+    return this.total_target > 0 ? parseFloat(((((this.total_target / 1000) * 0.50) / 24) / this.total_pool_hq).toFixed(1)) : 0;
   }
 
   get mg_daily_target(): number {
     if (this.environment.envName == 'sk_group')
-      return this.mg_total_target > 0 ? parseFloat(((this.mg_total_target / 1000) / 24).toFixed(1)) : 0;
-    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
+      return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) / 24) / this.total_pool_hq).toFixed(1)) : 0;
+    return this.mg_total_target > 0 ? parseFloat(((((this.mg_total_target / 1000) * 0.50) / 24) / this.total_pool_hq).toFixed(1)) : 0;
   }
 
   get mg_daily_target_40(): number {
-    return this.mg_total_target > 0 ? parseFloat((((this.mg_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
+    return this.mg_total_target > 0 ? parseFloat(((((this.mg_total_target / 1000) * 0.50) / 24) / this.total_pool_hq).toFixed(1)) : 0;
   }
 
   get zsm_daily_target(): number {
     if (this.environment.envName == 'sk_group')
-      return this.zsm_total_target > 0 ? parseFloat(((this.zsm_total_target / 1000) / 24).toFixed(1)) : 0;
-    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
+      return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) / 24) / this.total_pool_hq).toFixed(1)) : 0;
+    return this.zsm_total_target > 0 ? parseFloat(((((this.zsm_total_target / 1000) * 0.50) / 24) / this.total_pool_hq).toFixed(1)) : 0;
   }
 
   get zsm_daily_target_40(): number {
-    return this.zsm_total_target > 0 ? parseFloat((((this.zsm_total_target / 1000) * 0.50) / 24).toFixed(1)) : 0;
+    return this.zsm_total_target > 0 ? parseFloat(((((this.zsm_total_target / 1000) * 0.50) / 24) / this.total_pool_hq).toFixed(1)) : 0;
   }
 
   /**
@@ -303,6 +307,16 @@ export class User extends Model {
     });
     return total;
   }
+
+  get visit_count_total() {
+    let total: number = 0;
+    this.visits.map(vis => {
+      if (vis.visit_total_count > 0)
+        total += vis.visit_total_count;
+    });
+    return total;
+  }
+
 
   /**
    * get total pob count

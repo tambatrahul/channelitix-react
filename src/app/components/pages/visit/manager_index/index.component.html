@@ -109,7 +109,7 @@
                                                 <th>Total</th>
                                                 <td></td>
                                                 <td></td>
-                                                <td>{{ z.total_visit_count }}</td>
+                                                <td>{{ z.visit_count_total }}</td>
                                                 <td *ngFor="let visit of z.visits">
                                                     {{ visit.visit_total_count }}
                                                 </td>
@@ -157,7 +157,7 @@
                     <div class="col-xs-12">
                         <div>
                             <user-visit-list [user]="user" [date]="date" [month]="month"
-                                             [year]="year"></user-visit-list>
+                                             [year]="year" [customer_type_id]="customer_type_id"></user-visit-list>
                         </div>
                     </div>
                     <!-- ./Tour Table -->

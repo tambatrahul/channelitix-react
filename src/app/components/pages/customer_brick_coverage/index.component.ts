@@ -170,24 +170,23 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         bricks.map(hq_brick => {
           if (brick.id == hq_brick.id) {
             if (hq_brick.customer_type_id == 1) {
-              if (hq_brick.grade_id == 1 || hq_brick.grade_id == 2 || hq_brick.grade_id == 8 ||
-                hq_brick.grade_id == 9 || hq_brick.grade_id == 10 || hq_brick.grade_id == 11) {
-                hq_brick.customer_ab = hq_brick.customer_count;
+              if (hq_brick.grade_name.includes('A') || hq_brick.grade_name.includes('B')) {
+                brick.customer_ab += hq_brick.customer_count;
               } else {
-                brick.customer_others = hq_brick.customer_count;
+                brick.customer_others += hq_brick.customer_count;
               }
             }
             if (hq_brick.customer_type_id == 2) {
-              brick.customer_semi = hq_brick.customer_count;
+              brick.customer_semi += hq_brick.customer_count;
             }
             if (hq_brick.customer_type_id == 3) {
-              brick.customer_retailer = hq_brick.customer_count;
+              brick.customer_retailer += hq_brick.customer_count;
             }
             if (hq_brick.customer_type_id == 4) {
-              brick.customer_hub_chemist = hq_brick.customer_count;
+              brick.customer_hub_chemist += hq_brick.customer_count;
             }
             if (hq_brick.customer_type_id == 5) {
-              brick.customer_physician = hq_brick.customer_count;
+              brick.customer_physician += hq_brick.customer_count;
             }
 
             brick.total_customers += hq_brick.customer_count;

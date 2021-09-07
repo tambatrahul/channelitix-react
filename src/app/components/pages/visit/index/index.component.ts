@@ -439,14 +439,11 @@ export class VisitComponent extends BaseAuthComponent {
         swal(user.full_name + ' on Meeting (' + popup_date + ')');
       } else if (visit.attendance.work_type_id == 3) {
         swal(user.full_name + ' on Campaign (' + popup_date + ')');
-      } else if (visit.attendance.work_type_id == 2) {
+      } else if (visit.attendance.work_type.type == 'Field Work' && visit.visit_count > 0) {
         jQuery(this.visit_table.nativeElement).modal();
       }
-      else if (visit.attendance.work_type_id == 10) {
-          jQuery(this.visit_table.nativeElement).modal();
       }
     }
-  }
 
   /**
    * Download Excel For Stockist POB

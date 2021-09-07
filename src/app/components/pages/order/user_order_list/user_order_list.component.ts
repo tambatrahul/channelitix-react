@@ -5,6 +5,7 @@ import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {AuthService} from "../../../../services/AuthService";
 import {OrderService} from "../../../../services/order.service";
 import {Order} from "../../../../models/order/order";
+import {AppConstants} from '../../../../app.constants';
 declare let jQuery: any;
 
 @Component({
@@ -26,7 +27,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
     @Input()
     set user(user) {
         this._user = user;
-        this.fetch();
+        this.fetchData();
     }
 
   /**
@@ -37,7 +38,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
   @Input()
   set department_id(department_id) {
     this._department_id = department_id;
-    this.fetch();
+    this.fetchData();
   }
 
 
@@ -49,7 +50,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
   @Input()
   set brand_id(brand_id) {
     this._brand_id = brand_id;
-    this.fetch();
+    this.fetchData();
   }
 
   /**
@@ -72,7 +73,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
     @Input()
     set date(date: number) {
         this._date = date;
-        this.fetch();
+        this.fetchData();
     }
 
     /**
@@ -82,7 +83,7 @@ export class UserOrderListComponent extends BaseAuthComponent {
     @Input()
     set customer_type_id(customer_type_id: number) {
         this._customer_type_id = customer_type_id;
-        this.fetch();
+        this.fetchData();
     }
 
     /**
@@ -118,28 +119,29 @@ export class UserOrderListComponent extends BaseAuthComponent {
     /**
      * fetch server data for visits
      */
-    fetch() {
-        if ((this.month || this.month == 0) && this.year && this._user && this._date) {
-            this.loading = true;
-            this.orderService.forUser(this._user.id, this.month + 1, this.year,
-              this._date, this._department_id, this._brand_id, this._customer_type_id).subscribe(
+    fetchData = AppConstants.debounce(function() {
+      const self = this;
+        if ((self.month || self.month == 0) && self.year && self._user && self._date) {
+          self.loading = true;
+          self.orderService.forUser(self._user.id, self.month + 1, self.year,
+            self._date, self._department_id, self._brand_id, self._customer_type_id).subscribe(
                 response => {
-                    this.orders = response.orders.map(order => new Order(order));
-                    if (this._service.user.username == 'abbottadmin')
-                        this.orders = this.orders.filter(order => {
+                  self.orders = response.orders.map(order => new Order(order));
+                    if (self._service.user.username == 'abbottadmin')
+                      self.orders = self.orders.filter(order => {
                             if (order.isSynergy) {
                                 return true;
                             }
                             return false;
                         });
-                    this.loading = false;
+                  self.loading = false;
                 },
                 err => {
-                    this.loading = false;
+                  self.loading = false;
                 }
-            )
+            );
         }
-    }
+    }, 1000, false);
 
     /**
      * select order

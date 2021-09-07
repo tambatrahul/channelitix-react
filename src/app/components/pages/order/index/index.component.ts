@@ -200,7 +200,7 @@ export class OrderComponent extends BaseAuthComponent {
     for (let user of users) {
       user.orders = [];
       targets.map(target => {
-        if (target.hq_headquarter_id == user.hq_headquarter_id) {
+        if (target.hq_headquarter_id == user.hq_headquarter_id || target.hq_headquarter_id == user.parent_headquarter_id) {
           user.total_target = target.total_target;
         }
       });
@@ -466,10 +466,7 @@ export class OrderComponent extends BaseAuthComponent {
         swal(user.full_name + ' on Meeting (' + popup_date + ')');
       } else if (order.attendance.work_type_id == 3) {
         swal(user.full_name + ' on Campaign (' + popup_date + ')');
-      } else if (order.attendance.work_type_id == 2) {
-        jQuery(this.user_order_table.nativeElement).modal();
-      }
-      else if (order.attendance.work_type_id == 10) {
+      } else if (order.attendance.work_type.type == 'Field Work' && order.order_total_count > 0) {
         jQuery(this.user_order_table.nativeElement).modal();
       }
     }

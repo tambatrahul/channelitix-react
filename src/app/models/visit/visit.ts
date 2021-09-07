@@ -33,6 +33,7 @@ export class Visit extends Model {
   all_visit_count: number = 0;
   visit_total_count: number = 0;
   total_visit_count: number = 0;
+  visit_count_total: number = 0;
   visit_day: number = 0;
   visit_month: number;
   attendance: Attendance = new Attendance({});

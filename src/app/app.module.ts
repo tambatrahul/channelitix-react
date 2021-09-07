@@ -257,6 +257,7 @@ import {SalesDirective} from './directives/sales.directive';
 import {UserLocationComponent} from './components/pages/attendance/user_location_map/user_location.component';
 import { UserLocationService } from "./services/v3/user_location.service";
 import {UnlockReportComponent} from './v3/components/users/unlock_report/unlock_report.component';
+import { V2ReportService } from "./services/v2/report.service";
 
 enableProdMode();
 
@@ -530,6 +531,7 @@ enableProdMode();
     TourService,
     MessageService,
     ReportService,
+    V2ReportService,
     StpService,
     SecondarySaleService,
     SalesPlanningService,

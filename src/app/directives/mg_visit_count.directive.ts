@@ -31,8 +31,8 @@ export class ManagerVisitCountDirective {
         if (environment.envName != 'sk_group') {
             if (visit.visit_count >= 0 && visit.attendance.status == AppConstants.WORKING) {
 
-                if (visit.visit_count == 0 && visit.attendance.no_of_calls > 0)
-                    visit.visit_count = visit.attendance.no_of_calls;
+                if (visit.visit_count == 0)
+                    visit.visit_count = 0;
 
                 // set text value
                 this.el.nativeElement.innerText = visit.visit_count;
@@ -59,7 +59,7 @@ export class ManagerVisitCountDirective {
         if (visit.attendance.status) {
             if (visit.attendance.status != AppConstants.WORKING)
                 this.el.nativeElement.innerText = visit.attendance.status.charAt(0).toUpperCase();
-            else if (visit.attendance.status == AppConstants.WORKING && visit.attendance.work_type_id != 2) {
+            else if (visit.attendance.status == AppConstants.WORKING && visit.attendance.work_type_id != 2 && visit.attendance.work_type_id != 10) {
                 this.el.nativeElement.innerText = visit.attendance.work_type.name.charAt(0).toUpperCase();
             }
 

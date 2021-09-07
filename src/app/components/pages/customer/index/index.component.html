@@ -122,8 +122,16 @@
                           </span>
                       </td>
                       <td *ngIf="_service.user.access_id <= 0">
-                        <a class="btn btn-default btn-xs" style="cursor: pointer;"
+                        <template [ngIf]=" _service.user.role_str != 'COUNTRY_MNG'">
+                          <a class="btn btn-default btn-xs" style="cursor: pointer" *ngIf="customer.customer_type.restricted_update == 0"
                            title="Update" (click)="updateCustomer(customer.id)">Edit</a> &nbsp;
+                        </template>
+
+                        <template [ngIf]=" _service.user.role_str == 'COUNTRY_MNG'">
+                          <a class="btn btn-default btn-xs" style="cursor: pointer;"
+                           title="Update" (click)="updateCustomer(customer.id)">Edit</a> &nbsp;
+                        </template>
+
                         <button
                           *ngIf="_service.user.role_id > 3 && environment.projectName == 'ACE'" class="btn btn-xs btn-danger"
                           (click)="deactivate(customer.id)">Deactivate

@@ -220,7 +220,7 @@ export class ManagerVisitComponent extends BaseAuthComponent {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
                     m.visits.forEach(function (vis, index) {
-                        z.visits[index].visit_count += vis.visit_count;
+                        /* z.visits[index].visit_count += vis.visit_count; */
                         z.visits[index].visit_total_count += vis.visit_count;
                     });
                 }
@@ -392,7 +392,7 @@ export class ManagerVisitComponent extends BaseAuthComponent {
                 swal(user.full_name + " on Meeting (" + popup_date + ")");
             else if (visit.attendance.work_type_id == 3)
                 swal(user.full_name + " on Campaign (" + popup_date + ")");
-            else if (visit.attendance.work_type_id == 2)
+            else if (visit.attendance.work_type.type == 'Field Work' && visit.visit_count > 0)
                 jQuery(this.visit_table.nativeElement).modal();
         }
     }

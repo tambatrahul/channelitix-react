@@ -63,6 +63,7 @@ export class Brick extends Model {
   total: number = 0;
   norm: number = 0;
   hq_brick_id: number = 0;
+  grade_name: string;
 
   constructor(info: any) {
     super(info.id);
@@ -77,6 +78,7 @@ export class Brick extends Model {
     this.total = info.total;
     this.hq_territory_id = info.hq_territory_id;
     this.target = info.target;
+    this.grade_name = info.grade_name;
 
     if (info.customer_ab) {
       this.customer_ab = parseInt(info.customer_ab);

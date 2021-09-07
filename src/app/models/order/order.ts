@@ -25,7 +25,7 @@ export class Order extends Model {
   delivered_by_synergy_user: Customer;
 
   brand_name: string;
-  brand_sub_name: string;
+  sub_name: string;
 
   // for internal use only
   isSunday: boolean = false;
@@ -130,8 +130,8 @@ export class Order extends Model {
     if (info.brand_id)
       this.brand_id = parseInt(info.brand_id);
 
-    if (info.brand_sub_name)
-      this.brand_sub_name = info.brand_sub_name;
+    if (info.sub_name)
+      this.sub_name = info.sub_name;
 
     this.hq_brick_id = info.hq_brick_id;
   }

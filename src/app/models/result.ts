@@ -55,6 +55,7 @@ import {PrimarySecondaryTarget} from './sale/primary_secondary_target';
 import {BrandWiseSummary} from './sale/brandwise_summary';
 import {SampleReport} from './download/sample_report';
 import { UserLocation } from "./user/user_location";
+import { PrimarySalesAndTargets } from "./V2/SAP/primary_sales_and_targets";
 
 export class Result {
 
@@ -127,6 +128,8 @@ export class Result {
   customer_qualifications: CustomerQualification[];
   customer_qualification: CustomerQualification[];
 
+  // targets and sales
+  primary_sales_and_targets: PrimarySalesAndTargets[];
 
   // total number
   total: number;

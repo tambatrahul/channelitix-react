@@ -92,7 +92,8 @@
 
                                         <tr>
                                             <th rowSpan="3">Name Of Brick</th>
-                                            <th rowSpan="3">Potential</th>
+                                            <th rowSpan="3">Brick Potential</th>
+                                            <th rowSpan="3">Customer Potential</th>
                                             <th colSpan="{{ months_str.length * 2 }}">Months</th>
                                         </tr>
                                         <tr>
@@ -130,6 +131,7 @@
                                                     <th>
                                                         {{brick.name}}
                                                     </th>
+                                                  <td> {{brick.expected_business > 0 ? brick.expected_business : 0}} </td>
                                                     <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,

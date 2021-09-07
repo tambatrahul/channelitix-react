@@ -11,6 +11,7 @@ export class Headquarter extends Model {
   name: string;
   status: string;
   total: number = 0;
+  parent_headquarter_id: number;
   hq_area: Area;
 
   // for internal user only
@@ -183,6 +184,9 @@ export class Headquarter extends Model {
 
     if (info.total_input_value)
       this.total_input_value = parseInt(info.total_input_value);
+
+    if (info.parent_headquarter_id)
+      this.parent_headquarter_id = parseInt(info.parent_headquarter_id);
   }
 
   /**

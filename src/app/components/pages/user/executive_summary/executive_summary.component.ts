@@ -2,9 +2,9 @@ import {Component} from "@angular/core";
 import {AuthService} from "../../../../services/AuthService";
 import {ListComponent} from "../../../base/list.component";
 import {ReportService} from "../../../../services/report.service";
+import {V2ReportService} from "../../../../services/v2/report.service";
 import {Region} from "../../../../models/territory/region";
-import {Target} from "../../../../models/SAP/target";
-import {PrimarySale} from "../../../../models/sale/primary_sale";
+import {PrimarySalesAndTargets} from "../../../../models/V2/SAP/primary_sales_and_targets";
 import {Order} from "../../../../models/order/order";
 import {Attendance} from "../../../../models/attendance/attendance";
 import {CustomerType} from "../../../../models/customer/customer_type";
@@ -48,15 +48,15 @@ export class ExecutiveSummaryComponent extends ListComponent {
   /**
    * User Component Constructor
    */
-  constructor(public _service: AuthService, public reportService: ReportService) {
+  constructor(public _service: AuthService, public reportService: ReportService, public v2ReportService: V2ReportService) {
     super(_service);
   }
 
   /**
-   * Customer Coverage view flag
-   * @type {boolean}
-   */
-  public coverage_view: boolean = true;
+     * Customer Coverage view flag
+     * @type {boolean}
+     */
+   public coverage_view: boolean = true;
 
   /**
    * on load of call fetch
@@ -87,34 +87,20 @@ export class ExecutiveSummaryComponent extends ListComponent {
     if ((this.month || this.month == 0) && this.year) {
       this.loading = true;
       Observable.forkJoin(
-        this.reportService.executive_summary(this.month + 1, this.year, this.zone_id, this.department_id),
+        this.v2ReportService.executive_summary(this.month + 1, this.year, this.zone_id, this.department_id),
         this.reportService.hq_wise_visit_counts(this.month + 1, this.year, this.zone_id)
       ).subscribe(data => {
         // get regions
         this.regions = data[0].regions.map(region => new Region(region));
-        let customer_types = data[0].customer_types.map(ct => new CustomerType(ct));
+        let customerTypes = data[0].customer_types.map(ct => new CustomerType(ct));
 
-        // get targets
-        let targets = data[0].targets.map(target => new Target(target));
-        let skinlite_targets = data[0].skinlite_targets.map(target => new Target(target));
-        let gelusil_targets = data[0].gelusil_targets.map(target=>new Target(target));
-        let becosules_targets = data[0].becosules_targets.map(target => new Target(target));
-        this.mapTargets(targets, skinlite_targets, gelusil_targets, becosules_targets, customer_types);
-
-
-        // get primary sales
-        let primaries = data[0].primary_sales.map(ps => new PrimarySale(ps));
-        let skinlite_primaries = data[0].skinlite_primary_sales.map(ps => new PrimarySale(ps));
-        let gelusil_primaries = data[0].gelusil_primary_sales.map(ps => new PrimarySale(ps));
-        let becosules_primaries = data[0].becosules_primary_sales.map(ps => new PrimarySale(ps));
-        this.mapPrimary(primaries, skinlite_primaries, gelusil_primaries, becosules_primaries);
+        // get targets and sales
+        let primarySalesAndTargets = data[0].primary_sales_and_targets.map(primarySalesAndTarget => new PrimarySalesAndTargets(primarySalesAndTarget));
+        this.mapPrimarySalesAndTargets(primarySalesAndTargets,  customerTypes);
 
         // get orders
         let orders = data[0].orders.map(ord => new Order(ord));
-        let skinlite_orders = data[0].skinlite_orders.map(ord => new Order(ord));
-        let gelusil_orders = data[0].gelusil_orders.map(ord => new Order(ord));
-        let becosules_orders = data[0].becosules_orders.map(ord => new Order(ord));
-        this.mapOrders(orders,skinlite_orders, gelusil_orders, becosules_orders);
+        this.mapOrders(orders);
 
         // get visits and attendances
         let visits = data[0].visits.map(vis => new Visit(vis));
@@ -235,110 +221,63 @@ export class ExecutiveSummaryComponent extends ListComponent {
   }
 
   /**
-   * map targets
+   * map targets and sales
    *
-   * @param targets
-   * @param skinlite_targets
-   * @param gelusil_targets
-   * @param becosules_targets
-   * @param customer_types
+   * @param primarySalesAndTargets
+   * @param customerTypes
    */
-  mapTargets(targets: Target[], skinlite_targets: Target[], gelusil_targets: Target[], becosules_targets: Target[], customer_types: CustomerType[]) {
+   mapPrimarySalesAndTargets(primarySalesAndTargets: PrimarySalesAndTargets[], customerTypes: CustomerType[]) {
     this.regions.map(region => {
       region.areas.map(area => {
         area.headquarters.map(headquarter => {
-          targets.map(target => {
+          primarySalesAndTargets.map(target => {
+
             if (target.hq_headquarter_id == headquarter.id) {
               headquarter.target += target.total_target ? target.total_target : 0;
-              area.target += target.total_target ? target.total_target : 0;
-              region.target += target.total_target ? target.total_target : 0;
-            }
-          });
+              headquarter.primary += target.total_net_amount;
 
-          skinlite_targets.map(target => {
-            if (target.hq_headquarter_id == headquarter.id) {
-              if (target.brand_sub_name == 'Gelusil') {
+              if (target.sub_name == 'Gelusil') {
                 headquarter.gelusil_target += target.total_target ? target.total_target : 0;
-                area.gelusil_target += target.total_target ? target.total_target : 0;
-                region.gelusil_target += target.total_target ? target.total_target : 0;
+                headquarter.gelusil_primary += target.total_net_amount;
               }
-            }
 
-            if (target.hq_headquarter_id == headquarter.id) {
-              if (target.brand_sub_name == 'Becosule') {
+              if (target.sub_name == 'Becosule') {
                 headquarter.becosules_target += target.total_target ? target.total_target : 0;
-                area.becosules_target += target.total_target ? target.total_target : 0;
-                region.becosules_target += target.total_target ? target.total_target : 0;
+                headquarter.becosules_primary = target.total_net_amount;
+              }
+
+              if (target.hq_headquarter_id == headquarter.parent_headquarter_id) {
+                area.target += target.total_target ? target.total_target : 0;
+                area.primary += target.total_net_amount;
+
+                region.target += target.total_target ? target.total_target : 0;
+                region.primary += target.total_net_amount;
+
+                if (target.sub_name == 'Gelusil') {
+                  area.gelusil_target += target.total_target ? target.total_target : 0;
+                  area.gelusil_primary += target.total_net_amount;
+
+                  region.gelusil_target += target.total_target ? target.total_target : 0;
+                  region.gelusil_primary += target.total_net_amount;
+                }
+
+                if (target.sub_name == 'Becosule') {
+                  area.becosules_target += target.total_target ? target.total_target : 0;
+                  area.becosules_primary += target.total_net_amount;
+
+                  region.becosules_target += target.total_target ? target.total_target : 0;
+                  region.becosules_primary += target.total_net_amount;
+                }
               }
             }
+
           });
 
-          gelusil_targets.map(target => {
-            if (target.hq_headquarter_id == headquarter.id) {
-              headquarter.gelusil_target = target.total_target ? target.total_target : 0;
-              area.gelusil_target += target.total_target ? target.total_target : 0;
-              region.gelusil_target += target.total_target ? target.total_target : 0;
-            }
-          });
-
-          becosules_targets.map(target => {
-            if (target.hq_headquarter_id == headquarter.id) {
-              headquarter.becosules_target = target.total_target ? target.total_target : 0;
-              area.becosules_target += target.total_target ? target.total_target : 0;
-              region.becosules_target += target.total_target ? target.total_target : 0;
-            }
-          });
-          headquarter.customer_types = customer_types.map(ct => new CustomerType(ct));
+          headquarter.customer_types = customerTypes.map(ct => new CustomerType(ct));
         });
-        area.customer_types = customer_types.map(ct => new CustomerType(ct));
+        area.customer_types = customerTypes.map(ct => new CustomerType(ct));
       });
-      region.customer_types = customer_types.map(ct => new CustomerType(ct));
-    });
-  }
-
-  /**
-   * map Primary
-   *
-   * @param primaries
-   * @param skinlite_primaries
-   * @param gelusil_primaries
-   * @param becosules_primaries
-   */
-  mapPrimary(primaries: PrimarySale[], skinlite_primaries: PrimarySale[], gelusil_primaries: PrimarySale[], becosules_primaries: PrimarySale[]) {
-    this.regions.map(region => {
-      region.areas.map(area => {
-        area.headquarters.map(headquarter => {
-          primaries.map(primary => {
-            if (primary.hq_headquarter_id == headquarter.id) {
-              headquarter.primary += primary.total_net_amount;
-              area.primary += primary.total_net_amount;
-              region.primary += primary.total_net_amount;
-            }
-
-            if (primary.hq_headquarter_id == headquarter.id) {
-              if (primary.brand_sub_name == 'Gelusil') {
-                headquarter.gelusil_primary += primary.total_net_amount;
-                area.gelusil_primary += primary.total_net_amount;
-                region.gelusil_primary += primary.total_net_amount;
-              }
-            }
-          });
-          gelusil_primaries.map(primary => {
-            if (primary.hq_headquarter_id == headquarter.id) {
-              headquarter.gelusil_primary = primary.total_net_amount;
-              area.gelusil_primary += primary.total_net_amount;
-              region.gelusil_primary += primary.total_net_amount;
-            }
-          });
-          becosules_primaries.map(primary => {
-            if (primary.hq_headquarter_id == headquarter.id) {
-              headquarter.becosules_primary = primary.total_net_amount;
-              area.becosules_primary += primary.total_net_amount;
-              region.becosules_primary += primary.total_net_amount;
-            }
-          });
-        });
-      });
+      region.customer_types = customerTypes.map(ct => new CustomerType(ct));
     });
   }
 
@@ -346,11 +285,8 @@ export class ExecutiveSummaryComponent extends ListComponent {
    * map Orders
    *
    * @param orders
-   * @param skinlite_orders
-   * @param becosules_orders
-   * @param gelusil_orders
    */
-  mapOrders(orders: Order[], skinlite_orders: Order[], gelusil_orders: Order[], becosules_orders: Order[]) {
+  mapOrders(orders: Order[]) {
     this.regions.map(region => {
       region.areas.map(area => {
         area.headquarters.map(headquarter => {
@@ -362,7 +298,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
             }
 
             if (ord.hq_headquarter_id == headquarter.id) {
-              if (ord.brand_sub_name == 'Gelusil') {
+              if (ord.sub_name == 'Gelusil') {
                 headquarter.gelusil_total_pob += ord.order_total_count;
                 area.gelusil_total_pob += ord.order_total_count;
                 region.gelusil_total_pob += ord.order_total_count;
@@ -370,25 +306,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
             }
 
             if (ord.hq_headquarter_id == headquarter.id) {
-              if (ord.brand_sub_name == 'Becosule') {
+              if (ord.sub_name == 'Becosule') {
                 headquarter.becosules_total_pob += ord.order_total_count;
                 area.becosules_total_pob += ord.order_total_count;
                 region.becosules_total_pob += ord.order_total_count;
               }
-            }
-          });
-          gelusil_orders.map(ord => {
-            if (ord.hq_headquarter_id == headquarter.id) {
-              headquarter.gelusil_total_pob += ord.order_total_count;
-              area.gelusil_total_pob += ord.order_total_count;
-              region.gelusil_total_pob += ord.order_total_count;
-            }
-          });
-          becosules_orders.map(ord => {
-            if (ord.hq_headquarter_id == headquarter.id) {
-              headquarter.becosules_total_pob += ord.order_total_count;
-              area.becosules_total_pob += ord.order_total_count;
-              region.becosules_total_pob += ord.order_total_count;
             }
           });
         });
@@ -410,13 +332,13 @@ export class ExecutiveSummaryComponent extends ListComponent {
           attendances.map(att => {
             if (att.hq_headquarter_id == headquarter.id) {
               // headquarter.total_pob += att.pob_amount;
-              headquarter.total_visit += att.no_of_calls;
+              // headquarter.total_visit += att.no_of_calls;
               headquarter.total_att += att.att_count;
               // area.total_pob += att.pob_amount;
-              area.total_visit += att.no_of_calls;
+              // area.total_visit += att.no_of_calls;
               area.total_att += att.att_count;
               // region.total_pob += att.pob_amount;
-              region.total_visit += att.no_of_calls;
+              // region.total_visit += att.no_of_calls;
               region.total_att += att.att_count;
 
 

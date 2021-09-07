@@ -12,6 +12,8 @@ import {Target} from '../../../../models/SAP/target';
 import {Order} from '../../../../models/order/order';
 import {HeadquaterDownload} from '../../../../models/download/headquater_download';
 import {environment} from '../../../../../environments/environment';
+import { PrimarySalesAndTargets } from 'app/models/V2/SAP/primary_sales_and_targets';
+import { V2ReportService } from 'app/services/v2/report.service';
 
 declare let jQuery: any;
 
@@ -50,7 +52,7 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   /**
    * User Component Constructor
    */
-  constructor(public _service: AuthService, public reportService: ReportService, public downloadService: DownloadService) {
+  constructor(public _service: AuthService, public downloadService: DownloadService, public v2ReportService: V2ReportService) {
     super(_service);
   }
 
@@ -111,17 +113,15 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
   fetch_data() {
     if (this.month >= 0 && this.year) {
       this.loading = true;
-      this.reportService.region_wise_sales(this.month + 1, this.year, this.region_id, this.area_id, null, this.zone_id, this.department_id).subscribe(
+      this.v2ReportService.region_wise_sales(this.month + 1, this.year, this.region_id, this.area_id, null, this.zone_id, this.department_id).subscribe(
         response => {
           let regions = response.regions.map(region => new Region(region));
           let secondary_sales = response.secondary_sales.map(sale => new SecondarySale(sale));
           let visits = response.visits.map(visit => new Visit(visit));
-          let customers_count = response.targets.map(target => new Target(target));
           let customers = response.customers.map(cus => new Customer(cus));
-          let targets = response.sap_targets.map(target => new Target(target));
           let orders = response.orders.map(order =>new Order(order));
-
-          this.prepareData(regions, secondary_sales, customers, visits, customers_count, targets, orders);
+          let primarySalesAndTargets = response.primary_sales_and_targets.map(primarySalesAndTarget => new PrimarySalesAndTargets(primarySalesAndTarget));
+          this.prepareData(regions, secondary_sales, customers, visits, primarySalesAndTargets, orders);
 
           this.loading = false;
 
@@ -152,10 +152,11 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
    * @param customers
    * @param visits
    * @param customers_count
-   * @param sap_targets
+   * @param primarySalesAndTargets
+   * @param orders
    */
   prepareData(regions: Region[], secondary_Sales: SecondarySale[], customers: Customer[],
-              visits: Visit[], customers_count: Target[], sap_targets: Target[], orders: Order[]) {
+              visits: Visit[], primarySalesAndTargets: PrimarySalesAndTargets[], orders: Order[]) {
 
     // add customers  to individual hq
 
@@ -182,38 +183,51 @@ export class HeadQuarterWiseReportComponent extends ListComponent {
 
           orders.map(ord => {
             if (ord.hq_headquarter_id == headquarter.id) {
-              headquarter.order_count = ord.order_count;
+              headquarter.order_count += ord.order_count;
             }
           })
 
-          customers_count.map(target => {
-            if (target.hq_headquarter_id == headquarter.id) {
-              headquarter.total_net_amount = target.total_net_amount;
+          primarySalesAndTargets.map(primary => {
+            if (primary.hq_headquarter_id == headquarter.id) {
+              headquarter.total_net_amount += primary.total_net_amount;
+
+              if (primary.hq_headquarter_id == headquarter.parent_headquarter_id) {
+                area.area_total_orders_amount += primary.total_net_amount;
+                region.region_total_orders_amount += primary.total_net_amount;
+              }
             }
           });
 
-          sap_targets.map(target => {
+          primarySalesAndTargets.map(target => {
             if (target.hq_headquarter_id == headquarter.id) {
-              headquarter.target = target.total_target;
+              headquarter.target += target.total_target;
+
+              if (target.hq_headquarter_id == headquarter.parent_headquarter_id) {
+                area.area_total_target += target.total_target;
+                region.region_total_target += target.total_target;
+              }
             }
+
+
+
           });
 
           if (area.id == headquarter.hq_area_id) {
             area.area_total_visits += headquarter.visit_count;
             area.area_total_orders += headquarter.order_count;
-            area.area_total_orders_amount += headquarter.total_net_amount;
+            // area.area_total_orders_amount += headquarter.total_net_amount;
             area.area_total_customers += headquarter.total_customers;
             area.area_total_customers_ordered += headquarter.customer_count;
-            area.area_total_target += headquarter.target;
+            // area.area_total_target += headquarter.target;
           }
 
           if (region.id == area.hq_region_id) {
             region.region_total_visits += headquarter.visit_count;
             region.region_total_orders += headquarter.order_count;
-            region.region_total_orders_amount += headquarter.total_net_amount;
+            // region.region_total_orders_amount += headquarter.total_net_amount;
             region.region_total_customers += headquarter.total_customers;
             region.region_total_customers_ordered += headquarter.customer_count;
-            region.region_total_target += headquarter.target;
+            // region.region_total_target += headquarter.target;
           }
         });
       });

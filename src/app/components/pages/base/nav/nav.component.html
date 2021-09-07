@@ -334,7 +334,7 @@
 <!--            <span class="nav-label">Sales Planning</span>-->
 <!--          </a>-->
 <!--        </li>-->
-        <li *ngIf="_auth_service.user?.isHeadquarter || _auth_service.user?.isArea">
+        <li *ngIf="_auth_service.user?.isHeadquarter || _auth_service.user?.isArea || _auth_service.user?.isRegion || _auth_service.user?.isZone">
           <a class="waves-effect" [routerLink]="['/sales/secondary']"
              *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
@@ -345,7 +345,7 @@
           <a class="waves-effect" [routerLink]="['/sales/secondary/region']"
              *ngIf="environment.envName != 'sk_group'">
             <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
-            <span class="nav-label">Secondary Sales Report</span>
+            <span class="nav-label">Secondary Sales Summary Report</span>
           </a>
         </li>
         <li *ngIf="_auth_service.user?.isHeadquarter">
