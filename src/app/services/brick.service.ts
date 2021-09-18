@@ -93,4 +93,18 @@ export class BrickService extends BaseService {
     activate(brick_id): Observable<Result> {
         return this.post(this.getBaseUrl() + '/' + brick_id + '/activate')
     }
+
+    /**
+     * Approved brick
+     */
+    approveBrick(id): Observable<Result> {
+      return this.put(this.getBaseUrl() + '/' + id + '/approve-brick');
+    }
+
+    /**
+     * Rejected brick
+     */
+    rejectedBrick(id): Observable<Result> {
+      return this.put(this.getBaseUrl() + '/' + id + '/reject-brick');
+    }
 }

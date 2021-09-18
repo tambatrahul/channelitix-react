@@ -33,10 +33,17 @@ export class CustomerCountComponent {
   public _territory_id: number = 0;
   public _headquarter_id: number = 0;
   public _brick_id: number = 0;
+  public _approved_status: string;
 
   @Input()
   set zone_id(zone_id: number) {
     this._zone_id = zone_id;
+    this.fetch();
+  }
+
+  @Input()
+  set approved_status(approved_status: string) {
+    this._approved_status = approved_status;
     this.fetch();
   }
 
@@ -101,7 +108,7 @@ export class CustomerCountComponent {
     const self = this;
     self.loading = true;
     self.customerService.counts(self._region_id, self._area_id, self._headquarter_id,
-      self._territory_id, self._brick_id, self._zone_id).subscribe(
+      self._territory_id, self._brick_id, self._zone_id, self._approved_status).subscribe(
       response => {
         self.loading = false;
         self.total = 0;

@@ -122,4 +122,52 @@ export class BrickComponent extends ListComponent {
             );
         });
     }
+
+    /**
+     * Approved Customer
+     */
+    approvedBrick(id: number) {
+      let self = this;
+      swal({
+        title: 'Are you sure?',
+        text: 'You want to Approve this Brick',
+        type: 'info',
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function () {
+        self.brickService.approveBrick(id).subscribe(
+          response => {
+            swal('Brick Approved');
+            self.fetch();
+          },
+          err => {
+          }
+        );
+      });
+    }
+
+    /**
+     * Rejected Customer
+     */
+    rejectedBrick(id: number) {
+      let self = this;
+      swal({
+        title: 'Are you sure?',
+        text: 'You want to Reject this Brick',
+        type: 'info',
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function () {
+        self.brickService.rejectedBrick(id).subscribe(
+          response => {
+            swal('Brick Rejected');
+            self.fetch();
+          },
+          err => {
+          }
+        );
+      });
+    }
 }

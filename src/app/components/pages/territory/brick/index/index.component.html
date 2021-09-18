@@ -59,6 +59,7 @@
                                     <th>No Of Work Days</th>
                                     <th>Expected Business</th>
                                     <th>Distance From HQ</th>
+                                    <th>Approval</th>
                                     <th *ngIf="_service.user.access_id <= 0">Actions</th>
                                 </tr>
                                 </thead>
@@ -72,6 +73,7 @@
                                     <th>No Of Work Days</th>
                                     <th>Expected Business</th>
                                     <th>Distance From HQ</th>
+                                    <th>Approval</th>
                                     <th *ngIf="_service.user.access_id <= 0">Actions</th>
                                 </tr>
                                 </tfoot>
@@ -85,6 +87,17 @@
                                     <td>{{ b.no_of_work_days }}</td>
                                     <td>{{ b.expected_business }}</td>
                                     <td>{{ b.distance_from_hq }}</td>
+                                  <td class="text-center">
+                                    <span *ngIf="b.approved_status == 'approved'"><i status [field]="b.status"></i></span>
+                                    <span *ngIf="b.approved_status == 'pending'">
+                                      <a *roleCheck="ROLE_ADMIN" class="btn btn-xs btn-success" style="cursor: pointer;"
+                                          title="Approved" (click)="approvedBrick(b.id)">Approved</a> &nbsp;
+                                    </span>
+                                    <span *ngIf="b.approved_status == 'pending'">
+                                    <a *roleCheck="ROLE_ADMIN" class="btn btn-xs btn-danger" style="cursor: pointer;"
+                                       title="Rejected" (click)="rejectedBrick(b.id)">Rejected</a> &nbsp;
+                                      </span>
+                                  </td>
                                     <td *ngIf="_service.user.access_id <= 0">
                                         <a class="text-primary" style="cursor: pointer;" title="Update"
                                            (click)="updateBrick(b.id)">Edit</a>

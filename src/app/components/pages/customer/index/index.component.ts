@@ -32,6 +32,7 @@ export class CustomerComponent extends ListComponent {
   public territory_id: number = 0;
   public headquarter_id: number = 0;
   public brick_id: number = 0;
+  public approved_status: string;
 
   /**
    * customer type id and grade id
@@ -40,6 +41,7 @@ export class CustomerComponent extends ListComponent {
   private grade_id: number = 0;
 
   public btn_loading: boolean = false;
+  public view_approval: boolean = true;
 
   /**
    * customer list
@@ -55,7 +57,7 @@ export class CustomerComponent extends ListComponent {
     const self = this;
     self.loading = true;
     self.customerService.all(self.customer_type_id, self.grade_id, self.page, self.region_id,
-      self.area_id, self.headquarter_id, self.territory_id, self.brick_id, null, self.zone_id).subscribe(
+      self.area_id, self.headquarter_id, self.territory_id, self.brick_id, null, self.zone_id, self.approved_status).subscribe(
       response => {
         self.loading = false;
         self.customers = response.customers;
@@ -123,6 +125,20 @@ export class CustomerComponent extends ListComponent {
    */
   pageChanged(page) {
     this.page = page;
+    this.fetch();
+  }
+
+  /**
+   * customer type change
+   */
+  pendingApproval(status) {
+
+    if (this.view_approval == true) {
+      this.approved_status = status;
+    } else {
+      this.approved_status = '';
+    }
+    this.view_approval = !this.view_approval;
     this.fetch();
   }
 

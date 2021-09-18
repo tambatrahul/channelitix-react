@@ -35,7 +35,7 @@ export class CustomerService extends BaseService {
      */
     all(customer_type_id?: number, grade_id?: number, page?: number,
         region_id?: number, area_id?: number, headquarter_id?: number,
-        territory_id?: number, brick_id?: number, synergy?: number, zone_id?: number): Observable<Result> {
+        territory_id?: number, brick_id?: number, synergy?: number, zone_id?: number, approved_status?: string): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
@@ -49,6 +49,7 @@ export class CustomerService extends BaseService {
         params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
         params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
         params.set('synergy', String(synergy >= 0 ? synergy : ''));
+        params.set('approved_status', String(approved_status ? approved_status : ''));
 
         // make server call
         return this.get(this.getBaseUrl(), new RequestOptions({search: params}));
@@ -138,7 +139,7 @@ export class CustomerService extends BaseService {
      * @returns {Observable<Result>}
      */
     counts(region_id?: number, area_id?: number, headquarter_id?: number,
-           territory_id?: number, brick_id?: number, zone_id?: number): Observable<Result> {
+           territory_id?: number, brick_id?: number, zone_id?: number, approved_status?: string): Observable<Result> {
 
         // prepare get params
         let params = new URLSearchParams();
@@ -148,8 +149,9 @@ export class CustomerService extends BaseService {
         params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
         params.set('territory_id', String(territory_id > 0 ? territory_id : ''));
         params.set('brick_id', String(brick_id > 0 ? brick_id : ''));
+        params.set('approved_status', String(approved_status ? approved_status : ''));
 
-        // make server call
+      // make server call
         return this.get(this.getBaseUrl() + '/counts', new RequestOptions({search: params}));
     }
 

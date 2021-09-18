@@ -3,7 +3,7 @@
     <div class="container-fluid customers">
       <div class="forum-header">
         <customer-count (onCustomerTypeChanged)="customerTypeChanged($event)"
-                        [zone_id]="zone_id"
+                        [zone_id]="zone_id" [approved_status] = "approved_status"
                         [region_id]="region_id" [area_id]="area_id"
                         [headquarter_id]="headquarter_id" [territory_id]="territory_id"
                         [brick_id]="brick_id"></customer-count>
@@ -55,6 +55,11 @@
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
               <div style="padding-top: 20px;" *ngIf="_service.user.access_id <= 0">
                 <a class="btn btn-primary btn-block" routerLink="/customers/create">Create Customer</a>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+              <div style="padding-top: 20px;">
+                <a class="btn btn-primary btn-block" (click)="pendingApproval('pending')">{{ view_approval == true ? 'Pending Approval' : 'All Customer' }}</a>
               </div>
             </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
