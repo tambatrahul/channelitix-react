@@ -91,10 +91,11 @@
                                         <thead>
 
                                         <tr>
-                                            <th rowSpan="3">Name Of Brick</th>
-                                            <th rowSpan="3">Brick Potential</th>
-                                            <th rowSpan="3">Customer Potential</th>
-                                            <th colSpan="{{ months_str.length * 2 }}">Months</th>
+                                            <th rowSpan="4">Name Of Brick</th>
+                                            <th rowSpan="4">System Generated Customer Potential</th>
+                                            <th rowSpan="4">Brick Potential</th>
+                                            <th rowSpan="4">Average POB</th>
+                                          <th colSpan="{{ months_str.length * 2 }}">Months</th>
                                         </tr>
                                         <tr>
                                             <th *ngFor="let month of months_str" colSpan="2">
@@ -111,7 +112,7 @@
 
                                         <tbody>
                                         <tr class="dark_grey">
-                                            <th colSpan="2" class="text-center">Total</th>
+                                            <th colSpan="4" class="text-center">Total</th>
                                             <template ngFor let-month [ngForOf]="months_str" let-i="index">
                                                 <th></th>
                                                 <th>
@@ -131,14 +132,15 @@
                                                     <th>
                                                         {{brick.name}}
                                                     </th>
-                                                  <td> {{brick.expected_business > 0 ? brick.expected_business : 0}} </td>
                                                     <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
                                         'orange': brick.customer_count_pattern == 3,
                                         'light_red': brick.customer_count_pattern == 4,
                                         'dark_red': brick.customer_count_pattern == 5}">{{ brick.total_customers }}
                                                     </td>
-                                                    <template ngFor let-month [ngForOf]="months_str" let-i="index">
+                                                  <td> {{brick.expected_business > 0 ? brick.expected_business : 0}} </td>
+                                                  <td> {{brick.total_pob > 0 ? (brick.total_pob / total_month).toFixed(0): 0}} </td>
+                                                  <template ngFor let-month [ngForOf]="months_str" let-i="index">
                                                         <td [ngClass]="{'grey': i%2 == 0}">
                                                             {{ brick.months[i+1].visit_no_of_days ?
                                                             brick.months[i+1].visit_no_of_days : ""}}

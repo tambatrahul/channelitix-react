@@ -59,6 +59,18 @@ export class CustomerBrickCoverageComponent extends ListComponent {
 
 
   /**
+   * get total month
+   */
+  get total_month() {
+    var date = new Date(this.year, 0, 1);
+    var month = new Date().getMonth();
+    if (this.year < moment().year()) {
+      return 12;
+    }
+    return  month - date.getMonth() + 1;
+  }
+
+  /**
    * User Component Cons3tructor
    */
   constructor(public _service: AuthService, public route: ActivatedRoute, public reportService: ReportService, public downloadService: DownloadService) {
@@ -206,6 +218,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         orders.map(order => {
           if (order.hq_brick_id == brick.id) {
             if (brick.months.hasOwnProperty(order.order_month)) {
+              brick.total_pob += order.order_total_count;
               if (order.order_total_count) {
                 brick.months[order.order_month].order_total_count += order.order_total_count;
                 this.months[order.order_month].order_total += order.order_total_count;
@@ -224,7 +237,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
         });
       });
     });
-
     this.territories = territories;
   }
 
