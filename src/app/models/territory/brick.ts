@@ -64,6 +64,7 @@ export class Brick extends Model {
   total: number = 0;
   norm: number = 0;
   hq_brick_id: number = 0;
+  total_pob: number = 0;
   grade_name: string;
 
   constructor(info: any) {

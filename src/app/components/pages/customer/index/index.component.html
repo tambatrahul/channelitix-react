@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
-              <div style="padding-top: 20px;">
+              <div style="padding-top: 20px;" *ngIf="environment.projectName == 'JBCPL'">
                 <a class="btn btn-primary btn-block" (click)="pendingApproval('pending')">{{ view_approval == true ? 'Pending Approval' : 'All Customer' }}</a>
               </div>
             </div>

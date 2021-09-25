@@ -2,6 +2,7 @@ import {Component, Input} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
 import {DepartmentService} from '../../../../services/department.service';
 import { UserTrainingService } from "app/services/v2/user_training.service";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'user-training-select',
@@ -31,7 +32,7 @@ export class UserTrainingSelectComponent extends BaseSelectComponent {
   }
 
   /**
-   * fetch brands
+   * fetch tranings
    */
   fetch() {
     this.loading = true;
@@ -39,9 +40,7 @@ export class UserTrainingSelectComponent extends BaseSelectComponent {
       .subscribe(
         response => {
           this.loading = false;
-          this.models = response.trainings.filter(item => item.org_code == 'PFICONRX');
-          this.models = response.trainings.filter(item => item.org_code == 'PFICONCX');
-          this.models = response.trainings.filter(item => item.org_code == 'PFASPIRA');
+          this.models = response.trainings.filter(item => item.org_code == environment.orgCode);
         },
         err => {
           this.loading = false;

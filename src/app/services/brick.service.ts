@@ -98,13 +98,13 @@ export class BrickService extends BaseService {
      * Approved brick
      */
     approveBrick(id): Observable<Result> {
-      return this.put(this.getBaseUrl() + '/' + id + '/approve-brick');
+      return this.put(this.getBaseUrl() + '/' + id + '/approve');
     }
 
     /**
      * Rejected brick
      */
     rejectedBrick(id): Observable<Result> {
-      return this.put(this.getBaseUrl() + '/' + id + '/reject-brick');
+      return this.put(this.getBaseUrl() + '/' + id + '/reject');
     }
 }

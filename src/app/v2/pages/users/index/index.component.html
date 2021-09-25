@@ -127,9 +127,21 @@
                     </a>
                     <a *roleCheck="ROLE_RSM" class="btn btn-danger btn-xs" style="cursor: pointer;"
                        title="Delete Report" (click)="deleteReport(user)">Delete Report</a>
-                    <template [ngIf]="environment.projectName != '3c'">
-                      <a  *roleCheck="ROLE_RSM" class="btn btn-primary btn-xs" style="cursor: pointer;"
+
+                    <template [ngIf]="(environment.projectName == 'ICONCX' || environment.projectName == 'IKON' || environment.projectName == 'ASPIRA' ||
+                      environment.projectName == 'MAXX' || environment.projectName == 'ACE') && user.status == 'active'">
+
+                      <a *roleCheck="ROLE_ADMIN" class="btn btn-primary btn-xs" style="cursor: pointer;"
                         title="User Trainings" (click)="trainingSelect(user)">User Trainings
+                      </a>
+
+                    </template>
+
+                    <template [ngIf]="(environment.projectName == 'ICONCX' || environment.projectName == 'IKON' || environment.projectName == 'ASPIRA' ||
+                      environment.projectName == 'MAXX' || environment.projectName == 'ACE') && user.yrr_mapp_training != 0">
+
+                      <a *roleCheck="ROLE_ADMIN" class="btn btn-primary btn-xs" style="cursor: pointer;"
+                        (click)="fetchUserTrainingForms(user)"><i class="fa fa-download" title="Mandatory Training - Complete"></i>
                       </a>
                     </template>
                     <template [ngIf]=" user.reporting_locked == 1 ">

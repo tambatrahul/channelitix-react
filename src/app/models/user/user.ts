@@ -37,6 +37,7 @@ export class User extends Model {
   map_access: number;
   parent_headquarter_id: number;
   total_pool_hq: number;
+  yrr_mapp_training: number;
 
   // territory changes
   hq_country_id: number;

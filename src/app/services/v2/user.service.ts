@@ -90,4 +90,13 @@ export class V2UserService extends V2BaseService {
   report_delete(data, id): Observable<Result> {
     return this.put(this.getBaseUrl() + '/' + id + '/report_delete', data);
   }
+
+  /**
+   * Fetch user training forms location
+   *
+   * @param id
+   */
+  fetchUserTrainingForms(id): Observable<Result> {
+    return this.get(this.getBaseUrl() + '/' + id + '/' + 'trainings/files');
+  }
 }

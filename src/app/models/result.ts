@@ -56,6 +56,7 @@ import {BrandWiseSummary} from './sale/brandwise_summary';
 import {SampleReport} from './download/sample_report';
 import { UserLocation } from "./user/user_location";
 import { PrimarySalesAndTargets } from "./V2/SAP/primary_sales_and_targets";
+import { UserTrainingFiles } from "./user/user_training_files";
 
 export class Result {
 
@@ -114,6 +115,7 @@ export class Result {
   attritions_year: User[];
   manager: User;
   children: User[];
+  user_training_files: UserTrainingFiles[] = [];
 
   // customer models
   customer: Customer;

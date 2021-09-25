@@ -5,6 +5,8 @@ import {User} from "../../../../models/user/user";
 import {AuthService} from "../../../../services/AuthService";
 import {V2UserService} from "../../../../services/v2/user.service";
 import {AppConstants} from "../../../../app.constants";
+import { isError } from "util";
+import { UserTrainingFiles } from "app/models/user/user_training_files";
 declare let jQuery: any;
 
 @Component({
@@ -92,6 +94,25 @@ export class UserComponent extends ListComponent {
 
 
     super.ngOnInit();
+  }
+
+  /**
+   * Fetch user training forms
+   *
+   * @param user
+   */
+  fetchUserTrainingForms(user) {
+    this.userService.fetchUserTrainingForms(user.id).subscribe(
+      response => {
+        for ( var i = 0; i < response.user_training_files.length; i++) {
+          var obj = response.user_training_files[i];
+          window.open(obj.file_location);
+        }
+      },
+      err => {
+        this.loading = false;
+      }
+    )
   }
 
   /**
