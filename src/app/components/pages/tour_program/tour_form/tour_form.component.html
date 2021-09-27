@@ -26,7 +26,8 @@
                         {{ errors.type}}
                     </small>
                 </div>
-                <div class="col-xs-12 col-md-6" *ngIf="type == 'Field Work' && !showTerritory">
+                <div class="col-xs-12 col-md-6"  *ngIf=" showTerritory && type == 'Field Work' ">
+                  <div *roleCheck="ROLE_CSM">
                     <user-select [value]="working_with_id"
                                  [title]="'Working With'"
                                  [manager_id]="_manager_id"
@@ -37,8 +38,20 @@
                     <small *ngIf="errors?.working_with_id" class="text-danger text-center">
                         {{ errors.working_with_id}}
                     </small>
+                  </div>
                 </div>
-                <div class="col-xs-12 col-md-4" *ngIf="showTerritory && type == 'Field Work'">
+              <div class="col-xs-12 col-md-4" *ngIf="showTerritory && type == 'Field Work' && working_with_id > 0">
+                <div *roleCheck="ROLE_CSM">
+                <territory-select [value]="territory_id"
+                                  [first_value]="'Select Territory'"
+                                  [headquarter_id]="headquarter_id"
+                                  (onValueChanged)="territoryChanged($event)"></territory-select>
+                <small *ngIf="errors?.hq_territory_id" class="text-danger text-center">
+                  {{ errors.hq_territory_id}}
+                </small>
+                </div>
+              </div>
+                <div class="col-xs-12 col-md-4" *ngIf="showTerritory && type == 'Field Work' && _service.user.role_str == 'HQ_MNG' ">
                     <territory-select [value]="territory_id"
                                       [first_value]="'Select Territory'"
                                       [headquarter_id]="headquarter_id"
@@ -56,10 +69,14 @@
                     </small>
                 </div>
                 <div class="col-xs-12 col-md-2" style="padding-left: 0;" *ngIf="type">
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="type != 'Field Work'">
                         <label>&nbsp;</label>
                         <button class="btn btn-primary btn-block" (click)="save()">ADD</button>
                     </div>
+                  <div class="form-group" *ngIf="type == 'Field Work' && brick_id > 0 ">
+                    <label>&nbsp;</label>
+                    <button class="btn btn-primary btn-block" (click)="save()">ADD</button>
+                  </div>
 
                 </div>
             </div>

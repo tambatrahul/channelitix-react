@@ -60,6 +60,9 @@ export class TourFormComponent extends FormComponent {
             else
                 this._manager_id = 0;
         }
+        if (user.role_str == this.ROLE_RSM || user.role_str == this.ROLE_CSM) {
+          this.showTerritory = true;
+        }
 
         // set to form
         this.form.patchValue({user_id: user.id});
