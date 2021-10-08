@@ -96,6 +96,12 @@
             <span class="nav-label">Daily Work Reporting</span>
           </a>
         </li>
+        <li *ngIf="_auth_service.user?.isArea">
+          <a class="waves-effect" routerLink="/attendances/leave_approval">
+            <span class="nav-icon"><i class="fa fa-calendar"></i></span>
+            <span class="nav-label">Daily Leave Approval</span>
+          </a>
+        </li>
         <li *ngIf="!_auth_service.user?.isHeadquarter">
           <a>
             <span class="nav-icon">
