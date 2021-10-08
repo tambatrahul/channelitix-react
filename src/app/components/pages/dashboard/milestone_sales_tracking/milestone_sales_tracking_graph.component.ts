@@ -7,6 +7,7 @@ import * as moment from "moment";
 import {PrimarySale} from "../../../../models/sale/primary_sale";
 import {Target} from "../../../../models/SAP/target";
 import {AppConstants} from '../../../../app.constants';
+import { V2ReportService } from "app/services/v2/report.service";
 
 declare let jQuery: any;
 declare let d3: any;
@@ -112,10 +113,10 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   private data;
   private chart;
 
-  public upto_7th_rep_count: number = 0;
-  public upto_14th_rep_count: number = 0;
-  public upto_21th_rep_count: number = 0;
-  public upto_28th_rep_count: number = 0;
+  public total_net_amt_till_7th: number = 0;
+  public total_net_amt_till_14th: number = 0;
+  public total_net_amt_till_21th: number = 0;
+  public total_net_amt_till_31th: number = 0;
 
   /**
    * dates
@@ -148,7 +149,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     const self = this;
     if ((self._month || self._month == 0) && self._year) {
       self.loading = true;
-      self.reportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self._year,
+      self.v2ReportService.milestone_sales_tracking_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self._year,
         self._zone_ids, self._department_id).subscribe(
         response => {
           let primary_sales = response.primary_sales.map(pr => new PrimarySale(pr));
@@ -169,7 +170,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   /**
    *
    */
-  constructor(private reportService: ReportService, public _service: AuthService) {
+  constructor(private reportService: ReportService, public _service: AuthService, private v2ReportService: V2ReportService) {
     super(_service);
   }
 
@@ -226,10 +227,10 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   prepareData(targets: Target[], primary_sales: PrimarySale[]) {
     let data = [];
     data.push(['Date', 'No of Reps']);
-    this.upto_7th_rep_count = 0;
-    this.upto_14th_rep_count = 0;
-    this.upto_21th_rep_count = 0;
-    this.upto_28th_rep_count = 0;
+    this.total_net_amt_till_7th = 0;
+    this.total_net_amt_till_14th = 0;
+    this.total_net_amt_till_21th = 0;
+    this.total_net_amt_till_31th = 0;
 
     // map target
     targets.map(target => {
@@ -245,30 +246,30 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
 
           // target
           if (target.total_target > 0) {
-            sale_20_per = parseInt(((primary_sale.upto_7th_sale / target.total_target) * 100).toFixed(0));
-            sale_40_per = parseInt(((primary_sale.upto_14th_sale / target.total_target) * 100).toFixed(0));
-            sale_60_per = parseInt(((primary_sale.upto_21th_sale / target.total_target) * 100).toFixed(0));
-            sale_100_per = parseInt(((primary_sale.upto_28th_sale / target.total_target) * 100).toFixed(0));
+            sale_20_per = parseInt(((primary_sale.total_net_amt_till_7th / target.total_target) * 100).toFixed(0));
+            sale_40_per = parseInt(((primary_sale.total_net_amt_till_14th / target.total_target) * 100).toFixed(0));
+            sale_60_per = parseInt(((primary_sale.total_net_amt_till_21th / target.total_target) * 100).toFixed(0));
+            sale_100_per = parseInt(((primary_sale.total_net_amt_till_31th / target.total_target) * 100).toFixed(0));
           }
         }
         if (sale_20_per >= 20)
-          this.upto_7th_rep_count += 1;
+          this.total_net_amt_till_7th += 1;
 
         if (sale_40_per >= 40)
-          this.upto_14th_rep_count += 1;
+          this.total_net_amt_till_14th += 1;
 
         if (sale_60_per >= 60)
-          this.upto_21th_rep_count += 1;
+          this.total_net_amt_till_21th += 1;
 
         if (sale_100_per >= 100)
-          this.upto_28th_rep_count += 1;
+          this.total_net_amt_till_31th += 1;
       });
     });
 
-    data.push(['7th (20%)', this.upto_7th_rep_count]);
-    data.push(['14th (40%)', this.upto_14th_rep_count]);
-    data.push(['21th (60%)', this.upto_21th_rep_count]);
-    data.push(['29th (100%)', this.upto_28th_rep_count]);
+    data.push(['7th (20%)', this.total_net_amt_till_7th]);
+    data.push(['14th (40%)', this.total_net_amt_till_14th]);
+    data.push(['21th (60%)', this.total_net_amt_till_21th]);
+    data.push(['29th (100%)', this.total_net_amt_till_31th]);
 
     this.chart_data = [];
     this.chart_data = data;

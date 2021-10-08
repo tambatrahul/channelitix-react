@@ -9,6 +9,7 @@ import {Visit} from '../../../../models/visit/visit';
 import {Order} from '../../../../models/order/order';
 import {Attendance} from '../../../../models/attendance/attendance';
 import { forEach } from "@angular/router/src/utils/collection";
+import { V2ReportService } from "app/services/v2/report.service";
 
 declare let jQuery: any;
 declare let d3: any;
@@ -120,7 +121,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   fetchPerformance = AppConstants.debounce(function () {
     const self = this;
       self.loading = true;
-      self.reportService.performance(self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self.sub_name, self.brand_id, self._department_id).subscribe(
+      self.reportService.performanceSummary(self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self.sub_name, self.brand_id, self._department_id).subscribe(
         response => {
           self.loading = false;
           self.prepareData(new Performance(response.performance));
@@ -134,7 +135,7 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
   /**
    *
    */
-  constructor(private reportService: ReportService, public _service: AuthService) {
+  constructor(private reportService: V2ReportService, public _service: AuthService) {
     super(_service);
   }
 
@@ -201,35 +202,35 @@ export class MonthlyPrimarySecondaryTargetComponent extends GoogleChartComponent
       }
 
       // add target to object
-      performance.primarysecondarysalestargets.forEach(function (t) {
+      performance.primary_secondary_sales_and_targets.forEach(function (t) {
        new_data[t.month_year + "_" + moment(t.month_year.toString().slice(4), 'M').format('MMM')] = {
-        target: parseFloat((t.target/ 1000).toFixed(2)),
+        target: parseFloat((t.total_target/ 1000).toFixed(2)),
         primary: 0,
         secondary: 0
       }
     });
 
     // add primary sale to object
-    performance.primarysecondarysalestargets.forEach(function (ps) {
+    performance.primary_secondary_sales_and_targets.forEach(function (ps) {
       if (!new_data.hasOwnProperty(ps.month_year + "_" + moment(ps.month_year.toString().slice(4), 'M').format('MMM'))) {
         new_data[ps.month_year + "_" + moment(ps.month_year.toString().slice(4), 'M').format('MMM')] = {
           target: 0,
-          primary: parseFloat((ps.net_amt / 1000).toFixed(2)),
+          primary: parseFloat((ps.total_net_amt / 1000).toFixed(2)),
           secondary: 0
         };
       } else
-        new_data[ps.month_year + "_" + moment(ps.month_year.toString().slice(4), 'M').format('MMM')].primary = parseFloat((ps.net_amt / 1000).toFixed(2))
+        new_data[ps.month_year + "_" + moment(ps.month_year.toString().slice(4), 'M').format('MMM')].primary = parseFloat((ps.total_net_amt / 1000).toFixed(2))
     });
 
-    performance.primarysecondarysalestargets.forEach(function (ss) {
+    performance.primary_secondary_sales_and_targets.forEach(function (ss) {
       if (!new_data.hasOwnProperty(ss.month_year + "_" + moment(ss.month_year.toString().slice(4), 'M').format('MMM'))) {
         new_data[ss.month_year + "_" + moment(ss.month_year.toString().slice(4), 'M').format('MMM')] = {
           target: 0,
           primary: 0,
-          secondary: parseFloat((ss.sec_sale / 1000).toFixed(2))
+          secondary: parseFloat((ss.total_secondary_sales / 1000).toFixed(2))
         };
       } else
-        new_data[ss.month_year + "_" + moment(ss.month_year.toString().slice(4), 'M').format('MMM')].secondary = parseFloat((ss.sec_sale / 1000).toFixed(2));
+        new_data[ss.month_year + "_" + moment(ss.month_year.toString().slice(4), 'M').format('MMM')].secondary = parseFloat((ss.total_secondary_sales / 1000).toFixed(2));
     });
 
       // prepare data

@@ -173,6 +173,7 @@ export class Result {
   // brands
   brands: Brand[] = [];
   subname: SubName[] = [];
+  portfolio_names: SubName[] = [];
   departments: Department[] = [];
   trainings: UserTraining[] = [];
 

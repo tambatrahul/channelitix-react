@@ -1,10 +1,12 @@
 import {Component, Input} from "@angular/core";
 import {BaseSelectComponent} from "../../base-select.component";
 import {SubNameService} from '../../../../services/subname_service';
+import { V2ProductService } from "app/services/v2/product.service";
 
 @Component({
   selector: 'subname-select',
-  templateUrl: 'subname-select.component.html'
+  templateUrl: 'subname-select.component.html',
+  providers: [V2ProductService]
 })
 export class SubNameSelectComponent extends BaseSelectComponent {
 
@@ -38,7 +40,7 @@ export class SubNameSelectComponent extends BaseSelectComponent {
   /**
    * Role Select Component with AuthService
    */
-  constructor(private subnameService: SubNameService) {
+  constructor(private v2ProductService: V2ProductService) {
     super();
   }
 
@@ -47,28 +49,15 @@ export class SubNameSelectComponent extends BaseSelectComponent {
    */
   fetch() {
     this.loading = true;
-    if (this._department_id > 0) {
-      this.subnameService.subname(this._department_id)
+    this.v2ProductService.productPortfolioNames(this._department_id)
         .subscribe(
           response => {
             this.loading = false;
-            this.models = response.subname;
+            this.models = response.portfolio_names;
           },
           err => {
             this.loading = false;
           }
         );
-    } else {
-      this.subnameService.all()
-        .subscribe(
-          response => {
-            this.loading = false;
-            this.models = response.subname;
-          },
-          err => {
-            this.loading = false;
-          }
-        );
-    }
   }
 }

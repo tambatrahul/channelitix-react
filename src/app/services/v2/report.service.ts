@@ -55,5 +55,239 @@ export class V2ReportService extends V2BaseService {
 
     return this.get(this.getBaseUrl() + '/region-wise-sales/' + month + "/" + year, new RequestOptions({search: params}));
   }
-  
+
+  /**
+   * get milestone tracking sales
+   * @returns {Observable<Result>}
+   */
+   milestone_sales_tracking_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+                                    month?: number, year?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
+    // prepare get params
+    let params = new URLSearchParams();
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+      });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
+      });
+    }
+
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+    // prepare url
+    let url = this.getBaseUrl() + '/milestone/summary/' + month + "/" + year;
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
+  }
+
+  /**
+   * get order and visit trends
+   *
+   * @returns {Observable<Result>}
+   */
+   visit_order_trend(month, year,
+    region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+    product_id?: number, brand_id?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('product_id', String(product_id > 0 ? product_id : ''));
+    params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
+
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+    });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+    });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
+    });
+    }
+
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+    // prepare url
+    let url = this.getBaseUrl() + '/visits/order-trend/' + month + '/' + year;
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
+    }
+
+  /**
+   * get all product wise sale for dashboard
+   *
+   * @returns {Observable<Result>}
+   */
+   product_wise_sale(month, year, region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+    zone_ids?: Array<number>, department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+    });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+    });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+      params.append('zone_id[]', String(zone_id));
+    });
+    }
+
+    params.set('department_id', String(department_id > 0 ? department_id : ''))
+
+    // make server call
+    return this.get(this.getBaseUrl() + '/brand/performance/summary' + '/' + month + '/' + year, new RequestOptions({search: params}));
+  }
+
+  /**
+   * get order and visit trends
+   *
+   * @returns {Observable<Result>}
+   */
+   productivity_analysis(from_date, to_date, zone_id?: number, department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('from_date', String(from_date ? from_date : ''));
+    params.set('to_date', String(to_date ? to_date : ''));
+    params.set('zone_id', String(zone_id > 0 ? zone_id : ''));
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
+    // prepare url
+    let url = this.getBaseUrl() + '/productivity-analysis/summary';
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
+  }
+
+  /**
+   * get performance for last 15 months
+   *
+   * @returns {Observable<Result>}
+   */
+   performanceSummary(region_ids?: Array<number>,
+    area_ids?: Array<number>, headquarter_ids?: Array<number>,
+    zone_ids?: Array<number>, sub_name?: string, brand_id?:   number, department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+    params.set('brand_id', String(brand_id > 0 ? brand_id : ''));
+    params.set('sub_name', sub_name);
+
+    if (headquarter_ids && headquarter_ids.length > 0) {
+      headquarter_ids.map(function (h_id) {
+        params.append('headquarter_id[]', String(h_id));
+      });
+    }
+    if (area_ids && area_ids.length > 0) {
+      area_ids.map(function (area_id) {
+        params.append('area_id[]', String(area_id));
+      });
+    }
+    if (region_ids && region_ids.length > 0) {
+      region_ids.map(function (region_id) {
+        params.append('region_id[]', String(region_id));
+      });
+    }
+
+    if (zone_ids && zone_ids.length > 0) {
+      zone_ids.map(function (zone_id) {
+        params.append('zone_id[]', String(zone_id));
+      });
+    }
+    params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+    // prepare url
+    let url = this.getBaseUrl() + '/performance/summary';
+
+    // make server call
+    return this.get(url, new RequestOptions({search: params}));
+  }
+
+  /**
+   * get details till month
+   * @returns {Observable<Result>}
+   */
+   till_month_chart(region_ids?: Array<number>, area_ids?: Array<number>, headquarter_ids?: Array<number>,
+    month?: number, year?: number, zone_ids?: Array<number>, department_id?: number): Observable<Result> {
+
+    // prepare get params
+    let params = new URLSearchParams();
+      if (headquarter_ids && headquarter_ids.length > 0) {
+        headquarter_ids.map(function (h_id) {
+          params.append('headquarter_id[]', String(h_id));
+        });
+      }
+      if (area_ids && area_ids.length > 0) {
+        area_ids.map(function (area_id) {
+          params.append('area_id[]', String(area_id));
+        });
+      }
+      if (region_ids && region_ids.length > 0) {
+        region_ids.map(function (region_id) {
+          params.append('region_id[]', String(region_id));
+        });
+      }
+
+      if (zone_ids && zone_ids.length > 0) {
+        zone_ids.map(function (zone_id) {
+          params.append('zone_id[]', String(zone_id));
+        });
+      }
+      if (month)
+        params.append('month', String(month));
+      if (year)
+        params.append('year', String(year));
+
+      params.set('department_id', String(department_id > 0 ? department_id : ''));
+
+
+      // prepare url
+      let url = this.getBaseUrl() + '/ytd/performance/summary' + '/' + month + '/' + year;
+
+      // make server call
+      return this.get(url, new RequestOptions({search: params}));
+  }
+
 }

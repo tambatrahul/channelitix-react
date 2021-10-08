@@ -19,7 +19,7 @@ export class Performance {
   till_month_targets: Target[];
   till_month_sales: PrimarySale[];
   products: Product[];
-  primarysecondarysalestargets: PrimarySecondaryTarget[];
+  primary_secondary_sales_and_targets: PrimarySecondaryTarget[];
   brandWiseSales: BrandWiseSummary[];
   total: BrandWiseSummary[];
   total_sample: number = 0;
@@ -54,8 +54,8 @@ export class Performance {
     if (info.till_month_targets)
       this.till_month_targets = info.till_month_targets.map(tr => new Target(tr));
 
-    if (info.primarysecondarysalestargets)
-      this.primarysecondarysalestargets = info.primarysecondarysalestargets.map(tr => new PrimarySecondaryTarget(tr));
+    if (info.primary_secondary_sales_and_targets)
+      this.primary_secondary_sales_and_targets = info.primary_secondary_sales_and_targets.map(tr => new PrimarySecondaryTarget(tr));
 
     if (info.brandWiseSales)
       this.brandWiseSales = info.brandWiseSales.map(tr => new BrandWiseSummary(tr));

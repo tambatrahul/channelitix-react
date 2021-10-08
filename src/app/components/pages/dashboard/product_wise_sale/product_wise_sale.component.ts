@@ -9,6 +9,7 @@ import * as moment from "moment";
 import {BaseDashboardComponent} from "../base_dashboard.component";
 import {AppConstants} from '../../../../app.constants';
 import {forEach} from '@angular/router/src/utils/collection';
+import { V2ReportService } from "app/services/v2/report.service";
 
 @Component({
   selector: 'product-wise-sale',
@@ -197,7 +198,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
           self.reportService.product_wise_sale(self._month + 1, self._year,
           self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
           response => {
-            self.brandwisesummary = response.performance.brandWiseSales.map(b => new BrandWiseSummary(b));
+            self.brandwisesummary = response.performance.brand_wise_sales.map(b => new BrandWiseSummary(b));
             self.total = new BrandWiseSummary(response.performance.total);
             self.formateData(self.brandwisesummary);
             self.loading = false;
@@ -237,7 +238,7 @@ export class ProductWiseSaleComponent extends BaseDashboardComponent {
       }
     );
   }
-  constructor(public _service: AuthService, private reportService: ReportService) {
+  constructor(public _service: AuthService, private reportService: V2ReportService) {
     super(_service);
   }
 

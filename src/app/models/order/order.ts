@@ -50,6 +50,8 @@ export class Order extends Model {
   customer_type_id: number = 0;
   brand_id: number = 0;
   distinct_order_count: number =0;
+  total_pob: number = 0;
+  customer_count: number = 0;
 
   constructor(info: any) {
     super(info.id);
@@ -132,6 +134,12 @@ export class Order extends Model {
 
     if (info.sub_name)
       this.sub_name = info.sub_name;
+
+    if (info.total_pob)
+      this.total_pob = parseInt(info.total_pob);
+
+    if (info.customer_count)
+      this.customer_count = parseInt(info.customer_count);
 
     this.hq_brick_id = info.hq_brick_id;
   }

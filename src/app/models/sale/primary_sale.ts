@@ -37,10 +37,10 @@ export class PrimarySale extends Model {
   hq_region_id: number;
   month: number;
   year: number;
-  upto_7th_sale: number;
-  upto_14th_sale: number;
-  upto_21th_sale: number;
-  upto_28th_sale: number;
+  total_net_amt_till_7th: number;
+  total_net_amt_till_14th: number;
+  total_net_amt_till_21th: number;
+  total_net_amt_till_31th: number;
   sub_name: string;
 
 
@@ -106,17 +106,17 @@ export class PrimarySale extends Model {
     if (info.total_qty)
       this.total_qty = parseFloat(info.total_qty);
 
-    if (info.upto_7th_sale)
-      this.upto_7th_sale = parseFloat(info.upto_7th_sale);
+    if (info.total_net_amt_till_7th)
+      this.total_net_amt_till_7th = parseFloat(info.total_net_amt_till_7th);
 
-    if (info.upto_14th_sale)
-      this.upto_14th_sale = parseFloat(info.upto_14th_sale);
+    if (info.total_net_amt_till_14th)
+      this.total_net_amt_till_14th = parseFloat(info.total_net_amt_till_14th);
 
-    if (info.upto_21th_sale)
-      this.upto_21th_sale = parseFloat(info.upto_21th_sale);
+    if (info.total_net_amt_till_21th)
+      this.total_net_amt_till_21th = parseFloat(info.total_net_amt_till_21th);
 
-    if (info.upto_28th_sale)
-      this.upto_28th_sale = parseFloat(info.upto_28th_sale);
+    if (info.total_net_amt_till_31th)
+      this.total_net_amt_till_31th = parseFloat(info.total_net_amt_till_31th);
 
     if (info.customer_count)
       this.customer_count = parseInt(info.customer_count);

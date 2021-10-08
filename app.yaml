@@ -1,12 +1,12 @@
 # [START runtime]
 #service: aspira-frontend
 #service: icon-frontend
-service: iconcx-frontend
+#service: iconcx-frontend
 #service: 3c-frontend
 #service: ace-frontend
 #service: optimus-frontend
 #service: pfizer-territory
-#service: jbcpl-frontend
+service: jbcpl-frontend
 #service: maxx-frontend
 #service: vikrant-frontend
 #service: cimune-frontend

@@ -6,6 +6,7 @@ import * as moment from "moment";
 import {AuthService} from "../../../../services/AuthService";
 import {AppConstants} from '../../../../app.constants';
 import {Performance} from '../../../../models/SAP/performance';
+import { V2ReportService } from "app/services/v2/report.service";
 
 declare let jQuery: any;
 declare let d3: any;
@@ -144,7 +145,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
       self.reportService.till_month_chart(self._region_ids, self._area_ids, self._headquarter_ids, self._month + 1, self._year,
         self._zone_ids, self._department_id).subscribe(
         response => {
-          self.prepareData(new YearTillMonth(response.year_till_month));
+          self.prepareData(new YearTillMonth(response.ytd_summary));
           self.loading = false;
         },
         err => {
@@ -157,7 +158,7 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   /**
    * TillMonthChartComponent constructor
    */
-  constructor(private reportService: ReportService, public _service: AuthService) {
+  constructor(private reportService: V2ReportService, public _service: AuthService) {
     super(_service);
   }
 
@@ -218,38 +219,38 @@ export class TillMonthChartComponent extends GoogleChartComponent {
   /**
    * prepare data for graph
    */
-  prepareData(year_till_month: YearTillMonth) {
+  prepareData(ytd_summary: YearTillMonth) {
     this.getGoogle().charts.setOnLoadCallback(() => {
       const google = this.getGoogle();
       const data = new google.visualization.DataTable();
       data.addColumn('string', 'YTD');
-      for ( let i = 0; i < year_till_month.sub_name.length; i++) {
-        data.addColumn('number', year_till_month.sub_name[i]['sub_name']);
+      for ( let i = 0; i < ytd_summary.portfolio_names.length; i++) {
+        data.addColumn('number', ytd_summary.portfolio_names[i]['sub_name']);
       }
       data.addColumn({type: 'number', role: 'annotation'});
 
       let rows = [['Target(' + this.month_name + ')',0],['Performance(' + this.month_name + ')',0],
-          ['YTD_Target(' + this.month_name + ')',0],['YTD_Performance(' + this.month_name + ')',0]]
+          ['YTD Target(' + this.month_name + ')',0],['YTD Performance(' + this.month_name + ')',0]]
 
       /* rows.fill(0, 0, year_till_month.sub_name.length-1); */
       for (let i=0; i < rows.length; i++) {
-        for (let j=0;j < year_till_month.sub_name.length - 1; j++) {
+        for (let j=0;j < ytd_summary.portfolio_names.length - 1; j++) {
           rows[i].push(0);
         }
       }
 
       for (let i = 0; i < rows.length; i++) {
-        for(let j = 1;j <= year_till_month.sub_name.length; j++) {
-          for(let k = 0; k <= year_till_month.sub_name.length - 1; k++) {
+        for(let j = 1;j <= ytd_summary.portfolio_names.length; j++) {
+          for(let k = 0; k <= ytd_summary.portfolio_names.length - 1; k++) {
             if (k == j - 1) {
               if ( i==0 )
-                rows[i][j] = year_till_month.month_sale_target[k]['total_target'];
+                rows[i][j] = ytd_summary.primary_sales_and_target[k]['total_target'];
               if ( i==1 )
-                rows[i][j] = year_till_month.month_sale_target[k]['total_net_amt'];
+                rows[i][j] = ytd_summary.primary_sales_and_target[k]['total_net_amt'];
               if ( i==2 )
-                rows[i][j] = year_till_month.month_sale_target[k]['YTD_target'];
+                rows[i][j] = ytd_summary.primary_sales_and_target[k]['YTD_target'];
               if ( i==3 )
-                rows[i][j] = year_till_month.month_sale_target[k]['YTD_sale'];
+                rows[i][j] = ytd_summary.primary_sales_and_target[k]['YTD_sale'];
             }
             else {
               continue;
@@ -260,11 +261,11 @@ export class TillMonthChartComponent extends GoogleChartComponent {
 
       let total_target = 0 , total_sale = 0, ytd_target = 0, ytd_sale = 0;
 
-      for (let l = 0; l <= year_till_month.sub_name.length - 1; l++) {
-        total_target += year_till_month.month_sale_target[l]['total_target'];
-        total_sale += year_till_month.month_sale_target[l]['total_net_amt'];
-        ytd_target += year_till_month.month_sale_target[l]['YTD_target'];
-        ytd_sale += year_till_month.month_sale_target[l]['YTD_sale'];
+      for (let l = 0; l <= ytd_summary.portfolio_names.length - 1; l++) {
+        total_target += ytd_summary.primary_sales_and_target[l]['total_target'];
+        total_sale += ytd_summary.primary_sales_and_target[l]['total_net_amt'];
+        ytd_target += ytd_summary.primary_sales_and_target[l]['YTD_target'];
+        ytd_sale += ytd_summary.primary_sales_and_target[l]['YTD_sale'];
       }
       rows[0].push(total_target);
       rows[1].push(total_sale);

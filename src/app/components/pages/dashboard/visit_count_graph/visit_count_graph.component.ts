@@ -9,6 +9,7 @@ import {AppConstants} from '../../../../app.constants';
 import {Performance} from '../../../../models/SAP/performance';
 import * as moment from 'moment';
 import {Product} from '../../../../models/order/product';
+import { V2ReportService } from "app/services/v2/report.service";
 
 declare let jQuery: any;
 declare let d3: any;
@@ -207,7 +208,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   /**
    *
    */
-  constructor(private reportService: ReportService, public _service: AuthService) {
+  constructor(private reportService: V2ReportService, public _service: AuthService) {
     super(_service);
   }
 
@@ -279,7 +280,7 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     // add order to data
     this.orders.forEach(function (order) {
       if (data_object.hasOwnProperty(String(order.order_day) + '/' + String(order.order_month)))
-        data_object[String(order.order_day) + '/' + String(order.order_month)].order_count = order.order_day_total_count;
+        data_object[String(order.order_day) + '/' + String(order.order_month)].order_count = order.total_pob;
     });
 
     this.chart_data = [];

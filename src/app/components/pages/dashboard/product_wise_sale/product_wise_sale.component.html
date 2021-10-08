@@ -30,13 +30,13 @@
               <template ngFor let-b [ngForOf]="brandwisesummary" >
                 <tr *ngIf="environment.projectName != 'IKON'">
                   <td>{{ b.name }}</td>
-                  <td class="text-right">{{ b.target.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ b.net_amt.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ b.lastmonthsale.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ b.lasttolastmonthsale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.total_target.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.total_net_amt.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.last_month_sale.toFixed(0) | number : fractionSize }}</td>
+                  <td class="text-right">{{ b.last_to_last_month_sale.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ b.last_year_same_month.toFixed(0) | number : fractionSize }}</td>
                   <td class="text-right">{{ b.pob_amount.toFixed(0) | number : fractionSize }}</td>
-                  <td class="text-right">{{ (b.target > 0 ? (b.net_amt / b.target) * 100 : 0).toFixed(2)
+                  <td class="text-right">{{ (b.total_target > 0 ? (b.total_net_amt / b.total_target) * 100 : 0).toFixed(2)
                     }}
                   </td>
                   <td class="text-right">{{ b.ytd_target.toFixed(0) | number : fractionSize }}</td>
@@ -115,13 +115,13 @@
                 </tr>
               <tr style="background-color: #00c853" *ngIf="total">
                 <th>Total</th>
-                <th class="text-right">{{ total.target.toFixed(0) | number }}</th>
-                <th class="text-right">{{ total.net_amt.toFixed(0) | number }}</th>
-                <td class="text-right">{{ total.lastmonthsale.toFixed(0) | number }}</td>
-                <td class="text-right">{{ total.lasttolastmonthsale.toFixed(0) | number}}</td>
+                <th class="text-right">{{ total.total_target.toFixed(0) | number }}</th>
+                <th class="text-right">{{ total.total_net_amt.toFixed(0) | number }}</th>
+                <td class="text-right">{{ total.last_month_sale.toFixed(0) | number }}</td>
+                <td class="text-right">{{ total.last_to_last_month_sale.toFixed(0) | number}}</td>
                 <th class="text-right">{{ total.last_year_same_month.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total.pob_amount.toFixed(0) | number }}</th>
-                <th class="text-right">{{ (total.target > 0 ? (total.net_amt / total.target) * 100 : 0).toFixed(2) }}</th>
+                <th class="text-right">{{ (total.total_target > 0 ? (total.total_net_amt / total.total_target) * 100 : 0).toFixed(2) }}</th>
                 <th class="text-right">{{ total.ytd_target.toFixed(0) | number }}</th>
                 <th class="text-right">{{ total.ytd_sale.toFixed(0) | number }}</th>
                 <th class="text-right">{{ (total.ytd_target > 0 ? (total.ytd_sale / total.ytd_target) * 100 : 0).toFixed(2) }}</th>
