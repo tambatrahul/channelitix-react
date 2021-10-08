@@ -201,4 +201,30 @@ export class AttendanceService extends BaseService {
     return this.http.get(this.getBaseUrl() + '/leave_report/' + month + '/' + year + '/' + 'excel_download', content);
 
   }
+
+  fetchPendingLeaveApproval(month: number, year: number, user_id?: number): Observable<Result> {
+
+    let url = this.getBaseUrl() + '/pending-leave-approval';
+
+    let params = new URLSearchParams();
+    params.set('month', String(month > 0 ? month : ''));
+    params.set('year', String(year > 0 ? year : ''));
+    params.set('user_id', String(user_id > 0 ? user_id : ''));
+
+    return this.get(url, new RequestOptions({search: params}));
+  }
+
+  /**
+   * Approved leave
+   */
+  approveLeave(id): Observable<Result> {
+    return this.put(this.getBaseUrl() + '/' + id + '/approve-leave');
+  }
+
+  /**
+   * Rejected leave
+   */
+  rejectedLeave(id): Observable<Result> {
+    return this.put(this.getBaseUrl() + '/' + id + '/reject-leave');
+  }
 }

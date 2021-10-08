@@ -234,7 +234,6 @@ export class Result {
 
   // Input Pos
   input_pos: UserInputPos[];
-
   // Expense
   expenses: Expense[];
 

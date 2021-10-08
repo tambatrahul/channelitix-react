@@ -182,7 +182,7 @@ export class CreateAttendanceComponent extends FormComponent {
                 },
                 err => {
                     this.loading = false;
-                    this.errors = err.errors.error;
+                    this.errors = err.errors.leave_type_id;
                   swal({
                     title: this.errors,
                     type: 'warning',

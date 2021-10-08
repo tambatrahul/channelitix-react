@@ -34,12 +34,18 @@ export class MonthSummaryComponent extends BaseAuthComponent {
   _year: number;
 
   total_dr_meet: number = 0;
-  total_dr_met: number = 0;
+  total_semi_meet: number = 0;
+  total_stockist_meet: number = 0;
+  total_retailer_meet: number = 0;
   total_chemist_meet: number = 0;
+  total_dr_met: number = 0;
+  total_stockist_met: number = 0;
+  total_semi_met: number = 0;
   total_chemist_met: number = 0;
+  total_retailer_met: number = 0;
   dr_call_average: number = 0;
   chemist_call_average: number = 0;
-  stockist_meet: number = 0;
+
   field_work_days: number = 0;
   leave: number = 0;
   transit: number = 0;
@@ -157,18 +163,28 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     visits.map(vis => {
       if (vis.customer_type_id === 5)
         this.total_dr_meet += +vis.visit_count;
-      else if (vis.customer_type_id === 4)
+      if (vis.customer_type_id === 4)
         this.total_chemist_meet += +vis.visit_count;
-      else if (vis.customer_type_id === 1)
-        this.stockist_meet += +vis.visit_count;
+      if (vis.customer_type_id === 1)
+        this.total_stockist_meet += +vis.visit_count;
+      if (vis.customer_type_id === 2)
+        this.total_semi_meet += +vis.visit_count;
+      if (vis.customer_type_id === 3)
+        this.total_retailer_meet += +vis.visit_count;
     });
 
     // total visit count
     all_visits.map(all_visit => {
       if (all_visit.customer_type_id === 5)
         this.total_dr_met += +all_visit.visit_count;
-      else if (all_visit.customer_type_id === 4)
+      if (all_visit.customer_type_id === 4)
         this.total_chemist_met += +all_visit.visit_count;
+      if (all_visit.customer_type_id === 1)
+        this.total_stockist_met += +all_visit.visit_count;
+      if (all_visit.customer_type_id === 2)
+        this.total_semi_met += +all_visit.visit_count;
+      if (all_visit.customer_type_id === 3)
+        this.total_retailer_met += +all_visit.visit_count;
 
       this.total_visits += +all_visit.visit_count;
     });
@@ -207,9 +223,14 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     this.total_dr_met = 0;
     this.total_chemist_meet = 0;
     this.total_chemist_met = 0;
+    this.total_retailer_met = 0;
+    this.total_retailer_meet = 0;
+    this.total_semi_met = 0;
+    this.total_semi_meet = 0;
+    this.total_stockist_met = 0;
+    this.total_stockist_meet = 0;
     this.dr_call_average = 0;
     this.chemist_call_average = 0;
-    this.stockist_meet = 0;
     this.field_work_days = 0;
     this.leave = 0;
     this.transit = 0;

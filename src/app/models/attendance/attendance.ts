@@ -52,6 +52,7 @@ export class Attendance extends Model {
   working_with_count: number = 0;
   working_with_id_tour: number;
   tour_working_with: string;
+  approved_status: string;
 
   constructor(info: any) {
     super(info.id);
@@ -71,6 +72,7 @@ export class Attendance extends Model {
     this.reporting_status = info.reporting_status;
     this.att_day = info.att_day;
     this.att_month = info.att_month;
+    this.approved_status = info.approved_status;
     this.working_with_other = info.working_with_other == 1;
 
     if (info.no_of_calls)

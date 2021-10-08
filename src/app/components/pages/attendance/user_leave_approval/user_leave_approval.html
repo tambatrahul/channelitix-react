@@ -1,0 +1,63 @@
+<div class="container-fluid css_v2" #loading_box>
+
+  <!-- Page Breadcrumb -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-breadcrumb-wrap">
+          <div class="page-breadcrumb-info">
+            <h2 class="breadcrumb-titles">User Leave Approval
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-2">
+      <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box-widget widget-module table-widget">
+        <div class="widget-container">
+          <div class="widget-block table-block">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped no-border-table">
+                <thead>
+                <tr>
+                  <th>Employee Name</th>
+                  <th>Headquarter</th>
+                  <th>Leave Date</th>
+                  <th>Leave Type</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let leave_data of leaves_data">
+                  <td style="text-align: left;">{{leave_data.creator.full_name }}</td>
+                  <td style="text-align: left;">{{leave_data.creator.hq_headquarter.name }}</td>
+                  <td style="text-align: left;">{{leave_data.date }}</td>
+                  <td style="text-align: left;">{{leave_data.leave_type.name}}</td>
+                  <td style="text-align: left;">
+                   <a *roleCheck="ROLE_CSM" class="btn btn-xs btn-success" style="cursor: pointer;"
+                                         title="Approved" (click)="approvedLeave(leave_data.id)">Approved</a>
+                    &nbsp;
+                   <a *roleCheck="ROLE_CSM" class="btn btn-xs btn-danger" style="cursor: pointer;"
+                                       title="Rejected" (click)="rejectedLeave(leave_data.id)">Rejected</a> &nbsp;
+                  </td>
+                </tr>
+                <tr *ngIf="leaves_data.length <= 0">
+                  <td class="text-center" colspan="10">No Pending Leave Approval Found</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

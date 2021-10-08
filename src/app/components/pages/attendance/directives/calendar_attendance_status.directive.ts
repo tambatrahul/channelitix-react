@@ -10,6 +10,7 @@ import {AppConstants} from "../../../../app.constants";
 export class CalendarAttendanceStatusDirective {
 
     leave: string = "#e74c3c";
+    pending_leave: string = "#FF0000";
     working: string = "#2ecc71";
     holiday: string = "#bdc3c7";
     nothing: string = "#ecf0f1";
@@ -41,8 +42,10 @@ export class CalendarAttendanceStatusDirective {
         if (att && att.status && att.reporting_status == 'closed') {
 
             // set background color depending on status
-            if (att.status == AppConstants.LEAVE)
+            if (att.status == AppConstants.LEAVE && att.approved_status == 'approved')
                 this.el.nativeElement.style.backgroundColor = this.leave;
+            else if (att.status == AppConstants.LEAVE && att.approved_status == 'pending')
+                this.el.nativeElement.style.backgroundColor = this.pending_leave;
             else if (att.status == AppConstants.WORKING)
                 this.el.nativeElement.style.backgroundColor = this.working;
             else if (att.status == AppConstants.HOLIDAY)

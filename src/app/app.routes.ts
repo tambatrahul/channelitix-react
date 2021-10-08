@@ -88,6 +88,7 @@ import {SupportComponent} from './components/pages/support/index.component';
 import { DownloadComponent } from './components/pages/download/download.component';
 import {DailySalesComponent} from './v2/pages/sales/index/index.component';
 import { UserLocationComponent } from "./components/pages/attendance/user_location_map/user_location.component";
+import {UserLeaveApproval} from './components/pages/attendance/user_leave_approval/user_leave_approval';
 
 // Route Configuration
 export const routes: Routes = [
@@ -139,6 +140,10 @@ export const routes: Routes = [
           {
             path: 'monthly',
             component: MonthlyAttendanceComponent
+          },
+          {
+            path: 'leave_approval',
+            component: UserLeaveApproval
           },
           {
             path: 'temp_monthly',
@@ -592,7 +597,7 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  }, 
+  },
   {
     path: 'user-locations/:id/:month_year',
     component: UserLocationComponent

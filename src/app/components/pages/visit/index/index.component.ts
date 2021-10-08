@@ -412,7 +412,7 @@ export class VisitComponent extends BaseAuthComponent {
    */
   showLocationMapForUser(user: User) {
     this.user_id = user.id;
-    this.month_year = "" + this.year + ( this._month = ((this.month + 1) < 9) ?  ""+ 0 + (this.month + 1) : (this.month + 1));
+    this.month_year = "" + this.year + ( this._month = ((this.month + 1) < 10) ?  ""+ 0 + (this.month + 1) : (this.month + 1));
     this.url = this._router.serializeUrl(this._router.createUrlTree(['user-locations', this.user_id, this.month_year]));
     window.open(this.url, '_blank');
   }
