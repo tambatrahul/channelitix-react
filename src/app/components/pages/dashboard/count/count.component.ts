@@ -1,10 +1,13 @@
-import {Component, Input} from '@angular/core';
-import {ReportService} from '../../../../services/report.service';
-import {BaseAuthComponent} from '../../../base/base_auth.component';
-import {AuthService} from '../../../../services/AuthService';
-import {BaseDashboardComponent} from '../base_dashboard.component';
-import {AppConstants} from '../../../../app.constants';
-import {Headquarter} from '../../../../models/territory/headquarter';
+import { Component, Input } from '@angular/core';
+import { BaseAuthComponent } from '../../../base/base_auth.component';
+import { AuthService } from '../../../../services/AuthService';
+import { BaseDashboardComponent } from '../base_dashboard.component';
+import { AppConstants } from '../../../../app.constants';
+import { Headquarter } from '../../../../models/territory/headquarter';
+import { V2ReportService } from 'app/services/v2/report.service';
+import { Summary } from 'app/models/V2/SAP/summary';
+import { setFlagsFromString } from 'v8';
+import { constants } from 'os';
 
 declare let jQuery: any;
 
@@ -16,25 +19,32 @@ declare let jQuery: any;
 })
 export class DashBoardCountComponent extends BaseDashboardComponent {
 
+  public totalPrimarySalesAndTarget: Summary[];
+  public pobSummary: Summary[];
+
   /**
-   * get all count
+   * find totals
    *
    * @type {}
    */
-  counts = {
-    total_users: 0,
-    total_active_users: 0,
-    total_customers: 0,
-    total_visits: 0,
-    call_average: 0,
-    performance_icon: 0,
-    performance_chl: 0,
-    productive_calls: 0,
-    total_bricks: 0,
+  summary = {
     total_headquarters: 0,
-    performance_per: 0,
-    skinlite_performance_per: 0,
-    growth_per: 0
+    total_bricks: 0,
+    total_cses: 0,
+    total_customers: 0,
+    total_field_working_days: 0,
+    total_visits: 0,
+    total_orders: 0,
+    call_average: 0,
+    iconGrowth: 0,
+    iconAchievement: 0,
+    chlGrowth: 0,
+    chlAchievement: 0,
+    growth: 0,
+    achievement: 0,
+    iconProductiveCalls: 0,
+    chlProductiveCalls: 0,
+    productiveCalls: 0
   };
 
   /**
@@ -75,7 +85,7 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
    *
    * @type {}
    */
-  _dates = {from_date: '', to_date: '', year: ''};
+  _dates = { from_date: '', to_date: '', year: '' };
   @Input()
   set dates(dates) {
     this._dates = dates;
@@ -140,23 +150,26 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
   fetchCounts = AppConstants.debounce(function () {
     const self = this;
     self.loading = true;
-    if ((self._month == 0 || self._month >= 0 ) && self._year) {
-      self.reportService.counts(self._month + 1, self._year,
-        self._region_ids, self._area_ids, self._headquarter_ids, self._zone_ids, self._department_id).subscribe(
-        response => {
-          self.counts = response;
-          self.loading = false;
-        }, err => {
-          self.loading = false;
-        }
-      );
+    if ((self._month == 0 || self._month >= 0) && self._year) {
+      self.reportService.totalSummary(self._month + 1, self._year, self._zone_ids,
+        self._region_ids, self._area_ids, self._headquarter_ids, self._department_id).subscribe(
+          response => {
+            self.summary = response;
+            self.totalPrimarySalesAndTarget = response.total_primary_sales_and_target.map(tpst => new Summary(tpst));
+            self.pobSummary = response.total_pob.map(pob => new Summary(pob));
+            self.formateData(self.totalPrimarySalesAndTarget, self.pobSummary);
+            self.loading = false;
+          }, err => {
+            self.loading = false;
+          }
+        );
     }
   }, 1000, false);
 
   /**
    * Dashboard Component Constructor
    */
-  constructor(private reportService: ReportService, protected _authService: AuthService) {
+  constructor(private reportService: V2ReportService, protected _authService: AuthService) {
     super(_authService);
   }
 
@@ -165,5 +178,44 @@ export class DashBoardCountComponent extends BaseDashboardComponent {
    */
   fetch() {
 
+  }
+
+  /**
+   * 
+   */
+  formateData(totalPrimarySalesAndTarget: Summary[], pobSummary: Summary[]) {
+
+    const self = this;
+
+    self.totalPrimarySalesAndTarget.map(s => {
+      if (s.department == AppConstants.ICON_DEPARTMENT) {
+        self.summary.iconGrowth = s.growth;
+        self.summary.iconAchievement = s.achievement;
+      }
+
+      if (s.department == AppConstants.CHL_DEPARTMENT) {
+        self.summary.chlGrowth = s.growth;
+        self.summary.chlAchievement = s.achievement;
+      }
+
+      if (s.department != AppConstants.CHL_DEPARTMENT && s.department != AppConstants.ICON_DEPARTMENT) {
+        self.summary.growth = s.growth;
+        self.summary.achievement = s.achievement;
+      }
+    });
+
+    self.pobSummary.map(pob => {
+      if (pob.department == AppConstants.ICON_DEPARTMENT) {
+        self.summary.iconProductiveCalls = pob.productiveCalls;
+      }
+
+      if (pob.department == AppConstants.CHL_DEPARTMENT) {
+        self.summary.chlProductiveCalls = pob.productiveCalls;
+      }
+
+      if (pob.department != AppConstants.CHL_DEPARTMENT && pob.department != AppConstants.ICON_DEPARTMENT) {
+        self.summary.productiveCalls = pob.productiveCalls;
+      }
+    });
   }
 }

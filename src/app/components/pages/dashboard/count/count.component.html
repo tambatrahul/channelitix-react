@@ -2,65 +2,73 @@
   <div *roleCheck="ROLE_CSM" class="col-md-3 col-xs-6">
     <div class="mini-stats-widget full-block-mini-chart w_bg_teal_500">
       <div class="mini-stats-top">
-        <span class="mini-stats-value">{{ counts.total_users }}</span>
+        <span class="mini-stats-value">{{ summary.total_cses }}</span>
         <span class="mini-stats-label">Total TSOs </span>
       </div>
       <div class="mini-stats-bottom w_bg_cyan_75">
-        <span>Out Of </span> {{ counts.total_headquarters}} <span></span>
+        <span>Out Of </span> {{ summary.total_headquarters }} <span></span>
       </div>
     </div>
   </div>
   <a class="col-md-3 col-xs-6 remove-underline" [routerLink]="'/customers'">
     <div class="mini-stats-widget full-block-mini-chart w_bg_cyan_500">
       <div class="mini-stats-top">
-        <span class="mini-stats-value">{{ counts.total_customers }}</span>
+        <span class="mini-stats-value">{{ summary.total_customers }}</span>
         <span class="mini-stats-label">Total Customers</span>
       </div>
       <div class="mini-stats-bottom w_bg_cyan_65">
-        <span>{{ counts.total_bricks}} </span> Bricks <span></span>
+        <span>{{ summary.total_bricks }} </span> Bricks <span></span>
       </div>
     </div>
   </a>
   <div class="col-md-3 col-xs-6">
     <div class="mini-stats-widget full-block-mini-chart w_bg_indigo_500">
       <div class="mini-stats-top">
-        <span class="mini-stats-value">{{ counts.call_average }}</span>
+        <span class="mini-stats-value">{{ summary.call_average }}</span>
         <span class="mini-stats-label">Call Average</span>
       </div>
-      <div class="mini-stats-bottom w_bg_indigo_75">
-        <span>Prod. Calls</span> <span>{{ _productive_calls}} % </span>
+      <div class="mini-stats-bottom w_bg_indigo_75" *ngIf="environment.projectName != 'IKON'">
+        <span>Productive Calls</span> <span>{{ summary.productiveCalls > 0 ? summary.productiveCalls : 0 }} % </span>
+      </div>
+      <div class="mini-stats-bottom w_bg_indigo_75" *ngIf="environment.projectName == 'IKON'">
+        <span>Productive Calls</span> <span>{{ (summary.iconProductiveCalls + summary.chlProductiveCalls).toFixed(2) }} % </span>
       </div>
     </div>
   </div>
   <div class="col-md-3 col-xs-6" *ngIf="environment.envName != 'sk_group'">
     <div class="mini-stats-widget full-block-mini-chart">
       <div class="mini-stats-top" *ngIf="environment.projectName != 'IKON' ">
-        <span class="mini-stats-value">{{ counts.performance_per.toFixed(2) }}</span>
+        <span class="mini-stats-value">{{ summary.achievement }}</span>
         <span class="mini-stats-label">% Performance (Primary)</span>
       </div>
-      <div  *ngIf="environment.projectName == 'IKON' && _department_id == 0 ">
+      <div *ngIf="environment.projectName == 'IKON' && _department_id == 0">
         <div class="mini-stats-bottom w_bg">
-          <span>ICON Perf.</span> <span>{{ counts.performance_icon.toFixed(2)}} % </span>
+          <span>ICON Performance</span> <span>{{ summary.iconAchievement }} % </span>
         </div>
         <br />
-        <div class="mini-stats-bottom w_bg" >
-          <span>CHL Perf.</span> <span>{{ counts.performance_chl.toFixed(2)}} % </span>
+        <div class="mini-stats-bottom w_bg">
+          <span>CHL Performance</span> <span>{{ summary.chlAchievement }} % </span>
+        </div>
+        <div class="mini-stats-bottom w_bg_smoke_75">
+          <span>Icon Growth <span> {{ summary.iconGrowth > 0 ? summary.iconGrowth : 0 }} % </span></span>
         </div>
       </div>
       <div class="mini-stats-top" *ngIf="_department_id == 1 && environment.projectName == 'IKON'">
-        <span class="mini-stats-value">{{ counts.performance_icon.toFixed(2) }}</span>
+        <span class="mini-stats-value">{{ summary.iconAchievement }}</span>
         <span class="mini-stats-label">% ICON Performance (Primary)</span>
       </div>
-      <div class="mini-stats-top" *ngIf="_department_id == 2 && environment.projectName == 'IKON'">
-        <span class="mini-stats-value">{{ counts.performance_chl.toFixed(2) }}</span>
-        <span class="mini-stats-label">% CHl Performance (Primary)</span>
+      <div class="mini-stats-bottom w_bg_smoke_75" *ngIf="_department_id == 1 && environment.projectName == 'IKON'">
+        <span>Growth <span> {{ summary.iconGrowth > 0 ? summary.iconGrowth : 0 }} % </span></span>
       </div>
-<!--      <div class="mini-stats-bottom w_bg" *ngIf="environment.envName == 'geo'">-->
-<!--        <span>Team Perf.</span> <span>{{ counts.skinlite_performance_per.toFixed(2)}} % </span>-->
-<!--      </div>-->
-      <div class="mini-stats-bottom w_bg_smoke_75">
-        <span *ngIf="counts.growth_per > 0">Growth <span> {{ counts.growth_per.toFixed(2) }} % </span></span>
-        <span *ngIf="counts.growth_per < 0">Growth <span> {{0}} % </span></span>
+      <div class="mini-stats-top" *ngIf="_department_id == 2 && environment.projectName == 'IKON'">
+        <span class="mini-stats-value">{{ summary.chlAchievement }}</span>
+        <span class="mini-stats-label">% CHL Performance (Primary)</span>
+      </div>
+      <div class="mini-stats-bottom w_bg_smoke_75" *ngIf="_department_id == 2 && environment.projectName == 'IKON'">
+        <span>Growth <span> {{ summary.chlGrowth > 0 ? summary.chlGrowth : 0 }} % </span></span>
+      </div>
+      <div class="mini-stats-bottom w_bg_smoke_75" *ngIf="environment.projectName != 'IKON'">
+        <span>Growth <span> {{ summary.growth > 0 ? summary.growth : 0 }} % </span></span>
       </div>
     </div>
   </div>

@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import * as moment from 'moment';
-import {BaseComponent} from '../../../base/base.component';
-import {ReportService} from '../../../../services/report.service';
-import {AuthService} from '../../../../services/AuthService';
-import {AppConstants} from '../../../../app.constants';
-import {Performance} from '../../../../models/SAP/performance';
-import {Product} from '../../../../models/order/product';
+import { BaseComponent } from '../../../base/base.component';
+import { ReportService } from '../../../../services/report.service';
+import { AuthService } from '../../../../services/AuthService';
+import { AppConstants } from '../../../../app.constants';
+import { Performance } from '../../../../models/SAP/performance';
+import { Product } from '../../../../models/order/product';
 
 declare let jQuery: any;
 
@@ -47,6 +47,10 @@ export class DashBoardComponent extends BaseComponent {
   public department_id: number = 0;
   public total_sample: number = 0;
   public refresh;
+  public totalInputDistribution: number = 0;
+  public pobToSalesRate: number = 0;
+  public iconPobToSalesRate: number = 0;
+  public chlPobToSalesRate: number = 0;
 
   /**
    * selected regions, areas and headquarters
@@ -70,17 +74,17 @@ export class DashBoardComponent extends BaseComponent {
    */
   fetchActualSale = AppConstants.debounce(function () {
     const self = this;
-    if ( (self.month || self.month == 0) && self.year) {
+    if ((self.month || self.month == 0) && self.year) {
       self.loading = true;
       self.reportService.product_wise_actule_sale(self.month + 1, self.year,
         self.region_ids, self.area_ids, self.headquarter_ids, self.zone_ids, self.department_id).subscribe(
-        response => {
-          self.forData(new Performance(response.performance));
-          self.loading = false;
-        }, err => {
-          self.loading = false;
-        }
-      );
+          response => {
+            self.forData(new Performance(response.performance));
+            self.loading = false;
+          }, err => {
+            self.loading = false;
+          }
+        );
     }
   }, 1000, false);
 
@@ -134,9 +138,7 @@ export class DashBoardComponent extends BaseComponent {
         }
       });
     });
-    self.total_actual = 0;
-    self.total_geo_actual = 0;
-    // set performance values
+
     performance.secondary_sales.map(function (ss) {
       products.map(function (product) {
         if (product.brand_id == ss.brand_id) {
@@ -149,7 +151,7 @@ export class DashBoardComponent extends BaseComponent {
         }
       });
     });
-    this.total_pob_to_actual_sales = (self.total_actual  > 0) ? parseInt(((this.total_pob_for_sale / self.total_actual ) * 100).toFixed(2)) : 0
+    this.total_pob_to_actual_sales = (self.total_actual > 0) ? parseInt(((this.total_pob_for_sale / self.total_actual) * 100).toFixed(2)) : 0
     this.total_sample = 0;
     this.total_sample = performance.total_sample;
   }
@@ -180,9 +182,10 @@ export class DashBoardComponent extends BaseComponent {
   totalVisitOrders(data) {
     this.total_visits = data.visits;
     this.total_pob = data.orders;
-    this.total_pob_sk = data.orders_sk;
-    this.total_pob_synergy = data.orders_synergy;
-    this.productive_calls = (data.visits > 0) ? parseInt(((data.total_orders / data.visits) * 100).toFixed(2)) : 0
+    this.totalInputDistribution = data.totalInputDistribution;
+    this.pobToSalesRate = data.pobToSalesRate;
+    this.chlPobToSalesRate = data.chlPobToSalesRate;
+    this.iconPobToSalesRate = data.iconPobToSalesRate;
   }
 
   /**
