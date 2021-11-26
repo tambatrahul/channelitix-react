@@ -1,15 +1,16 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {GoogleChartComponent} from "../../../base/google_chart.component";
-import {ReportService} from "../../../../services/report.service";
-import {Order} from "../../../../models/order/order";
-import {Visit} from "../../../../models/visit/visit";
-import {Attendance} from "../../../../models/attendance/attendance";
-import {AuthService} from "../../../../services/AuthService";
-import {AppConstants} from '../../../../app.constants';
-import {Performance} from '../../../../models/SAP/performance';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { GoogleChartComponent } from "../../../base/google_chart.component";
+import { ReportService } from "../../../../services/report.service";
+import { Order } from "../../../../models/order/order";
+import { Visit } from "../../../../models/visit/visit";
+import { Attendance } from "../../../../models/attendance/attendance";
+import { AuthService } from "../../../../services/AuthService";
+import { AppConstants } from '../../../../app.constants';
+import { Performance } from '../../../../models/SAP/performance';
 import * as moment from 'moment';
-import {Product} from '../../../../models/order/product';
+import { Product } from '../../../../models/order/product';
 import { V2ReportService } from "app/services/v2/report.service";
+import { Summary } from "app/models/V2/SAP/summary";
 
 declare let jQuery: any;
 declare let d3: any;
@@ -30,7 +31,13 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
   public total_pob: number = 0;
   public total_pob_sk: number = 0;
   public total_pob_synergy: number = 0;
-  public total_orders: number = 0;
+  public totalOrders: number = 0;
+  public totalInputDistribution: number = 0;
+  public totalPrimarySalesAndTarget: Summary[];
+  public iconPobToSalesRate: number = 0;
+  public chlPobToSalesRate: number = 0;
+  public pobToSalesRate: number = 0;
+
   /**
    * Product Id
    */
@@ -176,32 +183,51 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
       self.loading = true;
       self.reportService.visit_order_trend(self._month + 1, self._year,
         self._region_ids, self._area_ids, self._headquarter_ids, self.product_id, self.brand_id, self._zone_ids, self._department_id).subscribe(
-        response => {
-          self.visits = response.visits.map(function (visit) {
-            return new Visit(visit);
-          });
-          self.orders = response.orders.map(function (order) {
-            return new Order(order);
-          });
+          response => {
+            self.visits = response.visits.map(function (visit) {
+              return new Visit(visit);
+            });
+            self.orders = response.orders.map(function (order) {
+              return new Order(order);
+            });
 
-          self.total_pob_sk = response.orders_sk;
-          self.total_pob_synergy = response.orders_synergy;
+            self.total_pob_sk = response.orders_sk;
+            self.total_pob_synergy = response.orders_synergy;
 
-          self.attendances = response.attendances.map(function (att) {
-            return new Attendance(att);
-          });
+            self.attendances = response.attendances.map(function (att) {
+              return new Attendance(att);
+            });
 
-          self.total_orders = response.total_orders;
+            self.totalOrders = response.total_orders;
+            self.totalInputDistribution = response.total_input_distribution;
 
-          self.getGoogle().charts.setOnLoadCallback(() => {
-            self.prepareData();
-          });
-          self.loading = false;
-        },
-        err => {
-          self.loading = false;
-        }
-      );
+            self.totalPrimarySalesAndTarget = response.total_primary_sales_and_target.map(function (tpst) {
+              return new Summary(tpst);
+            });
+
+            self.totalPrimarySalesAndTarget.map(function (pobRate) {
+              if (pobRate.department == 'Icon') {
+                self.iconPobToSalesRate = pobRate.pobToSalesRate;
+              }
+
+              if (pobRate.department == 'CHL') {
+                self.chlPobToSalesRate = pobRate.pobToSalesRate;
+              }
+
+              if (pobRate.department != 'Icon' && pobRate != 'CHL') {
+                self.pobToSalesRate = pobRate.pobToSalesRate;
+              }
+            });
+
+            self.getGoogle().charts.setOnLoadCallback(() => {
+              self.prepareData();
+            });
+            self.loading = false;
+          },
+          err => {
+            self.loading = false;
+          }
+        );
     }
   }, 1000, false);
 
@@ -217,14 +243,14 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     this.fetchVisitOrdreTrend();
   }
 
-    /**
-   * draw graph
-   */
+  /**
+ * draw graph
+ */
   drawGraph() {
     this.data = this.createDataTable(this.chart_data);
 
     this.options = {
-      chartArea: {left: 60, top: 40, bottom: 40, right: 20, width: "100%", height: "100%"},
+      chartArea: { left: 60, top: 40, bottom: 40, right: 20, width: "100%", height: "100%" },
       title: '',
       hAxis: {
         title: 'Date',
@@ -232,15 +258,15 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
       },
       seriesType: 'bars',
       vAxes: [
-        {title: 'Visit', minValue: 0, viewWindow: {min: 0}},
-        {title: 'POB in (₹)', viewWindow: {min: 0}}
+        { title: 'Visit', minValue: 0, viewWindow: { min: 0 } },
+        { title: 'POB in (₹)', viewWindow: { min: 0 } }
       ],
       bar: {
         groupWidth: '80%'
       },
       series: [
-        {axis: 0, type: 'bar', targetAxisIndex: 0},
-        {axis: 1, type: 'line', targetAxisIndex: 1}
+        { axis: 0, type: 'bar', targetAxisIndex: 0 },
+        { axis: 1, type: 'line', targetAxisIndex: 1 }
       ]
     };
 
@@ -303,9 +329,11 @@ export class VisitCountGraphComponent extends GoogleChartComponent {
     this.totalVisitOrders.emit({
       'visits': this.total_visits,
       'orders': this.total_pob,
-      'total_orders': this.total_orders,
-      'orders_sk': this.total_pob_sk,
-      'orders_synergy': this.total_pob_synergy
+      'totalOrders': this.totalOrders,
+      'totalInputDistribution': this.totalInputDistribution,
+      'chlPobToSalesRate': this.chlPobToSalesRate,
+      'iconPobToSalesRate': this.iconPobToSalesRate,
+      'pobToSalesRate': this.pobToSalesRate
     });
 
     // set chart data callback

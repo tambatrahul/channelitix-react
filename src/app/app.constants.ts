@@ -72,6 +72,10 @@ export class AppConstants {
         AppConstants.HOLIDAY, AppConstants.OFFICE_WORK
     ];
 
+    // departments
+    static ICON_DEPARTMENT = 'Icon';
+    static CHL_DEPARTMENT = 'CHL';
+ 
     /**
      * return string month
      *
