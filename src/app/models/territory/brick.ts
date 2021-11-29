@@ -7,6 +7,7 @@ import {Customer} from '../customer/customer';
 export class Brick extends Model {
 
   name: string;
+  district: string;
   station: string;
   status: string;
   approved_status: string;
@@ -70,6 +71,7 @@ export class Brick extends Model {
   constructor(info: any) {
     super(info.id);
     this.name = info.name;
+    this.district = info.district;
     this.station = info.station;
     this.status = info.status;
     this.approved_status = info.approved_status;

@@ -91,7 +91,8 @@
                                         <thead>
 
                                         <tr>
-                                            <th rowSpan="4">Name Of Brick</th>
+                                            <th rowSpan="4">Brick</th>
+                                            <th rowspan="4">District</th>
                                             <th rowSpan="4">System Generated Customer Potential</th>
                                             <th rowSpan="4">Brick Potential</th>
                                             <th rowSpan="4">Average POB</th>
@@ -131,6 +132,9 @@
                                                 <tr *ngIf="brick.status == 'active'">
                                                     <th>
                                                         {{brick.name}}
+                                                    </th>
+                                                    <th>
+                                                        {{brick.district}}
                                                     </th>
                                                     <td style="width: 100px;" [ngClass]="{'dark_green': brick.customer_count_pattern == 1,
                                         'light_green': brick.customer_count_pattern == 2,
