@@ -8,6 +8,7 @@ import {Product} from "../../../../models/order/product";
 import {ActivatedRoute} from "@angular/router";
 import * as moment from "moment";
 import {PrimarySale} from "../../../../models/sale/primary_sale";
+declare let swal: any;
 
 declare let jQuery: any;
 
@@ -40,6 +41,8 @@ export class SecondarySaleCreateComponent extends ListComponent {
    */
   public current_month: number;
   public current_year: number;
+
+  public totalCount = 0;
 
   /**
    * title of page
@@ -198,21 +201,38 @@ export class SecondarySaleCreateComponent extends ListComponent {
         primary_sale: ss.primary_sale,
         unit_price: ss.unit_price
       }));
-
     }
 
-    // create to server
-    this.loading = true;
-    this.saleService.create(secondary_sales, this._month + 1, this.year, this._customer_id).subscribe(
-      response => {
-        this.loading = false;
-        this.editing = false;
-        this.fetchSales()
-      },
-      err => {
-        this.loading = false;
+    this.totalCount = 0;
+    for (let ss of this.secondary_sales) {
+      if (ss.primary_qty + ss.opening < ss.secondary_sale) {
+        this.totalCount += 1;
       }
-    );
+    }
+    if (this.totalCount > 0) {
+      swal({
+        title: 'Please recheck your closing quantity!',
+        type: 'warning',
+        showClass: {
+          popup: 'animated fadeInDown faster'
+        },
+        hideClass: {
+          popup: 'animated fadeOutUp faster'
+        }
+      });
+    }
+    else {
+      this.saleService.create(secondary_sales, this._month + 1, this.year, this._customer_id).subscribe(
+        response => {
+          this.loading = false;
+          this.editing = false;
+          this.fetchSales()
+        },
+        err => {
+          this.loading = false;
+        }
+      );
+    }
   }
 
   /**
