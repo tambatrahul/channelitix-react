@@ -43,6 +43,7 @@ export class Customer extends Model {
   hq_zone_id: number;
   address: Address;
   synergy: boolean;
+  hospital_name: string;
 
   brand_category: string;
 
@@ -105,6 +106,7 @@ export class Customer extends Model {
     this.grade = info.grade;
     this.status = info.status;
     this.approved_status = info.approved_status;
+    this.hospital_name = info.hospital_name;
     if (info.total_customers)
       this.total_customers = parseInt(info.total_customers);
     this.hq_brick_id = info.hq_brick_id;

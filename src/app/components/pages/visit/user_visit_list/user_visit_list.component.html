@@ -82,6 +82,7 @@
                         <th>id</th>
                         <th>Customer</th>
                         <th>Type</th>
+                        <th *ngIf="environment.projectName == 'GOVAXX'">Hospital Name</th>
                         <th>Brick Name</th>
                         <th>Visit Date</th>
                         <th>Actions</th>
@@ -94,6 +95,7 @@
                             <td>{{ vis.id }}</td>
                             <td>{{ vis.customer.firm_name }}</td>
                             <td>{{ vis.customer.customer_type.name }}</td>
+                            <td *ngIf="environment.projectName == 'GOVAXX'" >{{ vis.customer?.hospital_name }}</td>
                             <td>{{ vis.customer.hq_brick.name }}</td>
                             <td>{{ vis.visit_date }}</td>
                             <td>
