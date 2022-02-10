@@ -53,12 +53,12 @@
               </div>
             </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSE">
-              <div style="padding-top: 20px;" *ngIf="_service.user.access_id <= 0">
+              <div style="padding-top: 20px;" *ngIf="_service.user.access_id <= 0 && environment.projectName != 'GOVAXX'">
                 <a class="btn btn-primary btn-block" routerLink="/customers/create">Create Customer</a>
               </div>
             </div>
             <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
-              <div style="padding-top: 20px;" *ngIf="environment.projectName == 'JBCPL'">
+              <div style="padding-top: 20px;" *ngIf="environment.projectName == 'JBCPL' || environment.projectName == 'GOVAXX'">
                 <a class="btn btn-primary btn-block" (click)="pendingApproval('pending')">{{ view_approval == true ? 'Pending Approval' : 'All Customer' }}</a>
               </div>
             </div>
@@ -97,6 +97,7 @@
                       <th>Brick</th>
                       <th>Headquarter</th>
                       <th>Type (Grade)</th>
+                      <th *ngIf="environment.projectName == 'GOVAXX'">Hospital Name</th>
                       <th>Classification</th>
                       <th>Approval</th>
                       <th *ngIf="_service.user.access_id <= 0">Actions</th>
@@ -111,6 +112,7 @@
                       <td>{{ customer.hq_brick?.name}}</td>
                       <td>{{ customer.hq_headquarter?.name}}</td>
                       <td>{{ customer.customer_type.name }} ({{ customer.grade.name }}) {{customer.doctor_type?.name}}</td>
+                      <td *ngIf="environment.projectName == 'GOVAXX'">{{ customer?.hospital_name }}</td>
                       <td>
                         <span *ngIf="customer.classification =='core'">Core</span>
                         <span *ngIf="customer.classification =='super_core'">Super Core</span>
