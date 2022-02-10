@@ -41,3 +41,6 @@ dispatch:
 
   - url: "training.channelitix.com/*"
     service: training-channelitix
+
+  - url: "govaxx.channelitix.com/*"
+    service: govaxx-frontend

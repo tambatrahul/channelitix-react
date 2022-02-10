@@ -6,10 +6,11 @@
 #service: ace-frontend
 #service: optimus-frontend
 #service: pfizer-territory
-service: jbcpl-frontend
+#service: jbcpl-frontend
 #service: maxx-frontend
 #service: vikrant-frontend
 #service: cimune-frontend
+service: govaxx-frontend
 #service: training-channelitix
 runtime: python27
 threadsafe: yes
