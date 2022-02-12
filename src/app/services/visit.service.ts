@@ -248,9 +248,15 @@ export class VisitService extends BaseService {
    *
    * @returns {Observable<Result>}
    */
-  acknowledgment(user_id: number): Observable<Result> {
-    let url = this.getBaseUrl() + '/user_acknowledgement/' + user_id;
-    return this.get(url);
+  acknowledgment(month: number, year: number, user_id: number): Observable<Result> {
+    let url = this.getBaseUrl() + '/user-acknowledgement';
+
+    let params = new URLSearchParams();
+    params.set('month', String(month > 0 ? month : ''));
+    params.set('year', String(year > 0 ? year : ''));
+    params.set('user_id', String(user_id > 0 ? user_id : ''));
+
+    return this.get(url, new RequestOptions({search: params}));
   }
 
   /**
