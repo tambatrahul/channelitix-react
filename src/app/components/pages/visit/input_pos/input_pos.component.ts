@@ -52,6 +52,7 @@ export class InputPosComponent extends FormComponent {
   public form = this._fb.group({
     quantity_received: [""],
     receipt_date: [""],
+    comment: [""]
   });
 
   /**
@@ -70,7 +71,8 @@ export class InputPosComponent extends FormComponent {
   reset() {
     this.form.patchValue({
       quantity_received: [""],
-      receipt_date: [""]
+      receipt_date: [""],
+      comment: [""]
     });
   }
 

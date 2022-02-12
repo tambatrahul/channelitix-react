@@ -4,6 +4,7 @@ import {AuthService} from "../../../../services/AuthService";
 import {Router} from "@angular/router";
 import {BaseAuthComponent} from "../../../base/base_auth.component";
 import {UserInputPos} from '../../../../models/visit/user_input_pos';
+import * as moment from 'moment';
 
 declare let swal: any;
 
@@ -17,6 +18,13 @@ export class UserInputAcknowledgementComponent extends BaseAuthComponent {
   public input_pos: UserInputPos [] = [];
   public input_id: number = 0;
   public user_id: number = 0;
+
+  /**
+   * year and month for calendar
+   * @type {number}
+   */
+  public month: number;
+  public year: number;
 
   /**
    * Resetting User Password
@@ -54,23 +62,39 @@ export class UserInputAcknowledgementComponent extends BaseAuthComponent {
    * Add Default One Empty Input
    */
   ngOnInit() {
+
+    this.month = moment().month();
+    this.year = moment().year();
+
     if (this._service.user.id)
       this.user_id = this._service.user.id;
     this.fetch();
   }
 
   fetch() {
-    this.loading = true;
-    this.visitService.acknowledgment(this.user_id).subscribe(
-      response => {
-        this.input_pos = response.input_pos;
-        this.loading = false;
-      },
-      err => {
-        this.loading = false;
-      }
-    );
+    if ((this.month || this.month == 0) && this.year) {
+      this.loading = true;
+      this.visitService.acknowledgment(this.month + 1, this.year, this.user_id).subscribe(
+        response => {
+          this.input_pos = response.input_pos;
+          this.loading = false;
+        },
+        err => {
+          this.loading = false;
+        }
+      );
+    }
+  }
 
+  /**
+   * month and year changed
+   *
+   * @param date
+   */
+  monthYearChanged(date) {
+    this.month = date.month;
+    this.year = date.year;
+    this.fetch();
   }
 
 }

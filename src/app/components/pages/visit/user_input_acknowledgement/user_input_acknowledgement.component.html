@@ -13,6 +13,9 @@
       </div>
     </div>
   </div>
+  <div class="col-xs-12 col-md-2">
+    <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+  </div>
   <div class="row">
     <div class="col-xs-12">
       <div class="box-widget widget-module table-widget">
