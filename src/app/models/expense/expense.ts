@@ -34,7 +34,7 @@ export class Expense extends Model {
     this.daily_allowance = parseFloat(info.daily_allowance);
     this.daily_allowance_adjustment_amount = parseFloat(info.daily_allowance_adjustment_amount);
     this.travel_allowance = parseFloat(info.travel_allowance);
-    this.total_km_travelled = info.total_km_travelled;
+    this.total_km_travelled = parseFloat(info.total_km_travelled);
     this.user_id = info.user_id;
 
     if (info.hq_headquarter) {
