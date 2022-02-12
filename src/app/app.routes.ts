@@ -89,6 +89,7 @@ import { DownloadComponent } from './components/pages/download/download.componen
 import {DailySalesComponent} from './v2/pages/sales/index/index.component';
 import { UserLocationComponent } from "./components/pages/attendance/user_location_map/user_location.component";
 import {UserLeaveApproval} from './components/pages/attendance/user_leave_approval/user_leave_approval';
+import {InputInventoryComponent} from './components/pages/visit/input_inventory/input_inventory.component';
 
 // Route Configuration
 export const routes: Routes = [
@@ -175,6 +176,10 @@ export const routes: Routes = [
           {
             path: 'user_input_acknowledgement',
             component: UserInputAcknowledgementComponent
+          },
+          {
+            path: 'input_inventory',
+            component: InputInventoryComponent
           },
           {
             path: 'input_utilization',

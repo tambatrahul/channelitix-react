@@ -290,4 +290,21 @@ export class VisitService extends BaseService {
     // make server call
     return this.http.get(this.getBaseUrl() + '/input_utilization/' + month + '/' + year + '/excel/download', content);
   }
+
+  /**
+   * Fetch input summary
+   *
+   * @returns {Observable<Result>}
+   */
+  fetchInputSummary(month?: number, year?: number, headquarter_id?: number): Observable<Result> {
+
+    let url = this.getBaseUrl() + '/input-inventory-summary';
+
+    let params = new URLSearchParams();
+    params.set('month', String(month > 0 ? month : ''));
+    params.set('year', String(year > 0 ? year : ''));
+    params.set('headquarter_id', String(headquarter_id > 0 ? headquarter_id : ''));
+
+    return this.get(url, new RequestOptions({search: params}));
+  }
 }

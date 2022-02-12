@@ -260,6 +260,7 @@ import { UserLocationService } from "./services/v3/user_location.service";
 import {UnlockReportComponent} from './v3/components/users/unlock_report/unlock_report.component';
 import { V2ReportService } from "./services/v2/report.service";
 import {UserLeaveApproval} from './components/pages/attendance/user_leave_approval/user_leave_approval';
+import {InputInventoryComponent} from './components/pages/visit/input_inventory/input_inventory.component';
 
 enableProdMode();
 
@@ -351,6 +352,7 @@ enableProdMode();
     InputPosComponent,
     DeviationReportComponent,
     HqWiseInputUtilizationReportComponent,
+    InputInventoryComponent,
     InputUtilizationReportComponent,
     MissingCustomerListComponent,
     BrickBusinessTrackerComponent,
