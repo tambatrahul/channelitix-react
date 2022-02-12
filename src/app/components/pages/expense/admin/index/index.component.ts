@@ -27,6 +27,7 @@ export class ExpenseComponent extends BaseAuthComponent {
   first_fortnight_attendances: Attendance[] = [];
   second_fortnight_attendances: Attendance[] = [];
   region_id: number = 0;
+  zone_id: number = 0;
   area_id: number = 0;
   headquarter_id: number = 0;
   status: string;
@@ -80,6 +81,18 @@ export class ExpenseComponent extends BaseAuthComponent {
     super.ngOnInit();
     this.month = moment().month();
     this.year = moment().year();
+
+    if (this._service.user.role_id == 4) {
+      this.region_id = this._service.user.hq_region_id;
+      this.area_id = this._service.user.hq_area_id;
+    }
+    if (this._service.user.role_id == 5) {
+      this.region_id = this._service.user.hq_region_id;
+    }
+    if (this._service.user.role_id == 6) {
+      this.zone_id = this._service.user.hq_zone_id;
+    }
+
     if(this._service.user.role_str == AppConstants.ROLE_THIRD_PARTY)
       this.region_id = this._service.user.hq_region_id;
 

@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12 col-md-2 pull-right">
+        <div class="col-xs-12 col-md-3 ">
           <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
         <div *ngIf="_service.user.role_str != 'THIRD_PARTY'">
@@ -19,7 +19,7 @@
             <region-select [value]="region_id" [title]="'Select Region'"
                            (onValueChanged)="regionChanged($event)"></region-select>
           </div>
-          <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+          <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
             <div *ngIf="region_id > 0">
               <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'"
                            (onValueChanged)="areaChanged($event)"></area-select>
@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_CSM">
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
           <label> Status </label>
           <select class="form-control" (change)="setStatus($event.target.value)">
             <option value="">Select Status</option>
