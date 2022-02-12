@@ -60,7 +60,7 @@ export class TourFormComponent extends FormComponent {
             else
                 this._manager_id = 0;
         }
-        if (user.role_str == this.ROLE_RSM || user.role_str == this.ROLE_CSM) {
+        if (user.role_str == this.ROLE_RSM || user.role_str == this.ROLE_CSM || user.role_str == this.ROLE_ZSM) {
           this.showTerritory = true;
         }
 

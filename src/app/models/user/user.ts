@@ -13,7 +13,7 @@ export class User extends Model {
 
   full_name: string;
   emp_code: string;
-  mobile: string;
+  mobile: number;
   username: string;
   password: string;
   official_email: string;
