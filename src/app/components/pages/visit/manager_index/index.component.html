@@ -99,7 +99,7 @@
                                                 <td>
                                                     <i status [field]="z.status"></i>
                                                 </td>
-                                                <td></td>
+                                                <td>{{z.total_visit_count }}</td>
                                                 <td *ngFor="let visit of z.visits; let i = index" mgVisitCount
                                                     [visit]="visit"
                                                     class="user_click" (click)="selectUser(z, i + 1, visit)">

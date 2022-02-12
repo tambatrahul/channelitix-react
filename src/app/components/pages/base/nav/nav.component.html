@@ -122,20 +122,20 @@
                 <span class="nav-label">Daily POB Report</span>
               </a>
             </li>
-            <li *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && _auth_service.user.access_id <= 0">
+            <li *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion || _auth_service.user?.isZone) && _auth_service.user.access_id <= 0">
               <a class="waves-effect" routerLink="/visits/managers">
                 <span class="nav-icon"><i class="fa fa-calendar"></i></span>
                 <span class="nav-label">Manager Visit Report</span>
               </a>
             </li>
-            <li *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='geo' &&  _auth_service.user.access_id <= 0">
+            <li *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion || _auth_service.user?.isZone) && environment.envName=='geo' &&  _auth_service.user.access_id <= 0">
               <a class="waves-effect" routerLink="/orders/managers/sync">
                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                 <span class="nav-label">Manager POB Report</span>
               </a>
             </li>
             <li
-              *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion) && environment.envName=='sk_group'">
+              *ngIf="(_auth_service.user?.isAdmin || _auth_service.user?.isRegion || _auth_service.user?.isZone) && environment.envName=='sk_group'">
               <a class="waves-effect" routerLink="/orders/managers">
                 <span class="nav-icon"><i class="fa fa-map-signs"></i></span>
                 <span class="nav-label">Manager POB Report</span>
