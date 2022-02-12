@@ -182,7 +182,7 @@ export class OrderComponent extends BaseAuthComponent {
       // set order detail
       data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count ? order.order_total_count : 0;
 
-      data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity ? order.order_total_count : 0;
+      data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity ? order.order_total_quantity : 0;
     }
 
     // add attendance to visit skeleton

@@ -30,7 +30,7 @@ export class CustomerBrickCoverageComponent extends ListComponent {
   public year: number;
   public headquarter_name: string = '';
   public territories: Territory[] = [];
-  public years = [2017, 2018, 2019, 2020, 2021];
+  public years = [2017, 2018, 2019, 2020, 2021, 2022];
 
   // set months object for visit, pob and target data
   public months: Object = {
@@ -84,7 +84,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
     super.ngOnInit();
     this.year = moment().year();
 
-    if (environment.envName == 'geo') {
       if (this._service.user.role_id == 4) {
         this.region_id = this._service.user.hq_region_id;
         this.area_id = this._service.user.hq_area_id;
@@ -99,22 +98,6 @@ export class CustomerBrickCoverageComponent extends ListComponent {
       if (this._service.user.role_id == 7) {
         this.zone_id = 1;
       }
-    } else {
-      if (this._service.user.role_id == 4) {
-        this.region_id = this._service.user.hq_region_id;
-        this.area_id = this._service.user.hq_area_id;
-      }
-      if (this._service.user.role_id == 5) {
-        this.region_id = this._service.user.hq_region_id;
-      }
-      if (this._service.user.role_id == 6) {
-        this.zone_id = this._service.user.hq_zone_id;
-      }
-      if (this._service.user.role_id == 7) {
-        this.zone_id = 1;
-      }
-
-    }
 
     if (this._service.user.departments.length > 0)
       this.department_id = 0;
