@@ -1,0 +1,140 @@
+<div class="container-fluid bricks" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-breadcrumb-wrap">
+                    <div class="page-breadcrumb-info">
+                        <h2 class="breadcrumb-titles">
+                            Input Inventory Report
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Breadcrumb -->
+
+    <!-- Filters for report-->
+    <div class="row" style="padding-bottom: 10px;">
+      <div class="col-xs-12 col-md-2">
+        <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+      </div>
+        <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">
+            <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'" (onValueChanged)="departmentChanged($event)"></department-select>
+        </div>
+
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ADMIN">
+            <zone-select [value]="zone_id" [title]="'Select Zone'" [first_value]="'Select Zone'" (onValueChanged)="zoneChanged($event)"></zone-select>
+        </div>
+
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_ZSM">
+            <region-select [value]="region_id" [zone_id]="zone_id" [title]="'Select Region'" [first_value]="'Select Region'"
+                           (onValueChanged)="regionChanged($event)"></region-select>
+        </div>
+
+        <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
+            <div *ngIf="region_id > 0">
+                <area-select [value]="area_id" [region_id]="region_id" [title]="'Select Area'" [first_value]="'Select Area'" (_areas)="areas($event)" (onValueChanged)="areaChanged($event)"></area-select>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-3" *roleCheck="ROLE_CSM">
+            <div *ngIf="area_id > 0">
+                <headquarter-select [value]="headquarter_id" [area_id]="area_id" (headquarters)="headquarters($event)" [title]="'Select Head Quarter'" [first_value]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-xs-12 col-md-2">
+            <a class="btn btn-primary btn-block btn-margin"
+               *ngIf="headquarter_id > 0"
+               (click)="fetch()">
+                <i class="fa fa-eye"></i> View
+            </a>
+            <a class="btn btn-primary btn-block btn-margin disabled"
+               *ngIf="!headquarter_id ||  headquarter_id==0">
+                <i class="fa fa-eye"></i> View
+            </a>
+        </div>
+    </div>
+    <!-- ./Filters for report-->
+
+    <!-- Report Table -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div *ngIf="headquarter_id > 0">
+                <div class="box-widget widget-module" >
+                    <div class="widget-head clearfix">
+                        <span class="h-icon"><i class="fa fa-table"></i></span>
+                        <h4><strong>Input Inventory Report</strong></h4>
+                    </div>
+                    <div>
+                        <div class="widget-container report-table">
+                            <div class="widget-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered visit_table">
+                                        <thead>
+                                        <tr style="background-color: #3498db;color: white">
+                                        <th rowSpan="2">Headquarter</th>
+                                            <th rowSpan="2">Employee Name</th>
+                                            <th rowSpan="2">Input Name</th>
+                                            <th rowSpan="2">Product Type</th>
+                                            <th colspan="5">Inventory</th>
+                                        </tr>
+                                        <tr style="background-color: #3498db;color: white">
+                                        <th>Dispatch</th>
+                                          <th>Received</th>
+                                          <th>Used</th>
+                                          <th>Balance</th>
+                                          <th>YTD Balance</th>
+                                        </tr>
+                                        </thead>
+
+                                      <tfoot>
+                                      <tr style="background-color: #3498db;color: white">
+                                        <th rowSpan="2">Headquarter</th>
+                                        <th rowSpan="2">Employee Name</th>
+                                        <th rowSpan="2">Input Name</th>
+                                        <th rowSpan="2">Product Type</th>
+                                        <th colspan="5">Inventory</th>
+                                      </tr>
+                                      <tr style="background-color: #3498db;color: white">
+                                        <th>Dispatch</th>
+                                        <th>Received</th>
+                                        <th>Used</th>
+                                        <th>Balance</th>
+                                        <th>YTD Balance</th>
+                                      </tr>
+                                      </tfoot>
+
+                                        <tbody>
+                                        <template ngFor let-po [ngForOf]="input_pos">
+                                            <tr>
+                                              <th>{{ po.name }}</th>
+                                              <th>{{ po.full_name }}</th>
+                                              <th>{{ po.code }}</th>
+                                              <th>{{ po.product_type }}</th>
+                                              <td>{{ po.totalDispatched }}</td>
+                                              <td>{{ po.totalReceived }}</td>
+                                              <td>{{ po.totalUsed }}</td>
+                                              <td>{{ po.totalBalance > 0 ? po.totalBalance : (po.totalDispatched - po.totalUsed)}}</td>
+                                              <td>{{ po.totalYtdBalance }}</td>
+                                            </tr>
+                                            <tr *ngIf="input_pos.length <= 0 ">
+                                            <td class="text-center" colspan="10">No Dispatch Record Found</td>
+                                            </tr>
+                                        </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Report Table -->
+</div>
