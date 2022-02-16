@@ -140,11 +140,11 @@
                         </template>
 
                         <button
-                          *ngIf="_service.user.role_id > 3 && environment.projectName == 'ACE'" class="btn btn-xs btn-danger"
+                          *ngIf="_service.user.role_id > 3 && environment.projectName == 'ACE' && environment.projectName != 'GOVAXX'" class="btn btn-xs btn-danger"
                           (click)="deactivate(customer.id)">Deactivate
                         </button>
                         <button
-                          *ngIf="customer.customer_type_id != 1 && environment.projectName != 'ACE' && customer.approved_status == 'approved' " class="btn btn-xs btn-danger"
+                          *ngIf="customer.customer_type_id != 1 && environment.projectName != 'ACE' && environment.projectName != 'GOVAXX' && customer.approved_status == 'approved' " class="btn btn-xs btn-danger"
                           (click)="deactivate(customer.id)">Deactivate
                         </button>
                         <span *ngIf="customer.approved_status == 'in_process'">

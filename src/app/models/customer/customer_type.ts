@@ -22,12 +22,16 @@ export class CustomerType extends Model {
     total_call_avg: number = 0;
     total_productive_avg: number = 0;
     distinct_order_count: number =0;
+    restricted_update: number;
+    is_restricted: number;
 
     constructor(info: any) {
         super(info.id);
         this.name = info.name;
         this.doctor_speciality = info.doctor_speciality;
         this.doctor_group_name = info.doctor_group_name;
+        this.restricted_update = info.restricted_update;
+        this.is_restricted = info.is_restricted;
         if (info.customer_count)
             this.customer_count = parseInt(info.customer_count);
         if (info.grades) {
