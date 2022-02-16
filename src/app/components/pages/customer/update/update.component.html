@@ -40,10 +40,15 @@
                                     <div class="form-group">
                                         <label class="control-label">Firm Name</label>
                                         <div class="">
+                                          <span *ngIf="!editing">
                                             <input formControlName="firm_name" class="form-control" type="text">
                                             <small *ngIf="errors['firm_name']" class="text-danger text-center">
                                                 {{ errors.firm_name}}
                                             </small>
+                                          </span>
+                                          <span *ngIf="editing">
+                                            <input formControlName="firm_name" class="form-control" type="text" disabled>
+                                          </span>
                                         </div>
                                     </div>
                                     <!-- ./Firm Name -->
@@ -52,11 +57,17 @@
                                     <div class="form-group">
                                         <label class="control-label">Email</label>
                                         <div class="">
+                                          <span *ngIf="!editing">
                                             <input class="form-control" formControlName="email" type="text"
                                                    name="email">
                                             <small *ngIf="errors['email']" class="text-danger text-center">
                                                 {{ errors.email}}
                                             </small>
+                                          </span>
+                                          <span *ngIf="editing">
+                                             <input class="form-control" formControlName="email" type="text"
+                                                    name="email" disabled>
+                                          </span>
                                         </div>
                                     </div>
                                     <!-- ./Email -->
@@ -67,11 +78,17 @@
                                       <div class="form-group">
                                         <label class="control-label">Mobile</label>
                                         <div class="">
+                                          <span *ngIf="!editing">
                                           <input class="form-control" formControlName="mobile" type="text"
                                                  name="mobile">
                                           <small *ngIf="errors['mobile']" class="text-danger text-center">
                                             {{ errors.mobile}}
                                           </small>
+                                          </span>
+                                          <span *ngIf="editing">
+                                          <input class="form-control" formControlName="mobile" type="text"
+                                                 name="mobile" disabled>
+                                          </span>
                                         </div>
                                       </div>
                                     </div>
@@ -95,6 +112,7 @@
                                     <!-- Select Type and Select Grade-->
                                     <div class="row">
                                         <div class="col-xs-12 col-md-6 form-group">
+                                          <span *ngIf="!editing">
                                             <customer-type-select [value]="customer_type_id" [title]="'Select Type'"
                                                                   [first_value]="'Select Type'"
                                                                   [models]="customer_types"
@@ -102,8 +120,15 @@
                                             <small *ngIf="errors['customer_type_id']" class="text-danger text-center">
                                                 {{ errors.customer_type_id}}
                                             </small>
+                                            </span>
+                                          <span *ngIf="editing">
+                                            <label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> Selected Customer Type </label>
+                                            <input class="form-control" formControlName="customerTypeName" type="text"
+                                                   name="customerTypeName" disabled>
+                                          </span>
                                         </div>
                                         <div class="col-xs-12 col-md-6 form-group">
+                                          <span *ngIf="!editing">
                                             <grade-select [value]="grade_id" [title]="'Select Grade'"
                                                           [first_value]="'Select Grade'"
                                                           [models]="grades"
@@ -111,12 +136,19 @@
                                             <small *ngIf="errors['grade_id']" class="text-danger text-center">
                                                 {{ errors.grade_id}}
                                             </small>
+                                          </span>
+                                          <span *ngIf="editing">
+                                            <label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> Selected Customer Grade </label>
+                                            <input class="form-control" formControlName="gradeName" type="text"
+                                                   name="gradeName" disabled>
+                                          </span>
                                         </div>
                                     </div>
 
                                   <!-- ./Select Doctor Type and Select Qualifications-->
                                   <div class="row">
                                     <div class="col-xs-12 col-md-6 form-group" *ngIf="customer_type_id == 5 && grade_id > 0">
+                                      <span *ngIf="!editing">
                                       <doctor-type-select [value]="doctor_type_id" [title]="'Select Speciality Type'"
                                                           [first_value]="'Select Type'"
                                                           [models]="doctor_types"
@@ -124,6 +156,12 @@
                                       <small *ngIf="errors['doctor_type_id']" class="text-danger text-center">
                                         {{ errors.doctor_type_id}}
                                       </small>
+                                      </span>
+                                      <span *ngIf="editing">
+                                            <label><i class="fa fa-spinner fa-spin" *ngIf="loading"></i> Selected Speciality Type </label>
+                                            <input class="form-control" formControlName="specialityName" type="text"
+                                                   name="specialityName" disabled>
+                                      </span>
                                     </div>
                                     <div class="col-xs-12 col-md-6 form-group" *ngIf="doctor_type_id > 0">
                                       <label>Select Qualification</label>

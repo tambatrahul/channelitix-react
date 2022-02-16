@@ -46,7 +46,10 @@ export class UpdateCustomerComponent extends FormComponent {
   public hq_region_id: number = 0;
   public hq_zone_id: number = 0;
   public hq_brick_id: number = 0;
+  public restrictedUpdate: number = 0;
   public classification: string;
+  public editing: boolean = false;
+
 
   public qualification_ids: Array<number> = [];
 
@@ -64,9 +67,12 @@ export class UpdateCustomerComponent extends FormComponent {
     mobile: [""],
     classification: [""],
     customer_type_id: [""],
+    customerTypeName: [""],
     doctor_type_id: [""],
+    specialityName: [""],
     qualification_ids: [""],
     grade_id: [""],
+    gradeName: [""],
     hq_zone_id: [""],
     hq_region_id: [""],
     hq_area_id: [""],
@@ -115,6 +121,7 @@ export class UpdateCustomerComponent extends FormComponent {
     this.brickChanged(this._service.user.hq_brick_id);
     this.fetchMasters();
 
+
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.loading = true;
@@ -125,7 +132,9 @@ export class UpdateCustomerComponent extends FormComponent {
           email: response.customer.email,
           mobile: response.customer.mobile,
           address: response.customer.address,
-          classification: response.customer.classification
+          classification: response.customer.classification,
+          customerTypeName: response.customer.customer_type.name,
+          gradeName: response.customer.grade.name,
         });
         this.zoneChanged(response.customer.hq_zone_id);
         this.regionChanged(response.customer.hq_region_id);
@@ -134,12 +143,18 @@ export class UpdateCustomerComponent extends FormComponent {
         this.territoryChanged(response.customer.hq_territory_id);
         this.brickChanged(response.customer.hq_brick_id);
         this.typeChanged(response.customer.customer_type_id);
+        this.restrictedUpdate = response.customer.customer_type.is_restricted;
         this.doctorTypeChanged(response.customer.doctor_type_id);
         this.gradeChanged(response.customer.grade_id);
+        if (response.customer.doctor_type)
+          this.form.patchValue({specialityName: response.customer.doctor_type.name});
+
         if (response.customer.doctor_qualifications)
         response.customer.doctor_qualifications.map(function (cusQual) {
           self.qualification_ids.push(cusQual.id);
         });
+
+        this.editing = this.restrictedUpdate == 1;
       }, err => {
         this.loading = false;
       });
