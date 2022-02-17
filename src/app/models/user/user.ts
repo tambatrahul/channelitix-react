@@ -346,6 +346,19 @@ export class User extends Model {
   }
 
   /**
+   * get total pob quantity count
+   *
+   * @returns {any}
+   */
+  get total_order_count() {
+    let total: number = 0;
+    this.orders.map(vis => {
+      total += parseFloat(String(vis.distinct_order_count));
+    });
+    return total;
+  }
+
+  /**
    * manager get total pob count
    *
    * @returns {any}

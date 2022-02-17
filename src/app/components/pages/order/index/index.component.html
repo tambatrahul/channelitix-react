@@ -55,13 +55,20 @@
         Back to SK
       </button>
     </div>
-    <div class="col-xs-12 col-md-2">
-      <button class="btn btn-primary" (click)="viewByQuantity()" style="margin-top: 25px;" *ngIf="!view_quantity">
-        View By Quantity
-      </button>
-      <button class="btn btn-primary" (click)="viewByQuantity()" style="margin-top: 25px;" *ngIf="view_quantity">
-        View By Rs
-      </button>
+    <div class="col-xs-12 col-md-3 radio-flex">
+      <div class="radio-flex">
+        <input class="radio-button" type="radio" name="pob" value="rupes" (click)="viewByToggleFlag($event.target.value)" [checked]="true">
+        <label class="radio_lable"><i class="fa fa-spinner fa-spin" *ngIf="loading"></i>Rupes</label>
+      </div>
+      <div class="radio-flex">
+        <input class="radio-button" type="radio" name="pob" value="quantity" (click)="viewByToggleFlag($event.target.value)">
+        <label class="radio_lable"><i class="fa fa-spinner fa-spin" *ngIf="loading"></i>Quantity</label>
+      </div>
+      <div class="radio-flex">
+        <input class="radio-button"  type="radio" name="pob" value="order" (click)="viewByToggleFlag($event.target.value)">
+        <label class="radio_lable"><i class="fa fa-spinner fa-spin" *ngIf="loading"></i>Order Count</label>
+      </div>
+
     </div>
     <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' || environment.envName == 'vikrant'">
       <brand-select [value]="brand_id" [department_id]="department_id" [title]="'Select Brand'" [first_value]="'Select Brand'"
@@ -104,8 +111,9 @@
                         <th *ngFor="let d of dates">
                           {{ d }}
                         </th>
-                        <th *ngIf="!view_quantity">Total POB</th>
-                        <th *ngIf="view_quantity">Total Quantity</th>
+                        <th *ngIf="toggleFlag == 'rupes'">Total POB</th>
+                        <th *ngIf="toggleFlag == 'quantity'">Total Quantity</th>
+                        <th *ngIf="toggleFlag == 'order'">Total Order</th>
                       </tr>
                       </thead>
 
@@ -120,8 +128,9 @@
                         <th *ngFor="let d of dates">
                           {{ d }}
                         </th>
-                        <th *ngIf="!view_quantity">Total POB</th>
-                        <th *ngIf="view_quantity">Total Quantity</th>
+                        <th *ngIf="toggleFlag == 'rupes'">Total POB</th>
+                        <th *ngIf="toggleFlag == 'quantity'">Total Quantity</th>
+                        <th *ngIf="toggleFlag == 'order'">Total Order</th>
                       </tr>
                       </tfoot>
 
@@ -143,16 +152,20 @@
                         </template>
                         <td></td>
                         <template ngFor let-order [ngForOf]="z.orders">
-                          <td *ngIf="!view_quantity">
+                          <td *ngIf="toggleFlag == 'rupes'">
                             {{ (order.order_total_count / 1000).toFixed(1) }}
                           </td>
-                          <td *ngIf="view_quantity">
+                          <td *ngIf="toggleFlag == 'quantity'">
                             {{ (order.order_total_quantity) }}
                           </td>
+                          <td *ngIf="toggleFlag == 'order'">
+                            {{ (order.distinct_order_count) }}
+                          </td>
                         </template>
-                        <td *ngIf="!view_quantity">{{ (z.total_pob_count / 1000).toFixed(1) }}
+                        <td *ngIf="toggleFlag == 'rupes'">{{ (z.total_pob_count / 1000).toFixed(1) }}
                         </td>
-                        <td *ngIf="view_quantity">{{ (z.total_pob_quantity_count) }}</td>
+                        <td *ngIf="toggleFlag == 'quantity'">{{ (z.total_pob_quantity_count) }}</td>
+                        <td *ngIf="toggleFlag == 'order'">{{ (z.total_order_count) }}</td>
 
                       </tr>
                       <template ngFor let-mg [ngForOf]="z.children">
@@ -179,17 +192,21 @@
                           </template>
                           <td></td>
                           <template ngFor let-order [ngForOf]="mg.orders">
-                            <td *ngIf="!view_quantity">
+                            <td *ngIf="toggleFlag == 'rupes'">
                               {{ (order.order_total_count / 1000).toFixed(1) }}
                             </td>
-                            <td *ngIf="view_quantity">
+                            <td *ngIf="toggleFlag == 'quantity'">
                               {{ (order.order_total_quantity) }}
                             </td>
+                            <td *ngIf="toggleFlag == 'order'">
+                              {{ (order.distinct_order_count) }}
+                            </td>
                           </template>
-                          <td *ngIf="!view_quantity">{{ (mg.total_pob_count / 1000).toFixed(1)
+                          <td *ngIf="toggleFlag == 'rupes'">{{ (mg.total_pob_count / 1000).toFixed(1)
                             }}
                           </td>
-                          <td *ngIf="view_quantity">{{ (mg.total_pob_quantity_count) }}</td>
+                          <td *ngIf="toggleFlag == 'quantity'">{{ (mg.total_pob_quantity_count) }}</td>
+                          <td *ngIf="toggleFlag == 'order'">{{ (mg.total_order_count) }}</td>
 
                         </tr>
                         <tr *ngFor="let user of mg.children">
@@ -215,7 +232,7 @@
                             <td *ngFor="let order of user.orders; let i = index" orderCount
                                 [order]="order" [target]="user.daily_target"
                                 class="user_click"
-                                [view_quantity]="view_quantity"
+                                [toggleFlag]="toggleFlag"
                                 (click)="selectUser(user, i + 1, order)"></td>
                           </template>
                           <template [ngIf]="environment.envName == 'geo'">
@@ -224,7 +241,7 @@
                                   orderCount
                                   [order]="order" [target]="user.daily_target"
                                   class="user_click"
-                                  [view_quantity]="view_quantity"
+                                  [toggleFlag]="toggleFlag"
                                   (click)="selectUser(user, i + 1, order)"></td>
                             </template>
                             <template [ngIf]="z.username == 'delhiregion'">
@@ -232,14 +249,15 @@
                                   orderCount
                                   [order]="order" [target]="user.daily_target_40"
                                   class="user_click"
-                                  [view_quantity]="view_quantity"
+                                  [toggleFlag]="toggleFlag"
                                   (click)="selectUser(user, i + 1, order)"></td>
                             </template>
                           </template>
-                          <td *ngIf="!view_quantity">{{ (user.total_pob_count /
+                          <td *ngIf="toggleFlag == 'rupes'">{{ (user.total_pob_count /
                             1000).toFixed(1) }}
                           </td>
-                          <td *ngIf="view_quantity">{{ (user.total_pob_quantity_count) }}</td>
+                          <td *ngIf="toggleFlag == 'quantity'">{{ (user.total_pob_quantity_count) }}</td>
+                          <td *ngIf="toggleFlag == 'order'">{{ (user.total_order_count) }}</td>
                         </tr>
                       </template>
                       </tbody>
@@ -312,19 +330,25 @@
                         <template [ngIf]="environment.envName == 'geo'">
                           {{ z.daily_target }}
                         </template>
-                        <td *ngIf="!view_quantity">
+                        <td *ngIf="toggleFlag == 'rupes'">
                           {{ (z.total_pob_count / 1000).toFixed(1) }}
                         </td>
-                        <td *ngIf="view_quantity">
+                        <td *ngIf="toggleFlag == 'quantity'">
                           {{ (z.total_pob_quantity_count) }}
+                        </td>
+                        <td *ngIf="toggleFlag == 'oder'">
+                          {{ (z.total_order_count) }}
                         </td>
                         <td></td>
                         <template ngFor let-order [ngForOf]="z.orders">
-                          <td *ngIf="!view_quantity">
+                          <td *ngIf="toggleFlag == 'rupes'">
                             {{ (order.order_total_count / 1000).toFixed(1) }}
                           </td>
-                          <td *ngIf="view_quantity">
+                          <td *ngIf="toggleFlag == 'quantity'">
                             {{ (order.order_total_quantity) }}
+                          </td>
+                          <td *ngIf="toggleFlag == 'order'">
+                            {{ (order.distinct_order_count) }}
                           </td>
                         </template>
                       </tr>
@@ -339,18 +363,21 @@
                         <template [ngIf]="environment.envName == 'geo'">
                           {{ user.daily_target }}
                         </template>
-                        <td *ngIf="!view_quantity">
+                        <td *ngIf="toggleFlag == 'rupes'">
                           {{ (user.total_pob_count / 1000).toFixed(1) }}
                         </td>
-                        <td *ngIf="view_quantity">
+                        <td *ngIf="toggleFlag == 'quantity'">
                           {{ (user.total_pob_quantity_count) }}
+                        </td>
+                        <td *ngIf="toggleFlag == 'order'">
+                          {{ (user.total_order_count) }}
                         </td>
                         <td>
                           <i status [field]="user.status"></i>
                         </td>
                         <td *ngFor="let order of user.orders; let i = index" orderCount
                             [order]="order" [target]="user.daily_target"
-                            [view_quantity]="view_quantity"
+                            [toggleFlag]="toggleFlag"
                             class="user_click"
                             (click)="selectUser(user, i + 1, order)"></td>
                       </tr>
