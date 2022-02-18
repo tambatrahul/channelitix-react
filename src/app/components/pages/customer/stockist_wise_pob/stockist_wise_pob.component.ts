@@ -243,8 +243,8 @@ export class StockistWisePobComponent extends ListComponent {
         });
         // prepare list of customers with POB
         orders.map(order => {
-          if (!order) {
-            customers[order.delivered_by].total_pob += order.order_total_count ? order.order_total_count : 0;
+          if (order) {
+            customers[order.delivered_by].total_pob += order ? order.order_total_count : 0;
             this.all_total += order.order_total_count ? order.order_total_count : 0;
           }
         });
