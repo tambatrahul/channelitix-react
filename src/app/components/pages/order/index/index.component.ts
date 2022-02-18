@@ -68,6 +68,7 @@ export class OrderComponent extends BaseAuthComponent {
    * @type {boolean}
    */
   public view_quantity: boolean = false;
+  public toggleFlag: string = 'rupes';
 
   /**
    * manager_id
@@ -150,6 +151,7 @@ export class OrderComponent extends BaseAuthComponent {
 
     this.month = moment().month();
     this.year = moment().year();
+    this.toggleFlag = 'rupes';
     this.fetchData();
   }
 
@@ -183,6 +185,8 @@ export class OrderComponent extends BaseAuthComponent {
       data_skeleton[order.created_by][order.order_day - 1].order_total_count = order.order_total_count ? order.order_total_count : 0;
 
       data_skeleton[order.created_by][order.order_day - 1].order_total_quantity = order.order_total_quantity ? order.order_total_quantity : 0;
+
+      data_skeleton[order.created_by][order.order_day - 1].distinct_order_count = order.distinct_order_count ? order.distinct_order_count : 0;
     }
 
     // add attendance to visit skeleton
@@ -243,9 +247,11 @@ export class OrderComponent extends BaseAuthComponent {
             if (m.children.length == 1) {
               m.orders[index].order_total_count = 0;
               m.orders[index].order_total_quantity = 0;
+              m.orders[index].distinct_order_count = 0;
             }
             m.orders[index].order_total_count += ord.order_total_count;
             m.orders[index].order_total_quantity += ord.order_total_quantity;
+            m.orders[index].distinct_order_count += ord.distinct_order_count;
           });
           m.total_target += u.total_target;
         }
@@ -262,9 +268,11 @@ export class OrderComponent extends BaseAuthComponent {
             if (z.children.length == 1) {
               z.orders[index].order_total_count = 0;
               z.orders[index].order_total_quantity = 0;
+              z.orders[index].distinct_order_count = 0;
             }
             z.orders[index].order_total_count += ord.order_total_count;
             z.orders[index].order_total_quantity += ord.order_total_quantity;
+            z.orders[index].distinct_order_count += ord.distinct_order_count;
           });
           z.total_target += m.total_target;
         }
@@ -285,6 +293,7 @@ export class OrderComponent extends BaseAuthComponent {
         m.orders.forEach(function (ord, index) {
           zone_managers[0].orders[index].order_total_count += ord.order_total_count;
           zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
+          zone_managers[0].orders[index].distinct_order_count += ord.distinct_order_count;
         });
         zone_managers[0].total_target += m.total_target;
         zone_managers[0].cse_count += m.children.length;
@@ -308,6 +317,7 @@ export class OrderComponent extends BaseAuthComponent {
         m.orders.forEach(function (ord, index) {
           zone_managers[0].orders[index].order_total_count += ord.order_total_count;
           zone_managers[0].orders[index].order_total_quantity += ord.order_total_quantity;
+          zone_managers[0].orders[index].distinct_order_count += ord.distinct_order_count;
         });
         zone_managers[0].total_target += m.total_target;
         zone_managers[0].cse_count += m.children.length;
@@ -437,10 +447,19 @@ export class OrderComponent extends BaseAuthComponent {
   }
 
   /**
-   * View by Quantity
+   * View by toggleFlag
    */
-  viewByQuantity() {
-    this.view_quantity = !this.view_quantity;
+  viewByToggleFlag(value) {
+
+    if (value == 'quantity')
+      this.toggleFlag = value;
+
+    if (value == 'rupes')
+      this.toggleFlag = value;
+
+    if (value == 'order')
+      this.toggleFlag = value;
+
     this.excel_loaded = false;
     this.fetchData();
   }

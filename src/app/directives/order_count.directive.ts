@@ -5,7 +5,7 @@ import {AppConstants} from "../app.constants";
 
 @Directive({
   selector: '[orderCount]',
-  inputs: ['order', 'target', 'view_quantity']
+  inputs: ['order', 'target', 'toggleFlag']
 })
 export class OrderCountDirective {
 
@@ -54,9 +54,9 @@ export class OrderCountDirective {
    * @type {number}
    * @private
    */
-  _view_quantity: boolean = false;
-  set view_quantity(view_quantity) {
-    this._view_quantity = view_quantity;
+  _toggleFlag: string = 'rupes';
+  set toggleFlag(toggleFlag) {
+    this._toggleFlag = toggleFlag;
     this.formatCell();
   }
 
@@ -71,19 +71,22 @@ export class OrderCountDirective {
         //   this._order.order_total_count = this._order.attendance.pob_amount;
 
         // set text value
-        if (this._view_quantity)
-          this.el.nativeElement.innerText = parseFloat(String(this._order.order_total_quantity)).toFixed(0);
-        else
+        if (this._toggleFlag == 'rupes')
           this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
+        if (this._toggleFlag == 'quantity')
+          this.el.nativeElement.innerText = parseFloat(String(this._order.order_total_quantity)).toFixed(0);
+        if (this._toggleFlag == 'order')
+          this.el.nativeElement.innerText = this._order.distinct_order_count;
+
         // set text value
-        if (this._view_quantity)
-          this.el.nativeElement.innerText = parseFloat(String(this._order.order_total_quantity)).toFixed(0);
-        else
-          this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
+        // if (this._view_quantity)
+        //   this.el.nativeElement.innerText = parseFloat(String(this._order.order_total_quantity)).toFixed(0);
+        // else
+        //   this.el.nativeElement.innerText = (this._order.order_total_count / 1000).toFixed(1);
 
         // set background color depending on status
         if (this._order.attendance.status == AppConstants.WORKING && this._order.attendance.work_type_id == 2 || this._order.attendance.work_type_id == 10) {
-          if (!this._view_quantity) {
+          if (this._toggleFlag == 'rupes' || this._toggleFlag == 'quantity' || this._toggleFlag == 'order') {
             if (this._order.order_total_count == 0) {
               this.el.nativeElement.style.backgroundColor = this.leave;
               this.el.nativeElement.style.color = this.highLight;
@@ -101,6 +104,8 @@ export class OrderCountDirective {
           else
               this.el.nativeElement.style.backgroundColor = this.above_250;
           }
+
+
         }
       }
 
