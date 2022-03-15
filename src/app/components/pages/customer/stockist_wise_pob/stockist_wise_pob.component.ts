@@ -35,6 +35,7 @@ export class StockistWisePobComponent extends ListComponent {
     public customers: Customer[] = [];
     public products: Product[] = [];
     public all_total: number = 0;
+    public all_total_quantity: number = 0;
     public primary_sale_total: number = 0;
     public _headquarters: Headquarter[] = [];
     public territories: Territory[] = [];
@@ -235,6 +236,7 @@ export class StockistWisePobComponent extends ListComponent {
         // prepare customers
         let customers = {};
         this.all_total = 0;
+        this.all_total_quantity = 0;
         this.primary_sale_total = 0;
 
         // add all customers
@@ -244,8 +246,12 @@ export class StockistWisePobComponent extends ListComponent {
         // prepare list of customers with POB
         orders.map(order => {
           if (order) {
+
             customers[order.delivered_by].total_pob += order ? order.order_total_count : 0;
+            customers[order.delivered_by].total_pob_quantity = order ? order.order_total_quantity : 0;
+
             this.all_total += order.order_total_count ? order.order_total_count : 0;
+            this.all_total_quantity += order.order_total_quantity ? order.order_total_quantity : 0;
           }
         });
 

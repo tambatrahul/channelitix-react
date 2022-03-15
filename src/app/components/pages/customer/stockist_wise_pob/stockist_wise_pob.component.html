@@ -92,6 +92,7 @@
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">Primary Sales</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">POB Target</th>
                                         <th class="grey">POB</th>
+                                        <th class="grey">POB Quantity</th>
                                         <th class="grey">Visits</th>
                                     </tr>
                                     <tr>
@@ -102,6 +103,7 @@
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'">{{primary_sale_total.toFixed(2)}}</th>
                                         <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                         <th class="grey">{{ all_total.toFixed(2)}}</th>
+                                        <th class="grey">{{ all_total_quantity}}</th>
                                         <th class="grey"></th>
                                     </tr>
                                     </thead>
@@ -116,6 +118,7 @@
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'">{{ cus.total_primary_sale.toFixed(0) }}</th>
                                             <th class="grey" *ngIf="environment.envName != 'sk_group'"></th>
                                             <th class="grey">{{ cus.total_pob.toFixed(0) }}</th>
+                                            <th class="grey">{{ cus.total_pob_quantity ? cus.total_pob_quantity : 0 }}</th>
                                             <th class="grey">{{ cus.days }}</th>
 
                                         </tr>
