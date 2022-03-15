@@ -27,6 +27,21 @@
         <div class="col-xs-12 col-md-3">
             <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
         </div>
+      <div class="col-xs-12 col-md-3 radio-flex">
+        <div class="radio-flex">
+          <input class="radio-button" type="radio" name="pob" value="rupes" (click)="viewByToggleFlag($event.target.value)" [checked]="true">
+          <label class="radio_lable"><i class="fa fa-spinner fa-spin" *ngIf="loading"></i>Rupes</label>
+        </div>
+        <div class="radio-flex">
+          <input class="radio-button" type="radio" name="pob" value="quantity" (click)="viewByToggleFlag($event.target.value)">
+          <label class="radio_lable"><i class="fa fa-spinner fa-spin" *ngIf="loading"></i>Quantity</label>
+        </div>
+        <div class="radio-flex">
+          <input class="radio-button"  type="radio" name="pob" value="order" (click)="viewByToggleFlag($event.target.value)">
+          <label class="radio_lable"><i class="fa fa-spinner fa-spin" *ngIf="loading"></i>Order Count</label>
+        </div>
+
+      </div>
       <div class="col-xs-12 col-md-2" *ngIf="environment.envName == 'geo' && this._service.user.departments.length > 1">
         <department-select [value]="department_id" [title]="'Select Department'" [first_value]="'Select Department'"
                            (onValueChanged)="departmentChanged($event)"></department-select>
@@ -56,8 +71,9 @@
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
                                                 </th>
-                                                <th *ngIf="!view_quantity">Total POB</th>
-                                                <th *ngIf="view_quantity">Total Quantity</th>
+                                                <th *ngIf="toggleFlag == 'rupes'">Total POB</th>
+                                                <th *ngIf="toggleFlag == 'quantity'">Total Quantity</th>
+                                                <th *ngIf="toggleFlag == 'order'">Total Order</th>
                                             </tr>
                                             </thead>
 
@@ -69,8 +85,9 @@
                                                 <th *ngFor="let d of dates">
                                                     {{ d }}
                                                 </th>
-                                                <th *ngIf="!view_quantity">Total POB</th>
-                                                <th *ngIf="view_quantity">Total Quantity</th>
+                                              <th *ngIf="toggleFlag == 'rupes'">Total POB</th>
+                                              <th *ngIf="toggleFlag == 'quantity'">Total Quantity</th>
+                                              <th *ngIf="toggleFlag == 'order'">Total Order</th>
                                             </tr>
                                             </tfoot>
 
@@ -82,13 +99,20 @@
                                                     <i status [field]="z.status"></i>
                                                 </td>
                                                 <template ngFor let-order [ngForOf]="z.orders">
-                                                    <td *ngIf="+order.order_day_total_count > 0">
+                                                    <td *ngIf="+order.order_day_total_count > 0 && toggleFlag == 'rupes'">
                                                         {{ (order.order_day_total_count / 1000).toFixed(1) }}
+                                                    </td>
+                                                    <td *ngIf="+order.order_total_quantity > 0 && toggleFlag == 'quantity'">
+                                                      {{ order.order_total_quantity }}
+                                                    </td>
+                                                    <td *ngIf="+order.distinct_order_count > 0 && toggleFlag == 'order'">
+                                                      {{ order.distinct_order_count }}
                                                     </td>
                                                     <td *ngIf="+order.order_day_total_count == 0"></td>
                                                 </template>
-                                                <td>{{ (z.order_total_count / 1000).toFixed(1) }}</td>
-
+                                                <td *ngIf="toggleFlag == 'rupes'">{{ (z.order_total_count / 1000).toFixed(1) }}</td>
+                                                <td *ngIf="toggleFlag == 'quantity'">{{ z.order_total_quantity }}</td>
+                                                <td *ngIf="toggleFlag == 'order'">{{ z.order_total_distinct_count }}</td>
                                             </tr>
                                             <template ngFor let-mg [ngForOf]="z.children">
                                                 <tr>
@@ -98,13 +122,25 @@
                                                         <i status [field]="mg.status"></i>
                                                     </td>
                                                     <template ngFor let-order [ngForOf]="mg.orders">
-                                                        <td *ngIf="+order.order_day_total_count > 0">
+                                                        <td *ngIf="+order.order_day_total_count > 0 && toggleFlag == 'rupes' ">
                                                             {{ (order.order_day_total_count / 1000).toFixed(1) }}
+                                                        </td>
+                                                        <td *ngIf="+order.order_total_quantity > 0 && toggleFlag == 'quantity'">
+                                                          {{ order.order_total_quantity }}
+                                                        </td>
+                                                        <td *ngIf="+order.distinct_order_count > 0 && toggleFlag == 'order'">
+                                                          {{ order.distinct_order_count }}
                                                         </td>
                                                         <td *ngIf="+order.order_day_total_count == 0"></td>
                                                     </template>
-                                                    <td>
+                                                    <td *ngIf="toggleFlag == 'rupes'">
                                                         {{ (mg.order_total_count / 1000).toFixed(1) }}
+                                                    </td>
+                                                    <td *ngIf="toggleFlag == 'quantity'">
+                                                      {{ mg.order_total_quantity  }}
+                                                    </td>
+                                                    <td *ngIf="toggleFlag == 'order'">
+                                                    {{ mg.order_total_distinct_count  }}
                                                     </td>
                                                 </tr>
                                             </template>

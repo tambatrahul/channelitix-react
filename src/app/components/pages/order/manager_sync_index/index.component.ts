@@ -23,6 +23,7 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
     table_list;
     btn_loading: boolean = false;
 
+
     /**
      * user id
      */
@@ -45,7 +46,7 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
     public manager_id: number = 0;
 
     public department_id: number = 0;
-
+    public toggleFlag: string = 'rupes';
 
 
   /**
@@ -168,6 +169,7 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
             // set order details
             data_skeleton[order.hq_area_id][order.order_day - 1].order_day_total_count = order.order_day_total_count;
             data_skeleton[order.hq_area_id][order.order_day - 1].order_total_quantity = order.order_total_quantity;
+            data_skeleton[order.hq_area_id][order.order_day - 1].distinct_order_count = order.distinct_order_count;
         }
 
         // add skeleton to user
@@ -202,11 +204,15 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
         for (let z of zone_managers) {
             z.orders = AppConstants.prepareMonthOrderSkeleton(this.month, this.year, holidays);
             z.order_total_count =0;
+            z.order_total_quantity =0;
+            z.order_total_distinct_count =0;
             for (let m of managers) {
                 if (m.manager_id == z.id) {
                     z.children.push(m);
                     m.orders.map(function (ord) {
                        m.order_total_count += +ord.order_day_total_count;
+                       m.order_total_quantity += +ord.order_total_quantity;
+                       m.order_total_distinct_count += +ord.distinct_order_count;
                     });
                 }
               //  if (this._service.user.role_str == this.ROLE_THIRD_PARTY && m.hq_region_id == z.hq_region_id ) {
@@ -220,11 +226,15 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
             for (let order of region_orders) {
                 if (order.hq_region_id == z.id) {
                     z.orders[order.order_day - 1].order_day_total_count = order.order_day_total_count;
+                    z.orders[order.order_day - 1].order_total_quantity = order.order_total_quantity;
+                    z.orders[order.order_day - 1].distinct_order_count = order.distinct_order_count;
                 }
             }
 
             z.orders.map(function (ord) {
                 z.order_total_count += +ord.order_day_total_count;
+                z.order_total_quantity += +ord.order_total_quantity;
+                z.order_total_distinct_count += +ord.distinct_order_count;
             });
         }
 
@@ -241,6 +251,24 @@ export class ManagerSyncOrderComponent extends BaseAuthComponent {
         this.year = date.year;
         this.fetchData();
     }
+
+  /**
+   * View by toggleFlag
+   */
+  viewByToggleFlag(value) {
+
+    if (value == 'quantity')
+      this.toggleFlag = value;
+
+    if (value == 'rupes')
+      this.toggleFlag = value;
+
+    if (value == 'order')
+      this.toggleFlag = value;
+
+    this.excel_loaded = false;
+    this.fetchData();
+  }
 
   /**
    * department Filter
