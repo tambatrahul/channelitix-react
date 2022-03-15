@@ -51,6 +51,7 @@ export class Order extends Model {
   brand_id: number = 0;
   distinct_order_count: number =0;
   total_pob: number = 0;
+  total_pob_quantity: number = 0;
   customer_count: number = 0;
 
   constructor(info: any) {
@@ -137,6 +138,9 @@ export class Order extends Model {
 
     if (info.total_pob)
       this.total_pob = parseInt(info.total_pob);
+
+    if (info.total_pob_quantity)
+      this.total_pob_quantity = parseInt(info.total_pob_quantity);
 
     if (info.customer_count)
       this.customer_count = parseInt(info.customer_count);
