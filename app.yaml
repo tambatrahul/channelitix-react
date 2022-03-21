@@ -10,7 +10,8 @@
 #service: maxx-frontend
 #service: vikrant-frontend
 #service: cimune-frontend
-service: govaxx-frontend
+#service: govaxx-frontend
+service: tx-frontend
 #service: training-channelitix
 runtime: python27
 threadsafe: yes
