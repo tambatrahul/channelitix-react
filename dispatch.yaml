@@ -44,3 +44,6 @@ dispatch:
 
   - url: "govaxx.channelitix.com/*"
     service: govaxx-frontend
+
+  - url: "tx.channelitix.com/*"
+    service: tx-frontend
