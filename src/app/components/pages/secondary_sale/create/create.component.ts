@@ -243,6 +243,14 @@ export class SecondarySaleCreateComponent extends ListComponent {
   }
 
   /**
+   *  refresh data
+   */
+  refresh() {
+    this.editing = !this.editing;
+    this.fetchSales();
+  }
+
+  /**
    * month and year changed
    *
    * @param date
