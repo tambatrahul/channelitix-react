@@ -66,28 +66,29 @@ export class SummaryComponent extends BaseAuthComponent {
 
     this.month = moment().month();
     this.year = moment().year();
-    this.fetch();
+    this.fetchData();
   }
 
   /**
    * load users for logged in user
    */
-  fetch() {
-    this.loading = true;
-    this.userService.children(0, 0, 'active', this.search).subscribe(
+  fetchData = AppConstants.debounce(function () {
+    const self = this;
+    self.loading = true;
+    self.userService.children(0, 0, 'active', self.search).subscribe(
       response => {
-        this.users = response.users.map(function (user) {
+        self.users = response.users.map(function (user) {
           return new User(user);
         });
-        this._users = this.users;
-        this.user = this.users[0];
+        self._users = self.users;
+        self.user = self.users[0];
         this.loading = false;
       },
       err => {
         this.loading = false;
       }
     );
-  }
+  }, 1000, false);
 
   /**
    * On User Selected
@@ -131,7 +132,7 @@ export class SummaryComponent extends BaseAuthComponent {
    */
   onKey(event: any) {
     this.search = event.target.value;
-    this.fetch();
+    this.fetchData();
   }
   // onKey(search: string) {
   //   this._users = this.users.filter(function (user) {
