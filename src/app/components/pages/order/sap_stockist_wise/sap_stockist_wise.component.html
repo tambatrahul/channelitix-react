@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" *roleCheck="ROLE_CSM">
         <button  class="btn btn-primary pull-right" style="margin-top: 5%;" (click)="toggleEditing()"
                  *ngIf="!editing && area_id > 0 && brand_id == 0 ">EDIT
         </button>
