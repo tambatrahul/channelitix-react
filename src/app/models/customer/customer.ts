@@ -14,6 +14,8 @@ import {HQZone} from '../territory/zone';
 import {UserTerritoryCustomer} from './user_territory_customer';
 import {DoctorType} from './doctor_type';
 import {CustomerQualification} from './customer_qualification';
+import {StockistSalesPlanning} from '../sale/stockist_sales_planning';
+import {VisitInput} from '../visit/visit_input';
 
 export class Customer extends Model {
 
@@ -87,6 +89,7 @@ export class Customer extends Model {
   last_month_dexona_sale: number = 0;
   visit_counts: number = 0;
   sap_primary_sale: number = 0;
+  sales_planning: StockistSalesPlanning[];
 
   user_territory_customers: UserTerritoryCustomer[] = [];
   constructor(info: any) {
@@ -181,6 +184,11 @@ export class Customer extends Model {
 
     if (info.brand_category)
       this.brand_category = info.brand_category;
+
+    if (info.sales_planning)
+      this.sales_planning = info.sales_planning.map(function (plan) {
+        return new StockistSalesPlanning(plan);
+      });
 
     // add User territory customer
     if (info.user_territory_customers)
