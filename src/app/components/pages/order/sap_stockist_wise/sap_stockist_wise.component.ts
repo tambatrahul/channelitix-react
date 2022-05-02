@@ -12,6 +12,9 @@ import {Visit} from "../../../../models/visit/visit";
 import {environment} from '../../../../../environments/environment';
 import {WorkType} from '../../../../models/attendance/work_type';
 import {Brand} from '../../../../models/order/brand';
+import {SaleService} from '../../../../services/v2/sale.service';
+import {StockistSalesPlanning} from '../../../../models/sale/stockist_sales_planning';
+import {SecondarySale} from '../../../../models/sale/secondary_sale';
 
 declare let jQuery: any;
 
@@ -46,7 +49,10 @@ export class SapStockistWiseComponent extends ListComponent {
   public headquarter_id: number = 0;
   public department_id: number = 0;
 
-
+  /**
+   * editing false
+   */
+  editing: boolean = false;
 
   /**
    * get customers
@@ -55,11 +61,12 @@ export class SapStockistWiseComponent extends ListComponent {
    */
   customers: Customer[] = [];
   regions: Region[] = [];
+  sales_planning: StockistSalesPlanning[] = [];
 
   /**
    * User Component Constructor
    */
-  constructor(public _service: AuthService, public reportService: ReportService,  public downloadService: DownloadService) {
+  constructor(public _service: AuthService, public reportService: ReportService, public saleService: SaleService, public downloadService: DownloadService) {
     super(_service);
   }
 
@@ -283,6 +290,58 @@ export class SapStockistWiseComponent extends ListComponent {
 
     this.regions = regions;
   }
+
+  /**
+   * toggle editing
+   */
+  toggleEditing() {
+    this.editing = !this.editing;
+  }
+
+  /**
+   *  refresh data
+   */
+  refresh() {
+    this.editing = !this.editing;
+    this.fetch_data();
+  }
+
+  /**
+   * save stockist plan sale
+   */
+  save() {
+
+    const sales_planning: StockistSalesPlanning[] = [];
+    for (const region of this.regions) {
+      region.areas.forEach(area => {
+        area.headquarters.forEach(headquarter => {
+          headquarter.customers.forEach(cus => {
+            cus.sales_planning.forEach(sp => {
+              sales_planning.push(new StockistSalesPlanning({
+                id : sp.id,
+                plan_value: sp.plan_value,
+                updated_by: sp.updated_by
+              }));
+            });
+           });
+          });
+        });
+      }
+
+    // update to server
+    this.loading = true;
+    this.saleService.update_plan(sales_planning).subscribe(
+      response => {
+        this.loading = false;
+        this.editing = false;
+        this.fetch_data();
+      },
+      err => {
+        this.loading = false;
+      }
+    );
+  }
+
 
   /**
    * month and year changed

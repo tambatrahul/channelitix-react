@@ -6,6 +6,8 @@ import {AuthService} from "../AuthService";
 import {Result} from "../../models/result";
 import {V2BaseService} from "./base.service";
 import {User} from "../../models/user/user";
+import {SecondarySale} from '../../models/sale/secondary_sale';
+import {StockistSalesPlanning} from '../../models/sale/stockist_sales_planning';
 @Injectable()
 export class SaleService extends V2BaseService {
 
@@ -44,5 +46,18 @@ export class SaleService extends V2BaseService {
 
     // make server call
     return this.get(url, new RequestOptions({search: params}));
+  }
+
+  /**
+   * add entry to secondary sales
+   *
+   * @param sales_planning
+   * @returns {Observable<Result>}
+   */
+  update_plan(sales_planning: StockistSalesPlanning[]) {
+    // prepare url
+    let url = this.getBaseUrl() + '/update-plan/';
+
+    return this.post(url, {sales_planning: sales_planning});
   }
 }
