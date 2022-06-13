@@ -37,9 +37,8 @@ export class PrimarySale extends Model {
   hq_region_id: number;
   month: number;
   year: number;
-  total_net_amt_till_7th: number;
-  total_net_amt_till_14th: number;
-  total_net_amt_till_21th: number;
+  total_net_amt_till_10th: number;
+  total_net_amt_till_20th: number;
   total_net_amt_till_31th: number;
   sub_name: string;
 
@@ -106,14 +105,11 @@ export class PrimarySale extends Model {
     if (info.total_qty)
       this.total_qty = parseFloat(info.total_qty);
 
-    if (info.total_net_amt_till_7th)
-      this.total_net_amt_till_7th = parseFloat(info.total_net_amt_till_7th);
+    if (info.total_net_amt_till_10th)
+      this.total_net_amt_till_10th = parseFloat(info.total_net_amt_till_10th);
 
-    if (info.total_net_amt_till_14th)
-      this.total_net_amt_till_14th = parseFloat(info.total_net_amt_till_14th);
-
-    if (info.total_net_amt_till_21th)
-      this.total_net_amt_till_21th = parseFloat(info.total_net_amt_till_21th);
+    if (info.total_net_amt_till_20th)
+      this.total_net_amt_till_20th = parseFloat(info.total_net_amt_till_20th);
 
     if (info.total_net_amt_till_31th)
       this.total_net_amt_till_31th = parseFloat(info.total_net_amt_till_31th);
