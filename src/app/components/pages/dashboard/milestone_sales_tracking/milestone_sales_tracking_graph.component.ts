@@ -113,9 +113,8 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   private data;
   private chart;
 
-  public total_net_amt_till_7th: number = 0;
-  public total_net_amt_till_14th: number = 0;
-  public total_net_amt_till_21th: number = 0;
+  public total_net_amt_till_10th: number = 0;
+  public total_net_amt_till_20th: number = 0;
   public total_net_amt_till_31th: number = 0;
 
   /**
@@ -227,9 +226,8 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
   prepareData(targets: Target[], primary_sales: PrimarySale[]) {
     let data = [];
     data.push(['Date', 'No of Reps']);
-    this.total_net_amt_till_7th = 0;
-    this.total_net_amt_till_14th = 0;
-    this.total_net_amt_till_21th = 0;
+    this.total_net_amt_till_10th = 0;
+    this.total_net_amt_till_20th = 0;
     this.total_net_amt_till_31th = 0;
 
     // map target
@@ -237,38 +235,32 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
 
       // map primary sales
       primary_sales.map(primary_sale => {
-        let sale_20_per = 0;
-        let sale_40_per = 0;
-        let sale_60_per = 0;
+        let sale_25_per = 0;
+        let sale_65_per = 0;
         let sale_100_per = 0;
         // target amd primary sale headquarter
         if (target.hq_headquarter_id == primary_sale.hq_headquarter_id) {
 
           // target
           if (target.total_target > 0) {
-            sale_20_per = parseInt(((primary_sale.total_net_amt_till_7th / target.total_target) * 100).toFixed(0));
-            sale_40_per = parseInt(((primary_sale.total_net_amt_till_14th / target.total_target) * 100).toFixed(0));
-            sale_60_per = parseInt(((primary_sale.total_net_amt_till_21th / target.total_target) * 100).toFixed(0));
+            sale_25_per = parseInt(((primary_sale.total_net_amt_till_10th / target.total_target) * 100).toFixed(0));
+            sale_65_per = parseInt(((primary_sale.total_net_amt_till_20th / target.total_target) * 100).toFixed(0));
             sale_100_per = parseInt(((primary_sale.total_net_amt_till_31th / target.total_target) * 100).toFixed(0));
           }
         }
-        if (sale_20_per >= 20)
-          this.total_net_amt_till_7th += 1;
+        if (sale_25_per >= 25)
+          this.total_net_amt_till_10th += 1;
 
-        if (sale_40_per >= 40)
-          this.total_net_amt_till_14th += 1;
-
-        if (sale_60_per >= 60)
-          this.total_net_amt_till_21th += 1;
+        if (sale_65_per >= 65)
+          this.total_net_amt_till_20th += 1;
 
         if (sale_100_per >= 100)
           this.total_net_amt_till_31th += 1;
       });
     });
 
-    data.push(['7th (20%)', this.total_net_amt_till_7th]);
-    data.push(['14th (40%)', this.total_net_amt_till_14th]);
-    data.push(['21th (60%)', this.total_net_amt_till_21th]);
+    data.push(['10th (25%)', this.total_net_amt_till_10th]);
+    data.push(['20th (65%)', this.total_net_amt_till_20th]);
     data.push(['29th (100%)', this.total_net_amt_till_31th]);
 
     this.chart_data = [];
