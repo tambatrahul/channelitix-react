@@ -54,6 +54,13 @@
         <headquarter-select [value]="headquarter_id" [area_id]="area_id" [title]="'Select Head Quarter'" (onValueChanged)="headquarterChanged($event)"></headquarter-select>
       </div>
     </div>
+
+    <div class="col-xs-12 col-md-2" *roleCheck="ROLE_CSM">
+      <div class="form-group">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary btn-block" (click)="toggleSalesView()">{{ sales_view == true ? 'View Sales Value' : 'View Achievement %' }}</button>
+      </div>
+    </div>
   </div>
   <!-- ./Filters for sales report-->
 
@@ -103,10 +110,14 @@
                           <td class="text-center" *ngIf="sales.achievement >= 100" style="background-color:#ffa31a; color: #000">{{ (sales.achievement ).toFixed(2) | number  }}</td>
                           <td class="text-center" *ngIf="sales.achievement < 100">{{ (sales.achievement ).toFixed(2) | number  }}</td>
                         <template class="text-center" ngFor let-day [ngForOf]="sales.days">
-                        <td salesStatus [sale_value] = "day.sales"  [prv_day_sales] = "day.prv_day_sales"
+                        <td *ngIf="sales_view" salesStatus [sale_value] = "day.sales"  [prv_day_sales] = "day.prv_day_sales"
                             [actual_sales] = "day.actual_sales">
                             {{ (sales.target > 0 ? ( day.sales / sales.target ) * 100 : 0).toFixed(2)}}
                         </td>
+                          <td *ngIf="!sales_view" salesStatus [sale_value] = "day.sales"  [prv_day_sales] = "day.prv_day_sales"
+                              [actual_sales] = "day.actual_sales">
+                            {{ (day.sales / 100000 ).toFixed(2)}}
+                          </td>
                         </template>
                         </tr>
                       </template>
