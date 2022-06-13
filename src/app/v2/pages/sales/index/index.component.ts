@@ -18,6 +18,12 @@ declare let swal: any;
 export class DailySalesComponent extends ListComponent {
 
   /**
+   * Daily Sales view flag
+   * @type {boolean}
+   */
+  public sales_view: boolean = true;
+
+  /**
    * region, area & headquarter
    */
   public zone_id: number = 0;
@@ -157,13 +163,18 @@ export class DailySalesComponent extends ListComponent {
         const temp = self.sales_data[12];
         self.sales_data.splice(12, 1);
         self.sales_data.splice(0, 0 , temp);
-        console.log(self.sales_data);
       self.loading = false;
       }, err => {
       self.loading = false;
     });
   }, 1000, false);
 
+  /**
+   * Toggle sales view
+   */
+  toggleSalesView() {
+    this.sales_view = !this.sales_view;
+  }
 
   /**
    * month and year changed
