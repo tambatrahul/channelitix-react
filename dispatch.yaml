@@ -47,3 +47,9 @@ dispatch:
 
   - url: "tx.channelitix.com/*"
     service: tx-frontend
+
+  - url: "stage.primary.channelitix.com/*"
+    service: encubes-primary-sales
+
+  - url: "prod.primary.channelitix.com/*"
+    service: prod-primary-sales

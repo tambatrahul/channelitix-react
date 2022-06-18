@@ -236,7 +236,7 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
       // map primary sales
       primary_sales.map(primary_sale => {
         let sale_25_per = 0;
-        let sale_65_per = 0;
+        let sale_60_per = 0;
         let sale_100_per = 0;
         // target amd primary sale headquarter
         if (target.hq_headquarter_id == primary_sale.hq_headquarter_id) {
@@ -244,14 +244,14 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
           // target
           if (target.total_target > 0) {
             sale_25_per = parseInt(((primary_sale.total_net_amt_till_10th / target.total_target) * 100).toFixed(0));
-            sale_65_per = parseInt(((primary_sale.total_net_amt_till_20th / target.total_target) * 100).toFixed(0));
+            sale_60_per = parseInt(((primary_sale.total_net_amt_till_20th / target.total_target) * 100).toFixed(0));
             sale_100_per = parseInt(((primary_sale.total_net_amt_till_31th / target.total_target) * 100).toFixed(0));
           }
         }
         if (sale_25_per >= 25)
           this.total_net_amt_till_10th += 1;
 
-        if (sale_65_per >= 65)
+        if (sale_60_per >= 60)
           this.total_net_amt_till_20th += 1;
 
         if (sale_100_per >= 100)
@@ -260,8 +260,8 @@ export class MilestoneSaleTrackingGraphComponent extends GoogleChartComponent {
     });
 
     data.push(['10th (25%)', this.total_net_amt_till_10th]);
-    data.push(['20th (65%)', this.total_net_amt_till_20th]);
-    data.push(['29th (100%)', this.total_net_amt_till_31th]);
+    data.push(['20th (60%)', this.total_net_amt_till_20th]);
+    data.push(['30th (100%)', this.total_net_amt_till_31th]);
 
     this.chart_data = [];
     this.chart_data = data;
