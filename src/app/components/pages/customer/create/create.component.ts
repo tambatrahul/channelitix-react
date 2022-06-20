@@ -172,7 +172,17 @@ export class CreateCustomerComponent extends FormComponent {
         },
         err => {
           this.loading = false;
-          this.errors = err.errors;
+          this.errors = err.errors.error;
+          swal({
+            title: this.errors,
+            type: 'warning',
+            showClass: {
+              popup: 'animated fadeInDown faster'
+            },
+            hideClass: {
+              popup: 'animated fadeOutUp faster'
+            }
+          });
         }
       );
     }
