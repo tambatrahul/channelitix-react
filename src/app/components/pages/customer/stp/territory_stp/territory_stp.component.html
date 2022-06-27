@@ -43,7 +43,8 @@
                                     <th rowspan="2">Brick</th>
                                     <th rowspan="2">Distance From HQ/Territory</th>
                                     <template ngFor let-ct [ngForOf]="customer_types">
-                                        <th [attr.colspan]="ct.grades.length">{{ ct.name }}</th>
+                                        <th [attr.colspan]="ct.grades.length"><span *ngIf="ct.is_visiable == 1" >{{ ct.name }}
+                                        </span></th>
                                     </template>
                                     <th rowspan="2">Total</th>
                                     <th rowspan="2">No of work days</th>
@@ -51,7 +52,9 @@
                                 </tr>
                                 <tr style="background-color: #3498db;color: white">
                                     <template ngFor let-ct [ngForOf]="customer_types">
-                                        <th *ngFor="let grade of ct.grades">{{ grade.name }}</th>
+                                        <th *ngFor="let grade of ct.grades"><span *ngIf="ct.is_visiable == 1" >
+                                          {{ grade.name }}
+                                          </span></th>
                                     </template>
                                 </tr>
                                 </thead>
@@ -63,7 +66,7 @@
                                     <td></td>
                                     <template ngFor let-ct [ngForOf]="total['customer_types']">
                                         <td *ngFor="let grade of ct.grades">
-                                                    <span *ngIf="grade.customer_count > 0">
+                                                    <span *ngIf="grade.customer_count > 0 && ct.is_visiable == 1">
                                                         {{ grade.customer_count }}
                                                     </span>
                                         </td>

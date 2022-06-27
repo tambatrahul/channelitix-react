@@ -92,7 +92,7 @@
                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
                           <th colspan="3">Other Retailer</th>
                         </template>
-                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                           <th colspan="3" class="grey">Hub</th>
                         </template>
                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
@@ -100,7 +100,7 @@
                         </template>
                         <!-- <th colspan="3">Retailer</th>
                         <th colspan="3" class="grey">Hub</th> -->
-                        <th colspan="3">Physician</th>
+                        <th *ngIf="environment.projectName != 'TX'" colspan="3">Physician</th>
                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'">
                           <th colspan="3" class="grey">Hospital</th>
                         </template>
@@ -158,14 +158,14 @@
                         <th>Met</th>
                         <th *ngIf="coverage_view">% Cov</th>
                         <th *ngIf="!coverage_view">Call Avg</th>
-                        <th class="grey">Total</th>
-                        <th class="grey">Met</th>
-                        <th *ngIf="coverage_view" class="grey">% Cov</th>
-                        <th *ngIf="!coverage_view" class="grey">Call Avg</th>
-                        <th>Total</th>
-                        <th>Met</th>
-                        <th *ngIf="coverage_view">% Cov</th>
-                        <th *ngIf="!coverage_view">Call Avg</th>
+                        <th *ngIf="environment.projectName != 'TX'" class="grey">Total</th>
+                        <th  *ngIf="environment.projectName != 'TX'" class="grey">Met</th>
+                        <th *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">% Cov</th>
+                        <th *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">Call Avg</th>
+                        <th *ngIf="environment.projectName != 'TX'">Total</th>
+                        <th *ngIf="environment.projectName != 'TX'">Met</th>
+                        <th *ngIf="coverage_view && environment.projectName != 'TX'">% Cov</th>
+                        <th *ngIf="!coverage_view && environment.projectName != 'TX'">Call Avg</th>
                         <th  *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" class="grey">Total</th>
                         <th *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" class="grey">Met</th>
                         <th *ngIf="coverage_view && environment.projectName == 'GOVAXX'" class="grey">% Cov</th>
@@ -226,14 +226,14 @@
                         <th>Met</th>
                         <th *ngIf="coverage_view">% Cov</th>
                         <th *ngIf="!coverage_view">Call Avg</th>
-                        <th class="grey">Total</th>
-                        <th class="grey">Met</th>
-                        <th *ngIf="coverage_view" class="grey">% Cov</th>
-                        <th *ngIf="!coverage_view" class="grey">Call Avg</th>
-                        <th>Total</th>
-                        <th>Met</th>
-                        <th *ngIf="coverage_view">% Cov</th>
-                        <th *ngIf="!coverage_view">Call Avg</th>
+                        <th *ngIf="environment.projectName != 'TX'" class="grey">Total</th>
+                        <th *ngIf="environment.projectName != 'TX'" class="grey">Met</th>
+                        <th *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">% Cov</th>
+                        <th *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">Call Avg</th>
+                        <th *ngIf="environment.projectName != 'TX'">Total</th>
+                        <th *ngIf="environment.projectName != 'TX'">Met</th>
+                        <th *ngIf="coverage_view && environment.projectName != 'TX'">% Cov</th>
+                        <th *ngIf="!coverage_view && environment.projectName != 'TX'">Call Avg</th>
                         <th *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" class="grey">Total</th>
                         <th *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" class="grey">Met</th>
                         <th *ngIf="coverage_view && environment.projectName == 'GOVAXX'" class="grey">% Cov</th>
@@ -269,8 +269,8 @@
                         <th *ngIf="!coverage_view" colspan="3">Stockist</th>
                         <th colspan="3" class="grey">Semi</th>
                         <th colspan="3">Retailer</th>
-                        <th colspan="3" class="grey">Hub</th>
-                        <th colspan="3">Physician</th>
+                        <th *ngIf="environment.projectName != 'TX'" colspan="3" class="grey">Hub</th>
+                        <th *ngIf="environment.projectName != 'TX'" colspan="3">Physician</th>
                         <th *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" colspan="3" class="grey">Hospital</th>
                       </tr>
                       </tfoot>
@@ -456,36 +456,36 @@
                           {{ region.total_att >0? (region.customer_types[2].allVisitCount/region.total_att).toFixed(1) : 0 }}
                         </td>
 
-                        <td class="grey">{{ region.customer_types[3].customerCount }}</td>
-                        <td *ngIf="coverage_view" class="grey">{{ region.customer_types[3].visitCount }}</td>
-                        <td *ngIf="!coverage_view" class="grey">{{ region.customer_types[3].allVisitCount }}</td>
+                        <td *ngIf="environment.projectName != 'TX'" class="grey">{{ region.customer_types[3].customerCount }}</td>
+                        <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{ region.customer_types[3].visitCount }}</td>
+                        <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">{{ region.customer_types[3].allVisitCount }}</td>
 
-                        <td *ngIf="coverage_view" class="grey">{{
+                        <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{
                           region.customer_types[3].percentageCount.toFixed(0)}} %
                         </td>
-                        <td *ngIf="!coverage_view" class="grey">
+                        <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">
                           {{ region.total_att> 0?(region.customer_types[3].allVisitCount/region.total_att).toFixed(1) : 0 }}
                         </td>
 
-                        <td>{{ region.customer_types[4].customerCount }}</td>
-                        <td *ngIf="coverage_view">{{ region.customer_types[4].visitCount }}</td>
-                        <td *ngIf="!coverage_view">{{ region.customer_types[4].allVisitCount }}</td>
+                        <td *ngIf="environment.projectName != 'TX'" >{{ region.customer_types[4].customerCount }}</td>
+                        <td *ngIf="coverage_view && environment.projectName != 'TX'">{{ region.customer_types[4].visitCount }}</td>
+                        <td *ngIf="!coverage_view && environment.projectName != 'TX'">{{ region.customer_types[4].allVisitCount }}</td>
 
-                        <td *ngIf="coverage_view" class="grey">{{
+                        <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{
                           region.customer_types[4].percentageCount.toFixed(0)}} %
                         </td>
-                        <td *ngIf="!coverage_view" class="grey">
+                        <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">
                           {{region.total_att > 0? (region.customer_types[4].allVisitCount/region.total_att).toFixed(1) : 0}}
                         </td>
 
-                        <td *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" class="grey">{{ region.customer_types[7].customerCount }}</td>
-                        <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' " class="grey">{{ region.customer_types[7].visitCount }}</td>
-                        <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX' " class="grey">{{ region.customer_types[7].allVisitCount }}</td>
+                        <td *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{ region.customer_types[7].customerCount }}</td>
+                        <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX' " class="grey">{{ region.customer_types[7].visitCount }}</td>
+                        <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX' " class="grey">{{ region.customer_types[7].allVisitCount }}</td>
 
-                        <td *ngIf="coverage_view && environment.projectName == 'GOVAXX'" class="grey">{{
+                        <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{
                           region.customer_types[7].percentageCount.toFixed(0)}} %
                         </td>
-                        <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX'" class="grey">
+                        <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">
                           {{ region.total_att> 0?(region.customer_types[7].allVisitCount/region.total_att).toFixed(1) : 0 }}
                         </td>
 
@@ -665,35 +665,35 @@
                             {{ area.total_att>0 ? (area.customer_types[2].allVisitCount/area.total_att).toFixed(1): 0 }}
                           </td>
 
-                          <td class="grey">{{ area.customer_types[3].customerCount }}</td>
-                          <td *ngIf="coverage_view" class="grey">{{ area.customer_types[3].visitCount }}</td>
-                          <td *ngIf="!coverage_view" class="grey">{{ area.customer_types[3].allVisitCount }}</td>
+                          <td *ngIf="environment.projectName != 'TX'" class="grey">{{ area.customer_types[3].customerCount }}</td>
+                          <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{ area.customer_types[3].visitCount }}</td>
+                          <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">{{ area.customer_types[3].allVisitCount }}</td>
 
-                          <td *ngIf="coverage_view" class="grey">{{
+                          <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{
                             area.customer_types[3].percentageCount.toFixed(0)}} %
                           </td>
-                          <td *ngIf="!coverage_view" class="grey">
+                          <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">
                             {{ area.total_att > 0? (area.customer_types[3].allVisitCount/area.total_att).toFixed(1) : 0 }}
                           </td>
 
-                          <td>{{ area.customer_types[4].customerCount }}</td>
-                          <td *ngIf="coverage_view">{{ area.customer_types[4].visitCount }}</td>
-                          <td *ngIf="!coverage_view">{{ area.customer_types[4].allVisitCount }}</td>
+                          <td *ngIf="environment.projectName != 'TX'" >{{ area.customer_types[4].customerCount }}</td>
+                          <td *ngIf="coverage_view && environment.projectName != 'TX' ">{{ area.customer_types[4].visitCount }}</td>
+                          <td *ngIf="!coverage_view && environment.projectName != 'TX'">{{ area.customer_types[4].allVisitCount }}</td>
 
-                          <td *ngIf="coverage_view" class="grey">{{
+                          <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{
                             area.customer_types[4].percentageCount.toFixed(0)}} %
                           </td>
-                          <td *ngIf="!coverage_view" class="grey">
+                          <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">
                             {{ area.total_att > 0? (area.customer_types[4].allVisitCount/area.total_att).toFixed(1) : 0 }}
                           </td>
-                          <td *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" class="grey">{{ area.customer_types[7].customerCount }}</td>
-                          <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' " class="grey">{{ area.customer_types[7].visitCount }}</td>
-                          <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX'" class="grey">{{ area.customer_types[7].allVisitCount }}</td>
+                          <td *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{ area.customer_types[7].customerCount }}</td>
+                          <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX' " class="grey">{{ area.customer_types[7].visitCount }}</td>
+                          <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{ area.customer_types[7].allVisitCount }}</td>
 
-                          <td *ngIf="coverage_view && environment.projectName == 'GOVAXX'" class="grey">{{
+                          <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{
                             area.customer_types[7].percentageCount.toFixed(0)}} %
                           </td>
-                          <td *ngIf="!coverage_view" class="grey">
+                          <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">
                             {{ area.total_att > 0? (area.customer_types[7].allVisitCount/area.total_att).toFixed(1) : 0 }}
                           </td>
                         </tr>
@@ -878,35 +878,35 @@
                               {{ hq.total_att > 0 ? (hq.customer_types[2].allVisitCount/hq.total_att).toFixed(1) : 0}}
                             </td>
 
-                            <td class="grey">{{ hq.customer_types[3].customerCount }}</td>
-                            <td *ngIf="coverage_view" class="grey">{{ hq.customer_types[3].visitCount }}</td>
-                            <td *ngIf="!coverage_view" class="grey">{{ hq.customer_types[3].allVisitCount }}</td>
+                            <td *ngIf="environment.projectName != 'TX'" class="grey">{{ hq.customer_types[3].customerCount }}</td>
+                            <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{ hq.customer_types[3].visitCount }}</td>
+                            <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">{{ hq.customer_types[3].allVisitCount }}</td>
 
-                            <td *ngIf="coverage_view" class="grey">{{
+                            <td *ngIf="coverage_view && environment.projectName != 'TX'" class="grey">{{
                               hq.customer_types[3].percentageCount.toFixed(0)}} %
                             </td>
-                            <td *ngIf="!coverage_view" class="grey">
+                            <td *ngIf="!coverage_view && environment.projectName != 'TX'" class="grey">
                               {{ hq.total_att > 0? (hq.customer_types[3].allVisitCount/hq.total_att).toFixed(1) : 0 }}
                             </td>
 
-                            <td>{{ hq.customer_types[4].customerCount }}</td>
-                            <td *ngIf="coverage_view">{{ hq.customer_types[4].visitCount }}</td>
-                            <td *ngIf="!coverage_view" >{{ hq.customer_types[4].allVisitCount }}</td>
+                            <td *ngIf="environment.projectName != 'TX'">{{ hq.customer_types[4].customerCount }}</td>
+                            <td *ngIf="coverage_view && environment.projectName != 'TX'">{{ hq.customer_types[4].visitCount }}</td>
+                            <td *ngIf="!coverage_view && environment.projectName != 'TX'" >{{ hq.customer_types[4].allVisitCount }}</td>
 
-                            <td *ngIf="coverage_view">{{
+                            <td *ngIf="coverage_view && environment.projectName != 'TX'">{{
                               hq.customer_types[4].percentageCount.toFixed(0)}} %
                             </td>
-                            <td *ngIf="!coverage_view">
+                            <td *ngIf="!coverage_view && environment.projectName != 'TX'">
                               {{ hq.total_att > 0? (hq.customer_types[4].allVisitCount/hq.total_att).toFixed(1) : 0 }}
                             </td>
-                            <td *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'" class="grey">{{ hq.customer_types[7].customerCount }}</td>
-                            <td *ngIf="coverage_view && environment.projectName == 'GOVAXX'" class="grey">{{ hq.customer_types[7].visitCount }}</td>
-                            <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX'" class="grey">{{ hq.customer_types[7].allVisitCount }}</td>
+                            <td *ngIf="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{ hq.customer_types[7].customerCount }}</td>
+                            <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{ hq.customer_types[7].visitCount }}</td>
+                            <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{ hq.customer_types[7].allVisitCount }}</td>
 
-                            <td *ngIf="coverage_view && environment.projectName == 'GOVAXX'" class="grey">{{
+                            <td *ngIf="coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">{{
                               hq.customer_types[7].percentageCount.toFixed(0)}} %
                             </td>
-                            <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX'" class="grey">
+                            <td *ngIf="!coverage_view && environment.projectName == 'GOVAXX' && environment.projectName != 'TX'" class="grey">
                               {{ hq.total_att > 0? (hq.customer_types[7].allVisitCount/hq.total_att).toFixed(1) : 0 }}
                             </td>
                           </tr>
