@@ -22,8 +22,8 @@
                     <th>Stockist met</th>
                     <th>Semi met</th>
                     <th>Retailer met</th>
-                    <th>Hub Chemist met</th>
-                    <th>HealthCare Providers met</th>
+                    <th *ngIf="environment.projectName != 'TX'">Hub Chemist met</th>
+                    <th *ngIf="environment.projectName != 'TX'">HealthCare Providers met</th>
                     <th>POB (in <i class="fa fa-rupee"></i>)</th>
                   </tr>
                   </thead>
@@ -39,8 +39,8 @@
                     <td>{{ attendance.stockist_met }}</td>
                     <td>{{ attendance.semi_met }}</td>
                     <td>{{ attendance.retailer_met }}</td>
-                    <td>{{ attendance.hub_chemist_met }}</td>
-                    <td>{{ attendance.healthcare_providers_met }}</td>
+                    <td *ngIf="environment.projectName != 'TX'" >{{ attendance.hub_chemist_met }}</td>
+                    <td *ngIf="environment.projectName != 'TX'" >{{ attendance.healthcare_providers_met }}</td>
                     <td>{{ attendance.pob_amount }}</td>
                   </tr>
                   <tr *ngIf="attendances.length <= 0">

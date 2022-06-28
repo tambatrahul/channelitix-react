@@ -8,6 +8,7 @@ export class CustomerType extends Model {
     customer_count: number = 0;
     doctor_speciality: string;
     doctor_group_name: string;
+    is_visiable: number = 0;
 
 
     // for internal use
@@ -32,6 +33,7 @@ export class CustomerType extends Model {
         this.doctor_group_name = info.doctor_group_name;
         this.restricted_update = info.restricted_update;
         this.is_restricted = info.is_restricted;
+        this.is_visiable = info.is_visiable;
         if (info.customer_count)
             this.customer_count = parseInt(info.customer_count);
         if (info.grades) {

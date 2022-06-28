@@ -84,13 +84,13 @@
                       <th style="font-weight: bold">Stockist</th>
                       <th style="font-weight: bold">Semi</th>
                       <th style="font-weight: bold">Retailer</th>
-                      <th style="font-weight: bold">Hub Chemist</th>
-                      <th style="font-weight: bold">Healthcare Provider</th>
+                      <th *ngIf="environment.projectName != 'TX'" style="font-weight: bold">Hub Chemist</th>
+                      <th *ngIf="environment.projectName != 'TX'" style="font-weight: bold">Healthcare Provider</th>
                     </tr>
                     </thead>
                     </template>
 
-                    <template [ngIf]="environment.envName == 'geo' && environment.projectName == 'IKON'">
+                    <template [ngIf]="environment.envName == 'geo' && environment.projectName == 'IKON' && environment.projectName != 'TX'">
                     <thead>
                     <tr style="background-color: #3498db;color: white">
                       <th style="font-weight: bold">Brick</th>
@@ -117,11 +117,11 @@
                         total_customer_physician }}
                       </td>
                       <template [ngIf]="environment.envName == 'geo' && environment.projectName != 'IKON'">
-                      <td>{{customer_others}} / {{total_customer_others}}</td>
+                      <td >{{customer_others}} / {{total_customer_others}}</td>
                       <td>{{customer_semi}} / {{total_customer_semi}}</td>
                       <td>{{customer_retailer}} / {{total_customer_retailer}}</td>
-                      <td>{{customer_hub_chemist}} / {{total_customer_hub_chemist}}</td>
-                      <td>{{customer_physician}} / {{total_customer_physician}}</td>
+                      <td *ngIf="environment.projectName != 'TX'">{{customer_hub_chemist}} / {{total_customer_hub_chemist}}</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{customer_physician}} / {{total_customer_physician}}</td>
                       </template>
 
                       <template [ngIf]="environment.envName == 'geo' && environment.projectName == 'IKON'">
@@ -151,8 +151,8 @@
                         <td>{{brick.customer_others}} / {{brick.total_customer_others}}</td>
                         <td>{{brick.customer_semi}} / {{brick.total_customer_semi}}</td>
                         <td>{{brick.customer_retailer}} / {{brick.total_customer_retailer}}</td>
-                        <td>{{brick.customer_hub_chemist}} / {{brick.total_customer_hub_chemist}}</td>
-                        <td>{{brick.customer_physician}} / {{brick.total_customer_physician}}</td>
+                        <td *ngIf="environment.projectName != 'TX'">{{brick.customer_hub_chemist}} / {{brick.total_customer_hub_chemist}}</td>
+                        <td *ngIf="environment.projectName != 'TX'">{{brick.customer_physician}} / {{brick.total_customer_physician}}</td>
                         </template>
                         <template [ngIf]="environment.envName == 'geo' && environment.projectName == 'IKON'">
                         <td>{{brick.customer_physician}} / {{brick.total_customer_physician}}</td>

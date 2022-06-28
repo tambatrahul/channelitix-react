@@ -46,17 +46,23 @@
                     <td>{{ total_pob_self.toFixed(0) }}</td>
                   </tr>
                   <tr>
-                    <th>Control chemist</th>
-                    <td>{{ field_work_days > 0 ? (total_chemist_met/field_work_days).toFixed(2) : 0 }}
-                    <td>{{ total_chemist_meet > 0 ? total_chemist_meet : 0 }}</td>
+                    <th *ngIf="environment.projectName != 'TX'">Control chemist</th>
+                    <th *ngIf="environment.projectName == 'TX'"></th>
+                    <td *ngIf="environment.projectName != 'TX'">{{ field_work_days > 0 ? (total_chemist_met/field_work_days).toFixed(2) : 0 }}</td>
+                    <td *ngIf="environment.projectName == 'TX'"></td>
+                    <td *ngIf="environment.projectName != 'TX'" >{{ total_chemist_meet > 0 ? total_chemist_meet : 0 }}</td>
+                    <td *ngIf="environment.projectName == 'TX'" ></td>
                     <td style="background-color: #ecf0f1;"></td>
                     <th>Total POB (Jointwork)</th>
                     <td>{{ total_pob_with.toFixed(0) }}</td>
                   </tr>
                   <tr>
-                    <th>Healthcare provider</th>
-                    <td>{{ field_work_days > 0 ? (total_dr_met/field_work_days).toFixed(2) : 0 }}
-                    <td>{{ total_dr_meet > 0 ? total_dr_meet : 0 }}</td>
+                    <th *ngIf="environment.projectName != 'TX'">Healthcare provider</th>
+                    <th *ngIf="environment.projectName == 'TX'"></th>
+                    <td *ngIf="environment.projectName != 'TX'">{{ field_work_days > 0 ? (total_dr_met/field_work_days).toFixed(2) : 0 }}
+                    <td *ngIf="environment.projectName == 'TX'"></td>
+                    <td *ngIf="environment.projectName != 'TX'">{{ total_dr_meet > 0 ? total_dr_meet : 0 }}</td>
+                    <td *ngIf="environment.projectName == 'TX'"></td>
                     <td style="background-color: #ecf0f1;"></td>
                     <th>Total leaves</th>
                     <td>{{ leave }}</td>

@@ -52,13 +52,13 @@
                                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
                                             <th colspan="3" class="grey">Other Retailer</th>
                                         </template>
-                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                             <th colspan="3">Hub</th>
                                         </template>
                                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
                                             <th colspan="3">Control Chemist</th>
                                         </template>
-                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                             <th colspan="3" class="grey">HCP</th>
                                         </template>
                                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
@@ -81,11 +81,11 @@
                                         <th class="grey">Total</th>
                                         <th class="grey">Met</th>
                                         <th class="grey">% Cov</th>
-                                        <th>Total</th>
-                                        <th>Met</th>
-                                        <th>% Cov</th>
+                                        <th *ngIf="environment.projectName != 'TX'">Total</th>
+                                        <th *ngIf="environment.projectName != 'TX'">Met</th>
+                                        <th *ngIf="environment.projectName != 'TX'">% Cov</th>
 
-                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                             <th>Total</th>
                                             <th>Met</th>
                                             <th>% Cov</th>
@@ -128,11 +128,11 @@
                                         <th class="grey">Total</th>
                                         <th class="grey">Met</th>
                                         <th class="grey">% Cov</th>
-                                        <th>Total</th>
-                                        <th>Met</th>
-                                        <th>% Cov</th>
+                                        <th *ngIf="environment.projectName != 'TX'" >Total</th>
+                                        <th *ngIf="environment.projectName != 'TX'">Met</th>
+                                        <th *ngIf="environment.projectName != 'TX'">% Cov</th>
 
-                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                             <th>Total</th>
                                             <th>Met</th>
                                             <th>% Cov</th>
@@ -166,12 +166,12 @@
                                         <th colspan="3" class="grey">Total</th>
                                         <th colspan="3">Semi</th>
                                         <th colspan="3" class="grey">Retailer</th>
-                                        <th colspan="3">Hub</th>
-                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                        <th *ngIf="environment.projectName != 'TX'" colspan="3">Hub</th>
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                             <th colspan="3" class="grey">HCP</th>
                                         </template>
                                         <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
-                                            <th colspan="12" class="grey">HCP</th>
+                                            <th *ngIf="environment.projectName != 'TX'" colspan="12" class="grey">HCP</th>
                                         </template>
                                         <th colspan="4">Stockist</th>
                                     </tr>
@@ -220,13 +220,13 @@
                                         <td>{{ region.customer_types[2].visitCount }}</td>
                                         <td>{{ region.customer_types[2].percentageCount.toFixed(0)}} %</td>
 
-                                        <td class="grey">{{ region.customer_types[3].customerCount }}</td>
-                                        <td class="grey">{{ region.customer_types[3].visitCount }}</td>
-                                        <td class="grey">{{
+                                        <td *ngIf="environment.projectName != 'TX'" class="grey">{{ region.customer_types[3].customerCount }}</td>
+                                        <td *ngIf="environment.projectName != 'TX'" class="grey">{{ region.customer_types[3].visitCount }}</td>
+                                        <td *ngIf="environment.projectName != 'TX'"class="grey">{{
                                             region.customer_types[3].percentageCount.toFixed(0)}} %
                                         </td>
 
-                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                             <td>{{ region.customer_types[4].customerCount }}</td>
                                             <td>{{ region.customer_types[4].visitCount }}</td>
                                             <td>{{ region.customer_types[4].percentageCount.toFixed(0)}} %</td>
@@ -306,11 +306,11 @@
                                             <td>{{ area.customer_types[2].visitCount }}</td>
                                             <td>{{ area.customer_types[2].percentageCount.toFixed(0)}} %</td>
 
-                                            <td class="grey">{{ area.customer_types[3].customerCount }}</td>
-                                            <td class="grey">{{ area.customer_types[3].visitCount }}</td>
-                                            <td class="grey">{{ area.customer_types[3].percentageCount.toFixed(0)}} %</td>
+                                            <td *ngIf="environment.projectName != 'TX'" class="grey">{{ area.customer_types[3].customerCount }}</td>
+                                            <td *ngIf="environment.projectName != 'TX'" class="grey">{{ area.customer_types[3].visitCount }}</td>
+                                            <td *ngIf="environment.projectName != 'TX'" class="grey">{{ area.customer_types[3].percentageCount.toFixed(0)}} %</td>
 
-                                            <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                            <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                                 <td>{{ area.customer_types[4].customerCount }}</td>
                                                 <td>{{ area.customer_types[4].visitCount }}</td>
                                                 <td>{{ area.customer_types[4].percentageCount.toFixed(0)}} %</td>
@@ -389,13 +389,13 @@
                                             <td  class="grey">{{ hq.customer_types[2].visitCount }}</td>
                                             <td  class="grey">{{ hq.customer_types[2].percentageCount.toFixed(0)}} %</td>
 
-                                            <td>{{ hq.customer_types[3].customerCount }}</td>
-                                            <td>{{ hq.customer_types[3].visitCount }}</td>
-                                            <td>{{
+                                            <td *ngIf="environment.projectName != 'TX'">{{ hq.customer_types[3].customerCount }}</td>
+                                            <td *ngIf="environment.projectName != 'TX'" >{{ hq.customer_types[3].visitCount }}</td>
+                                            <td *ngIf="environment.projectName != 'TX'" >{{
                                                 hq.customer_types[3].percentageCount.toFixed(0)}} %
                                             </td>
 
-                                            <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                                            <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON' && environment.projectName != 'TX'">
                                                 <td  class="grey">{{ hq.customer_types[4].customerCount }}</td>
                                                 <td  class="grey">{{ hq.customer_types[4].visitCount }}</td>
                                                 <td  class="grey">{{ hq.customer_types[4].percentageCount.toFixed(0)}} %</td>

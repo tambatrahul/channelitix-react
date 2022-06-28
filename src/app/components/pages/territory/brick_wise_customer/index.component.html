@@ -31,12 +31,13 @@
                   <tr>
                     <th></th>
                     <th rowspan="2">Headquarters</th>
-                    <th colspan="6">Total</th>
+                    <th *ngIf="environment.projectName != 'TX'" colspan="6">Total</th>
+                    <th *ngIf="environment.projectName == 'TX'" colspan="4">Total</th>
                     <th rowspan="2">Total Bricks</th>
                     <th colspan="2" rowspan="2">Retailer</th>
                     <th colspan="2" rowspan="2">Semi</th>
-                    <th colspan="2" rowspan="2">Hub Chemist</th>
-                    <th colspan="2" rowspan="2">Physician</th>
+                    <th *ngIf="environment.projectName != 'TX'" colspan="2" rowspan="2">Hub Chemist</th>
+                    <th *ngIf="environment.projectName != 'TX'" colspan="2" rowspan="2">Physician</th>
                   </tr>
                   <tr>
                     <th></th>
@@ -44,8 +45,8 @@
                     <th>Stockist</th>
                     <th>Retailers</th>
                     <th>Semi</th>
-                    <th>Hub Chemist</th>
-                    <th>Physician</th>
+                    <th *ngIf="environment.projectName != 'TX'" >Hub Chemist</th>
+                    <th *ngIf="environment.projectName != 'TX'" >Physician</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -62,8 +63,8 @@
                     <td>{{ z.customer_types[0].customer_count }}</td>
                     <td>{{ z.customer_types[2].customer_count }}</td>
                     <td>{{ z.customer_types[1].customer_count }}</td>
-                    <td>{{ z.customer_types[3].customer_count }}</td>
-                    <td>{{ z.customer_types[4].customer_count }}</td>
+                    <td *ngIf="environment.projectName != 'TX'">{{ z.customer_types[3].customer_count }}</td>
+                    <td *ngIf="environment.projectName != 'TX'" >{{ z.customer_types[4].customer_count }}</td>
                     <td>{{ z.total_bricks }}</td>
                     <td>{{ z.retailer_count }}</td>
                     <td [ngClass]="{'above_80': ((z.retailer_count / z.total_bricks) * 100) > 80}">
@@ -73,12 +74,12 @@
                     <td [ngClass]="{'above_70': ((z.semi_count / z.total_bricks) * 100) > 70}">
                       {{ ((z.semi_count / z.total_bricks) * 100).toFixed(0) }} %
                     </td>
-                    <td>{{ z.hub_count }}</td>
-                    <td [ngClass]="{'above_50': ((z.hub_count / z.total_bricks) * 100) > 50}">
+                    <td *ngIf="environment.projectName != 'TX'">{{ z.hub_count }}</td>
+                    <td *ngIf="environment.projectName != 'TX'" [ngClass]="{'above_50': ((z.hub_count / z.total_bricks) * 100) > 50}">
                       {{ ((z.hub_count / z.total_bricks) * 100).toFixed(0) }} %
                     </td>
-                    <td>{{ z.phy_count }}</td>
-                    <td>{{ ((z.phy_count / z.total_bricks) * 100).toFixed(0) }} %</td>
+                    <td *ngIf="environment.projectName != 'TX'">{{ z.phy_count }}</td>
+                    <td *ngIf="environment.projectName != 'TX'">{{ ((z.phy_count / z.total_bricks) * 100).toFixed(0) }} %</td>
                   </tr>
                   <template ngFor let-area [ngForOf]="z.areas">
                     <tr class="grey">
@@ -94,8 +95,8 @@
                       <td>{{ area.customer_types[0].customer_count }}</td>
                       <td>{{ area.customer_types[2].customer_count }}</td>
                       <td>{{ area.customer_types[1].customer_count }}</td>
-                      <td>{{ area.customer_types[3].customer_count }}</td>
-                      <td>{{ area.customer_types[4].customer_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{ area.customer_types[3].customer_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{ area.customer_types[4].customer_count }}</td>
                       <td>{{ area.total_bricks }}</td>
                       <td>{{ area.retailer_count }}</td>
                       <td [ngClass]="{'above_80': ((area.retailer_count / area.total_bricks) * 100) > 80}">
@@ -105,12 +106,12 @@
                       <td [ngClass]="{'above_70': ((area.semi_count / area.total_bricks) * 100) > 70}">
                         {{ ((area.semi_count / area.total_bricks) * 100).toFixed(0) }} %
                       </td>
-                      <td>{{ area.hub_count }}</td>
-                      <td [ngClass]="{'above_50': ((area.hub_count / area.total_bricks) * 100) > 50}">
+                      <td *ngIf="environment.projectName != 'TX'" >{{ area.hub_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'" [ngClass]="{'above_50': ((area.hub_count / area.total_bricks) * 100) > 50}">
                         {{ ((area.hub_count / area.total_bricks) * 100).toFixed(0) }} %
                       </td>
-                      <td>{{ area.phy_count }}</td>
-                      <td>{{ ((area.phy_count / area.total_bricks) * 100).toFixed(0) }} %</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{ area.phy_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'">{{ ((area.phy_count / area.total_bricks) * 100).toFixed(0) }} %</td>
                     </tr>
                     <tr *ngFor="let hq of area.headquarters">
                       <th></th>
@@ -125,8 +126,8 @@
                       <td>{{ hq.customer_types[0].customer_count }}</td>
                       <td>{{ hq.customer_types[2].customer_count }}</td>
                       <td>{{ hq.customer_types[1].customer_count }}</td>
-                      <td>{{ hq.customer_types[3].customer_count }}</td>
-                      <td>{{ hq.customer_types[4].customer_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{ hq.customer_types[3].customer_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{ hq.customer_types[4].customer_count }}</td>
                       <td>{{ hq.total_bricks }}</td>
                       <td>{{ hq.retailer_count }}</td>
                       <td [ngClass]="{'above_80': ((hq.retailer_count / hq.total_bricks) * 100) > 80}">
@@ -136,12 +137,12 @@
                       <td [ngClass]="{'above_70': ((hq.semi_count / hq.total_bricks) * 100) > 70}">
                         {{ ((hq.semi_count / hq.total_bricks) * 100).toFixed(0) }} %
                       </td>
-                      <td>{{ hq.hub_count }}</td>
-                      <td [ngClass]="{'above_50': ((hq.hub_count / hq.total_bricks) * 100) > 50}">
+                      <td *ngIf="environment.projectName != 'TX'" >{{ hq.hub_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'" [ngClass]="{'above_50': ((hq.hub_count / hq.total_bricks) * 100) > 50}">
                         {{ ((hq.hub_count / hq.total_bricks) * 100).toFixed(0) }} %
                       </td>
-                      <td>{{ hq.phy_count }}</td>
-                      <td>{{ ((hq.phy_count / hq.total_bricks) * 100).toFixed(0) }} %</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{ hq.phy_count }}</td>
+                      <td *ngIf="environment.projectName != 'TX'" >{{ ((hq.phy_count / hq.total_bricks) * 100).toFixed(0) }} %</td>
                     </tr>
                   </template>
                   </tbody>

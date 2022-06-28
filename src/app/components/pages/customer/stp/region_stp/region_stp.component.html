@@ -40,7 +40,9 @@
                                 <tr>
                                     <th rowspan="2">Region</th>
                                     <template ngFor let-ct [ngForOf]="customer_types">
-                                        <th [attr.colspan]="ct.grades.length">{{ ct.name }}</th>
+                                        <th [attr.colspan]="ct.grades.length">
+                                           <span *ngIf="ct.is_visiable == 1" >{{ ct.name }}
+                                        </span></th>
                                     </template>
                                     <th rowspan="2">Total</th>
                                     <th rowspan="2">Expected Business</th>
@@ -48,7 +50,9 @@
                                 </tr>
                                 <tr>
                                     <template ngFor let-ct [ngForOf]="customer_types">
-                                        <th *ngFor="let grade of ct.grades">{{ grade.name }}</th>
+                                        <th *ngFor="let grade of ct.grades"><span *ngIf="ct.is_visiable == 1" >
+                                          {{ grade.name }}
+                                          </span></th>
                                     </template>
                                 </tr>
                                 </thead>
@@ -58,7 +62,7 @@
                                     <td>{{ rg.name }}</td>
                                     <template ngFor let-ct [ngForOf]="rg.customer_types">
                                         <td *ngFor="let grade of ct.grades">
-                                            <span *ngIf="grade.customer_count > 0">
+                                            <span *ngIf="grade.customer_count > 0 && ct.is_visiable == 1">
                                                 {{ grade.customer_count }}
                                             </span>
                                         </td>
