@@ -162,15 +162,15 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     // distinct visit count
     visits.map(vis => {
       if (vis.customer_type_id === 5)
-        this.total_dr_meet += +vis.visit_count;
+        this.total_dr_meet += +vis.all_visit_count;
       if (vis.customer_type_id === 4)
-        this.total_chemist_meet += +vis.visit_count;
+        this.total_chemist_meet += +vis.all_visit_count;
       if (vis.customer_type_id === 1)
-        this.total_stockist_meet += +vis.visit_count;
+        this.total_stockist_meet += +vis.all_visit_count;
       if (vis.customer_type_id === 2)
-        this.total_semi_meet += +vis.visit_count;
+        this.total_semi_meet += +vis.all_visit_count;
       if (vis.customer_type_id === 3)
-        this.total_retailer_meet += +vis.visit_count;
+        this.total_retailer_meet += +vis.all_visit_count;
     });
 
     // total visit count
