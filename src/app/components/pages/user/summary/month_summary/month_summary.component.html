@@ -24,15 +24,15 @@
                   <tr>
                     <th>Stockist</th>
                     <td>{{ field_work_days > 0 ? (total_stockist_met/field_work_days).toFixed(2) : 0 }}
-                    <td>{{ total_stockist_meet > 0 ? total_stockist_meet : 0 }}</td>
+                    <td>{{ total_stockist_meet_new > 0 ? total_stockist_meet_new : 0 }}</td>
                     <td style="background-color: #ecf0f1;"></td>
                     <th>Total Fieldwork days</th>
                     <td>{{ field_work_days }}</td>
                   </tr>
                   <tr>
                     <th>Semi stockist</th>
-                    <td>{{ field_work_days > 0 ? (total_semi_met/field_work_days).toFixed(2) : 0 }}
-                    <td>{{ total_semi_meet > 0 ? total_semi_meet : 0 }}</td>
+                    <td>{{ field_work_days > 0 ? (total_semi_meet/field_work_days).toFixed(2) : 0 }}
+                    <td>{{ total_semi_meet_new > 0 ? total_semi_meet_new : 0 }}</td>
                     <td style="background-color: #ecf0f1;"></td>
                     <th>Total visits</th>
                     <td>{{ total_visits }}</td>
@@ -40,7 +40,7 @@
                   <tr>
                     <th>Retailer</th>
                     <td>{{ field_work_days > 0 ? (total_retailer_met/field_work_days).toFixed(2) : 0 }}
-                    <td>{{ total_retailer_meet > 0 ? total_retailer_meet : 0 }}</td>
+                    <td>{{ total_retailer_meet_new > 0 ? total_retailer_meet_new : 0 }}</td>
                     <td style="background-color: #ecf0f1;"></td>
                     <th>Total POB (self)</th>
                     <td>{{ total_pob_self.toFixed(0) }}</td>
@@ -50,7 +50,7 @@
                     <th *ngIf="environment.projectName == 'TX'"></th>
                     <td *ngIf="environment.projectName != 'TX'">{{ field_work_days > 0 ? (total_chemist_met/field_work_days).toFixed(2) : 0 }}</td>
                     <td *ngIf="environment.projectName == 'TX'"></td>
-                    <td *ngIf="environment.projectName != 'TX'" >{{ total_chemist_meet > 0 ? total_chemist_meet : 0 }}</td>
+                    <td *ngIf="environment.projectName != 'TX'" >{{ total_chemist_meet_new > 0 ? total_chemist_meet_new : 0 }}</td>
                     <td *ngIf="environment.projectName == 'TX'" ></td>
                     <td style="background-color: #ecf0f1;"></td>
                     <th>Total POB (Jointwork)</th>
@@ -61,7 +61,7 @@
                     <th *ngIf="environment.projectName == 'TX'"></th>
                     <td *ngIf="environment.projectName != 'TX'">{{ field_work_days > 0 ? (total_dr_met/field_work_days).toFixed(2) : 0 }}
                     <td *ngIf="environment.projectName == 'TX'"></td>
-                    <td *ngIf="environment.projectName != 'TX'">{{ total_dr_meet > 0 ? total_dr_meet : 0 }}</td>
+                    <td *ngIf="environment.projectName != 'TX'">{{ total_dr_meet_new > 0 ? total_dr_meet_new : 0 }}</td>
                     <td *ngIf="environment.projectName == 'TX'"></td>
                     <td style="background-color: #ecf0f1;"></td>
                     <th>Total leaves</th>

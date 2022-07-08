@@ -1,12 +1,12 @@
-import {Component, Input} from "@angular/core";
-import {BaseAuthComponent} from "../../../../base/base_auth.component";
-import {AuthService} from "../../../../../services/AuthService";
-import {ReportService} from "../../../../../services/report.service";
-import {Attendance} from "../../../../../models/attendance/attendance";
-import {Order} from "../../../../../models/order/order";
-import {Visit} from "../../../../../models/visit/visit";
-import {Customer} from "../../../../../models/customer/customer";
-import {User} from '../../../../../models/user/user';
+import { Component, Input } from "@angular/core";
+import { BaseAuthComponent } from "../../../../base/base_auth.component";
+import { AuthService } from "../../../../../services/AuthService";
+import { ReportService } from "../../../../../services/report.service";
+import { Attendance } from "../../../../../models/attendance/attendance";
+import { Order } from "../../../../../models/order/order";
+import { Visit } from "../../../../../models/visit/visit";
+import { Customer } from "../../../../../models/customer/customer";
+import { User } from '../../../../../models/user/user';
 
 declare let jQuery: any;
 
@@ -43,6 +43,11 @@ export class MonthSummaryComponent extends BaseAuthComponent {
   total_semi_met: number = 0;
   total_chemist_met: number = 0;
   total_retailer_met: number = 0;
+  total_stockist_meet_new: number = 0;
+  total_dr_meet_new: number = 0;
+  total_chemist_meet_new: number = 0;
+  total_semi_meet_new: number = 0;
+  total_retailer_meet_new :number = 0;
   dr_call_average: number = 0;
   chemist_call_average: number = 0;
 
@@ -132,13 +137,14 @@ export class MonthSummaryComponent extends BaseAuthComponent {
 
           // get unique customer visits count
           let visits = response.visits.map(vis => new Visit(vis));
+          let new_visits = response.visits.map(vis => new Visit(vis));
           let all_visits = response.all_visits.map(vis => new Visit(vis));
 
           // get attendance count
           let attendances = response.attendances.map(att => new Attendance(att));
           let leave_counts = response.leave_counts.map(att => new Attendance(att));
 
-          this.prepareData(orders, orders_csm, visits, attendances, all_visits, leave_counts);
+          this.prepareData(orders, orders_csm, visits, attendances, all_visits, new_visits, leave_counts);
         },
         err => {
           this.loading = false;
@@ -157,20 +163,34 @@ export class MonthSummaryComponent extends BaseAuthComponent {
    * @param leave_counts
    * @param customers
    */
-  prepareData(orders: Order[], orders_csm: Order[], visits: Visit[], attendances: Attendance[], all_visits: Visit[], leave_counts: Attendance[]) {
+  prepareData(orders: Order[], orders_csm: Order[], visits: Visit[], attendances: Attendance[], all_visits: Visit[], new_visits: Visit[], leave_counts: Attendance[]) {
 
     // distinct visit count
     visits.map(vis => {
       if (vis.customer_type_id === 5)
-        this.total_dr_meet += +vis.all_visit_count;
+        this.total_dr_meet += +vis.visit_count;
       if (vis.customer_type_id === 4)
-        this.total_chemist_meet += +vis.all_visit_count;
+        this.total_chemist_meet += +vis.visit_count;
       if (vis.customer_type_id === 1)
-        this.total_stockist_meet += +vis.all_visit_count;
+        this.total_stockist_meet += +vis.visit_count;
       if (vis.customer_type_id === 2)
-        this.total_semi_meet += +vis.all_visit_count;
+        this.total_semi_meet += +vis.visit_count;
       if (vis.customer_type_id === 3)
-        this.total_retailer_meet += +vis.all_visit_count;
+        this.total_retailer_meet += +vis.visit_count;
+    });
+
+    // distinct visit count
+    new_visits.map(vis => {
+      if (vis.customer_type_id === 1)
+        this.total_stockist_meet_new += +vis.all_visit_count;
+      if (vis.customer_type_id === 2)
+        this.total_semi_meet_new += +vis.all_visit_count;
+      if (vis.customer_type_id === 3)
+        this.total_retailer_meet_new += +vis.all_visit_count;
+      if (vis.customer_type_id === 4)
+        this.total_chemist_meet_new += +vis.all_visit_count;
+      if (vis.customer_type_id === 5)
+        this.total_dr_meet_new += +vis.all_visit_count;
     });
 
     // total visit count
@@ -200,7 +220,7 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     // order count
     orders.map(ord => {
       if (ord.order_day_total_count > 0)
-      this.total_pob_self += ord.order_day_total_count;
+        this.total_pob_self += ord.order_day_total_count;
     });
 
     // order count for CSM
@@ -218,7 +238,7 @@ export class MonthSummaryComponent extends BaseAuthComponent {
   /**
    * reset all field
    */
-  reset(){
+  reset() {
     this.total_dr_meet = 0;
     this.total_dr_met = 0;
     this.total_chemist_meet = 0;
@@ -229,6 +249,11 @@ export class MonthSummaryComponent extends BaseAuthComponent {
     this.total_semi_meet = 0;
     this.total_stockist_met = 0;
     this.total_stockist_meet = 0;
+    this.total_stockist_meet_new = 0;
+    this.total_semi_meet_new = 0;
+    this.total_retailer_meet_new  = 0;
+    this.total_chemist_meet_new = 0;
+    this.total_dr_meet_new = 0;
     this.dr_call_average = 0;
     this.chemist_call_average = 0;
     this.field_work_days = 0;
