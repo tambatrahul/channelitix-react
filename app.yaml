@@ -11,8 +11,9 @@
 #service: vikrant-frontend
 #service: cimune-frontend
 #service: govaxx-frontend
-service: tx-frontend
+#service: tx-frontend
 #service: training-channelitix
+service: aspira-plus-frontend
 runtime: python27
 threadsafe: yes
 # [END runtime]

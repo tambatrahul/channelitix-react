@@ -53,3 +53,6 @@ dispatch:
 
   - url: "prod.primary.channelitix.com/*"
     service: prod-primary-sales
+
+  - url: "aplus.channelitix.com/*"
+    service: aspira-plus-frontend

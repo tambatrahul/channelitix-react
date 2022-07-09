@@ -77,8 +77,8 @@
         "vikrant2": "environments/environment.vikrant2.ts",
         "cimune": "environments/environment.cimune.ts",
         "govaxx": "environments/environment.govaxx.ts",
-        "tx": "environments/environment.tx.ts"
-
+        "tx": "environments/environment.tx.ts",
+        "aplus": "environments/environment.aspira_plus.ts"
       }
     }
   ],
