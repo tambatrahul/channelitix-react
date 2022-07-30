@@ -13,7 +13,8 @@
 #service: govaxx-frontend
 #service: tx-frontend
 #service: training-channelitix
-service: aspira-plus-frontend
+#service: aspira-plus-frontend
+service: chl-frontend
 runtime: python27
 threadsafe: yes
 # [END runtime]

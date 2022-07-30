@@ -56,3 +56,6 @@ dispatch:
 
   - url: "aplus.channelitix.com/*"
     service: aspira-plus-frontend
+
+  - url: "chl.channelitix.com/*"
+    service: chl-frontend
