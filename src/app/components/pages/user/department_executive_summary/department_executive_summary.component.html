@@ -1,0 +1,898 @@
+<div class="container-fluid users" #loading_box>
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="page-breadcrumb-wrap">
+            <div class="page-breadcrumb-info">
+              <h2 class="breadcrumb-titles">Department Executive Summary Report</h2>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xs-12 col-md-3" *ngIf="_service.user.download_access == 1">
+          <a class="btn btn-primary btn-block btn-margin" style="margin-top: 25px;"
+             (click)="download()">
+            Export to xlsx
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Page Breadcrumb -->
+  
+    <div class="row">
+      <div class="col-xs-12 col-md-3">
+        <month-picker [month]="month" [year]="year" (onMonthYearChanged)="monthYearChanged($event)"></month-picker>
+      </div>
+      <div class="col-xs-12 col-md-3" *roleCheck="ROLE_ADMIN">
+        <zone-select [value]="zone_id"
+                     (onValueChanged)="zoneChanged($event)"></zone-select>
+      </div>
+      <div class="col-xs-12 col-md-2" *roleCheck="ROLE_RSM">
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary btn-block" (click)="toggleCoverageView()">{{ coverage_view == true ? 'View Call Avg' : 'View Coverage' }}</button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-xs-12" *roleCheck="ROLE_CSM">
+        <div class="row" *ngFor="let region of regions">
+          <div class="col-xs-12">
+            <div class="box-widget widget-module">
+              <div class="widget-head clearfix">
+                <span class="h-icon"><i class="fa fa-table"></i></span>
+                <h4><strong>{{ region.name }}</strong></h4>
+              </div>
+              <div>
+                <div class="widget-container report-table">
+                  <div class="widget-block">
+                    <div class="table-responsive">
+                      <table class="table table-bordered visit_table">
+                        <thead>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="white">
+                              Total Primary Sale ('000s)
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="slate">
+                              Soframycin Primary Sales('000s)
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="dark_blue">
+                              Accu-Chek Primary Sales('000s)
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="light_blue">
+                              Accu-Fine Primary Sales('000s)
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="3" class="light_yellow">
+                              Becosules POB
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="3" class="light_red">
+                              Gelusil POB
+                            </th>
+                          </template>
+  
+                          <th class="white">FW Days</th>
+                          <th class="white">Call Avg</th>
+                          <th colspan="3">Total</th>
+                          <th *ngIf="coverage_view" colspan="4">Stockist</th>
+                          <th *ngIf="!coverage_view" colspan="3">Stockist</th>
+                          <th colspan="3" class="white">Semi</th>
+                          <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'IKON'">
+                            <th colspan="3">Retailer</th>
+                          </template>
+                          <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
+                            <th colspan="3">Other Retailer</th>
+                          </template>
+                          <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'IKON'">
+                            <th colspan="3" class="grey">Control Chemist</th>
+                          </template>
+                        </tr>
+                        <tr>
+                          <th></th>
+                          <th>Headquarters</th>
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="white">Tgt</th>
+                            <th class="white">Ach</th>
+                            <th class="white">% Ach</th>
+                            <th class="white">POB val</th>
+                          </template>
+  
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="slate">Tgt</th>
+                            <th class="slate">Ach</th>
+                            <th class="slate">% Ach</th>
+                            <th class="slate">POB val</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="dark_blue">Tgt</th>
+                            <th class="dark_blue">Ach</th>
+                            <th class="dark_blue">% Ach</th>
+                            <th class="dark_blue">POB val</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="light_blue">Tgt</th>
+                            <th class="light_blue">Ach</th>
+                            <th class="light_blue">% Ach</th>
+                            <th class="light_blue">POB val</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="light_yellow">Tgt</th>
+                            <th class="light_yellow">Ach</th>
+                            <th class="light_yellow">% Ach</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="light_red">Tgt</th>
+                            <th class="light_red">Ach</th>
+                            <th class="light_red">% Ach</th>
+                          </template>
+  
+                          <th class="white"></th>
+                          <th class="white"></th>
+                          <th>Customer</th>
+                          <th>Met</th>
+                          <th *ngIf="coverage_view">% Cov</th>
+                          <th *ngIf="!coverage_view">Call Avg</th>
+  
+                          <th *ngIf="coverage_view">A/B</th>
+                          <th *ngIf="coverage_view">V1</th>
+                          <th *ngIf="coverage_view">V2</th>
+                          <th *ngIf="coverage_view">V3</th>
+                          <th *ngIf="!coverage_view">Total</th>
+                          <th *ngIf="!coverage_view">Met</th>
+                          <th *ngIf="!coverage_view">Call Avg</th>
+  
+                          <th class="white">Total</th>
+                          <th class="white">Met</th>
+                          <th *ngIf="coverage_view" class="white">% Cov</th>
+                          <th *ngIf="!coverage_view" class="white">Call Avg</th>
+                          <th>Total</th>
+                          <th>Met</th>
+                          <th *ngIf="coverage_view">% Cov</th>
+                          <th *ngIf="!coverage_view">Call Avg</th>
+                        </tr>
+                        </thead>
+  
+                        <tfoot>
+                        <tr>
+                          <th></th>
+                          <th>Headquarters</th>
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="white">Tgt</th>
+                            <th class="white">Ach</th>
+                            <th class="white">% Ach</th>
+                            <th class="white">POB val</th>
+                          </template>
+  
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="slate">Tgt</th>
+                            <th class="slate">Ach</th>
+                            <th class="slate">% Ach</th>
+                            <th class="slate">POB val</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="dark_blue">Tgt</th>
+                            <th class="dark_blue">Ach</th>
+                            <th class="dark_blue">% Ach</th>
+                            <th class="dark_blue">POB val</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="light_blue">Tgt</th>
+                            <th class="light_blue">Ach</th>
+                            <th class="light_blue">% Ach</th>
+                            <th class="light_blue">POB val</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="light_yellow">Tgt</th>
+                            <th class="light_yellow">Ach</th>
+                            <th class="light_yellow">% Ach</th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th class="light_red">Tgt</th>
+                            <th class="light_red">Ach</th>
+                            <th class="light_red">% Ach</th>
+                          </template>
+  
+                          <th class="white"></th>
+                          <th class="white"></th>
+                          <th>Customer</th>
+                          <th>Met</th>
+                          <th *ngIf="coverage_view">% Cov</th>
+                          <th *ngIf="!coverage_view">Call Avg</th>
+  
+                          <th *ngIf="coverage_view">A/B</th>
+                          <th *ngIf="coverage_view">V1</th>
+                          <th *ngIf="coverage_view">V2</th>
+                          <th *ngIf="coverage_view">V3</th>
+                          <th *ngIf="!coverage_view">Total</th>
+                          <th *ngIf="!coverage_view">Met</th>
+                          <th *ngIf="!coverage_view">Call Avg</th>
+  
+                          <th class="white">Total</th>
+                          <th class="white">Met</th>
+                          <th *ngIf="coverage_view" class="white">% Cov</th>
+                          <th *ngIf="!coverage_view" class="white">Call Avg</th>
+                          <th>Total</th>
+                          <th>Met</th>
+                          <th *ngIf="coverage_view">% Cov</th>
+                          <th *ngIf="!coverage_view">Call Avg</th>
+                        </tr>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="white">
+                              Total Primary Sale ('000s)
+                            </th>
+                          </template>
+  
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="slate">
+                              Soframycin Primary Sale ('000s)
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="dark_blue">
+                              Accu-Chek Primary Sales('000s)
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="4" class="light_blue">
+                              Accu-Fine Primary Sales('000s)
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="3" class="light_yellow">
+                              Becosules POB
+                            </th>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <th colspan="3" class="light_red">
+                              Gelusil POB
+                            </th>
+                          </template>
+                          <th class="white">FW Days</th>
+                          <th class="white">Call Avg</th>
+                          <th colspan="3">Total</th>
+                          <th *ngIf="coverage_view" colspan="4">Stockist</th>
+                          <th *ngIf="!coverage_view" colspan="3">Stockist</th>
+                          <th colspan="3" class="white">Semi</th>
+                          <th colspan="3">Retailer</th>
+                        </tr>
+                        </tfoot>
+  
+                        <tbody>
+                        <tr class="dark_grey">
+                          <th>Total</th>
+                          <th></th>
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <td class="white">{{
+                              (region.target/1000).toFixed(0) | number : fractionSize}}
+                            </td>
+                            <td class="white">{{
+                              (region.primary/1000).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="white">
+                              {{ region.target > 0 ? ((region.primary * 100 /
+                                region.target).toFixed(0)) :
+                              0 }} %
+                            </td>
+                            <td class="white">{{ region.total_pob > 0 ? (region.total_pob/1000).toFixed(0) : 0}}</td>
+                          </template>
+  
+                          <template [ngIf]="environment.envName == 'sk_group'">
+                            <td>{{ (region.target/1000).toFixed(0) | number : fractionSize }}</td>
+                            <td>{{ (region.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                            <td>
+                              {{ region.target > 0 ?((region.total_pob * 100
+                              /(region.target)).toFixed(0)) : 0 }} %
+                            </td>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <td class="slate">{{
+                              (region.encube_target/1000).toFixed(0) | number : fractionSize}}
+                            </td>
+                            <td class="slate">{{
+                              (region.encube_primary/1000).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="slate">
+                              {{ region.encube_target > 0 ? ((region.encube_primary * 100 /
+                                region.encube_target).toFixed(0)) :
+                              0 }} %
+                            </td>
+                            <td class="slate">{{ region.encube_total_pob > 0 ? (region.encube_total_pob/1000).toFixed(0) : 0 }}</td>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <td class="dark_blue">{{
+                              (region.accuchek_target/1000).toFixed(0) | number : fractionSize}}
+                            </td>
+                            <td class="dark_blue">{{
+                              (region.accuchek_primary/1000).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="dark_blue">
+                              {{ region.accuchek_target > 0 ? ((region.accuchek_primary * 100 /
+                                region.accuchek_target).toFixed(0)) :
+                              0 }} %
+                            </td>
+                            <td class="dark_blue">{{ region.accuchek_total_pob > 0 ? (region.accuchek_total_pob/1000).toFixed(0) : 0 }}</td>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <td class="light_blue">{{
+                              (region.accufine_target/1000).toFixed(0) | number : fractionSize}}
+                            </td>
+                            <td class="light_blue">{{
+                              (region.accufine_primary/1000).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="light_blue">
+                              {{ region.accufine_target > 0 ? ((region.accufine_primary * 100 /
+                                region.accufine_target).toFixed(0)) :
+                              0 }} %
+                            </td>
+                            <td class="light_blue">{{ region.accufine_total_pob > 0 ? (region.accufine_total_pob/1000).toFixed(0) : 0 }}</td>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <td class="light_yellow">{{ ((region.becosules_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="light_yellow">{{ (region.becosules_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                            <td class="light_yellow">
+                              {{ region.becosules_target > 0 ?((region.becosules_total_pob * 100 /(region.becosules_target *
+                              0.5)).toFixed(0)) : 0 }} %
+                            </td>
+                          </template>
+  
+                          <template [ngIf]="environment.envName != 'sk_group'">
+                            <td class="light_red">{{ ((region.gelusil_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                            </td>
+                            <td class="light_red">{{ (region.gelusil_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                            <td class="light_red">
+                              {{ region.gelusil_target > 0 ?((region.gelusil_total_pob * 100 /(region.gelusil_target *
+                              0.5)).toFixed(0)) : 0 }} %
+                            </td>
+                          </template>
+  
+                          <td class="white">{{ region.total_att }}</td>
+                          <td class="white">{{ region.total_att > 0 ? (region.all_total_visit / region.total_att).toFixed(1) : 0 }}</td>
+  
+                          <td>
+                            {{ region.customer_types[0].customerCount
+                          +region.customer_types[1].customerCount
+                          +region.customer_types[2].customerCount
+                          +region.customer_types[3].customerCount
+                          +region.customer_types[4].customerCount
+                          +region.customer_types[5].customerCount
+                          +region.customer_types[6].customerCount
+                          +region.customer_types[7].customerCount}}
+                          </td>
+                          <td *ngIf="coverage_view">
+                            {{ region.customer_types[0].visitCount
+                          +region.customer_types[1].visitCount
+                          +region.customer_types[2].visitCount
+                          +region.customer_types[3].visitCount
+                          +region.customer_types[4].visitCount
+                          +region.customer_types[5].visitCount
+                          +region.customer_types[6].visitCount
+                          +region.customer_types[7].visitCount}}
+                          </td>
+                          <td *ngIf="!coverage_view">
+                            {{ region.customer_types[0].allVisitCount
+                          +region.customer_types[1].allVisitCount
+                          +region.customer_types[2].allVisitCount
+                          +region.customer_types[3].allVisitCount
+                          +region.customer_types[4].allVisitCount
+                          +region.customer_types[5].allVisitCount
+                          +region.customer_types[6].allVisitCount
+                          +region.customer_types[7].allVisitCount }}
+                          </td>
+  
+                          <td *ngIf="coverage_view">
+                            {{
+                            (((region.customer_types[0].visitCount
+                                +region.customer_types[1].visitCount
+                                +region.customer_types[2].visitCount
+                                +region.customer_types[3].visitCount
+                                +region.customer_types[4].visitCount
+                                +region.customer_types[5].visitCount
+                                +region.customer_types[6].visitCount
+                                +region.customer_types[7].visitCount)
+                              /(region.customer_types[0].customerCount
+                                +region.customer_types[1].customerCount
+                                +region.customer_types[2].customerCount
+                                +region.customer_types[3].customerCount
+                                +region.customer_types[4].customerCount
+                                +region.customer_types[5].customerCount
+                                +region.customer_types[6].customerCount
+                                +region.customer_types[7].customerCount)) * 100).toFixed(0)
+                            }} %
+                          </td>
+                          <td *ngIf="!coverage_view">
+                            {{ region.total_att > 0 ?
+                            ((region.customer_types[0].allVisitCount
+                                +region.customer_types[1].allVisitCount
+                                +region.customer_types[2].allVisitCount
+                                +region.customer_types[3].allVisitCount
+                                +region.customer_types[4].allVisitCount
+                                +region.customer_types[5].allVisitCount
+                                +region.customer_types[6].allVisitCount
+                                +region.customer_types[7].allVisitCount)
+                              /region.total_att).toFixed(1) : 0.0 }}
+                          </td>
+  
+                          <td>{{ region.customer_types[0].aCustomerCount
+                          + region.customer_types[0].bCustomerCount }}
+                          </td>
+                          <td *ngIf="coverage_view">{{ region.customer_types[0].aVisitCount
+                          + region.customer_types[0].bVisitCount }}
+                          </td>
+                          <td *ngIf="coverage_view">{{ region.customer_types[0].v2_count }}</td>
+                          <td *ngIf="coverage_view">{{ region.customer_types[0].v3_count }}</td>
+                          <td *ngIf="!coverage_view">{{ region.customer_types[0].aAllVisitCount
+                          + region.customer_types[0].bAllVisitCount }}
+                          </td>
+                          <td *ngIf="!coverage_view">
+                            {{ region.total_att>0? ((region.customer_types[0].aAllVisitCount
+                            + region.customer_types[0].bAllVisitCount)/region.total_att).toFixed(1) : 0}}
+                          </td>
+  
+                          <td class="white">{{ region.customer_types[1].customerCount }}</td>
+                          <td *ngIf="coverage_view" class="white">{{ region.customer_types[1].visitCount }}</td>
+                          <td *ngIf="!coverage_view" class="white">{{ region.customer_types[1].allVisitCount }}</td>
+  
+                          <td *ngIf="coverage_view" class="white">{{
+                            region.customer_types[1].percentageCount.toFixed(0)}} %
+                          </td>
+                          <td *ngIf="!coverage_view" class="white">
+                            {{ region.total_att > 0? (region.customer_types[1].allVisitCount/region.total_att).toFixed(1) : 0}}
+                          </td>
+  
+                          <td>{{ region.customer_types[2].customerCount }}</td>
+                          <td *ngIf="coverage_view">{{ region.customer_types[2].visitCount }}</td>
+                          <td *ngIf="!coverage_view">{{ region.customer_types[2].allVisitCount }}</td>
+  
+                          <td *ngIf="coverage_view" class="white">{{
+                            region.customer_types[2].percentageCount.toFixed(0)}} %
+                          </td>
+                          <td *ngIf="!coverage_view" class="white">
+                            {{ region.total_att >0? (region.customer_types[2].allVisitCount/region.total_att).toFixed(1) : 0 }}
+                          </td>
+                        </tr>
+                        <template ngFor let-area [ngForOf]="region.areas">
+                          <tr class="white" *ngIf="area.status == 'active'">
+                            <th>{{ area.name }}</th>
+                            <th></th>
+  
+                            <template [ngIf]="environment.envName != 'sk_group'">
+                              <td class="white">{{ (area.target/1000).toFixed(0) | number : fractionSize}}</td>
+                              <td class="white">{{ (area.primary/1000).toFixed(0) | number :
+                                fractionSize }}
+                              </td>
+                              <td class="white">
+                                {{ area.target > 0 ? ((area.primary * 100 /
+                                  area.target).toFixed(0)) :
+                                0 }} %
+                              </td>
+                              <td>{{ (area.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                            </template>
+  
+                            <template [ngIf]="environment.envName == 'sk_group'">
+                              <td>{{ (area.target/1000).toFixed(0) | number : fractionSize }}</td>
+                              <td>{{ (area.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                              <td>
+                                {{ area.target > 0 ?((area.total_pob * 100
+                                /(area.target)).toFixed(0)) : 0 }} %
+                              </td>
+                            </template>
+  
+                            <template [ngIf]="environment.envName != 'sk_group'">
+                              <td class="slate">{{ (area.encube_target/1000).toFixed(0) | number : fractionSize}}</td>
+                              <td class="slate">{{ (area.encube_primary/1000).toFixed(0) | number :
+                                fractionSize }}
+                              </td>
+                              <td class="slate">
+                                {{ area.encube_target > 0 ? ((area.encube_primary * 100 /
+                                  area.encube_target).toFixed(0)) :
+                                0 }} %
+                              </td>
+                              <td class="slate">{{ area.encube_total_pob > 0 ? (area.encube_total_pob/1000).toFixed(0) : 0 }}</td>
+                            </template>
+  
+                            <template [ngIf]="environment.envName != 'sk_group'">
+                              <td class="dark_blue">{{ (area.accuchek_target/1000).toFixed(0) | number : fractionSize}}</td>
+                              <td class="dark_blue">{{ (area.accuchek_primary/1000).toFixed(0) | number :
+                                fractionSize }}
+                              </td>
+                              <td class="dark_blue">
+                                {{ area.accuchek_target > 0 ? ((area.accuchek_primary * 100 /
+                                  area.accuchek_target).toFixed(0)) :
+                                0 }} %
+                              </td>
+                              <td class="dark_blue">{{ area.accuchek_total_pob > 0 ? (area.accuchek_total_pob/1000).toFixed(0) : 0}}</td>
+                            </template>
+  
+                            <template [ngIf]="environment.envName != 'sk_group'">
+                              <td class="light_blue">{{ (area.accufine_target/1000).toFixed(0) | number : fractionSize}}</td>
+                              <td class="light_blue">{{ (area.accufine_primary/1000).toFixed(0) | number :
+                                fractionSize }}
+                              </td>
+                              <td class="light_blue">
+                                {{ area.accufine_target > 0 ? ((area.accufine_primary * 100 /
+                                  area.accufine_target).toFixed(0)) :
+                                0 }} %
+                              </td>
+                              <td class="light_blue">{{ area.accufine_total_pob > 0 ? (area.accufine_total_pob/1000).toFixed(0): 0 }}</td>
+                            </template>
+  
+                            <template [ngIf]="environment.envName != 'sk_group'">
+                              <td class="light_yellow">{{ ((area.becosules_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                              </td>
+                              <td class="light_yellow">{{ (area.becosules_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                              <td class="light_yellow">
+                                {{ area.becosules_target > 0 ?((area.becosules_total_pob * 100 /(area.becosules_target *
+                                0.5)).toFixed(0)) : 0 }} %
+                              </td>
+                            </template>
+  
+                            <template [ngIf]="environment.envName != 'sk_group'">
+                              <td class="light_red">{{ ((area.gelusil_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                              </td>
+                              <td class="light_red">{{ (area.gelusil_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                              <td class="light_red">
+                                {{ area.gelusil_target > 0 ?((area.gelusil_total_pob * 100 /(area.gelusil_target *
+                                0.5)).toFixed(0)) : 0 }} %
+                              </td>
+                            </template>
+                            <td class="white">{{ (area.total_att).toFixed(0) }}</td>
+                            <td class="white">
+                              {{ area.total_att >0 ? (area.all_total_visit / area.total_att).toFixed(0) : 0}}
+                            </td>
+                            <td>
+                              {{
+                              area.customer_types[0].customerCount
+                              +area.customer_types[1].customerCount
+                              +area.customer_types[2].customerCount
+                              +area.customer_types[3].customerCount
+                              +area.customer_types[4].customerCount
+                              +area.customer_types[5].customerCount
+                              +area.customer_types[6].customerCount
+                              +area.customer_types[7].customerCount
+                              }}
+                            </td>
+                            <td *ngIf="coverage_view">
+                              {{ area.customer_types[0].visitCount
+                            +area.customer_types[1].visitCount
+                            +area.customer_types[2].visitCount
+                            +area.customer_types[3].visitCount
+                            +area.customer_types[4].visitCount
+                            +area.customer_types[5].visitCount
+                            +area.customer_types[6].visitCount
+                            +area.customer_types[7].visitCount}}
+                            </td>
+                            <td *ngIf="!coverage_view">
+                              {{ area.customer_types[0].allVisitCount
+                            +area.customer_types[1].allVisitCount
+                            +area.customer_types[2].allVisitCount
+                            +area.customer_types[3].allVisitCount
+                            +area.customer_types[4].allVisitCount
+                            +area.customer_types[5].allVisitCount
+                            +area.customer_types[6].allVisitCount
+                            +area.customer_types[7].allVisitCount }}
+                            </td>
+                            <td *ngIf="coverage_view">
+                              {{
+                              (((area.customer_types[0].visitCount
+                                  +area.customer_types[1].visitCount
+                                  +area.customer_types[2].visitCount
+                                  +area.customer_types[3].visitCount
+                                  +area.customer_types[4].visitCount
+                                  +area.customer_types[5].visitCount
+                                  +area.customer_types[6].visitCount
+                                  +area.customer_types[7].visitCount)
+                                /(area.customer_types[0].customerCount
+                                  +area.customer_types[1].customerCount
+                                  +area.customer_types[2].customerCount
+                                  +area.customer_types[3].customerCount
+                                  +area.customer_types[4].customerCount
+                                  +area.customer_types[5].customerCount
+                                  +area.customer_types[6].customerCount
+                                  +area.customer_types[7].customerCount)) * 100).toFixed(0)
+                              }} %
+                            </td>
+                            <td *ngIf="!coverage_view">
+                              {{ area.total_att > 0?
+                              ((area.customer_types[0].allVisitCount
+                                  +area.customer_types[1].allVisitCount
+                                  +area.customer_types[2].allVisitCount
+                                  +area.customer_types[3].allVisitCount
+                                  +area.customer_types[4].allVisitCount
+                                  +area.customer_types[5].allVisitCount
+                                  +area.customer_types[6].allVisitCount
+                                  +area.customer_types[7].allVisitCount)
+                                /area.total_att).toFixed(1) : 0.0 }}
+                            </td>
+                            <td>{{ area.customer_types[0].aCustomerCount
+                            + area.customer_types[0].bCustomerCount }}
+                            </td>
+                            <td *ngIf="coverage_view">{{ area.customer_types[0].aVisitCount
+                            + area.customer_types[0].bVisitCount }}
+                            </td>
+                            <td *ngIf="coverage_view">{{ area.customer_types[0].v2_count }}</td>
+                            <td *ngIf="coverage_view">{{ area.customer_types[0].v3_count }}</td>
+                            <td *ngIf="!coverage_view">{{ area.customer_types[0].aAllVisitCount
+                            + area.customer_types[0].bAllVisitCount }}
+                            </td>
+                            <td *ngIf="!coverage_view">
+                              {{ area.total_att>0 ? ((area.customer_types[0].aAllVisitCount
+                              + area.customer_types[0].bAllVisitCount)/area.total_att).toFixed(1) : 0}}
+                            </td>
+  
+                            <td class="white">{{ area.customer_types[1].customerCount }}</td>
+                            <td *ngIf="coverage_view" class="white">{{ area.customer_types[1].visitCount }}</td>
+                            <td *ngIf="!coverage_view" class="white">{{ area.customer_types[1].allVisitCount }}</td>
+  
+                            <td *ngIf="coverage_view" class="white">{{
+                              area.customer_types[1].percentageCount.toFixed(0)}} %
+                            </td>
+                            <td *ngIf="!coverage_view" class="white">
+                              {{ area.total_att>0? (area.customer_types[1].allVisitCount/area.total_att).toFixed(1) : 0 }}
+                            </td>
+  
+                            <td>{{ area.customer_types[2].customerCount }}</td>
+                            <td *ngIf="coverage_view">{{ area.customer_types[2].visitCount }}</td>
+                            <td *ngIf="!coverage_view">{{ area.customer_types[2].allVisitCount }}</td>
+  
+                            <td *ngIf="coverage_view" class="white">{{
+                              area.customer_types[2].percentageCount.toFixed(0)}} %
+                            </td>
+                            <td *ngIf="!coverage_view" class="white">
+                              {{ area.total_att>0 ? (area.customer_types[2].allVisitCount/area.total_att).toFixed(1): 0 }}
+                            </td>
+                          </tr>
+  
+                          <template ngFor let-hq [ngForOf]="area.headquarters">
+                            <tr *ngIf="hq.status == 'active'">
+                              <th></th>
+                              <th>{{ hq.name }}</th>
+  
+                              <template [ngIf]="environment.envName != 'sk_group'">
+                                <td class="white">{{ (hq.target/1000).toFixed(0) | number : fractionSize}}</td>
+                                <td class="white">{{ (hq.primary/1000).toFixed(0) | number :
+                                  fractionSize
+                                  }}
+                                </td>
+                                <td class="white">
+                                  {{ hq.target > 0 ? ((hq.primary * 100 /
+                                    hq.target).toFixed(0)) :
+                                  0 }} %
+                                </td>
+                                <td class="white">{{ hq.total_pob > 0 ? (hq.total_pob/1000).toFixed(0) : 0}}</td>
+                              </template>
+  
+                              <template [ngIf]="environment.envName == 'sk_group'">
+                                <td>{{ (hq.target).toFixed(0) | number : fractionSize }}</td>
+                                <td>{{ hq.total_pob.toFixed(0) | number : fractionSize }}</td>
+                                <td>
+                                  {{ hq.target > 0 ?((hq.total_pob * 100
+                                  /(hq.target)).toFixed(0)) : 0 }} %
+                                </td>
+                              </template>
+  
+                              <template [ngIf]="environment.envName != 'sk_group'">
+                                <td class="slate">{{ (hq.encube_target/1000).toFixed(0) | number : fractionSize}}</td>
+                                <td class="slate">{{ (hq.encube_primary/1000).toFixed(0) | number :
+                                  fractionSize
+                                  }}
+                                </td>
+                                <td class="slate">
+                                  {{ hq.encube_target > 0 ? ((hq.encube_primary * 100 /
+                                    hq.encube_target).toFixed(0)) :
+                                  0 }} %
+                                </td>
+                                <td class="slate">{{ hq.encube_total_pob > 0 ? (hq.encube_total_pob/1000).toFixed(0) : 0 }}</td>
+                              </template>
+  
+                              <template [ngIf]="environment.envName != 'sk_group'">
+                                <td class="dark_blue">{{ (hq.accuchek_target/1000).toFixed(0) | number : fractionSize}}</td>
+                                <td class="dark_blue">{{ (hq.accuchek_primary/1000).toFixed(0) | number :
+                                  fractionSize
+                                  }}
+                                </td>
+                                <td class="dark_blue">
+                                  {{ hq.accuchek_target > 0 ? ((hq.accuchek_primary * 100 /
+                                    hq.accuchek_target).toFixed(0)) :
+                                  0 }} %
+                                </td>
+                                <td class="dark_blue">{{ hq.accuchek_total_pob > 0 ? (hq.accuchek_total_pob/1000).toFixed(0) : 0 }}</td>
+                              </template>
+  
+                              <template [ngIf]="environment.envName != 'sk_group'">
+                                <td class="light_blue">{{ (hq.accufine_target/1000).toFixed(0) | number : fractionSize}}</td>
+                                <td class="light_blue">{{ (hq.accufine_primary/1000).toFixed(0) | number :
+                                  fractionSize
+                                  }}
+                                </td>
+                                <td class="light_blue">
+                                  {{ hq.accufine_target > 0 ? ((hq.accufine_primary * 100 /
+                                    hq.accufine_target).toFixed(0)) :
+                                  0 }} %
+                                </td>
+                                <td class="light_blue">{{ hq.accufine_total_pob > 0 ? (hq.accufine_total_pob/1000).toFixed(0) : 0 }}</td>
+                              </template>
+  
+                              <template [ngIf]="environment.envName != 'sk_group'">
+                                <td class="light_yellow">{{ ((hq.becosules_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                                </td>
+                                <td class="light_yellow">{{ (hq.becosules_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                                <td class="light_yellow">
+                                  {{ hq.becosules_target > 0 ?((hq.becosules_total_pob * 100 /(hq.becosules_target *
+                                  0.5)).toFixed(0)) : 0 }} %
+                                </td>
+                              </template>
+  
+                              <template [ngIf]="environment.envName != 'sk_group'">
+                                <td class="light_red">{{ ((hq.gelusil_target/1000) * 0.5).toFixed(0) | number : fractionSize }}
+                                </td>
+                                <td class="light_red">{{ (hq.gelusil_total_pob/1000).toFixed(0) | number : fractionSize }}</td>
+                                <td class="light_red">
+                                  {{ hq.gelusil_target > 0 ?((hq.gelusil_total_pob * 100 /(hq.gelusil_target *
+                                  0.5)).toFixed(0)) : 0 }} %
+                                </td>
+                              </template>
+                              <td class="white">{{ hq.total_att }}</td>
+                              <td class="white">
+                                {{ hq.total_att > 0 ? ((hq.all_total_visit /
+                                hq.total_att).toFixed(0)): 0 }}
+                              </td>
+                              <td>
+                                {{
+                                hq.customer_types[0].customerCount
+                                +hq.customer_types[1].customerCount
+                                +hq.customer_types[2].customerCount
+                                +hq.customer_types[3].customerCount
+                                +hq.customer_types[4].customerCount
+                                +hq.customer_types[5].customerCount
+                                +hq.customer_types[6].customerCount
+                                +hq.customer_types[7].customerCount
+                                }}
+                              </td>
+                              <td *ngIf="coverage_view">
+                                {{ hq.customer_types[0].visitCount
+                              +hq.customer_types[1].visitCount
+                              +hq.customer_types[2].visitCount
+                              +hq.customer_types[3].visitCount
+                              +hq.customer_types[4].visitCount
+                              +hq.customer_types[5].visitCount
+                              +hq.customer_types[6].visitCount
+                              +hq.customer_types[7].visitCount}}
+                              </td>
+                              <td *ngIf="!coverage_view">
+                                {{ hq.customer_types[0].allVisitCount
+                              +hq.customer_types[1].allVisitCount
+                              +hq.customer_types[2].allVisitCount
+                              +hq.customer_types[3].allVisitCount
+                              +hq.customer_types[4].allVisitCount
+                              +hq.customer_types[5].allVisitCount
+                              +hq.customer_types[6].allVisitCount
+                              +hq.customer_types[7].allVisitCount }}
+                              </td>
+                              <td *ngIf="coverage_view">
+                                {{
+                                (((hq.customer_types[0].visitCount
+                                    +hq.customer_types[1].visitCount
+                                    +hq.customer_types[2].visitCount
+                                    +hq.customer_types[3].visitCount
+                                    +hq.customer_types[4].visitCount
+                                    +hq.customer_types[5].visitCount
+                                    +hq.customer_types[6].visitCount
+                                    +hq.customer_types[7].visitCount)
+                                  /(hq.customer_types[0].customerCount
+                                    +hq.customer_types[1].customerCount
+                                    +hq.customer_types[2].customerCount
+                                    +hq.customer_types[3].customerCount
+                                    +hq.customer_types[4].customerCount
+                                    +hq.customer_types[5].customerCount
+                                    +hq.customer_types[6].customerCount
+                                    +hq.customer_types[7].customerCount)) * 100).toFixed(0)
+                                }} %
+                              </td>
+                              <td *ngIf="!coverage_view">
+                                {{ hq.total_att > 0?
+                                ((hq.customer_types[0].allVisitCount
+                                    +hq.customer_types[1].allVisitCount
+                                    +hq.customer_types[2].allVisitCount
+                                    +hq.customer_types[3].allVisitCount
+                                    +hq.customer_types[4].allVisitCount
+                                    +hq.customer_types[5].allVisitCount
+                                    +hq.customer_types[6].allVisitCount
+                                    +hq.customer_types[7].allVisitCount)
+                                  /hq.total_att).toFixed(1) : 0.0 }}
+                              </td>
+  
+                              <td>{{ hq.customer_types[0].aCustomerCount
+                              + hq.customer_types[0].bCustomerCount }}
+                              </td>
+                              <td *ngIf="coverage_view">{{ hq.customer_types[0].aVisitCount
+                              + hq.customer_types[0].bVisitCount }}
+                              </td>
+                              <td *ngIf="coverage_view">{{ hq.customer_types[0].v2_count }}</td>
+                              <td *ngIf="coverage_view">{{ hq.customer_types[0].v3_count }}</td>
+                              <td *ngIf="!coverage_view">{{ hq.customer_types[0].aAllVisitCount
+                              + hq.customer_types[0].bAllVisitCount }}
+                              </td>
+                              <td *ngIf="!coverage_view">
+                                {{ hq.total_att > 0? ((hq.customer_types[0].aAllVisitCount
+                                + hq.customer_types[0].bAllVisitCount)/hq.total_att).toFixed(1) : 0 }}
+                              </td>
+  
+                              <td class="white">{{ hq.customer_types[1].customerCount }}</td>
+                              <td *ngIf="coverage_view" class="white">{{ hq.customer_types[1].visitCount }}</td>
+                              <td *ngIf="!coverage_view" class="white">{{ hq.customer_types[1].allVisitCount }}</td>
+  
+                              <td *ngIf="coverage_view" class="white">{{
+                                hq.customer_types[1].percentageCount.toFixed(0)}} %
+                              </td>
+                              <td *ngIf="!coverage_view" class="white">
+                                {{ hq.total_att>0? (hq.customer_types[1].allVisitCount/hq.total_att).toFixed(1) : 0 }}
+                              </td>
+  
+                              <td>{{ hq.customer_types[2].customerCount }}</td>
+                              <td *ngIf="coverage_view">{{ hq.customer_types[2].visitCount }}</td>
+                              <td *ngIf="!coverage_view">{{ hq.customer_types[2].allVisitCount }}</td>
+  
+                              <td *ngIf="coverage_view">{{
+                                hq.customer_types[2].percentageCount.toFixed(0)}} %
+                              </td>
+                              <td *ngIf="!coverage_view">
+                                {{ hq.total_att > 0 ? (hq.customer_types[2].allVisitCount/hq.total_att).toFixed(1) : 0}}
+                              </td>
+                            </tr>
+                          </template>
+                        </template>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ./Users Table -->
+  </div>

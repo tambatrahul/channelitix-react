@@ -89,6 +89,12 @@
             <span class="nav-label">Headquarter Master</span>
           </a>
         </li>
+        <li *roleCheck="ROLE_CSM">
+          <a class="waves-effect" routerLink="/reports/department_executive_summary" *ngIf="environment.envName != 'sk_group' && environment.projectName =='TX'">
+            <span class="nav-icon"><i class="fa fa-table"></i></span>
+            <span class="nav-label">Department Executive Summary</span>
+          </a>
+        </li>
 
         <li *ngIf="!_auth_service.user?.isAdmin">
           <a class="waves-effect" routerLink="/attendances/monthly">

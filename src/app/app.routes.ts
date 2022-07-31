@@ -36,6 +36,7 @@ import {HQWiseVisitComponent} from "./components/pages/visit/hq_wise_visit_count
 import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
 import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
+import {DepartmentExecutiveSummaryComponent} from "./components/pages/user/department_executive_summary/department_executive_summary.component";
 import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
 import {ProductivityAnalysisReportComponent} from "./components/pages/order/productivity_analysis_report/productivity_analysis_report.component";
 import {AbbottStpComponent} from "./components/pages/standard_tour_program_pages/index/index.component";
@@ -485,6 +486,9 @@ export const routes: Routes = [
           }, {
             path: 'field_efforts_audit_scorecard',
             component: FieldEffortAuditScoreCardComponent,
+          },{
+            path: 'department_executive_summary',
+            component: DepartmentExecutiveSummaryComponent,
           }
         ]
       },

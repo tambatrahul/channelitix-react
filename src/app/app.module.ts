@@ -134,6 +134,7 @@ import {VideoComponent} from "./components/pages/video/index.component";
 import {StockistWisePobComponent} from "./components/pages/customer/stockist_wise_pob/stockist_wise_pob.component";
 import {UserVisitListComponent} from "./components/pages/visit/user_visit_list/user_visit_list.component";
 import {ExecutiveSummaryComponent} from "./components/pages/user/executive_summary/executive_summary.component";
+import { DepartmentExecutiveSummaryComponent } from "./components/pages/user/department_executive_summary/department_executive_summary.component";
 import {ProductSelectComponent} from "./components/form_elements/order/product_select/product-select.component";
 import {SynergyStockistWisePobComponent} from "./components/pages/customer/synergy_stockist_wise_pob/synergy_stockist_wise_pob.component";
 import {ProductivityAnalysisReportComponent} from "./components/pages/order/productivity_analysis_report/productivity_analysis_report.component";
@@ -337,6 +338,7 @@ enableProdMode();
     StockistWisePobComponent,
     UserVisitListComponent,
     ExecutiveSummaryComponent,
+    DepartmentExecutiveSummaryComponent,
     SynergyStockistWisePobComponent,
     ProductivityAnalysisReportComponent,
     VacancyDataComponent,
