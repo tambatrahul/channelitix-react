@@ -59,7 +59,12 @@
                       <tr>
                         <th></th>
                         <th></th>
-                        <template [ngIf]="environment.envName != 'sk_group'">
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'">
+                          <th colspan="4" class="grey">
+                            Total Primary Sale ('000s)
+                          </th>
+                        </template>
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'GOVAXX'">
                           <th colspan="3" class="grey">
                             Total Primary Sale ('000s)
                           </th>
@@ -113,6 +118,7 @@
                           <th class="grey">Ach</th>
                           <th class="grey">% Ach</th>
                         </template>
+                        <th *ngIf="environment.projectName == 'GOVAXX'" class="grey">qty</th>
                         <th>Tgt</th>
                         <th>Ach</th>
                         <th>% Ach</th>
@@ -182,6 +188,7 @@
                           <th class="grey">Ach</th>
                           <th class="grey">% Ach</th>
                         </template>
+                        <th *ngIf="environment.projectName == 'GOVAXX'" class="grey">qty</th>
                         <th>Tgt</th>
                         <th>Ach</th>
                         <th>% Ach</th>
@@ -242,7 +249,12 @@
                       <tr>
                         <th></th>
                         <th></th>
-                        <template [ngIf]="environment.envName != 'sk_group'">
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName == 'GOVAXX'">
+                          <th colspan="4" class="grey">
+                            Total Primary Sale ('000s)
+                          </th>
+                        </template>
+                        <template [ngIf]="environment.envName != 'sk_group' && environment.projectName != 'GOVAXX'">
                           <th colspan="3" class="grey">
                             Total Primary Sale ('000s)
                           </th>
@@ -291,6 +303,7 @@
                               region.target).toFixed(0)) :
                             0 }} %
                           </td>
+                          <td *ngIf="environment.projectName == 'GOVAXX'" class="grey">{{ region.quantity }}</td>
                           <td>{{ ((region.target/1000) * 0.5).toFixed(0) | number : fractionSize }}
                           </td>
                           <td>{{ (region.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
@@ -505,6 +518,7 @@
                                 area.target).toFixed(0)) :
                               0 }} %
                             </td>
+                            <td *ngIf="environment.projectName == 'GOVAXX'" class="grey">{{ area.quantity }}</td>
                             <td>{{ ((area.target/1000) * 0.5).toFixed(0) | number : fractionSize }}
                             </td>
                             <td>{{ (area.total_pob/1000).toFixed(0) | number : fractionSize }}</td>
@@ -713,6 +727,7 @@
                                   hq.target).toFixed(0)) :
                                 0 }} %
                               </td>
+                              <td *ngIf="environment.projectName == 'GOVAXX'" class="grey">{{ hq.quantity }}</td>
                               <td>{{ ((hq.target/1000) * 0.5).toFixed(0) | number : fractionSize }}
                               </td>
                               <td>{{ (hq.total_pob/1000).toFixed(0) | number : fractionSize }}</td>

@@ -235,6 +235,7 @@ export class ExecutiveSummaryComponent extends ListComponent {
             if (target.hq_headquarter_id == headquarter.id) {
               headquarter.target += target.total_target ? target.total_target : 0;
               headquarter.primary += target.total_net_amount;
+              headquarter.quantity += target.total_net_quantity ? target.total_net_quantity : 0;
 
               if (target.sub_name == 'Gelusil') {
                 headquarter.gelusil_target += target.total_target ? target.total_target : 0;
@@ -249,9 +250,11 @@ export class ExecutiveSummaryComponent extends ListComponent {
               if (target.hq_headquarter_id == headquarter.parent_headquarter_id) {
                 area.target += target.total_target ? target.total_target : 0;
                 area.primary += target.total_net_amount;
+                area.quantity += target.total_net_quantity ? target.total_net_quantity : 0;
 
                 region.target += target.total_target ? target.total_target : 0;
                 region.primary += target.total_net_amount;
+                region.quantity += target.total_net_quantity ? target.total_net_quantity : 0; 
 
                 if (target.sub_name == 'Gelusil') {
                   area.gelusil_target += target.total_target ? target.total_target : 0;

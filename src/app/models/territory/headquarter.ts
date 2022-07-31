@@ -18,6 +18,7 @@ export class Headquarter extends Model {
   customer_types: CustomerType[];
   total_bricks: number = 0;
   target: number = 0;
+  quantity: number = 0;
   skinlite_target: number = 0;
   gelusil_target: number = 0;
   becosules_target: number = 0;
@@ -43,6 +44,7 @@ export class Headquarter extends Model {
   visit_count: number = 0;
   total_customers_ab: number = 0;
   total_net_amount: number = 0;
+  total_net_quantity: number = 0;
   hq_area_id: number = 0;
   customer_type_id: number = 0;
 
@@ -127,6 +129,9 @@ export class Headquarter extends Model {
 
     if (info.total_net_amount)
       this.total_net_amount = parseInt(info.total_net_amount);
+
+    if (info.total_net_quantity)
+      this.total_net_quantity = parseFloat(info.total_net_quantity);
 
     if (info.hq_area_id)
       this.hq_area_id = parseInt(info.hq_area_id);

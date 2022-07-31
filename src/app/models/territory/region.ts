@@ -20,6 +20,7 @@ export class Region extends Model {
   areas: Area[] = [];
   area_objects = {};
   total: number = 0;
+  quantity: number = 0;
   total_bricks: number = 0;
   target: number = 0;
   skinlite_target: number = 0;
@@ -78,6 +79,7 @@ export class Region extends Model {
   closing: number = 0;
   closing_value: number = 0;
   total_net_amount: number = 0;
+  total_net_quantity: number = 0;
   inputs: InputAnswer[] = [];
   total_input_value: number = 0;
   user: User;
@@ -130,6 +132,9 @@ export class Region extends Model {
 
     if (info.total_net_amount)
       this.total_net_amount = parseFloat(info.total_net_amount);
+    
+    if (info.total_net_quantity)
+      this.total_net_quantity = parseFloat(info.total_net_quantity);
 
     if (info.rg_last_year_total)
       this.rg_last_year_total = parseInt(info.rg_last_year_total);

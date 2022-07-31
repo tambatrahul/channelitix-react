@@ -17,6 +17,7 @@ export class Area extends Model {
   total: number = 0;
   total_bricks: number = 0;
   target: number = 0;
+  quantity: number = 0;
   skinlite_target: number = 0;
   gelusil_target: number = 0;
   becosules_target: number = 0;
@@ -62,6 +63,7 @@ export class Area extends Model {
   closing: number = 0;
   closing_value: number = 0;
   total_net_amount: number = 0;
+  total_net_quantity: number = 0;
   inputs: InputAnswer[] = [];
   total_input_value: number = 0;
   user: User;
@@ -111,6 +113,9 @@ export class Area extends Model {
 
     if (info.total_net_amount)
       this.total_net_amount = parseFloat(info.total_net_amount);
+
+    if (info.total_net_quantity)
+      this.total_net_quantity = parseFloat(info.total_net_quantity);
 
     if (info.ar_last_year_total)
       this.ar_last_year_total = parseInt(info.ar_last_year_total);
