@@ -244,6 +244,9 @@ export class CreateAttendanceComponent extends FormComponent {
                     };
                 });
                 this.manager_options.push({
+                    id: 1, name: "Pfizer Manager / GoApptiv HO"
+                });
+                this.manager_options.push({
                     id: 0, name: "Others"
                 });
             },
